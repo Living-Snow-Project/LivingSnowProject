@@ -15,6 +15,19 @@ export default class TabBarIcon extends React.Component {
   }
 }
 
+export class PictureIcon extends React.Component {
+  render() {
+    return (
+      <Icon.Ionicons
+        name={Platform.OS === 'ios' ? 'ios-image' : 'md-image'}
+        size={48}
+        style={this.props.style}
+        color={Colors.tabIconDefault}
+      />
+    );
+  }
+}
+
 export class RecordIcon extends React.Component {
   constructor(props) {
     super(props);

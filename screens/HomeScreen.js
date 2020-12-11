@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Platform, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
-import {RecordIcon} from '../components/TabBarIcon';
+import { PictureIcon, RecordIcon } from '../components/TabBarIcon';
 import HeaderNavigation from '../components/HeaderNavigation';
 import Network from '../lib/Network';
 import Storage from '../lib/Storage';
@@ -185,6 +185,9 @@ export default class HomeScreen extends React.Component {
             <View style={styles.topIcon}>
               <RecordIcon type={record.type}/>
             </View>
+            <View style={styles.topIcon}>
+              <PictureIcon/>
+            </View>
           </View>
           {(record.locationDescription || record.notes) && <Text style={styles.bottomText}>{this.bottomText(record)}</Text>}
         </View>
@@ -306,10 +309,10 @@ const styles = StyleSheet.create({
   },
   topText: {
     marginLeft: 1,
-    flex: .75
+    flex: .7
   },
   topIcon: {
     marginLeft: 1,
-    flex: .25
+    flex: .15
   }
 });
