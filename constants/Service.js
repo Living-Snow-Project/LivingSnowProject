@@ -1,0 +1,1 @@
+export default serviceEndpoint = 'https://snowalgaeproductionapp.azurewebsites.net';

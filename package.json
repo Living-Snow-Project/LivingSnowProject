@@ -1,0 +1,44 @@
+{
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject",
+    "test": "node ./node_modules/jest/bin/jest.js --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@babel/core": "^7.12.10",
+    "@expo/samples": "2.1.1",
+    "@react-native-async-storage/async-storage": "react-native-community/async-storage",
+    "@react-native-community/async-storage": "~1.12.0",
+    "@react-native-community/masked-view": "0.1.10",
+    "@react-navigation/core": "*",
+    "@react-navigation/native": "*",
+    "expo": "^39.0.4",
+    "react": "16.13.1",
+    "react-dom": "^17.0.1",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
+    "react-native-calendars": "^1.824.0",
+    "react-native-geolocation-service": "^2.0.1",
+    "react-native-gesture-handler": "~1.7.0",
+    "react-native-keyboard-aware-scroll-view": "^0.8.0",
+    "react-native-picker-select": "^6.1.0",
+    "react-native-reanimated": "~1.13.0",
+    "react-native-safe-area-context": "3.1.4",
+    "react-native-screens": "~2.10.1",
+    "react-native-web": "~0.13.7",
+    "react-navigation": "^4.4.0",
+    "react-navigation-drawer": "^2.6.0",
+    "react-navigation-stack": "^2.8.2",
+    "react-navigation-tabs": "1.2.0"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^8.3.0",
+    "jest-expo": "^39.0.0"
+  },
+  "private": true
+}
