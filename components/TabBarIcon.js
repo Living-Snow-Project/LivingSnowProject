@@ -1,18 +1,28 @@
 import React from 'react';
+import { Platform } from 'react-native';
+import PropTypes from 'prop-types';
 import * as Icon from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 
 export default class TabBarIcon extends React.Component {
   render() {
-    return (
+    const {name, size, style, focused } = this.props;
+    return (      
       <Icon.Ionicons
-        name={this.props.name}
-        size={26}
-        style={this.props.style}
-        color={this.props.focused ? Colors.tabIconSelected : Colors.tabIconDefault}
+        name={name}
+        size={size ? size : 26}
+        style={style}
+        color={focused ? Colors.tabIconSelected : Colors.tabIconDefault}
       />
     );
   }
+}
+
+TabBarIcon.propTypes = {
+  name: PropTypes.string.isRequired,
+  size: PropTypes.number,
+  style: PropTypes.object.isRequired,
+  focused: PropTypes.bool,
 }
 
 export class PictureIcon extends React.Component {
@@ -31,28 +41,28 @@ export class PictureIcon extends React.Component {
 export class RecordIcon extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      icon: undefined,
-      color: undefined
-    };
+      name: '',
+      color: '',
+    }
 
     if (props.type === "Sample") {
-      this.state.icon = Platform.OS === 'ios' ? 'ios-flask' : 'md-flask';
+      this.state.name = Platform.OS === 'ios' ? 'ios-flask' : 'md-flask';
       this.state.color = 'lightcoral';
     } else {
-      this.state.icon = Platform.OS === 'ios' ? 'ios-eye' : 'md-eye' ;
+      this.state.name = Platform.OS === 'ios' ? 'ios-eye' : 'md-eye' ;
       this.state.color = 'lightblue';
     }
   }
 
   render() {
+    const {name, color} = this.state;
     return (
       <Icon.Ionicons
-        name={this.state.icon}
+        name={name}
         size={48}
         style={this.props.style}
-        color={this.state.color}
+        color={color}
       />
     );
   }

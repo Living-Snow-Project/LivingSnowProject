@@ -1,13 +1,14 @@
 {
     "env": {
-        "browser": true,
         "es2021": true,
-        "node": true
+        "node": true,
+        "react-native/react-native": true
     },
     "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+        "eslint:recommended",
+        "plugin:react/recommended"
     ],
+    "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -16,7 +17,7 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react-native"
     ],
     "rules": {
     }

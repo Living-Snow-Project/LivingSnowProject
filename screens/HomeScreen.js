@@ -4,6 +4,7 @@ import { PictureIcon, RecordIcon } from '../components/TabBarIcon';
 import HeaderNavigation from '../components/HeaderNavigation';
 import Network from '../lib/Network';
 import Storage from '../lib/Storage';
+import { serviceEndpoint } from '../constants/Service';
 import {} from '../constants/Service';
 
 //
@@ -191,7 +192,7 @@ export default class HomeScreen extends React.Component {
           </View>
           {(record.locationDescription || record.notes) && <Text style={styles.bottomText}>{this.bottomText(record)}</Text>}
         </View>
-    ))};
+    ))}
 
     return records;
   }

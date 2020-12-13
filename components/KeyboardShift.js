@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import React, { Component } from 'react';
-import { Animated, Dimensions, Keyboard, StyleSheet, TextInput, UIManager } from 'react-native';
+import { Animated, Dimensions, Keyboard, StyleSheet, TextInput, } from 'react-native';
 
 const { State: TextInputState } = TextInput;
 

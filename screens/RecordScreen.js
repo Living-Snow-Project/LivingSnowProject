@@ -1,27 +1,34 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
+import PropTypes from 'prop-types';
 import RecordView from '../views/RecordView';
 import TabBarIcon from '../components/TabBarIcon';
 
 export default class RecordScreen extends React.Component {
   static navigationOptions = ({ navigation }) => {
-    let headerRight =
+    const headerRight = (
       <Touchable onPress={() => navigation.state.params.handleUpload()}>
-        <TabBarIcon name={Platform.OS === 'ios' ? 'ios-cloud-upload' : 'md-cloud-upload'}/>
-      </Touchable>;
+        <TabBarIcon name={Platform.OS === 'ios' ? 'ios-cloud-upload' : 'md-cloud-upload'} />
+      </Touchable>
+    );
 
     return {
       title: 'Record',
-      headerTitleContainerStyle: {justifyContent: 'center'},
+      headerTitleContainerStyle: { justifyContent: 'center' },
       headerRight: () => headerRight,
-      headerRightContainerStyle: {marginRight: 20}
-    }
+      headerRightContainerStyle: { marginRight: 20 },
+    };
   }
 
   render() {
+    const { navigation } = this.props;
     return (
-      <RecordView navigation={this.props.navigation}/>
+      <RecordView navigation={navigation} />
     );
   }
 }
+
+RecordScreen.propTypes = {
+  navigation: PropTypes.shape().isRequired,
+};

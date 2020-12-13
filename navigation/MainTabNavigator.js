@@ -1,6 +1,6 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { createBottomTabNavigator, createSwitchNavigator } from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import TabBarIcon from '../components/TabBarIcon';
 import GisScreen from '../screens/GisScreen';
@@ -27,12 +27,13 @@ const GisStack = createStackNavigator({
 });
 
 GisStack.navigationOptions = {
-  tabBarLabel: 'Geo',  
+  tabBarLabel: 'Geo',
   tabBarIcon: ({focused}) => (
     <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-globe' : 'md-globe'}/>
   )
 };
 
+// As the app grows, likely a bottom tab navigator will be desired.
 /*export default createBottomTabNavigator({
   HomeStack,
   //GisStack

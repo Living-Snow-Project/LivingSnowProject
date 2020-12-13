@@ -1,13 +1,16 @@
 import React from 'react';
-import { Alert, Platform, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
-import Storage from '../lib/Storage';
-import Network from '../lib/Network';
-import KeyboardShift from '../components/KeyboardShift';
+import {
+  Alert, Platform, StyleSheet, Text, TextInput, TouchableHighlight, View,
+} from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
+import PropTypes from 'prop-types';
+import Storage from '../lib/Storage';
+import Network from '../lib/Network';
+import {serviceEndpoint} from '../constants/Service';
+import KeyboardShift from '../components/KeyboardShift';
 
 export default class RecordView extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -19,7 +22,6 @@ export default class RecordView extends React.Component {
 
       recordTypeVisible: false,
       datePickerVisible: false,
-      markedDate: undefined,
       gpsCoordinatesEditable: Platform.OS === 'ios' ? !global.appConfig.showGpsWarning : false,
       gpsCoordinatesFirstTap: true,
       gpsCoordinateString: undefined,
@@ -30,42 +32,43 @@ export default class RecordView extends React.Component {
       // data collected and sent to the service
       //
 
-      recordType: 'Sample',             // sample or sighting
-      date: undefined,                  // YYYY/MM/DD
-      latitude: undefined,              // GPS
-      longitude: undefined,             // GPS
-      tubeId: undefined,                // (optional) id of the tube
-      locationDescription: undefined,   // (optional) short description of the location
-      notes: undefined                  // (optional) any other pertinent information
-    }
+      recordType: 'Sample', // sample or sighting
+      date: undefined, // YYYY/MM/DD
+      latitude: undefined, // GPS
+      longitude: undefined, // GPS
+      tubeId: undefined, // (optional) id of the tube
+      locationDescription: undefined, // (optional) short description of the location
+      notes: undefined, // (optional) any other pertinent information
+    };
 
     //
     // initialize date, keeping the format used by Calendar component
     //
 
-    date = new Date();
-    day = date.getDate();
+    const date = new Date();
+    let day = date.getDate();
     if (day < 10) {
-      day = '0' + day;
+      day = `0${day}`;
     }
 
-    month = date.getMonth() + 1;
+    let month = date.getMonth() + 1;
     if (month < 10) {
-      month = '0' + month;
+      month = `0${month}`;
     }
 
-    year = date.getFullYear();
-    this.state.date = year + '-' + month + '-' + day;
+    const year = date.getFullYear();
+    this.state.date = `${year}-${month}-${day}`;
   }
 
   componentDidMount() {
-
     //
-    // set callback when upload record button pressed
+    // set callback when "upload-record icon" tapped
     // it is done this way to render its header icon without delay
     //
 
-    this.props.navigation.setParams({handleUpload: this.handleUploadRecord.bind(this)});
+    const { navigation } = this.props;
+
+    navigation.setParams({ handleUpload: this.handleUploadRecord.bind(this) });
 
     //
     // start the gps
@@ -77,7 +80,7 @@ export default class RecordView extends React.Component {
   componentWillUnmount() {
     this.stopGps();
   }
-  
+
   render() {
     return (
       <KeyboardShift>
@@ -100,14 +103,14 @@ export default class RecordView extends React.Component {
             </Text>
             <TouchableHighlight onPress={() => this.toggleDatePickerVisible()}>
               <View>
-              {
-                this.state.datePickerVisible && 
+                {
+                this.state.datePickerVisible && (
                 <Calendar
                   current={this.state.date}
                   onDayPress={this.setDay.bind(this)}
                   markedDates={{[this.state.date]: {selected: true}}}
                 />
-              }
+              )}
               {
                 !this.state.datePickerVisible && <Text style={styles.optionInputText}>{this.state.date}</Text>
               }
@@ -429,3 +432,10 @@ const pickerSelectStyles = StyleSheet.create({
   inputIOS: styles.optionInputText,
   inputAndroid: styles.optionInputText
 });
+
+RecordView.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    setParams: PropTypes.func.isRequired,
+  }).isRequired,
+};

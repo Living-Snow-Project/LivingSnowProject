@@ -2,6 +2,7 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
+import { PropTypes } from 'prop-types';
 import * as Font from 'expo-font';
 import * as Icon from '@expo/vector-icons';
 import AppNavigator from './navigation/AppNavigator';
@@ -72,3 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+App.propTypes = {
+  skipLoadingScreen: PropTypes.bool.isRequired,
+};
