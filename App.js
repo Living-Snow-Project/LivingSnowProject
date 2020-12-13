@@ -16,6 +16,10 @@ global.appConfig = {
 }
 
 export default class App extends React.Component {
+  static propTypes = {
+    skipLoadingScreen: PropTypes.bool,
+  }
+  
   state = {
     isLoadingComplete: false
   }
@@ -73,7 +77,3 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
-
-App.propTypes = {
-  skipLoadingScreen: PropTypes.bool.isRequired,
-};

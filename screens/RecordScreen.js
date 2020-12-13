@@ -3,13 +3,17 @@ import { Platform } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import PropTypes from 'prop-types';
 import RecordView from '../views/RecordView';
-import TabBarIcon from '../components/TabBarIcon';
+import { StockIcon } from '../components/TabBarIcon';
 
 export default class RecordScreen extends React.Component {
+  static propTypes = {
+    navigation: PropTypes.shape().isRequired,
+  }
+
   static navigationOptions = ({ navigation }) => {
     const headerRight = (
       <Touchable onPress={() => navigation.state.params.handleUpload()}>
-        <TabBarIcon name={Platform.OS === 'ios' ? 'ios-cloud-upload' : 'md-cloud-upload'} />
+        <StockIcon name={Platform.OS === 'ios' ? 'ios-cloud-upload' : 'md-cloud-upload'} />
       </Touchable>
     );
 
@@ -28,7 +32,3 @@ export default class RecordScreen extends React.Component {
     );
   }
 }
-
-RecordScreen.propTypes = {
-  navigation: PropTypes.shape().isRequired,
-};

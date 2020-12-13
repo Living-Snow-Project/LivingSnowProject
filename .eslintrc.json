@@ -17,8 +17,14 @@
         "sourceType": "module"
     },
     "plugins": [
+        "react",
         "react-native"
     ],
+    "settings": {
+        "react" : {
+            "version": "detect"
+        }
+    },
     "rules": {
     }
 }

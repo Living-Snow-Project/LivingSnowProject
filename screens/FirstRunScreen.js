@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Touchable from 'react-native-platform-touchable';
 import { Platform, StyleSheet, Text, View, TextInput } from 'react-native';
-import TabBarIcon from '../components/TabBarIcon';
+import { StockIcon } from '../components/TabBarIcon';
 import Storage from '../lib/Storage';
 
 export default class FirstRunScreen extends React.Component {
@@ -36,9 +36,9 @@ export default class FirstRunScreen extends React.Component {
     return (
       <View style={styles.ftreContainer}>
         <View style={styles.welcomeContainer}>
-          <TabBarIcon style={{ marginRight: 30 }} name={Platform.OS === 'ios' ? 'ios-snow' : 'md-snow'} />
+          <StockIcon style={{ marginRight: 30 }} name={Platform.OS === 'ios' ? 'ios-snow' : 'md-snow'} />
           <Text style={styles.welcomeText}>Living Snow Project</Text>
-          <TabBarIcon style={{ marginLeft: 30 }} name={Platform.OS === 'ios' ? 'ios-snow' : 'md-snow'} />
+          <StockIcon style={{ marginLeft: 30 }} name={Platform.OS === 'ios' ? 'ios-snow' : 'md-snow'} />
         </View>
 
         <Text style={styles.descriptionText}>

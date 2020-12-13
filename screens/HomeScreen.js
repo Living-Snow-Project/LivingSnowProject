@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Platform, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { PictureIcon, RecordIcon } from '../components/TabBarIcon';
+import { StockIcon, RecordIcon } from '../components/TabBarIcon';
 import HeaderNavigation from '../components/HeaderNavigation';
 import Network from '../lib/Network';
 import Storage from '../lib/Storage';
@@ -187,7 +187,7 @@ export default class HomeScreen extends React.Component {
               <RecordIcon type={record.type}/>
             </View>
             <View style={styles.topIcon}>
-              <PictureIcon/>
+              <StockIcon name={Platform.OS === 'ios' ? 'ios-image' : 'md-image'} size={48}/>
             </View>
           </View>
           {(record.locationDescription || record.notes) && <Text style={styles.bottomText}>{this.bottomText(record)}</Text>}
