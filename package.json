@@ -5,7 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "eject": "expo eject",
-    "test": "node ./node_modules/jest/bin/jest.js --watchAll"
+    "test": "jest"
   },
   "jest": {
     "preset": "jest-expo"
@@ -13,8 +13,7 @@
   "dependencies": {
     "@babel/core": "^7.12.10",
     "@expo/samples": "2.1.1",
-    "@react-native-async-storage/async-storage": "react-native-community/async-storage",
-    "@react-native-community/async-storage": "~1.12.0",
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/core": "*",
     "@react-navigation/native": "*",
@@ -47,7 +46,8 @@
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^4 || ^3 || ^2.3.0 || ^1.7.0",
     "eslint-plugin-react-native": "^3.10.0",
-    "jest-expo": "^39.0.0"
+    "jest-expo": "^40.0.1",
+    "react-test-renderer": "16.13.1"
   },
   "private": true
 }

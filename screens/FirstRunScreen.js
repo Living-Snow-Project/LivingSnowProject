@@ -3,16 +3,23 @@ import PropTypes from 'prop-types';
 import Touchable from 'react-native-platform-touchable';
 import { Platform, StyleSheet, Text, View, TextInput } from 'react-native';
 import { StockIcon } from '../components/TabBarIcon';
-import Storage from '../lib/Storage';
+import { Storage } from '../lib/Storage';
 
 export default class FirstRunScreen extends React.Component {
+
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+  }
+  
   //
   // Checks to see if the app has run already
   //
 
   componentDidMount() {
     if (!global.appConfig.showFirstRun) {
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate('Main');
     } else {
       navigator.geolocation.getCurrentPosition(() => {});
     }
@@ -23,13 +30,10 @@ export default class FirstRunScreen extends React.Component {
   //
 
   completeFirstRunExperience() {
-    //console.log('completeFirstRunExperience');
-    //const { navigation } = this.props;
     global.appConfig.showFirstRun = false;
     Storage.saveAppConfig();
-    //console.log(navigation);
 
-    this.props.navigation.navigate('Home');
+    this.props.navigation.navigate('Main');
   }
 
   render() {
@@ -77,12 +81,6 @@ export default class FirstRunScreen extends React.Component {
     );
   }
 }
-
-FirstRunScreen.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 const styles = StyleSheet.create({
   ftreContainer: {

@@ -26,5 +26,6 @@
         }
     },
     "rules": {
-    }
+    },
+    "ignorePatterns": ["*test*.js"]
 }

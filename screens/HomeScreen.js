@@ -1,9 +1,10 @@
 import React from 'react';
 import { Alert, Platform, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { PropTypes } from 'prop-types';
 import { StockIcon, RecordIcon } from '../components/TabBarIcon';
-import HeaderNavigation from '../components/HeaderNavigation';
-import Network from '../lib/Network';
-import Storage from '../lib/Storage';
+import { HeaderNavigation } from '../components/HeaderNavigation';
+import { Network } from '../lib/Network';
+import { Storage } from '../lib/Storage';
 import { serviceEndpoint } from '../constants/Service';
 import {} from '../constants/Service';
 
@@ -13,6 +14,12 @@ import {} from '../constants/Service';
 //
 
 export default class HomeScreen extends React.Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      setParams: PropTypes.func.isRequired,
+    }).isRequired
+  }
+
   static navigationOptions = ({navigation}) => {
     const params = navigation.state.params || {};
   
@@ -26,17 +33,19 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  state = {
+    records: '',
+    refreshing: false
+  }
+
   constructor(props) {
     super(props);
-    
-    this.state = {
-      records: '',
-      refreshing: false
-    }
+
+    const { navigation } = this.props;
 
     let headerLeft =
       <HeaderNavigation
-        navigation={this.props.navigation}
+        navigation={ navigation }
         nextScreen='Settings'
         iosImage='ios-settings'
         androidImage='md-settings'
@@ -44,13 +53,13 @@ export default class HomeScreen extends React.Component {
 
     let headerRight = 
       <HeaderNavigation
-        navigation={this.props.navigation}
+        navigation={ navigation }
         nextScreen='Record'
         iosImage='ios-add-circle-outline'
         androidImage='md-add-circle-outline'
       />;
 
-    this.props.navigation.setParams({
+    navigation.setParams({
       headerLeft,
       headerRight
     });

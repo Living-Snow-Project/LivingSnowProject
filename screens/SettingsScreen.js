@@ -4,14 +4,9 @@ import Storage from '../lib/Storage';
 
 
 export default class SettingsScreen extends React.Component {
-
   static navigationOptions = {      
       title: 'Settings',
       headerTitleContainerStyle: {justifyContent: 'center'}
-  }
-  
-  constructor(props) {
-    super(props);
   }
 
   toggleShowGpsWarning(value) {

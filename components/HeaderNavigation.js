@@ -1,12 +1,18 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import { Platform, TouchableOpacity, View } from 'react-native';
 import { StockIcon } from './TabBarIcon';
 
-export default class HeaderNavigation extends React.Component {
-  constructor(props) {
-    super(props);
+export class HeaderNavigation extends React.Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+    iosImage: PropTypes.string.isRequired,
+    androidImage: PropTypes.string.isRequired,
+    nextScreen: PropTypes.string.isRequired
   }
-
+  
   render() {
     return (
       <View>

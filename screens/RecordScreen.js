@@ -2,12 +2,12 @@ import React from 'react';
 import { Platform } from 'react-native';
 import Touchable from 'react-native-platform-touchable';
 import PropTypes from 'prop-types';
-import RecordView from '../views/RecordView';
+import { RecordView } from '../views/RecordView';
 import { StockIcon } from '../components/TabBarIcon';
 
 export default class RecordScreen extends React.Component {
   static propTypes = {
-    navigation: PropTypes.shape().isRequired,
+    navigation: PropTypes.object.isRequired
   }
 
   static navigationOptions = ({ navigation }) => {

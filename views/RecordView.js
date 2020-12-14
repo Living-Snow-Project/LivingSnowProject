@@ -1,45 +1,49 @@
 import React from 'react';
-import {
-  Alert, Platform, StyleSheet, Text, TextInput, TouchableHighlight, View,
-} from 'react-native';
+import { Alert, Platform, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
-import Storage from '../lib/Storage';
-import Network from '../lib/Network';
-import {serviceEndpoint} from '../constants/Service';
+import { Storage } from '../lib/Storage';
+import { Network } from '../lib/Network';
+import { serviceEndpoint } from '../constants/Service';
 import KeyboardShift from '../components/KeyboardShift';
 
-export default class RecordView extends React.Component {
+export class RecordView extends React.Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+      setParams: PropTypes.func.isRequired,
+    }).isRequired,
+  }
+
+  state = {
+    //
+    // visibility and data tracking
+    //
+
+    recordTypeVisible: false,
+    datePickerVisible: false,
+    gpsCoordinatesEditable: Platform.OS === 'ios' ? !global.appConfig.showGpsWarning : false,
+    gpsCoordinatesFirstTap: true,
+    gpsCoordinateString: undefined,
+    watchID: undefined,
+    isUploading: false,
+
+    //
+    // data collected and sent to the service
+    //
+
+    recordType: 'Sample', // sample or sighting
+    date: undefined, // YYYY/MM/DD
+    latitude: undefined, // GPS
+    longitude: undefined, // GPS
+    tubeId: undefined, // (optional) id of the tube
+    locationDescription: undefined, // (optional) short description of the location
+    notes: undefined, // (optional) any other pertinent information
+  }
+
   constructor(props) {
     super(props);
-
-    this.state = {
-
-      //
-      // visibility states and data tracking for components
-      //
-
-      recordTypeVisible: false,
-      datePickerVisible: false,
-      gpsCoordinatesEditable: Platform.OS === 'ios' ? !global.appConfig.showGpsWarning : false,
-      gpsCoordinatesFirstTap: true,
-      gpsCoordinateString: undefined,
-      watchID: undefined,
-      isUploading: false,
-
-      //
-      // data collected and sent to the service
-      //
-
-      recordType: 'Sample', // sample or sighting
-      date: undefined, // YYYY/MM/DD
-      latitude: undefined, // GPS
-      longitude: undefined, // GPS
-      tubeId: undefined, // (optional) id of the tube
-      locationDescription: undefined, // (optional) short description of the location
-      notes: undefined, // (optional) any other pertinent information
-    };
 
     //
     // initialize date, keeping the format used by Calendar component
@@ -432,10 +436,3 @@ const pickerSelectStyles = StyleSheet.create({
   inputIOS: styles.optionInputText,
   inputAndroid: styles.optionInputText
 });
-
-RecordView.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-    setParams: PropTypes.func.isRequired,
-  }).isRequired,
-};

@@ -6,7 +6,7 @@ import { PropTypes } from 'prop-types';
 import * as Font from 'expo-font';
 import * as Icon from '@expo/vector-icons';
 import AppNavigator from './navigation/AppNavigator';
-import Storage from './lib/Storage';
+import { Storage } from './lib/Storage';
 
 global.appConfig = {
   name: '',
