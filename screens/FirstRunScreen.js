@@ -20,8 +20,6 @@ export default class FirstRunScreen extends React.Component {
   componentDidMount() {
     if (!global.appConfig.showFirstRun) {
       this.props.navigation.navigate('Main');
-    } else {
-      navigator.geolocation.getCurrentPosition(() => {});
     }
   }
 
