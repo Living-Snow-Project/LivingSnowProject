@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Switch, Text, TextInput, View } from 'react-native';
-import Storage from '../lib/Storage';
+import { Storage } from '../lib/Storage';
 
 
 export default class SettingsScreen extends React.Component {
