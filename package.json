@@ -8,7 +8,8 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "jest-expo",
+    "setupFiles": ["./jesttest.setup.js"]
   },
   "dependencies": {
     "@babel/core": "^7.12.10",
