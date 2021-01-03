@@ -29,5 +29,5 @@ jobs:
           expo-version: 3.x
           expo-cache: true
       - run: yarn install      
-      - run: eslint . .
+      - run: yarn run eslint . .
       - run: yarn test
