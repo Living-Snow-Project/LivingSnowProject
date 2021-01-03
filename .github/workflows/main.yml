@@ -1,0 +1,33 @@
+# Workflow
+name: Living Snow Project; Test
+
+# Controls when the workflow will run. 
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Workflow Job(s)
+jobs:
+  # Single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      # Sets up node
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      # Expo CLI
+      - uses: expo/expo-github-action@v5
+        with:
+          expo-version: 3.x
+          expo-cache: true
+      - run: yarn install
+      - run: yarn test
