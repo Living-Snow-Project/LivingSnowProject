@@ -1,7 +1,6 @@
 # Workflow
-name: Living Snow Project; Test
+name: Living Snow Project; Continuous Integration
 
-# Controls when the workflow will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -9,10 +8,10 @@ on:
   pull_request:
     branches: [ main ]
 
-# Workflow Job(s)
+# Workflow Jobs
 jobs:
-  # Single job called "build"
-  build:
+  # job called "ci"
+  ci:
     # The type of runner that the job will run on
     runs-on: windows-latest
 
@@ -29,5 +28,6 @@ jobs:
         with:
           expo-version: 3.x
           expo-cache: true
-      - run: yarn install
+      - run: yarn install      
+      - run: eslint . .
       - run: yarn test
