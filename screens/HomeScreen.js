@@ -15,6 +15,7 @@ import {} from '../constants/Service';
 
 // remove class and use hooks
 // test for commit prompt
+// test again
 export default class HomeScreen extends React.Component {
   static propTypes = {
     navigation: PropTypes.shape({
