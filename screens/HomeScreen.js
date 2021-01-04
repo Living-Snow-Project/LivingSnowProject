@@ -13,6 +13,7 @@ import {} from '../constants/Service';
 // TODO: Separate out the render code into a View file
 //
 
+// remove class and use hooks
 export default class HomeScreen extends React.Component {
   static propTypes = {
     navigation: PropTypes.shape({
