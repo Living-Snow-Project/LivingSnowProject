@@ -1,12 +1,13 @@
 import React from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import { Asset } from 'expo-asset';
 import { PropTypes } from 'prop-types';
 import * as Font from 'expo-font';
 import * as Icon from '@expo/vector-icons';
-import AppNavigator from './navigation/AppNavigator';
+import Navigation from './navigation/MainTabNavigator';
 import { Storage } from './lib/Storage';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 global.appConfig = {
   name: '',
@@ -35,10 +36,10 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </View>
+        <SafeAreaProvider>
+          <Navigation />
+          <StatusBar />
+        </SafeAreaProvider>
       );
     }
   }
@@ -70,10 +71,3 @@ export default class App extends React.Component {
     this.setState({ isLoadingComplete: true });
   };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});

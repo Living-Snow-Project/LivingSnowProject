@@ -1,8 +1,6 @@
 import React from 'react';
 import { Alert, Platform, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { PropTypes } from 'prop-types';
 import { StockIcon, RecordIcon } from '../components/TabBarIcon';
-import { HeaderNavigation } from '../components/HeaderNavigation';
 import { Network } from '../lib/Network';
 import { Storage } from '../lib/Storage';
 import { serviceEndpoint } from '../constants/Service';
@@ -17,55 +15,9 @@ import {} from '../constants/Service';
 // test for commit prompt
 // test again
 export default class HomeScreen extends React.Component {
-  static propTypes = {
-    navigation: PropTypes.shape({
-      setParams: PropTypes.func.isRequired,
-    }).isRequired
-  }
-
-  static navigationOptions = ({navigation}) => {
-    const params = navigation.state.params || {};
-  
-    return {
-      title: 'Timeline',
-      headerTitleContainerStyle: {justifyContent: 'center'},
-      headerLeft: () => params.headerLeft,
-      headerLeftContainerStyle: {marginLeft: 20},
-      headerRight: () => params.headerRight,
-      headerRightContainerStyle: {marginRight: 20}
-    }
-  }
-
   state = {
     records: '',
     refreshing: false
-  }
-
-  constructor(props) {
-    super(props);
-
-    const { navigation } = this.props;
-
-    let headerLeft =
-      <HeaderNavigation
-        navigation={ navigation }
-        nextScreen='Settings'
-        iosImage='ios-settings'
-        androidImage='md-settings'
-      />;
-
-    let headerRight = 
-      <HeaderNavigation
-        navigation={ navigation }
-        nextScreen='Record'
-        iosImage='ios-add-circle-outline'
-        androidImage='md-add-circle-outline'
-      />;
-
-    navigation.setParams({
-      headerLeft,
-      headerRight
-    });
   }
 
   componentDidMount() {

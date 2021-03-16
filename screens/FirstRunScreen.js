@@ -19,7 +19,7 @@ export default class FirstRunScreen extends React.Component {
 
   componentDidMount() {
     if (!global.appConfig.showFirstRun) {
-      this.props.navigation.navigate('Main');
+      this.props.navigation.navigate('Home');
     }
   }
 
@@ -30,8 +30,7 @@ export default class FirstRunScreen extends React.Component {
   completeFirstRunExperience() {
     global.appConfig.showFirstRun = false;
     Storage.saveAppConfig();
-
-    this.props.navigation.navigate('Main');
+    this.props.navigation.navigate('Home');
   }
 
   render() {
@@ -47,7 +46,7 @@ export default class FirstRunScreen extends React.Component {
           {
           'Enter your name and organization you are associated with, if any, so we don\'t have to keep asking.'
           + ' You can change these at any time in the Settings tab.'
-        }
+          }
         </Text>
 
         <Text style={styles.optionText}>Name</Text>

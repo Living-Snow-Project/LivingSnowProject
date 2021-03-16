@@ -1,22 +1,27 @@
-import 'react-native';
-import React from 'react';
+import * as React from 'react';
+import { act, create } from 'react-test-renderer';
+
 import App from '../App';
-import renderer from 'react-test-renderer';
-import NavigationTestUtils from 'react-navigation/NavigationTestUtils';
 
-describe('App snapshot', () => {
+jest.mock('expo', () => ({
+  Linking: {
+    makeUrl: () => '/',
+  },
+  SplashScreen: {
+    preventAutoHide: () => 'preventAutoHide',
+    hide: () => 'hide',
+  },
+}));
+
+describe('App', () => {
   jest.useFakeTimers();
-  beforeEach(() => {
-    NavigationTestUtils.resetInternalState();
-  });
 
-  it('renders the loading screen', async () => {
-    const tree = renderer.create(<App />).toJSON();
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('renders the root without loading screen', async () => {
-    const tree = renderer.create(<App skipLoadingScreen />).toJSON();
-    expect(tree).toMatchSnapshot();
+  let tree;
+  it(`renders correctly`, async () => {
+    // act is used to prevent snapshot returning null
+    await act(async () => {
+      tree = await create(<App />);
+    });
+    expect(tree.toJSON()).toMatchSnapshot();
   });
 });
