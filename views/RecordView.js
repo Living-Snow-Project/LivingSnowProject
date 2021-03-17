@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Platform, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { Alert, Platform, StyleSheet, Text, TextInput, TouchableHighlight, View, Image } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
@@ -7,13 +7,17 @@ import { Storage } from '../lib/Storage';
 import { Network } from '../lib/Network';
 import { serviceEndpoint } from '../constants/Service';
 import KeyboardShift from '../components/KeyboardShift';
+import Touchable from 'react-native-platform-touchable';
+import { StockIcon } from '../components/TabBarIcon';
 
 export class RecordView extends React.Component {
   static propTypes = {
     navigation: PropTypes.shape({
       navigate: PropTypes.func.isRequired,
-      setParams: PropTypes.func.isRequired,
+      goBack: PropTypes.func.isRequired,
+      setOptions: PropTypes.func.isRequired,
     }).isRequired,
+    route: PropTypes.object,
   }
 
   state = {
@@ -40,6 +44,7 @@ export class RecordView extends React.Component {
     tubeId: undefined, // (optional) id of the tube
     locationDescription: undefined, // (optional) short description of the location
     notes: undefined, // (optional) any other pertinent information
+    photos: []
   }
 
   constructor(props) {
@@ -65,15 +70,81 @@ export class RecordView extends React.Component {
   }
 
   componentDidMount() {
+
     //
     // set callback when "upload-record icon" tapped
-    // it is done this way to render its header icon without delay
+    // TODO: not super happy about this, maybe when we refactor to functional components and use hooks we can clean this up
     //
 
+    const handleUploadRecord = function() {
+      if (!this.validateInput()) {
+        return;
+      }
+  
+      if (this.state.isUploading) {
+        return;
+      }
+  
+      this.setState({isUploading: true});
+  
+      let record = JSON.stringify({
+        Type: this.state.recordType,
+        Name: global.appConfig.name,
+        Date: this.state.date,
+        Organization: global.appConfig.organization,
+        Latitude: this.state.latitude,
+        longitude: this.state.longitude,
+        TubeId: this.state.tubeId,
+        LocationDescription: this.state.locationDescription,
+        Notes: this.state.notes
+      });
+  
+      console.log("Handling Upload Request: " + serviceEndpoint + '/api/records');
+      console.log("Type: " + this.state.recordType);
+      console.log("Name: " + global.appConfig.name);
+      console.log("Date: " + this.state.date);
+      console.log("Org: " + global.appConfig.organization);
+      console.log("TubeId: " + this.state.tubeId);
+      console.log("Latitude: " + this.state.latitude);
+      console.log("Longitude: " + this.state.longitude);
+      console.log("Description: " + this.state.locationDescription);
+      console.log("Notes: " + this.state.notes);
+      console.log("JSON Body\n", record);
+  
+      //
+      // TODO: add activity indicator
+      //
+      
+      Network.uploadRecord(record).then(response => {
+        if (response.ok) {
+          Alert.alert('Upload succeeded', 'Thanks for your submission and service to Living Snow Project!');
+        }
+        else {
+          console.log("error with POST request:", response.status);
+  
+          this.handleFailedUpload(record);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+  
+        this.handleFailedUpload(record);
+      });
+  
+      this.props.navigation.navigate('Home');
+    }.bind(this);
+
     const { navigation } = this.props;
-
-    navigation.setParams({ handleUpload: this.handleUploadRecord.bind(this) });
-
+    navigation.setOptions({
+      headerRight: function RecordRight() {
+        return (
+          <Touchable onPress={() => handleUploadRecord()}>
+            <StockIcon name={Platform.OS === 'ios' ? 'ios-cloud-upload' : 'md-cloud-upload'} />
+          </Touchable>
+        )},
+      headerRightContainerStyle: { marginRight: 20 },
+    });
+  
     //
     // start the gps
     //
@@ -81,11 +152,28 @@ export class RecordView extends React.Component {
     this.startGps();
   }
 
+  componentDidUpdate() {
+
+    //
+    // TODO: not super happy about this, and it should probably be in one of the navigation listeners
+    // need to better understand React lifecycles, hooks, etc
+    //
+
+    const { route } = this.props;
+    if (route !== undefined && route.params?.data !== undefined) {
+      if (JSON.stringify(this.state.photos) !== JSON.stringify(route.params.data)) {
+        this.setState({photos: route.params?.data});
+      }
+    }
+  }
+
   componentWillUnmount() {
     this.stopGps();
   }
 
   render() {
+    const { navigation } = this.props;
+    
     return (
       <KeyboardShift>
         {() => (
@@ -189,6 +277,17 @@ export class RecordView extends React.Component {
               maxLength={255}
               returnKeyType="done"
             />
+            
+            <TouchableHighlight onPress={() => navigation.navigate('Images')}>
+              <Text style={styles.optionStaticText}>
+                Select photos
+              </Text>
+            </TouchableHighlight>
+            <View>
+            {/* placeholder proof of concept for now */}
+            {this.state.photos.length > 0 && this.state.photos.map((x, index) =>
+              <Image key={index} style={{width: 50, height: 50}} source={{uri: x.uri}}/>)}
+            </View>
           </View>
         )}
       </KeyboardShift>
@@ -198,7 +297,7 @@ export class RecordView extends React.Component {
   //
   // Record type functions and state
   //
-  
+
   setRecordType(newRecordType) {
     this.setState({recordType: newRecordType});
     this.toggleRecordType();
@@ -262,26 +361,26 @@ export class RecordView extends React.Component {
   }
 
   parsePosition(position) {
-    var latitude = JSON.stringify(position.coords.latitude.toFixed(6)).replace('"','').replace('"','');
-    var longitude = JSON.stringify(position.coords.longitude.toFixed(6)).replace('"','').replace('"','');
+    const latitude = JSON.stringify(position.coords.latitude.toFixed(6)).replace('"','').replace('"','');
+    const longitude = JSON.stringify(position.coords.longitude.toFixed(6)).replace('"','').replace('"','');
     this.updateGpsCoordinateString(latitude + ', ' + longitude);
   }
 
   updateGpsCoordinateString(value) {
     this.setState({gpsCoordinateString: value});
 
-    var coordinates = value.split(',');
+    let coordinates = value.split(',');
+
+    this.setState({latitude: undefined});
 
     if (coordinates[0]) {
       this.setState({latitude: coordinates[0].trim()});
-    } else {
-      this.setState({latitude: undefined});
     }
+
+    this.setState({longitude: undefined});
 
     if (coordinates[1]) {
       this.setState({longitude: coordinates[1].trim()});
-    } else {
-      this.setState({longitude: undefined});
     }
   }
 
@@ -310,7 +409,8 @@ export class RecordView extends React.Component {
           }
         ]
       )
-    } else if (this.state.gpsCoordinatesFirstTap) {
+    }
+    else if (this.state.gpsCoordinatesFirstTap) {
       this.enableManualGpsCoordinates();
       this.setState({gpsCoordinatesFirstTap: false});
     }
@@ -352,63 +452,6 @@ export class RecordView extends React.Component {
     Alert.alert('Upload failed', 'Thanks for your submission and service to Living Snow Project! Unfortunately, ' +
                 'we could not upload the record at this time (most likely you are in the backcountry without data service). ' +
                 'Don\'t worry - we have saved the record. Please re-open the app once you\'re back in town to submit the data.');
-  }
-
-  handleUploadRecord() {
-    if (!this.validateInput()) {
-      return;
-    }
-
-    if (this.state.isUploading) {
-      return;
-    }
-
-    this.setState({isUploading: true});
-
-    var record = JSON.stringify({
-      Type: this.state.recordType,
-      Name: global.appConfig.name,
-      Date: this.state.date,
-      Organization: global.appConfig.organization,
-      Latitude: this.state.latitude,
-      longitude: this.state.longitude,
-      TubeId: this.state.tubeId,
-      LocationDescription: this.state.locationDescription,
-      Notes: this.state.notes
-    });
-
-    console.log("Handling Upload Request: " + serviceEndpoint + '/api/records');
-    console.log("Type: " + this.state.recordType);
-    console.log("Name: " + global.appConfig.name);
-    console.log("Date: " + this.state.date);
-    console.log("Org: " + global.appConfig.organization);
-    console.log("TubeId: " + this.state.tubeId);
-    console.log("Latitude: " + this.state.latitude);
-    console.log("Longitude: " + this.state.longitude);
-    console.log("Description: " + this.state.locationDescription);
-    console.log("Notes: " + this.state.notes);
-    console.log("JSON Body\n", record);
-
-    //
-    // TODO: add activity indicator
-    //
-    
-    Network.uploadRecord(record).then(response => {
-      if (response.ok) {
-        Alert.alert('Upload succeeded', 'Thanks for your submission and service to Living Snow Project!');
-      } else {
-        console.log("error with POST request:", response.status);
-
-        this.handleFailedUpload(record);
-      }
-    })
-    .catch((error) => {
-      console.log(error);
-
-      this.handleFailedUpload(record);
-    });
-
-    this.props.navigation.navigate('Home');
   }
 }
 
