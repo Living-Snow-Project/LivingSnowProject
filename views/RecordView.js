@@ -99,17 +99,17 @@ export class RecordView extends React.Component {
         Notes: this.state.notes
       });
   
-      console.log("Handling Upload Request: " + serviceEndpoint + '/api/records');
-      console.log("Type: " + this.state.recordType);
-      console.log("Name: " + global.appConfig.name);
-      console.log("Date: " + this.state.date);
-      console.log("Org: " + global.appConfig.organization);
-      console.log("TubeId: " + this.state.tubeId);
-      console.log("Latitude: " + this.state.latitude);
-      console.log("Longitude: " + this.state.longitude);
-      console.log("Description: " + this.state.locationDescription);
-      console.log("Notes: " + this.state.notes);
-      console.log("JSON Body\n", record);
+      console.log(`Handling Upload Request: ${serviceEndpoint}/api/records` +
+        `\n  Type: ${this.state.recordType}` +
+        `\n  Name: ${global.appConfig.name}` +
+        `\n  Date: ${this.state.date}` +
+        `\n  Org: ${global.appConfig.organization}` +
+        `\n  TubeId: ${this.state.tubeId}` +
+        `\n  Latitude: ${this.state.latitude}` +
+        `\n  Longitude: ${this.state.longitude}` +
+        `\n  Description: ${this.state.locationDescription}` +
+        `\n  Notes: ${this.state.notes}` +
+        `\nJSON Body\n  `, record);
   
       //
       // TODO: add activity indicator

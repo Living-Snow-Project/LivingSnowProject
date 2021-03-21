@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/lsp@2x.png",
     "splash": {
@@ -26,15 +26,17 @@
       "supportsTablet": false,
       "bundleIdentifier": "com.kodnerlab.livingsnowproject",
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "Allow Living Snow Project to determine your location for easier reporting of snow algae"
+        "NSLocationWhenInUseUsageDescription": "Allow Living Snow Project to determine your location for easier snow algae reporting",
+        "NSPhotoLibraryUsageDescription": "Allow Living Snow Project to access your photos and supplement snow algae reporting"
       }
     },
     "android": {
       "package": "com.kodnerlab.livingsnowproject",
-      "versionCode": 2,
+      "versionCode": 3,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION"
+        "ACCESS_FINE_LOCATION",
+        "READ_EXTERNAL_STORAGE"
       ]
     }
   }
