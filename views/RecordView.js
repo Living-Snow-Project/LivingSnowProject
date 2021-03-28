@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Platform, StyleSheet, Text, TextInput, TouchableHighlight, View, Image } from 'react-native';
+import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View, Image } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
@@ -9,6 +9,7 @@ import { serviceEndpoint } from '../constants/Service';
 import KeyboardShift from '../components/KeyboardShift';
 import Touchable from 'react-native-platform-touchable';
 import { StockIcon } from '../components/TabBarIcon';
+import * as Location from 'expo-location';
 
 export class RecordView extends React.Component {
   static propTypes = {
@@ -30,7 +31,7 @@ export class RecordView extends React.Component {
     gpsCoordinatesEditable: Platform.OS === 'ios' ? !global.appConfig.showGpsWarning : false,
     gpsCoordinatesFirstTap: true,
     gpsCoordinateString: undefined,
-    watchID: undefined,
+    watchPosition: undefined,
     isUploading: false,
 
     //
@@ -177,7 +178,7 @@ export class RecordView extends React.Component {
     return (
       <KeyboardShift>
         {() => (
-          <View style={styles.container}>
+          <ScrollView style={styles.container}>
             <Text style={styles.optionStaticText}>
               Are you Taking a Sample or Reporting a Sighting?
             </Text>
@@ -288,7 +289,7 @@ export class RecordView extends React.Component {
             {this.state.photos.length > 0 && this.state.photos.map((x, index) =>
               <Image key={index} style={{width: 50, height: 50}} source={{uri: x.uri}}/>)}
             </View>
-          </View>
+          </ScrollView>
         )}
       </KeyboardShift>
     );
@@ -325,27 +326,24 @@ export class RecordView extends React.Component {
   // GPS functions and state
   //
 
-  startGps() {
-    var watchID = navigator.geolocation.watchPosition(
-      (position) => {
-        this.parsePosition(position);
-      },
-      (error) => {
-        alert(error.message)
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 1000
-      }
-    );
+  async startGps() {
+    let { status } = await Location.requestPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
+      return;
+    }
 
-    this.setState({watchID});
+    this.watchPosition = await Location.watchPositionAsync({
+      accuracy: Location.High,
+      timeInterval: 5000
+    },
+    (position) => {
+      this.parseCoordinates(position.coords);
+    });
   }
 
   stopGps() {
-    navigator.geolocation.stopObserving();
-    navigator.geolocation.clearWatch(this.state.watchID);
+    this.watchPosition.remove();
   }
 
   enableManualGpsCoordinates() {
@@ -360,10 +358,14 @@ export class RecordView extends React.Component {
     this.GpsCoordinates.focus();
   }
 
-  parsePosition(position) {
-    const latitude = JSON.stringify(position.coords.latitude.toFixed(6)).replace('"','').replace('"','');
-    const longitude = JSON.stringify(position.coords.longitude.toFixed(6)).replace('"','').replace('"','');
-    this.updateGpsCoordinateString(latitude + ', ' + longitude);
+  clipCoordinate(coordinate) {
+    return JSON.stringify(coordinate.toFixed(6)).replace('"','').replace('"','');
+  }
+
+  parseCoordinates({latitude, longitude}) {
+    const lat = this.clipCoordinate(latitude);
+    const long = this.clipCoordinate(longitude);
+    this.updateGpsCoordinateString(lat + ', ' + long);
   }
 
   updateGpsCoordinateString(value) {
