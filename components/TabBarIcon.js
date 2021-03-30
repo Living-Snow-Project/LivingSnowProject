@@ -4,47 +4,35 @@ import PropTypes from 'prop-types';
 import * as Icon from '@expo/vector-icons';
 import Colors from '../constants/Colors';
 
-export class StockIcon extends React.Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired,
-    size: PropTypes.number,
-    style: PropTypes.object,
-    color: PropTypes.string
-  }
-  
-  render() {
-    const {name, size, style, color } = this.props;
-    return (      
-      <Icon.Ionicons
-        name={name}
-        size={size ? size : 32}
-        style={style}
-        color={color ? color : Colors.tabIconDefault}
-      />
-    );
-  }
+const StockIcon = ({name, size, style, color}) => {
+  return <Icon.Ionicons name={name} size={size ? size : 32} style={style} color={color ? color : Colors.tabIconDefault}/>
 }
 
-export class RecordIcon extends React.Component {
-  static propTypes = {
-    type: PropTypes.string.isRequired
+StockIcon.propTypes = {
+  name: PropTypes.string.isRequired,
+  size: PropTypes.number,
+  style: PropTypes.object,
+  color: PropTypes.string
+}
+
+const RecordIcon = ({type}) => {  
+  let name = Platform.OS === 'ios' ? 'ios-eye' : 'md-eye';
+  let color = 'skyblue';
+  
+  if (type === "Sample") {
+    name = Platform.OS === 'ios' ? 'ios-flask' : 'md-flask';
+    color = 'lightcoral';
   }
   
-  render() {
-    var name = Platform.OS === 'ios' ? 'ios-eye' : 'md-eye';
-    var color = 'skyblue';
-
-    if (this.props.type === "Sample") {
-      name = Platform.OS === 'ios' ? 'ios-flask' : 'md-flask';
-      color = 'lightcoral';
-    }
-
-    return (
-      <StockIcon
-        name={name}
-        size={48}
-        color={color}
-      />
-    );
-  }
+  return <StockIcon name={name} size={48} color={color}/>;
 }
+
+RecordIcon.propTypes = {
+  type: PropTypes.string.isRequired
+}
+
+const PictureIcon = () => {
+  return <StockIcon name={Platform.OS === 'ios' ? 'ios-image' : 'md-image'} size={48}/>
+}
+
+export { PictureIcon, RecordIcon, StockIcon };

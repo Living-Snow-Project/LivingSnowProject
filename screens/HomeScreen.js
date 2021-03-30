@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, Platform, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { StockIcon, RecordIcon } from '../components/TabBarIcon';
+import { PictureIcon, RecordIcon } from '../components/TabBarIcon';
 import { Network } from '../lib/Network';
 import { Storage } from '../lib/Storage';
 import { serviceEndpoint } from '../constants/Service';
@@ -11,9 +11,6 @@ import {} from '../constants/Service';
 // TODO: Separate out the render code into a View file
 //
 
-// remove class and use hooks
-// test for commit prompt
-// test again
 export default class HomeScreen extends React.Component {
   state = {
     records: '',
@@ -23,7 +20,7 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
 
     //
-    // TODO: consider some kind of "last sync'd" storage strategy
+    // TODO: consider some kind of "last sync'd" storage strategy or use pagination request
     //
     this.handleFetchRecord();
   }
@@ -71,9 +68,10 @@ export default class HomeScreen extends React.Component {
       console.log("error loading records", error);
     });
 
-    console.log("Handling Fetch Request: " + serviceEndpoint + "/api/records");
+    let uri = `${serviceEndpoint}/api/records`;
+    console.log(`Handling Fetch Request: ${uri}`);
 
-    fetch(serviceEndpoint + '/api/records')
+    fetch(uri)
     .then(response => {
       if (!response.ok) {
         this.handleFailedDownload();
@@ -119,17 +117,21 @@ export default class HomeScreen extends React.Component {
     return result;
   }
 
-  bottomText(record) {
+  notEmpty(text) {
+    return text && text != '';
+  }
+
+  bottomText({locationDescription, notes}) {
     let result = '';
     let newline = '';
 
-    if (record.locationDescription && record.locationDescription != '') {
-      result += 'Description: ' + record.locationDescription;
+    if (this.notEmpty(locationDescription)) {
+      result += `Description: ${locationDescription}`;
       newline = '\n';
     }
 
-    if (record.notes && record.notes != '') {
-      result += newline + 'Notes: ' + record.notes;
+    if (this.notEmpty(notes)) {
+      result += `${newline}Notes: ${notes}`;
     }
 
     return result;
@@ -151,10 +153,10 @@ export default class HomeScreen extends React.Component {
               <RecordIcon type={record.type}/>
             </View>
             <View style={styles.topIcon}>
-              <StockIcon name={Platform.OS === 'ios' ? 'ios-image' : 'md-image'} size={48}/>
+              <PictureIcon/>
             </View>
           </View>
-          {(record.locationDescription || record.notes) && <Text style={styles.bottomText}>{this.bottomText(record)}</Text>}
+          {(this.notEmpty(record.locationDescription) || this.notEmpty(record.notes)) && <Text style={styles.bottomText}>{this.bottomText(record)}</Text>}
         </View>
     ))}
 

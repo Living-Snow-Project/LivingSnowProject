@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View, Image } from 'react-native';
+import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
@@ -10,6 +10,7 @@ import KeyboardShift from '../components/KeyboardShift';
 import Touchable from 'react-native-platform-touchable';
 import { StockIcon } from '../components/TabBarIcon';
 import * as Location from 'expo-location';
+import { PhotoControl} from '../components/PhotoControl';
 
 export class RecordView extends React.Component {
   static propTypes = {
@@ -279,16 +280,10 @@ export class RecordView extends React.Component {
               returnKeyType="done"
             />
             
-            <TouchableHighlight onPress={() => navigation.navigate('Images')}>
-              <Text style={styles.optionStaticText}>
-                Select photos
-              </Text>
-            </TouchableHighlight>
-            <View>
-            {/* placeholder proof of concept for now */}
-            {this.state.photos.length > 0 && this.state.photos.map((x, index) =>
-              <Image key={index} style={{width: 50, height: 50}} source={{uri: x.uri}}/>)}
-            </View>
+            <Text style={styles.optionStaticText}>
+              Select Photos (limit 3)
+            </Text>
+            <PhotoControl navigation={navigation} photos={this.state.photos}/>
           </ScrollView>
         )}
       </KeyboardShift>
@@ -336,8 +331,7 @@ export class RecordView extends React.Component {
     this.watchPosition = await Location.watchPositionAsync({
       accuracy: Location.High,
       timeInterval: 5000
-    },
-    (position) => {
+    }, (position) => {
       this.parseCoordinates(position.coords);
     });
   }
@@ -390,8 +384,7 @@ export class RecordView extends React.Component {
     if (global.appConfig.showGpsWarning && !this.state.gpsCoordinatesEditable) {
       Alert.alert(
         'Confirmation',
-        'Do you want to enter GPS coordinates manually? If Yes, don\'t worry, we\'ll ' +
-        'start using the GPS again with the next record.',
+        'Enter GPS coordinates manually?',
         [
           {
             text: 'Yes, disable this message',
@@ -451,9 +444,7 @@ export class RecordView extends React.Component {
 
   handleFailedUpload(record) {
     Storage.saveSingleRecord(record);
-    Alert.alert('Upload failed', 'Thanks for your submission and service to Living Snow Project! Unfortunately, ' +
-                'we could not upload the record at this time (most likely you are in the backcountry without data service). ' +
-                'Don\'t worry - we have saved the record. Please re-open the app once you\'re back in town to submit the data.');
+    Alert.alert(`Upload failed`, `Could not upload the record at this time. We'll try again later.`);
   }
 }
 

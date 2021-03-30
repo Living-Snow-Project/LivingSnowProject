@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Platform, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { AssetsSelector } from 'expo-images-picker';
 import { Ionicons } from '@expo/vector-icons';
@@ -25,23 +25,23 @@ function ImagesPickerScreen(props) {
         spinnerColor: 'blue',
         videoIcon: {
           Component: Ionicons,
-          iconName: 'ios-videocam',
+          iconName: Platform.OS === 'ios' ? 'ios-videocam' : 'md-videocam',
           color: 'white',
           size: 20,
         },
         selectedIcon: {
           Component: Ionicons,
-          iconName: 'ios-checkmark-circle-outline',
-          color: 'white',
-          bg: 'white',
-          size: 20,
+          iconName: Platform.OS === 'ios' ? 'ios-checkmark-circle-outline' : 'md-checkmark-circle-outline',
+          color: 'grey',
+          bg: 'lightgrey',
+          size: 40,
         },
         defaultTopNavigator: {
           continueText: 'Finish',
-          goBackText: 'Back',
-          //buttonStyle: validViewStyleObject,
-          //textStyle: validTextStyleObject,
-          backFunction: navigation.goBack,
+          goBackText: null,
+          //buttonStyle: {borderWidth:2, borderColor:'red'},
+          textStyle: {fontSize: 15},
+          backFunction: () => {},
           doneFunction: (data) => navigation.navigate('Record', {data: data}),
         },
         noAssets: {
