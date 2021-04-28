@@ -5,7 +5,6 @@ import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
 import { Storage } from '../lib/Storage';
 import { Network } from '../lib/Network';
-import { serviceEndpoint } from '../constants/Service';
 import KeyboardShift from '../components/KeyboardShift';
 import Touchable from 'react-native-platform-touchable';
 import { StockIcon } from '../components/TabBarIcon';
@@ -89,50 +88,29 @@ export class RecordView extends React.Component {
   
       this.setState({isUploading: true});
   
-      let record = JSON.stringify({
+      let record = {
         Type: this.state.recordType,
         Name: global.appConfig.name,
         Date: this.state.date,
         Organization: global.appConfig.organization,
         Latitude: this.state.latitude,
-        longitude: this.state.longitude,
+        Longitude: this.state.longitude,
         TubeId: this.state.tubeId,
         LocationDescription: this.state.locationDescription,
         Notes: this.state.notes
-      });
-  
-      console.log(`Handling Upload Request: ${serviceEndpoint}/api/records` +
-        `\n  Type: ${this.state.recordType}` +
-        `\n  Name: ${global.appConfig.name}` +
-        `\n  Date: ${this.state.date}` +
-        `\n  Org: ${global.appConfig.organization}` +
-        `\n  TubeId: ${this.state.tubeId}` +
-        `\n  Latitude: ${this.state.latitude}` +
-        `\n  Longitude: ${this.state.longitude}` +
-        `\n  Description: ${this.state.locationDescription}` +
-        `\n  Notes: ${this.state.notes}` +
-        `\nJSON Body\n  `, record);
-  
-      //
+      };
+    
       // TODO: add activity indicator
-      //
-      
-      Network.uploadRecord(record).then(response => {
-        if (response.ok) {
-          Alert.alert('Upload succeeded', 'Thanks for your submission and service to Living Snow Project!');
-        }
-        else {
-          console.log("error with POST request:", response.status);
-  
-          this.handleFailedUpload(record);
-        }
+      Network.uploadRecord(record, this.state.photos).then(() => {
+        console.log(`finished uploading record`);
+        Alert.alert(`Upload succeeded`, `Thanks for your submission.`);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
-  
-        this.handleFailedUpload(record);
+        Alert.alert(`Upload failed`, `We'll try again later.`);
       });
   
+      // TODO: move to a 'finally' block once an activity indicator exists
       this.props.navigation.navigate('Home');
     }.bind(this);
 
@@ -161,6 +139,7 @@ export class RecordView extends React.Component {
     // need to better understand React lifecycles, hooks, etc
     //
 
+    // route prop passed by navigation
     const { route } = this.props;
     if (route !== undefined && route.params?.data !== undefined) {
       if (JSON.stringify(this.state.photos) !== JSON.stringify(route.params.data)) {
@@ -359,7 +338,7 @@ export class RecordView extends React.Component {
   parseCoordinates({latitude, longitude}) {
     const lat = this.clipCoordinate(latitude);
     const long = this.clipCoordinate(longitude);
-    this.updateGpsCoordinateString(lat + ', ' + long);
+    this.updateGpsCoordinateString(`${lat}, ${long}`);
   }
 
   updateGpsCoordinateString(value) {
@@ -385,24 +364,22 @@ export class RecordView extends React.Component {
       Alert.alert(
         'Confirmation',
         'Enter GPS coordinates manually?',
-        [
-          {
-            text: 'Yes, disable this message',
-            onPress: () => {
-              global.appConfig.showGpsWarning = false;
-              Storage.saveAppConfig();
-              this.enableManualGpsCoordinates();
-            }
-          },
-          {
-            text: 'Yes',
-            onPress: () => this.enableManualGpsCoordinates()
-          },
-          {
-            text: 'No',
-            style: 'cancel'
+        [{
+          text: 'Yes, disable this message',
+          onPress: () => {
+            global.appConfig.showGpsWarning = false;
+            Storage.saveAppConfig();
+            this.enableManualGpsCoordinates();
           }
-        ]
+        },
+        {
+          text: 'Yes',
+          onPress: () => this.enableManualGpsCoordinates()
+        },
+        {
+          text: 'No',
+          style: 'cancel'
+        }]
       )
     }
     else if (this.state.gpsCoordinatesFirstTap) {
@@ -411,10 +388,7 @@ export class RecordView extends React.Component {
     }
   }
 
-  //
-  // Input validation
-  //
-
+  // form input validation
   validateInput() {
     if (!global.appConfig.name || global.appConfig.name === '') {
       global.appConfig.name = 'Anonymous';
@@ -423,28 +397,17 @@ export class RecordView extends React.Component {
 
     if (!this.state.latitude || !this.state.longitude) {
       Alert.alert(
-        'Invalid record',
-        'Your record does not have a valid GPS coordinate and cannot be uploaded.',
-        [
-          {
-            text: 'Ok'
-          }
-        ]
+        `Invalid record`,
+        `Your record does not have a valid GPS coordinate and cannot be uploaded.`,
+        [{
+            text: `Ok`
+        }]
       );
 
       return false;
     }
 
     return true;
-  }
-
-  //
-  // Service functions and state
-  //
-
-  handleFailedUpload(record) {
-    Storage.saveSingleRecord(record);
-    Alert.alert(`Upload failed`, `Could not upload the record at this time. We'll try again later.`);
   }
 }
 
