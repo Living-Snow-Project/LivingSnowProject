@@ -26,21 +26,24 @@ export default class HomeScreen extends React.Component {
   }
 
   handleRetry(records) {
-    var currentRecords = [];
-    currentRecords = JSON.parse(records);
-    var newRecords = {records: []};
+    if (!records) {
+      return;
+    }
+    
+    let currentRecords = records;
+    let newRecords = [];
 
-    currentRecords.records.reduce((promise, record) => {
+    currentRecords.reduce((promise, record) => {
       return promise.then(() => {
-        return Network.uploadRecord(JSON.stringify(record))
+        return Network.uploadRecord(record)
         .then(response => {
           if (!response.ok) {
-            newRecords.records.push(record);
+            newRecords.push(record);
           }
         })
         .catch((error) => {
           console.log("record failed to upload, will try again later", error);
-          newRecords.records.push(record);
+          newRecords.push(record);
         });
       });
     }, Promise.resolve())
@@ -49,7 +52,7 @@ export default class HomeScreen extends React.Component {
     })
     .catch((error) => {
       console.log("error in reducer", error);
-    });  
+    });
   }
 
   handleFetchRecord() {
@@ -59,17 +62,15 @@ export default class HomeScreen extends React.Component {
     // see if there are any pending records to upload
     //
 
-    Storage.loadRecords().then((records) => {
-      if (records) {
-        this.handleRetry(records);
-      }
+    Storage.loadRecords().then(records => {
+      this.handleRetry(records);
     })
     .catch((error) => {
       console.log("error loading records", error);
     });
 
     let uri = `${serviceEndpoint}/api/records`;
-    console.log(`Handling Fetch Request: ${uri}`);
+    console.log(`Handling GET Request: ${uri}`);
 
     fetch(uri)
     .then(response => {

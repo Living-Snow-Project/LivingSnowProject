@@ -20,7 +20,7 @@ const Stack = createStackNavigator();
 
 function RootNavigator() {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator screenOptions={{headerShown: true}}>
       <Stack.Screen name="FirstRun" component={FirstRunScreen} />
       <Stack.Screen
         name="Home"
@@ -30,7 +30,7 @@ function RootNavigator() {
           headerTitleContainerStyle: {justifyContent: 'center'},
           headerLeft: function HomeLeft() {
             return <HeaderNavigation
-              navigation={ navigation }
+              navigation={navigation}
               nextScreen='Settings'
               iosImage='ios-settings'
               androidImage='md-settings'
@@ -39,7 +39,7 @@ function RootNavigator() {
           headerLeftContainerStyle: {marginLeft: 20},
           headerRight: function HomeRight() {
             return <HeaderNavigation
-              navigation={ navigation }
+              navigation={navigation}
               nextScreen='Record'
               iosImage='ios-add-circle-outline'
               androidImage='md-add-circle-outline'
@@ -53,7 +53,7 @@ function RootNavigator() {
         component={RecordScreen}
         options={() => ({
           title: 'Record',
-          headerTitleContainerStyle: { justifyContent: 'center' },
+          headerTitleContainerStyle: {justifyContent: 'center'},
         })}
       />
       <Stack.Screen name="Settings" component={SettingsScreen} />

@@ -11,7 +11,7 @@ const PhotoControl = ({navigation, photos}) => {
       <View style={{flex:photos.length, flexDirection: "row"}}>{
         photos.map((x, index) =>
         <View style={{flex:1, margin:3}} key={index}>
-          <Image style={{ width: "100%", height: 100}} key={index} source={{uri: x.uri}}/>
+          <Image style={{width: "100%", height: 100}} key={index} source={{uri: x.uri}}/>
         </View>)}
       </View>}
     </Pressable>
