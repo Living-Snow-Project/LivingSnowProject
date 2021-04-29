@@ -288,7 +288,6 @@ export class RecordView extends React.Component {
 
   setDay(day) {
     this.toggleDatePickerVisible();
-
     this.setState({date: day.dateString});
   }
 
@@ -343,16 +342,14 @@ export class RecordView extends React.Component {
 
   updateGpsCoordinateString(value) {
     this.setState({gpsCoordinateString: value});
+    this.setState({latitude: undefined});
+    this.setState({longitude: undefined});
 
     let coordinates = value.split(',');
-
-    this.setState({latitude: undefined});
 
     if (coordinates[0]) {
       this.setState({latitude: coordinates[0].trim()});
     }
-
-    this.setState({longitude: undefined});
 
     if (coordinates[1]) {
       this.setState({longitude: coordinates[1].trim()});
