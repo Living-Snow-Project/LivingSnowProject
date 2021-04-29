@@ -301,7 +301,7 @@ export class RecordView extends React.Component {
   //
 
   async startGps() {
-    let { status } = await Location.requestPermissionsAsync();
+    let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
       console.log('Permission to access location was denied');
       return;
@@ -362,8 +362,8 @@ export class RecordView extends React.Component {
   toggleCoordinateEntry() {
     if (global.appConfig.showGpsWarning && !this.state.gpsCoordinatesEditable) {
       Alert.alert(
-        'Confirmation',
         'Enter GPS coordinates manually?',
+        null,
         [{
           text: 'Yes, disable this message',
           onPress: () => {
