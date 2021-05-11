@@ -21,7 +21,7 @@ const Stack = createStackNavigator();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{headerShown: true}}>
-      <Stack.Screen name="FirstRun" component={FirstRunScreen} />
+      {global.showFirstRun && <Stack.Screen name="FirstRun" component={FirstRunScreen} />}
       <Stack.Screen
         name="Home"
         component={HomeScreen}

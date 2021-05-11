@@ -25,69 +25,82 @@ export default class HomeScreen extends React.Component {
     this.handleFetchRecord();
   }
 
-  handleRetry(records) {
-    if (!records) {
-      return;
-    }
-    
-    let currentRecords = records;
-    let newRecords = [];
+  retryRecords() {
+    // see if there are any pending records and photos to upload
+    Storage.loadRecords().then(records => {
+      console.log(records);
+      if (!records) {
+        return;
+      }
+      
+      let newRecords = [];
 
-    currentRecords.reduce((promise, record) => {
-      return promise.then(() => {
-        return Network.uploadRecord(record)
-        .then(response => {
-          if (!response.ok) {
+      records.reduce((promise, record) => {
+        return promise.then(() => {
+          let photoUris = record?.photoUris;
+          record.photoUris = null;
+
+          return Network.uploadRecord(record, photoUris).catch(error => {
+            console.log(`record failed to upload, will try again later: ${error}`);
+            record.photoUris = photoUris;
             newRecords.push(record);
-          }
-        })
-        .catch((error) => {
-          console.log("record failed to upload, will try again later", error);
-          newRecords.push(record);
+          });
         });
-      });
-    }, Promise.resolve())
-    .then(() => {
-      Storage.saveRecords(newRecords);
-    })
-    .catch((error) => {
-      console.log("error in reducer", error);
+      }, Promise.resolve()).then(() => Storage.saveRecords(newRecords))
+      .catch(error => console.log(`error in record reducer: ${error}`));
+    });
+  }
+
+  retryPhotos() {
+    Storage.loadPhotos().then(photos => {
+      console.log(photos);
+      if (!photos) {
+        return;
+      }
+
+      let newPhotos = [];
+      
+      photos.reduce((promise, photo) => {
+        return promise.then(() => {
+          return Network.uploadPhoto(photo).then(response => {
+            if (!response.ok) {
+              newPhotos.push(photo);
+            }
+          })
+          .catch(error => {
+            console.log(`photo failed to upload, will try again later: ${error}`);
+            newPhotos.push(photo);
+          });
+        });
+      }, Promise.resolve()).then(() => Storage.savePhotos(newPhotos))
+      .catch(error => console.log(`error in photo reducer: ${error}`));
     });
   }
 
   handleFetchRecord() {
     this.setState({refreshing: true});
 
-    //
-    // see if there are any pending records to upload
-    //
-
-    Storage.loadRecords().then(records => {
-      this.handleRetry(records);
-    })
-    .catch((error) => {
-      console.log("error loading records", error);
-    });
+    this.retryRecords();
+    this.retryPhotos();
 
     let uri = `${serviceEndpoint}/api/records`;
     console.log(`Handling GET Request: ${uri}`);
 
-    fetch(uri)
-    .then(response => {
+    //TODO: Network.downloadRecords()
+    fetch(uri).then(response => {
       if (!response.ok) {
         this.handleFailedDownload();
-      } else {
-        response.json()
-        .then(responseJson => {
+      }
+      else {
+        response.json().then(responseJson => {
           //console.log(responseJson);
           this.setState({records: responseJson});
           this.setState({refreshing: false});
-        })
+        });
       }
     })
-    .catch((error) => {
+    .catch(error => {
       this.handleFailedDownload();
-
       console.log(error);
     });
   }

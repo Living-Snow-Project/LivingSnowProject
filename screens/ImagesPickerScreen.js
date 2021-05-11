@@ -10,7 +10,8 @@ function ImagesPickerScreen(props) {
     <AssetsSelector
       options={{
         manipulate: {
-          compress: 0.7,
+          compress: 0.4,
+          width: 1024, // ideally this would be the size constraint on the largest axis
           base64: false,
           saveTo: 'jpeg',
         },
@@ -42,7 +43,7 @@ function ImagesPickerScreen(props) {
           //buttonStyle: {borderWidth:2, borderColor:'red'},
           textStyle: {fontSize: 15},
           backFunction: () => {},
-          doneFunction: (data) => navigation.navigate('Record', {data: data}),
+          doneFunction: data => navigation.navigate('Record', {data: data}),
         },
         noAssets: {
           Component: Text,
