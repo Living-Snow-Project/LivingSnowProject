@@ -1,8 +1,9 @@
 import React from 'react';
 import { Alert, Platform, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { PictureIcon, RecordIcon } from '../components/TabBarIcon';
+import PropTypes from 'prop-types';
 import { Network } from '../lib/Network';
 import { RecordManager } from '../lib/RecordManager';
+import { TimelineRow } from '../components/TimelineRow';
 import {} from '../constants/Service';
 
 //
@@ -46,67 +47,14 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  empty(text) {
-    return !text;
-  }
-
-  topText(record) {
-    let result = `${record.date.slice(0, 10)}\n`;
-    
-    if (!this.empty(record.name)) {
-      result += record.name;
-
-      if (!this.empty(record.organization)) {
-        result += ` (${record.organization})`;
-      }
-    }
-    else {
-      result += `unknown Scientist`;
-    }
-
-    result += `\nLocation: ${record.latitude}, ${record.longitude}`;
-
-    return result;
-  }
-
-  bottomText({locationDescription, notes}) {
-    let result = '';
-    let newline = '';
-
-    if (!this.empty(locationDescription)) {
-      result += `Description: ${locationDescription}`;
-      newline = '\n';
-    }
-
-    if (!this.empty(notes)) {
-      result += `${newline}Notes: ${notes}`;
-    }
-
-    return result;
-  }
-
   renderRecords() {
     let records = (
       <Text style={{textAlign:'center', marginTop:20}}>No records to display</Text>
     );
 
     if (this.state.records.length > 0) {
-      records = this.state.records.map((record, index) => (
-        <View key={index} style={styles.recordContainer}>
-          <View style={styles.recordTop}>
-            <View style={styles.topText}>
-              <Text>{this.topText(record)}</Text>
-            </View>
-            <View style={styles.topIcon}>
-              <RecordIcon type={record.type}/>
-            </View>
-            <View style={styles.topIcon}>
-              <PictureIcon/>
-            </View>
-          </View>
-          {(!this.empty(record.locationDescription) || !this.empty(record.notes)) && <Text style={styles.bottomText}>{this.bottomText(record)}</Text>}
-        </View>
-    ))}
+      records = this.state.records.map((record, index) => (<TimelineRow key={index} navigation={this.props.navigation} record={record} />))
+    }
 
     return records;
   }
@@ -125,6 +73,10 @@ export default class HomeScreen extends React.Component {
     );
   }
 }
+
+HomeScreen.propTypes = {
+  navigation: PropTypes.object
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -213,21 +165,4 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7'
   },
-  recordContainer: {
-    borderColor: '#000000',
-    borderStyle: 'solid',
-    borderBottomWidth: 1
-  },
-  recordTop: {
-    flexDirection: 'row',
-    flex:1
-  },
-  topText: {
-    marginLeft: 1,
-    flex: .7
-  },
-  topIcon: {
-    marginLeft: 1,
-    flex: .15
-  }
 });

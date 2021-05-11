@@ -7,6 +7,8 @@ import SettingsScreen from '../screens/SettingsScreen';
 import FirstRunScreen from '../screens/FirstRunScreen';
 import { ImagesPickerScreen } from '../screens/ImagesPickerScreen';
 import { HeaderNavigation } from '../components/HeaderNavigation';
+import { RecordDetailsScreen } from '../screens/RecordDetailsScreen';
+import { Routes } from './Routes';
 
 export default function Navigation() {
   return (
@@ -21,9 +23,9 @@ const Stack = createStackNavigator();
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{headerShown: true}}>
-      {global.showFirstRun && <Stack.Screen name="FirstRun" component={FirstRunScreen} />}
+      {global.showFirstRun && <Stack.Screen name={Routes.FirstRunScreen} component={FirstRunScreen} options={({headerTitle: 'Welcome'})}/>}
       <Stack.Screen
-        name="Home"
+        name={Routes.HomeScreen}
         component={HomeScreen}
         options={({navigation}) => ({
           headerTitle: 'Timeline',
@@ -31,7 +33,7 @@ function RootNavigator() {
           headerLeft: function HomeLeft() {
             return <HeaderNavigation
               navigation={navigation}
-              nextScreen='Settings'
+              nextScreen={Routes.SettingsScreen}
               iosImage='ios-settings'
               androidImage='md-settings'
             />
@@ -40,7 +42,7 @@ function RootNavigator() {
           headerRight: function HomeRight() {
             return <HeaderNavigation
               navigation={navigation}
-              nextScreen='Record'
+              nextScreen={Routes.RecordScreen}
               iosImage='ios-add-circle-outline'
               androidImage='md-add-circle-outline'
             />
@@ -49,15 +51,16 @@ function RootNavigator() {
         })}
       />
       <Stack.Screen
-        name="Record"
+        name={Routes.RecordScreen}
         component={RecordScreen}
         options={() => ({
           title: 'Record',
           headerTitleContainerStyle: {justifyContent: 'center'},
         })}
       />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen name="Images" component={ImagesPickerScreen} />
+      <Stack.Screen name={Routes.SettingsScreen} component={SettingsScreen} />
+      <Stack.Screen name={Routes.ImagesPickerScreen} component={ImagesPickerScreen} />
+      <Stack.Screen name={Routes.RecordDetailsScreen} component={RecordDetailsScreen} options={({headerTitle: "Details"})}/>
     </Stack.Navigator>
   );
 }

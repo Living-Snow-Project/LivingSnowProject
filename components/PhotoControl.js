@@ -2,10 +2,11 @@ import React from 'react';
 import { Image, Pressable, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { PictureIcon } from '../components/TabBarIcon';
+import { Routes } from '../navigation/Routes';
 
 const PhotoControl = ({navigation, photos}) => {
   return (
-    <Pressable onPress={() => navigation.navigate(`Images`)}>
+    <Pressable onPress={() => navigation.navigate(Routes.ImagesPickerScreen)}>
       {photos.length === 0 && <PictureIcon/>}
       {photos.length > 0 && 
       <View style={{flex:photos.length, flexDirection: "row"}}>{

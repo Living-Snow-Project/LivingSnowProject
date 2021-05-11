@@ -10,6 +10,7 @@ import Touchable from 'react-native-platform-touchable';
 import { StockIcon } from '../components/TabBarIcon';
 import * as Location from 'expo-location';
 import { PhotoControl} from '../components/PhotoControl';
+import { Routes } from '../navigation/Routes';
 
 export class RecordView extends React.Component {
   static propTypes = {
@@ -110,7 +111,7 @@ export class RecordView extends React.Component {
       });
   
       // TODO: move to a 'finally' block once an activity indicator exists
-      this.props.navigation.navigate('Home');
+      this.props.navigation.navigate(Routes.HomeScreen);
     }.bind(this);
 
     const { navigation } = this.props;
