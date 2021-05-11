@@ -4,7 +4,7 @@ import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
 import { Storage } from '../lib/Storage';
-import { Network } from '../lib/Network';
+import { RecordManager } from '../lib/RecordManager';
 import KeyboardShift from '../components/KeyboardShift';
 import Touchable from 'react-native-platform-touchable';
 import { StockIcon } from '../components/TabBarIcon';
@@ -101,8 +101,7 @@ export class RecordView extends React.Component {
       };
     
       // TODO: add activity indicator
-      Network.uploadRecord(record, this.state.photos).then(() => {
-        console.log(`finished uploading record`);
+      RecordManager.uploadRecord(record, this.state.photos).then(() => {
         Alert.alert(`Upload succeeded`, `Thanks for your submission.`);
       })
       .catch(error => {

@@ -2,8 +2,7 @@ import React from 'react';
 import { Alert, Platform, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { PictureIcon, RecordIcon } from '../components/TabBarIcon';
 import { Network } from '../lib/Network';
-import { Storage } from '../lib/Storage';
-import { serviceEndpoint } from '../constants/Service';
+import { RecordManager } from '../lib/RecordManager';
 import {} from '../constants/Service';
 
 //
@@ -18,90 +17,24 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-
-    //
     // TODO: consider some kind of "last sync'd" storage strategy or use pagination request
-    //
     this.handleFetchRecord();
-  }
-
-  retryRecords() {
-    // see if there are any pending records and photos to upload
-    Storage.loadRecords().then(records => {
-      console.log(records);
-      if (!records) {
-        return;
-      }
-      
-      let newRecords = [];
-
-      records.reduce((promise, record) => {
-        return promise.then(() => {
-          let photoUris = record?.photoUris;
-          record.photoUris = null;
-
-          return Network.uploadRecord(record, photoUris).catch(error => {
-            console.log(`record failed to upload, will try again later: ${error}`);
-            record.photoUris = photoUris;
-            newRecords.push(record);
-          });
-        });
-      }, Promise.resolve()).then(() => Storage.saveRecords(newRecords))
-      .catch(error => console.log(`error in record reducer: ${error}`));
-    });
-  }
-
-  retryPhotos() {
-    Storage.loadPhotos().then(photos => {
-      console.log(photos);
-      if (!photos) {
-        return;
-      }
-
-      let newPhotos = [];
-      
-      photos.reduce((promise, photo) => {
-        return promise.then(() => {
-          return Network.uploadPhoto(photo).then(response => {
-            if (!response.ok) {
-              newPhotos.push(photo);
-            }
-          })
-          .catch(error => {
-            console.log(`photo failed to upload, will try again later: ${error}`);
-            newPhotos.push(photo);
-          });
-        });
-      }, Promise.resolve()).then(() => Storage.savePhotos(newPhotos))
-      .catch(error => console.log(`error in photo reducer: ${error}`));
-    });
   }
 
   handleFetchRecord() {
     this.setState({refreshing: true});
 
-    this.retryRecords();
-    this.retryPhotos();
+    RecordManager.retryRecords();
+    RecordManager.retryPhotos();
 
-    let uri = `${serviceEndpoint}/api/records`;
-    console.log(`Handling GET Request: ${uri}`);
-
-    //TODO: Network.downloadRecords()
-    fetch(uri).then(response => {
-      if (!response.ok) {
-        this.handleFailedDownload();
-      }
-      else {
-        response.json().then(responseJson => {
-          //console.log(responseJson);
-          this.setState({records: responseJson});
-          this.setState({refreshing: false});
-        });
-      }
+    Network.downloadRecords().then(response => {
+      //console.log(response);
+      this.setState({records: response});
+      this.setState({refreshing: false});
     })
-    .catch(error => {
-      this.handleFailedDownload();
+    .catch(error => {      
       console.log(error);
+      this.handleFailedDownload();
     });
   }
 
@@ -110,41 +43,42 @@ export default class HomeScreen extends React.Component {
     Alert.alert(
       'Download failed',
       'Could not download records. Please try again later.'
-    )
+    );
+  }
+
+  empty(text) {
+    return !text;
   }
 
   topText(record) {
-    let result = record.date.slice(0, 10) + '\n';
+    let result = `${record.date.slice(0, 10)}\n`;
     
-    if (record.name && record.name != '' ) {
+    if (!this.empty(record.name)) {
       result += record.name;
 
-      if (record.organization && record.organization != '') {
-        result += ' (' + record.organization + ')';
+      if (!this.empty(record.organization)) {
+        result += ` (${record.organization})`;
       }
-    } else {
-      result += 'unknown Scientist';
+    }
+    else {
+      result += `unknown Scientist`;
     }
 
-    result += '\nLocation: ' + record.latitude + ', ' + record.longitude;
+    result += `\nLocation: ${record.latitude}, ${record.longitude}`;
 
     return result;
-  }
-
-  notEmpty(text) {
-    return text && text != '';
   }
 
   bottomText({locationDescription, notes}) {
     let result = '';
     let newline = '';
 
-    if (this.notEmpty(locationDescription)) {
+    if (!this.empty(locationDescription)) {
       result += `Description: ${locationDescription}`;
       newline = '\n';
     }
 
-    if (this.notEmpty(notes)) {
+    if (!this.empty(notes)) {
       result += `${newline}Notes: ${notes}`;
     }
 
@@ -170,7 +104,7 @@ export default class HomeScreen extends React.Component {
               <PictureIcon/>
             </View>
           </View>
-          {(this.notEmpty(record.locationDescription) || this.notEmpty(record.notes)) && <Text style={styles.bottomText}>{this.bottomText(record)}</Text>}
+          {(!this.empty(record.locationDescription) || !this.empty(record.notes)) && <Text style={styles.bottomText}>{this.bottomText(record)}</Text>}
         </View>
     ))}
 
