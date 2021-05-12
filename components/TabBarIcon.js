@@ -32,7 +32,7 @@ RecordIcon.propTypes = {
 }
 
 const PictureIcon = () => {
-  return <StockIcon name={Platform.OS === 'ios' ? 'ios-image' : 'md-image'} size={48}/>
+  return <StockIcon name={Platform.OS === 'ios' ? 'ios-image' : 'md-image'} color={'green'} size={48}/>
 }
 
 export { PictureIcon, RecordIcon, StockIcon };

@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Routes } from '../navigation/Routes';
 
 function ImagesPickerScreen(props) {
-  let {navigation } = props;
+  let {navigation} = props;
   return (
     <AssetsSelector
       options={{

@@ -43,10 +43,22 @@ function bottomText({locationDescription, notes}) {
   return result;
 }
 
+// TODO: make a recordClosure object
+function parsePhotoUris(photoUris) {
+  if (!photoUris) {
+    return [];
+  }
+
+  let result = photoUris.split(`;`);
+  result.pop();
+
+  return result;
+}
+
 const TimelineRow = ({navigation, record}) => {
   return (
     <View style={styles.recordContainer}>
-      <Pressable onPress={() => navigation.navigate(Routes.RecordDetailsScreen)}>
+      <Pressable onPress={() => navigation.navigate(Routes.RecordDetailsScreen, {record: record})}>
         <View style={styles.recordTop}>
           <View style={styles.topText}>
             <Text>{topText(record)}</Text>
@@ -54,8 +66,12 @@ const TimelineRow = ({navigation, record}) => {
           <View style={styles.topIcon}>
             <RecordIcon type={record.type}/>
           </View>
-          {!empty(record.photoUris) && <View style={styles.topIcon}>
+          {!empty(record.photoUris) && 
+          <View style={styles.topIcon}>
             <PictureIcon/>
+            <View style={{position: 'absolute', alignSelf: 'flex-end', top: 1, right: 2, backgroundColor: 'red', borderRadius: 40, alignItems: 'center', width: '35%', height: '35%'}}>
+              <Text style={{color: 'white'}} >{parsePhotoUris(record.photoUris).length}</Text>            
+            </View>
           </View>}
         </View>
         {(!empty(record.locationDescription) || !empty(record.notes)) && <Text style={styles.bottomText}>{bottomText(record)}</Text>}
@@ -86,7 +102,7 @@ const styles = StyleSheet.create({
   },
   recordTop: {
     flexDirection: 'row',
-    flex:1
+    flex: 1
   },
   topText: {
     marginLeft: 1,
