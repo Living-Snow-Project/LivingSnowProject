@@ -12,9 +12,13 @@ import {} from '../constants/Service';
 //
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     records: '',
-    refreshing: false
+    refreshing: true
   }
 
   componentDidMount() {
