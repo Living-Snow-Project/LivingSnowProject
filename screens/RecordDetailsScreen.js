@@ -21,7 +21,7 @@ function RecordDetailsScreen({route}) {
 
   return (
     <ScrollView style={styles.container}>
-      <View style={{borderColor: "black", borderWidth: 1, borderRadius:2, margin: 2}}>
+      <View style={{borderColor: "black", borderWidth: 1, borderRadius: 2, margin: 2}}>
         <View style={{borderColor: "black", borderBottomWidth: 1, backgroundColor: "lightblue"}}>
           <Text style={{textAlign: "center"}}>Data Sheet</Text>
         </View>
@@ -35,13 +35,13 @@ function RecordDetailsScreen({route}) {
         {!!notes && <Text>{`Additional Notes: ${notes}`}</Text>}
       </View>
       {photoUris.length > 0 && 
-      <View style={{borderColor: "black", borderWidth: 1, margin:2}}>
-        <View style={{borderColor: "black", borderBottomWidth: 1, borderRadius:2, backgroundColor: "lightblue"}}>
+      <View style={{borderColor: "black", borderWidth: 1, borderRadius: 2, margin: 2}}>
+        <View style={{borderColor: "black", borderBottomWidth: 1, backgroundColor: "lightblue"}}>
           <Text style={{textAlign: "center"}}>Photos</Text>
         </View>
         <View style={{flex:photoUris.length, flexDirection: "column"}}>
           {photoUris.map((x, index) => 
-            <View style={{flex:1, borderBottomWidth:1, borderColor: "black"}} key={index}>
+            <View style={(index == 0 ? styles.topImage : styles.image)} key={index}>
               <Image style={{width: "100%", height: 300}} key={index} source={{uri: downloadPhotoUri(x)}}/>
             </View>)}
         </View>
@@ -61,5 +61,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff'
-  }
+  },
+  topImage: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+    borderTopWidth: 1,
+    borderColor: "black",
+  },
 });
