@@ -28,6 +28,9 @@
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Allow Living Snow Project to determine your location for easier snow algae reporting",
         "NSPhotoLibraryUsageDescription": "Allow Living Snow Project to access your photos and supplement snow algae reporting"
+      },
+      "config" : {
+        "usesNonExemptEncryption": false
       }
     },
     "android": {
