@@ -107,7 +107,7 @@ export class RecordView extends React.Component {
       })
       .catch(error => {
         console.log(error);
-        Alert.alert(`Upload failed`, `We'll try again later.`);
+        Alert.alert(`Record Saved`, `We will upload it later.`);
       });
   
       // TODO: move to a 'finally' block once an activity indicator exists
