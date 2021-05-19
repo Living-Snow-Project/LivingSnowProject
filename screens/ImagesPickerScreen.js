@@ -46,7 +46,7 @@ function ImagesPickerScreen(props) {
           backFunction: () => {},
           doneFunction: data => navigation.navigate(Routes.RecordScreen, {data: data}),
         },
-        noAssets: (<Text>No Assets</Text>),
+        noAssets: <Text>No Assets</Text>,
       }}
     />
   );

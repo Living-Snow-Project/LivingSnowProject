@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { downloadPhotoUri } from '../lib/Network';
 
@@ -18,6 +18,8 @@ function parsePhotoUris(photoUris) {
 function RecordDetailsScreen({route}) {
   const {date, type, name, organization, locationDescription, latitude, longitude, tubeId, notes} = route.params.record;
   const photoUris = parsePhotoUris(route.params.record.photoUris);
+  // TODO: prefer to scale images based on dominant axis
+  const height = Dimensions.get('screen').height * 0.75;
 
   return (
     <ScrollView style={styles.container}>
@@ -41,8 +43,8 @@ function RecordDetailsScreen({route}) {
         </View>
         <View style={{flex:photoUris.length, flexDirection: "column"}}>
           {photoUris.map((x, index) => 
-            <View style={(index == 0 ? styles.topImage : styles.image)} key={index}>
-              <Image style={{width: "100%", height: 300}} key={index} source={{uri: downloadPhotoUri(x)}}/>
+            <View style={[(index == 0 ? styles.topImage : styles.image), {width: "100%", height: height}]} key={index}>
+              <Image style={{width: "100%", height: "100%"}} key={index} source={{uri: downloadPhotoUri(x)}}/>
             </View>)}
         </View>
       </View>}
