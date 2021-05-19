@@ -27,5 +27,5 @@
     },
     "rules": {
     },
-    "ignorePatterns": ["*test*.js"]
+    "ignorePatterns": ["*test*.js", "*.ts*"]
 }

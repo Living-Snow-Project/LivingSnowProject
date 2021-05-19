@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { AssetsSelector } from 'expo-images-picker';
+import { AssetsSelector } from '../expo-images-picker/index';
 import { Ionicons } from '@expo/vector-icons';
 import { Routes } from '../navigation/Routes';
 
@@ -46,9 +46,7 @@ function ImagesPickerScreen(props) {
           backFunction: () => {},
           doneFunction: data => navigation.navigate(Routes.RecordScreen, {data: data}),
         },
-        noAssets: {
-          Component: Text,
-        },
+        noAssets: (<Text>No Assets</Text>),
       }}
     />
   );
