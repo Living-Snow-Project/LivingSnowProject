@@ -42,7 +42,7 @@
     "styled-components": "5.1.1"
   },
   "devDependencies": {
-    "@babel/core": "~7.9.0",
+    "@babel/core": "*",
     "@types/react": "~16.9.41",
     "@types/react-native": "~0.62.13",
     "@types/styled-components": "5.1.7",
