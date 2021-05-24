@@ -69,7 +69,7 @@ const TimelineRow = ({navigation, record}) => {
           {!empty(record.photoUris) && 
           <View style={styles.topIcon}>
             <PictureIcon/>
-            <View style={{position: 'absolute', alignSelf: 'flex-end', top: 1, right: 2, backgroundColor: 'red', borderRadius: 40, alignItems: 'center', width: '35%', height: '35%'}}>
+            <View style={styles.photosNotification}>
               <Text style={{color: 'white'}} >{parsePhotoUris(record.photoUris).length}</Text>            
             </View>
           </View>}
@@ -111,5 +111,15 @@ const styles = StyleSheet.create({
   topIcon: {
     marginLeft: 1,
     flex: .15
+  },
+  photosNotification: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    top: 1,
+    right: 2,
+    backgroundColor: 'red',
+    borderRadius: 40,
+    alignItems: 'center',
+    width: '33%'
   }
 });
