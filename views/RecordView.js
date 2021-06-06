@@ -32,7 +32,6 @@ export class RecordView extends React.Component {
     gpsCoordinatesEditable: Platform.OS === 'ios' ? !global.appConfig.showGpsWarning : false,
     gpsCoordinatesFirstTap: true,
     gpsCoordinateString: undefined,
-    watchPosition: undefined,
     isUploading: false,
 
     //
@@ -300,22 +299,27 @@ export class RecordView extends React.Component {
   //
 
   async startGps() {
-    let { status } = await Location.requestForegroundPermissionsAsync();
+    const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
-      console.log('Permission to access location was denied');
+      console.log('Permission to access foreground location was denied: ${status}');
       return;
     }
 
-    this.watchPosition = await Location.watchPositionAsync({
-      accuracy: Location.High,
-      timeInterval: 5000
-    }, (position) => {
-      this.parseCoordinates(position.coords);
-    });
+    try {
+      this.watchPosition = await Location.watchPositionAsync({
+        accuracy: Location.Accuracy.High,
+        timeInterval: 5000
+      }, position => this.parseCoordinates(position.coords));
+    }
+    catch (error) {
+      console.log(`Location.watchPositionAsync() failed: ${JSON.stringify(error)}`);
+    }
   }
 
   stopGps() {
-    this.watchPosition.remove();
+    if (this.watchPosition) {
+      this.watchPosition.remove();
+    }
   }
 
   enableManualGpsCoordinates() {
