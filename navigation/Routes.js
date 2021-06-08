@@ -1,6 +1,6 @@
 export const Routes = {
   FirstRunScreen: "FirstRun",
-  HomeScreen: "Home",
+  TimelineScreen: "Timeline",
   RecordScreen: "Record",
   SettingsScreen: "Settings",
   ImagesPickerScreen: "Images",

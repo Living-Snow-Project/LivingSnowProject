@@ -110,7 +110,7 @@ export class RecordView extends React.Component {
       });
   
       // TODO: move to a 'finally' block once an activity indicator exists
-      this.props.navigation.navigate(Routes.HomeScreen);
+      this.props.navigation.navigate(Routes.TimelineScreen);
     }.bind(this);
 
     const { navigation } = this.props;

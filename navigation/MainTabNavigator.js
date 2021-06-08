@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import * as React from 'react';
-import HomeScreen from '../screens/HomeScreen';
+import { TimelineScreen } from '../screens/HomeScreen';
 import RecordScreen from '../screens/RecordScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import FirstRunScreen from '../screens/FirstRunScreen';
@@ -25,12 +25,12 @@ function RootNavigator() {
     <Stack.Navigator screenOptions={{headerShown: true}}>
       {global.showFirstRun && <Stack.Screen name={Routes.FirstRunScreen} component={FirstRunScreen} options={({headerTitle: 'Welcome'})}/>}
       <Stack.Screen
-        name={Routes.HomeScreen}
-        component={HomeScreen}
+        name={Routes.TimelineScreen}
+        component={TimelineScreen}
         options={({navigation}) => ({
           headerTitle: 'Timeline',
           headerTitleContainerStyle: {justifyContent: 'center'},
-          headerLeft: function HomeLeft() {
+          headerLeft: function TimelineLeft() {
             return <HeaderNavigation
               navigation={navigation}
               nextScreen={Routes.SettingsScreen}
@@ -39,7 +39,7 @@ function RootNavigator() {
             />
           },
           headerLeftContainerStyle: {marginLeft: 20},
-          headerRight: function HomeRight() {
+          headerRight: function TimelineRight() {
             return <HeaderNavigation
               navigation={navigation}
               nextScreen={Routes.RecordScreen}
