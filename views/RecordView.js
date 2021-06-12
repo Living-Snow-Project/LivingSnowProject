@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { Alert, Keyboard, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
@@ -68,6 +68,10 @@ export class RecordView extends React.Component {
 
     const year = date.getFullYear();
     this.state.date = `${year}-${month}-${day}`;
+
+    // needed to handle multiline TextInput and Keyboard interaction gracefully
+    this.locationDescriptionHeight = 0;
+    this.notesHeight = 0;
   }
 
   componentDidMount() {
@@ -153,6 +157,18 @@ export class RecordView extends React.Component {
 
   render() {
     const { navigation } = this.props;
+    const gpsFieldProps = {
+      style: styles.optionInputText,
+      ref: view => this.GpsCoordinates = view,
+      defaultValue: this.state.gpsCoordinateString,
+      onChangeText: value => this.updateGpsCoordinateString(value),
+      onSubmitEditing: () => this.locationDescription.focus(),
+      maxLength: 40,
+      returnKeyType: "done",
+      editable: this.state.gpsCoordinatesEditable
+    };
+    // this is kind of a hack to get placeholder text to appear vertically centered on ios when TextInput is multiline
+    const multilineTextInputStyle = Platform.OS === 'ios' ? styles.multilineTextInput : {};
     
     return (
       <KeyboardShift>
@@ -175,62 +191,50 @@ export class RecordView extends React.Component {
             </Text>
             <TouchableHighlight onPress={() => this.toggleDatePickerVisible()}>
               <View>
-                {
-                this.state.datePickerVisible && (
+                {this.state.datePickerVisible && 
                 <Calendar
                   current={this.state.date}
                   onDayPress={this.setDay.bind(this)}
                   markedDates={{[this.state.date]: {selected: true}}}
-                />
-              )}
-              {
-                !this.state.datePickerVisible && <Text style={styles.optionInputText}>{this.state.date}</Text>
-              }
+                />}
+                {!this.state.datePickerVisible &&
+                <Text style={styles.optionInputText}>
+                  {this.state.date}
+                </Text>}
               </View>
             </TouchableHighlight>
 
             {/* don't show tubeId when recording a sighting */}
-            {this.state.recordType === "Sample" && <View>
-              <Text style={styles.optionStaticText}>
-                Tube Id
-              </Text>
-              <TextInput
-                style={styles.optionInputText}
-                placeholder="Leave blank if the tube does not have an id"
-                onChangeText={(tubeId) => this.setState({tubeId})}
-                maxLength={40}
-                returnKeyType="done"
-              />
-            </View>}
+            {this.state.recordType === "Sample" &&
+            <Text style={styles.optionStaticText}>
+              Tube Id
+            </Text>}
+            {this.state.recordType === "Sample" &&
+            <TextInput
+              style={styles.optionInputText}
+              placeholder="Leave blank if the tube does not have an id"
+              onChangeText={tubeId => this.setState({tubeId})}
+              onSubmitEditing={() => {this.locationDescription.focus()}}
+              maxLength={40}
+              returnKeyType="done"
+            />}
 
-            {/* on iOS, TextInput takes precedence over TouchableHighlight.
+            {/* on iOS, TextInput captures input over parent TouchableHighlight.
                 on Android, onTouchStart does nothing and editable also behaves differently.
-                Workaround with TouchableHighlight, which takes precedence over TextInput. */}
+                So use TouchableHighlight on Android for capturing input and TextInput on iOS. */}
             <Text style={styles.optionStaticText}>
               GPS Coordinates (latitude, longitude)
             </Text>
             {Platform.OS === 'ios' &&
             <TextInput
-              style={styles.optionInputText}
-              ref={(view) => this.GpsCoordinates = view}
-              defaultValue={this.state.gpsCoordinateString}
-              onChangeText={(value) => this.updateGpsCoordinateString(value)}
+              {...gpsFieldProps}
               onTouchStart={() => this.toggleCoordinateEntry()}
-              maxLength={40}
-              returnKeyType="done"
-              editable={this.state.gpsCoordinatesEditable}
             />}
 
             {Platform.OS !== 'ios' &&
             <TouchableHighlight onPress={() => this.toggleCoordinateEntry()}>
               <TextInput
-                style={styles.optionInputText}
-                ref={(view) => this.GpsCoordinates = view}
-                defaultValue={this.state.gpsCoordinateString}
-                onChangeText={(value) => this.updateGpsCoordinateString(value)}
-                maxLength={40}
-                returnKeyType="done"
-                editable={this.state.gpsCoordinatesEditable}
+                {...gpsFieldProps}
               />
             </TouchableHighlight>}
 
@@ -238,10 +242,14 @@ export class RecordView extends React.Component {
               Location Description (limit 255 characters)
             </Text>
             <TextInput
-              style={styles.optionInputText}
+              style={[styles.optionInputText, multilineTextInputStyle]}
+              multiline
+              blurOnSubmit
+              ref={view => this.locationDescription = view}
               placeholder="ie: Blue Lake, North Cascades, WA"
-              onChangeText={(locationDescription) => this.setState({locationDescription})}
-              //onSubmitEditing={(event) => {this.Notes.focus()}}
+              onChangeText={locationDescription => this.setState({locationDescription})}
+              onSubmitEditing={() => {this.notes.focus()}}
+              onContentSizeChange={event => this.locationDescriptionHeight = this.handleMultilineTextInputOnContentSizeChange(this.locationDescriptionHeight, event)}
               maxLength={255}
               returnKeyType="done"
             />
@@ -250,10 +258,13 @@ export class RecordView extends React.Component {
               Additional Notes (limit 255 characters)
             </Text>
             <TextInput
-              style={styles.optionInputText}
-              //ref={(view) => this.Notes = view}
+              style={[styles.optionInputText, multilineTextInputStyle]}
+              multiline
+              blurOnSubmit
+              ref={view => this.notes = view}
               placeholder="ie. algae growing on glacial ice"
-              onChangeText={(notes) => this.setState({notes})}
+              onChangeText={notes => this.setState({notes})}
+              onContentSizeChange={event => this.notesHeight = this.handleMultilineTextInputOnContentSizeChange(this.notesHeight, event)}
               maxLength={255}
               returnKeyType="done"
             />
@@ -410,6 +421,17 @@ export class RecordView extends React.Component {
 
     return true;
   }
+
+  // onContentSizeChange is called frequently for multiline TextInput, we only want to emit 'keyboardDidShow' event when height actually changes
+  handleMultilineTextInputOnContentSizeChange(height, event) {
+    if (height != 0 && height != event.nativeEvent.contentSize.height) {
+      // 'keyboardDidShow' expects the height of the keyboard (which we could capture in a new event listener in this component)
+      // since we only have 1 'keyboardDidShow' listener we changed its logic to respond to this input
+      // this is potentially bad if we set up additional 'keyboardDidShow' listeners in the app
+      Keyboard.emit('keyboardDidShow', {});
+    }
+    return event.nativeEvent.contentSize.height;
+  }
 }
 
 const styles = StyleSheet.create({
@@ -428,7 +450,11 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderWidth: 1,
     borderColor: 'gray',
-    borderRadius: 4
+    borderRadius: 4,
+    minHeight: '8%'
+  },
+  multilineTextInput: {
+    paddingTop: 15
   }
 });
 
