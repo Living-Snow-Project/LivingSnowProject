@@ -1,38 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
 import { Network } from '../lib/Network';
 import { RecordManager } from '../lib/RecordManager';
 import { TimelineRow } from '../components/TimelineRow';
+import { StatusBar } from '../components/StatusBar';
 
-//
 // TODO: rename file
-// TODO?: Separate out the render code into a View file
-//
-
 function TimelineScreen({navigation}) {
   const [records, setRecords] = useState([]);
+  const [connected, setConnected] = useState(true);
+  const [status, setStatus] = useState({text: null, type: null, onDone: null});
 
-  // TODO?: is this better accomplished with "React Query" (since fetching and refreshing are similar)
-  let fetching = false;
+  const fetching = useRef(false);
   const [refreshing, setRefreshing] = useState(false);
+  
+  const updateStatus = (text, type, onDone = null) => {
+    setStatus({text: text, type: type, onDone: onDone});
+  }
+  
+  const clearStatus = () => {
+    updateStatus(null, null, null);
+  }
+
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(({isConnected}) => {
+      setConnected(isConnected);
+
+      isConnected ? clearStatus() : updateStatus(`No Internet Connection`, `static`, null);
+    });
+
+    return () => unsubscribe()    
+  }, []);
 
   const handleNetworkActivity = () => {
-    if (fetching) {
+    if (!connected || fetching.current) {
       return;
     }
 
-    fetching = true;
     setRefreshing(true);
+    fetching.current = true;
 
     RecordManager.retryRecords()
     .then(() => RecordManager.retryPhotos())
     .then(() => Network.downloadRecords())
     .then(response => setRecords(response))
-    .catch(() => Alert.alert(`Download failed`, `Could not download records. Please try again later.`))
+    .catch(() => console.log(`Could not download records. Please try again later.`))
     .finally(() => {
-      fetching = false;
       setRefreshing(false);
+      fetching.current = false;
     });
   }
 
@@ -51,19 +68,15 @@ function TimelineScreen({navigation}) {
 
   return (
     <View style={styles.container}>
+      <StatusBar text={status.text} type={status.type} onDone={status.onDone}/>
       <ScrollView
         style={styles.container}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleNetworkActivity}/>}
-      >
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleNetworkActivity}/>}>
         {renderRecords()}
       </ScrollView>
     </View>
   );
 }
-
-TimelineScreen.propTypes = {
-  navigation: PropTypes.object
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -75,5 +88,9 @@ const styles = StyleSheet.create({
     marginTop: 20
   },
 });
+
+TimelineScreen.propTypes = {
+  navigation: PropTypes.object
+};
 
 export { TimelineScreen };
