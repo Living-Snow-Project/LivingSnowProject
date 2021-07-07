@@ -20,6 +20,7 @@ export class RecordView extends React.Component {
       setOptions: PropTypes.func.isRequired,
     }).isRequired,
     route: PropTypes.object,
+    
   }
 
   state = {
