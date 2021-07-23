@@ -19,7 +19,7 @@ const RecordIcon = ({type}) => {
   let name = Platform.OS === 'ios' ? 'ios-eye' : 'md-eye';
   let color = 'skyblue';
   
-  if (type === "Sample") {
+  if (type.includes("Sample")) {
     name = Platform.OS === 'ios' ? 'ios-flask' : 'md-flask';
     color = 'lightcoral';
   }

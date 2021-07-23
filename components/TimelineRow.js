@@ -56,6 +56,16 @@ function parsePhotoUris(photoUris) {
 }
 
 const TimelineRow = ({navigation, record}) => {
+  const isAtlas = record.type.includes(`Atlas`);
+
+  if (global.appConfig.showOnlyAtlasRecords && !isAtlas) {
+    return null;
+  }
+
+  if (global.appConfig.showAtlasRecords === false && isAtlas) {
+    return null;
+  }
+  
   return (
     <View style={styles.recordContainer}>
       <Pressable onPress={() => navigation.navigate(Routes.RecordDetailsScreen, {record: record})}>
@@ -66,7 +76,7 @@ const TimelineRow = ({navigation, record}) => {
           <View style={styles.topIcon}>
             <RecordIcon type={record.type}/>
           </View>
-          {!empty(record.photoUris) && 
+          {!empty(record.photoUris) &&
           <View style={styles.topIcon}>
             <PictureIcon/>
             <View style={styles.photosNotification}>

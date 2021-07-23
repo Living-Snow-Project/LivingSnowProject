@@ -11,6 +11,7 @@ import { StockIcon } from '../components/TabBarIcon';
 import * as Location from 'expo-location';
 import { PhotoControl} from '../components/PhotoControl';
 import { Routes } from '../navigation/Routes';
+import { AtlasTypes, getAtlasTypeText } from '../lib/Atlas';
 
 export class RecordView extends React.Component {
   static propTypes = {
@@ -20,8 +21,9 @@ export class RecordView extends React.Component {
       setOptions: PropTypes.func.isRequired,
     }).isRequired,
     route: PropTypes.object,
-    
   }
+
+  isUploading = false;
 
   state = {
     //
@@ -33,7 +35,6 @@ export class RecordView extends React.Component {
     gpsCoordinatesEditable: Platform.OS === 'ios' ? !global.appConfig.showGpsWarning : false,
     gpsCoordinatesFirstTap: true,
     gpsCoordinateString: undefined,
-    isUploading: false,
 
     //
     // data collected and sent to the service
@@ -46,6 +47,7 @@ export class RecordView extends React.Component {
     tubeId: undefined, // (optional) id of the tube
     locationDescription: undefined, // (optional) short description of the location
     notes: undefined, // (optional) any other pertinent information
+    atlasType: AtlasTypes.Undefined,
     photos: []
   }
 
@@ -87,11 +89,11 @@ export class RecordView extends React.Component {
         return;
       }
   
-      if (this.state.isUploading) {
+      if (this.isUploading) {
         return;
       }
   
-      this.setState({isUploading: true});
+      this.isUploading = true;
   
       let record = {
         Type: this.state.recordType,
@@ -102,7 +104,8 @@ export class RecordView extends React.Component {
         Longitude: this.state.longitude,
         TubeId: this.state.tubeId,
         LocationDescription: this.state.locationDescription,
-        Notes: this.state.notes
+        Notes: this.state.notes,
+        AtlasType: this.state.atlasType
       };
     
       // TODO: add activity indicator
@@ -112,6 +115,9 @@ export class RecordView extends React.Component {
       .catch(error => {
         console.log(error);
         Alert.alert(`Record Saved`, `We will upload it later.`);
+      })
+      .finally(() => {
+        this.isUploading = false;
       });
   
       // TODO: move to a 'finally' block once an activity indicator exists
@@ -182,8 +188,20 @@ export class RecordView extends React.Component {
               style={pickerSelectStyles}
               useNativeAndroidPickerStyle={false}
               placeholder={{}}
-              items={[{label: 'I\'m Taking a Sample', value: 'Sample'}, {label: 'I\'m Reporting a Sighting', value: 'Sighting'}]}
-              onValueChange={value => {this.setRecordType(value)}}
+              items={[
+                {label: `I'm Taking a Sample`, value: `Sample`},
+                {label: `I'm Reporting a Sighting`, value: `Sighting`},
+                {label: `Atlas: Red Dot`, value: `Atlas: Red Dot`},
+                {label: `Atlas: Red Dot with Sample`, value: `Atlas: Red Dot with Sample`},
+                {label: `Atlas: Blue Dot`, value: `Atlas: Blue Dot`},
+                {label: `Atlas: Blue Dot with Sample`, value: `Atlas: Blue Dot with Sample`}
+              ]}
+              onValueChange={value => {
+                this.setRecordType(value);
+                if (value.includes(`Atlas`)) {
+                  this.setState({atlasType: AtlasTypes.SnowAlgae});
+                }
+              }}
               value={this.state.recordType}
             />
             
@@ -206,11 +224,11 @@ export class RecordView extends React.Component {
             </TouchableHighlight>
 
             {/* don't show tubeId when recording a sighting */}
-            {this.state.recordType === "Sample" &&
+            {this.state.recordType.includes(`Sample`) &&
             <Text style={styles.optionStaticText}>
               Tube Id
             </Text>}
-            {this.state.recordType === "Sample" &&
+            {this.state.recordType.includes(`Sample`) &&
             <TextInput
               style={styles.optionInputText}
               placeholder="Leave blank if the tube does not have an id"
@@ -238,6 +256,33 @@ export class RecordView extends React.Component {
                 {...gpsFieldProps}
               />
             </TouchableHighlight>}
+
+            {this.state.recordType.includes(`Atlas`) &&
+            <Text style={styles.optionStaticText}>
+              Atlas Surface Data
+            </Text>}
+            {this.state.recordType.includes(`Atlas`) &&
+            <RNPickerSelect
+              style={pickerSelectStyles}
+              useNativeAndroidPickerStyle={false}
+              placeholder={{}}
+              items={this.state.recordType.includes(`Sample`) ?
+              [
+                {label: getAtlasTypeText(AtlasTypes.SnowAlgae), value: AtlasTypes.SnowAlgae},
+                {label: getAtlasTypeText(AtlasTypes.MixOfAlgaeAndDirt), value: AtlasTypes.MixOfAlgaeAndDirt}
+              ] :
+              [
+                {label: getAtlasTypeText(AtlasTypes.SnowAlgae), value: AtlasTypes.SnowAlgae},
+                {label: getAtlasTypeText(AtlasTypes.DirtOrDebris), value: AtlasTypes.DirtOrDebris},
+                {label: getAtlasTypeText(AtlasTypes.Ash), value: AtlasTypes.Ash},
+                {label: getAtlasTypeText(AtlasTypes.WhiteSnow), value: AtlasTypes.WhiteSnow},
+                {label: getAtlasTypeText(AtlasTypes.MixOfAlgaeAndDirt), value: AtlasTypes.MixOfAlgaeAndDirt},
+                {label: getAtlasTypeText(AtlasTypes.ForestOrVegetation), value: AtlasTypes.ForestOrVegetation},
+                {label: `${getAtlasTypeText(AtlasTypes.Other)} (describe in notes)`, value: AtlasTypes.Other}
+              ]}
+              onValueChange={atlasType => {this.setState({atlasType})}}
+              value={this.state.atlasType}
+            />}
 
             <Text style={styles.optionStaticText}>
               Location Description (limit 255 characters)

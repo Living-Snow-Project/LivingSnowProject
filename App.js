@@ -8,7 +8,9 @@ global.appConfig = {
   name: '',
   organization: '',
   showFirstRun: true,
-  showGpsWarning: true
+  showGpsWarning: true,
+  showAtlasRecords: false,
+  showOnlyAtlasRecords: false
 }
 
 export default function App() {

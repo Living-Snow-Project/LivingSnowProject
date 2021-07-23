@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
 import PropTypes from 'prop-types';
 import { Network } from '../lib/Network';
@@ -9,6 +10,7 @@ import { StatusBar } from '../components/StatusBar';
 
 // TODO: rename file
 function TimelineScreen({navigation}) {
+  const [,setState]=useState();
   const [records, setRecords] = useState([]);
   const [connected, setConnected] = useState(true);
   const [status, setStatus] = useState({text: null, type: null, onDone: null});
@@ -33,6 +35,13 @@ function TimelineScreen({navigation}) {
 
     return () => unsubscribe()    
   }, []);
+
+  // force a re-render when user comes back from Settings screen
+  useFocusEffect(
+    useCallback(() => {
+      setState({});
+    }, [])
+  );
 
   const handleNetworkActivity = () => {
     if (!connected || fetching.current) {
