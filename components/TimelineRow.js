@@ -55,17 +55,15 @@ function parsePhotoUris(photoUris) {
   return result;
 }
 
-const TimelineRow = ({navigation, record}) => {
+const TimelineRow = ({navigation, record, showAll=false}) => {
   const isAtlas = record.type.includes(`Atlas`);
 
-  if (global.appConfig.showOnlyAtlasRecords && !isAtlas) {
+  // this logic should be in a parent function
+  if (!showAll &&
+      ((!global.appConfig.showAtlasRecords && isAtlas) || (global.appConfig.showOnlyAtlasRecords && !isAtlas))) {
     return null;
   }
 
-  if (global.appConfig.showAtlasRecords === false && isAtlas) {
-    return null;
-  }
-  
   return (
     <View style={styles.recordContainer}>
       <Pressable onPress={() => navigation.navigate(Routes.RecordDetailsScreen, {record: record})}>
@@ -80,11 +78,11 @@ const TimelineRow = ({navigation, record}) => {
           <View style={styles.topIcon}>
             <PictureIcon/>
             <View style={styles.photosNotification}>
-              <Text style={{color: 'white'}} >{parsePhotoUris(record.photoUris).length}</Text>            
+              <Text style={{color: 'white'}}>{parsePhotoUris(record.photoUris).length}</Text>            
             </View>
           </View>}
         </View>
-        {(!empty(record.locationDescription) || !empty(record.notes)) && <Text style={styles.bottomText}>{bottomText(record)}</Text>}
+        {(!empty(record.locationDescription) || !empty(record.notes)) && <Text>{bottomText(record)}</Text>}
       </Pressable>
     </View>
   );
@@ -99,15 +97,14 @@ TimelineRow.propTypes = {
     photoUris: PropTypes.string,
     locationDescription: PropTypes.string,
     notes: PropTypes.string,
-  })
+  }),
+  showAll: PropTypes.bool
 };
 
 export { TimelineRow };
 
 const styles = StyleSheet.create({
   recordContainer: {
-    borderColor: '#000000',
-    borderStyle: 'solid',
     borderBottomWidth: 1
   },
   recordTop: {

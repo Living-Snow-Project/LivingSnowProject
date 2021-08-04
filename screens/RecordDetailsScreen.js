@@ -47,7 +47,7 @@ function RecordDetailsScreen({route}) {
         <View style={{flex:photoUris.length, flexDirection: "column"}}>
           {photoUris.map((x, index) => 
             <View style={[(index == 0 ? styles.topImage : styles.image), {width: "100%", height: height}]} key={index}>
-              <Image style={{width: "100%", height: "100%"}} key={index} source={{uri: downloadPhotoUri(x)}}/>
+              <Image style={{width: "100%", height: "100%"}} key={index} source={{uri: x.includes(`file`) ? x : downloadPhotoUri(x)}}/>
             </View>)}
         </View>
       </View>}

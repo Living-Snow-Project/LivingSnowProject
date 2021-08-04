@@ -95,17 +95,17 @@ export class RecordView extends React.Component {
   
       this.isUploading = true;
   
-      let record = {
-        Type: this.state.recordType,
-        Name: global.appConfig.name,
-        Date: this.state.date,
-        Organization: global.appConfig.organization,
-        Latitude: this.state.latitude,
-        Longitude: this.state.longitude,
-        TubeId: this.state.tubeId,
-        LocationDescription: this.state.locationDescription,
-        Notes: this.state.notes,
-        AtlasType: this.state.atlasType
+      const record = {
+        type: this.state.recordType,
+        name: global.appConfig.name,
+        date: this.state.date,
+        organization: global.appConfig.organization,
+        latitude: this.state.latitude,
+        longitude: this.state.longitude,
+        tubeId: this.state.tubeId,
+        locationDescription: this.state.locationDescription,
+        notes: this.state.notes,
+        atlasType: this.state.atlasType
       };
     
       // TODO: add activity indicator
@@ -118,10 +118,8 @@ export class RecordView extends React.Component {
       })
       .finally(() => {
         this.isUploading = false;
+        this.props.navigation.navigate(Routes.TimelineScreen);
       });
-  
-      // TODO: move to a 'finally' block once an activity indicator exists
-      this.props.navigation.navigate(Routes.TimelineScreen);
     }.bind(this);
 
     const { navigation } = this.props;

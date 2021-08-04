@@ -51,13 +51,12 @@ const StatusBar = ({text, type, onDone}) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomColor: 'black',
-    borderBottomWidth: 1
+    borderBottomWidth: 1,
+    backgroundColor: 'lightgrey'
   },
   text: {
-    fontSize: 18,
-    textAlign: 'center',
-    backgroundColor: 'lightgrey'
+    fontSize: 16,
+    textAlign: 'center'
   }
 });
 
