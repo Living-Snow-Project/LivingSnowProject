@@ -17,7 +17,7 @@ function ImagesPickerScreen(props) {
           saveTo: 'jpeg',
         },
         assetsType: ['photo'],
-        maxSelections: 3,
+        maxSelections: 4,
         margin: 3,
         portraitCols: 4,
         landscapeCols: 5,

@@ -314,7 +314,7 @@ export class RecordView extends React.Component {
             />
             
             <Text style={styles.optionStaticText}>
-              Select Photos (limit 3)
+              Select Photos (limit 4)
             </Text>
             <PhotoControl navigation={navigation} photos={this.state.photos}/>
           </ScrollView>
