@@ -23,11 +23,16 @@ function TimelineScreen({navigation}) {
     const unsubscribe = NetInfo.addEventListener(({isConnected}) => {
       setConnected(isConnected);
 
-      // TODO: if the connection comes back, initiate handleNetworkActivity
-      isConnected ? clearStatus() : updateStatus(`No Internet Connection`, `static`, null);
+      if (isConnected) {
+        clearStatus();
+        handleNetworkActivity();
+      }
+      else {
+        updateStatus(`No Internet Connection`, `static`, null);
+      }
     });
 
-    return () => unsubscribe()
+    return unsubscribe
   }, []);
 
   const displaySavedRecords = useCallback(() => {
@@ -75,7 +80,7 @@ function TimelineScreen({navigation}) {
         <View style={styles.recordStatusContainer}>
           <Text style={styles.recordStatusText}>{label}</Text>
         </View>
-        {records.map((record, index) => (<TimelineRow key={index} navigation={navigation} record={record} showAll={label.includes(`Pending`)} />))}
+        {records.map((record, index) => <TimelineRow key={index} navigation={navigation} record={record} showAll={label.includes(`Pending`)} />)}
       </View>
     );
   }, []);
