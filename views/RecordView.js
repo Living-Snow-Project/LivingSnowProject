@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, Keyboard, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { ActivityIndicator, Alert, Keyboard, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
@@ -26,6 +26,7 @@ export class RecordView extends React.Component {
   isUploading = false;
 
   state = {
+    uploading: false,
     //
     // visibility and data tracking
     //
@@ -94,6 +95,7 @@ export class RecordView extends React.Component {
       }
   
       this.isUploading = true;
+      this.setState({uploading: true});
   
       const record = {
         type: this.state.recordType,
@@ -108,7 +110,6 @@ export class RecordView extends React.Component {
         atlasType: this.state.atlasType
       };
     
-      // TODO: add activity indicator
       RecordManager.uploadRecord(record, this.state.photos).then(() => {
         Alert.alert(`Upload succeeded`, `Thanks for your submission.`);
       })
@@ -118,6 +119,7 @@ export class RecordView extends React.Component {
       })
       .finally(() => {
         this.isUploading = false;
+        this.setState({uploading: false});
         this.props.navigation.navigate(Routes.TimelineScreen);
       });
     }.bind(this);
@@ -179,6 +181,10 @@ export class RecordView extends React.Component {
       <KeyboardShift>
         {() => (
           <ScrollView style={styles.container}>
+            {this.isUploading && 
+            <View style={{marginTop: 3}}>
+              <ActivityIndicator animating={this.state.uploading} size={'large'} color="#0000ff"/>
+            </View>}
             <Text style={styles.optionStaticText}>
               Are you Taking a Sample or Reporting a Sighting?
             </Text>

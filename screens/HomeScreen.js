@@ -44,6 +44,7 @@ function TimelineScreen({navigation}) {
   }, []);
 
   // force a re-render when user comes back from Settings screen
+  // TODO: figure out why this is getting called on blur too
   useFocusEffect(displaySavedRecords);
 
   const handleNetworkActivity = useCallback(() => {
