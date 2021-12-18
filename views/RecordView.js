@@ -12,6 +12,7 @@ import * as Location from 'expo-location';
 import { PhotoControl} from '../components/PhotoControl';
 import { Routes } from '../navigation/Routes';
 import { AtlasTypes, getAtlasTypeText } from '../lib/Atlas';
+import { TypeSelector } from '../components/forms/TypeSelector';
 
 export class RecordView extends React.Component {
   static propTypes = {
@@ -79,12 +80,8 @@ export class RecordView extends React.Component {
   }
 
   componentDidMount() {
-
-    //
-    // set callback when "upload-record icon" tapped
+    // callback when "upload-record icon" tapped
     // TODO: not super happy about this, maybe when we refactor to functional components and use hooks we can clean this up
-    //
-
     const handleUploadRecord = function() {
       if (!this.validateInput()) {
         return;
@@ -128,7 +125,7 @@ export class RecordView extends React.Component {
     navigation.setOptions({
       headerRight: function RecordRight() {
         return (
-          <Touchable onPress={() => handleUploadRecord()}>
+          <Touchable onPress={handleUploadRecord}>
             <StockIcon name={Platform.OS === 'ios' ? 'ios-cloud-upload' : 'md-cloud-upload'} />
           </Touchable>
         )},
@@ -185,29 +182,8 @@ export class RecordView extends React.Component {
             <View style={{marginTop: 3}}>
               <ActivityIndicator animating={this.state.uploading} size={'large'} color="#0000ff"/>
             </View>}
-            <Text style={styles.optionStaticText}>
-              Are you Taking a Sample or Reporting a Sighting?
-            </Text>
-            <RNPickerSelect
-              style={pickerSelectStyles}
-              useNativeAndroidPickerStyle={false}
-              placeholder={{}}
-              items={[
-                {label: `I'm Taking a Sample`, value: `Sample`},
-                {label: `I'm Reporting a Sighting`, value: `Sighting`},
-                {label: `Atlas: Red Dot`, value: `Atlas: Red Dot`},
-                {label: `Atlas: Red Dot with Sample`, value: `Atlas: Red Dot with Sample`},
-                {label: `Atlas: Blue Dot`, value: `Atlas: Blue Dot`},
-                {label: `Atlas: Blue Dot with Sample`, value: `Atlas: Blue Dot with Sample`}
-              ]}
-              onValueChange={value => {
-                this.setRecordType(value);
-                if (value.includes(`Atlas`)) {
-                  this.setState({atlasType: AtlasTypes.SnowAlgae});
-                }
-              }}
-              value={this.state.recordType}
-            />
+            
+            <TypeSelector recordType={this.state.recordType} setRecordType={this.setRecordType.bind(this)} setAtlasType={this.setState.bind(this)}/>
             
             <Text style={styles.optionStaticText}>
               Date
