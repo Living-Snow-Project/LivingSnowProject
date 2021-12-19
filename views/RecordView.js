@@ -1,6 +1,5 @@
 import React from 'react';
 import { ActivityIndicator, Alert, Keyboard, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
-import { Calendar } from 'react-native-calendars';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
 import { Storage } from '../lib/Storage';
@@ -13,6 +12,7 @@ import { PhotoControl} from '../components/PhotoControl';
 import { Routes } from '../navigation/Routes';
 import { AtlasTypes, getAtlasTypeText } from '../lib/Atlas';
 import { TypeSelector } from '../components/forms/TypeSelector';
+import { DateSelector } from '../components/forms/DateSelector';
 
 export class RecordView extends React.Component {
   static propTypes = {
@@ -32,8 +32,6 @@ export class RecordView extends React.Component {
     // visibility and data tracking
     //
 
-    recordTypeVisible: false,
-    datePickerVisible: false,
     gpsCoordinatesEditable: Platform.OS === 'ios' ? !global.appConfig.showGpsWarning : false,
     gpsCoordinatesFirstTap: true,
     gpsCoordinateString: undefined,
@@ -184,24 +182,7 @@ export class RecordView extends React.Component {
             </View>}
             
             <TypeSelector recordType={this.state.recordType} setRecordType={this.setRecordType.bind(this)} setAtlasType={this.setState.bind(this)}/>
-            
-            <Text style={styles.optionStaticText}>
-              Date
-            </Text>
-            <TouchableHighlight onPress={() => this.toggleDatePickerVisible()}>
-              <View>
-                {this.state.datePickerVisible && 
-                <Calendar
-                  current={this.state.date}
-                  onDayPress={this.setDay.bind(this)}
-                  markedDates={{[this.state.date]: {selected: true}}}
-                />}
-                {!this.state.datePickerVisible &&
-                <Text style={styles.optionInputText}>
-                  {this.state.date}
-                </Text>}
-              </View>
-            </TouchableHighlight>
+            <DateSelector date={this.state.date} setDate={this.setDate.bind(this)}/>
 
             {/* don't show tubeId when recording a sighting */}
             {this.state.recordType.includes(`Sample`) &&
@@ -305,30 +286,12 @@ export class RecordView extends React.Component {
     );
   }
 
-  //
-  // Record type functions and state
-  //
-
   setRecordType(newRecordType) {
     this.setState({recordType: newRecordType});
-    this.toggleRecordType();
   }
 
-  toggleRecordType() {
-    this.setState({recordTypeVisible: !this.state.recordTypeVisible});
-  }
-
-  //
-  // Date functions and state
-  //
-
-  setDay(day) {
-    this.toggleDatePickerVisible();
-    this.setState({date: day.dateString});
-  }
-
-  toggleDatePickerVisible() {
-    this.setState({datePickerVisible: !this.state.datePickerVisible});
+  setDate(date) {
+    this.setState({date: date.dateString});
   }
 
   //
