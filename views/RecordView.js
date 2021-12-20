@@ -1,5 +1,5 @@
-import React from 'react';
-import { ActivityIndicator, Alert, Keyboard, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import React, { createRef } from 'react';
+import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
 import { Storage } from '../lib/Storage';
@@ -13,6 +13,7 @@ import { Routes } from '../navigation/Routes';
 import { AtlasTypes, getAtlasTypeText } from '../lib/Atlas';
 import { TypeSelector } from '../components/forms/TypeSelector';
 import { DateSelector } from '../components/forms/DateSelector';
+import { CustomTextInput } from '../components/forms/CustomTextInput';
 
 export class RecordView extends React.Component {
   static propTypes = {
@@ -28,18 +29,12 @@ export class RecordView extends React.Component {
 
   state = {
     uploading: false,
-    //
-    // visibility and data tracking
-    //
 
     gpsCoordinatesEditable: Platform.OS === 'ios' ? !global.appConfig.showGpsWarning : false,
     gpsCoordinatesFirstTap: true,
     gpsCoordinateString: undefined,
 
-    //
     // data collected and sent to the service
-    //
-
     recordType: 'Sample', // sample or sighting
     date: undefined, // YYYY/MM/DD
     latitude: undefined, // GPS
@@ -54,27 +49,12 @@ export class RecordView extends React.Component {
   constructor(props) {
     super(props);
 
-    //
-    // initialize date, keeping the format used by Calendar component
-    //
+    // keep format used by Calendar component
+    this.state.date = new Date().toLocaleDateString('en-CA');
 
-    const date = new Date();
-    let day = date.getDate();
-    if (day < 10) {
-      day = `0${day}`;
-    }
-
-    let month = date.getMonth() + 1;
-    if (month < 10) {
-      month = `0${month}`;
-    }
-
-    const year = date.getFullYear();
-    this.state.date = `${year}-${month}-${day}`;
-
-    // needed to handle multiline TextInput and Keyboard interaction gracefully
-    this.locationDescriptionHeight = 0;
-    this.notesHeight = 0;
+    // moving focus between text input form fields
+    this.locationDescriptionRef = createRef();
+    this.notesRef = createRef();
   }
 
   componentDidMount() {
@@ -130,10 +110,7 @@ export class RecordView extends React.Component {
       headerRightContainerStyle: { marginRight: 20 },
     });
   
-    //
     // start the gps
-    //
-
     this.startGps();
   }
 
@@ -164,13 +141,11 @@ export class RecordView extends React.Component {
       ref: view => this.GpsCoordinates = view,
       defaultValue: this.state.gpsCoordinateString,
       onChangeText: value => this.updateGpsCoordinateString(value),
-      onSubmitEditing: () => this.locationDescription.focus(),
-      maxLength: 40,
+      onSubmitEditing: () => this.locationDescriptionRef.current.focus(),
+      maxLength: 30,
       returnKeyType: "done",
       editable: this.state.gpsCoordinatesEditable
     };
-    // this is kind of a hack to get placeholder text to appear vertically centered on ios when TextInput is multiline
-    const multilineTextInputStyle = Platform.OS === 'ios' ? styles.multilineTextInput : {};
     
     return (
       <KeyboardShift>
@@ -181,22 +156,20 @@ export class RecordView extends React.Component {
               <ActivityIndicator animating={this.state.uploading} size={'large'} color="#0000ff"/>
             </View>}
             
+            {/* Sample, Sighting, Atlas, etc */}
             <TypeSelector recordType={this.state.recordType} setRecordType={this.setRecordType.bind(this)} setAtlasType={this.setState.bind(this)}/>
+
+            {/* Date of Sample, Sighting, Atlas, etc */}
             <DateSelector date={this.state.date} setDate={this.setDate.bind(this)}/>
 
-            {/* don't show tubeId when recording a sighting */}
+            {/* Tube Id: only show Tube Id when recording a Sample */}
             {this.state.recordType.includes(`Sample`) &&
-            <Text style={styles.optionStaticText}>
-              Tube Id
-            </Text>}
-            {this.state.recordType.includes(`Sample`) &&
-            <TextInput
-              style={styles.optionInputText}
-              placeholder="Leave blank if the tube does not have an id"
+            <CustomTextInput
+              description={`Tube Id`}
+              placeholder={`Leave blank if the tube does not have an id`}
+              maxLength={20}
               onChangeText={tubeId => this.setState({tubeId})}
-              onSubmitEditing={() => {this.locationDescription.focus()}}
-              maxLength={40}
-              returnKeyType="done"
+              onSubmitEditing={() => this.locationDescriptionRef.current.focus()}
             />}
 
             {/* on iOS, TextInput captures input over parent TouchableHighlight.
@@ -244,36 +217,20 @@ export class RecordView extends React.Component {
               onValueChange={atlasType => {this.setState({atlasType})}}
               value={this.state.atlasType}
             />}
-
-            <Text style={styles.optionStaticText}>
-              Location Description (limit 255 characters)
-            </Text>
-            <TextInput
-              style={[styles.optionInputText, multilineTextInputStyle]}
-              multiline
-              blurOnSubmit
-              ref={view => this.locationDescription = view}
-              placeholder="ie: Blue Lake, North Cascades, WA"
+            
+            <CustomTextInput
+              description={`Location Description (limit 255 characters)`}
+              placeholder={`ie: Blue Lake, North Cascades, WA`}
               onChangeText={locationDescription => this.setState({locationDescription})}
-              onSubmitEditing={() => {this.notes.focus()}}
-              onContentSizeChange={event => this.locationDescriptionHeight = this.handleMultilineTextInputOnContentSizeChange(this.locationDescriptionHeight, event)}
-              maxLength={255}
-              returnKeyType="done"
+              onSubmitEditing={() => this.notesRef.current.focus()}
+              ref={this.locationDescriptionRef}
             />
-
-            <Text style={styles.optionStaticText}>
-              Additional Notes (limit 255 characters)
-            </Text>
-            <TextInput
-              style={[styles.optionInputText, multilineTextInputStyle]}
-              multiline
-              blurOnSubmit
-              ref={view => this.notes = view}
-              placeholder="ie. algae growing on glacial ice"
+            
+            <CustomTextInput
+              description={`Additional Notes (limit 255 characters)`}
+              placeholder={`ie. algae growing on glacial ice`}
               onChangeText={notes => this.setState({notes})}
-              onContentSizeChange={event => this.notesHeight = this.handleMultilineTextInputOnContentSizeChange(this.notesHeight, event)}
-              maxLength={255}
-              returnKeyType="done"
+              ref={this.notesRef}
             />
             
             <Text style={styles.optionStaticText}>
@@ -409,17 +366,6 @@ export class RecordView extends React.Component {
     }
 
     return true;
-  }
-
-  // onContentSizeChange is called frequently for multiline TextInput, we only want to emit 'keyboardDidShow' event when height actually changes
-  handleMultilineTextInputOnContentSizeChange(height, event) {
-    if (height != 0 && height != event.nativeEvent.contentSize.height) {
-      // 'keyboardDidShow' expects the height of the keyboard (which we could capture in a new event listener in this component)
-      // since we only have 1 'keyboardDidShow' listener we changed its logic to respond to this input
-      // this is potentially bad if we set up additional 'keyboardDidShow' listeners in the app
-      Keyboard.emit('keyboardDidShow', {});
-    }
-    return event.nativeEvent.contentSize.height;
   }
 }
 
