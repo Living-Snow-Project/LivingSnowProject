@@ -1,5 +1,5 @@
 import React, { createRef } from 'react';
-import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
 import { Storage } from '../lib/Storage';
@@ -7,13 +7,13 @@ import { RecordManager } from '../lib/RecordManager';
 import KeyboardShift from '../components/KeyboardShift';
 import Touchable from 'react-native-platform-touchable';
 import { StockIcon } from '../components/TabBarIcon';
-import * as Location from 'expo-location';
 import { PhotoControl} from '../components/PhotoControl';
 import { Routes } from '../navigation/Routes';
 import { AtlasTypes, getAtlasTypeText } from '../lib/Atlas';
 import { TypeSelector } from '../components/forms/TypeSelector';
 import { DateSelector } from '../components/forms/DateSelector';
 import { CustomTextInput } from '../components/forms/CustomTextInput';
+import { GpsCoordinatesInput } from '../components/forms/GpsCoordinatesInput';
 
 export class RecordView extends React.Component {
   static propTypes = {
@@ -27,12 +27,9 @@ export class RecordView extends React.Component {
 
   isUploading = false;
 
+  // TODO: much of this can be moved to a useRef once we finish re-factoring
   state = {
     uploading: false,
-
-    gpsCoordinatesEditable: Platform.OS === 'ios' ? !global.appConfig.showGpsWarning : false,
-    gpsCoordinatesFirstTap: true,
-    gpsCoordinateString: undefined,
 
     // data collected and sent to the service
     recordType: 'Sample', // sample or sighting
@@ -109,9 +106,6 @@ export class RecordView extends React.Component {
         )},
       headerRightContainerStyle: { marginRight: 20 },
     });
-  
-    // start the gps
-    this.startGps();
   }
 
   componentDidUpdate() {
@@ -130,22 +124,8 @@ export class RecordView extends React.Component {
     }
   }
 
-  componentWillUnmount() {
-    this.stopGps();
-  }
-
   render() {
     const { navigation } = this.props;
-    const gpsFieldProps = {
-      style: styles.optionInputText,
-      ref: view => this.GpsCoordinates = view,
-      defaultValue: this.state.gpsCoordinateString,
-      onChangeText: value => this.updateGpsCoordinateString(value),
-      onSubmitEditing: () => this.locationDescriptionRef.current.focus(),
-      maxLength: 30,
-      returnKeyType: "done",
-      editable: this.state.gpsCoordinatesEditable
-    };
     
     return (
       <KeyboardShift>
@@ -157,6 +137,7 @@ export class RecordView extends React.Component {
             </View>}
             
             {/* Sample, Sighting, Atlas, etc */}
+            {/* TODO: consistency between setting state variables, address when re-factor to functional */}
             <TypeSelector recordType={this.state.recordType} setRecordType={this.setRecordType.bind(this)} setAtlasType={this.setState.bind(this)}/>
 
             {/* Date of Sample, Sighting, Atlas, etc */}
@@ -171,25 +152,8 @@ export class RecordView extends React.Component {
               onChangeText={tubeId => this.setState({tubeId})}
               onSubmitEditing={() => this.locationDescriptionRef.current.focus()}
             />}
-
-            {/* on iOS, TextInput captures input over parent TouchableHighlight.
-                on Android, onTouchStart does nothing and editable also behaves differently.
-                So use TouchableHighlight on Android for capturing input and TextInput on iOS. */}
-            <Text style={styles.optionStaticText}>
-              GPS Coordinates (latitude, longitude)
-            </Text>
-            {Platform.OS === 'ios' &&
-            <TextInput
-              {...gpsFieldProps}
-              onTouchStart={() => this.toggleCoordinateEntry()}
-            />}
-
-            {Platform.OS !== 'ios' &&
-            <TouchableHighlight onPress={() => this.toggleCoordinateEntry()}>
-              <TextInput
-                {...gpsFieldProps}
-              />
-            </TouchableHighlight>}
+            
+            <GpsCoordinatesInput setGpsCoordinates={this.setGpsCoordinates.bind(this)} onSubmitEditing={() => this.locationDescriptionRef.current.focus()}/>
 
             {this.state.recordType.includes(`Atlas`) &&
             <Text style={styles.optionStaticText}>
@@ -202,6 +166,7 @@ export class RecordView extends React.Component {
               placeholder={{}}
               items={this.state.recordType.includes(`Sample`) ?
               [
+                // todo: getAtlasType should be returning Object: {label: X, value: Y}
                 {label: getAtlasTypeText(AtlasTypes.SnowAlgae), value: AtlasTypes.SnowAlgae},
                 {label: getAtlasTypeText(AtlasTypes.MixOfAlgaeAndDirt), value: AtlasTypes.MixOfAlgaeAndDirt}
               ] :
@@ -243,6 +208,7 @@ export class RecordView extends React.Component {
     );
   }
 
+  // TODO: remove wrappers when re-factor to functional component
   setRecordType(newRecordType) {
     this.setState({recordType: newRecordType});
   }
@@ -251,99 +217,9 @@ export class RecordView extends React.Component {
     this.setState({date: date.dateString});
   }
 
-  //
-  // GPS functions and state
-  //
-
-  async startGps() {
-    const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
-      console.log('Permission to access foreground location was denied: ${status}');
-      return;
-    }
-
-    try {
-      this.watchPosition = await Location.watchPositionAsync({
-        accuracy: Location.Accuracy.High,
-        timeInterval: 5000
-      }, position => this.parseCoordinates(position.coords));
-    }
-    catch (error) {
-      console.log(`Location.watchPositionAsync() failed: ${JSON.stringify(error)}`);
-    }
-  }
-
-  stopGps() {
-    if (this.watchPosition) {
-      this.watchPosition.remove();
-    }
-  }
-
-  enableManualGpsCoordinates() {
-    this.stopGps();
-    
-    //
-    // reset coordinate string, make the coordinate input editable, set focus
-    //
-
-    this.updateGpsCoordinateString('');
-    this.setState({gpsCoordinatesEditable: true});
-    this.GpsCoordinates.focus();
-  }
-
-  clipCoordinate(coordinate) {
-    return JSON.stringify(coordinate.toFixed(6)).replace('"','').replace('"','');
-  }
-
-  parseCoordinates({latitude, longitude}) {
-    const lat = this.clipCoordinate(latitude);
-    const long = this.clipCoordinate(longitude);
-    this.updateGpsCoordinateString(`${lat}, ${long}`);
-  }
-
-  updateGpsCoordinateString(value) {
-    this.setState({gpsCoordinateString: value});
-    this.setState({latitude: undefined});
-    this.setState({longitude: undefined});
-
-    let coordinates = value.split(',');
-
-    if (coordinates[0]) {
-      this.setState({latitude: coordinates[0].trim()});
-    }
-
-    if (coordinates[1]) {
-      this.setState({longitude: coordinates[1].trim()});
-    }
-  }
-
-  toggleCoordinateEntry() {
-    if (global.appConfig.showGpsWarning && !this.state.gpsCoordinatesEditable) {
-      Alert.alert(
-        'Enter GPS coordinates manually?',
-        null,
-        [{
-          text: 'Yes, disable this message',
-          onPress: () => {
-            global.appConfig.showGpsWarning = false;
-            Storage.saveAppConfig();
-            this.enableManualGpsCoordinates();
-          }
-        },
-        {
-          text: 'Yes',
-          onPress: () => this.enableManualGpsCoordinates()
-        },
-        {
-          text: 'No',
-          style: 'cancel'
-        }]
-      )
-    }
-    else if (this.state.gpsCoordinatesFirstTap) {
-      this.enableManualGpsCoordinates();
-      this.setState({gpsCoordinatesFirstTap: false});
-    }
+  setGpsCoordinates(latitude, longitude) {
+    this.setState({latitude: latitude});
+    this.setState({longitude: longitude});
   }
 
   // form input validation
@@ -353,10 +229,10 @@ export class RecordView extends React.Component {
       Storage.saveAppConfig();
     }
 
-    if (!this.state.latitude || !this.state.longitude) {
+    if (!this.state.latitude || !this.state.longitude || isNaN(Number(this.state.latitude)) || isNaN(Number(this.state.longitude))) {
       Alert.alert(
-        `Invalid record`,
-        `Your record does not have a valid GPS coordinate and cannot be uploaded.`,
+        `Invalid GPS coordinates`,
+        `Coordinates must be in "lat, long" format. ie. 12.345678, -123.456789`,
         [{
             text: `Ok`
         }]
@@ -369,6 +245,7 @@ export class RecordView extends React.Component {
   }
 }
 
+// TODO: delete when all form fields become their own component
 const styles = StyleSheet.create({
   container: {
     flex: 1,
