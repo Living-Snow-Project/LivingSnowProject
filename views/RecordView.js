@@ -1,6 +1,5 @@
 import React, { createRef } from 'react';
 import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
-import RNPickerSelect from 'react-native-picker-select';
 import PropTypes from 'prop-types';
 import { Storage } from '../lib/Storage';
 import { RecordManager } from '../lib/RecordManager';
@@ -9,11 +8,12 @@ import Touchable from 'react-native-platform-touchable';
 import { StockIcon } from '../components/TabBarIcon';
 import { PhotoControl} from '../components/PhotoControl';
 import { Routes } from '../navigation/Routes';
-import { AtlasTypes, getAtlasTypeText } from '../lib/Atlas';
+import { AtlasTypes } from '../lib/Atlas';
 import { TypeSelector } from '../components/forms/TypeSelector';
 import { DateSelector } from '../components/forms/DateSelector';
 import { CustomTextInput } from '../components/forms/CustomTextInput';
 import { GpsCoordinatesInput } from '../components/forms/GpsCoordinatesInput';
+import { AtlasSelector } from '../components/forms/AtlasSelector';
 
 export class RecordView extends React.Component {
   static propTypes = {
@@ -79,7 +79,7 @@ export class RecordView extends React.Component {
         tubeId: this.state.tubeId,
         locationDescription: this.state.locationDescription,
         notes: this.state.notes,
-        atlasType: this.state.atlasType
+        atlasType: this.state.recordType.includes(`Atlas`) ? this.state.atlasType : AtlasTypes.Undefined
       };
     
       RecordManager.uploadRecord(record, this.state.photos).then(() => {
@@ -137,11 +137,10 @@ export class RecordView extends React.Component {
             </View>}
             
             {/* Sample, Sighting, Atlas, etc */}
-            {/* TODO: consistency between setting state variables, address when re-factor to functional */}
-            <TypeSelector recordType={this.state.recordType} setRecordType={this.setRecordType.bind(this)} setAtlasType={this.setState.bind(this)}/>
+            <TypeSelector recordType={this.state.recordType} setRecordType={type => this.setState({recordType: type})} />
 
             {/* Date of Sample, Sighting, Atlas, etc */}
-            <DateSelector date={this.state.date} setDate={this.setDate.bind(this)}/>
+            <DateSelector date={this.state.date} setDate={date => this.setState({date: date})}/>
 
             {/* Tube Id: only show Tube Id when recording a Sample */}
             {this.state.recordType.includes(`Sample`) &&
@@ -153,35 +152,16 @@ export class RecordView extends React.Component {
               onSubmitEditing={() => this.locationDescriptionRef.current.focus()}
             />}
             
-            <GpsCoordinatesInput setGpsCoordinates={this.setGpsCoordinates.bind(this)} onSubmitEditing={() => this.locationDescriptionRef.current.focus()}/>
+            <GpsCoordinatesInput
+              setGpsCoordinates={(lat, long) => this.setState({latitude: lat, longitude: long})}
+              onSubmitEditing={() => this.locationDescriptionRef.current.focus()}
+            />
 
-            {this.state.recordType.includes(`Atlas`) &&
-            <Text style={styles.optionStaticText}>
-              Atlas Surface Data
-            </Text>}
-            {this.state.recordType.includes(`Atlas`) &&
-            <RNPickerSelect
-              style={pickerSelectStyles}
-              useNativeAndroidPickerStyle={false}
-              placeholder={{}}
-              items={this.state.recordType.includes(`Sample`) ?
-              [
-                // todo: getAtlasType should be returning Object: {label: X, value: Y}
-                {label: getAtlasTypeText(AtlasTypes.SnowAlgae), value: AtlasTypes.SnowAlgae},
-                {label: getAtlasTypeText(AtlasTypes.MixOfAlgaeAndDirt), value: AtlasTypes.MixOfAlgaeAndDirt}
-              ] :
-              [
-                {label: getAtlasTypeText(AtlasTypes.SnowAlgae), value: AtlasTypes.SnowAlgae},
-                {label: getAtlasTypeText(AtlasTypes.DirtOrDebris), value: AtlasTypes.DirtOrDebris},
-                {label: getAtlasTypeText(AtlasTypes.Ash), value: AtlasTypes.Ash},
-                {label: getAtlasTypeText(AtlasTypes.WhiteSnow), value: AtlasTypes.WhiteSnow},
-                {label: getAtlasTypeText(AtlasTypes.MixOfAlgaeAndDirt), value: AtlasTypes.MixOfAlgaeAndDirt},
-                {label: getAtlasTypeText(AtlasTypes.ForestOrVegetation), value: AtlasTypes.ForestOrVegetation},
-                {label: `${getAtlasTypeText(AtlasTypes.Other)} (describe in notes)`, value: AtlasTypes.Other}
-              ]}
-              onValueChange={atlasType => {this.setState({atlasType})}}
-              value={this.state.atlasType}
-            />}
+            <AtlasSelector
+              recordType={this.state.recordType}
+              atlasType={this.state.atlasType}
+              setAtlasType={type => this.setState({atlasType: type})}
+            />
             
             <CustomTextInput
               description={`Location Description (limit 255 characters)`}
@@ -208,28 +188,21 @@ export class RecordView extends React.Component {
     );
   }
 
-  // TODO: remove wrappers when re-factor to functional component
-  setRecordType(newRecordType) {
-    this.setState({recordType: newRecordType});
-  }
-
-  setDate(date) {
-    this.setState({date: date.dateString});
-  }
-
-  setGpsCoordinates(latitude, longitude) {
-    this.setState({latitude: latitude});
-    this.setState({longitude: longitude});
+  isNumber(value) {
+    return !isNaN(Number(value));
   }
 
   // form input validation
   validateInput() {
-    if (!global.appConfig.name || global.appConfig.name === '') {
-      global.appConfig.name = 'Anonymous';
+    if (!global.appConfig.name || global.appConfig.name === ``) {
+      global.appConfig.name = `Anonymous`;
       Storage.saveAppConfig();
     }
 
-    if (!this.state.latitude || !this.state.longitude || isNaN(Number(this.state.latitude)) || isNaN(Number(this.state.longitude))) {
+    if (!this.state.latitude || 
+        !this.state.longitude || 
+        !this.isNumber(this.state.latitude) || 
+        !this.isNumber(this.state.longitude)) {
       Alert.alert(
         `Invalid GPS coordinates`,
         `Coordinates must be in "lat, long" format. ie. 12.345678, -123.456789`,
@@ -268,9 +241,4 @@ const styles = StyleSheet.create({
   multilineTextInput: {
     paddingTop: 15
   }
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: styles.optionInputText,
-  inputAndroid: styles.optionInputText
 });

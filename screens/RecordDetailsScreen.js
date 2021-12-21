@@ -2,9 +2,9 @@ import React from 'react';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { downloadPhotoUri } from '../lib/Network';
-import { getAtlasTypeText } from '../lib/Atlas';
+import { getAtlasItem } from '../lib/Atlas';
 
-// TODO: make a Record Closure object
+// TODO: make an encapsulated Record object
 function parsePhotoUris(photoUris) {
   if (!photoUris) {
     return [];
@@ -21,7 +21,6 @@ function RecordDetailsScreen({route}) {
   const photoUris = parsePhotoUris(route.params.record.photoUris);
   // TODO: prefer to scale images based on dominant axis
   const height = Dimensions.get('screen').height * 0.75;
-  const atlasTypeText = getAtlasTypeText(atlasType);
 
   return (
     <ScrollView style={styles.container}>
@@ -35,7 +34,7 @@ function RecordDetailsScreen({route}) {
         {!!organization && <Text>{`Organization: ${organization}`}</Text>}
         <Text>{`Location: ${latitude}, ${longitude}`}</Text>
         {!!tubeId && <Text>{`TubeId: ${tubeId}`}</Text>}
-        {!!atlasType && atlasType > 0 && <Text>{`Atlas Surface Data: ${atlasTypeText}`}</Text>}
+        {!!atlasType && atlasType > 0 && <Text>{`Atlas Surface Data: ${getAtlasItem(atlasType).label}`}</Text>}
         {!!locationDescription && <Text>{`Description: ${locationDescription}`}</Text>}
         {!!notes && <Text>{`Additional Notes: ${notes}`}</Text>}
       </View>

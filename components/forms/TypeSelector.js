@@ -3,9 +3,8 @@ import { Text } from 'react-native';
 import PropTypes from 'prop-types';
 import RNPickerSelect from 'react-native-picker-select';
 import { pickerSelectStyles, formInputStyles } from '../../styles/FormInput';
-import { AtlasTypes } from '../../lib/Atlas';
 
-export const TypeSelector = ({recordType, setRecordType, setAtlasType}) => {
+export const TypeSelector = ({recordType, setRecordType}) => {
   return (
     <>
       <Text style={formInputStyles.optionStaticText}>
@@ -23,12 +22,7 @@ export const TypeSelector = ({recordType, setRecordType, setAtlasType}) => {
           {label: `Atlas: Blue Dot`, value: `Atlas: Blue Dot`},
           {label: `Atlas: Blue Dot with Sample`, value: `Atlas: Blue Dot with Sample`}
         ]}
-        onValueChange={value => {
-          setRecordType(value);
-          if (value.includes(`Atlas`)) {
-            setAtlasType({atlasType: AtlasTypes.SnowAlgae});
-          }
-        }}
+        onValueChange={value => setRecordType(value)}
         value={recordType}
       />
     </>
@@ -37,6 +31,5 @@ export const TypeSelector = ({recordType, setRecordType, setAtlasType}) => {
 
 TypeSelector.propTypes = {
   recordType: PropTypes.string,
-  setRecordType: PropTypes.func,
-  setAtlasType: PropTypes.func,
+  setRecordType: PropTypes.func
 };
