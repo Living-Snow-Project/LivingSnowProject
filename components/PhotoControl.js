@@ -1,12 +1,23 @@
 import React, { useCallback } from 'react';
-import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { Image, LogBox, Pressable, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
+import { formInputStyles } from '../styles/FormInput';
 import { PictureIcon } from '../components/TabBarIcon';
 import { Routes } from '../navigation/Routes';
 
-const PhotoControl = ({navigation, photos}) => {
+// because we pass a callback in params, more info from the following links
+// https://reactnavigation.org/docs/troubleshooting/#i-get-the-warning-non-serializable-values-were-found-in-the-navigation-state
+// https://reactnavigation.org/docs/params/
+// https://reactnavigation.org/docs/hello-react-navigation/#passing-additional-props
+LogBox.ignoreLogs([
+ 'Non-serializable values were found in the navigation state',
+]);
+
+export const PhotoControl = ({navigation, photos, onUpdatePhotos}) => {
   const renderPhotos = useCallback(() => {
     const colsPerRow = 2;
+
+    // layout algorithm for even number of photos
     if (photos.length % colsPerRow == 0) {
       const result = [];
       const rows = photos.length / colsPerRow;
@@ -25,9 +36,11 @@ const PhotoControl = ({navigation, photos}) => {
         result.push(<View style={{flex: rows, flexDirection: 'row'}} key={row}>{inner}</View>);
       }
 
+      // short circuit function
       return result;
     }
   
+    // layout algorithm for odd number of photos
     return (
       <View style={{flex: photos.length, flexDirection: 'row'}}>{
         photos.map((x, index) =>
@@ -39,10 +52,15 @@ const PhotoControl = ({navigation, photos}) => {
   }, [photos]);
 
   return (
-    <Pressable onPress={() => navigation.navigate(Routes.ImagesPickerScreen)}>
-      {photos.length === 0 && <PictureIcon/>}
-      {photos.length > 0 && renderPhotos()}
-    </Pressable>
+    <>
+      <Text style={formInputStyles.optionStaticText}>
+        Select Photos (limit 4)
+      </Text>
+      <Pressable onPress={() => navigation.navigate(Routes.ImagesPickerScreen, {onUpdatePhotos: onUpdatePhotos})}>
+        {photos.length === 0 && <PictureIcon/>}
+        {photos.length > 0 && renderPhotos()}
+      </Pressable>
+    </>
   );
 }
 
@@ -50,7 +68,8 @@ PhotoControl.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }),
-  photos: PropTypes.array,
+  photos: PropTypes.array.isRequired,
+  onUpdatePhotos: PropTypes.func.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -68,5 +87,3 @@ const styles = StyleSheet.create({
     borderRadius: 2
   }
 });
-
-export { PhotoControl };

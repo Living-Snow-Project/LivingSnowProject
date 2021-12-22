@@ -3,10 +3,8 @@ import { Platform, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import { AssetsSelector } from '../expo-images-picker/index';
 import { Ionicons } from '@expo/vector-icons';
-import { Routes } from '../navigation/Routes';
 
-function ImagesPickerScreen(props) {
-  let {navigation} = props;
+export const ImagesPickerScreen = ({navigation, route}) => {
   return (
     <AssetsSelector
       options={{
@@ -44,7 +42,10 @@ function ImagesPickerScreen(props) {
           //buttonStyle: {borderWidth:2, borderColor:'red'},
           textStyle: {fontSize: 15},
           backFunction: () => {},
-          doneFunction: data => navigation.navigate(Routes.RecordScreen, {data: data}),
+          doneFunction: data => {
+            route.params.onUpdatePhotos(data);
+            navigation.goBack();
+          },
         },
         noAssets: <Text>No Assets</Text>,
       }}
@@ -54,7 +55,5 @@ function ImagesPickerScreen(props) {
 
 ImagesPickerScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
-  route: PropTypes.object.isRequired,
+  route: PropTypes.object.isRequired
 }
-
-export { ImagesPickerScreen };
