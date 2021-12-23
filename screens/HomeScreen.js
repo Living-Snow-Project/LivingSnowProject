@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
@@ -10,29 +10,27 @@ import { TimelineRow } from '../components/TimelineRow';
 import { StatusBar } from '../components/StatusBar';
 
 // TODO: rename file
-function TimelineScreen({navigation}) {
-  const [downloadedRecords, setDownloadedRecords] = useState([]);
-  const [pendingRecords, setPendingRecords] = useState([]);
+export const TimelineScreen = ({navigation}) => {
   const [connected, setConnected] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [pendingRecords, setPendingRecords] = useState([]);
+  const [downloadedRecords, setDownloadedRecords] = useState([]);
   const [status, setStatus] = useState({text: null, type: null, onDone: null});
 
-  const fetching = useRef(false);
-  const [refreshing, setRefreshing] = useState(false);
-  
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(({isConnected}) => {
       setConnected(isConnected);
 
       if (isConnected) {
         clearStatus();
-        handleNetworkActivity();
+        setRefreshing(true);
       }
       else {
         updateStatus(`No Internet Connection`, `static`, null);
       }
     });
 
-    return unsubscribe
+    return unsubscribe;
   }, []);
 
   const displaySavedRecords = useCallback(() => {
@@ -47,13 +45,15 @@ function TimelineScreen({navigation}) {
   // TODO: figure out why this is getting called on blur too
   useFocusEffect(displaySavedRecords);
 
-  const handleNetworkActivity = useCallback(() => {
-    if (!connected || fetching.current) {
+  useEffect(() => {
+    if (!refreshing) {
       return;
     }
 
-    setRefreshing(true);
-    fetching.current = true;
+    if (!connected) {
+      setRefreshing(false);
+      return;
+    }
 
     RecordManager.retryRecords()
     .then(() => RecordManager.retryPhotos())
@@ -62,14 +62,9 @@ function TimelineScreen({navigation}) {
     .catch(() => console.log(`Could not download records. Please try again later.`))
     .finally(() => {
       setRefreshing(false);
-      fetching.current = false;
-
       displaySavedRecords();
     });
-  }, []);
-
-  // TODO?: React Hooks documentation hinted there might be a better way to implement one-time useEffect calls
-  useEffect(handleNetworkActivity, []);
+  }, [refreshing]);
 
   const renderRecords = useCallback((records, label) => {
     if (records.length == 0) {
@@ -86,20 +81,15 @@ function TimelineScreen({navigation}) {
     );
   }, []);
 
-  const updateStatus = (text, type, onDone = null) => {
-    setStatus({text: text, type: type, onDone: onDone});
-  }
-  
-  const clearStatus = () => {
-    updateStatus(null, null, null);
-  }
+  const updateStatus = (text, type, onDone = null) => setStatus({text: text, type: type, onDone: onDone});  
+  const clearStatus = () => updateStatus(null, null, null);
 
   return (
     <View style={styles.container}>
       <StatusBar text={status.text} type={status.type} onDone={status.onDone}/>
       <ScrollView
         style={styles.container}
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleNetworkActivity}/>}>
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)}/>}>
         {pendingRecords.length == 0 && downloadedRecords.length == 0 && <Text style={styles.noRecords}>No records to display</Text>}
         {renderRecords(pendingRecords, `Pending`)}
         {renderRecords(downloadedRecords, `Downloaded`)}
@@ -130,5 +120,3 @@ const styles = StyleSheet.create({
 TimelineScreen.propTypes = {
   navigation: PropTypes.object
 };
-
-export { TimelineScreen };
