@@ -31,4 +31,5 @@ jobs:
       - run: git submodule update --init --recursive
       - run: yarn install
       - run: yarn run eslint . .
+      - run: yarn run tsc
       - run: yarn test

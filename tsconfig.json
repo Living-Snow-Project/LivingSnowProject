@@ -1,23 +1,7 @@
 {
   "compilerOptions": {
-    "declaration": true,
-    "strictNullChecks": true,
-    "target": "es5",
-    "outDir": "dist",
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "lib": [
-      "es2015",
-      "dom"
-    ],
-    "rootDir": ".",
-    "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "strictNullChecks": true
   },
-  "exclude": [
-    "node_modules",
-    "dist"
-  ],
+
   "extends": "expo/tsconfig.base"
 }
