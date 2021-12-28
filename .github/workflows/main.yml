@@ -31,7 +31,7 @@ jobs:
       - run: git submodule update --init --recursive
       - run: yarn install
       - run: yarn run prettier --version
-      - run: yarn run prettier --check .
+      - run: npx prettier --check .
       - run: yarn run eslint . .
       - run: yarn run tsc
       - run: yarn test
