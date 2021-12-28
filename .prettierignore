@@ -4,6 +4,7 @@ node_modules/**/*
 .github/*
 expo-images-picker/*
 assets/*
+.gitattributes
 package.json
 babel.config.js
 npm-debug.*
