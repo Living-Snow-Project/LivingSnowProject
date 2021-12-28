@@ -1,8 +1,8 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import Navigation from './navigation/MainTabNavigator';
+import Navigation from './src/navigation/MainTabNavigator';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import useCachedResources from './hooks/useCachedResources';
+import useCachedResources from './src/hooks/useCachedResources';
 
 global.appConfig = {
   name: '',

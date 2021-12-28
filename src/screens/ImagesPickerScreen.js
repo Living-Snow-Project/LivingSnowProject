@@ -1,7 +1,7 @@
 import React from 'react';
 import { Platform, Text } from 'react-native';
 import PropTypes from 'prop-types';
-import { AssetsSelector } from '../expo-images-picker/index';
+import { AssetsSelector } from '../../expo-images-picker/index';
 import { Ionicons } from '@expo/vector-icons';
 
 export const ImagesPickerScreen = ({navigation, route}) => {
