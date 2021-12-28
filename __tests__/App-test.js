@@ -1,19 +1,19 @@
-import * as React from 'react';
-import { act, create } from 'react-test-renderer';
+import * as React from "react";
+import { act, create } from "react-test-renderer";
 
-import App from '../App';
+import App from "../App";
 
-jest.mock('expo', () => ({
+jest.mock("expo", () => ({
   Linking: {
-    makeUrl: () => '/',
+    makeUrl: () => "/",
   },
   SplashScreen: {
-    preventAutoHide: () => 'preventAutoHide',
-    hide: () => 'hide',
+    preventAutoHide: () => "preventAutoHide",
+    hide: () => "hide",
   },
 }));
 
-describe('App', () => {
+describe("App", () => {
   jest.useFakeTimers();
 
   let tree;

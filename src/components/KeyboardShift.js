@@ -1,6 +1,13 @@
-import { PropTypes } from 'prop-types';
-import React, { Component } from 'react';
-import { Animated, Dimensions, Keyboard, Platform, StyleSheet, TextInput } from 'react-native';
+import { PropTypes } from "prop-types";
+import React, { Component } from "react";
+import {
+  Animated,
+  Dimensions,
+  Keyboard,
+  Platform,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 
 const { State: TextInputState } = TextInput;
 
@@ -12,14 +19,20 @@ export default class KeyboardShift extends Component {
   previousGap = 0;
 
   componentDidMount() {
-    if (Platform.OS === 'ios') {
-      this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.handleKeyboardDidShow);
-      this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide);
+    if (Platform.OS === "ios") {
+      this.keyboardDidShowSub = Keyboard.addListener(
+        "keyboardDidShow",
+        this.handleKeyboardDidShow
+      );
+      this.keyboardDidHideSub = Keyboard.addListener(
+        "keyboardDidHide",
+        this.handleKeyboardDidHide
+      );
     }
   }
 
   componentWillUnmount() {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
       this.keyboardDidShowSub.remove();
       this.keyboardDidHideSub.remove();
     }
@@ -30,16 +43,21 @@ export default class KeyboardShift extends Component {
     const { shift } = this.state;
 
     return (
-      <Animated.View style={[styles.container, { transform: [{translateY: shift}] }]}>
+      <Animated.View
+        style={[styles.container, { transform: [{ translateY: shift }] }]}
+      >
         {renderProp()}
       </Animated.View>
     );
   }
 
   handleKeyboardDidShow = (event) => {
-    const { height: windowHeight } = Dimensions.get('window');
+    const { height: windowHeight } = Dimensions.get("window");
     // when the multiline TextInput grows, we want the keyboard to move with it
-    const keyboardHeight = event?.endCoordinates?.height == undefined ? this.keyboardHeight : event.endCoordinates.height;
+    const keyboardHeight =
+      event?.endCoordinates?.height == undefined
+        ? this.keyboardHeight
+        : event.endCoordinates.height;
     this.keyboardHeight = keyboardHeight;
     const currentlyFocusedInput = TextInputState.currentlyFocusedInput();
 
@@ -49,67 +67,63 @@ export default class KeyboardShift extends Component {
     }
 
     if (currentlyFocusedInput != null) {
-      currentlyFocusedInput.measure((originX, originY, width, height, pageX, pageY) => {
-        const fieldHeight = height;
-        const fieldTop = pageY;
-        let gap = (windowHeight - keyboardHeight) - (fieldTop + fieldHeight);
+      currentlyFocusedInput.measure(
+        (originX, originY, width, height, pageX, pageY) => {
+          const fieldHeight = height;
+          const fieldTop = pageY;
+          let gap = windowHeight - keyboardHeight - (fieldTop + fieldHeight);
 
-        if (!gap) {
-          return;
-        }
+          if (!gap) {
+            return;
+          }
 
-        // negative gap means the currentlyFocusedInput is covered by Keyboard
-        if (gap < 0) {
-          gap += this.previousGap;
-        }
+          // negative gap means the currentlyFocusedInput is covered by Keyboard
+          if (gap < 0) {
+            gap += this.previousGap;
+          }
 
-        // positive gap means the currentlyFocusedInput is not covered by Keyboard
-        if (gap >= 0) {
-          return;
-        }
+          // positive gap means the currentlyFocusedInput is not covered by Keyboard
+          if (gap >= 0) {
+            return;
+          }
 
-        this.previousGap = gap;
-        Animated.timing(
-          this.state.shift,
-          {
+          this.previousGap = gap;
+          Animated.timing(this.state.shift, {
             toValue: gap,
             duration: 250,
             useNativeDriver: true,
-          }
-        ).start();
-      });
+          }).start();
+        }
+      );
     }
-  }
+  };
 
   handleKeyboardDidHide = () => {
-    this.isHiding = Animated.timing(
-      this.state.shift,
-      {
-        toValue: 0,
-        duration: 250,
-        useNativeDriver: true,
-      }
-    );
+    this.isHiding = Animated.timing(this.state.shift, {
+      toValue: 0,
+      duration: 250,
+      useNativeDriver: true,
+    });
 
     // it is common, and unpredictable, that 'keyboardDidHide' events are fired even though the keyboard remained visible
     // if this happens and 'keyboardDidShow' is simultaneously fired, we stop hiding animation from completing
-    this.isHiding.start(({finished}) => {
+    this.isHiding.start(({ finished }) => {
       this.isHiding = null;
       if (finished) {
         this.previousGap = 0;
       }
     });
-  }
+  };
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
+    height: "100%",
     left: 0,
-    position: 'absolute',
+    position: "absolute",
     top: 0,
-    width: '100%'
-  }
+    width: "100%",
+  },
 });
 
 KeyboardShift.propTypes = {

@@ -30,6 +30,7 @@ jobs:
           expo-cache: true
       - run: git submodule update --init --recursive
       - run: yarn install
+      - run: yarn prettier --check .
       - run: yarn run eslint . .
       - run: yarn run tsc
       - run: yarn test

@@ -1,10 +1,10 @@
-import React from 'react';
-import { Platform, Text } from 'react-native';
-import PropTypes from 'prop-types';
-import { AssetsSelector } from '../../expo-images-picker/index';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { Platform, Text } from "react-native";
+import PropTypes from "prop-types";
+import { AssetsSelector } from "../../expo-images-picker/index";
+import { Ionicons } from "@expo/vector-icons";
 
-export const ImagesPickerScreen = ({navigation, route}) => {
+export const ImagesPickerScreen = ({ navigation, route }) => {
   return (
     <AssetsSelector
       options={{
@@ -12,37 +12,40 @@ export const ImagesPickerScreen = ({navigation, route}) => {
           compress: 0.4,
           width: 1024, // ideally this would be the size constraint on the largest axis
           base64: false,
-          saveTo: 'jpeg',
+          saveTo: "jpeg",
         },
-        assetsType: ['photo'],
+        assetsType: ["photo"],
         maxSelections: 4,
         margin: 3,
         portraitCols: 4,
         landscapeCols: 5,
         widgetWidth: 100,
-        widgetBgColor: 'white',
-        selectedBgColor: 'red',
-        spinnerColor: 'blue',
+        widgetBgColor: "white",
+        selectedBgColor: "red",
+        spinnerColor: "blue",
         videoIcon: {
           Component: Ionicons,
-          iconName: Platform.OS === 'ios' ? 'ios-videocam' : 'md-videocam',
-          color: 'white',
+          iconName: Platform.OS === "ios" ? "ios-videocam" : "md-videocam",
+          color: "white",
           size: 20,
         },
         selectedIcon: {
           Component: Ionicons,
-          iconName: Platform.OS === 'ios' ? 'ios-checkmark-circle-outline' : 'md-checkmark-circle-outline',
-          color: 'grey',
-          bg: 'lightgrey',
+          iconName:
+            Platform.OS === "ios"
+              ? "ios-checkmark-circle-outline"
+              : "md-checkmark-circle-outline",
+          color: "grey",
+          bg: "lightgrey",
           size: 40,
         },
         defaultTopNavigator: {
-          continueText: 'Finish',
+          continueText: "Finish",
           goBackText: null,
           //buttonStyle: {borderWidth:2, borderColor:'red'},
-          textStyle: {fontSize: 15},
+          textStyle: { fontSize: 15 },
           backFunction: () => {},
-          doneFunction: data => {
+          doneFunction: (data) => {
             route.params.onUpdatePhotos(data);
             navigation.goBack();
           },
@@ -51,9 +54,9 @@ export const ImagesPickerScreen = ({navigation, route}) => {
       }}
     />
   );
-}
+};
 
 ImagesPickerScreen.propTypes = {
   navigation: PropTypes.object.isRequired,
-  route: PropTypes.object.isRequired
-}
+  route: PropTypes.object.isRequired,
+};

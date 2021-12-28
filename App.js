@@ -1,17 +1,17 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import Navigation from './src/navigation/MainTabNavigator';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import useCachedResources from './src/hooks/useCachedResources';
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import Navigation from "./src/navigation/MainTabNavigator";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import useCachedResources from "./src/hooks/useCachedResources";
 
 global.appConfig = {
-  name: '',
-  organization: '',
+  name: "",
+  organization: "",
   showFirstRun: true,
   showGpsWarning: true,
   showAtlasRecords: false,
-  showOnlyAtlasRecords: false
-}
+  showOnlyAtlasRecords: false,
+};
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

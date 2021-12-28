@@ -1,19 +1,19 @@
-import React, { useCallback } from 'react';
-import { Image, LogBox, Pressable, StyleSheet, Text, View } from 'react-native';
-import PropTypes from 'prop-types';
-import { formInputStyles } from '../styles/FormInput';
-import { PictureIcon } from '../components/TabBarIcon';
-import { Routes } from '../navigation/Routes';
+import React, { useCallback } from "react";
+import { Image, LogBox, Pressable, StyleSheet, Text, View } from "react-native";
+import PropTypes from "prop-types";
+import { formInputStyles } from "../styles/FormInput";
+import { PictureIcon } from "../components/TabBarIcon";
+import { Routes } from "../navigation/Routes";
 
 // because we pass a callback in params, more info from the following links
 // https://reactnavigation.org/docs/troubleshooting/#i-get-the-warning-non-serializable-values-were-found-in-the-navigation-state
 // https://reactnavigation.org/docs/params/
 // https://reactnavigation.org/docs/hello-react-navigation/#passing-additional-props
 LogBox.ignoreLogs([
- 'Non-serializable values were found in the navigation state',
+  "Non-serializable values were found in the navigation state",
 ]);
 
-export const PhotoControl = ({navigation, photos, onUpdatePhotos}) => {
+export const PhotoControl = ({ navigation, photos, onUpdatePhotos }) => {
   const renderPhotos = useCallback(() => {
     const colsPerRow = 2;
 
@@ -28,25 +28,30 @@ export const PhotoControl = ({navigation, photos, onUpdatePhotos}) => {
           const index = row * rows + col;
           inner.push(
             <View style={styles.singlePhotoContainer} key={index}>
-              <Image style={styles.photo} source={{uri: photos[index].uri}}/>
+              <Image style={styles.photo} source={{ uri: photos[index].uri }} />
             </View>
           );
         }
 
-        result.push(<View style={{flex: rows, flexDirection: 'row'}} key={row}>{inner}</View>);
+        result.push(
+          <View style={{ flex: rows, flexDirection: "row" }} key={row}>
+            {inner}
+          </View>
+        );
       }
 
       // short circuit function
       return result;
     }
-  
+
     // layout algorithm for odd number of photos
     return (
-      <View style={{flex: photos.length, flexDirection: 'row'}}>{
-        photos.map((x, index) =>
-        <View style={styles.singlePhotoContainer} key={index}>
-          <Image style={styles.photo} key={index} source={{uri: x.uri}}/>
-        </View>)}
+      <View style={{ flex: photos.length, flexDirection: "row" }}>
+        {photos.map((x, index) => (
+          <View style={styles.singlePhotoContainer} key={index}>
+            <Image style={styles.photo} key={index} source={{ uri: x.uri }} />
+          </View>
+        ))}
       </View>
     );
   }, [photos]);
@@ -56,20 +61,26 @@ export const PhotoControl = ({navigation, photos, onUpdatePhotos}) => {
       <Text style={formInputStyles.optionStaticText}>
         Select Photos (limit 4)
       </Text>
-      <Pressable onPress={() => navigation.navigate(Routes.ImagesPickerScreen, {onUpdatePhotos: onUpdatePhotos})}>
-        {photos.length === 0 && <PictureIcon/>}
+      <Pressable
+        onPress={() =>
+          navigation.navigate(Routes.ImagesPickerScreen, {
+            onUpdatePhotos: onUpdatePhotos,
+          })
+        }
+      >
+        {photos.length === 0 && <PictureIcon />}
         {photos.length > 0 && renderPhotos()}
       </Pressable>
     </>
   );
-}
+};
 
 PhotoControl.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
   }),
   photos: PropTypes.array.isRequired,
-  onUpdatePhotos: PropTypes.func.isRequired
+  onUpdatePhotos: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -77,13 +88,13 @@ const styles = StyleSheet.create({
   singlePhotoContainer: {
     flex: 1,
     margin: 1,
-    height: 100
+    height: 100,
   },
   photo: {
-    width: '100%',
-    height: '100%',
-    borderColor: 'black',
+    width: "100%",
+    height: "100%",
+    borderColor: "black",
     borderWidth: 1,
-    borderRadius: 2
-  }
+    borderRadius: 2,
+  },
 });

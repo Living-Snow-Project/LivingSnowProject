@@ -1,13 +1,13 @@
-import React, { useEffect, useRef} from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { useEffect, useRef } from "react";
+import { Animated, StyleSheet, Text, View } from "react-native";
+import PropTypes from "prop-types";
 
 // here's the idea (and likely this is too much functionality for a single component)
 // status types:
 //  permanent\static: ie. "no internet", airplane mode scenario
 //  completion\notification: ie. "success\saved", upload record result scenario
 //  tasks\working\progress: ie. "downloading\uploading" scenario
-const StatusBar = ({text, type, onDone}) => {
+const StatusBar = ({ text, type, onDone }) => {
   // nothing to render
   if (!text) {
     return null;
@@ -25,14 +25,11 @@ const StatusBar = ({text, type, onDone}) => {
   const fadeAnim = useRef(new Animated.Value(1)).current; // Initial value for opacity: 1
 
   useEffect(() => {
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: 0,
-        duration: 5000,
-        useNativeDriver: true
-      }
-    ).start(({finished}) => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 5000,
+      useNativeDriver: true,
+    }).start(({ finished }) => {
       if (finished && onDone) {
         onDone();
       }
@@ -42,28 +39,30 @@ const StatusBar = ({text, type, onDone}) => {
   // notification - short lived status
   if (text && type == `notification`) {
     return (
-      <Animated.Text style={[styles.container, {opacity: fadeAnim}]}>{text}</Animated.Text>
+      <Animated.Text style={[styles.container, { opacity: fadeAnim }]}>
+        {text}
+      </Animated.Text>
     );
   }
 
   return null;
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
-    backgroundColor: 'lightgrey'
+    backgroundColor: "lightgrey",
   },
   text: {
     fontSize: 16,
-    textAlign: 'center'
-  }
+    textAlign: "center",
+  },
 });
 
 StatusBar.propTypes = {
   text: PropTypes.string,
   type: PropTypes.string,
-  onDone: PropTypes.func
-}
+  onDone: PropTypes.func,
+};
 
-export {StatusBar};
+export { StatusBar };

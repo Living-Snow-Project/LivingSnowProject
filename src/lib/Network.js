@@ -1,22 +1,25 @@
-import { serviceEndpoint } from '../constants/Service';
+import { serviceEndpoint } from "../constants/Service";
 
 const recordsUri = `${serviceEndpoint}/api/records/`;
-const uploadPhotoUri = id => `${recordsUri}${id}/photo`;
-export const downloadPhotoUri = id => `${serviceEndpoint}/api/photos/${id}`;
+const uploadPhotoUri = (id) => `${recordsUri}${id}/photo`;
+export const downloadPhotoUri = (id) => `${serviceEndpoint}/api/photos/${id}`;
 
 function dumpRecord(record) {
-  console.log(`Handling POST Request: ${serviceEndpoint}/api/records` +
-  `\n  Type: ${record.type}` +
-  `\n  Name: ${record.name}` +
-  `\n  Date: ${record.date}` +
-  `\n  Org: ${record.organization}` +
-  `\n  Atlas Type: ${record.atlasType}` +
-  `\n  TubeId: ${record.tubeId}` +
-  `\n  Latitude: ${record.latitude}` +
-  `\n  Longitude: ${record.longitude}` +
-  `\n  Description: ${record.locationDescription}` +
-  `\n  Notes: ${record.notes}` +
-  `\nJSON Body\n  `, record);
+  console.log(
+    `Handling POST Request: ${serviceEndpoint}/api/records` +
+      `\n  Type: ${record.type}` +
+      `\n  Name: ${record.name}` +
+      `\n  Date: ${record.date}` +
+      `\n  Org: ${record.organization}` +
+      `\n  Atlas Type: ${record.atlasType}` +
+      `\n  TubeId: ${record.tubeId}` +
+      `\n  Latitude: ${record.latitude}` +
+      `\n  Longitude: ${record.longitude}` +
+      `\n  Description: ${record.locationDescription}` +
+      `\n  Notes: ${record.notes}` +
+      `\nJSON Body\n  `,
+    record
+  );
 }
 
 function failedFetch(operation, response) {
@@ -39,31 +42,35 @@ export class Network {
     dumpRecord(record);
 
     return fetch(recordsUri, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(record)
+      body: JSON.stringify(record),
     })
-    .then(response => response.ok ? response.json() : failedFetch(operation, response))
-    .catch(error => failedFetch(operation, error));
+      .then((response) =>
+        response.ok ? response.json() : failedFetch(operation, response)
+      )
+      .catch((error) => failedFetch(operation, error));
   }
-  
+
   // photoStream = {uri, width, height}
   // returns a resolved Promise<void> on success
-  static async uploadPhoto({id, photoStream}) {
+  static async uploadPhoto({ id, photoStream }) {
     const operation = `uploadPhoto`;
 
     return fetch(uploadPhotoUri(id), {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'image/jpeg',
+        "Content-Type": "image/jpeg",
       },
-      body: photoStream
+      body: photoStream,
     })
-    .then(response => response.ok ? Promise.resolve() : failedFetch(operation, response))
-    .catch(error => failedFetch(operation, error));
+      .then((response) =>
+        response.ok ? Promise.resolve() : failedFetch(operation, response)
+      )
+      .catch((error) => failedFetch(operation, error));
   }
 
   // returns a resolved Promise<records> on success
@@ -71,9 +78,11 @@ export class Network {
     const operation = `downloadRecords`;
 
     console.log(`Handling GET Request: ${recordsUri}`);
-    
+
     return fetch(recordsUri)
-    .then(response => response.ok ? response.json() : failedFetch(operation, response))
-    .catch(error => failedFetch(operation, error));
+      .then((response) =>
+        response.ok ? response.json() : failedFetch(operation, response)
+      )
+      .catch((error) => failedFetch(operation, error));
   }
 }

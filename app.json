@@ -4,10 +4,7 @@
     "slug": "LivingSnowProject",
     "privacy": "unlisted",
     "primaryColor": "#000000",
-    "platforms": [
-      "ios",
-      "android"
-    ],
+    "platforms": ["ios", "android"],
     "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/images/lsp@2x.png",
@@ -19,9 +16,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.kodnerlab.livingsnowproject",
@@ -29,7 +24,7 @@
         "NSLocationWhenInUseUsageDescription": "Allow Living Snow Project to determine your location for easier snow algae reporting",
         "NSPhotoLibraryUsageDescription": "Allow Living Snow Project to access your photos and supplement snow algae reporting"
       },
-      "config" : {
+      "config": {
         "usesNonExemptEncryption": false
       }
     },

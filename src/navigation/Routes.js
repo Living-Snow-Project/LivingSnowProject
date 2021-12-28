@@ -4,5 +4,5 @@ export const Routes = {
   RecordScreen: "Record",
   SettingsScreen: "Settings",
   ImagesPickerScreen: "Images",
-  RecordDetailsScreen: "RecordDetails"
-}
+  RecordDetailsScreen: "RecordDetails",
+};

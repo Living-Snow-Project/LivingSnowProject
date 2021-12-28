@@ -1,18 +1,18 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const StorageKeys = {
-  appConfig: 'appConfig',
-  records: 'records',
-  photos: 'photos'
+  appConfig: "appConfig",
+  records: "records",
+  photos: "photos",
 };
 
 export class Storage {
   //
   // AppConfig Storage APIs
   //
-  
+
   static async loadAppConfig() {
-    return AsyncStorage.getItem(StorageKeys.appConfig).then(value => {
+    return AsyncStorage.getItem(StorageKeys.appConfig).then((value) => {
       if (value) {
         global.appConfig = JSON.parse(value);
       }
@@ -20,7 +20,10 @@ export class Storage {
   }
 
   static saveAppConfig() {
-    AsyncStorage.setItem(StorageKeys.appConfig, JSON.stringify(global.appConfig));
+    AsyncStorage.setItem(
+      StorageKeys.appConfig,
+      JSON.stringify(global.appConfig)
+    );
   }
 
   //
@@ -29,8 +32,8 @@ export class Storage {
 
   static async loadRecords() {
     return AsyncStorage.getItem(StorageKeys.records)
-    .then(value => value ? JSON.parse(value) : [])
-    .catch(error => error);
+      .then((value) => (value ? JSON.parse(value) : []))
+      .catch((error) => error);
   }
 
   static async saveRecords(records) {
@@ -60,8 +63,8 @@ export class Storage {
 
   static async loadPhotos() {
     return AsyncStorage.getItem(StorageKeys.photos)
-    .then(value => value ? JSON.parse(value) : [])
-    .catch(error => error);
+      .then((value) => (value ? JSON.parse(value) : []))
+      .catch((error) => error);
   }
 
   static async savePhotos(photos) {
