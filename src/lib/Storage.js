@@ -52,7 +52,7 @@ export class Storage {
     }
 
     // check for other pending records
-    let records = await Storage.loadRecords();
+    const records = await Storage.loadRecords();
     records.push(record);
     await Storage.saveRecords(records);
   }
@@ -83,7 +83,7 @@ export class Storage {
     }
 
     // check for other pending photos
-    let photos = await Storage.loadPhotos();
+    const photos = await Storage.loadPhotos();
     photos.push(photo);
     await Storage.savePhotos(photos);
   }

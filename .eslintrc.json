@@ -3,7 +3,6 @@
   "plugins": ["react", "react-native", "react-hooks"],
   "parser": "@babel/eslint-parser",
   "rules": {
-    "arrow-body-style": "off",
     "eqeqeq": "off",
     "func-names": "off",
     "global-require": "off",
@@ -25,7 +24,6 @@
     "no-unneeded-ternary": "off",
     "no-use-before-define": "off",
     "object-shorthand": "off",
-    "prefer-const": "off",
     "prefer-destructuring": "off",
     "prefer-template": "off",
     "react/destructuring-assignment": "off",
