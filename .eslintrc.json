@@ -1,24 +1,49 @@
 {
-  "env": {
-    "es2021": true,
-    "node": true,
-    "react-native/react-native": true
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["react", "react-native", "react-hooks"],
+  "parser": "@babel/eslint-parser",
+  "rules": {
+    "arrow-body-style": "off",
+    "eqeqeq": "off",
+    "func-names": "off",
+    "global-require": "off",
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/no-useless-path-segments": "off",
+    "import/no-unresolved": "off",
+    "import/order": "off",
+    "import/prefer-default-export": "off",
+    "no-console": "off",
+    "no-else-return": "off",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-restricted-globals": "off",
+    "no-return-assign": "off",
+    "no-shadow": "off",
+    "no-template-curly-in-string": "off",
+    "no-undef": "off",
+    "no-undef-init": "off",
+    "no-unneeded-ternary": "off",
+    "no-use-before-define": "off",
+    "object-shorthand": "off",
+    "prefer-const": "off",
+    "prefer-destructuring": "off",
+    "prefer-template": "off",
+    "react/destructuring-assignment": "off",
+    "react/forbid-prop-types": "off",
+    "react/function-component-definition": "off",
+    "react/jsx-curly-brace-presence": "off",
+    "react/jsx-filename-extension": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
+    "react/no-unstable-nested-components": "off",
+    "react/no-unused-prop-types": "off",
+    "react/prefer-stateless-function": "off",
+    "react/require-default-props": "off",
+    "react/state-in-constructor": "off",
+    "react/static-property-placement": "off",
+    "react/sort-comp": "off",
+    "spaced-comment": "off"
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module"
-  },
-  "plugins": ["react", "react-native"],
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
-  },
-  "rules": {},
   "ignorePatterns": ["*test*.js", "*.ts*"]
 }
