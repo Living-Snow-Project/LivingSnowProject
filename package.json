@@ -10,6 +10,7 @@
   },
   "jest": {
     "preset": "jest-expo",
+    "transform": {"\\.[jt]sx?$": "babel-jest"},
     "setupFiles": [
       "./jesttest.setup.js"
     ]

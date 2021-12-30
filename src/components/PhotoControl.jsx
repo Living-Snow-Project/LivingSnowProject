@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Image, LogBox, Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { formInputStyles } from "../styles/FormInput";
-import { PictureIcon } from "../components/TabBarIcon";
+import { PictureIcon } from "./TabBarIcon";
 import { Routes } from "../navigation/Routes";
 
 // because we pass a callback in params, more info from the following links

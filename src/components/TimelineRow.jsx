@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
-import { PictureIcon, RecordIcon } from "../components/TabBarIcon";
+import { PictureIcon, RecordIcon } from "./TabBarIcon";
 import { Routes } from "../navigation/Routes";
 
 function empty(text) {
