@@ -4,6 +4,8 @@ import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
 import { Storage } from "../lib/Storage";
 
+const spaceMono = require("../../assets/fonts/SpaceMono-Regular.ttf");
+
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
 
@@ -16,7 +18,7 @@ export default function useCachedResources() {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
-          "space-mono": require("../../assets/fonts/SpaceMono-Regular.ttf"),
+          "space-mono": spaceMono,
         });
 
         // load app config

@@ -3,9 +3,6 @@
   "plugins": ["react", "react-native", "react-hooks"],
   "parser": "@babel/eslint-parser",
   "rules": {
-    "eqeqeq": "off",
-    "func-names": "off",
-    "global-require": "off",
     "import/extensions": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-useless-path-segments": "off",
@@ -38,8 +35,7 @@
     "react/require-default-props": "off",
     "react/state-in-constructor": "off",
     "react/static-property-placement": "off",
-    "react/sort-comp": "off",
-    "spaced-comment": "off"
+    "react/sort-comp": "off"
   },
-  "ignorePatterns": ["*test*.js", "*.ts*"]
+  "ignorePatterns": ["babel.config.js", "*test*.js", "*.ts*"]
 }
