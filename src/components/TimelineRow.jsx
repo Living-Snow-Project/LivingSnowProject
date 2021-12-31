@@ -2,7 +2,7 @@ import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { PictureIcon, RecordIcon } from "./TabBarIcon";
-import { Routes } from "../navigation/Routes";
+import Routes from "../navigation/Routes";
 
 function empty(text) {
   return !text;
@@ -48,7 +48,7 @@ function parsePhotoUris(photoUris) {
     return [];
   }
 
-  let result = photoUris.split(`;`);
+  const result = photoUris.split(`;`);
   result.pop();
 
   return result;
@@ -112,8 +112,6 @@ TimelineRow.propTypes = {
   showAll: PropTypes.bool,
 };
 
-export { TimelineRow };
-
 const styles = StyleSheet.create({
   recordContainer: {
     borderBottomWidth: 1,
@@ -141,3 +139,5 @@ const styles = StyleSheet.create({
     width: "33%",
   },
 });
+
+export default TimelineRow;

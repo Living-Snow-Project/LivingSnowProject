@@ -17,13 +17,13 @@ function parsePhotoUris(photoUris) {
     return [];
   }
 
-  let result = photoUris.split(`;`);
+  const result = photoUris.split(`;`);
   result.pop();
 
   return result;
 }
 
-function RecordDetailsScreen({ route }) {
+const RecordDetailsScreen = ({ route }) => {
   const {
     date,
     type,
@@ -95,7 +95,7 @@ function RecordDetailsScreen({ route }) {
             {photoUris.map((x, index) => (
               <View
                 style={[
-                  index == 0 ? styles.topImage : styles.image,
+                  index === 0 ? styles.topImage : styles.image,
                   { width: "100%", height: height },
                 ]}
                 key={index}
@@ -112,14 +112,12 @@ function RecordDetailsScreen({ route }) {
       )}
     </ScrollView>
   );
-}
+};
 
 RecordDetailsScreen.propTypes = {
   navigation: PropTypes.object,
   route: PropTypes.object,
 };
-
-export { RecordDetailsScreen };
 
 const styles = StyleSheet.create({
   container: {
@@ -135,3 +133,5 @@ const styles = StyleSheet.create({
     borderColor: "black",
   },
 });
+
+export default RecordDetailsScreen;

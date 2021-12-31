@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import Navigation from "./src/navigation/MainTabNavigator";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import Navigation from "./src/navigation/MainTabNavigator";
 import useCachedResources from "./src/hooks/useCachedResources";
 
 global.appConfig = {

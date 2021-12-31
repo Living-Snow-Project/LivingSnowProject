@@ -9,14 +9,14 @@ import {
 import { useFocusEffect } from "@react-navigation/native";
 import NetInfo from "@react-native-community/netinfo";
 import PropTypes from "prop-types";
-import { Storage } from "../lib/Storage";
+import Storage from "../lib/Storage";
 import { Network } from "../lib/Network";
-import { RecordManager } from "../lib/RecordManager";
-import { TimelineRow } from "../components/TimelineRow";
-import { StatusBar } from "../components/StatusBar";
+import RecordManager from "../lib/RecordManager";
+import TimelineRow from "../components/TimelineRow";
+import StatusBar from "../components/StatusBar";
 
 // TODO: rename file
-export const TimelineScreen = ({ navigation }) => {
+const TimelineScreen = ({ navigation }) => {
   const [connected, setConnected] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [pendingRecords, setPendingRecords] = useState([]);
@@ -84,7 +84,7 @@ export const TimelineScreen = ({ navigation }) => {
   }, [refreshing]);
 
   const renderRecords = useCallback((records, label) => {
-    if (records.length == 0) {
+    if (records.length === 0) {
       return null;
     }
 
@@ -121,7 +121,7 @@ export const TimelineScreen = ({ navigation }) => {
           />
         }
       >
-        {pendingRecords.length == 0 && downloadedRecords.length == 0 && (
+        {pendingRecords.length === 0 && downloadedRecords.length === 0 && (
           <Text style={styles.noRecords}>No records to display</Text>
         )}
         {renderRecords(pendingRecords, `Pending`)}
@@ -153,3 +153,5 @@ const styles = StyleSheet.create({
 TimelineScreen.propTypes = {
   navigation: PropTypes.object,
 };
+
+export default TimelineScreen;

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Calendar } from "react-native-calendars";
 import { formInputStyles } from "../../styles/FormInput";
 
-export const DateSelector = ({ date, setDate }) => {
+const DateSelector = ({ date, setDate }) => {
   const [calendarVisible, setCalendarVisible] = useState(false);
 
   return (
@@ -35,3 +35,5 @@ DateSelector.propTypes = {
   date: PropTypes.string,
   setDate: PropTypes.func,
 };
+
+export default DateSelector;

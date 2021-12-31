@@ -3,7 +3,7 @@ import { Image, LogBox, Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { formInputStyles } from "../styles/FormInput";
 import { PictureIcon } from "./TabBarIcon";
-import { Routes } from "../navigation/Routes";
+import Routes from "../navigation/Routes";
 
 // because we pass a callback in params, more info from the following links
 // https://reactnavigation.org/docs/troubleshooting/#i-get-the-warning-non-serializable-values-were-found-in-the-navigation-state
@@ -13,12 +13,12 @@ LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
 ]);
 
-export const PhotoControl = ({ navigation, photos, onUpdatePhotos }) => {
+const PhotoControl = ({ navigation, photos, onUpdatePhotos }) => {
   const renderPhotos = useCallback(() => {
     const colsPerRow = 2;
 
     // layout algorithm for even number of photos
-    if (photos.length % colsPerRow == 0) {
+    if (photos.length % colsPerRow === 0) {
       const result = [];
       const rows = photos.length / colsPerRow;
 
@@ -98,3 +98,5 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
 });
+
+export default PhotoControl;

@@ -3,7 +3,7 @@ import { Keyboard, Platform, Text, TextInput } from "react-native";
 import PropTypes from "prop-types";
 import { formInputStyles } from "../../styles/FormInput";
 
-export const CustomTextInput = forwardRef(
+const CustomTextInput = forwardRef(
   (
     {
       description,
@@ -14,11 +14,11 @@ export const CustomTextInput = forwardRef(
     },
     ref
   ) => {
-    let height = useRef(0);
+    const height = useRef(0);
 
     // onContentSizeChange is called frequently for multiline TextInput, we only want to emit 'keyboardDidShow' event when height actually changes
     const handleMultilineTextInputOnContentSizeChange = (height, event) => {
-      if (height != 0 && height != event.nativeEvent.contentSize.height) {
+      if (height !== 0 && height !== event.nativeEvent.contentSize.height) {
         // 'keyboardDidShow' expects the height of the keyboard (which we could capture in a new event listener in this component)
         // since we only have 1 'keyboardDidShow' listener we changed its logic to respond to this input
         // this is potentially bad if we set up additional 'keyboardDidShow' listeners in the app
@@ -66,3 +66,5 @@ CustomTextInput.propTypes = {
 };
 
 CustomTextInput.displayName = `CustomTextInput`;
+
+export default CustomTextInput;

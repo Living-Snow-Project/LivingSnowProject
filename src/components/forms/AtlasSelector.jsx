@@ -5,7 +5,7 @@ import RNPickerSelect from "react-native-picker-select";
 import { formInputStyles, pickerSelectStyles } from "../../styles/FormInput";
 import { AtlasTypes, AtlasTypesTable, getAtlasItem } from "../../lib/Atlas";
 
-export const AtlasSelector = ({ recordType, atlasType, setAtlasType }) => {
+const AtlasSelector = ({ recordType, atlasType, setAtlasType }) => {
   if (!recordType.includes(`Atlas`)) {
     return null;
   }
@@ -41,3 +41,5 @@ AtlasSelector.propTypes = {
   atlasType: PropTypes.number,
   setAtlasType: PropTypes.func,
 };
+
+export default AtlasSelector;

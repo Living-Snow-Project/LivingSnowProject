@@ -1,2 +1,3 @@
-export const serviceEndpoint =
-  "https://snowalgaeproductionapp.azurewebsites.net";
+const serviceEndpoint = "https://snowalgaeproductionapp.azurewebsites.net";
+
+export default serviceEndpoint;

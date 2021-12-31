@@ -1,7 +1,7 @@
 import { Network } from "./Network";
-import { Storage } from "./Storage";
+import Storage from "./Storage";
 
-export class RecordManager {
+class RecordManager {
   static async uploadRecord(record, photoUris) {
     return Network.uploadRecord(record)
       .then((response) =>
@@ -80,3 +80,5 @@ export class RecordManager {
     });
   }
 }
+
+export default RecordManager;

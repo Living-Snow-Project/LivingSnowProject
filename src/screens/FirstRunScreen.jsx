@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Touchable from "react-native-platform-touchable";
 import { Platform, StyleSheet, Text, View, TextInput } from "react-native";
 import { StockIcon } from "../components/TabBarIcon";
-import { Storage } from "../lib/Storage";
+import Storage from "../lib/Storage";
 
 export default class FirstRunScreen extends React.Component {
   static propTypes = {

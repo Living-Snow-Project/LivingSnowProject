@@ -14,7 +14,7 @@ const StatusBar = ({ text, type, onDone }) => {
   }
 
   // `static` does not animate
-  if (text && type == `static`) {
+  if (text && type === `static`) {
     return (
       <View style={styles.container}>
         <Text style={styles.text}>{text}</Text>
@@ -37,7 +37,7 @@ const StatusBar = ({ text, type, onDone }) => {
   }, [fadeAnim]);
 
   // notification - short lived status
-  if (text && type == `notification`) {
+  if (text && type === `notification`) {
     return (
       <Animated.Text style={[styles.container, { opacity: fadeAnim }]}>
         {text}
@@ -65,4 +65,4 @@ StatusBar.propTypes = {
   onDone: PropTypes.func,
 };
 
-export { StatusBar };
+export default StatusBar;

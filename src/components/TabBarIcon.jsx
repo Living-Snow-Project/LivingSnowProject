@@ -4,16 +4,14 @@ import PropTypes from "prop-types";
 import * as Icon from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
-const StockIcon = ({ name, size, style, color }) => {
-  return (
-    <Icon.Ionicons
-      name={name}
-      size={size ? size : 32}
-      style={style}
-      color={color ? color : Colors.tabIconDefault}
-    />
-  );
-};
+const StockIcon = ({ name, size, style, color }) => (
+  <Icon.Ionicons
+    name={name}
+    size={size ? size : 32}
+    style={style}
+    color={color ? color : Colors.tabIconDefault}
+  />
+);
 
 StockIcon.propTypes = {
   name: PropTypes.string.isRequired,
@@ -38,14 +36,12 @@ RecordIcon.propTypes = {
   type: PropTypes.string.isRequired,
 };
 
-const PictureIcon = () => {
-  return (
-    <StockIcon
-      name={Platform.OS === "ios" ? "ios-image" : "md-image"}
-      color={"green"}
-      size={48}
-    />
-  );
-};
+const PictureIcon = () => (
+  <StockIcon
+    name={Platform.OS === "ios" ? "ios-image" : "md-image"}
+    color={"green"}
+    size={48}
+  />
+);
 
 export { PictureIcon, RecordIcon, StockIcon };

@@ -9,19 +9,19 @@ import {
 import Touchable from "react-native-platform-touchable";
 import PropTypes from "prop-types";
 import KeyboardShift from "../components/KeyboardShift";
-import { Storage } from "../lib/Storage";
-import { RecordManager } from "../lib/RecordManager";
+import Storage from "../lib/Storage";
+import RecordManager from "../lib/RecordManager";
 import { StockIcon } from "../components/TabBarIcon";
 import { formInputStyles } from "../styles/FormInput";
 import { AtlasTypes } from "../lib/Atlas";
-import { TypeSelector } from "../components/forms/TypeSelector";
-import { DateSelector } from "../components/forms/DateSelector";
-import { CustomTextInput } from "../components/forms/CustomTextInput";
-import { GpsCoordinatesInput } from "../components/forms/GpsCoordinatesInput";
-import { AtlasSelector } from "../components/forms/AtlasSelector";
-import { PhotoControl } from "../components/PhotoControl";
+import TypeSelector from "../components/forms/TypeSelector";
+import DateSelector from "../components/forms/DateSelector";
+import CustomTextInput from "../components/forms/CustomTextInput";
+import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
+import AtlasSelector from "../components/forms/AtlasSelector";
+import PhotoControl from "../components/PhotoControl";
 
-export const RecordView = ({ navigation }) => {
+const RecordView = ({ navigation }) => {
   const notesRef = useRef(null);
   const locationDescriptionRef = useRef(null);
   const [uploading, setUploading] = useState(false);
@@ -223,3 +223,5 @@ RecordView.propTypes = {
     setOptions: PropTypes.func.isRequired,
   }).isRequired,
 };
+
+export default RecordView;

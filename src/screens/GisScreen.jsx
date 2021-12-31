@@ -8,7 +8,7 @@ export default class GisScreen extends React.Component {
   };
 
   render() {
-    //return <ExpoConfigView />;
+    // return <ExpoConfigView />;
     return (
       <Text style={{ textAlign: "center" }}>
         This feature is not yet implemented...

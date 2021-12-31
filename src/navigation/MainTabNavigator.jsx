@@ -1,14 +1,14 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
-import { TimelineScreen } from "../screens/HomeScreen";
+import TimelineScreen from "../screens/HomeScreen";
 import RecordScreen from "../screens/RecordScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import FirstRunScreen from "../screens/FirstRunScreen";
-import { ImagesPickerScreen } from "../screens/ImagesPickerScreen";
-import { HeaderNavigation } from "../components/HeaderNavigation";
-import { RecordDetailsScreen } from "../screens/RecordDetailsScreen";
-import { Routes } from "./Routes";
+import ImagesPickerScreen from "../screens/ImagesPickerScreen";
+import HeaderNavigation from "../components/HeaderNavigation";
+import RecordDetailsScreen from "../screens/RecordDetailsScreen";
+import Routes from "./Routes";
 
 export default function Navigation() {
   return (

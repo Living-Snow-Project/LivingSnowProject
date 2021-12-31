@@ -2,13 +2,12 @@
   "extends": ["airbnb", "prettier"],
   "plugins": ["react", "react-native", "react-hooks"],
   "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "rules": {
-    "import/extensions": "off",
-    "import/no-extraneous-dependencies": "off",
-    "import/no-useless-path-segments": "off",
-    "import/no-unresolved": "off",
-    "import/order": "off",
-    "import/prefer-default-export": "off",
     "no-console": "off",
     "no-param-reassign": "off",
     "no-plusplus": "off",

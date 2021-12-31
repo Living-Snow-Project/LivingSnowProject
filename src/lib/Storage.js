@@ -6,7 +6,7 @@ const StorageKeys = {
   photos: "photos",
 };
 
-export class Storage {
+class Storage {
   //
   // AppConfig Storage APIs
   //
@@ -88,3 +88,5 @@ export class Storage {
     await Storage.savePhotos(photos);
   }
 }
+
+export default Storage;

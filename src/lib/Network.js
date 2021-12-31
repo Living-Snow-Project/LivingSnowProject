@@ -1,8 +1,8 @@
-import { serviceEndpoint } from "../constants/Service";
+import serviceEndpoint from "../constants/Service";
 
 const recordsUri = `${serviceEndpoint}/api/records/`;
 const uploadPhotoUri = (id) => `${recordsUri}${id}/photo`;
-export const downloadPhotoUri = (id) => `${serviceEndpoint}/api/photos/${id}`;
+const downloadPhotoUri = (id) => `${serviceEndpoint}/api/photos/${id}`;
 
 function dumpRecord(record) {
   console.log(
@@ -35,7 +35,7 @@ function failedFetch(operation, response) {
   return Promise.reject(response);
 }
 
-export class Network {
+class Network {
   // returns a resolved Promise<record> on success
   static async uploadRecord(record) {
     const operation = `uploadRecord`;
@@ -86,3 +86,5 @@ export class Network {
       .catch((error) => failedFetch(operation, error));
   }
 }
+
+export { downloadPhotoUri, Network };

@@ -1,4 +1,4 @@
-export const Routes = {
+const Routes = {
   FirstRunScreen: "FirstRun",
   TimelineScreen: "Timeline",
   RecordScreen: "Record",
@@ -6,3 +6,5 @@ export const Routes = {
   ImagesPickerScreen: "Images",
   RecordDetailsScreen: "RecordDetails",
 };
+
+export default Routes;

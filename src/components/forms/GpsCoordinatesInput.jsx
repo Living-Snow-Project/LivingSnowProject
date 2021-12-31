@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import * as Location from "expo-location";
 import { formInputStyles } from "../../styles/FormInput";
 
-export const GpsCoordinatesInput = ({ setGpsCoordinates, onSubmitEditing }) => {
+const GpsCoordinatesInput = ({ setGpsCoordinates, onSubmitEditing }) => {
   const watchPosition = useRef(null);
   const gpsCoordinatesRef = useRef(null);
   const [gpsCoordinateString, setGpsCoordinateString] = useState(null);
@@ -76,7 +76,7 @@ export const GpsCoordinatesInput = ({ setGpsCoordinates, onSubmitEditing }) => {
 
     let latitude = undefined;
     let longitude = undefined;
-    let coordinates = value.split(",");
+    const coordinates = value.split(",");
 
     if (coordinates[0]) {
       latitude = coordinates[0].trim();
@@ -156,3 +156,5 @@ GpsCoordinatesInput.propTypes = {
   setGpsCoordinates: PropTypes.func,
   onSubmitEditing: PropTypes.func,
 };
+
+export default GpsCoordinatesInput;
