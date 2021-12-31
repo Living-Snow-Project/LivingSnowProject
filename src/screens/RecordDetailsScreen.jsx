@@ -96,7 +96,7 @@ const RecordDetailsScreen = ({ route }) => {
               <View
                 style={[
                   index === 0 ? styles.topImage : styles.image,
-                  { width: "100%", height: height },
+                  { width: "100%", height },
                 ]}
                 key={index}
               >

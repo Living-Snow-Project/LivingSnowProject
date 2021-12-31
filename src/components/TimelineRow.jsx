@@ -70,7 +70,7 @@ const TimelineRow = ({ navigation, record, showAll = false }) => {
     <View style={styles.recordContainer}>
       <Pressable
         onPress={() =>
-          navigation.navigate(Routes.RecordDetailsScreen, { record: record })
+          navigation.navigate(Routes.RecordDetailsScreen, { record })
         }
       >
         <View style={styles.recordTop}>

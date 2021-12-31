@@ -48,7 +48,7 @@ const TimelineScreen = ({ navigation }) => {
       records.forEach(
         (record, index) =>
           (records[index].photoUris = record.photoUris.reduce(
-            (accumulator, photo) => accumulator + `${photo.uri};`,
+            (accumulator, photo) => `${accumulator}${photo.uri};`,
             ``
           ))
       );
@@ -106,7 +106,7 @@ const TimelineScreen = ({ navigation }) => {
   }, []);
 
   const updateStatus = (text, type, onDone = null) =>
-    setStatus({ text: text, type: type, onDone: onDone });
+    setStatus({ text, type, onDone });
   const clearStatus = () => updateStatus(null, null, null);
 
   return (

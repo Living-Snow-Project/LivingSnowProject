@@ -64,7 +64,7 @@ const PhotoControl = ({ navigation, photos, onUpdatePhotos }) => {
       <Pressable
         onPress={() =>
           navigation.navigate(Routes.ImagesPickerScreen, {
-            onUpdatePhotos: onUpdatePhotos,
+            onUpdatePhotos,
           })
         }
       >
