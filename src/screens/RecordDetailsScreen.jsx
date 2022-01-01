@@ -115,8 +115,9 @@ const RecordDetailsScreen = ({ route }) => {
 };
 
 RecordDetailsScreen.propTypes = {
-  navigation: PropTypes.object,
-  route: PropTypes.object,
+  // TODO: make an encapsulated Record object (in TypeScript)
+  // eslint-disable-next-line react/forbid-prop-types
+  route: PropTypes.object.isRequired,
 };
 
 const styles = StyleSheet.create({

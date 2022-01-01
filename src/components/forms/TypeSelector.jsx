@@ -34,8 +34,8 @@ const TypeSelector = ({ recordType, setRecordType }) => (
 );
 
 TypeSelector.propTypes = {
-  recordType: PropTypes.string,
-  setRecordType: PropTypes.func,
+  recordType: PropTypes.string.isRequired,
+  setRecordType: PropTypes.func.isRequired,
 };
 
 export default TypeSelector;

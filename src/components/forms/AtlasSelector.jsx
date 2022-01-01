@@ -37,9 +37,9 @@ const AtlasSelector = ({ recordType, atlasType, setAtlasType }) => {
 };
 
 AtlasSelector.propTypes = {
-  recordType: PropTypes.string,
-  atlasType: PropTypes.number,
-  setAtlasType: PropTypes.func,
+  recordType: PropTypes.string.isRequired,
+  atlasType: PropTypes.number.isRequired,
+  setAtlasType: PropTypes.func.isRequired,
 };
 
 export default AtlasSelector;

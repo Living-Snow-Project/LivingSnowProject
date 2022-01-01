@@ -5,13 +5,7 @@ import { formInputStyles } from "../../styles/FormInput";
 
 const CustomTextInput = forwardRef(
   (
-    {
-      description,
-      placeholder,
-      maxLength = 255,
-      onChangeText,
-      onSubmitEditing = () => {},
-    },
+    { description, placeholder, maxLength, onChangeText, onSubmitEditing },
     ref
   ) => {
     const height = useRef(0);
@@ -58,11 +52,16 @@ const CustomTextInput = forwardRef(
 );
 
 CustomTextInput.propTypes = {
-  description: PropTypes.string,
-  placeholder: PropTypes.string,
+  description: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
   maxLength: PropTypes.number,
-  onChangeText: PropTypes.func,
+  onChangeText: PropTypes.func.isRequired,
   onSubmitEditing: PropTypes.func,
+};
+
+CustomTextInput.defaultProps = {
+  maxLength: 255,
+  onSubmitEditing: () => {},
 };
 
 CustomTextInput.displayName = `CustomTextInput`;

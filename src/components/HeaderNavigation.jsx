@@ -4,15 +4,6 @@ import { Platform, TouchableOpacity, View } from "react-native";
 import { StockIcon } from "./TabBarIcon";
 
 class HeaderNavigation extends React.Component {
-  static propTypes = {
-    navigation: PropTypes.shape({
-      navigate: PropTypes.func.isRequired,
-    }).isRequired,
-    iosImage: PropTypes.string.isRequired,
-    androidImage: PropTypes.string.isRequired,
-    nextScreen: PropTypes.string.isRequired,
-  };
-
   render() {
     return (
       <View>
@@ -34,5 +25,11 @@ class HeaderNavigation extends React.Component {
     );
   }
 }
+
+HeaderNavigation.propTypes = {
+  iosImage: PropTypes.string.isRequired,
+  androidImage: PropTypes.string.isRequired,
+  nextScreen: PropTypes.string.isRequired,
+};
 
 export default HeaderNavigation;

@@ -1,23 +1,24 @@
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 import * as Icon from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 
 const StockIcon = ({ name, size, style, color }) => (
-  <Icon.Ionicons
-    name={name}
-    size={size ? size : 32}
-    style={style}
-    color={color ? color : Colors.tabIconDefault}
-  />
+  <Icon.Ionicons name={name} size={size} style={style} color={color} />
 );
 
 StockIcon.propTypes = {
   name: PropTypes.string.isRequired,
   size: PropTypes.number,
-  style: PropTypes.object,
+  style: PropTypes.instanceOf(StyleSheet),
   color: PropTypes.string,
+};
+
+StockIcon.defaultProps = {
+  size: 32,
+  style: undefined,
+  color: Colors.tabIconDefault,
 };
 
 const RecordIcon = ({ type }) => {

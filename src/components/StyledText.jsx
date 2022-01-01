@@ -1,12 +1,8 @@
 import React from "react";
 import { PropTypes } from "prop-types";
-import { Text } from "react-native";
+import { StyleSheet, Text } from "react-native";
 
 export default class MonoText extends React.Component {
-  static propTypes = {
-    style: PropTypes.object,
-  };
-
   render() {
     return (
       <Text
@@ -16,3 +12,11 @@ export default class MonoText extends React.Component {
     );
   }
 }
+
+MonoText.propTypes = {
+  style: PropTypes.instanceOf(StyleSheet),
+};
+
+MonoText.defaultProps = {
+  style: undefined,
+};

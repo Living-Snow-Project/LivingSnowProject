@@ -55,8 +55,11 @@ const ImagesPickerScreen = ({ navigation, route }) => (
 );
 
 ImagesPickerScreen.propTypes = {
-  navigation: PropTypes.object.isRequired,
-  route: PropTypes.object.isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      onUpdatePhotos: PropTypes.func.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default ImagesPickerScreen;

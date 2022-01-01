@@ -54,7 +54,7 @@ function parsePhotoUris(photoUris) {
   return result;
 }
 
-const TimelineRow = ({ navigation, record, showAll = false }) => {
+const TimelineRow = ({ navigation, record, showAll }) => {
   const isAtlas = record.type.includes(`Atlas`);
 
   // this logic should be in a parent function
@@ -100,16 +100,17 @@ const TimelineRow = ({ navigation, record, showAll = false }) => {
 };
 
 TimelineRow.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }),
   record: PropTypes.shape({
     type: PropTypes.string.isRequired,
     photoUris: PropTypes.string,
     locationDescription: PropTypes.string,
     notes: PropTypes.string,
-  }),
+  }).isRequired,
   showAll: PropTypes.bool,
+};
+
+TimelineRow.defaultProps = {
+  showAll: false,
 };
 
 const styles = StyleSheet.create({

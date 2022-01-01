@@ -153,8 +153,8 @@ const GpsCoordinatesInput = ({ setGpsCoordinates, onSubmitEditing }) => {
 };
 
 GpsCoordinatesInput.propTypes = {
-  setGpsCoordinates: PropTypes.func,
-  onSubmitEditing: PropTypes.func,
+  setGpsCoordinates: PropTypes.func.isRequired,
+  onSubmitEditing: PropTypes.func.isRequired,
 };
 
 export default GpsCoordinatesInput;

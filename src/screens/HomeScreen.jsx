@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import NetInfo from "@react-native-community/netinfo";
-import PropTypes from "prop-types";
 import Storage from "../lib/Storage";
 import { Network } from "../lib/Network";
 import RecordManager from "../lib/RecordManager";
@@ -149,9 +148,5 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-TimelineScreen.propTypes = {
-  navigation: PropTypes.object,
-};
 
 export default TimelineScreen;

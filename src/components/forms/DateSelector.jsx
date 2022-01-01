@@ -32,8 +32,8 @@ const DateSelector = ({ date, setDate }) => {
 };
 
 DateSelector.propTypes = {
-  date: PropTypes.string,
-  setDate: PropTypes.func,
+  date: PropTypes.string.isRequired,
+  setDate: PropTypes.func.isRequired,
 };
 
 export default DateSelector;

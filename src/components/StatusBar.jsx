@@ -65,4 +65,10 @@ StatusBar.propTypes = {
   onDone: PropTypes.func,
 };
 
+StatusBar.defaultProps = {
+  text: null,
+  type: null,
+  onDone: null,
+};
+
 export default StatusBar;

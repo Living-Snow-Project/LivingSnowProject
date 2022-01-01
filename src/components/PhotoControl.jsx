@@ -76,11 +76,20 @@ const PhotoControl = ({ navigation, photos, onUpdatePhotos }) => {
 };
 
 PhotoControl.propTypes = {
-  navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }),
-  photos: PropTypes.array.isRequired,
+  photos: PropTypes.arrayOf(
+    PropTypes.oneOfType([
+      PropTypes.shape({
+        height: PropTypes.number,
+        uri: PropTypes.string,
+        width: PropTypes.number,
+      }),
+    ])
+  ),
   onUpdatePhotos: PropTypes.func.isRequired,
+};
+
+PhotoControl.defaultProps = {
+  photos: undefined,
 };
 
 const styles = StyleSheet.create({
