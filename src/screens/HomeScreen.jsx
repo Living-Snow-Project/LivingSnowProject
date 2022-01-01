@@ -44,13 +44,12 @@ const TimelineScreen = ({ navigation }) => {
   const displaySavedRecords = useCallback(() => {
     // records.photoUris is saved on disk as array of {uri, width, height} but RecordDetailsScreen expects `uri;uri;...` string format
     Storage.loadRecords().then((records) => {
-      records.forEach(
-        (record, index) =>
-          (records[index].photoUris = record.photoUris.reduce(
-            (accumulator, photo) => `${accumulator}${photo.uri};`,
-            ``
-          ))
-      );
+      records.forEach((record, index) => {
+        records[index].photoUris = record.photoUris.reduce(
+          (accumulator, photo) => `${accumulator}${photo.uri};`,
+          ``
+        );
+      });
       setPendingRecords(records);
     });
   }, []);

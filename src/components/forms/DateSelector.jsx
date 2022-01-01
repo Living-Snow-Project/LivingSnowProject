@@ -15,9 +15,9 @@ const DateSelector = ({ date, setDate }) => {
           {calendarVisible && (
             <Calendar
               current={date}
-              onDayPress={(date) => {
+              onDayPress={(newDate) => {
                 setCalendarVisible(false);
-                setDate(date.dateString);
+                setDate(newDate.dateString);
               }}
               markedDates={{ [date]: { selected: true } }}
             />

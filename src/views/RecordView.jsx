@@ -107,7 +107,7 @@ const RecordView = ({ navigation }) => {
       Storage.saveAppConfig();
     }
 
-    const isNumber = (value) => !isNaN(Number(value));
+    const isNumber = (value) => !Number.isNaN(Number(value));
 
     if (
       !state.latitude ||

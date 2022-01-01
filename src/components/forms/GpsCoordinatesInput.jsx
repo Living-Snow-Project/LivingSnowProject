@@ -17,7 +17,7 @@ const GpsCoordinatesInput = ({ setGpsCoordinates, onSubmitEditing }) => {
   const [manualGpsCoordinates, setManualGpsCoordinates] = useState(false);
   // TextInput behaves differently on iOS and Android, detailed explaination in rendering of component
   const [gpsCoordinatesEditable, setGpsCoordinatesEditable] = useState(
-    Platform.OS === "ios" ? true : false
+    Platform.OS === "ios"
   );
 
   // location subscription
@@ -26,7 +26,7 @@ const GpsCoordinatesInput = ({ setGpsCoordinates, onSubmitEditing }) => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         console.log(
-          "Permission to access foreground location was denied: ${status}"
+          `Permission to access foreground location was denied: ${status}`
         );
         return;
       }
@@ -74,8 +74,8 @@ const GpsCoordinatesInput = ({ setGpsCoordinates, onSubmitEditing }) => {
     // some users are adding parenthesis when manually entering coordinates, and we don't want them in the data set, quietly remove
     value = value.replace(`(`, ``).replace(`)`, ``);
 
-    let latitude = undefined;
-    let longitude = undefined;
+    let latitude;
+    let longitude;
     const coordinates = value.split(",");
 
     if (coordinates[0]) {

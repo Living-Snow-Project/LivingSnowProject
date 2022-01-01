@@ -8,7 +8,7 @@ const CustomTextInput = forwardRef(
     { description, placeholder, maxLength, onChangeText, onSubmitEditing },
     ref
   ) => {
-    const height = useRef(0);
+    const textInputHeight = useRef(0);
 
     // onContentSizeChange is called frequently for multiline TextInput, we only want to emit 'keyboardDidShow' event when height actually changes
     const handleMultilineTextInputOnContentSizeChange = (height, event) => {
@@ -37,12 +37,13 @@ const CustomTextInput = forwardRef(
           placeholder={placeholder}
           onChangeText={(text) => onChangeText(text)}
           onSubmitEditing={() => onSubmitEditing()}
-          onContentSizeChange={(event) =>
-            (height.current = handleMultilineTextInputOnContentSizeChange(
-              height.current,
-              event
-            ))
-          }
+          onContentSizeChange={(event) => {
+            textInputHeight.current =
+              handleMultilineTextInputOnContentSizeChange(
+                textInputHeight.current,
+                event
+              );
+          }}
           maxLength={maxLength}
           returnKeyType="done"
         />

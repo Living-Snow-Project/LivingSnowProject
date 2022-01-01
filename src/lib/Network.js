@@ -1,3 +1,4 @@
+/* global fetch */
 import serviceEndpoint from "../constants/Service";
 
 const recordsUri = `${serviceEndpoint}/api/records/`;
