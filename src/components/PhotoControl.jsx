@@ -6,6 +6,7 @@ import { PictureIcon } from "./TabBarIcon";
 import Routes from "../navigation/Routes";
 
 // because we pass a callback in params, more info from the following links
+// follow links for best practices, look at Context
 // https://reactnavigation.org/docs/troubleshooting/#i-get-the-warning-non-serializable-values-were-found-in-the-navigation-state
 // https://reactnavigation.org/docs/params/
 // https://reactnavigation.org/docs/hello-react-navigation/#passing-additional-props
@@ -13,7 +14,7 @@ LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
 ]);
 
-const PhotoControl = ({ navigation, photos, onUpdatePhotos }) => {
+export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
   const renderPhotos = useCallback(() => {
     const colsPerRow = 2;
 
@@ -73,7 +74,7 @@ const PhotoControl = ({ navigation, photos, onUpdatePhotos }) => {
       </Pressable>
     </>
   );
-};
+}
 
 PhotoControl.propTypes = {
   photos: PropTypes.arrayOf(
@@ -107,5 +108,3 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
 });
-
-export default PhotoControl;

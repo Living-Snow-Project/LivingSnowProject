@@ -54,7 +54,7 @@ function parsePhotoUris(photoUris) {
   return result;
 }
 
-const TimelineRow = ({ navigation, record, showAll }) => {
+export default function TimelineRow({ navigation, record, showAll }) {
   const isAtlas = record.type.includes(`Atlas`);
 
   // this logic should be in a parent function
@@ -97,7 +97,7 @@ const TimelineRow = ({ navigation, record, showAll }) => {
       </Pressable>
     </View>
   );
-};
+}
 
 TimelineRow.propTypes = {
   record: PropTypes.shape({
@@ -140,5 +140,3 @@ const styles = StyleSheet.create({
     width: "33%",
   },
 });
-
-export default TimelineRow;

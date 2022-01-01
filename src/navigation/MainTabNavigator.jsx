@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
-import TimelineScreen from "../screens/HomeScreen";
+import TimelineScreen from "../screens/TimelineScreen";
 import RecordScreen from "../screens/RecordScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import FirstRunScreen from "../screens/FirstRunScreen";

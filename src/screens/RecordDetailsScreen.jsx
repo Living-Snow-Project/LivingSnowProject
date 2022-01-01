@@ -23,7 +23,7 @@ function parsePhotoUris(photoUris) {
   return result;
 }
 
-const RecordDetailsScreen = ({ route }) => {
+export default function RecordDetailsScreen({ route }) {
   const {
     date,
     type,
@@ -112,7 +112,7 @@ const RecordDetailsScreen = ({ route }) => {
       )}
     </ScrollView>
   );
-};
+}
 
 RecordDetailsScreen.propTypes = {
   // TODO: make an encapsulated Record object (in TypeScript)
@@ -134,5 +134,3 @@ const styles = StyleSheet.create({
     borderColor: "black",
   },
 });
-
-export default RecordDetailsScreen;

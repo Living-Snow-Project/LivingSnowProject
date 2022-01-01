@@ -14,8 +14,7 @@ import RecordManager from "../lib/RecordManager";
 import TimelineRow from "../components/TimelineRow";
 import StatusBar from "../components/StatusBar";
 
-// TODO: rename file
-const TimelineScreen = ({ navigation }) => {
+export default function TimelineScreen({ navigation }) {
   const [connected, setConnected] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [pendingRecords, setPendingRecords] = useState([]);
@@ -127,7 +126,7 @@ const TimelineScreen = ({ navigation }) => {
       </ScrollView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -147,5 +146,3 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
 });
-
-export default TimelineScreen;

@@ -12,11 +12,13 @@ import {
 const { State: TextInputState } = TextInput;
 
 export default class KeyboardShift extends Component {
-  state = {
-    shift: new Animated.Value(0),
-  };
-
-  previousGap = 0;
+  constructor(props) {
+    super(props);
+    this.state = {
+      shift: new Animated.Value(0),
+    };
+    this.previousGap = 0;
+  }
 
   componentDidMount() {
     if (Platform.OS === "ios") {
@@ -38,20 +40,8 @@ export default class KeyboardShift extends Component {
     }
   }
 
-  render() {
-    const { children: renderProp } = this.props;
-    const { shift } = this.state;
-
-    return (
-      <Animated.View
-        style={[styles.container, { transform: [{ translateY: shift }] }]}
-      >
-        {renderProp()}
-      </Animated.View>
-    );
-  }
-
   handleKeyboardDidShow = (event) => {
+    const { shift } = this.state;
     const { height: windowHeight } = Dimensions.get("window");
     // when the multiline TextInput grows, we want the keyboard to move with it
     const keyboardHeight =
@@ -88,7 +78,7 @@ export default class KeyboardShift extends Component {
           }
 
           this.previousGap = gap;
-          Animated.timing(this.state.shift, {
+          Animated.timing(shift, {
             toValue: gap,
             duration: 250,
             useNativeDriver: true,
@@ -99,7 +89,8 @@ export default class KeyboardShift extends Component {
   };
 
   handleKeyboardDidHide = () => {
-    this.isHiding = Animated.timing(this.state.shift, {
+    const { shift } = this.state;
+    this.isHiding = Animated.timing(shift, {
       toValue: 0,
       duration: 250,
       useNativeDriver: true,
@@ -114,6 +105,19 @@ export default class KeyboardShift extends Component {
       }
     });
   };
+
+  render() {
+    const { children: renderProp } = this.props;
+    const { shift } = this.state;
+
+    return (
+      <Animated.View
+        style={[styles.container, { transform: [{ translateY: shift }] }]}
+      >
+        {renderProp()}
+      </Animated.View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

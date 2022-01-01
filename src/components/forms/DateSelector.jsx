@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Calendar } from "react-native-calendars";
 import { formInputStyles } from "../../styles/FormInput";
 
-const DateSelector = ({ date, setDate }) => {
+export default function DateSelector({ date, setDate }) {
   const [calendarVisible, setCalendarVisible] = useState(false);
 
   return (
@@ -29,11 +29,9 @@ const DateSelector = ({ date, setDate }) => {
       </TouchableHighlight>
     </>
   );
-};
+}
 
 DateSelector.propTypes = {
   date: PropTypes.string.isRequired,
   setDate: PropTypes.func.isRequired,
 };
-
-export default DateSelector;

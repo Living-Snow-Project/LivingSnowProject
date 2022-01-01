@@ -10,8 +10,9 @@ export default class FirstRunScreen extends React.Component {
   //
 
   componentDidMount() {
+    const { navigation } = this.props;
     if (!global.appConfig.showFirstRun) {
-      this.props.navigation.navigate("Home");
+      navigation.navigate("Home");
     }
   }
 
@@ -20,9 +21,10 @@ export default class FirstRunScreen extends React.Component {
   //
 
   completeFirstRunExperience() {
+    const { navigation } = this.props;
     global.appConfig.showFirstRun = false;
     Storage.saveAppConfig();
-    this.props.navigation.navigate("Home");
+    navigation.navigate("Home");
   }
 
   render() {

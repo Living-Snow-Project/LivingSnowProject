@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 //  permanent\static: ie. "no internet", airplane mode scenario
 //  completion\notification: ie. "success\saved", upload record result scenario
 //  tasks\working\progress: ie. "downloading\uploading" scenario
-const StatusBar = ({ text, type, onDone }) => {
+export default function StatusBar({ text, type, onDone }) {
   // nothing to render
   if (!text) {
     return null;
@@ -46,7 +46,7 @@ const StatusBar = ({ text, type, onDone }) => {
   }
 
   return null;
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -70,5 +70,3 @@ StatusBar.defaultProps = {
   type: null,
   onDone: null,
 };
-
-export default StatusBar;
