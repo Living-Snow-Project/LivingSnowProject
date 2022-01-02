@@ -4,6 +4,34 @@ import PropTypes from "prop-types";
 import { PictureIcon, RecordIcon } from "./TabBarIcon";
 import Routes from "../navigation/Routes";
 
+const styles = StyleSheet.create({
+  recordContainer: {
+    borderBottomWidth: 1,
+  },
+  recordTop: {
+    flexDirection: "row",
+    flex: 1,
+  },
+  topText: {
+    marginLeft: 1,
+    flex: 0.7,
+  },
+  topIcon: {
+    marginLeft: 1,
+    flex: 0.15,
+  },
+  photosNotification: {
+    position: "absolute",
+    alignSelf: "flex-end",
+    top: 1,
+    right: 2,
+    backgroundColor: "red",
+    borderRadius: 40,
+    alignItems: "center",
+    width: "33%",
+  },
+});
+
 function empty(text) {
   return !text;
 }
@@ -112,31 +140,3 @@ TimelineRow.propTypes = {
 TimelineRow.defaultProps = {
   showAll: false,
 };
-
-const styles = StyleSheet.create({
-  recordContainer: {
-    borderBottomWidth: 1,
-  },
-  recordTop: {
-    flexDirection: "row",
-    flex: 1,
-  },
-  topText: {
-    marginLeft: 1,
-    flex: 0.7,
-  },
-  topIcon: {
-    marginLeft: 1,
-    flex: 0.15,
-  },
-  photosNotification: {
-    position: "absolute",
-    alignSelf: "flex-end",
-    top: 1,
-    right: 2,
-    backgroundColor: "red",
-    borderRadius: 40,
-    alignItems: "center",
-    width: "33%",
-  },
-});

@@ -12,8 +12,6 @@
   "rules": {
     "no-param-reassign": "off",
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-    "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": "off",
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
     "react/no-array-index-key": "off",
     "react/no-unstable-nested-components": "off",

@@ -4,6 +4,63 @@ import { Platform, StyleSheet, Text, View, TextInput } from "react-native";
 import { StockIcon } from "../components/TabBarIcon";
 import Storage from "../lib/Storage";
 
+const styles = StyleSheet.create({
+  ftreContainer: {
+    flex: 1,
+    marginTop: 30,
+    paddingHorizontal: 10,
+  },
+  welcomeContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  exitContainer: {
+    flex: 2,
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginTop: 30,
+  },
+  exitButtonContainer: {
+    backgroundColor: "lightpink",
+    width: 200,
+    height: 40,
+    borderRadius: 5,
+    justifyContent: "center",
+  },
+  exitButtonText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  welcomeText: {
+    fontSize: 25,
+    marginTop: 1,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  descriptionText: {
+    fontSize: 12,
+    marginTop: 20,
+    marginBottom: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    color: "red",
+    textAlign: "center",
+  },
+  optionInputText: {
+    backgroundColor: "#efefef",
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    borderWidth: 1,
+    borderColor: "gray",
+    borderRadius: 4,
+  },
+  optionText: {
+    fontSize: 15,
+    marginTop: 3,
+  },
+});
+
 export default class FirstRunScreen extends React.Component {
   //
   // Checks to see if the app has run already
@@ -84,60 +141,3 @@ export default class FirstRunScreen extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  ftreContainer: {
-    flex: 1,
-    marginTop: 30,
-    paddingHorizontal: 10,
-  },
-  welcomeContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  exitContainer: {
-    flex: 2,
-    justifyContent: "flex-start",
-    alignItems: "center",
-    marginTop: 30,
-  },
-  exitButtonContainer: {
-    backgroundColor: "lightpink",
-    width: 200,
-    height: 40,
-    borderRadius: 5,
-    justifyContent: "center",
-  },
-  exitButtonText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  welcomeText: {
-    fontSize: 25,
-    marginTop: 1,
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  descriptionText: {
-    fontSize: 12,
-    marginTop: 20,
-    marginBottom: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    color: "red",
-    textAlign: "center",
-  },
-  optionInputText: {
-    backgroundColor: "#efefef",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 4,
-  },
-  optionText: {
-    fontSize: 15,
-    marginTop: 3,
-  },
-});

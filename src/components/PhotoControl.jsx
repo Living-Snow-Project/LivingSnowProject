@@ -14,6 +14,22 @@ LogBox.ignoreLogs([
   "Non-serializable values were found in the navigation state",
 ]);
 
+const styles = StyleSheet.create({
+  // these styles could be dynamically sized\arranged based on number of photos and combinaions of portrait\landscape
+  container: {
+    flex: 1,
+    margin: 1,
+    height: 100,
+  },
+  photo: {
+    width: "100%",
+    height: "100%",
+    borderColor: "black",
+    borderWidth: 1,
+    borderRadius: 2,
+  },
+});
+
 export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
   const renderPhotos = useCallback(() => {
     const colsPerRow = 2;
@@ -28,7 +44,7 @@ export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
         for (let col = 0; col < colsPerRow; col++) {
           const index = row * rows + col;
           inner.push(
-            <View style={styles.singlePhotoContainer} key={index}>
+            <View style={styles.container} key={index}>
               <Image style={styles.photo} source={{ uri: photos[index].uri }} />
             </View>
           );
@@ -49,7 +65,7 @@ export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
     return (
       <View style={{ flex: photos.length, flexDirection: "row" }}>
         {photos.map((x, index) => (
-          <View style={styles.singlePhotoContainer} key={index}>
+          <View style={styles.container} key={index}>
             <Image style={styles.photo} key={index} source={{ uri: x.uri }} />
           </View>
         ))}
@@ -92,19 +108,3 @@ PhotoControl.propTypes = {
 PhotoControl.defaultProps = {
   photos: undefined,
 };
-
-const styles = StyleSheet.create({
-  // these styles could be dynamically sized\arranged based on number of photos and combinaions of portrait\landscape
-  singlePhotoContainer: {
-    flex: 1,
-    margin: 1,
-    height: 100,
-  },
-  photo: {
-    width: "100%",
-    height: "100%",
-    borderColor: "black",
-    borderWidth: 1,
-    borderRadius: 2,
-  },
-});

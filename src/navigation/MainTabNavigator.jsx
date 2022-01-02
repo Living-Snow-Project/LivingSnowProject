@@ -10,14 +10,6 @@ import HeaderNavigation from "../components/HeaderNavigation";
 import RecordDetailsScreen from "../screens/RecordDetailsScreen";
 import Routes from "./Routes";
 
-export default function Navigation() {
-  return (
-    <NavigationContainer>
-      <RootNavigator />
-    </NavigationContainer>
-  );
-}
-
 const Stack = createStackNavigator();
 
 function RootNavigator() {
@@ -79,5 +71,13 @@ function RootNavigator() {
         options={{ headerTitle: "Details" }}
       />
     </Stack.Navigator>
+  );
+}
+
+export default function Navigation() {
+  return (
+    <NavigationContainer>
+      <RootNavigator />
+    </NavigationContainer>
   );
 }

@@ -2,6 +2,17 @@ import React, { useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 
+const styles = StyleSheet.create({
+  container: {
+    borderBottomWidth: 1,
+    backgroundColor: "lightgrey",
+  },
+  text: {
+    fontSize: 16,
+    textAlign: "center",
+  },
+});
+
 // here's the idea (and likely this is too much functionality for a single component)
 // status types:
 //  permanent\static: ie. "no internet", airplane mode scenario
@@ -47,17 +58,6 @@ export default function StatusBar({ text, type, onDone }) {
 
   return null;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    borderBottomWidth: 1,
-    backgroundColor: "lightgrey",
-  },
-  text: {
-    fontSize: 16,
-    textAlign: "center",
-  },
-});
 
 StatusBar.propTypes = {
   text: PropTypes.string,

@@ -41,6 +41,38 @@ export default function RecordScreen({ navigation }) {
     photos: [], // (optional)
   });
 
+  // user input form validation
+  const validateUserInput = () => {
+    // TODO: this should be done on FirstRun and\or Settings
+    if (!global.appConfig.name || global.appConfig.name === ``) {
+      global.appConfig.name = `Anonymous`;
+      Storage.saveAppConfig();
+    }
+
+    const isNumber = (value) => !Number.isNaN(Number(value));
+
+    if (
+      !state.latitude ||
+      !state.longitude ||
+      !isNumber(state.latitude) ||
+      !isNumber(state.longitude)
+    ) {
+      Alert.alert(
+        `Invalid GPS coordinates`,
+        `Coordinates must be in "lat, long" format. ie. 12.345678, -123.456789`,
+        [
+          {
+            text: `Ok`,
+          },
+        ]
+      );
+
+      return false;
+    }
+
+    return true;
+  };
+
   // data fetching side effect when "upload record" icon tapped
   useEffect(() => {
     // effect executes when uploading is desired
@@ -99,38 +131,6 @@ export default function RecordScreen({ navigation }) {
       headerRightContainerStyle: { marginRight: 20 },
     });
   }, []);
-
-  // user input form validation
-  const validateUserInput = () => {
-    // TODO: this should be done on FirstRun and\or Settings
-    if (!global.appConfig.name || global.appConfig.name === ``) {
-      global.appConfig.name = `Anonymous`;
-      Storage.saveAppConfig();
-    }
-
-    const isNumber = (value) => !Number.isNaN(Number(value));
-
-    if (
-      !state.latitude ||
-      !state.longitude ||
-      !isNumber(state.latitude) ||
-      !isNumber(state.longitude)
-    ) {
-      Alert.alert(
-        `Invalid GPS coordinates`,
-        `Coordinates must be in "lat, long" format. ie. 12.345678, -123.456789`,
-        [
-          {
-            text: `Ok`,
-          },
-        ]
-      );
-
-      return false;
-    }
-
-    return true;
-  };
 
   return (
     <KeyboardShift>

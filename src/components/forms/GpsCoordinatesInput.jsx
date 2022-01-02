@@ -20,9 +20,41 @@ export default function GpsCoordinatesInput({
   const [gpsCoordinateString, setGpsCoordinateString] = useState(null);
   const [manualGpsCoordinates, setManualGpsCoordinates] = useState(false);
   // TextInput behaves differently on iOS and Android, detailed explaination in rendering of component
+  // TODO: Try replacing this with <Pressable><CustomTextInput/></Pressable>, and "if (manualGpsCoordinates) {gpsCoordinatesRef.current.focus();}"
   const [gpsCoordinatesEditable, setGpsCoordinatesEditable] = useState(
     Platform.OS === "ios"
   );
+  const clipCoordinate = (coordinate) =>
+    JSON.stringify(coordinate.toFixed(6)).replace('"', "").replace('"', "");
+
+  // accepts inputs from both location subscription and typed user input
+  const updateGpsCoordinateString = (value) => {
+    setGpsCoordinateString(value);
+
+    // some users are adding parenthesis when manually entering coordinates, and we don't want them in the data set, quietly remove
+    value = value.replace(`(`, ``).replace(`)`, ``);
+
+    let latitude;
+    let longitude;
+    const coordinates = value.split(",");
+
+    if (coordinates[0]) {
+      latitude = coordinates[0].trim();
+    }
+
+    if (coordinates[1]) {
+      longitude = coordinates[1].trim();
+    }
+
+    setGpsCoordinates(latitude, longitude);
+  };
+
+  const stopGps = () => {
+    if (watchPosition.current) {
+      watchPosition.current.remove();
+      watchPosition.current = null;
+    }
+  };
 
   // location subscription
   useEffect(() => {
@@ -68,31 +100,6 @@ export default function GpsCoordinatesInput({
     gpsCoordinatesRef.current.focus();
   };
 
-  const clipCoordinate = (coordinate) =>
-    JSON.stringify(coordinate.toFixed(6)).replace('"', "").replace('"', "");
-
-  // accepts inputs from both location subscription and typed user input
-  const updateGpsCoordinateString = (value) => {
-    setGpsCoordinateString(value);
-
-    // some users are adding parenthesis when manually entering coordinates, and we don't want them in the data set, quietly remove
-    value = value.replace(`(`, ``).replace(`)`, ``);
-
-    let latitude;
-    let longitude;
-    const coordinates = value.split(",");
-
-    if (coordinates[0]) {
-      latitude = coordinates[0].trim();
-    }
-
-    if (coordinates[1]) {
-      longitude = coordinates[1].trim();
-    }
-
-    setGpsCoordinates(latitude, longitude);
-  };
-
   const confirmManualGpsCoordinates = () => {
     if (global.appConfig.showGpsWarning && !manualGpsCoordinates) {
       Alert.alert(
@@ -111,13 +118,6 @@ export default function GpsCoordinatesInput({
       );
     } else if (!manualGpsCoordinates) {
       enableManualGpsCoordinates();
-    }
-  };
-
-  const stopGps = () => {
-    if (watchPosition.current) {
-      watchPosition.current.remove();
-      watchPosition.current = null;
     }
   };
 

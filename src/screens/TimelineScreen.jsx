@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  RefreshControl,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
+import { RefreshControl, ScrollView, Text, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import NetInfo from "@react-native-community/netinfo";
 import Storage from "../lib/Storage";
@@ -14,6 +8,7 @@ import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import TimelineRow from "../components/TimelineRow";
 import StatusBar from "../components/StatusBar";
+import styles from "../styles/Timeline";
 
 export default function TimelineScreen({ navigation }) {
   const [connected, setConnected] = useState(true);
@@ -25,6 +20,10 @@ export default function TimelineScreen({ navigation }) {
     type: null,
     onDone: null,
   });
+
+  const updateStatus = (text, type, onDone = null) =>
+    setStatus({ text, type, onDone });
+  const clearStatus = () => updateStatus(null, null, null);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(({ isConnected }) => {
@@ -103,10 +102,6 @@ export default function TimelineScreen({ navigation }) {
     );
   }, []);
 
-  const updateStatus = (text, type, onDone = null) =>
-    setStatus({ text, type, onDone });
-  const clearStatus = () => updateStatus(null, null, null);
-
   return (
     <View style={styles.container}>
       <StatusBar text={status.text} type={status.type} onDone={status.onDone} />
@@ -128,22 +123,3 @@ export default function TimelineScreen({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  noRecords: {
-    textAlign: "center",
-    marginTop: 20,
-  },
-  recordStatusContainer: {
-    backgroundColor: "lightgrey",
-    borderBottomWidth: 1,
-  },
-  recordStatusText: {
-    fontSize: 16,
-    textAlign: "center",
-  },
-});

@@ -11,6 +11,21 @@ import PropTypes from "prop-types";
 import { downloadPhotoUri } from "../lib/Network";
 import { getAtlasItem } from "../lib/Atlas";
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  topImage: {
+    flex: 1,
+  },
+  image: {
+    flex: 1,
+    borderTopWidth: 1,
+    borderColor: "black",
+  },
+});
+
 // TODO: make an encapsulated Record object
 function parsePhotoUris(photoUris) {
   if (!photoUris) {
@@ -119,18 +134,3 @@ RecordDetailsScreen.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   route: PropTypes.object.isRequired,
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  topImage: {
-    flex: 1,
-  },
-  image: {
-    flex: 1,
-    borderTopWidth: 1,
-    borderColor: "black",
-  },
-});

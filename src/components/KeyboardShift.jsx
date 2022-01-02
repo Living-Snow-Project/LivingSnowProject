@@ -9,6 +9,16 @@ import {
   TextInput,
 } from "react-native";
 
+const styles = StyleSheet.create({
+  container: {
+    height: "100%",
+    left: 0,
+    position: "absolute",
+    top: 0,
+    width: "100%",
+  },
+});
+
 const { State: TextInputState } = TextInput;
 
 export default class KeyboardShift extends Component {
@@ -119,16 +129,6 @@ export default class KeyboardShift extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: "100%",
-    left: 0,
-    position: "absolute",
-    top: 0,
-    width: "100%",
-  },
-});
 
 KeyboardShift.propTypes = {
   children: PropTypes.func.isRequired,
