@@ -9,6 +9,7 @@ import {
 import PropTypes from "prop-types";
 import * as Location from "expo-location";
 import { formInputStyles } from "../../styles/FormInput";
+import Logger from "../../lib/Logger";
 
 export default function GpsCoordinatesInput({
   setGpsCoordinates,
@@ -28,7 +29,7 @@ export default function GpsCoordinatesInput({
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        console.log(
+        Logger.Warn(
           `Permission to access foreground location was denied: ${status}`
         );
         return;
@@ -48,7 +49,7 @@ export default function GpsCoordinatesInput({
             )
         );
       } catch (error) {
-        console.log(
+        Logger.Error(
           `Location.watchPositionAsync() failed: ${JSON.stringify(error)}`
         );
       }

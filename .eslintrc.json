@@ -1,21 +1,23 @@
 {
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["react", "react-native", "react-hooks"],
-  "parser": "@babel/eslint-parser",
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react", "react-native", "react-hooks"],
+  "extends": ["airbnb", "airbnb-typescript", "prettier"],
   "parserOptions": {
+    "project": "./tsconfig.json",
     "ecmaFeatures": {
       "jsx": true
     }
   },
   "rules": {
-    "no-console": "off",
     "no-param-reassign": "off",
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "off",
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
     "react/no-array-index-key": "off",
     "react/no-unstable-nested-components": "off",
     "react/prop-types": ["error", { "ignore": ["navigation"] }]
   },
-  "ignorePatterns": ["babel.config.js", "*test*.js", "*.ts*"]
+  "ignorePatterns": ["babel.config.js", "*test*.js"]
 }

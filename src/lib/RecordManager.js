@@ -1,5 +1,6 @@
 import { Network } from "./Network";
 import Storage from "./Storage";
+import Logger from "./Logger";
 
 class RecordManager {
   static async uploadRecord(record, photoUris) {
@@ -11,7 +12,7 @@ class RecordManager {
               promise.then(() => {
                 const photo = { id: response.id, photoStream: uri };
                 return Network.uploadPhoto(photo).catch(async (error) => {
-                  console.log(error);
+                  Logger.Warn(JSON.stringify(error));
                   await Storage.savePhoto(photo);
                 });
               }),
@@ -20,7 +21,7 @@ class RecordManager {
           .then(() => Promise.resolve())
       )
       .catch(async (error) => {
-        console.log(error);
+        Logger.Warn(JSON.stringify(error));
         record.photoUris = photoUris;
         await Storage.saveRecord(record);
         return Promise.reject(error);
@@ -45,14 +46,18 @@ class RecordManager {
 
               return RecordManager.uploadRecord(record, photoUris).catch(
                 (error) =>
-                  console.log(
-                    `continue records reducer to prevent data loss: ${error}`
+                  Logger.Warn(
+                    `continue records reducer to prevent data loss: ${JSON.stringify(
+                      error
+                    )}`
                   )
               );
             }),
           Promise.resolve()
         )
-        .catch((error) => console.log(`error in record reducer: ${error}`));
+        .catch((error) =>
+          Logger.Error(`error in record reducer: ${JSON.stringify(error)}`)
+        );
     });
   }
 
@@ -70,13 +75,15 @@ class RecordManager {
           (promise, photo) =>
             promise.then(() =>
               Network.uploadPhoto(photo).catch((error) => {
-                console.log(error);
+                Logger.Warn(JSON.stringify(error));
                 Storage.savePhoto(photo);
               })
             ),
           Promise.resolve()
         )
-        .catch((error) => console.log(`error in photo reducer: ${error}`));
+        .catch((error) =>
+          Logger.Error(`error in photo reducer: ${JSON.stringify(error)}`)
+        );
     });
   }
 }

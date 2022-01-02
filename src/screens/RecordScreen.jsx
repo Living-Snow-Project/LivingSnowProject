@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import KeyboardShift from "../components/KeyboardShift";
 import Storage from "../lib/Storage";
 import RecordManager from "../lib/RecordManager";
+import Logger from "../lib/Logger";
 import { StockIcon } from "../components/TabBarIcon";
 import { formInputStyles } from "../styles/FormInput";
 import { AtlasTypes } from "../lib/Atlas";
@@ -73,7 +74,7 @@ export default function RecordScreen({ navigation }) {
         Alert.alert(`Upload succeeded`, `Thanks for your submission.`);
       })
       .catch((error) => {
-        console.log(error);
+        Logger.Warn(JSON.stringify(error));
         Alert.alert(`Record Saved`, `We will upload it later.`);
       })
       .finally(() => {

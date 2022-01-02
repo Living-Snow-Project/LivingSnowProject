@@ -1,4 +1,5 @@
 /* global fetch */
+import Logger from "./Logger";
 import serviceEndpoint from "../constants/Service";
 
 const recordsUri = `${serviceEndpoint}/api/records/`;
@@ -6,7 +7,7 @@ const uploadPhotoUri = (id) => `${recordsUri}${id}/photo`;
 const downloadPhotoUri = (id) => `${serviceEndpoint}/api/photos/${id}`;
 
 function dumpRecord(record) {
-  console.log(
+  Logger.Info(
     `Handling POST Request: ${serviceEndpoint}/api/records` +
       `\n  Type: ${record.type}` +
       `\n  Name: ${record.name}` +
@@ -18,8 +19,7 @@ function dumpRecord(record) {
       `\n  Longitude: ${record.longitude}` +
       `\n  Description: ${record.locationDescription}` +
       `\n  Notes: ${record.notes}` +
-      `\nJSON Body\n  `,
-    record
+      `\n JSON Body:\n${JSON.stringify(record)}`
   );
 }
 
@@ -28,11 +28,11 @@ function failedFetch(operation, response) {
 
   if (response?.status) {
     const error = `${messagePrefix} ${response.status}: ${response.statusText}`;
-    console.log(error);
+    Logger.Error(error);
     return Promise.reject(error);
   }
 
-  console.log(messagePrefix, response);
+  Logger.Error(`${messagePrefix}: ${JSON.stringify(response)}`);
   return Promise.reject(response);
 }
 
@@ -78,7 +78,7 @@ class Network {
   static async downloadRecords() {
     const operation = `downloadRecords`;
 
-    console.log(`Handling GET Request: ${recordsUri}`);
+    Logger.Info(`Handling GET Request: ${recordsUri}`);
 
     return fetch(recordsUri)
       .then((response) =>

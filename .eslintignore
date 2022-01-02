@@ -1,0 +1,17 @@
+node_modules/**/*
+.expo/*
+.expo-shared/*
+.github/*
+expo-images-picker/*
+assets/*
+.gitattributes
+package.json
+babel.config.js
+npm-debug.*
+*.jks
+*.p12
+*.key
+*.mobileprovision
+yarn-error.log
+pc-api-5087382103930800214-683-b4e136d3ddec.json
+deployment-instructions.txt

@@ -11,6 +11,7 @@ import NetInfo from "@react-native-community/netinfo";
 import Storage from "../lib/Storage";
 import { Network } from "../lib/Network";
 import RecordManager from "../lib/RecordManager";
+import Logger from "../lib/Logger";
 import TimelineRow from "../components/TimelineRow";
 import StatusBar from "../components/StatusBar";
 
@@ -72,7 +73,7 @@ export default function TimelineScreen({ navigation }) {
       .then(() => Network.downloadRecords())
       .then((response) => setDownloadedRecords(response))
       .catch(() =>
-        console.log(`Could not download records. Please try again later.`)
+        Logger.Warn(`Could not download records. Please try again later.`)
       )
       .finally(() => {
         setRefreshing(false);
