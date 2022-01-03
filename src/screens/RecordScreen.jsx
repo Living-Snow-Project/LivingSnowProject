@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
   Platform,
+  Pressable,
   ScrollView,
   View,
 } from "react-native";
-import Touchable from "react-native-platform-touchable";
 import PropTypes from "prop-types";
 import KeyboardShift from "../components/KeyboardShift";
 import Storage from "../lib/Storage";
@@ -73,6 +73,17 @@ export default function RecordScreen({ navigation }) {
     return true;
   };
 
+  const UploadRecord = useCallback(
+    () => (
+      <Pressable onPress={() => setUploading(true)}>
+        <StockIcon
+          name={Platform.OS === "ios" ? "ios-cloud-upload" : "md-cloud-upload"}
+        />
+      </Pressable>
+    ),
+    []
+  );
+
   // data fetching side effect when "upload record" icon tapped
   useEffect(() => {
     // effect executes when uploading is desired
@@ -117,17 +128,7 @@ export default function RecordScreen({ navigation }) {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: function UploadRecord() {
-        return (
-          <Touchable onPress={() => setUploading(true)}>
-            <StockIcon
-              name={
-                Platform.OS === "ios" ? "ios-cloud-upload" : "md-cloud-upload"
-              }
-            />
-          </Touchable>
-        );
-      },
+      headerRight: () => UploadRecord(),
       headerRightContainerStyle: { marginRight: 20 },
     });
   }, []);

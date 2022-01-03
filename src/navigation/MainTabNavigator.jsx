@@ -12,6 +12,28 @@ import Routes from "./Routes";
 
 const Stack = createStackNavigator();
 
+function TimelineLeft(navigation) {
+  return (
+    <HeaderNavigation
+      navigation={navigation}
+      nextScreen={Routes.SettingsScreen}
+      iosImage="ios-settings"
+      androidImage="md-settings"
+    />
+  );
+}
+
+function TimelineRight(navigation) {
+  return (
+    <HeaderNavigation
+      navigation={navigation}
+      nextScreen={Routes.RecordScreen}
+      iosImage="ios-add-circle-outline"
+      androidImage="md-add-circle-outline"
+    />
+  );
+}
+
 function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
@@ -28,27 +50,9 @@ function RootNavigator() {
         options={({ navigation }) => ({
           headerTitle: "Timeline",
           headerTitleContainerStyle: { justifyContent: "center" },
-          headerLeft: function TimelineLeft() {
-            return (
-              <HeaderNavigation
-                navigation={navigation}
-                nextScreen={Routes.SettingsScreen}
-                iosImage="ios-settings"
-                androidImage="md-settings"
-              />
-            );
-          },
+          headerLeft: () => TimelineLeft(navigation),
           headerLeftContainerStyle: { marginLeft: 20 },
-          headerRight: function TimelineRight() {
-            return (
-              <HeaderNavigation
-                navigation={navigation}
-                nextScreen={Routes.RecordScreen}
-                iosImage="ios-add-circle-outline"
-                androidImage="md-add-circle-outline"
-              />
-            );
-          },
+          headerRight: () => TimelineRight(navigation),
           headerRightContainerStyle: { marginRight: 20 },
         })}
       />
