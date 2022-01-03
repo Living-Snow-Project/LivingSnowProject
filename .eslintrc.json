@@ -10,7 +10,6 @@
     }
   },
   "rules": {
-    "no-param-reassign": "off",
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
     "react/no-array-index-key": "off",

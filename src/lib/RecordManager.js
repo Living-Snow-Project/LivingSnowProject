@@ -4,7 +4,8 @@ import Logger from "./Logger";
 
 class RecordManager {
   static async uploadRecord(record, photoUris) {
-    return Network.uploadRecord(record)
+    const localRecord = JSON.parse(JSON.stringify(record));
+    return Network.uploadRecord(localRecord)
       .then((response) =>
         photoUris
           .reduce(
@@ -22,8 +23,8 @@ class RecordManager {
       )
       .catch(async (error) => {
         Logger.Warn(JSON.stringify(error));
-        record.photoUris = photoUris;
-        await Storage.saveRecord(record);
+        localRecord.photoUris = photoUris;
+        await Storage.saveRecord(localRecord);
         return Promise.reject(error);
       });
   }
@@ -42,6 +43,7 @@ class RecordManager {
           (promise, record) =>
             promise.then(() => {
               const photoUris = record?.photoUris;
+              /* eslint-disable no-param-reassign */
               record.photoUris = null;
 
               return RecordManager.uploadRecord(record, photoUris).catch(

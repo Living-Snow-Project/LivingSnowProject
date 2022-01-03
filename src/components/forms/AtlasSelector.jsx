@@ -10,9 +10,8 @@ export default function AtlasSelector({ recordType, atlasType, setAtlasType }) {
     return null;
   }
 
-  if (atlasType === AtlasTypes.Undefined) {
-    atlasType = AtlasTypes.SnowAlgae;
-  }
+  const localAtlasType =
+    atlasType === AtlasTypes.Undefined ? AtlasTypes.SnowAlgae : atlasType;
 
   return (
     <>
@@ -30,7 +29,7 @@ export default function AtlasSelector({ recordType, atlasType, setAtlasType }) {
             : AtlasTypesTable
         }
         onValueChange={(type) => setAtlasType(type)}
-        value={atlasType}
+        value={localAtlasType}
       />
     </>
   );

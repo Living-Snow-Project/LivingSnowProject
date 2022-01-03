@@ -44,6 +44,7 @@ export default function TimelineScreen({ navigation }) {
     // records.photoUris is saved on disk as array of {uri, width, height} but RecordDetailsScreen expects `uri;uri;...` string format
     Storage.loadRecords().then((records) => {
       records.forEach((record, index) => {
+        /* eslint-disable no-param-reassign */
         records[index].photoUris = record.photoUris.reduce(
           (accumulator, photo) => `${accumulator}${photo.uri};`,
           ``

@@ -32,11 +32,10 @@ export default function GpsCoordinatesInput({
     setGpsCoordinateString(value);
 
     // some users are adding parenthesis when manually entering coordinates, and we don't want them in the data set, quietly remove
-    value = value.replace(`(`, ``).replace(`)`, ``);
+    const coordinates = value.replace(`(`, ``).replace(`)`, ``).split(",");
 
     let latitude;
     let longitude;
-    const coordinates = value.split(",");
 
     if (coordinates[0]) {
       latitude = coordinates[0].trim();
