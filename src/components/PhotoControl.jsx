@@ -65,8 +65,9 @@ export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
     return (
       <View style={{ flex: photos.length, flexDirection: "row" }}>
         {photos.map((x, index) => (
+          /* eslint-disable react/no-array-index-key */
           <View style={styles.container} key={index}>
-            <Image style={styles.photo} key={index} source={{ uri: x.uri }} />
+            <Image style={styles.photo} source={{ uri: x.uri }} />
           </View>
         ))}
       </View>

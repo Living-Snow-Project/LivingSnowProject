@@ -113,11 +113,11 @@ export default function RecordDetailsScreen({ route }) {
                   index === 0 ? styles.topImage : styles.image,
                   { width: "100%", height },
                 ]}
+                /* eslint-disable react/no-array-index-key */
                 key={index}
               >
                 <Image
                   style={{ width: "100%", height: "100%" }}
-                  key={index}
                   source={{ uri: x.includes(`file`) ? x : downloadPhotoUri(x) }}
                 />
               </View>
