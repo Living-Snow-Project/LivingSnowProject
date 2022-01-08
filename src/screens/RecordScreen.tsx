@@ -5,41 +5,56 @@ import {
   Platform,
   Pressable,
   ScrollView,
+  TextInput,
   View,
 } from "react-native";
 import PropTypes from "prop-types";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 import KeyboardShift from "../components/KeyboardShift";
 import Storage from "../lib/Storage";
 import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import { StockIcon } from "../components/TabBarIcon";
 import { formInputStyles } from "../styles/FormInput";
-import { AtlasTypes } from "../lib/Atlas";
+import { AtlasType } from "../record/Atlas";
 import TypeSelector from "../components/forms/TypeSelector";
 import DateSelector from "../components/forms/DateSelector";
 import CustomTextInput from "../components/forms/CustomTextInput";
 import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
 import AtlasSelector from "../components/forms/AtlasSelector";
 import PhotoControl from "../components/PhotoControl";
+import * as Record from "../record/Record";
+
+// TODO: remove for Context
+declare global {
+  namespace NodeJS {
+    interface Global {
+      appConfig: any;
+    }
+  }
+}
 
 export default function RecordScreen({ navigation }) {
-  const notesRef = useRef(null);
-  const locationDescriptionRef = useRef(null);
+  const notesRef = useRef<TextInput>(null);
+  const locationDescriptionRef = useRef<TextInput>(null);
   const [uploading, setUploading] = useState(false);
 
-  // TODO: encapsulated Record object
   // data collected and sent to the service
-  const [state, setState] = useState({
-    recordType: "Sample", // sample or sighting
+  const [state, setState] = useState<Record.Record>({
+    id: `0`,
+    type: Record.RecordType.Sample, // sample or sighting
+    name: ``, // global.appConfig.name,
     date: new Date().toLocaleDateString("en-CA"), // YYYY-MM-DD
     latitude: undefined, // GPS
     longitude: undefined, // GPS
     tubeId: undefined, // (optional) id of the tube
     locationDescription: undefined, // (optional) short description of the location
     notes: undefined, // (optional) any other pertinent information
-    atlasType: AtlasTypes.Undefined, // (optional)
-    photos: [], // (optional)
+    atlasType: AtlasType.Undefined, // (optional)
   });
+
+  const [photos, setPhotos] = useState([]);
 
   // user input form validation
   const validateUserInput = () => {
@@ -96,9 +111,10 @@ export default function RecordScreen({ navigation }) {
       return;
     }
 
-    // TODO: encapsulated Record object
+    // TODO: construct from Record object
     const record = {
-      type: state.recordType,
+      id: uuidv4(),
+      type: Record.translateToLegacyRecordType(state.type),
       name: global.appConfig.name,
       date: state.date,
       organization: global.appConfig.organization,
@@ -107,12 +123,12 @@ export default function RecordScreen({ navigation }) {
       tubeId: state.tubeId,
       locationDescription: state.locationDescription,
       notes: state.notes,
-      atlasType: state.recordType.includes(`Atlas`)
+      atlasType: Record.isAtlas(state.type)
         ? state.atlasType
-        : AtlasTypes.Undefined,
+        : AtlasType.Undefined,
     };
 
-    RecordManager.uploadRecord(record, state.photos)
+    RecordManager.uploadRecord(record, photos)
       .then(() => {
         Alert.alert(`Upload succeeded`, `Thanks for your submission.`);
       })
@@ -149,10 +165,8 @@ export default function RecordScreen({ navigation }) {
 
           {/* Sample, Sighting, Atlas, etc */}
           <TypeSelector
-            recordType={state.recordType}
-            setRecordType={(recordType) =>
-              setState((prev) => ({ ...prev, recordType }))
-            }
+            type={state.type}
+            setType={(type) => setState((prev) => ({ ...prev, type }))}
           />
 
           {/* Date of Sample, Sighting, Atlas, etc */}
@@ -162,7 +176,7 @@ export default function RecordScreen({ navigation }) {
           />
 
           {/* Tube Id: only show Tube Id when recording a Sample */}
-          {state.recordType.includes(`Sample`) && (
+          {Record.isSample(state.type) && (
             <CustomTextInput
               description="Tube Id"
               placeholder="Leave blank if the tube does not have an id"
@@ -170,7 +184,7 @@ export default function RecordScreen({ navigation }) {
               onChangeText={(tubeId) =>
                 setState((prev) => ({ ...prev, tubeId }))
               }
-              onSubmitEditing={() => locationDescriptionRef.current.focus()}
+              onSubmitEditing={() => locationDescriptionRef.current?.focus()}
             />
           )}
 
@@ -178,11 +192,11 @@ export default function RecordScreen({ navigation }) {
             setGpsCoordinates={(latitude, longitude) =>
               setState((prev) => ({ ...prev, latitude, longitude }))
             }
-            onSubmitEditing={() => locationDescriptionRef.current.focus()}
+            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
           />
 
           <AtlasSelector
-            recordType={state.recordType}
+            recordType={state.type}
             atlasType={state.atlasType}
             setAtlasType={(atlasType) =>
               setState((prev) => ({ ...prev, atlasType }))
@@ -195,7 +209,7 @@ export default function RecordScreen({ navigation }) {
             onChangeText={(locationDescription) =>
               setState((prev) => ({ ...prev, locationDescription }))
             }
-            onSubmitEditing={() => notesRef.current.focus()}
+            onSubmitEditing={() => notesRef.current?.focus()}
             ref={locationDescriptionRef}
           />
 
@@ -208,10 +222,8 @@ export default function RecordScreen({ navigation }) {
 
           <PhotoControl
             navigation={navigation}
-            photos={state.photos}
-            onUpdatePhotos={(photos) =>
-              setState((prev) => ({ ...prev, photos }))
-            }
+            photos={photos}
+            onUpdatePhotos={(newPhotos) => setPhotos(newPhotos)}
           />
         </ScrollView>
       )}

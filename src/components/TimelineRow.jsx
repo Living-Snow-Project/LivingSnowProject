@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { PictureIcon, RecordIcon } from "./TabBarIcon";
 import Routes from "../navigation/Routes";
+import * as Record from "../record/Record";
 
 const styles = StyleSheet.create({
   recordContainer: {
@@ -83,8 +84,7 @@ function parsePhotoUris(photoUris) {
 }
 
 export default function TimelineRow({ navigation, record, showAll }) {
-  const isAtlas = record.type.includes(`Atlas`);
-
+  const isAtlas = Record.isAtlas(record.type);
   // this logic should be in a parent function
   if (
     !showAll &&
@@ -128,12 +128,7 @@ export default function TimelineRow({ navigation, record, showAll }) {
 }
 
 TimelineRow.propTypes = {
-  record: PropTypes.shape({
-    type: PropTypes.string.isRequired,
-    photoUris: PropTypes.string,
-    locationDescription: PropTypes.string,
-    notes: PropTypes.string,
-  }).isRequired,
+  record: PropTypes.shape(Record.Record).isRequired,
   showAll: PropTypes.bool,
 };
 

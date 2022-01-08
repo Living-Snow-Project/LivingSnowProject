@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import PropTypes from "prop-types";
 import { downloadPhotoUri } from "../lib/Network";
-import { getAtlasItem } from "../lib/Atlas";
+import { getAtlasPickerItem } from "../record/Atlas";
 
 const styles = StyleSheet.create({
   container: {
@@ -75,13 +75,16 @@ export default function RecordDetailsScreen({ route }) {
           <Text style={{ textAlign: "center" }}>Data Sheet</Text>
         </View>
         <Text>{`Date: ${date.slice(0, 10)}`}</Text>
+        {/* BUGBUG: downloaded records type=string, pending records type=enum and converted to string */}
         <Text>{`Type: ${type}`}</Text>
         <Text>{`Name: ${name}`}</Text>
         {!!organization && <Text>{`Organization: ${organization}`}</Text>}
         <Text>{`Location: ${latitude}, ${longitude}`}</Text>
         {!!tubeId && <Text>{`TubeId: ${tubeId}`}</Text>}
         {!!atlasType && atlasType > 0 && (
-          <Text>{`Atlas Surface Data: ${getAtlasItem(atlasType).label}`}</Text>
+          <Text>{`Atlas Surface Data: ${
+            getAtlasPickerItem(atlasType).label
+          }`}</Text>
         )}
         {!!locationDescription && (
           <Text>{`Description: ${locationDescription}`}</Text>

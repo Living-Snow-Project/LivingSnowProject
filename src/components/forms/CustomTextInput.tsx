@@ -3,9 +3,23 @@ import { Keyboard, Platform, Text, TextInput } from "react-native";
 import PropTypes from "prop-types";
 import { formInputStyles } from "../../styles/FormInput";
 
-const CustomTextInput = forwardRef(
+type CustomTextInputProps = {
+  description: string;
+  placeholder: string;
+  maxLength?: number;
+  onChangeText: (text: string) => void;
+  onSubmitEditing?: () => void;
+};
+
+const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
   (
-    { description, placeholder, maxLength, onChangeText, onSubmitEditing },
+    {
+      description,
+      placeholder,
+      maxLength = 255,
+      onChangeText,
+      onSubmitEditing = () => {},
+    }: CustomTextInputProps,
     ref
   ) => {
     const textInputHeight = useRef(0);

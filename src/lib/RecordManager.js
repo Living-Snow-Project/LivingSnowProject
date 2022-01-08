@@ -5,6 +5,7 @@ import Logger from "./Logger";
 class RecordManager {
   static async uploadRecord(record, photoUris) {
     const localRecord = JSON.parse(JSON.stringify(record));
+    localRecord.id = 0;
     return Network.uploadRecord(localRecord)
       .then((response) =>
         photoUris
@@ -23,6 +24,7 @@ class RecordManager {
       )
       .catch(async (error) => {
         Logger.Warn(JSON.stringify(error));
+        localRecord.id = record.id;
         localRecord.photoUris = photoUris;
         await Storage.saveRecord(localRecord);
         return Promise.reject(error);

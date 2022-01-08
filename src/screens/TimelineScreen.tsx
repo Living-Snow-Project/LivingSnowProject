@@ -8,13 +8,14 @@ import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import TimelineRow from "../components/TimelineRow";
 import StatusBar from "../components/StatusBar";
+import { Record } from "../record/Record";
 import styles from "../styles/Timeline";
 
 export default function TimelineScreen({ navigation }) {
-  const [connected, setConnected] = useState(true);
+  const [connected, setConnected] = useState<boolean | null>(true);
   const [refreshing, setRefreshing] = useState(false);
   const [pendingRecords, setPendingRecords] = useState([]);
-  const [downloadedRecords, setDownloadedRecords] = useState([]);
+  const [downloadedRecords, setDownloadedRecords] = useState<Record[]>([]);
   const [status, setStatus] = useState({
     text: null,
     type: null,
@@ -81,7 +82,7 @@ export default function TimelineScreen({ navigation }) {
       });
   }, [refreshing]);
 
-  const renderRecords = useCallback((records, label) => {
+  const renderRecords = useCallback((records: Record[], label) => {
     if (records.length === 0) {
       return null;
     }
@@ -91,9 +92,9 @@ export default function TimelineScreen({ navigation }) {
         <View style={styles.recordStatusContainer}>
           <Text style={styles.recordStatusText}>{label}</Text>
         </View>
-        {records.map((record, index) => (
+        {records.map((record) => (
           <TimelineRow
-            key={index}
+            key={record.id}
             navigation={navigation}
             record={record}
             showAll={label.includes(`Pending`)}

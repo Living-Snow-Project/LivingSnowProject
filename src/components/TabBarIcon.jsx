@@ -25,6 +25,7 @@ function RecordIcon({ type }) {
   let name = Platform.OS === "ios" ? "ios-eye" : "md-eye";
   let color = "skyblue";
 
+  // TODO when convert to .ts
   if (type.includes("Sample")) {
     name = Platform.OS === "ios" ? "ios-flask" : "md-flask";
     color = "lightcoral";
