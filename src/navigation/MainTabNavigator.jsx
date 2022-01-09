@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import * as React from "react";
+import React, { useContext } from "react";
 import TimelineScreen from "../screens/TimelineScreen";
 import RecordScreen from "../screens/RecordScreen";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -9,6 +9,7 @@ import ImagesPickerScreen from "../screens/ImagesPickerScreen";
 import HeaderNavigation from "../components/HeaderNavigation";
 import RecordDetailsScreen from "../screens/RecordDetailsScreen";
 import Routes from "./Routes";
+import { AppSettingsContext } from "../../AppSettings";
 
 const Stack = createStackNavigator();
 
@@ -35,9 +36,11 @@ function TimelineRight(navigation) {
 }
 
 function RootNavigator() {
+  const appSettings = useContext(AppSettingsContext);
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: true }}>
-      {global.showFirstRun && (
+      {appSettings.showFirstRun && (
         <Stack.Screen
           name={Routes.FirstRunScreen}
           component={FirstRunScreen}

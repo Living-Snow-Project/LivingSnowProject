@@ -10,6 +10,7 @@ import {
 import PropTypes from "prop-types";
 import { downloadPhotoUri } from "../lib/Network";
 import { getAtlasPickerItem } from "../record/Atlas";
+import { isAtlas } from "../record/Record";
 
 const styles = StyleSheet.create({
   container: {
@@ -81,7 +82,7 @@ export default function RecordDetailsScreen({ route }) {
         {!!organization && <Text>{`Organization: ${organization}`}</Text>}
         <Text>{`Location: ${latitude}, ${longitude}`}</Text>
         {!!tubeId && <Text>{`TubeId: ${tubeId}`}</Text>}
-        {!!atlasType && atlasType > 0 && (
+        {isAtlas(type) && (
           <Text>{`Atlas Surface Data: ${
             getAtlasPickerItem(atlasType).label
           }`}</Text>

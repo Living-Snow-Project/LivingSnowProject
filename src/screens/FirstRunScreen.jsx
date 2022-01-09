@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import Touchable from "react-native-platform-touchable";
-import { Platform, StyleSheet, Text, View, TextInput } from "react-native";
+import { Platform, StyleSheet, Text, View } from "react-native";
 import { StockIcon } from "../components/TabBarIcon";
-import Storage from "../lib/Storage";
+import { AppSettingsContext } from "../../AppSettings";
+import UserIdentityInput from "../components/forms/UserIdentityInput";
+import Routes from "../navigation/Routes";
 
 const styles = StyleSheet.create({
   ftreContainer: {
@@ -47,97 +49,46 @@ const styles = StyleSheet.create({
     color: "red",
     textAlign: "center",
   },
-  optionInputText: {
-    backgroundColor: "#efefef",
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: 1,
-    borderColor: "gray",
-    borderRadius: 4,
-  },
-  optionText: {
-    fontSize: 15,
-    marginTop: 3,
-  },
+  snowLeft: { marginRight: 30 },
+  snowRight: { marginLeft: 30 },
 });
 
-export default class FirstRunScreen extends React.Component {
-  //
-  // Checks to see if the app has run already
-  //
+export default function FirstRunScreen({ navigation }) {
+  const { updateAppSettings } = useContext(AppSettingsContext);
 
-  componentDidMount() {
-    const { navigation } = this.props;
-    if (!global.appConfig.showFirstRun) {
-      navigation.navigate("Home");
-    }
-  }
-
-  //
-  // Saves name, organization, and first run completion to disk
-  //
-
-  completeFirstRunExperience() {
-    const { navigation } = this.props;
-    global.appConfig.showFirstRun = false;
-    Storage.saveAppConfig();
-    navigation.navigate("Home");
-  }
-
-  render() {
-    return (
-      <View style={styles.ftreContainer}>
-        <View style={styles.welcomeContainer}>
-          <StockIcon
-            style={{ marginRight: 30 }}
-            name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
-          />
-          <Text style={styles.welcomeText}>Living Snow Project</Text>
-          <StockIcon
-            style={{ marginLeft: 30 }}
-            name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
-          />
-        </View>
-
-        <Text style={styles.descriptionText}>
-          {"Enter your name and organization you are associated with, if any, so we don't have to keep asking." +
-            " You can change these at any time in the Settings tab."}
-        </Text>
-
-        <Text style={styles.optionText}>Name</Text>
-        <TextInput
-          style={styles.optionInputText}
-          placeholder="Enter your name"
-          onChangeText={(name) => {
-            global.appConfig.name = name;
-          }}
-          maxLength={50}
-          returnKeyType="done"
+  return (
+    <View style={styles.ftreContainer}>
+      <View style={styles.welcomeContainer}>
+        <StockIcon
+          style={styles.snowLeft}
+          name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
         />
-
-        <Text style={styles.optionText}>Organization</Text>
-        <TextInput
-          style={styles.optionInputText}
-          placeholder="Enter the organization you belong to (if any)"
-          onChangeText={(organization) => {
-            global.appConfig.organization = organization;
-          }}
-          maxLength={50}
-          returnKeyType="done"
+        <Text style={styles.welcomeText}>Living Snow Project</Text>
+        <StockIcon
+          style={styles.snowRight}
+          name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
         />
-
-        <View style={styles.exitContainer}>
-          <Touchable
-            onPress={() => {
-              this.completeFirstRunExperience();
-            }}
-          >
-            <View style={styles.exitButtonContainer}>
-              <Text style={styles.exitButtonText}>Let&apos;s get started!</Text>
-            </View>
-          </Touchable>
-        </View>
       </View>
-    );
-  }
+
+      <Text style={styles.descriptionText}>
+        {"Enter your name and the organization you are associated with, or skip and remain anonymous." +
+          " You can change these at any time in the Settings tab."}
+      </Text>
+
+      <UserIdentityInput />
+
+      <View style={styles.exitContainer}>
+        <Touchable
+          onPress={() => {
+            updateAppSettings({ showFirstRun: false });
+            navigation.navigate(Routes.TimelineScreen);
+          }}
+        >
+          <View style={styles.exitButtonContainer}>
+            <Text style={styles.exitButtonText}>Let&apos;s get started!</Text>
+          </View>
+        </Touchable>
+      </View>
+    </View>
+  );
 }

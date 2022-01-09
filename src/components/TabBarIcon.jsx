@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, StyleSheet } from "react-native";
+import { Platform, ViewPropTypes } from "react-native";
 import PropTypes from "prop-types";
 import * as Icon from "@expo/vector-icons";
 import Colors from "../constants/Colors";
@@ -11,7 +11,7 @@ function StockIcon({ name, size, style, color }) {
 StockIcon.propTypes = {
   name: PropTypes.string.isRequired,
   size: PropTypes.number,
-  style: PropTypes.instanceOf(StyleSheet),
+  style: ViewPropTypes.style,
   color: PropTypes.string,
 };
 

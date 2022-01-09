@@ -47,7 +47,7 @@ function topText({ date, name, organization, latitude, longitude }) {
       result += ` (${organization})`;
     }
   } else {
-    result += `unknown Scientist`;
+    result += `Anonymous Scientist`;
   }
 
   result += `\nLocation: ${latitude}, ${longitude}`;
@@ -83,17 +83,7 @@ function parsePhotoUris(photoUris) {
   return result;
 }
 
-export default function TimelineRow({ navigation, record, showAll }) {
-  const isAtlas = Record.isAtlas(record.type);
-  // this logic should be in a parent function
-  if (
-    !showAll &&
-    ((!global.appConfig.showAtlasRecords && isAtlas) ||
-      (global.appConfig.showOnlyAtlasRecords && !isAtlas))
-  ) {
-    return null;
-  }
-
+export default function TimelineRow({ navigation, record }) {
   return (
     <View style={styles.recordContainer}>
       <Pressable
@@ -129,9 +119,4 @@ export default function TimelineRow({ navigation, record, showAll }) {
 
 TimelineRow.propTypes = {
   record: PropTypes.shape(Record.Record).isRequired,
-  showAll: PropTypes.bool,
-};
-
-TimelineRow.defaultProps = {
-  showAll: false,
 };

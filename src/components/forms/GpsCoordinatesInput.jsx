@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   Alert,
   Platform,
@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import * as Location from "expo-location";
 import { formInputStyles } from "../../styles/FormInput";
 import Logger from "../../lib/Logger";
+import { AppSettingsContext } from "../../../AppSettings";
 
 export default function GpsCoordinatesInput({
   setGpsCoordinates,
@@ -24,6 +25,7 @@ export default function GpsCoordinatesInput({
   const [gpsCoordinatesEditable, setGpsCoordinatesEditable] = useState(
     Platform.OS === "ios"
   );
+  const appSettings = useContext(AppSettingsContext);
   const clipCoordinate = (coordinate) =>
     JSON.stringify(coordinate.toFixed(6)).replace('"', "").replace('"', "");
 
@@ -100,7 +102,7 @@ export default function GpsCoordinatesInput({
   };
 
   const confirmManualGpsCoordinates = () => {
-    if (global.appConfig.showGpsWarning && !manualGpsCoordinates) {
+    if (appSettings.showGpsWarning && !manualGpsCoordinates) {
       Alert.alert(
         "Enter GPS coordinates manually?\nThis message can be disabled in Settings.",
         null,

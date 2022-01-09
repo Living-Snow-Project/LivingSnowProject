@@ -4,11 +4,13 @@ import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
 import Storage from "../lib/Storage";
 import Logger from "../lib/Logger";
+import { DefaultAppSettings } from "../../AppSettings";
 
 const spaceMono = require("../../assets/fonts/SpaceMono-Regular.ttf");
 
 export default function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
+  const [appSettings, setAppSettings] = React.useState({});
 
   // Load any resources or data that we need prior to rendering the app
   React.useEffect(() => {
@@ -25,7 +27,10 @@ export default function useCachedResources() {
         });
 
         // load app config
-        await Storage.loadAppConfig();
+        const localAppSettings = await Storage.loadAppConfig();
+        setAppSettings(
+          localAppSettings !== null ? localAppSettings : DefaultAppSettings
+        );
       } catch (e) {
         Logger.Warn(JSON.stringify(e));
       } finally {
@@ -37,5 +42,5 @@ export default function useCachedResources() {
     loadResourcesAndDataAsync();
   }, []);
 
-  return isLoadingComplete;
+  return { isLoadingComplete, appSettings, setAppSettings };
 }

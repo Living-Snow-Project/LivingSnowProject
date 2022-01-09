@@ -7,29 +7,18 @@ const StorageKeys = {
 };
 
 class Storage {
-  //
   // AppConfig Storage APIs
-  //
-
   static async loadAppConfig() {
-    return AsyncStorage.getItem(StorageKeys.appConfig).then((value) => {
-      if (value) {
-        global.appConfig = JSON.parse(value);
-      }
-    });
-  }
-
-  static saveAppConfig() {
-    AsyncStorage.setItem(
-      StorageKeys.appConfig,
-      JSON.stringify(global.appConfig)
+    return AsyncStorage.getItem(StorageKeys.appConfig).then((value) =>
+      JSON.parse(value)
     );
   }
 
-  //
-  // Record Storage APIs
-  //
+  static saveAppConfig(appSettings) {
+    AsyncStorage.setItem(StorageKeys.appConfig, JSON.stringify(appSettings));
+  }
 
+  // Record Storage APIs
   static async loadRecords() {
     return AsyncStorage.getItem(StorageKeys.records)
       .then((value) => (value ? JSON.parse(value) : []))
@@ -57,10 +46,7 @@ class Storage {
     await Storage.saveRecords(records);
   }
 
-  //
   // Photo Storage APIs
-  //
-
   static async loadPhotos() {
     return AsyncStorage.getItem(StorageKeys.photos)
       .then((value) => (value ? JSON.parse(value) : []))

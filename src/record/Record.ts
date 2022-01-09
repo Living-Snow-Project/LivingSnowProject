@@ -56,7 +56,7 @@ const getRecordTypePickerItem = (type: RecordType): RecordTypePickerItem =>
 type Record = {
   id: string;
   type: RecordType;
-  name: string;
+  name?: string;
   organization?: string;
   date: string; // Date; TODO
   latitude: number | undefined;
@@ -75,12 +75,18 @@ const isSample = (type: RecordType): boolean =>
     RecordType.AtlasBlueDotWithSample,
   ].includes(type);
 
-const isAtlas = (type: RecordType): boolean =>
+// BUGBUG: because legacy record type = string, but we will change to enum and break old clients :)
+// So, Downloaded records => record.type = string, Pending\Saved records => record.type = RecordType
+const isAtlas = (type: RecordType | string): boolean =>
   [
     RecordType.AtlasRedDot,
     RecordType.AtlasRedDotWithSample,
     RecordType.AtlasBlueDot,
     RecordType.AtlasBlueDotWithSample,
+    "AtlasRedDot",
+    "AtlasRedDotWithSample",
+    "AtlasBlueDot",
+    "AtlasBlueDotWithSample",
   ].includes(type);
 
 export {

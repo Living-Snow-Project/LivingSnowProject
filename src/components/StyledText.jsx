@@ -1,6 +1,5 @@
 import React from "react";
-import { PropTypes } from "prop-types";
-import { StyleSheet, Text } from "react-native";
+import { Text, ViewPropTypes } from "react-native";
 
 export default function MonoText(props) {
   const { style } = props;
@@ -8,7 +7,7 @@ export default function MonoText(props) {
 }
 
 MonoText.propTypes = {
-  style: PropTypes.instanceOf(StyleSheet),
+  style: ViewPropTypes.style,
 };
 
 MonoText.defaultProps = {

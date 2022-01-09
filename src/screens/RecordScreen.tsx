@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -12,7 +18,6 @@ import PropTypes from "prop-types";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import KeyboardShift from "../components/KeyboardShift";
-import Storage from "../lib/Storage";
 import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import { StockIcon } from "../components/TabBarIcon";
@@ -25,45 +30,28 @@ import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
 import AtlasSelector from "../components/forms/AtlasSelector";
 import PhotoControl from "../components/PhotoControl";
 import * as Record from "../record/Record";
-
-// TODO: remove for Context
-declare global {
-  namespace NodeJS {
-    interface Global {
-      appConfig: any;
-    }
-  }
-}
+import { AppSettingsContext } from "../../AppSettings";
 
 export default function RecordScreen({ navigation }) {
   const notesRef = useRef<TextInput>(null);
   const locationDescriptionRef = useRef<TextInput>(null);
   const [uploading, setUploading] = useState(false);
+  const appSettings = useContext(AppSettingsContext);
 
   // data collected and sent to the service
   const [state, setState] = useState<Record.Record>({
     id: `0`,
     type: Record.RecordType.Sample, // sample or sighting
-    name: ``, // global.appConfig.name,
     date: new Date().toLocaleDateString("en-CA"), // YYYY-MM-DD
     latitude: undefined, // GPS
     longitude: undefined, // GPS
-    tubeId: undefined, // (optional) id of the tube
-    locationDescription: undefined, // (optional) short description of the location
-    notes: undefined, // (optional) any other pertinent information
-    atlasType: AtlasType.Undefined, // (optional)
+    atlasType: AtlasType.SnowAlgae, // (optional)
   });
 
   const [photos, setPhotos] = useState([]);
 
   // user input form validation
   const validateUserInput = () => {
-    // TODO: this should be done on FirstRun and\or Settings
-    if (!global.appConfig.name || global.appConfig.name === ``) {
-      global.appConfig.name = `Anonymous`;
-      Storage.saveAppConfig();
-    }
-
     const isNumber = (value) => !Number.isNaN(Number(value));
 
     if (
@@ -115,9 +103,11 @@ export default function RecordScreen({ navigation }) {
     const record = {
       id: uuidv4(),
       type: Record.translateToLegacyRecordType(state.type),
-      name: global.appConfig.name,
+      name: appSettings.name ? appSettings.name : "Anonymous",
       date: state.date,
-      organization: global.appConfig.organization,
+      organization: !appSettings.organization
+        ? undefined
+        : appSettings.organization,
       latitude: state.latitude,
       longitude: state.longitude,
       tubeId: state.tubeId,

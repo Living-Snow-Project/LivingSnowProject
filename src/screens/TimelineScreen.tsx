@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { RefreshControl, ScrollView, Text, View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import NetInfo from "@react-native-community/netinfo";
@@ -8,8 +8,9 @@ import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import TimelineRow from "../components/TimelineRow";
 import StatusBar from "../components/StatusBar";
-import { Record } from "../record/Record";
+import { Record, isAtlas } from "../record/Record";
 import styles from "../styles/Timeline";
+import { AppSettingsContext } from "../../AppSettings";
 
 export default function TimelineScreen({ navigation }) {
   const [connected, setConnected] = useState<boolean | null>(true);
@@ -21,6 +22,8 @@ export default function TimelineScreen({ navigation }) {
     type: null,
     onDone: null,
   });
+  const { showAtlasRecords, showOnlyAtlasRecords } =
+    useContext(AppSettingsContext);
 
   const updateStatus = (text, type, onDone = null) =>
     setStatus({ text, type, onDone });
@@ -82,27 +85,43 @@ export default function TimelineScreen({ navigation }) {
       });
   }, [refreshing]);
 
-  const renderRecords = useCallback((records: Record[], label) => {
-    if (records.length === 0) {
-      return null;
-    }
+  const renderRecords = useCallback(
+    (records: Record[], label) => {
+      if (records.length === 0) {
+        return null;
+      }
 
-    return (
-      <View>
-        <View style={styles.recordStatusContainer}>
-          <Text style={styles.recordStatusText}>{label}</Text>
+      const showAll = label.includes(`Pending`);
+
+      return (
+        <View>
+          <View style={styles.recordStatusContainer}>
+            <Text style={styles.recordStatusText}>{label}</Text>
+          </View>
+          {records.map((record) => {
+            // BUGBUG: because legacy type = string, but we will change to enum and break old clients :)
+            const atlas = isAtlas(record.type);
+
+            if (
+              !showAll &&
+              ((!showAtlasRecords && atlas) || (showOnlyAtlasRecords && !atlas))
+            ) {
+              return null;
+            }
+
+            return (
+              <TimelineRow
+                key={record.id}
+                navigation={navigation}
+                record={record}
+              />
+            );
+          })}
         </View>
-        {records.map((record) => (
-          <TimelineRow
-            key={record.id}
-            navigation={navigation}
-            record={record}
-            showAll={label.includes(`Pending`)}
-          />
-        ))}
-      </View>
-    );
-  }, []);
+      );
+    },
+    [showAtlasRecords, showOnlyAtlasRecords]
+  );
 
   return (
     <View style={styles.container}>

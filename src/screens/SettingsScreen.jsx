@@ -1,7 +1,8 @@
 import React from "react";
-import { Switch, Text, TextInput, View } from "react-native";
-import Storage from "../lib/Storage";
+import { Switch, Text, View } from "react-native";
 import styles from "../styles/Settings";
+import UserIdentityInput from "../components/forms/UserIdentityInput";
+import { AppSettingsContext } from "../../AppSettings";
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -9,56 +10,16 @@ export default class SettingsScreen extends React.Component {
     headerTitleContainerStyle: { justifyContent: "center" },
   };
 
-  toggleShowGpsWarning(value) {
-    global.appConfig.showGpsWarning = value;
-    Storage.saveAppConfig();
-    this.forceUpdate();
-  }
-
-  toggleShowAtlasRecords(value) {
-    global.appConfig.showAtlasRecords = value;
-    Storage.saveAppConfig();
-    this.forceUpdate();
-  }
-
-  toggleShowOnlyAtlasRecords(value) {
-    global.appConfig.showOnlyAtlasRecords = value;
-    Storage.saveAppConfig();
-    this.forceUpdate();
-  }
-
-  updateName(name) {
-    global.appConfig.name = name;
-    Storage.saveAppConfig();
-    this.forceUpdate();
-  }
-
-  updateOrganization(organization) {
-    global.appConfig.organization = organization;
-    Storage.saveAppConfig();
-    this.forceUpdate();
-  }
-
   render() {
+    const {
+      showGpsWarning,
+      showAtlasRecords,
+      showOnlyAtlasRecords,
+      updateAppSettings,
+    } = this.context;
     return (
       <View>
-        <Text style={styles.optionStaticText}>Name</Text>
-        <TextInput
-          style={styles.optionInputText}
-          value={global.appConfig.name}
-          onChangeText={(name) => this.updateName(name)}
-          maxLength={50}
-          returnKeyType="done"
-        />
-
-        <Text style={styles.optionStaticText}>Organization</Text>
-        <TextInput
-          style={styles.optionInputText}
-          value={global.appConfig.organization}
-          onChangeText={(organization) => this.updateOrganization(organization)}
-          maxLength={50}
-          returnKeyType="done"
-        />
+        <UserIdentityInput />
 
         <Text style={styles.optionStaticText}>Notifications</Text>
         <View style={styles.optionContainer}>
@@ -67,8 +28,10 @@ export default class SettingsScreen extends React.Component {
           </Text>
           <Switch
             style={styles.switch}
-            onValueChange={(value) => this.toggleShowGpsWarning(value)}
-            value={global.appConfig.showGpsWarning}
+            onValueChange={(value) =>
+              updateAppSettings({ showGpsWarning: value })
+            }
+            value={showGpsWarning}
           />
         </View>
 
@@ -77,21 +40,27 @@ export default class SettingsScreen extends React.Component {
           <Text style={styles.optionStaticText}>Show Atlas Records</Text>
           <Switch
             style={styles.switch}
-            disabled={global.appConfig.showOnlyAtlasRecords}
-            onValueChange={(value) => this.toggleShowAtlasRecords(value)}
-            value={global.appConfig.showAtlasRecords}
+            disabled={showOnlyAtlasRecords}
+            onValueChange={(value) =>
+              updateAppSettings({ showAtlasRecords: value })
+            }
+            value={showAtlasRecords}
           />
         </View>
         <View style={[styles.optionContainer, { marginTop: 5 }]}>
           <Text style={styles.optionStaticText}>Show Only Atlas Records</Text>
           <Switch
             style={styles.switch}
-            disabled={!global.appConfig.showAtlasRecords}
-            onValueChange={(value) => this.toggleShowOnlyAtlasRecords(value)}
-            value={global.appConfig.showOnlyAtlasRecords}
+            disabled={!showAtlasRecords}
+            onValueChange={(value) =>
+              updateAppSettings({ showOnlyAtlasRecords: value })
+            }
+            value={showOnlyAtlasRecords}
           />
         </View>
       </View>
     );
   }
 }
+
+SettingsScreen.contextType = AppSettingsContext;
