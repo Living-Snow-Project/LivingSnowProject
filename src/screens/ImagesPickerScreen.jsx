@@ -40,6 +40,7 @@ export default function ImagesPickerScreen({ navigation, route }) {
           size: 40,
         },
         defaultTopNavigator: {
+          // TODO: this should be on react-navigation header not the component's
           continueText: "Finish",
           goBackText: null,
           // buttonStyle: {borderWidth:2, borderColor:'red'},

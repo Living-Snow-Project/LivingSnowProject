@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import Touchable from "react-native-platform-touchable";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { StockIcon } from "../components/TabBarIcon";
 import { AppSettingsContext } from "../../AppSettings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
 import Routes from "../navigation/Routes";
+import KeyboardShift from "../components/KeyboardShift";
 
 const styles = StyleSheet.create({
   ftreContainer: {
@@ -57,38 +58,44 @@ export default function FirstRunScreen({ navigation }) {
   const { updateAppSettings } = useContext(AppSettingsContext);
 
   return (
-    <View style={styles.ftreContainer}>
-      <View style={styles.welcomeContainer}>
-        <StockIcon
-          style={styles.snowLeft}
-          name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
-        />
-        <Text style={styles.welcomeText}>Living Snow Project</Text>
-        <StockIcon
-          style={styles.snowRight}
-          name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
-        />
-      </View>
-
-      <Text style={styles.descriptionText}>
-        {"Enter your name and the organization you are associated with, or skip and remain anonymous." +
-          " You can change these at any time in the Settings tab."}
-      </Text>
-
-      <UserIdentityInput />
-
-      <View style={styles.exitContainer}>
-        <Touchable
-          onPress={() => {
-            updateAppSettings({ showFirstRun: false });
-            navigation.navigate(Routes.TimelineScreen);
-          }}
-        >
-          <View style={styles.exitButtonContainer}>
-            <Text style={styles.exitButtonText}>Let&apos;s get started!</Text>
+    <KeyboardShift>
+      {() => (
+        <ScrollView style={styles.ftreContainer}>
+          <View style={styles.welcomeContainer}>
+            <StockIcon
+              style={styles.snowLeft}
+              name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
+            />
+            <Text style={styles.welcomeText}>Living Snow Project</Text>
+            <StockIcon
+              style={styles.snowRight}
+              name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
+            />
           </View>
-        </Touchable>
-      </View>
-    </View>
+
+          <Text style={styles.descriptionText}>
+            {"Enter your name and the organization you are associated with, or skip and remain anonymous." +
+              " You can change these at any time in the Settings tab."}
+          </Text>
+
+          <UserIdentityInput />
+
+          <View style={styles.exitContainer}>
+            <Touchable
+              onPress={() => {
+                updateAppSettings({ showFirstRun: false });
+                navigation.navigate(Routes.TimelineScreen);
+              }}
+            >
+              <View style={styles.exitButtonContainer}>
+                <Text style={styles.exitButtonText}>
+                  Let&apos;s get started!
+                </Text>
+              </View>
+            </Touchable>
+          </View>
+        </ScrollView>
+      )}
+    </KeyboardShift>
   );
 }

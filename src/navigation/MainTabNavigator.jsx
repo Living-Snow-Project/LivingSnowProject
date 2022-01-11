@@ -39,34 +39,23 @@ function RootNavigator() {
   const appSettings = useContext(AppSettingsContext);
 
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true }}>
+    <Stack.Navigator
+      screenOptions={{ headerShown: true, headerTitleAlign: "center" }}
+    >
       {appSettings.showFirstRun && (
-        <Stack.Screen
-          name={Routes.FirstRunScreen}
-          component={FirstRunScreen}
-          options={{ headerTitle: "Welcome" }}
-        />
+        <Stack.Screen name={Routes.FirstRunScreen} component={FirstRunScreen} />
       )}
       <Stack.Screen
         name={Routes.TimelineScreen}
         component={TimelineScreen}
         options={({ navigation }) => ({
-          headerTitle: "Timeline",
-          headerTitleContainerStyle: { justifyContent: "center" },
           headerLeft: () => TimelineLeft(navigation),
           headerLeftContainerStyle: { marginLeft: 20 },
           headerRight: () => TimelineRight(navigation),
           headerRightContainerStyle: { marginRight: 20 },
         })}
       />
-      <Stack.Screen
-        name={Routes.RecordScreen}
-        component={RecordScreen}
-        options={() => ({
-          title: "Record",
-          headerTitleContainerStyle: { justifyContent: "center" },
-        })}
-      />
+      <Stack.Screen name={Routes.RecordScreen} component={RecordScreen} />
       <Stack.Screen name={Routes.SettingsScreen} component={SettingsScreen} />
       <Stack.Screen
         name={Routes.ImagesPickerScreen}
@@ -75,7 +64,6 @@ function RootNavigator() {
       <Stack.Screen
         name={Routes.RecordDetailsScreen}
         component={RecordDetailsScreen}
-        options={{ headerTitle: "Details" }}
       />
     </Stack.Navigator>
   );

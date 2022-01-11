@@ -1,10 +1,10 @@
 const Routes = {
-  FirstRunScreen: "FirstRun",
+  FirstRunScreen: "Welcome",
   TimelineScreen: "Timeline",
   RecordScreen: "Record",
   SettingsScreen: "Settings",
   ImagesPickerScreen: "Images",
-  RecordDetailsScreen: "RecordDetails",
+  RecordDetailsScreen: "Details",
 };
 
 export default Routes;
