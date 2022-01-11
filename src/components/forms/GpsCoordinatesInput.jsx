@@ -1,11 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import {
-  Alert,
-  Platform,
-  Text,
-  TextInput,
-  TouchableHighlight,
-} from "react-native";
+import { Alert, Pressable, Text, TextInput, View } from "react-native";
 import PropTypes from "prop-types";
 import * as Location from "expo-location";
 import { formInputStyles } from "../../styles/FormInput";
@@ -20,11 +14,6 @@ export default function GpsCoordinatesInput({
   const gpsCoordinatesRef = useRef(null);
   const [gpsCoordinateString, setGpsCoordinateString] = useState(null);
   const [manualGpsCoordinates, setManualGpsCoordinates] = useState(false);
-  // TextInput behaves differently on iOS and Android, detailed explaination in rendering of component
-  // TODO: Try replacing this with <Pressable><CustomTextInput/></Pressable>, and "if (manualGpsCoordinates) {gpsCoordinatesRef.current.focus();}"
-  const [gpsCoordinatesEditable, setGpsCoordinatesEditable] = useState(
-    Platform.OS === "ios"
-  );
   const appSettings = useContext(AppSettingsContext);
   const clipCoordinate = (coordinate) =>
     JSON.stringify(coordinate.toFixed(6)).replace('"', "").replace('"', "");
@@ -91,14 +80,14 @@ export default function GpsCoordinatesInput({
     return stopGps;
   }, []);
 
+  useEffect(() => {
+    gpsCoordinatesRef?.current?.focus();
+  }, [manualGpsCoordinates]);
+
   const enableManualGpsCoordinates = () => {
     stopGps();
-
-    // reset coordinate string, tell component user will enter coordinates, make the coordinate input editable, set focus
     updateGpsCoordinateString("");
     setManualGpsCoordinates(true);
-    setGpsCoordinatesEditable(true);
-    gpsCoordinatesRef.current.focus();
   };
 
   const confirmManualGpsCoordinates = () => {
@@ -125,33 +114,31 @@ export default function GpsCoordinatesInput({
   const gpsFieldProps = {
     style: formInputStyles.optionInputText,
     defaultValue: gpsCoordinateString,
-    onChangeText: (value) => updateGpsCoordinateString(value),
-    onSubmitEditing: () => onSubmitEditing(),
-    ref: gpsCoordinatesRef,
     maxLength: 30,
     returnKeyType: "done",
-    editable: gpsCoordinatesEditable,
+    editable: manualGpsCoordinates,
   };
 
   return (
     <>
-      {/* on iOS, TextInput captures input over parent TouchableHighlight and focus can be kept off even if editable = true.
-      on Android, onTouchStart does nothing (can't make it editable through onTouchStart) and focus can't be kept off
-      So use TouchableHighlight on Android for allowing manual GPS coordinates and TextInput on iOS. */}
       <Text style={formInputStyles.optionStaticText}>
         GPS Coordinates (latitude, longitude)
       </Text>
-      {Platform.OS === "ios" && (
+      {!manualGpsCoordinates && (
+        /* user confirms they want to enter GPS coordinates manually */
+        <Pressable onPress={() => confirmManualGpsCoordinates()}>
+          <View pointerEvents="none">
+            <TextInput {...gpsFieldProps} />
+          </View>
+        </Pressable>
+      )}
+      {manualGpsCoordinates && (
         <TextInput
           {...gpsFieldProps}
-          onTouchStart={() => confirmManualGpsCoordinates()}
+          onChangeText={(value) => updateGpsCoordinateString(value)}
+          onSubmitEditing={() => onSubmitEditing()}
+          ref={gpsCoordinatesRef}
         />
-      )}
-
-      {Platform.OS === "android" && (
-        <TouchableHighlight onPress={() => confirmManualGpsCoordinates()}>
-          <TextInput {...gpsFieldProps} />
-        </TouchableHighlight>
       )}
     </>
   );
