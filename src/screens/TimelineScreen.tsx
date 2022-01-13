@@ -6,16 +6,16 @@ import Storage from "../lib/Storage";
 import { Network } from "../lib/Network";
 import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
-import TimelineRow from "../components/TimelineRow";
 import StatusBar from "../components/StatusBar";
 import { Record, isAtlas } from "../record/Record";
 import styles from "../styles/Timeline";
 import { AppSettingsContext } from "../../AppSettings";
+import RecordList from "../components/RecordList";
 
-export default function TimelineScreen({ navigation }) {
+export default function TimelineScreen() {
   const [connected, setConnected] = useState<boolean | null>(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [pendingRecords, setPendingRecords] = useState([]);
+  const [pendingRecords, setPendingRecords] = useState<Record[]>([]);
   const [downloadedRecords, setDownloadedRecords] = useState<Record[]>([]);
   const [status, setStatus] = useState({
     text: null,
@@ -56,9 +56,10 @@ export default function TimelineScreen({ navigation }) {
       });
       setPendingRecords(records);
     });
-  }, []);
+  }, [showAtlasRecords, showOnlyAtlasRecords]);
 
   // force a re-render when user comes back from Settings screen
+  // TODO: compare old "show atlas" values with new values, only re-render if they changed
   // TODO: figure out why this is getting called on blur too
   useFocusEffect(displaySavedRecords);
 
@@ -85,40 +86,11 @@ export default function TimelineScreen({ navigation }) {
       });
   }, [refreshing]);
 
-  const renderRecords = useCallback(
-    (records: Record[], label) => {
-      if (records.length === 0) {
-        return null;
-      }
-
-      const showAll = label.includes(`Pending`);
-
-      return (
-        <View>
-          <View style={styles.recordStatusContainer}>
-            <Text style={styles.recordStatusText}>{label}</Text>
-          </View>
-          {records.map((record) => {
-            // BUGBUG: because legacy type = string, but we will change to enum and break old clients :)
-            const atlas = isAtlas(record.type);
-
-            if (
-              !showAll &&
-              ((!showAtlasRecords && atlas) || (showOnlyAtlasRecords && !atlas))
-            ) {
-              return null;
-            }
-
-            return (
-              <TimelineRow
-                key={record.id}
-                navigation={navigation}
-                record={record}
-              />
-            );
-          })}
-        </View>
-      );
+  const omitRecord = useCallback(
+    (record) => {
+      // BUGBUG: because legacy type = string, but we will change to enum and break old clients :)
+      const atlas = isAtlas(record.type);
+      return (atlas && !showAtlasRecords) || (!atlas && showOnlyAtlasRecords);
     },
     [showAtlasRecords, showOnlyAtlasRecords]
   );
@@ -138,8 +110,14 @@ export default function TimelineScreen({ navigation }) {
         {pendingRecords.length === 0 && downloadedRecords.length === 0 && (
           <Text style={styles.noRecords}>No records to display</Text>
         )}
-        {renderRecords(pendingRecords, `Pending`)}
-        {renderRecords(downloadedRecords, `Downloaded`)}
+
+        <RecordList records={pendingRecords} header="Pending" />
+
+        <RecordList
+          records={downloadedRecords}
+          header="Downloaded"
+          omitRecord={omitRecord}
+        />
       </ScrollView>
     </View>
   );

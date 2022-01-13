@@ -4,6 +4,12 @@ import styles from "../styles/Settings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
 import { AppSettingsContext } from "../../AppSettings";
 
+// TODO: add a local state of AppSettings
+// subscribe to react navigation "beforeRemove" event, and update the AppSettingsContext at this time (to minimize re-renders)
+// ideally UserIdentityInput would do that same thing
+// consider putting AppSettingsContext in useMemo or useRef
+// consider custom hook for AppSettingsContext, ie. useAppSettings
+// the problem is every time "updateAppSettings" is called, it updates the Context and causes re-renders to every subscriber of Context
 export default function SettingsScreen() {
   const {
     showGpsWarning,
