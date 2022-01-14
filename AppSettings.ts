@@ -1,4 +1,4 @@
-import React from "react";
+import Storage from "./src/lib/Storage";
 
 type AppSettings = {
   name: string | undefined;
@@ -7,7 +7,6 @@ type AppSettings = {
   showGpsWarning: boolean;
   showAtlasRecords: boolean;
   showOnlyAtlasRecords: boolean;
-  updateAppSettings: (appSettings) => void;
 };
 
 const DefaultAppSettings: AppSettings = {
@@ -17,10 +16,17 @@ const DefaultAppSettings: AppSettings = {
   showGpsWarning: true,
   showAtlasRecords: false,
   showOnlyAtlasRecords: false,
-  /* eslint-disable @typescript-eslint/no-unused-vars */
-  updateAppSettings: (appSettings) => {},
 };
 
-const AppSettingsContext = React.createContext<AppSettings>(DefaultAppSettings);
+let appSettingsContext: AppSettings = DefaultAppSettings;
 
-export { AppSettings, AppSettingsContext, DefaultAppSettings };
+function getAppSettings(): AppSettings {
+  return appSettingsContext;
+}
+
+function setAppSettings(appSettings: AppSettings): void {
+  appSettingsContext = { ...appSettingsContext, ...appSettings };
+  Storage.saveAppConfig(appSettingsContext);
+}
+
+export { AppSettings, DefaultAppSettings, getAppSettings, setAppSettings };

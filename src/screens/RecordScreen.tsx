@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -30,13 +24,13 @@ import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
 import AtlasSelector from "../components/forms/AtlasSelector";
 import PhotoControl from "../components/PhotoControl";
 import * as Record from "../record/Record";
-import { AppSettingsContext } from "../../AppSettings";
+import { getAppSettings } from "../../AppSettings";
 
 export default function RecordScreen({ navigation }) {
   const notesRef = useRef<TextInput>(null);
   const locationDescriptionRef = useRef<TextInput>(null);
   const [uploading, setUploading] = useState(false);
-  const appSettings = useContext(AppSettingsContext);
+  const appSettings = getAppSettings();
 
   // data collected and sent to the service
   const [state, setState] = useState<Record.Record>({

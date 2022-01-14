@@ -1,22 +1,15 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { Switch, Text, View } from "react-native";
 import styles from "../styles/Settings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
-import { AppSettingsContext } from "../../AppSettings";
+import { getAppSettings, setAppSettings } from "../../AppSettings";
 
-// TODO: add a local state of AppSettings
-// subscribe to react navigation "beforeRemove" event, and update the AppSettingsContext at this time (to minimize re-renders)
-// ideally UserIdentityInput would do that same thing
-// consider putting AppSettingsContext in useMemo or useRef
-// consider custom hook for AppSettingsContext, ie. useAppSettings
-// the problem is every time "updateAppSettings" is called, it updates the Context and causes re-renders to every subscriber of Context
 export default function SettingsScreen() {
-  const {
-    showGpsWarning,
-    showAtlasRecords,
-    showOnlyAtlasRecords,
-    updateAppSettings,
-  } = useContext(AppSettingsContext);
+  const [
+    { showGpsWarning, showAtlasRecords, showOnlyAtlasRecords },
+    setSettings,
+  ] = useState(getAppSettings());
+
   return (
     <View>
       <UserIdentityInput />
@@ -28,9 +21,12 @@ export default function SettingsScreen() {
         </Text>
         <Switch
           style={styles.switch}
-          onValueChange={(value) =>
-            updateAppSettings({ showGpsWarning: value })
-          }
+          onValueChange={(value) => {
+            setSettings((prev) => {
+              setAppSettings({ ...prev, showGpsWarning: value });
+              return { ...prev, showGpsWarning: value };
+            });
+          }}
           value={showGpsWarning}
         />
       </View>
@@ -41,9 +37,12 @@ export default function SettingsScreen() {
         <Switch
           style={styles.switch}
           disabled={showOnlyAtlasRecords}
-          onValueChange={(value) =>
-            updateAppSettings({ showAtlasRecords: value })
-          }
+          onValueChange={(value) => {
+            setSettings((prev) => {
+              setAppSettings({ ...prev, showAtlasRecords: value });
+              return { ...prev, showAtlasRecords: value };
+            });
+          }}
           value={showAtlasRecords}
         />
       </View>
@@ -52,9 +51,12 @@ export default function SettingsScreen() {
         <Switch
           style={styles.switch}
           disabled={!showAtlasRecords}
-          onValueChange={(value) =>
-            updateAppSettings({ showOnlyAtlasRecords: value })
-          }
+          onValueChange={(value) => {
+            setSettings((prev) => {
+              setAppSettings({ ...prev, showOnlyAtlasRecords: value });
+              return { ...prev, showOnlyAtlasRecords: value };
+            });
+          }}
           value={showOnlyAtlasRecords}
         />
       </View>

@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import Touchable from "react-native-platform-touchable";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import { StockIcon } from "../components/TabBarIcon";
-import { AppSettingsContext } from "../../AppSettings";
+import { setAppSettings } from "../../AppSettings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
 import Routes from "../navigation/Routes";
 import KeyboardShift from "../components/KeyboardShift";
@@ -55,8 +55,6 @@ const styles = StyleSheet.create({
 });
 
 export default function FirstRunScreen({ navigation }) {
-  const { updateAppSettings } = useContext(AppSettingsContext);
-
   return (
     <KeyboardShift>
       {() => (
@@ -83,7 +81,7 @@ export default function FirstRunScreen({ navigation }) {
           <View style={styles.exitContainer}>
             <Touchable
               onPress={() => {
-                updateAppSettings({ showFirstRun: false });
+                setAppSettings({ showFirstRun: false });
                 navigation.navigate(Routes.TimelineScreen);
               }}
             >

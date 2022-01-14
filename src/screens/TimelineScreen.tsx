@@ -1,6 +1,5 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RefreshControl, ScrollView, Text, View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import NetInfo from "@react-native-community/netinfo";
 import Storage from "../lib/Storage";
 import { Network } from "../lib/Network";
@@ -9,10 +8,10 @@ import Logger from "../lib/Logger";
 import StatusBar from "../components/StatusBar";
 import { Record, isAtlas } from "../record/Record";
 import styles from "../styles/Timeline";
-import { AppSettingsContext } from "../../AppSettings";
+import { getAppSettings } from "../../AppSettings";
 import RecordList from "../components/RecordList";
 
-export default function TimelineScreen() {
+export default function TimelineScreen({ navigation }) {
   const [connected, setConnected] = useState<boolean | null>(true);
   const [refreshing, setRefreshing] = useState(false);
   const [pendingRecords, setPendingRecords] = useState<Record[]>([]);
@@ -22,8 +21,12 @@ export default function TimelineScreen() {
     type: null,
     onDone: null,
   });
-  const { showAtlasRecords, showOnlyAtlasRecords } =
-    useContext(AppSettingsContext);
+  const [showAtlasRecords, setShowAtlasRecords] = useState(
+    getAppSettings().showAtlasRecords
+  );
+  const [showOnlyAtlasRecords, setShowOnlyAtlasRecords] = useState(
+    getAppSettings().showOnlyAtlasRecords
+  );
 
   const updateStatus = (text, type, onDone = null) =>
     setStatus({ text, type, onDone });
@@ -56,12 +59,15 @@ export default function TimelineScreen() {
       });
       setPendingRecords(records);
     });
-  }, [showAtlasRecords, showOnlyAtlasRecords]);
+  }, []);
 
-  // force a re-render when user comes back from Settings screen
-  // TODO: compare old "show atlas" values with new values, only re-render if they changed
-  // TODO: figure out why this is getting called on blur too
-  useFocusEffect(displaySavedRecords);
+  // re-render when user comes back from Settings screen
+  useEffect(() =>
+    navigation.addListener("focus", () => {
+      setShowAtlasRecords(getAppSettings().showAtlasRecords);
+      setShowOnlyAtlasRecords(getAppSettings().showOnlyAtlasRecords);
+    })
+  );
 
   useEffect(() => {
     if (!refreshing) {
