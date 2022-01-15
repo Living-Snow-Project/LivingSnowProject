@@ -3,7 +3,6 @@ import {
   ActivityIndicator,
   Alert,
   Platform,
-  Pressable,
   ScrollView,
   TextInput,
   View,
@@ -11,6 +10,7 @@ import {
 import PropTypes from "prop-types";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import PressableOpacity from "../components/PressableOpacity";
 import KeyboardShift from "../components/KeyboardShift";
 import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
@@ -30,13 +30,14 @@ export default function RecordScreen({ navigation }) {
   const notesRef = useRef<TextInput>(null);
   const locationDescriptionRef = useRef<TextInput>(null);
   const [uploading, setUploading] = useState(false);
+  const [date, setDate] = useState(new Date().toLocaleDateString("en-CA"));
   const appSettings = getAppSettings();
 
   // data collected and sent to the service
   const [state, setState] = useState<Record.Record>({
     id: `0`,
     type: Record.RecordType.Sample, // sample or sighting
-    date: new Date().toLocaleDateString("en-CA"), // YYYY-MM-DD
+    date: new Date(), // YYYY-MM-DD
     latitude: undefined, // GPS
     longitude: undefined, // GPS
     atlasType: AtlasType.SnowAlgae, // (optional)
@@ -72,11 +73,11 @@ export default function RecordScreen({ navigation }) {
 
   const UploadRecord = useCallback(
     () => (
-      <Pressable onPress={() => setUploading(true)}>
+      <PressableOpacity onPress={() => setUploading(true)}>
         <StockIcon
           name={Platform.OS === "ios" ? "ios-cloud-upload" : "md-cloud-upload"}
         />
-      </Pressable>
+      </PressableOpacity>
     ),
     []
   );
@@ -98,7 +99,7 @@ export default function RecordScreen({ navigation }) {
       id: uuidv4(),
       type: Record.translateToLegacyRecordType(state.type),
       name: appSettings.name ? appSettings.name : "Anonymous",
-      date: state.date,
+      date: new Date(date),
       organization: !appSettings.organization
         ? undefined
         : appSettings.organization,
@@ -154,10 +155,7 @@ export default function RecordScreen({ navigation }) {
           />
 
           {/* Date of Sample, Sighting, Atlas, etc */}
-          <DateSelector
-            date={state.date}
-            setDate={(date) => setState((prev) => ({ ...prev, date }))}
-          />
+          <DateSelector date={date} setDate={(newDate) => setDate(newDate)} />
 
           {/* Tube Id: only show Tube Id when recording a Sample */}
           {Record.isSample(state.type) && (

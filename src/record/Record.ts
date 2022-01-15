@@ -58,7 +58,7 @@ type Record = {
   type: RecordType;
   name?: string;
   organization?: string;
-  date: string; // Date; TODO
+  date: Date;
   latitude: number | undefined;
   longitude: number | undefined;
   tubeId?: string;

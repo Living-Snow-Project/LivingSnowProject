@@ -1,6 +1,7 @@
 import React from "react";
 import { PropTypes } from "prop-types";
-import { Platform, TouchableOpacity, View } from "react-native";
+import { Platform, View } from "react-native";
+import PressableOpacity from "./PressableOpacity";
 import { StockIcon } from "./TabBarIcon";
 
 export default function HeaderNavigation({
@@ -11,14 +12,11 @@ export default function HeaderNavigation({
 }) {
   return (
     <View>
-      <TouchableOpacity
-        onPress={() => navigation.navigate(nextScreen)}
-        activeOpacity={0.4}
-      >
+      <PressableOpacity onPress={() => navigation.navigate(nextScreen)}>
         <View>
           <StockIcon name={Platform.OS === "ios" ? iosImage : androidImage} />
         </View>
-      </TouchableOpacity>
+      </PressableOpacity>
     </View>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TouchableHighlight, View } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { Calendar } from "react-native-calendars";
 import { formInputStyles } from "../../styles/FormInput";
@@ -10,7 +10,7 @@ export default function DateSelector({ date, setDate }) {
   return (
     <>
       <Text style={formInputStyles.optionStaticText}>Date</Text>
-      <TouchableHighlight onPress={() => setCalendarVisible(true)}>
+      <Pressable onPress={() => setCalendarVisible(true)}>
         <View>
           {calendarVisible && (
             <Calendar
@@ -26,7 +26,7 @@ export default function DateSelector({ date, setDate }) {
             <Text style={formInputStyles.optionInputText}>{date}</Text>
           )}
         </View>
-      </TouchableHighlight>
+      </Pressable>
     </>
   );
 }

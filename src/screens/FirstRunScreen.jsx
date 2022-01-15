@@ -1,6 +1,6 @@
 import React from "react";
-import Touchable from "react-native-platform-touchable";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
+import PressableOpacity from "../components/PressableOpacity";
 import { StockIcon } from "../components/TabBarIcon";
 import { setAppSettings } from "../../AppSettings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
@@ -79,7 +79,7 @@ export default function FirstRunScreen({ navigation }) {
           <UserIdentityInput />
 
           <View style={styles.exitContainer}>
-            <Touchable
+            <PressableOpacity
               onPress={() => {
                 setAppSettings({ showFirstRun: false });
                 navigation.navigate(Routes.TimelineScreen);
@@ -90,7 +90,7 @@ export default function FirstRunScreen({ navigation }) {
                   Let&apos;s get started!
                 </Text>
               </View>
-            </Touchable>
+            </PressableOpacity>
           </View>
         </ScrollView>
       )}
