@@ -13,7 +13,7 @@ import KeyboardShift from "../components/KeyboardShift";
 import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import { formInputStyles } from "../styles/FormInput";
-import HeaderButton from "../components/HeaderNavigation";
+import HeaderButton from "../components/HeaderButton";
 import { AtlasType } from "../record/Atlas";
 import TypeSelector from "../components/forms/TypeSelector";
 import DateSelector from "../components/forms/DateSelector";

@@ -6,7 +6,7 @@ import RecordScreen from "../screens/RecordScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import FirstRunScreen from "../screens/FirstRunScreen";
 import ImagesPickerScreen from "../screens/ImagesPickerScreen";
-import HeaderButton from "../components/HeaderNavigation";
+import HeaderButton from "../components/HeaderButton";
 import RecordDetailsScreen from "../screens/RecordDetailsScreen";
 import Routes from "./Routes";
 import { getAppSettings } from "../../AppSettings";
