@@ -1,11 +1,28 @@
 import React from "react";
-import { Pressable } from "react-native";
+import {
+  GestureResponderEvent,
+  Pressable,
+  StyleProp,
+  ViewPropTypes,
+  ViewStyle,
+} from "react-native";
 import PropTypes from "prop-types";
 
-export default function PressableOpacity({ onPress, children }) {
+type PressableOpacityProps = {
+  onPress: (event: GestureResponderEvent) => void;
+  style: StyleProp<ViewStyle>;
+  children: JSX.Element;
+};
+
+export default function PressableOpacity({
+  onPress,
+  style = {},
+  children,
+}: PressableOpacityProps) {
   return (
     <Pressable
       style={({ pressed }) => [
+        style,
         {
           opacity: pressed ? 0.4 : 1.0,
         },
@@ -19,5 +36,10 @@ export default function PressableOpacity({ onPress, children }) {
 
 PressableOpacity.propTypes = {
   onPress: PropTypes.func.isRequired,
+  style: ViewPropTypes.style,
   children: PropTypes.element.isRequired,
+};
+
+PressableOpacity.defaultProps = {
+  style: {},
 };

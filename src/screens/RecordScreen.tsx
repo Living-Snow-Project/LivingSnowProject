@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
-  Platform,
   ScrollView,
   TextInput,
   View,
@@ -10,12 +9,11 @@ import {
 import PropTypes from "prop-types";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import PressableOpacity from "../components/PressableOpacity";
 import KeyboardShift from "../components/KeyboardShift";
 import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
-import { StockIcon } from "../components/TabBarIcon";
 import { formInputStyles } from "../styles/FormInput";
+import HeaderButton from "../components/HeaderNavigation";
 import { AtlasType } from "../record/Atlas";
 import TypeSelector from "../components/forms/TypeSelector";
 import DateSelector from "../components/forms/DateSelector";
@@ -73,11 +71,11 @@ export default function RecordScreen({ navigation }) {
 
   const UploadRecord = useCallback(
     () => (
-      <PressableOpacity onPress={() => setUploading(true)}>
-        <StockIcon
-          name={Platform.OS === "ios" ? "ios-cloud-upload" : "md-cloud-upload"}
-        />
-      </PressableOpacity>
+      <HeaderButton
+        onPress={() => setUploading(true)}
+        iconName="cloud-upload"
+        placement="right"
+      />
     ),
     []
   );
@@ -130,7 +128,6 @@ export default function RecordScreen({ navigation }) {
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => UploadRecord(),
-      headerRightContainerStyle: { marginRight: 20 },
     });
   }, []);
 

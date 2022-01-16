@@ -1,42 +1,42 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import React from "react";
+import React, { useCallback } from "react";
 import TimelineScreen from "../screens/TimelineScreen";
 import RecordScreen from "../screens/RecordScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import FirstRunScreen from "../screens/FirstRunScreen";
 import ImagesPickerScreen from "../screens/ImagesPickerScreen";
-import HeaderNavigation from "../components/HeaderNavigation";
+import HeaderButton from "../components/HeaderNavigation";
 import RecordDetailsScreen from "../screens/RecordDetailsScreen";
 import Routes from "./Routes";
 import { getAppSettings } from "../../AppSettings";
 
 const Stack = createStackNavigator();
 
-function TimelineLeft(navigation) {
-  return (
-    <HeaderNavigation
-      navigation={navigation}
-      nextScreen={Routes.SettingsScreen}
-      iosImage="ios-settings"
-      androidImage="md-settings"
-    />
-  );
-}
-
-function TimelineRight(navigation) {
-  return (
-    <HeaderNavigation
-      navigation={navigation}
-      nextScreen={Routes.RecordScreen}
-      iosImage="ios-add-circle-outline"
-      androidImage="md-add-circle-outline"
-    />
-  );
-}
-
 function RootNavigator() {
   const { showFirstRun } = getAppSettings();
+
+  const TimelineLeft = useCallback(
+    (navigation) => (
+      <HeaderButton
+        onPress={() => navigation.navigate(Routes.SettingsScreen)}
+        iconName="settings"
+        placement="left"
+      />
+    ),
+    []
+  );
+
+  const TimelineRight = useCallback(
+    (navigation) => (
+      <HeaderButton
+        onPress={() => navigation.navigate(Routes.RecordScreen)}
+        iconName="add-circle-outline"
+        placement="right"
+      />
+    ),
+    []
+  );
 
   return (
     <Stack.Navigator
@@ -50,9 +50,7 @@ function RootNavigator() {
         component={TimelineScreen}
         options={({ navigation }) => ({
           headerLeft: () => TimelineLeft(navigation),
-          headerLeftContainerStyle: { marginLeft: 20 },
           headerRight: () => TimelineRight(navigation),
-          headerRightContainerStyle: { marginRight: 20 },
         })}
       />
       <Stack.Screen name={Routes.RecordScreen} component={RecordScreen} />

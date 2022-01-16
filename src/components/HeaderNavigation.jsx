@@ -1,28 +1,26 @@
 import React from "react";
 import { PropTypes } from "prop-types";
-import { Platform, View } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 import PressableOpacity from "./PressableOpacity";
 import { StockIcon } from "./TabBarIcon";
 
-export default function HeaderNavigation({
-  navigation,
-  iosImage,
-  androidImage,
-  nextScreen,
-}) {
+export default function HeaderButton({ iconName, onPress, placement }) {
+  const marginWidth = 25;
+  const style = StyleSheet.create(
+    placement.includes("left") ? { left: marginWidth } : { right: marginWidth }
+  );
+
   return (
-    <View>
-      <PressableOpacity onPress={() => navigation.navigate(nextScreen)}>
-        <View>
-          <StockIcon name={Platform.OS === "ios" ? iosImage : androidImage} />
-        </View>
-      </PressableOpacity>
-    </View>
+    <PressableOpacity style={style} onPress={() => onPress()}>
+      <StockIcon
+        name={Platform.OS === "ios" ? `ios-${iconName}` : `md-${iconName}`}
+      />
+    </PressableOpacity>
   );
 }
 
-HeaderNavigation.propTypes = {
-  iosImage: PropTypes.string.isRequired,
-  androidImage: PropTypes.string.isRequired,
-  nextScreen: PropTypes.string.isRequired,
+HeaderButton.propTypes = {
+  iconName: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired,
+  placement: PropTypes.string.isRequired,
 };
