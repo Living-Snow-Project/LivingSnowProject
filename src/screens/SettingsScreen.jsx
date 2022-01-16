@@ -11,7 +11,7 @@ export default function SettingsScreen() {
   ] = useState(getAppSettings());
 
   return (
-    <View>
+    <>
       <UserIdentityInput />
 
       <Text style={styles.optionStaticText}>Notifications</Text>
@@ -60,6 +60,6 @@ export default function SettingsScreen() {
           value={showOnlyAtlasRecords}
         />
       </View>
-    </View>
+    </>
   );
 }
