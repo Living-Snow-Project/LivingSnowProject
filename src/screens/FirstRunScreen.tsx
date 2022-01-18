@@ -2,7 +2,7 @@ import React from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import PressableOpacity from "../components/PressableOpacity";
 import { StockIcon } from "../components/Icons";
-import { setAppSettings } from "../../AppSettings";
+import { getAppSettings, setAppSettings } from "../../AppSettings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
 import Routes from "../navigation/Routes";
 import KeyboardShift from "../components/KeyboardShift";
@@ -81,7 +81,7 @@ export default function FirstRunScreen({ navigation }) {
           <View style={styles.exitContainer}>
             <PressableOpacity
               onPress={() => {
-                setAppSettings({ showFirstRun: false });
+                setAppSettings({ ...getAppSettings(), showFirstRun: false });
                 navigation.navigate(Routes.TimelineScreen);
               }}
             >
