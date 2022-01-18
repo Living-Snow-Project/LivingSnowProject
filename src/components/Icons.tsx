@@ -3,6 +3,7 @@ import { Platform, ViewPropTypes } from "react-native";
 import PropTypes from "prop-types";
 import * as Icon from "@expo/vector-icons";
 import Colors from "../constants/Colors";
+import * as Record from "../record/Record";
 
 function StockIcon({ name, size, style, color }) {
   return <Icon.Ionicons name={name} size={size} style={style} color={color} />;
@@ -21,12 +22,11 @@ StockIcon.defaultProps = {
   color: Colors.tabIconDefault,
 };
 
-function RecordIcon({ type }) {
+function RecordIcon({ type }: { type: Record.RecordType }) {
   let name = Platform.OS === "ios" ? "ios-eye" : "md-eye";
   let color = "skyblue";
 
-  // TODO when convert to .ts
-  if (type.includes("Sample")) {
+  if (Record.isSample(type)) {
     name = Platform.OS === "ios" ? "ios-flask" : "md-flask";
     color = "lightcoral";
   }
@@ -35,7 +35,7 @@ function RecordIcon({ type }) {
 }
 
 RecordIcon.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(Object.values(Record.RecordType)).isRequired,
 };
 
 function PictureIcon() {

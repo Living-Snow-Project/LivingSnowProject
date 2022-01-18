@@ -1,7 +1,7 @@
 import React from "react";
 import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
 import PressableOpacity from "../components/PressableOpacity";
-import { StockIcon } from "../components/TabBarIcon";
+import { StockIcon } from "../components/Icons";
 import { setAppSettings } from "../../AppSettings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
 import Routes from "../navigation/Routes";

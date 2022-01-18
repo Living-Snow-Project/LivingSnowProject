@@ -1,5 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, Pressable, Text, TextInput, View } from "react-native";
+import {
+  Alert,
+  Pressable,
+  ReturnKeyTypeOptions,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 import PropTypes from "prop-types";
 import * as Location from "expo-location";
 import { formInputStyles } from "../../styles/FormInput";
@@ -10,9 +17,9 @@ export default function GpsCoordinatesInput({
   setGpsCoordinates,
   onSubmitEditing,
 }) {
-  const watchPosition = useRef(null);
-  const gpsCoordinatesRef = useRef(null);
-  const [gpsCoordinateString, setGpsCoordinateString] = useState(null);
+  const watchPosition = useRef<null | { remove(): void }>(null);
+  const gpsCoordinatesRef = useRef<TextInput>(null);
+  const [gpsCoordinateString, setGpsCoordinateString] = useState<string>(``);
   const [manualGpsCoordinates, setManualGpsCoordinates] = useState(false);
   const { showGpsWarning } = getAppSettings();
   const clipCoordinate = (coordinate) =>
@@ -41,7 +48,7 @@ export default function GpsCoordinatesInput({
 
   const stopGps = () => {
     if (watchPosition.current) {
-      watchPosition.current.remove();
+      watchPosition.current?.remove();
       watchPosition.current = null;
     }
   };
@@ -93,8 +100,8 @@ export default function GpsCoordinatesInput({
   const confirmManualGpsCoordinates = () => {
     if (showGpsWarning && !manualGpsCoordinates) {
       Alert.alert(
-        "Enter GPS coordinates manually?\nThis message can be disabled in Settings.",
-        null,
+        "Enter GPS coordinates manually?",
+        "This message can be disabled in Settings.",
         [
           {
             text: "Yes",
@@ -115,7 +122,7 @@ export default function GpsCoordinatesInput({
     style: formInputStyles.optionInputText,
     defaultValue: gpsCoordinateString,
     maxLength: 30,
-    returnKeyType: "done",
+    returnKeyType: "done" as ReturnKeyTypeOptions,
     editable: manualGpsCoordinates,
   };
 

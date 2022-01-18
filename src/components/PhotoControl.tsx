@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { Image, LogBox, Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { formInputStyles } from "../styles/FormInput";
-import { PictureIcon } from "./TabBarIcon";
+import { PictureIcon } from "./Icons";
 import Routes from "../navigation/Routes";
 
 // because we pass a callback in params, more info from the following links
@@ -36,11 +36,11 @@ export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
 
     // layout algorithm for even number of photos
     if (photos.length % colsPerRow === 0) {
-      const result = [];
+      const result: Array<JSX.Element> = [];
       const rows = photos.length / colsPerRow;
 
       for (let row = 0; row < rows; row++) {
-        const inner = [];
+        const inner: Array<JSX.Element> = [];
         for (let col = 0; col < colsPerRow; col++) {
           const index = row * rows + col;
           inner.push(

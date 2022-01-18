@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
-import { PictureIcon, RecordIcon } from "./TabBarIcon";
+import { PictureIcon, RecordIcon } from "./Icons";
 import Routes from "../navigation/Routes";
 import * as Record from "../record/Record";
 

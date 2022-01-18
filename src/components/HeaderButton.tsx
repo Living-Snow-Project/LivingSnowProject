@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Platform, StyleSheet } from "react-native";
 import PressableOpacity from "./PressableOpacity";
-import { StockIcon } from "./TabBarIcon";
+import { StockIcon } from "./Icons";
 
 type HeaderButtonProps = {
   iconName: string;
