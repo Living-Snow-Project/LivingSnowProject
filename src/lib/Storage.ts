@@ -10,7 +10,7 @@ class Storage {
   // AppConfig Storage APIs
   static async loadAppConfig() {
     return AsyncStorage.getItem(StorageKeys.appConfig).then((value) =>
-      JSON.parse(value)
+      value ? JSON.parse(value) : null
     );
   }
 
