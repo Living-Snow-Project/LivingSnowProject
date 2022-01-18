@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { PictureIcon, RecordIcon } from "./Icons";
 import Routes from "../navigation/Routes";
-import * as Record from "../record/Record";
+import RecordPropType from "../record/RecordPropTypes";
 
 const styles = StyleSheet.create({
   recordContainer: {
@@ -118,5 +118,5 @@ export default function TimelineRow({ navigation, record }) {
 }
 
 TimelineRow.propTypes = {
-  record: PropTypes.shape(Record.Record).isRequired,
+  record: PropTypes.shape(RecordPropType).isRequired,
 };

@@ -64,6 +64,7 @@ export default function TimelineScreen({ navigation }) {
   // re-render when user comes back from Settings screen
   useEffect(() =>
     navigation.addListener("focus", () => {
+      displaySavedRecords();
       setShowAtlasRecords(getAppSettings().showAtlasRecords);
       setShowOnlyAtlasRecords(getAppSettings().showOnlyAtlasRecords);
     })
