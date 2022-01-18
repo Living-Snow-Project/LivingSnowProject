@@ -68,11 +68,16 @@ type Record = {
   atlasType: AtlasType;
 };
 
+// BUGBUG: because legacy record type = string, but we will change to enum and break old clients :)
+// So, Downloaded records => record.type = string, Pending\Saved records => record.type = RecordType
 const isSample = (type: RecordType): boolean =>
   [
     RecordType.Sample,
     RecordType.AtlasRedDotWithSample,
     RecordType.AtlasBlueDotWithSample,
+    "Sample",
+    "AtlasRedDotWithSample",
+    "AtlasBlueDotWithSample",
   ].includes(type);
 
 // BUGBUG: because legacy record type = string, but we will change to enum and break old clients :)

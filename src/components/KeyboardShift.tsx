@@ -1,8 +1,8 @@
-import { PropTypes } from "prop-types";
 import React, { Component } from "react";
 import {
   Animated,
   Dimensions,
+  EmitterSubscription,
   Keyboard,
   Platform,
   StyleSheet,
@@ -19,9 +19,27 @@ const styles = StyleSheet.create({
   },
 });
 
+interface IProps {
+  children: () => React.ReactNode;
+}
+
+interface IState {
+  shift: Animated.Value;
+}
+
 const { State: TextInputState } = TextInput;
 
-export default class KeyboardShift extends Component {
+export default class KeyboardShift extends Component<IProps, IState> {
+  isHiding: Animated.CompositeAnimation | null;
+
+  previousGap: number;
+
+  keyboardHeight: number;
+
+  keyboardDidShowSub: EmitterSubscription;
+
+  keyboardDidHideSub: EmitterSubscription;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -117,19 +135,15 @@ export default class KeyboardShift extends Component {
   };
 
   render() {
-    const { children: renderProp } = this.props;
+    const { children } = this.props;
     const { shift } = this.state;
 
     return (
       <Animated.View
         style={[styles.container, { transform: [{ translateY: shift }] }]}
       >
-        {renderProp()}
+        {children()}
       </Animated.View>
     );
   }
 }
-
-KeyboardShift.propTypes = {
-  children: PropTypes.func.isRequired,
-};
