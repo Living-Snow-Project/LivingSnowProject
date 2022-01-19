@@ -17,7 +17,8 @@
     },
     "setupFiles": [
       "./jesttest.setup.js"
-    ]
+    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"]
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
