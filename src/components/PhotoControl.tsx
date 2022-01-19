@@ -3,7 +3,6 @@ import { Image, LogBox, Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { formInputStyles } from "../styles/FormInput";
 import { PictureIcon } from "./Icons";
-import Routes from "../navigation/Routes";
 
 // because we pass a callback in params, more info from the following links
 // follow links for best practices, look at Context
@@ -81,7 +80,7 @@ export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
       </Text>
       <Pressable
         onPress={() =>
-          navigation.navigate(Routes.ImagesPickerScreen, {
+          navigation.navigate("ImageSelection", {
             onUpdatePhotos,
           })
         }

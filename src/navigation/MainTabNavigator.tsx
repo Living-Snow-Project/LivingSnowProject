@@ -8,10 +8,10 @@ import FirstRunScreen from "../screens/FirstRunScreen";
 import ImagesPickerScreen from "../screens/ImagesPickerScreen";
 import HeaderButton from "../components/HeaderButton";
 import RecordDetailsScreen from "../screens/RecordDetailsScreen";
-import Routes from "./Routes";
+import { RootStackParamList } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
   const { showFirstRun } = getAppSettings();
@@ -19,7 +19,7 @@ function RootNavigator() {
   const TimelineLeft = useCallback(
     (navigation) => (
       <HeaderButton
-        onPress={() => navigation.navigate(Routes.SettingsScreen)}
+        onPress={() => navigation.navigate("Settings")}
         iconName="settings"
         placement="left"
       />
@@ -30,7 +30,7 @@ function RootNavigator() {
   const TimelineRight = useCallback(
     (navigation) => (
       <HeaderButton
-        onPress={() => navigation.navigate(Routes.RecordScreen)}
+        onPress={() => navigation.navigate("Record")}
         iconName="add-circle-outline"
         placement="right"
       />
@@ -43,26 +43,20 @@ function RootNavigator() {
       screenOptions={{ headerShown: true, headerTitleAlign: "center" }}
     >
       {showFirstRun && (
-        <Stack.Screen name={Routes.FirstRunScreen} component={FirstRunScreen} />
+        <Stack.Screen name="Welcome" component={FirstRunScreen} />
       )}
       <Stack.Screen
-        name={Routes.TimelineScreen}
+        name="Timeline"
         component={TimelineScreen}
         options={({ navigation }) => ({
           headerLeft: () => TimelineLeft(navigation),
           headerRight: () => TimelineRight(navigation),
         })}
       />
-      <Stack.Screen name={Routes.RecordScreen} component={RecordScreen} />
-      <Stack.Screen name={Routes.SettingsScreen} component={SettingsScreen} />
-      <Stack.Screen
-        name={Routes.ImagesPickerScreen}
-        component={ImagesPickerScreen}
-      />
-      <Stack.Screen
-        name={Routes.RecordDetailsScreen}
-        component={RecordDetailsScreen}
-      />
+      <Stack.Screen name="Record" component={RecordScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="ImageSelection" component={ImagesPickerScreen} />
+      <Stack.Screen name="RecordDetails" component={RecordDetailsScreen} />
     </Stack.Navigator>
   );
 }

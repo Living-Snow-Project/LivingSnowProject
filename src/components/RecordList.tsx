@@ -1,7 +1,8 @@
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import PropTypes from "prop-types";
 import { Record } from "../record/Record";
+import RecordPropType from "../record/RecordPropTypes";
 import styles from "../styles/Timeline";
 import TimelineRow from "./TimelineRow";
 
@@ -16,8 +17,6 @@ export default function RecordList({
   header,
   omitRecord = () => false,
 }: RecordListProps) {
-  const navigation = useNavigation();
-
   const RenderRecords = useCallback(
     () => (
       <>
@@ -25,13 +24,7 @@ export default function RecordList({
           if (omitRecord(record)) {
             return null;
           }
-          return (
-            <TimelineRow
-              key={record.id}
-              navigation={navigation}
-              record={record}
-            />
-          );
+          return <TimelineRow key={record.id} record={record} />;
         })}
       </>
     ),
@@ -51,6 +44,12 @@ export default function RecordList({
     </>
   );
 }
+
+RecordList.propTypes = {
+  records: PropTypes.arrayOf(PropTypes.shape(RecordPropType)).isRequired,
+  header: PropTypes.string.isRequired,
+  omitRecord: PropTypes.func,
+};
 
 RecordList.defaultProps = {
   omitRecord: () => false,

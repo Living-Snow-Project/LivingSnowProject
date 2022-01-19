@@ -51,8 +51,8 @@ export default function RecordDetailsScreen({ route }) {
     tubeId,
     notes,
     atlasType,
-  } = route.params.record;
-  const photoUris = parsePhotoUris(route.params.record.photoUris);
+  } = route.params;
+  const photoUris = parsePhotoUris(route.params.photoUris);
   // TODO: prefer to scale images based on dominant axis
   const height = Dimensions.get("screen").height * 0.75;
 

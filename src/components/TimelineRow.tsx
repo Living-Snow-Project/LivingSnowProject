@@ -1,8 +1,9 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import PropTypes from "prop-types";
 import { PictureIcon, RecordIcon } from "./Icons";
-import Routes from "../navigation/Routes";
+import { RootStackNavigationProp } from "../navigation/Routes";
 import RecordPropType from "../record/RecordPropTypes";
 
 const styles = StyleSheet.create({
@@ -83,14 +84,11 @@ function parsePhotoUris(photoUris) {
   return result;
 }
 
-export default function TimelineRow({ navigation, record }) {
+export default function TimelineRow({ record }) {
+  const { navigate } = useNavigation<RootStackNavigationProp>();
   return (
     <View style={styles.recordContainer}>
-      <Pressable
-        onPress={() =>
-          navigation.navigate(Routes.RecordDetailsScreen, { record })
-        }
-      >
+      <Pressable onPress={() => navigate("RecordDetails", record)}>
         <View style={styles.recordTop}>
           <View style={styles.topText}>
             <Text>{topText(record)}</Text>

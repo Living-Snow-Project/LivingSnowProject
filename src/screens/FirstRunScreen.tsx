@@ -4,7 +4,6 @@ import PressableOpacity from "../components/PressableOpacity";
 import { StockIcon } from "../components/Icons";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
-import Routes from "../navigation/Routes";
 import KeyboardShift from "../components/KeyboardShift";
 
 const styles = StyleSheet.create({
@@ -82,7 +81,7 @@ export default function FirstRunScreen({ navigation }) {
             <PressableOpacity
               onPress={() => {
                 setAppSettings({ ...getAppSettings(), showFirstRun: false });
-                navigation.navigate(Routes.TimelineScreen);
+                navigation.navigate("Timeline");
               }}
             >
               <View style={styles.exitButtonContainer}>

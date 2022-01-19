@@ -1,10 +1,15 @@
-const Routes = {
-  FirstRunScreen: "Welcome",
-  TimelineScreen: "Timeline",
-  RecordScreen: "Record",
-  SettingsScreen: "Settings",
-  ImagesPickerScreen: "Images",
-  RecordDetailsScreen: "Details",
+import { StackNavigationProp } from "@react-navigation/stack";
+import { Record } from "../record/Record";
+
+type RootStackParamList = {
+  Welcome: undefined;
+  Timeline: undefined;
+  Record: undefined;
+  Settings: undefined;
+  ImageSelection: undefined;
+  RecordDetails: { record: Record };
 };
 
-export default Routes;
+type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
+
+export { RootStackParamList, RootStackNavigationProp };
