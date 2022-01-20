@@ -18,7 +18,16 @@
     "setupFiles": [
       "./jesttest.setup.js"
     ],
-    "moduleFileExtensions": ["ts", "tsx", "js"]
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx,ts,tsx}",
+      "!**/coverage/**",
+      "!**/expo-images-picker/**",
+      "!**/node_modules/**",
+      "!**/babel.config.js",
+      "!**/jest.setup.js"
+    ]
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",
