@@ -1,5 +1,6 @@
 node_modules/**/*
 .expo/*
+coverage/**/*
 .expo-shared/*
 .github/*
 expo-images-picker/*
