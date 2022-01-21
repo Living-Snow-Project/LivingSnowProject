@@ -18,7 +18,11 @@
     "setupFiles": [
       "./jesttest.setup.js"
     ],
-    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
     "collectCoverage": true,
     "collectCoverageFrom": [
       "**/*.{js,jsx,ts,tsx}",
@@ -50,12 +54,9 @@
     "react-native-calendars": "^1.1254.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-get-random-values": "^1.7.2",
-    "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-picker-select": "^6.1.0",
-    "react-native-reanimated": "~2.2.0",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
-    "react-native-web": "~0.13.12",
     "styled-components": "5.1.1",
     "uuid": "^8.3.2"
   },
