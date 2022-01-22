@@ -30,7 +30,7 @@
       "!**/expo-images-picker/**",
       "!**/node_modules/**",
       "!**/babel.config.js",
-      "!**/jest.setup.js"
+      "!**/jesttest.setup.js"
     ]
   },
   "dependencies": {
@@ -65,6 +65,8 @@
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/eslint-parser": "^7.16.5",
+    "@babel/preset-typescript": "^7.16.7",
+    "@types/jest": "^26.0.3",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "@types/styled-components": "5.1.7",

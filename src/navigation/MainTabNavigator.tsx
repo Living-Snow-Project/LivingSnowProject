@@ -55,8 +55,16 @@ function RootNavigator() {
       />
       <Stack.Screen name="Record" component={RecordScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen name="ImageSelection" component={ImagesPickerScreen} />
-      <Stack.Screen name="RecordDetails" component={RecordDetailsScreen} />
+      <Stack.Screen
+        name="ImageSelection"
+        component={ImagesPickerScreen}
+        options={{ title: "Camera Roll" }}
+      />
+      <Stack.Screen
+        name="RecordDetails"
+        component={RecordDetailsScreen}
+        options={{ title: "Details" }}
+      />
     </Stack.Navigator>
   );
 }
