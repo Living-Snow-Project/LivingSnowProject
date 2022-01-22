@@ -1,7 +1,7 @@
 import React from "react";
-import { Platform, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import PressableOpacity from "../components/PressableOpacity";
-import { StockIcon } from "../components/Icons";
+import { SnowIcon } from "../components/Icons";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
 import KeyboardShift from "../components/KeyboardShift";
@@ -59,15 +59,9 @@ export default function FirstRunScreen({ navigation }) {
       {() => (
         <ScrollView style={styles.ftreContainer}>
           <View style={styles.welcomeContainer}>
-            <StockIcon
-              style={styles.snowLeft}
-              name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
-            />
+            <SnowIcon style={styles.snowLeft} />
             <Text style={styles.welcomeText}>Living Snow Project</Text>
-            <StockIcon
-              style={styles.snowRight}
-              name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
-            />
+            <SnowIcon style={styles.snowRight} />
           </View>
 
           <Text style={styles.descriptionText}>

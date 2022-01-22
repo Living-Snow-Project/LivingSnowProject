@@ -48,4 +48,21 @@ function PictureIcon() {
   );
 }
 
-export { PictureIcon, RecordIcon, StockIcon };
+function SnowIcon({ style }) {
+  return (
+    <StockIcon
+      style={style}
+      name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
+    />
+  );
+}
+
+SnowIcon.propTypes = {
+  style: ViewPropTypes.style,
+};
+
+SnowIcon.defaultProps = {
+  style: {},
+};
+
+export { PictureIcon, RecordIcon, StockIcon, SnowIcon };
