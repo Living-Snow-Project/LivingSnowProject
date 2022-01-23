@@ -10,29 +10,6 @@
     "eject": "expo eject",
     "test": "jest"
   },
-  "jest": {
-    "preset": "jest-expo",
-    "transform": {
-      "\\.[jt]sx?$": "babel-jest"
-    },
-    "setupFiles": [
-      "./jesttest.setup.js"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/*.{js,jsx,ts,tsx}",
-      "!**/coverage/**",
-      "!**/expo-images-picker/**",
-      "!**/node_modules/**",
-      "!**/babel.config.js",
-      "!**/jesttest.setup.js"
-    ]
-  },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
     "@react-native-async-storage/async-storage": "~1.15.0",
