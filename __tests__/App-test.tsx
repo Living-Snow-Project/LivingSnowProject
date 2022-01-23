@@ -4,13 +4,11 @@ import { act, create } from "react-test-renderer";
 /* eslint-disable import/extensions */
 import App from "../App";
 
-describe("App", () => {
+test(`App renders correctly`, async () => {
   let tree;
-  it(`renders correctly`, async () => {
-    // act is used to prevent snapshot returning null
-    await act(async () => {
-      tree = await create(<App />);
-    });
-    expect(tree.toJSON()).toMatchSnapshot();
+  // act is used to prevent snapshot returning null
+  await act(async () => {
+    tree = await create(<App />);
   });
+  expect(tree.toJSON()).toMatchSnapshot();
 });

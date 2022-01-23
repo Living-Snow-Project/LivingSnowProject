@@ -11,6 +11,6 @@ test("validates Welcome Screen navigation", () => {
     <FirstRunScreen navigation={navigation} />
   );
   fireEvent.press(getByText("Let's get started!"));
-  expect(navigation.navigate).toBeCalledTimes(1);
-  expect(toJSON).toMatchSnapshot();
+  expect(navigation.navigate).toBeCalledWith("Timeline");
+  expect(toJSON()).toMatchSnapshot();
 });

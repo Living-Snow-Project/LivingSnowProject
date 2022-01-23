@@ -1,3 +1,193 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`validates Welcome Screen navigation 1`] = `[Function]`;
+exports[`validates Welcome Screen navigation 1`] = `
+<View
+  style={
+    Object {
+      "height": "100%",
+      "left": 0,
+      "position": "absolute",
+      "top": 0,
+      "transform": Array [
+        Object {
+          "translateY": 0,
+        },
+      ],
+      "width": "100%",
+    }
+  }
+>
+  <RCTScrollView
+    style={
+      Object {
+        "flex": 1,
+        "marginTop": 30,
+        "paddingHorizontal": 10,
+      }
+    }
+  >
+    <View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text />
+        <Text
+          style={
+            Object {
+              "fontSize": 25,
+              "fontWeight": "bold",
+              "marginTop": 1,
+              "textAlign": "center",
+            }
+          }
+        >
+          Living Snow Project
+        </Text>
+        <Text />
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "red",
+            "fontSize": 12,
+            "marginBottom": 20,
+            "marginLeft": 20,
+            "marginRight": 20,
+            "marginTop": 20,
+            "textAlign": "center",
+          }
+        }
+      >
+        Enter your name and the organization you are associated with, or skip and remain anonymous. You can change these at any time in the Settings tab.
+      </Text>
+      <Text
+        style={
+          Object {
+            "fontSize": 15,
+            "paddingLeft": 10,
+            "paddingVertical": 2,
+          }
+        }
+      >
+        Name
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        maxLength={50}
+        onChangeText={[Function]}
+        onSubmitEditing={[Function]}
+        placeholder="Enter your name"
+        rejectResponderTermination={true}
+        returnKeyType="done"
+        style={
+          Object {
+            "backgroundColor": "#efefef",
+            "borderColor": "gray",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "marginLeft": 10,
+            "marginRight": 10,
+            "paddingHorizontal": 15,
+            "paddingVertical": 15,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+      <Text
+        style={
+          Object {
+            "fontSize": 15,
+            "paddingLeft": 10,
+            "paddingVertical": 2,
+          }
+        }
+      >
+        Organization
+      </Text>
+      <TextInput
+        allowFontScaling={true}
+        maxLength={50}
+        onChangeText={[Function]}
+        placeholder="Enter the organization you belong to (if any)"
+        rejectResponderTermination={true}
+        returnKeyType="done"
+        style={
+          Object {
+            "backgroundColor": "#efefef",
+            "borderColor": "gray",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "marginLeft": 10,
+            "marginRight": 10,
+            "paddingHorizontal": 15,
+            "paddingVertical": 15,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 2,
+            "justifyContent": "flex-start",
+            "marginTop": 30,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Array [
+              Object {},
+              Object {
+                "opacity": 1,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "lightpink",
+                "borderRadius": 5,
+                "height": 40,
+                "justifyContent": "center",
+                "width": 200,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                  "textAlign": "center",
+                }
+              }
+            >
+              Let's get started!
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
