@@ -32,6 +32,7 @@ export default function AtlasSelector({
     <>
       <Text style={formInputStyles.optionStaticText}>Atlas Surface Data</Text>
       <RNPickerSelect
+        touchableWrapperProps={{ testID: "atlas-type-picker" }}
         style={pickerSelectStyles}
         useNativeAndroidPickerStyle={false}
         placeholder={{}}

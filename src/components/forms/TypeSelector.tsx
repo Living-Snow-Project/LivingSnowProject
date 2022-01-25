@@ -17,6 +17,7 @@ export default function TypeSelector({ type, setType }: TypeSelectorProps) {
         Are you Taking a Sample or Reporting a Sighting?
       </Text>
       <RNPickerSelect
+        touchableWrapperProps={{ testID: "record-type-picker" }}
         style={pickerSelectStyles}
         useNativeAndroidPickerStyle={false}
         placeholder={{}}
