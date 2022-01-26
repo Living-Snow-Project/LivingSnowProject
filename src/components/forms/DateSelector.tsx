@@ -10,9 +10,13 @@ export default function DateSelector({ date, setDate }) {
   return (
     <>
       <Text style={formInputStyles.optionStaticText}>Date</Text>
-      <Pressable onPress={() => setCalendarVisible(true)}>
+      <Pressable
+        testID="calendar-pressable"
+        onPress={() => setCalendarVisible(true)}
+      >
         {calendarVisible && (
           <Calendar
+            testID="calendar"
             current={date}
             onDayPress={(newDate) => {
               setCalendarVisible(false);

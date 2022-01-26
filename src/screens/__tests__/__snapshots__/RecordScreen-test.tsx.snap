@@ -387,6 +387,7 @@ exports[`RecordScreen test suite renders 1`] = `
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
+        testID="calendar-pressable"
       >
         <Text
           style={
@@ -401,7 +402,7 @@ exports[`RecordScreen test suite renders 1`] = `
             }
           }
         >
-          2022-01-24
+          2022-01-01
         </Text>
       </View>
       <Text

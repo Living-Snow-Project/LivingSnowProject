@@ -39,6 +39,11 @@ describe("RecordScreen test suite", () => {
     // Enter Notes
 
     // Select Photos
+    const { getByTestId } = renderer;
+    fireEvent.press(getByTestId("calendar-pressable"));
+    fireEvent(getByTestId("calendar"), "onDayPress", {
+      dateString: "2022-01-01",
+    });
     expect(renderer.toJSON()).toMatchSnapshot();
   });
 
