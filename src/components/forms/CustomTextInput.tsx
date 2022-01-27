@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef, useRef, useState } from "react";
 import { Keyboard, Platform, Text, TextInput } from "react-native";
 import PropTypes from "prop-types";
 import { formInputStyles } from "../../styles/FormInput";
@@ -16,13 +16,14 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
     {
       description,
       placeholder,
-      maxLength = 255,
       onChangeText,
-      onSubmitEditing = () => {},
+      maxLength,
+      onSubmitEditing,
     }: CustomTextInputProps,
     ref
   ) => {
     const textInputHeight = useRef(0);
+    const [value, setValue] = useState("");
 
     // onContentSizeChange is called frequently for multiline TextInput, we only want to emit 'keyboardDidShow' event when height actually changes
     const handleMultilineTextInputOnContentSizeChange = (height, event) => {
@@ -40,7 +41,7 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
       <>
         <Text style={formInputStyles.optionStaticText}>{description}</Text>
         <TextInput
-          // this is kind of a hack to get placeholder text to appear vertically centered on ios when TextInput is multiline
+          // hack to get placeholder text to appear vertically centered on ios when TextInput is multiline
           style={[
             formInputStyles.optionInputText,
             Platform.OS === "ios" ? formInputStyles.multilineTextInput : {},
@@ -48,8 +49,13 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
           multiline
           blurOnSubmit
           ref={ref}
+          value={value}
           placeholder={placeholder}
-          onChangeText={(text) => onChangeText(text)}
+          onChangeText={(text) => {
+            setValue(text);
+            onChangeText(text);
+          }}
+          // @ts-expect-error (defaultProps assigns a value but default value in function signature results in unreachable code)
           onSubmitEditing={() => onSubmitEditing()}
           onContentSizeChange={(event) => {
             textInputHeight.current =
@@ -79,6 +85,7 @@ CustomTextInput.defaultProps = {
   onSubmitEditing: () => {},
 };
 
+// this is needed because of forwardRef
 CustomTextInput.displayName = `CustomTextInput`;
 
 export default CustomTextInput;

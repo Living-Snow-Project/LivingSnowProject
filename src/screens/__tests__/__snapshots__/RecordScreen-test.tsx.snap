@@ -443,6 +443,7 @@ exports[`RecordScreen test suite renders 1`] = `
           ]
         }
         underlineColorAndroid="transparent"
+        value=""
       />
       <Text
         style={
@@ -531,6 +532,7 @@ exports[`RecordScreen test suite renders 1`] = `
           ]
         }
         underlineColorAndroid="transparent"
+        value=""
       />
       <Text
         style={
@@ -570,6 +572,7 @@ exports[`RecordScreen test suite renders 1`] = `
           ]
         }
         underlineColorAndroid="transparent"
+        value=""
       />
       <Text
         style={

@@ -24,15 +24,7 @@ describe("RecordScreen test suite", () => {
   });
 
   test("renders", () => {
-    // Select RecordTypes
-
-    // Select Date
-
-    // Enter TubeId
-
     // Enter GPS coordinates
-
-    // Select Atlas
 
     // Enter Location Description
 
@@ -62,6 +54,17 @@ describe("RecordScreen test suite", () => {
     );
     expect(isAtlasVisible(queryByText)).toBeFalsy();
     expect(isTubeIdVisible(queryByText)).toBeFalsy();
+  });
+
+  test("TubeId user input", async () => {
+    const { getByPlaceholderText, getByDisplayValue } = renderer;
+    const tubeId = getByPlaceholderText(
+      "Leave blank if the tube does not have an id"
+    );
+    const expected = "123-456";
+
+    fireEvent.changeText(tubeId, expected);
+    expect(getByDisplayValue(expected)).not.toBeNull();
   });
 
   test("Atlas: Red Dot selected", () => {
