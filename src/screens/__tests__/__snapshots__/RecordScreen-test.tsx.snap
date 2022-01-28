@@ -468,6 +468,7 @@ exports[`RecordScreen test suite renders 1`] = `
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
+        testID="manual-gps-pressable"
       >
         <View
           pointerEvents="none"

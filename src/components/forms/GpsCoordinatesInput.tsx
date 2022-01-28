@@ -29,7 +29,8 @@ export default function GpsCoordinatesInput({
   const updateGpsCoordinateString = (value) => {
     setGpsCoordinateString(value);
 
-    // some users are adding parenthesis when manually entering coordinates, and we don't want them in the data set, quietly remove
+    // some users are adding parenthesis when manually entering coordinates
+    // we don't want them in the data set so quietly remove
     const coordinates = value.replace(`(`, ``).replace(`)`, ``).split(",");
 
     let latitude;
@@ -133,7 +134,10 @@ export default function GpsCoordinatesInput({
       </Text>
       {!manualGpsCoordinates && (
         /* user confirms they want to enter GPS coordinates manually */
-        <Pressable onPress={() => confirmManualGpsCoordinates()}>
+        <Pressable
+          onPress={() => confirmManualGpsCoordinates()}
+          testID="manual-gps-pressable"
+        >
           <View pointerEvents="none">
             <TextInput {...gpsFieldProps} />
           </View>
@@ -142,6 +146,7 @@ export default function GpsCoordinatesInput({
       {manualGpsCoordinates && (
         <TextInput
           {...gpsFieldProps}
+          testID="gps-coordinates-text-input"
           onChangeText={(value) => updateGpsCoordinateString(value)}
           onSubmitEditing={() => onSubmitEditing()}
           ref={gpsCoordinatesRef}
