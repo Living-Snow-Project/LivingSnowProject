@@ -13,10 +13,10 @@ import { formInputStyles } from "../../styles/FormInput";
 import Logger from "../../lib/Logger";
 import { getAppSettings } from "../../../AppSettings";
 
-export default function GpsCoordinatesInput({
-  setGpsCoordinates,
-  onSubmitEditing,
-}) {
+const gpsManualPressableTestId = "gps-manual-pressable";
+const gpsManualInputTestId = "gps-manual-input";
+
+function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
   const watchPosition = useRef<null | { remove(): void }>(null);
   const gpsCoordinatesRef = useRef<TextInput>(null);
   const [gpsCoordinateString, setGpsCoordinateString] = useState<string>(``);
@@ -136,7 +136,7 @@ export default function GpsCoordinatesInput({
         /* user confirms they want to enter GPS coordinates manually */
         <Pressable
           onPress={() => confirmManualGpsCoordinates()}
-          testID="manual-gps-pressable"
+          testID={gpsManualPressableTestId}
         >
           <View pointerEvents="none">
             <TextInput {...gpsFieldProps} />
@@ -146,7 +146,7 @@ export default function GpsCoordinatesInput({
       {manualGpsCoordinates && (
         <TextInput
           {...gpsFieldProps}
-          testID="gps-coordinates-text-input"
+          testID={gpsManualInputTestId}
           onChangeText={(value) => updateGpsCoordinateString(value)}
           onSubmitEditing={() => onSubmitEditing()}
           ref={gpsCoordinatesRef}
@@ -160,3 +160,5 @@ GpsCoordinatesInput.propTypes = {
   setGpsCoordinates: PropTypes.func.isRequired,
   onSubmitEditing: PropTypes.func.isRequired,
 };
+
+export { GpsCoordinatesInput, gpsManualPressableTestId, gpsManualInputTestId };
