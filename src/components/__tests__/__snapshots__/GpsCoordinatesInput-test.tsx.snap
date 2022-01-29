@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GpsCoordinatesInput tests renders 1`] = `
+Array [
+  <Text
+    style={
+      Object {
+        "fontSize": 15,
+        "marginTop": 3,
+      }
+    }
+  >
+    GPS Coordinates (latitude, longitude)
+  </Text>,
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="gps-manual-pressable"
+  >
+    <View
+      pointerEvents="none"
+    >
+      <TextInput
+        allowFontScaling={true}
+        defaultValue="123.456000, -98.765000"
+        editable={false}
+        maxLength={30}
+        placeholder="Looking for GPS signal"
+        rejectResponderTermination={true}
+        returnKeyType="done"
+        style={
+          Object {
+            "backgroundColor": "#efefef",
+            "borderColor": "gray",
+            "borderRadius": 4,
+            "borderWidth": 1,
+            "minHeight": "8%",
+            "paddingHorizontal": 15,
+            "paddingVertical": 15,
+          }
+        }
+        underlineColorAndroid="transparent"
+      />
+    </View>
+  </View>,
+]
+`;

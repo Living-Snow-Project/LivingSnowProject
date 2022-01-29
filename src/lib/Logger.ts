@@ -5,8 +5,16 @@ interface ILogger {
   Error(message: string): void;
 }
 
-// ConsoleLogger is strictly used for debugging
-function ConsoleLogger(): ILogger {
+function TestLogger(): ILogger {
+  return {
+    Info(): void {},
+    Warn(): void {},
+    Error(): void {},
+  };
+}
+
+// DevelopmentLogger is strictly used for debugging
+function DevelopmentLogger(): ILogger {
   return {
     Info(message: string): void {
       console.log(message);
@@ -36,6 +44,8 @@ function ConsoleLogger(): ILogger {
   };
 } */
 
-// ie. const Logger = Environment === Development ? ConsoleLogger() : ProductionLogger();
-const Logger = ConsoleLogger();
+// TODO: figure out what ProductionLogger should do
+const Logger =
+  process.env.JEST_WORKER_ID !== undefined ? TestLogger() : DevelopmentLogger();
+
 export default Logger;

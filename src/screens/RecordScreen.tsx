@@ -18,7 +18,7 @@ import { AtlasType } from "../record/Atlas";
 import TypeSelector from "../components/forms/TypeSelector";
 import DateSelector from "../components/forms/DateSelector";
 import CustomTextInput from "../components/forms/CustomTextInput";
-import { GpsCoordinatesInput } from "../components/forms/GpsCoordinatesInput";
+import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
 import AtlasSelector from "../components/forms/AtlasSelector";
 import PhotoControl from "../components/PhotoControl";
 import * as Record from "../record/Record";

@@ -12,13 +12,15 @@ import * as Location from "expo-location";
 import { formInputStyles } from "../../styles/FormInput";
 import Logger from "../../lib/Logger";
 import { getAppSettings } from "../../../AppSettings";
-
-const gpsManualPressableTestId = "gps-manual-pressable";
-const gpsManualInputTestId = "gps-manual-input";
+import TestIds from "../../constants/TestIds";
+import Placeholders from "../../constants/Strings";
 
 function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
   const watchPosition = useRef<null | { remove(): void }>(null);
   const gpsCoordinatesRef = useRef<TextInput>(null);
+  const [placeholderText, setPlaceholderText] = useState(
+    Placeholders.GPS.AcquiringLocation
+  );
   const [gpsCoordinateString, setGpsCoordinateString] = useState<string>(``);
   const [manualGpsCoordinates, setManualGpsCoordinates] = useState(false);
   const { showGpsWarning } = getAppSettings();
@@ -59,9 +61,9 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
-        Logger.Warn(
-          `Permission to access foreground location was denied: ${status}`
-        );
+        setManualGpsCoordinates(true);
+        setPlaceholderText(Placeholders.GPS.NoPermissions);
+        Logger.Warn(`Permission to access foreground location was ${status}.`);
         return;
       }
 
@@ -79,9 +81,9 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
             )
         );
       } catch (error) {
-        Logger.Error(
-          `Location.watchPositionAsync() failed: ${JSON.stringify(error)}`
-        );
+        setManualGpsCoordinates(true);
+        setPlaceholderText(Placeholders.GPS.NoLocation);
+        Logger.Error(`Location.watchPositionAsync() failed: ${error}`);
       }
     })();
 
@@ -99,7 +101,7 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
   };
 
   const confirmManualGpsCoordinates = () => {
-    if (showGpsWarning && !manualGpsCoordinates) {
+    if (showGpsWarning) {
       Alert.alert(
         "Enter GPS coordinates manually?",
         "This message can be disabled in Settings.",
@@ -114,17 +116,18 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
           },
         ]
       );
-    } else if (!manualGpsCoordinates) {
+    } else {
       enableManualGpsCoordinates();
     }
   };
 
   const gpsFieldProps = {
     style: formInputStyles.optionInputText,
-    defaultValue: gpsCoordinateString,
-    maxLength: 30,
-    returnKeyType: "done" as ReturnKeyTypeOptions,
     editable: manualGpsCoordinates,
+    maxLength: 30,
+    placeholder: placeholderText,
+    defaultValue: gpsCoordinateString,
+    returnKeyType: "done" as ReturnKeyTypeOptions,
   };
 
   return (
@@ -136,7 +139,7 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
         /* user confirms they want to enter GPS coordinates manually */
         <Pressable
           onPress={() => confirmManualGpsCoordinates()}
-          testID={gpsManualPressableTestId}
+          testID={TestIds.GPS.gpsManualPressableTestId}
         >
           <View pointerEvents="none">
             <TextInput {...gpsFieldProps} />
@@ -146,7 +149,7 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
       {manualGpsCoordinates && (
         <TextInput
           {...gpsFieldProps}
-          testID={gpsManualInputTestId}
+          testID={TestIds.GPS.gpsManualInputTestId}
           onChangeText={(value) => updateGpsCoordinateString(value)}
           onSubmitEditing={() => onSubmitEditing()}
           ref={gpsCoordinatesRef}
@@ -161,4 +164,4 @@ GpsCoordinatesInput.propTypes = {
   onSubmitEditing: PropTypes.func.isRequired,
 };
 
-export { GpsCoordinatesInput, gpsManualPressableTestId, gpsManualInputTestId };
+export default GpsCoordinatesInput;

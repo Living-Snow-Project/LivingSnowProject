@@ -9,10 +9,7 @@ import {
   getAllAtlasPickerItems,
 } from "../../record/Atlas";
 import { AppSettings, setAppSettings } from "../../../AppSettings";
-import {
-  gpsManualPressableTestId,
-  gpsManualInputTestId,
-} from "../../components/forms/GpsCoordinatesInput";
+import TestIds from "../../constants/TestIds";
 
 const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
@@ -38,32 +35,23 @@ describe("RecordScreen test suite", () => {
     expect(renderer.toJSON()).toMatchSnapshot();
   });
 
-  test("Sample selected", () => {
-    const { queryByText } = renderer;
-    expect(isAtlasVisible(queryByText)).toBeFalsy();
-    expect(isTubeIdVisible(queryByText)).toBeTruthy();
-  });
+  describe("Record type picker tests", () => {
+    test("Sample selected", () => {
+      const { queryByText } = renderer;
+      expect(isAtlasVisible(queryByText)).toBeFalsy();
+      expect(isTubeIdVisible(queryByText)).toBeTruthy();
+    });
 
-  test("Sighting selected", () => {
-    const { getByTestId, queryByText } = renderer;
-    fireEvent(
-      getByTestId("record-type-picker"),
-      "onValueChange",
-      RecordType.Sighting
-    );
-    expect(isAtlasVisible(queryByText)).toBeFalsy();
-    expect(isTubeIdVisible(queryByText)).toBeFalsy();
-  });
-
-  test("TubeId user input", () => {
-    const { getByPlaceholderText, getByDisplayValue } = renderer;
-    const tubeId = getByPlaceholderText(
-      "Leave blank if the tube does not have an id"
-    );
-    const expected = "123-456";
-
-    fireEvent.changeText(tubeId, expected);
-    expect(getByDisplayValue(expected)).not.toBeNull();
+    test("Sighting selected", () => {
+      const { getByTestId, queryByText } = renderer;
+      fireEvent(
+        getByTestId("record-type-picker"),
+        "onValueChange",
+        RecordType.Sighting
+      );
+      expect(isAtlasVisible(queryByText)).toBeFalsy();
+      expect(isTubeIdVisible(queryByText)).toBeFalsy();
+    });
   });
 
   describe("GPS coordinate tests", () => {
@@ -76,8 +64,8 @@ describe("RecordScreen test suite", () => {
           spy(buttons[1]) // No button
       );
 
-      fireEvent.press(getByTestId(gpsManualPressableTestId));
-      expect(queryByTestId(gpsManualInputTestId)).toBeNull();
+      fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
+      expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
       expect(spy).toHaveBeenLastCalledWith({ text: "No", style: "cancel" });
     });
 
@@ -90,35 +78,44 @@ describe("RecordScreen test suite", () => {
           buttons[0].onPress() // Yes button
       );
 
-      fireEvent.press(getByTestId(gpsManualPressableTestId));
-      fireEvent.changeText(getByTestId(gpsManualInputTestId), testCoordinates);
+      fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
+      fireEvent.changeText(
+        getByTestId(TestIds.GPS.gpsManualInputTestId),
+        testCoordinates
+      );
       expect(getByDisplayValue(testCoordinates)).not.toBeNull();
 
-      // pressable modal shouldn't be visible, prompt again, or reset coordinates
-      fireEvent.press(getByTestId(gpsManualInputTestId));
+      // pressable modal shouldn't be 1. visible, 2. prompt again, or 3. reset coordinates
+      fireEvent.press(getByTestId(TestIds.GPS.gpsManualInputTestId));
       expect(getByDisplayValue(testCoordinates)).not.toBeNull();
     });
 
-    test("manual without confirmation", () => {
+    test("manual without confirmation", async () => {
       const testCoordinates = "123.456, -98.765";
       const spy = jest.fn();
       jest.spyOn(Alert, "alert").mockImplementationOnce(() => spy());
 
       setAppSettings({ showGpsWarning: false } as AppSettings);
 
-      const { getByDisplayValue, getByTestId } = render(
+      const { getByDisplayValue, getByTestId, queryByTestId } = render(
         <RecordScreen navigation={navigation} />
       );
 
-      fireEvent.press(getByTestId(gpsManualPressableTestId));
-      fireEvent.changeText(getByTestId(gpsManualInputTestId), testCoordinates);
+      expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
+      fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
+
+      expect(queryByTestId(TestIds.GPS.gpsManualPressableTestId)).toBeNull();
+      fireEvent.changeText(
+        getByTestId(TestIds.GPS.gpsManualInputTestId),
+        testCoordinates
+      );
 
       expect(getByDisplayValue(testCoordinates)).not.toBeNull();
       expect(spy).not.toBeCalled();
     });
   });
 
-  describe("Atlas Selection tests", () => {
+  describe("Atlas picker tests", () => {
     const recordSelectorTestId = "record-type-picker";
     const atlastSelectorTestId = "atlas-type-picker";
 
@@ -257,22 +254,37 @@ describe("RecordScreen test suite", () => {
     });
   });
 
-  test("Location Description user input", () => {
-    const { getByPlaceholderText, getByDisplayValue } = renderer;
-    const location = getByPlaceholderText("ie: Blue Lake, North Cascades, WA");
-    const expected = "Excelsior Pass on High Divide Trail";
+  describe("TextInput tests", () => {
+    test("TubeId", () => {
+      const { getByPlaceholderText, getByDisplayValue } = renderer;
+      const tubeId = getByPlaceholderText(
+        "Leave blank if the tube does not have an id"
+      );
+      const expected = "123-456";
 
-    fireEvent.changeText(location, expected);
-    expect(getByDisplayValue(expected)).not.toBeNull();
-  });
+      fireEvent.changeText(tubeId, expected);
+      expect(getByDisplayValue(expected)).not.toBeNull();
+    });
 
-  test("Notes user input", () => {
-    const { getByPlaceholderText, getByDisplayValue } = renderer;
-    const notes = getByPlaceholderText("ie. algae growing on glacial ice");
-    const expected = "Frozen lake in a cold place with runnels of red snow";
+    test("Location Description", () => {
+      const { getByPlaceholderText, getByDisplayValue } = renderer;
+      const location = getByPlaceholderText(
+        "ie: Blue Lake, North Cascades, WA"
+      );
+      const expected = "Excelsior Pass on High Divide Trail";
 
-    fireEvent.changeText(notes, expected);
-    expect(getByDisplayValue(expected)).not.toBeNull();
+      fireEvent.changeText(location, expected);
+      expect(getByDisplayValue(expected)).not.toBeNull();
+    });
+
+    test("Notes", () => {
+      const { getByPlaceholderText, getByDisplayValue } = renderer;
+      const notes = getByPlaceholderText("ie. algae growing on glacial ice");
+      const expected = "Frozen lake in a cold place with runnels of red snow";
+
+      fireEvent.changeText(notes, expected);
+      expect(getByDisplayValue(expected)).not.toBeNull();
+    });
   });
 
   test.todo("Photos");
