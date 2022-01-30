@@ -10,6 +10,7 @@ import {
 } from "../../record/Atlas";
 import { AppSettings, setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
+import Placeholders from "../../constants/Strings";
 
 const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
@@ -57,28 +58,41 @@ describe("RecordScreen test suite", () => {
   describe("GPS coordinate tests", () => {
     test("with Expo.Location", () => {
       const { getByTestId, queryByTestId } = renderer;
-      const spy = jest.fn();
-      jest.spyOn(Alert, "alert").mockImplementationOnce(
+      const noButtonMock = jest.fn();
+      const alertMock = jest.spyOn(Alert, "alert").mockImplementationOnce(
         (title, message, buttons) =>
           // @ts-ignore
-          spy(buttons[1]) // No button
+          noButtonMock(buttons[1]) // No button
       );
 
       fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
       expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
-      expect(spy).toHaveBeenLastCalledWith({ text: "No", style: "cancel" });
+      expect(noButtonMock).toHaveBeenLastCalledWith({
+        text: "No",
+        style: "cancel",
+      });
+      alertMock.mockReset();
     });
 
     test("manual with confirmation", () => {
-      const { getByDisplayValue, getByTestId } = renderer;
+      const {
+        getByDisplayValue,
+        getByPlaceholderText,
+        getByTestId,
+        queryByTestId,
+      } = renderer;
       const testCoordinates = "123.456, -98.765";
-      jest.spyOn(Alert, "alert").mockImplementationOnce(
+      const alertMock = jest.spyOn(Alert, "alert").mockImplementationOnce(
         (title, message, buttons) =>
           // @ts-ignore
           buttons[0].onPress() // Yes button
       );
 
       fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
+      expect(
+        getByPlaceholderText(Placeholders.GPS.EnterCoordinates)
+      ).not.toBeNull();
+
       fireEvent.changeText(
         getByTestId(TestIds.GPS.gpsManualInputTestId),
         testCoordinates
@@ -87,22 +101,34 @@ describe("RecordScreen test suite", () => {
 
       // pressable modal shouldn't be 1. visible, 2. prompt again, or 3. reset coordinates
       fireEvent.press(getByTestId(TestIds.GPS.gpsManualInputTestId));
+      expect(queryByTestId(TestIds.GPS.gpsManualPressableTestId)).toBeNull();
+      expect(alertMock).toBeCalledTimes(1);
       expect(getByDisplayValue(testCoordinates)).not.toBeNull();
+      alertMock.mockReset();
     });
 
     test("manual without confirmation", async () => {
       const testCoordinates = "123.456, -98.765";
-      const spy = jest.fn();
-      jest.spyOn(Alert, "alert").mockImplementationOnce(() => spy());
+      const alertSpy = jest.fn();
+      const alertMock = jest
+        .spyOn(Alert, "alert")
+        .mockImplementationOnce(() => alertSpy());
 
       setAppSettings({ showGpsWarning: false } as AppSettings);
 
-      const { getByDisplayValue, getByTestId, queryByTestId } = render(
-        <RecordScreen navigation={navigation} />
-      );
+      const {
+        getByDisplayValue,
+        getByPlaceholderText,
+        getByTestId,
+        queryByTestId,
+      } = render(<RecordScreen navigation={navigation} />);
 
       expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
       fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
+
+      expect(
+        getByPlaceholderText(Placeholders.GPS.EnterCoordinates)
+      ).not.toBeNull();
 
       expect(queryByTestId(TestIds.GPS.gpsManualPressableTestId)).toBeNull();
       fireEvent.changeText(
@@ -111,7 +137,8 @@ describe("RecordScreen test suite", () => {
       );
 
       expect(getByDisplayValue(testCoordinates)).not.toBeNull();
-      expect(spy).not.toBeCalled();
+      expect(alertSpy).not.toBeCalled();
+      alertMock.mockReset();
     });
   });
 

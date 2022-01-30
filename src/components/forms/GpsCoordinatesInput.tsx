@@ -98,6 +98,7 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
     stopGps();
     updateGpsCoordinateString("");
     setManualGpsCoordinates(true);
+    setPlaceholderText(Placeholders.GPS.EnterCoordinates);
   };
 
   const confirmManualGpsCoordinates = () => {
