@@ -16,8 +16,10 @@ module.exports = {
   ],
   moduleFileExtensions: ["ts", "tsx", "js"],
   preset: "jest-expo",
-  setupFiles: ["./jesttest.setup.js"],
-  setupFilesAfterEnv: ["@testing-library/jest-native/extend-expect"],
+  setupFilesAfterEnv: [
+    "./jesttest.setup.js",
+    "@testing-library/jest-native/extend-expect",
+  ],
   transform: {
     "\\.[jt]sx?$": "babel-jest",
   },
