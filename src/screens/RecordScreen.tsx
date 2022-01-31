@@ -23,6 +23,7 @@ import AtlasSelector from "../components/forms/AtlasSelector";
 import PhotoControl from "../components/PhotoControl";
 import * as Record from "../record/Record";
 import { getAppSettings } from "../../AppSettings";
+import TestIds from "../constants/TestIds";
 
 export default function RecordScreen({ navigation }) {
   const notesRef = useRef<TextInput>(null);
@@ -72,6 +73,7 @@ export default function RecordScreen({ navigation }) {
   const UploadRecord = useCallback(
     () => (
       <HeaderButton
+        testID={TestIds.RecordScreen.UploadButton}
         onPress={() => setUploading(true)}
         iconName="cloud-upload"
         placement="right"

@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { Image, LogBox, Pressable, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import { formInputStyles } from "../styles/FormInput";
+import TestIds from "../constants/TestIds";
 import { PictureIcon } from "./Icons";
 
 // because we pass a callback in params, more info from the following links
@@ -79,6 +80,7 @@ export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
         Select Photos (limit 4)
       </Text>
       <Pressable
+        testID={TestIds.Photos.photoSelectorTestId}
         onPress={() =>
           navigation.navigate("ImageSelection", {
             onUpdatePhotos,

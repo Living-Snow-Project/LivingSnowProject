@@ -5,6 +5,7 @@ import PressableOpacity from "./PressableOpacity";
 import { StockIcon } from "./Icons";
 
 type HeaderButtonProps = {
+  testID: string;
   iconName: string;
   onPress: () => void;
   placement: "left" | "right";
@@ -18,6 +19,7 @@ const styles = StyleSheet.create({
 });
 
 export default function HeaderButton({
+  testID = "",
   iconName,
   onPress,
   placement,
@@ -25,7 +27,7 @@ export default function HeaderButton({
   const style = placement.includes("left") ? styles.left : styles.right;
 
   return (
-    <PressableOpacity style={style} onPress={() => onPress()}>
+    <PressableOpacity testID={testID} style={style} onPress={() => onPress()}>
       <StockIcon
         name={Platform.OS === "ios" ? `ios-${iconName}` : `md-${iconName}`}
       />
@@ -34,7 +36,12 @@ export default function HeaderButton({
 }
 
 HeaderButton.propTypes = {
+  testID: PropTypes.string,
   iconName: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   placement: PropTypes.string.isRequired,
+};
+
+HeaderButton.defaultProps = {
+  testID: "",
 };

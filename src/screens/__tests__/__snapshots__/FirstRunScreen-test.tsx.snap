@@ -161,6 +161,7 @@ exports[`validates Welcome Screen navigation 1`] = `
               },
             ]
           }
+          testID=""
         >
           <View
             style={

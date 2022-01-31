@@ -16,15 +16,22 @@ const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 
 let renderer;
+let uploadRecord;
 const navigation = {
   goBack: jest.fn(),
   navigate: jest.fn(),
-  setOptions: jest.fn(),
+  setOptions: ({ headerRight }) => {
+    uploadRecord = headerRight;
+  },
 };
 
 describe("RecordScreen test suite", () => {
   beforeEach(() => {
     renderer = render(<RecordScreen navigation={navigation} />);
+  });
+
+  afterEach(() => {
+    jest.resetAllMocks();
   });
 
   test("renders", () => {
@@ -137,6 +144,7 @@ describe("RecordScreen test suite", () => {
       );
 
       expect(getByDisplayValue(testCoordinates)).not.toBeNull();
+      fireEvent(getByDisplayValue(testCoordinates), "onSubmitEditing");
       expect(alertSpy).not.toBeCalled();
       alertMock.mockReset();
     });
@@ -291,6 +299,7 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.changeText(tubeId, expected);
       expect(getByDisplayValue(expected)).not.toBeNull();
+      fireEvent(tubeId, "onSubmitEditing");
     });
 
     test("Location Description", () => {
@@ -302,6 +311,7 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.changeText(location, expected);
       expect(getByDisplayValue(expected)).not.toBeNull();
+      fireEvent(location, "onSubmitEditing");
     });
 
     test("Notes", () => {
@@ -311,8 +321,29 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.changeText(notes, expected);
       expect(getByDisplayValue(expected)).not.toBeNull();
+      fireEvent(notes, "onSubmitEditing");
     });
   });
 
-  test.todo("Photos");
+  describe("Photo tests", () => {
+    test("navigate to camera roll selection screen", () => {
+      const { getByTestId } = renderer;
+
+      fireEvent.press(getByTestId(TestIds.Photos.photoSelectorTestId));
+      expect(navigation.navigate).toBeCalledTimes(1);
+    });
+  });
+
+  describe("Upload tests", () => {
+    test("upload record successfully", () => {
+      const { getByTestId } = render(uploadRecord());
+      // TODO: set valid user input, mock RecordManager
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
+    });
+
+    test.todo("only one upload at a time");
+    test.todo("upload atlas record successfully");
+    test.todo("upload record bad user input");
+    test.todo("upload record network failure");
+  });
 });
