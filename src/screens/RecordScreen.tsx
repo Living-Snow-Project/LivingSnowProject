@@ -21,9 +21,16 @@ import CustomTextInput from "../components/forms/CustomTextInput";
 import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
 import AtlasSelector from "../components/forms/AtlasSelector";
 import PhotoControl from "../components/PhotoControl";
-import * as Record from "../record/Record";
+import {
+  Record,
+  RecordType,
+  translateToLegacyRecordType,
+  isAtlas,
+  isSample,
+} from "../record/Record";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
+import { Notifications } from "../constants/Strings";
 
 export default function RecordScreen({ navigation }) {
   const notesRef = useRef<TextInput>(null);
@@ -33,9 +40,13 @@ export default function RecordScreen({ navigation }) {
   const appSettings = getAppSettings();
 
   // data collected and sent to the service
-  const [state, setState] = useState<Record.Record>({
+  const [state, setState] = useState<Record>({
     id: `0`,
-    type: Record.RecordType.Sample, // sample or sighting
+    name: appSettings.name ? appSettings.name : "Anonymous",
+    organization: !appSettings.organization
+      ? undefined
+      : appSettings.organization,
+    type: RecordType.Sample, // sample or sighting
     date: new Date(), // YYYY-MM-DD
     latitude: undefined, // GPS
     longitude: undefined, // GPS
@@ -55,13 +66,8 @@ export default function RecordScreen({ navigation }) {
       !isNumber(state.longitude)
     ) {
       Alert.alert(
-        `Invalid GPS coordinates`,
-        `Coordinates must be in "lat, long" format. ie. 12.345678, -123.456789`,
-        [
-          {
-            text: `Ok`,
-          },
-        ]
+        Notifications.invalidCoordinates.title,
+        Notifications.invalidCoordinates.message
       );
 
       return false;
@@ -95,31 +101,34 @@ export default function RecordScreen({ navigation }) {
     }
 
     // TODO: construct from Record object
+    // const record = makeRecord(state)
     const record = {
       id: uuidv4(),
-      type: Record.translateToLegacyRecordType(state.type),
-      name: appSettings.name ? appSettings.name : "Anonymous",
+      type: translateToLegacyRecordType(state.type),
+      name: state.name,
       date: new Date(date),
-      organization: !appSettings.organization
-        ? undefined
-        : appSettings.organization,
+      organization: state.organization,
       latitude: state.latitude,
       longitude: state.longitude,
       tubeId: state.tubeId,
       locationDescription: state.locationDescription,
       notes: state.notes,
-      atlasType: Record.isAtlas(state.type)
-        ? state.atlasType
-        : AtlasType.Undefined,
+      atlasType: isAtlas(state.type) ? state.atlasType : AtlasType.Undefined,
     };
 
     RecordManager.uploadRecord(record, photos)
       .then(() => {
-        Alert.alert(`Upload succeeded`, `Thanks for your submission.`);
+        Alert.alert(
+          Notifications.uploadSuccess.title,
+          Notifications.uploadSuccess.message
+        );
       })
       .catch((error) => {
-        Logger.Warn(JSON.stringify(error));
-        Alert.alert(`Record Saved`, `We will upload it later.`);
+        Logger.Warn(`Failed to upload record: ${error}`);
+        Alert.alert(
+          Notifications.uploadFailed.title,
+          Notifications.uploadFailed.message
+        );
       })
       .finally(() => {
         setUploading(false);
@@ -157,7 +166,7 @@ export default function RecordScreen({ navigation }) {
           <DateSelector date={date} setDate={(newDate) => setDate(newDate)} />
 
           {/* Tube Id: only show Tube Id when recording a Sample */}
-          {Record.isSample(state.type) && (
+          {isSample(state.type) && (
             <CustomTextInput
               description="Tube Id"
               placeholder="Leave blank if the tube does not have an id"

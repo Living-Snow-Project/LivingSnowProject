@@ -1,6 +1,6 @@
 import React from "react";
 import { Alert } from "react-native";
-import { render, fireEvent } from "@testing-library/react-native";
+import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import RecordScreen from "../RecordScreen";
 import { RecordType } from "../../record/Record";
 import {
@@ -10,7 +10,8 @@ import {
 } from "../../record/Atlas";
 import { AppSettings, setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
-import Placeholders from "../../constants/Strings";
+import { Notifications, Placeholders } from "../../constants/Strings";
+import RecordManager from "../../lib/RecordManager";
 
 const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
@@ -23,6 +24,41 @@ const navigation = {
   setOptions: ({ headerRight }) => {
     uploadRecord = headerRight;
   },
+};
+
+const renderWithGpsWarningOff = () => {
+  const testCoordinates = "123.456, -98.765";
+
+  setAppSettings({
+    name: "test name",
+    organization: "test organization",
+    showGpsWarning: false,
+  } as AppSettings);
+
+  const {
+    getByDisplayValue,
+    getByPlaceholderText,
+    getByTestId,
+    queryByTestId,
+  } = render(<RecordScreen navigation={navigation} />);
+
+  expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
+  fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
+  expect(queryByTestId(TestIds.GPS.gpsManualPressableTestId)).toBeNull();
+  expect(
+    getByPlaceholderText(Placeholders.GPS.EnterCoordinates)
+  ).not.toBeNull();
+
+  fireEvent.changeText(
+    getByPlaceholderText(Placeholders.GPS.EnterCoordinates),
+    testCoordinates
+  );
+
+  return {
+    expectedCoordinates: testCoordinates,
+    getByDisplayValue,
+    getByTestId,
+  };
 };
 
 describe("RecordScreen test suite", () => {
@@ -115,49 +151,23 @@ describe("RecordScreen test suite", () => {
     });
 
     test("manual without confirmation", async () => {
-      const testCoordinates = "123.456, -98.765";
-      const alertSpy = jest.fn();
-      const alertMock = jest
-        .spyOn(Alert, "alert")
-        .mockImplementationOnce(() => alertSpy());
+      const alertMock = jest.spyOn(Alert, "alert");
 
-      setAppSettings({ showGpsWarning: false } as AppSettings);
+      const { expectedCoordinates, getByDisplayValue } =
+        renderWithGpsWarningOff();
 
-      const {
-        getByDisplayValue,
-        getByPlaceholderText,
-        getByTestId,
-        queryByTestId,
-      } = render(<RecordScreen navigation={navigation} />);
-
-      expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
-      fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
-
-      expect(
-        getByPlaceholderText(Placeholders.GPS.EnterCoordinates)
-      ).not.toBeNull();
-
-      expect(queryByTestId(TestIds.GPS.gpsManualPressableTestId)).toBeNull();
-      fireEvent.changeText(
-        getByTestId(TestIds.GPS.gpsManualInputTestId),
-        testCoordinates
-      );
-
-      expect(getByDisplayValue(testCoordinates)).not.toBeNull();
-      fireEvent(getByDisplayValue(testCoordinates), "onSubmitEditing");
-      expect(alertSpy).not.toBeCalled();
+      expect(getByDisplayValue(expectedCoordinates)).not.toBeNull();
+      fireEvent(getByDisplayValue(expectedCoordinates), "onSubmitEditing");
+      expect(alertMock).not.toBeCalled();
       alertMock.mockReset();
     });
   });
 
   describe("Atlas picker tests", () => {
-    const recordSelectorTestId = "record-type-picker";
-    const atlastSelectorTestId = "atlas-type-picker";
-
     test("Red Dot", () => {
       const { getByTestId, queryByText } = renderer;
       fireEvent(
-        getByTestId(recordSelectorTestId),
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         RecordType.AtlasRedDot
       );
@@ -168,7 +178,7 @@ describe("RecordScreen test suite", () => {
     test("Red Dot with Sample", () => {
       const { getByTestId, queryByText } = renderer;
       fireEvent(
-        getByTestId(recordSelectorTestId),
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         RecordType.AtlasRedDotWithSample
       );
@@ -179,7 +189,7 @@ describe("RecordScreen test suite", () => {
     test("Blue Dot", () => {
       const { getByTestId, queryByText } = renderer;
       fireEvent(
-        getByTestId(recordSelectorTestId),
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         RecordType.AtlasBlueDot
       );
@@ -190,7 +200,7 @@ describe("RecordScreen test suite", () => {
     test("Blue Dot with Sample", () => {
       const { getByTestId, queryByText } = renderer;
       fireEvent(
-        getByTestId(recordSelectorTestId),
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         RecordType.AtlasRedDotWithSample
       );
@@ -201,7 +211,7 @@ describe("RecordScreen test suite", () => {
     test("Red Dot surface picker", () => {
       const { getByDisplayValue, getByTestId, queryByText } = renderer;
       fireEvent(
-        getByTestId(recordSelectorTestId),
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         RecordType.AtlasRedDot
       );
@@ -211,7 +221,7 @@ describe("RecordScreen test suite", () => {
       const atlasTypes = getAllAtlasPickerItems();
       atlasTypes.forEach((item) => {
         fireEvent(
-          getByTestId(atlastSelectorTestId),
+          getByTestId(TestIds.Pickers.atlastSelectorTestId),
           "onValueChange",
           item.value
         );
@@ -222,7 +232,7 @@ describe("RecordScreen test suite", () => {
     test("Red Dot with Sample surface picker", () => {
       const { getByDisplayValue, getByTestId, queryByText } = renderer;
       fireEvent(
-        getByTestId(recordSelectorTestId),
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         RecordType.AtlasRedDotWithSample
       );
@@ -235,7 +245,7 @@ describe("RecordScreen test suite", () => {
       ];
       atlasTypes.forEach((item) => {
         fireEvent(
-          getByTestId(atlastSelectorTestId),
+          getByTestId(TestIds.Pickers.atlastSelectorTestId),
           "onValueChange",
           item.value
         );
@@ -246,7 +256,7 @@ describe("RecordScreen test suite", () => {
     test("Blue Dot surface picker", () => {
       const { getByDisplayValue, getByTestId, queryByText } = renderer;
       fireEvent(
-        getByTestId(recordSelectorTestId),
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         RecordType.AtlasBlueDot
       );
@@ -256,7 +266,7 @@ describe("RecordScreen test suite", () => {
       const atlasTypes = getAllAtlasPickerItems();
       atlasTypes.forEach((item) => {
         fireEvent(
-          getByTestId(atlastSelectorTestId),
+          getByTestId(TestIds.Pickers.atlastSelectorTestId),
           "onValueChange",
           item.value
         );
@@ -267,7 +277,7 @@ describe("RecordScreen test suite", () => {
     test("Blue Dot with Sample surface picker", () => {
       const { getByDisplayValue, getByTestId, queryByText } = renderer;
       fireEvent(
-        getByTestId(recordSelectorTestId),
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         RecordType.AtlasBlueDotWithSample
       );
@@ -280,7 +290,7 @@ describe("RecordScreen test suite", () => {
       ];
       atlasTypes.forEach((item) => {
         fireEvent(
-          getByTestId(atlastSelectorTestId),
+          getByTestId(TestIds.Pickers.atlastSelectorTestId),
           "onValueChange",
           item.value
         );
@@ -328,22 +338,99 @@ describe("RecordScreen test suite", () => {
   describe("Photo tests", () => {
     test("navigate to camera roll selection screen", () => {
       const { getByTestId } = renderer;
+      navigation.navigate.mockImplementationOnce(
+        (route: string, params: { onUpdatePhotos: (uris: any) => void }) => {
+          expect(route).toEqual("ImageSelection");
+          params.onUpdatePhotos([]);
+        }
+      );
 
       fireEvent.press(getByTestId(TestIds.Photos.photoSelectorTestId));
       expect(navigation.navigate).toBeCalledTimes(1);
     });
   });
 
+  // navigation header component is independent of RecordScreen component
   describe("Upload tests", () => {
-    test("upload record successfully", () => {
-      const { getByTestId } = render(uploadRecord());
-      // TODO: set valid user input, mock RecordManager
-      fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
+    let screenTestCoordinates;
+    let screenGetByDisplayValue;
+
+    beforeEach(() => {
+      const recordScreen = renderWithGpsWarningOff();
+      screenTestCoordinates = recordScreen.expectedCoordinates;
+      screenGetByDisplayValue = recordScreen.getByDisplayValue;
     });
 
-    test.todo("only one upload at a time");
-    test.todo("upload atlas record successfully");
-    test.todo("upload record bad user input");
-    test.todo("upload record network failure");
+    afterEach(() => {
+      jest.resetAllMocks();
+    });
+
+    test("upload record successfully", async () => {
+      const uploadButtonGetByTestId = render(uploadRecord()).getByTestId;
+
+      const uploadMock = jest
+        .spyOn(RecordManager, "uploadRecord")
+        .mockImplementationOnce(() => Promise.resolve());
+
+      const alertMock = jest
+        .spyOn(Alert, "alert")
+        .mockImplementationOnce((title, message) => {
+          expect(title).toEqual(Notifications.uploadSuccess.title);
+          expect(message).toEqual(Notifications.uploadSuccess.message);
+        });
+
+      fireEvent.press(
+        uploadButtonGetByTestId(TestIds.RecordScreen.UploadButton)
+      );
+
+      await waitFor(() => expect(navigation.goBack).toBeCalled());
+      expect(uploadMock).toBeCalled();
+      expect(alertMock).toBeCalled();
+    });
+
+    test("upload record invalid user input", () => {
+      const uploadButtonGetByTestId = render(uploadRecord()).getByTestId;
+
+      const alertMock = jest
+        .spyOn(Alert, "alert")
+        .mockImplementationOnce((title, message) => {
+          expect(title).toEqual(Notifications.invalidCoordinates.title);
+          expect(message).toEqual(Notifications.invalidCoordinates.message);
+        });
+
+      fireEvent.changeText(
+        screenGetByDisplayValue(screenTestCoordinates),
+        "garbage, coordinates"
+      );
+
+      fireEvent.press(
+        uploadButtonGetByTestId(TestIds.RecordScreen.UploadButton)
+      );
+
+      expect(alertMock).toBeCalled();
+    });
+
+    test("upload record network failure", async () => {
+      const uploadButtonGetByTestId = render(uploadRecord()).getByTestId;
+
+      const uploadMock = jest
+        .spyOn(RecordManager, "uploadRecord")
+        .mockImplementationOnce(() => Promise.reject());
+
+      const alertMock = jest
+        .spyOn(Alert, "alert")
+        .mockImplementationOnce((title, message) => {
+          expect(title).toEqual(Notifications.uploadFailed.title);
+          expect(message).toEqual(Notifications.uploadFailed.message);
+        });
+
+      fireEvent.press(
+        uploadButtonGetByTestId(TestIds.RecordScreen.UploadButton)
+      );
+
+      await waitFor(() => expect(navigation.goBack).toBeCalled());
+      expect(uploadMock).toBeCalled();
+      expect(alertMock).toBeCalled();
+    });
   });
 });

@@ -8,12 +8,16 @@ import {
   View,
 } from "react-native";
 import PropTypes from "prop-types";
-import * as Location from "expo-location";
+import {
+  Accuracy,
+  requestForegroundPermissionsAsync,
+  watchPositionAsync,
+} from "expo-location";
 import { formInputStyles } from "../../styles/FormInput";
 import Logger from "../../lib/Logger";
 import { getAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
-import Placeholders from "../../constants/Strings";
+import { Placeholders } from "../../constants/Strings";
 
 function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
   const watchPosition = useRef<null | { remove(): void }>(null);
@@ -59,7 +63,7 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
   // location subscription
   useEffect(() => {
     (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+      const { status } = await requestForegroundPermissionsAsync();
       if (status !== "granted") {
         setManualGpsCoordinates(true);
         setPlaceholderText(Placeholders.GPS.NoPermissions);
@@ -68,9 +72,9 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
       }
 
       try {
-        watchPosition.current = await Location.watchPositionAsync(
+        watchPosition.current = await watchPositionAsync(
           {
-            accuracy: Location.Accuracy.High,
+            accuracy: Accuracy.High,
             timeInterval: 5000,
           },
           ({ coords }) =>

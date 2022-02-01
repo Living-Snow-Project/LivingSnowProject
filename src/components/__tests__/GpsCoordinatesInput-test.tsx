@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import * as Location from "expo-location";
 import GpsCoordinatesInput from "../forms/GpsCoordinatesInput";
-import Placeholders from "../../constants/Strings";
+import { Placeholders } from "../../constants/Strings";
 
 const requestForegroundPermissionsAsyncSuccessMock = () =>
   jest

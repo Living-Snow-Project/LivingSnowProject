@@ -9,6 +9,7 @@ import {
   getAllAtlasPickerItems,
 } from "../../record/Atlas";
 import * as Record from "../../record/Record";
+import TestIds from "../../constants/TestIds";
 
 type AtlasSelectorProps = {
   recordType: Record.RecordType;
@@ -29,7 +30,7 @@ export default function AtlasSelector({
     <>
       <Text style={formInputStyles.optionStaticText}>Atlas Surface Data</Text>
       <RNPickerSelect
-        touchableWrapperProps={{ testID: "atlas-type-picker" }}
+        touchableWrapperProps={{ testID: TestIds.Pickers.atlastSelectorTestId }}
         style={pickerSelectStyles}
         useNativeAndroidPickerStyle={false}
         placeholder={{}}

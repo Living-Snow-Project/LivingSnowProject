@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import RNPickerSelect from "react-native-picker-select";
 import { pickerSelectStyles, formInputStyles } from "../../styles/FormInput";
 import { RecordType, getAllRecordTypePickerItems } from "../../record/Record";
+import TestIds from "../../constants/TestIds";
 
 type TypeSelectorProps = {
   type: RecordType;
@@ -17,7 +18,7 @@ export default function TypeSelector({ type, setType }: TypeSelectorProps) {
         Are you Taking a Sample or Reporting a Sighting?
       </Text>
       <RNPickerSelect
-        touchableWrapperProps={{ testID: "record-type-picker" }}
+        touchableWrapperProps={{ testID: TestIds.Pickers.recordSelectorTestId }}
         style={pickerSelectStyles}
         useNativeAndroidPickerStyle={false}
         placeholder={{}}
