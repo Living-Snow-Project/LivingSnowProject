@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Timeline Screen tests renders 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    refreshControl={
+      <RefreshControlMock
+        onRefresh={[Function]}
+        refreshing={false}
+      />
+    }
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
+      }
+    }
+  >
+    <RCTRefreshControl />
+    <View>
+      <Text
+        style={
+          Object {
+            "marginTop": 20,
+            "textAlign": "center",
+          }
+        }
+      >
+        No records to display
+      </Text>
+    </View>
+  </RCTScrollView>
+</View>
+`;
