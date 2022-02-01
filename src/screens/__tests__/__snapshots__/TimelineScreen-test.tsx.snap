@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Timeline Screen tests renders 1`] = `
+exports[`TimelineScreen tests renders 1`] = `
 <View
   style={
     Object {
