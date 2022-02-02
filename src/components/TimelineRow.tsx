@@ -88,7 +88,10 @@ export default function TimelineRow({ record }) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
   return (
     <View style={styles.recordContainer}>
-      <Pressable onPress={() => navigate("RecordDetails", record)}>
+      <Pressable
+        testID={record.id}
+        onPress={() => navigate("RecordDetails", record)}
+      >
         <View style={styles.recordTop}>
           <View style={styles.topText}>
             <Text>{topText(record)}</Text>

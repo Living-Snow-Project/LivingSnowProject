@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
-import React, { useCallback } from "react";
+import React from "react";
+import PropTypes from "prop-types";
 import TimelineScreen from "../screens/TimelineScreen";
 import RecordScreen from "../screens/RecordScreen";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -10,33 +11,42 @@ import HeaderButton from "../components/HeaderButton";
 import RecordDetailsScreen from "../screens/RecordDetailsScreen";
 import { RootStackParamList } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
+import TestIds from "../constants/TestIds";
 
 const Stack = createStackNavigator<RootStackParamList>();
 
+function SettingsButton({ navigate }) {
+  return (
+    <HeaderButton
+      testID={TestIds.TimelineScreen.SettingsButton}
+      onPress={() => navigate("Settings")}
+      iconName="settings"
+      placement="left"
+    />
+  );
+}
+
+SettingsButton.propTypes = {
+  navigate: PropTypes.func.isRequired,
+};
+
+function NewRecordButton({ navigate }) {
+  return (
+    <HeaderButton
+      testID={TestIds.TimelineScreen.NewRecordButton}
+      onPress={() => navigate("Record")}
+      iconName="add-circle-outline"
+      placement="right"
+    />
+  );
+}
+
+NewRecordButton.propTypes = {
+  navigate: PropTypes.func.isRequired,
+};
+
 function RootNavigator() {
   const { showFirstRun } = getAppSettings();
-
-  const TimelineLeft = useCallback(
-    (navigation) => (
-      <HeaderButton
-        onPress={() => navigation.navigate("Settings")}
-        iconName="settings"
-        placement="left"
-      />
-    ),
-    []
-  );
-
-  const TimelineRight = useCallback(
-    (navigation) => (
-      <HeaderButton
-        onPress={() => navigation.navigate("Record")}
-        iconName="add-circle-outline"
-        placement="right"
-      />
-    ),
-    []
-  );
 
   return (
     <Stack.Navigator
@@ -49,8 +59,8 @@ function RootNavigator() {
         name="Timeline"
         component={TimelineScreen}
         options={({ navigation }) => ({
-          headerLeft: () => TimelineLeft(navigation),
-          headerRight: () => TimelineRight(navigation),
+          headerLeft: () => SettingsButton(navigation),
+          headerRight: () => NewRecordButton(navigation),
         })}
       />
       <Stack.Screen name="Record" component={RecordScreen} />
@@ -76,3 +86,5 @@ export default function Navigation() {
     </NavigationContainer>
   );
 }
+
+export { SettingsButton, NewRecordButton };

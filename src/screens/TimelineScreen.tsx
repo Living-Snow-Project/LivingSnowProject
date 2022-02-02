@@ -10,6 +10,7 @@ import { Record, isAtlas } from "../record/Record";
 import styles from "../styles/Timeline";
 import { getAppSettings } from "../../AppSettings";
 import RecordList from "../components/RecordList";
+import { Labels } from "../constants/Strings";
 
 export default function TimelineScreen({ navigation }) {
   const [connected, setConnected] = useState<boolean>(true);
@@ -35,8 +36,9 @@ export default function TimelineScreen({ navigation }) {
     return unsubscribe;
   }, []);
 
-  const displaySavedRecords = useCallback(() => {
+  const displaySavedRecords = () => {
     // records.photoUris is saved on disk as array of {uri, width, height} but RecordDetailsScreen expects `uri;uri;...` string format
+    // BUGBUG: can downloaded and saved records have consistent structure?
     Storage.loadRecords().then((records) => {
       records.forEach((record, index) => {
         /* eslint-disable no-param-reassign */
@@ -47,7 +49,7 @@ export default function TimelineScreen({ navigation }) {
       });
       setPendingRecords(records);
     });
-  }, []);
+  };
 
   // re-render when user comes back from Settings screen
   useEffect(() =>
@@ -103,14 +105,19 @@ export default function TimelineScreen({ navigation }) {
         }
       >
         {pendingRecords.length === 0 && downloadedRecords.length === 0 && (
-          <Text style={styles.noRecords}>No records to display</Text>
+          <Text style={styles.noRecords}>
+            {Labels.TimelineScreen.NoRecords}
+          </Text>
         )}
 
-        <RecordList records={pendingRecords} header="Pending" />
+        <RecordList
+          records={pendingRecords}
+          header={Labels.TimelineScreen.PendingRecords}
+        />
 
         <RecordList
           records={downloadedRecords}
-          header="Downloaded"
+          header={Labels.TimelineScreen.DownloadedRecords}
           omitRecord={omitRecord}
         />
       </ScrollView>

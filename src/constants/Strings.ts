@@ -1,3 +1,4 @@
+// for TextInput placeholder prop
 const Placeholders = {
   GPS: {
     AcquiringLocation: "Looking for GPS signal",
@@ -6,8 +7,18 @@ const Placeholders = {
       "Check location permissions in Settings. Enter coordinates manually.",
     NoLocation: "Could not determine location. Enter coordinates manually.",
   },
+  // TODO: RecordScreen placeholders
 };
 
+const Labels = {
+  TimelineScreen: {
+    DownloadedRecords: "Downloaded",
+    NoRecords: "No records to display",
+    PendingRecords: "Pending",
+  },
+};
+
+// for Alert.alert calls
 const Notifications = {
   uploadSuccess: {
     title: "Upload succeeded",
@@ -24,4 +35,4 @@ const Notifications = {
   },
 };
 
-export { Notifications, Placeholders };
+export { Notifications, Placeholders, Labels };
