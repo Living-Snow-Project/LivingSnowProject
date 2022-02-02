@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 
 const styles = StyleSheet.create({
@@ -13,60 +13,31 @@ const styles = StyleSheet.create({
   },
 });
 
-// here's the idea (and likely this is too much functionality for a single component)
-// status types:
-//  permanent\static: ie. "no internet", airplane mode scenario
-//  completion\notification: ie. "success\saved", upload record result scenario
-//  tasks\working\progress: ie. "downloading\uploading" scenario
-export default function StatusBar({ text, type, onDone }) {
-  // nothing to render
-  if (!text) {
+type StatusBarProps = {
+  isConnected: boolean;
+};
+
+// status:
+//  "no internet", airplane mode scenario
+//  "success\saved", upload record result scenario
+//  "downloading\uploading" scenario
+//
+// todo: this component should probably always be visible, or have a smooth shrinking transition to disappear
+// currently when it stops rendering it feels very violent
+export default function StatusBar({ isConnected }: StatusBarProps) {
+  const text = `No Internet Connection`;
+
+  if (isConnected) {
     return null;
   }
 
-  // `static` does not animate
-  if (text && type === `static`) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.text}>{text}</Text>
-      </View>
-    );
-  }
-
-  const fadeAnim = useRef(new Animated.Value(1)).current; // Initial value for opacity: 1
-
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
-      duration: 5000,
-      useNativeDriver: true,
-    }).start(({ finished }) => {
-      if (finished && onDone) {
-        onDone();
-      }
-    });
-  }, [fadeAnim]);
-
-  // notification - short lived status
-  if (text && type === `notification`) {
-    return (
-      <Animated.Text style={[styles.container, { opacity: fadeAnim }]}>
-        {text}
-      </Animated.Text>
-    );
-  }
-
-  return null;
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>{text}</Text>
+    </View>
+  );
 }
 
 StatusBar.propTypes = {
-  text: PropTypes.string,
-  type: PropTypes.string,
-  onDone: PropTypes.func,
-};
-
-StatusBar.defaultProps = {
-  text: null,
-  type: null,
-  onDone: null,
+  isConnected: PropTypes.bool.isRequired,
 };

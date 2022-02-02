@@ -14,8 +14,9 @@ describe("TimelineScreen test suite", () => {
   });
 
   test.todo("download records");
-  test.todo("saved records");
+  test.todo("pendings records");
   test.todo("offline mode");
+  test.todo("connection restored");
   test.todo("pull to refresh");
   test.todo("scrolling");
   test.todo("navigate to settings screen");

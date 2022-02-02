@@ -12,35 +12,23 @@ import { getAppSettings } from "../../AppSettings";
 import RecordList from "../components/RecordList";
 
 export default function TimelineScreen({ navigation }) {
-  const [connected, setConnected] = useState<boolean | null>(true);
-  const [refreshing, setRefreshing] = useState(false);
+  const [connected, setConnected] = useState<boolean>(true);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [pendingRecords, setPendingRecords] = useState<Record[]>([]);
   const [downloadedRecords, setDownloadedRecords] = useState<Record[]>([]);
-  const [status, setStatus] = useState({
-    text: null,
-    type: null,
-    onDone: null,
-  });
-  const [showAtlasRecords, setShowAtlasRecords] = useState(
+  const [showAtlasRecords, setShowAtlasRecords] = useState<boolean>(
     getAppSettings().showAtlasRecords
   );
-  const [showOnlyAtlasRecords, setShowOnlyAtlasRecords] = useState(
+  const [showOnlyAtlasRecords, setShowOnlyAtlasRecords] = useState<boolean>(
     getAppSettings().showOnlyAtlasRecords
   );
 
-  const updateStatus = (text, type, onDone = null) =>
-    setStatus({ text, type, onDone });
-  const clearStatus = () => updateStatus(null, null, null);
-
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener(({ isConnected }) => {
-      setConnected(isConnected);
+      setConnected(!!isConnected);
 
       if (isConnected) {
-        clearStatus();
         setRefreshing(true);
-      } else {
-        updateStatus(`No Internet Connection`, `static`, null);
       }
     });
 
@@ -104,7 +92,7 @@ export default function TimelineScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar text={status.text} type={status.type} onDone={status.onDone} />
+      <StatusBar isConnected={connected} />
       <ScrollView
         style={styles.container}
         refreshControl={
