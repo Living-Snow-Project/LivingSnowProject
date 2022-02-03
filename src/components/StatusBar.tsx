@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
+import { Labels } from "../constants/Strings";
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +26,7 @@ type StatusBarProps = {
 // todo: this component should probably always be visible, or have a smooth shrinking transition to disappear
 // currently when it stops rendering it feels very violent
 export default function StatusBar({ isConnected }: StatusBarProps) {
-  const text = `No Internet Connection`;
+  const text = Labels.StatusBar.NoConnection;
 
   if (isConnected) {
     return null;

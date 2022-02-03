@@ -1,5 +1,5 @@
 import React from "react";
-import { fireEvent, render, waitFor } from "@testing-library/react-native";
+import { act, fireEvent, render, waitFor } from "@testing-library/react-native";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import TimelineScreen from "../TimelineScreen";
 import {
@@ -147,9 +147,44 @@ describe("TimelineScreen test suite", () => {
     Storage.loadRecords = prevLoadRecords;
   });
 
-  test.todo("offline mode");
-  test.todo("connection restored");
-  test.todo("pull to refresh");
+  test("connection lost", async () => {
+    jest
+      .spyOn(NetInfo, "addEventListener")
+      .mockImplementationOnce((callback) => {
+        callback({ isConnected: false } as NetInfoState);
+        return () => {};
+      });
+
+    const { getByText } = render(<TimelineScreen navigation={navigation} />);
+
+    await waitFor(() => getByText(Labels.StatusBar.NoConnection));
+    expect(getByText(Labels.StatusBar.NoConnection)).toBeTruthy();
+  });
+
+  test("connection restored", async () => {
+    let cacheCallback;
+
+    jest
+      .spyOn(NetInfo, "addEventListener")
+      .mockImplementationOnce((callback) => {
+        cacheCallback = callback;
+        callback({ isConnected: false } as NetInfoState);
+        return () => {};
+      });
+
+    const { getByText, queryByText } = render(
+      <TimelineScreen navigation={navigation} />
+    );
+
+    await waitFor(() => getByText(Labels.StatusBar.NoConnection));
+    expect(getByText(Labels.StatusBar.NoConnection)).toBeTruthy();
+
+    await act(async () => cacheCallback({ isConnected: true } as NetInfoState));
+    expect(queryByText(Labels.StatusBar.NoConnection)).toBeFalsy();
+  });
+
+  test.todo("pull to refresh with connection");
+  test.todo("pull to refresh without connection");
   test.todo("scrolling");
   test.todo("navigate back to TimelineScreen");
 

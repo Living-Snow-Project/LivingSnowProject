@@ -16,6 +16,9 @@ const Labels = {
     NoRecords: "No records to display",
     PendingRecords: "Pending",
   },
+  StatusBar: {
+    NoConnection: "No Internet Connection",
+  },
 };
 
 // for Alert.alert calls
