@@ -11,6 +11,7 @@ import Storage from "../../lib/Storage";
 import { Network } from "../../lib/Network";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
+import { AppSettings, setAppSettings } from "../../../AppSettings";
 
 // TimelineScreen takes navigation input prop
 const navigation = {
@@ -44,12 +45,17 @@ const sharedTestRecordProps = {
   locationDescription: "test location",
   notes: "test notes",
   atlasType: 0,
+  photoUris: "46;23;",
 };
 
-// BUGBUG: can downloaded and saved records have consistent structure?
+// BUGBUG: can downloaded and saved/pending records have consistent structure (photoUris)?
 const downloadedTestRecord = {
   ...sharedTestRecordProps,
-  photoUris: "46;23;",
+};
+
+const downloadedAtlasTestRecord = {
+  ...sharedTestRecordProps,
+  type: "AtlasRedDot",
 };
 
 const makePendingTestRecord = () => ({
@@ -76,7 +82,9 @@ const setupDownloadSuccess = () => {
 
   const downloadRecordsSpy = jest
     .spyOn(Network, "downloadRecords")
-    .mockImplementationOnce(() => Promise.resolve([downloadedTestRecord]));
+    .mockImplementationOnce(() =>
+      Promise.resolve([downloadedTestRecord, downloadedAtlasTestRecord])
+    );
 
   setIsConntected(true);
 
@@ -111,6 +119,11 @@ describe("TimelineScreen test suite", () => {
     const { retryRecordsSpy, retryPhotosSpy, downloadRecordsSpy } =
       setupDownloadSuccess();
 
+    setAppSettings({
+      showAtlasRecords: true,
+      showOnlyAtlasRecords: true,
+    } as AppSettings);
+
     const { getByTestId, getByText } = render(
       <TimelineScreen navigation={navigation} />
     );
@@ -121,6 +134,11 @@ describe("TimelineScreen test suite", () => {
     expect(retryPhotosSpy).toBeCalledTimes(1);
     expect(downloadRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
+
+    setAppSettings({
+      showAtlasRecords: false,
+      showOnlyAtlasRecords: false,
+    } as AppSettings);
   });
 
   test("download records fails", async () => {
