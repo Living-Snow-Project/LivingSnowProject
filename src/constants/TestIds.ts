@@ -14,6 +14,7 @@ const TestIds = {
     UploadButton: "record-screen-upload-button",
   },
   TimelineScreen: {
+    RefreshControl: "timeline-screen-refresh-control",
     SettingsButton: "timeline-screen-settings-button",
     NewRecordButton: "timeline-screen-record-button",
   },

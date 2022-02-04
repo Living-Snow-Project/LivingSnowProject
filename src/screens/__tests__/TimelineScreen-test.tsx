@@ -31,6 +31,7 @@ jest.mock("@react-navigation/native", () => {
   };
 });
 
+// TODO: concept of "Example Record" used in testing and also used in App for "first run"
 const sharedTestRecordProps = {
   id: "1234",
   type: "Sample",
@@ -51,12 +52,20 @@ const downloadedTestRecord = {
   photoUris: "46;23;",
 };
 
-const savedTestRecord = {
+const makePendingTestRecord = () => ({
   ...sharedTestRecordProps,
   photoUris: [{ uri: "" }],
+});
+
+const setIsConntected = (isConnected: boolean): void => {
+  jest.spyOn(NetInfo, "addEventListener").mockImplementationOnce((callback) => {
+    callback({ isConnected } as NetInfoState);
+
+    return () => {};
+  });
 };
 
-const setupDownloadSucces = () => {
+const setupDownloadSuccess = () => {
   const retryRecordsSpy = jest
     .spyOn(RecordManager, "retryRecords")
     .mockImplementationOnce(() => Promise.resolve());
@@ -69,11 +78,7 @@ const setupDownloadSucces = () => {
     .spyOn(Network, "downloadRecords")
     .mockImplementationOnce(() => Promise.resolve([downloadedTestRecord]));
 
-  jest.spyOn(NetInfo, "addEventListener").mockImplementationOnce((callback) => {
-    callback({ isConnected: true } as NetInfoState);
-
-    return () => {};
-  });
+  setIsConntected(true);
 
   return {
     retryRecordsSpy,
@@ -87,11 +92,7 @@ const setupDownloadFailed = () => {
     .spyOn(RecordManager, "retryRecords")
     .mockImplementationOnce(() => Promise.reject());
 
-  jest.spyOn(NetInfo, "addEventListener").mockImplementationOnce((callback) => {
-    callback({ isConnected: true } as NetInfoState);
-
-    return () => {};
-  });
+  setIsConntected(true);
 
   return retryRecordsSpy;
 };
@@ -108,7 +109,7 @@ describe("TimelineScreen test suite", () => {
 
   test("download records succeeds", async () => {
     const { retryRecordsSpy, retryPhotosSpy, downloadRecordsSpy } =
-      setupDownloadSucces();
+      setupDownloadSuccess();
 
     const { getByTestId, getByText } = render(
       <TimelineScreen navigation={navigation} />
@@ -133,28 +134,22 @@ describe("TimelineScreen test suite", () => {
 
   test("pending records", async () => {
     const retryRecordsSpy = setupDownloadFailed();
-
-    const prevLoadRecords = Storage.loadRecords;
-    Storage.loadRecords = () => Promise.resolve([savedTestRecord]);
+    const originalLoadRecords = Storage.loadRecords;
+    Storage.loadRecords = () => Promise.resolve([makePendingTestRecord()]);
 
     const { getByTestId, getByText } = render(
       <TimelineScreen navigation={navigation} />
     );
 
-    await waitFor(() => getByTestId(savedTestRecord.id));
+    await waitFor(() => getByTestId(sharedTestRecordProps.id));
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
-    Storage.loadRecords = prevLoadRecords;
+
+    Storage.loadRecords = originalLoadRecords;
   });
 
   test("connection lost", async () => {
-    jest
-      .spyOn(NetInfo, "addEventListener")
-      .mockImplementationOnce((callback) => {
-        callback({ isConnected: false } as NetInfoState);
-        return () => {};
-      });
-
+    setIsConntected(false);
     const { getByText } = render(<TimelineScreen navigation={navigation} />);
 
     await waitFor(() => getByText(Labels.StatusBar.NoConnection));
@@ -183,10 +178,55 @@ describe("TimelineScreen test suite", () => {
     expect(queryByText(Labels.StatusBar.NoConnection)).toBeFalsy();
   });
 
-  test.todo("pull to refresh with connection");
-  test.todo("pull to refresh without connection");
-  test.todo("scrolling");
-  test.todo("navigate back to TimelineScreen");
+  test("pull to refresh with connection", async () => {
+    setupDownloadSuccess();
+
+    const { getByText, getByTestId } = render(
+      <TimelineScreen navigation={navigation} />
+    );
+
+    await waitFor(() => getByTestId(downloadedTestRecord.id));
+    expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
+
+    await act(async () =>
+      getByTestId(
+        TestIds.TimelineScreen.RefreshControl
+      ).props.refreshControl.props.onRefresh()
+    );
+
+    expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
+  });
+
+  test("pull to refresh without connection", async () => {
+    setIsConntected(false);
+
+    const { getByTestId } = render(<TimelineScreen navigation={navigation} />);
+
+    // GO GO RNTL! "don't test the implementation..."
+    await act(async () =>
+      getByTestId(
+        TestIds.TimelineScreen.RefreshControl
+      ).props.refreshControl.props.onRefresh()
+    );
+
+    // nothing to assert, strictly for code coverage
+    // TODO: re-evaluate setPendingRecords initialization and displaySavedRecords()
+  });
+
+  test("navigate back to TimelineScreen", async () => {
+    let cb;
+    const localNavigation = {
+      navigate: jest.fn(),
+      addListener: (event: string, callback: () => void) => {
+        expect(event).toEqual("focus");
+        cb = callback;
+      },
+    };
+
+    render(<TimelineScreen navigation={localNavigation} />);
+    await waitFor(() => expect(cb).not.toBeUndefined());
+    await act(async () => cb());
+  });
 
   test("navigate to SettingsScreen", () => {
     const navigate = jest.fn();
@@ -204,7 +244,7 @@ describe("TimelineScreen test suite", () => {
 
   test("navigate to record details screen", async () => {
     const { retryRecordsSpy, retryPhotosSpy, downloadRecordsSpy } =
-      setupDownloadSucces();
+      setupDownloadSuccess();
 
     const { getByTestId } = render(<TimelineScreen navigation={navigation} />);
 

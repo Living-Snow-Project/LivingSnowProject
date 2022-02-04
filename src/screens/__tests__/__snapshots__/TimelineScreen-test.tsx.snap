@@ -22,6 +22,7 @@ exports[`TimelineScreen test suite renders 1`] = `
         "flex": 1,
       }
     }
+    testID="timeline-screen-refresh-control"
   >
     <RCTRefreshControl />
     <View>

@@ -11,6 +11,7 @@ import styles from "../styles/Timeline";
 import { getAppSettings } from "../../AppSettings";
 import RecordList from "../components/RecordList";
 import { Labels } from "../constants/Strings";
+import TestIds from "../constants/TestIds";
 
 export default function TimelineScreen({ navigation }) {
   const [connected, setConnected] = useState<boolean>(true);
@@ -97,6 +98,7 @@ export default function TimelineScreen({ navigation }) {
       <StatusBar isConnected={connected} />
       <ScrollView
         style={styles.container}
+        testID={TestIds.TimelineScreen.RefreshControl}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
