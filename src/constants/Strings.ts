@@ -7,6 +7,10 @@ const Placeholders = {
       "Check location permissions in Settings. Enter coordinates manually.",
     NoLocation: "Could not determine location. Enter coordinates manually.",
   },
+  Settings: {
+    Username: "Enter your name",
+    Organization: "Enter the organization you belong to (if any)",
+  },
   // TODO: RecordScreen placeholders
 };
 

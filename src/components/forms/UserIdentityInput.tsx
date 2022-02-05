@@ -6,6 +6,7 @@ import {
   getAppSettings,
   setAppSettings,
 } from "../../../AppSettings";
+import { Placeholders } from "../../constants/Strings";
 
 export default function UserIdentityInput() {
   const [{ name, organization }, setSettings] = useState<AppSettings>(
@@ -19,7 +20,7 @@ export default function UserIdentityInput() {
       <TextInput
         style={styles.optionInputText}
         value={name}
-        placeholder="Enter your name"
+        placeholder={Placeholders.Settings.Username}
         onChangeText={(value) => {
           setSettings((prev) => {
             setAppSettings({ ...prev, name: value });
@@ -36,7 +37,7 @@ export default function UserIdentityInput() {
         ref={orgRef}
         style={styles.optionInputText}
         value={organization}
-        placeholder="Enter the organization you belong to (if any)"
+        placeholder={Placeholders.Settings.Organization}
         onChangeText={(value) => {
           setSettings((prev) => {
             setAppSettings({ ...prev, organization: value });
