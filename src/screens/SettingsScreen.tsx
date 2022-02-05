@@ -3,6 +3,7 @@ import { Switch, Text, View } from "react-native";
 import styles from "../styles/Settings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
+import TestIds from "../constants/TestIds";
 
 export default function SettingsScreen() {
   const [
@@ -20,6 +21,7 @@ export default function SettingsScreen() {
           Show Manual Coordinates Warning
         </Text>
         <Switch
+          testID={TestIds.SettingsScreen.ShowGpsWarning}
           style={styles.switch}
           onValueChange={(value) => {
             setSettings((prev) => {
@@ -35,6 +37,7 @@ export default function SettingsScreen() {
       <View style={styles.optionContainer}>
         <Text style={styles.optionStaticText}>Show Atlas Records</Text>
         <Switch
+          testID={TestIds.SettingsScreen.ShowAtlasRecords}
           style={styles.switch}
           disabled={showOnlyAtlasRecords}
           onValueChange={(value) => {
@@ -49,6 +52,7 @@ export default function SettingsScreen() {
       <View style={[styles.optionContainer, { marginTop: 5 }]}>
         <Text style={styles.optionStaticText}>Show Only Atlas Records</Text>
         <Switch
+          testID={TestIds.SettingsScreen.ShowOnlyAtlasRecords}
           style={styles.switch}
           disabled={!showAtlasRecords}
           onValueChange={(value) => {

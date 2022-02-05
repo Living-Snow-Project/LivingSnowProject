@@ -18,6 +18,11 @@ const TestIds = {
     SettingsButton: "timeline-screen-settings-button",
     NewRecordButton: "timeline-screen-record-button",
   },
+  SettingsScreen: {
+    ShowGpsWarning: "settings-screen-show-gps-warning",
+    ShowAtlasRecords: "settings-screen-show-atlas-records",
+    ShowOnlyAtlasRecords: "settings-screen-show-only-atlas-records",
+  },
 };
 
 export default TestIds;

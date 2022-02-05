@@ -3,6 +3,7 @@ import { render, fireEvent } from "@testing-library/react-native";
 import SettingsScreen from "../SettingsScreen";
 import { Placeholders } from "../../constants/Strings";
 import { getAppSettings } from "../../../AppSettings";
+import TestIds from "../../constants/TestIds";
 
 describe("SettingsScreen test suite", () => {
   test("renders", () => {
@@ -39,7 +40,48 @@ describe("SettingsScreen test suite", () => {
     fireEvent(organization, "onSubmitEditing");
   });
 
-  test.todo("toggle showGpsWarning");
-  test.todo("toggle showAtlasRecords");
-  test.todo("toggle showOnlyAtlastRecords");
+  test("toggle showGpsWarning", () => {
+    const { getByTestId } = render(<SettingsScreen />);
+    const { showGpsWarning } = getAppSettings();
+
+    fireEvent(
+      getByTestId(TestIds.SettingsScreen.ShowGpsWarning),
+      "onValueChange",
+      !showGpsWarning
+    );
+
+    expect(getAppSettings().showGpsWarning).toEqual(!showGpsWarning);
+  });
+
+  test("toggle showAtlasRecords", () => {
+    const { getByTestId } = render(<SettingsScreen />);
+    const { showAtlasRecords } = getAppSettings();
+
+    fireEvent(
+      getByTestId(TestIds.SettingsScreen.ShowAtlasRecords),
+      "onValueChange",
+      !showAtlasRecords
+    );
+
+    expect(getAppSettings().showAtlasRecords).toEqual(!showAtlasRecords);
+    expect(
+      getByTestId(TestIds.SettingsScreen.ShowOnlyAtlasRecords)
+    ).not.toBeDisabled();
+  });
+
+  test("toggle showOnlyAtlastRecords", () => {
+    const { getByTestId } = render(<SettingsScreen />);
+    const { showOnlyAtlasRecords } = getAppSettings();
+
+    fireEvent(
+      getByTestId(TestIds.SettingsScreen.ShowOnlyAtlasRecords),
+      "onValueChange",
+      !showOnlyAtlasRecords
+    );
+
+    expect(getAppSettings().showOnlyAtlasRecords).toEqual(
+      !showOnlyAtlasRecords
+    );
+    expect(getByTestId(TestIds.SettingsScreen.ShowAtlasRecords)).toBeDisabled();
+  });
 });

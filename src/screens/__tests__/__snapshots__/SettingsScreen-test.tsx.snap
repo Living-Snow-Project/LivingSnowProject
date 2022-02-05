@@ -105,23 +105,15 @@ Array [
     >
       Show Manual Coordinates Warning
     </Text>
-    <RCTSwitch
-      accessibilityRole="switch"
-      onChange={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+    <Switch
+      onValueChange={[Function]}
       style={
-        Array [
-          Object {
-            "height": 31,
-            "width": 51,
-          },
-          Object {
-            "borderColor": "black",
-            "marginRight": 10,
-          },
-        ]
+        Object {
+          "borderColor": "black",
+          "marginRight": 10,
+        }
       }
+      testID="settings-screen-show-gps-warning"
       value={true}
     />
   </View>,
@@ -163,24 +155,16 @@ Array [
     >
       Show Atlas Records
     </Text>
-    <RCTSwitch
-      accessibilityRole="switch"
+    <Switch
       disabled={false}
-      onChange={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+      onValueChange={[Function]}
       style={
-        Array [
-          Object {
-            "height": 31,
-            "width": 51,
-          },
-          Object {
-            "borderColor": "black",
-            "marginRight": 10,
-          },
-        ]
+        Object {
+          "borderColor": "black",
+          "marginRight": 10,
+        }
       }
+      testID="settings-screen-show-atlas-records"
       value={false}
     />
   </View>,
@@ -216,24 +200,16 @@ Array [
     >
       Show Only Atlas Records
     </Text>
-    <RCTSwitch
-      accessibilityRole="switch"
+    <Switch
       disabled={true}
-      onChange={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+      onValueChange={[Function]}
       style={
-        Array [
-          Object {
-            "height": 31,
-            "width": 51,
-          },
-          Object {
-            "borderColor": "black",
-            "marginRight": 10,
-          },
-        ]
+        Object {
+          "borderColor": "black",
+          "marginRight": 10,
+        }
       }
+      testID="settings-screen-show-only-atlas-records"
       value={false}
     />
   </View>,
