@@ -8,7 +8,7 @@ import {
   getAtlasPickerItem,
   getAllAtlasPickerItems,
 } from "../../record/Atlas";
-import { AppSettings, setAppSettings } from "../../../AppSettings";
+import { setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
 import { Notifications, Placeholders } from "../../constants/Strings";
 import RecordManager from "../../lib/RecordManager";
@@ -29,11 +29,12 @@ const navigation = {
 const renderWithGpsWarningOff = () => {
   const testCoordinates = "123.456, -98.765";
 
-  setAppSettings({
+  setAppSettings((prev) => ({
+    ...prev,
     name: "test name",
     organization: "test organization",
     showGpsWarning: false,
-  } as AppSettings);
+  }));
 
   const {
     getByDisplayValue,

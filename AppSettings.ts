@@ -24,8 +24,15 @@ function getAppSettings(): AppSettings {
   return appSettingsContext;
 }
 
-function setAppSettings(appSettings: AppSettings): void {
-  appSettingsContext = { ...appSettingsContext, ...appSettings };
+function setAppSettings(
+  param: AppSettings | ((appSettings: AppSettings) => AppSettings)
+): void {
+  if (typeof param === "function") {
+    appSettingsContext = param(appSettingsContext);
+  } else {
+    appSettingsContext = param;
+  }
+
   Storage.saveAppConfig(appSettingsContext);
 }
 

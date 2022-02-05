@@ -68,6 +68,24 @@ type Record = {
   atlasType: AtlasType;
 };
 
+/*
+TODO: when Record type is unified (type, atlasType, and photoUris need alignment)
+const makeExampleRecords = (type: RecordType): Record => ({
+  id: uuidv4(),
+  type,
+  name: "Example Name",
+  organization: "Example Organization",
+  date: new Date(),
+  latitude: 123.456789,
+  longitude: -90.987654,
+  tubeId: isSample(type) ? "JSX-1337" : "",
+  locationDescription: "Example Location Description",
+  notes: "Example Notes",
+  photoUris: "",
+  atlasType: AtlasType.SnowAlgae
+});
+*/
+
 // BUGBUG: because legacy record type = string, but we will change to enum and break old clients :)
 // So, Downloaded records => record.type = string, Pending\Saved records => record.type = RecordType
 const isSample = (type: RecordType): boolean =>

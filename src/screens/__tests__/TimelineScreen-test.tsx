@@ -11,7 +11,7 @@ import Storage from "../../lib/Storage";
 import { Network } from "../../lib/Network";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
-import { AppSettings, setAppSettings } from "../../../AppSettings";
+import { setAppSettings } from "../../../AppSettings";
 
 // TimelineScreen takes navigation input prop
 const navigation = {
@@ -119,10 +119,13 @@ describe("TimelineScreen test suite", () => {
     const { retryRecordsSpy, retryPhotosSpy, downloadRecordsSpy } =
       setupDownloadSuccess();
 
-    setAppSettings({
+    // TODO: isolate to different test case, exists here now for code coverage reasons
+    // ie. this assertion is "buried" and not easily discoverable
+    setAppSettings((prev) => ({
+      ...prev,
       showAtlasRecords: true,
       showOnlyAtlasRecords: true,
-    } as AppSettings);
+    }));
 
     const { getByTestId, getByText } = render(
       <TimelineScreen navigation={navigation} />
@@ -135,10 +138,11 @@ describe("TimelineScreen test suite", () => {
     expect(downloadRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
-    setAppSettings({
+    setAppSettings((prev) => ({
+      ...prev,
       showAtlasRecords: false,
       showOnlyAtlasRecords: false,
-    } as AppSettings);
+    }));
   });
 
   test("download records fails", async () => {
@@ -152,7 +156,7 @@ describe("TimelineScreen test suite", () => {
 
   test("pending records", async () => {
     const retryRecordsSpy = setupDownloadFailed();
-    const originalLoadRecords = Storage.loadRecords;
+    const actualLoadRecords = Storage.loadRecords;
     Storage.loadRecords = () => Promise.resolve([makePendingTestRecord()]);
 
     const { getByTestId, getByText } = render(
@@ -163,8 +167,12 @@ describe("TimelineScreen test suite", () => {
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
 
-    Storage.loadRecords = originalLoadRecords;
+    Storage.loadRecords = actualLoadRecords;
   });
+
+  test.todo("non-atlas and atlas records are displayed");
+  test.todo("atlas records are not displayed");
+  test.todo("only atlas records are displayed");
 
   test("connection lost", async () => {
     setIsConntected(false);

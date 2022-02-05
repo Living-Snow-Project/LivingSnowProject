@@ -2,7 +2,7 @@ import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import PressableOpacity from "../components/PressableOpacity";
 import { SnowIcon } from "../components/Icons";
-import { getAppSettings, setAppSettings } from "../../AppSettings";
+import { setAppSettings } from "../../AppSettings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
 import KeyboardShift from "../components/KeyboardShift";
 
@@ -74,7 +74,7 @@ export default function FirstRunScreen({ navigation }) {
           <View style={styles.exitContainer}>
             <PressableOpacity
               onPress={() => {
-                setAppSettings({ ...getAppSettings(), showFirstRun: false });
+                setAppSettings((prev) => ({ ...prev, showFirstRun: false }));
                 navigation.navigate("Timeline");
               }}
             >
