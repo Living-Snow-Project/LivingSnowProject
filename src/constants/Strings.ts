@@ -42,4 +42,31 @@ const Notifications = {
   },
 };
 
-export { Notifications, Placeholders, Labels };
+const RecordDescription = {
+  Sample: `I'm Taking a Sample`,
+  Sighting: `I'm Reporting a Sighting`,
+  AtlasRedDot: `Atlas: Red Dot`,
+  AtlasRedDotWithSample: `Atlas: Red Dot with Sample`,
+  AtlasBlueDot: `Atlas: Blue Dot`,
+  AtlasBlueDotWithSample: `Atlas: Blue Dot with Sample`,
+  Undefined: "Undefined",
+};
+
+const AtlasDescription = {
+  SnowAlgae: "Snow Algae",
+  DirtOrDebris: "Dirt or Debris",
+  Ash: "Ash",
+  WhiteSnow: "White Snow",
+  MixOfAlgaeAndDirt: `Mix of Algae and Dirt`,
+  ForestOrVegetation: `Forest or Vegetation`,
+  Other: `Other (please describe in notes)`,
+  Undefined: "Undefined",
+};
+
+export {
+  Notifications,
+  Placeholders,
+  Labels,
+  RecordDescription,
+  AtlasDescription,
+};

@@ -1,4 +1,5 @@
 import { AtlasType } from "./Atlas";
+import { RecordDescription } from "../constants/Strings";
 
 enum RecordType {
   Undefined = -1,
@@ -18,17 +19,17 @@ type RecordTypePickerItem = {
 
 // specific format for RNPickerSelect
 const RecordTypePickerItems: RecordTypePickerItem[] = [
-  { value: RecordType.Sample, label: `I'm Taking a Sample` },
-  { value: RecordType.Sighting, label: `I'm Reporting a Sighting` },
-  { value: RecordType.AtlasRedDot, label: `Atlas: Red Dot` },
+  { value: RecordType.Sample, label: RecordDescription.Sample },
+  { value: RecordType.Sighting, label: RecordDescription.Sighting },
+  { value: RecordType.AtlasRedDot, label: RecordDescription.AtlasRedDot },
   {
     value: RecordType.AtlasRedDotWithSample,
-    label: `Atlas: Red Dot with Sample`,
+    label: RecordDescription.AtlasRedDotWithSample,
   },
-  { value: RecordType.AtlasBlueDot, label: `Atlas: Blue Dot` },
+  { value: RecordType.AtlasBlueDot, label: RecordDescription.AtlasBlueDot },
   {
     value: RecordType.AtlasBlueDotWithSample,
-    label: `Atlas: Blue Dot with Sample`,
+    label: RecordDescription.AtlasBlueDotWithSample,
   },
 ];
 
@@ -51,7 +52,7 @@ const getAllRecordTypePickerItems = (): RecordTypePickerItem[] =>
 const getRecordTypePickerItem = (type: RecordType): RecordTypePickerItem =>
   type > RecordType.Undefined && type < RecordType.Max
     ? RecordTypePickerItems[type]
-    : { value: RecordType.Undefined, label: "Undefined" };
+    : { value: RecordType.Undefined, label: RecordDescription.Undefined };
 
 type Record = {
   id: string;
