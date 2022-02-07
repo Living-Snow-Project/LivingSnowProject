@@ -68,24 +68,6 @@ type Record = {
   atlasType: AtlasType;
 };
 
-/*
-TODO: when Record type is unified (type, atlasType, and photoUris need alignment)
-const makeExampleRecords = (type: RecordType): Record => ({
-  id: uuidv4(),
-  type,
-  name: "Example Name",
-  organization: "Example Organization",
-  date: new Date(),
-  latitude: 123.456789,
-  longitude: -90.987654,
-  tubeId: isSample(type) ? "JSX-1337" : "",
-  locationDescription: "Example Location Description",
-  notes: "Example Notes",
-  photoUris: "",
-  atlasType: AtlasType.SnowAlgae
-});
-*/
-
 // BUGBUG: because legacy record type = string, but we will change to enum and break old clients :)
 // So, Downloaded records => record.type = string, Pending\Saved records => record.type = RecordType
 const isSample = (type: RecordType): boolean =>
@@ -112,12 +94,35 @@ const isAtlas = (type: RecordType | string): boolean =>
     "AtlasBlueDotWithSample",
   ].includes(type);
 
+// TODO: makeExampleRecord should also be used to seed RecordScreen (ie. no more "no records to display")
+// BUGBUG: type, atlasType, and photoUris need alignment (new signature below)
+// const makeExampleRecords = (type: RecordType): Record => ({
+const makeExampleRecord = (type) => {
+  const atlasType = isAtlas(type) ? AtlasType.SnowAlgae : AtlasType.Undefined;
+
+  return {
+    id: "1234",
+    type,
+    name: "test name",
+    date: "2021-09-16",
+    organization: "test org",
+    latitude: "-123.456",
+    longitude: "96.96",
+    tubeId: isSample(type) ? "LAB-1337" : "",
+    locationDescription: "test location",
+    notes: "test notes",
+    atlasType,
+    photoUris: "46;23;",
+  };
+};
+
 export {
   RecordType,
   Record,
   translateToLegacyRecordType,
   getRecordTypePickerItem,
   getAllRecordTypePickerItems,
+  makeExampleRecord,
   isSample,
   isAtlas,
 };

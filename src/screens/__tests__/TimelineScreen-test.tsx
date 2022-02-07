@@ -7,6 +7,7 @@ import {
   NewRecordButton,
 } from "../../navigation/MainTabNavigator";
 import RecordManager from "../../lib/RecordManager";
+import { makeExampleRecord } from "../../record/Record";
 import Storage from "../../lib/Storage";
 import { Network } from "../../lib/Network";
 import TestIds from "../../constants/TestIds";
@@ -32,21 +33,7 @@ jest.mock("@react-navigation/native", () => {
   };
 });
 
-// TODO: concept of "Example Record" used in testing and also used in App for "first run"
-const sharedTestRecordProps = {
-  id: "1234",
-  type: "Sample",
-  name: "test name",
-  date: "2021-09-16T00:00:00",
-  organization: "test org",
-  latitude: "-123.456",
-  longitude: "96.96",
-  tubeId: null,
-  locationDescription: "test location",
-  notes: "test notes",
-  atlasType: 0,
-  photoUris: "46;23;",
-};
+const sharedTestRecordProps = makeExampleRecord("Sample");
 
 // BUGBUG: can downloaded and saved/pending records have consistent structure (photoUris)?
 const downloadedTestRecord = {

@@ -53,7 +53,8 @@ export default function RecordDetailsScreen({ route }) {
     atlasType,
   } = route.params;
   const photoUris = parsePhotoUris(route.params.photoUris);
-  // TODO: prefer to scale images based on dominant axis
+  // TODO: prefer to scale images based on its dominant axis
+  // which means the server needs to store height, width
   const height = Dimensions.get("screen").height * 0.75;
 
   return (
@@ -84,6 +85,7 @@ export default function RecordDetailsScreen({ route }) {
         {!!tubeId && <Text>{`TubeId: ${tubeId}`}</Text>}
         {isAtlas(type) && (
           <Text>{`Atlas Surface Data: ${
+            // BUGBUG: pickerItem.label... really?
             getAtlasPickerItem(atlasType).label
           }`}</Text>
         )}
