@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ImagesPickerScreen test suite renders ios 1`] = `
+<View
+  bgColor="white"
+  style={
+    Array [
+      Object {
+        "backgroundColor": "white",
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "height": 45,
+          "justifyContent": "space-between",
+          "marginBottom": 0,
+          "marginLeft": "auto",
+          "marginRight": "auto",
+          "marginTop": 0,
+          "paddingBottom": 5,
+          "paddingLeft": 5,
+          "paddingRight": 5,
+          "paddingTop": 5,
+          "width": "98%",
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 38,
+          "justifyContent": "center",
+          "opacity": 1,
+          "width": 100,
+        }
+      }
+    >
+      <Text
+        style={Object {}}
+      >
+        
+      </Text>
+    </View>
+    <Text
+      style={
+        Object {
+          "color": "black",
+        }
+      }
+    >
+      0
+       
+      
+    </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "height": 38,
+          "justifyContent": "center",
+          "opacity": 1,
+          "width": 100,
+        }
+      }
+    >
+      <Text
+        style={Object {}}
+      >
+        Finish
+      </Text>
+    </View>
+  </View>
+  <View
+    bgColor="white"
+    style={
+      Array [
+        Object {
+          "backgroundColor": "white",
+          "flexBasis": 0,
+          "flexDirection": "row",
+          "flexGrow": 1,
+          "flexShrink": 1,
+          "justifyContent": "space-between",
+          "marginBottom": 0,
+          "marginLeft": "auto",
+          "marginRight": "auto",
+          "marginTop": 0,
+          "width": "100%",
+        },
+      ]
+    }
+    widgetWidth={100}
+  >
+    <RCTScrollView
+      ListEmptyComponent={[Function]}
+      data={Array []}
+      disableVirtualization={false}
+      extraData={Array []}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      getItemLayout={[Function]}
+      horizontal={false}
+      initialNumToRender={50}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      onContentSizeChange={[Function]}
+      onEndReached={[Function]}
+      onEndReachedThreshold={0.5}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <Text>
+          No Assets
+        </Text>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;
