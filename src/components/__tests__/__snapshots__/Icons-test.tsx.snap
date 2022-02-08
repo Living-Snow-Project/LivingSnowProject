@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Icons test suite android picture icon 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    Array [
+      Object {
+        "color": "green",
+        "fontSize": 48,
+      },
+      undefined,
+      Object {
+        "fontFamily": "ionicons",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+  testID="picture-icon"
+>
+  
+</Text>
+`;
+
+exports[`Icons test suite android sample record icon 1`] = `<Text />`;
+
+exports[`Icons test suite android sighting record icon 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    Array [
+      Object {
+        "color": "skyblue",
+        "fontSize": 48,
+      },
+      undefined,
+      Object {
+        "fontFamily": "ionicons",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+  testID="sighting-icon"
+>
+  
+</Text>
+`;
+
+exports[`Icons test suite android snow icon 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    Array [
+      Object {
+        "color": "#ccc",
+        "fontSize": 32,
+      },
+      Object {},
+      Object {
+        "fontFamily": "ionicons",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+  testID="snow-icon"
+>
+  
+</Text>
+`;
+
+exports[`Icons test suite ios picture icon 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    Array [
+      Object {
+        "color": "green",
+        "fontSize": 48,
+      },
+      undefined,
+      Object {
+        "fontFamily": "ionicons",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+  testID="picture-icon"
+>
+  
+</Text>
+`;
+
+exports[`Icons test suite ios sample record icon 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    Array [
+      Object {
+        "color": "lightcoral",
+        "fontSize": 48,
+      },
+      undefined,
+      Object {
+        "fontFamily": "ionicons",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+  testID="sample-icon"
+>
+  
+</Text>
+`;
+
+exports[`Icons test suite ios sighting record icon 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    Array [
+      Object {
+        "color": "skyblue",
+        "fontSize": 48,
+      },
+      undefined,
+      Object {
+        "fontFamily": "ionicons",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+  testID="sighting-icon"
+>
+  
+</Text>
+`;
+
+exports[`Icons test suite ios snow icon 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    Array [
+      Object {
+        "color": "#ccc",
+        "fontSize": 32,
+      },
+      Object {},
+      Object {
+        "fontFamily": "ionicons",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+  testID="snow-icon"
+>
+  
+</Text>
+`;

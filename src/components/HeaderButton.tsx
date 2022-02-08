@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 export default function HeaderButton({
-  testID = "",
+  testID,
   iconName,
   onPress,
   placement,
