@@ -15,12 +15,13 @@ type RecordListProps = {
 export default function RecordList({
   records,
   header,
-  omitRecord = () => false,
+  omitRecord,
 }: RecordListProps) {
   const RenderRecords = useCallback(
     () => (
       <>
         {records.map((record) => {
+          // @ts-ignore (see RecordList.defaultProps)
           if (omitRecord(record)) {
             return null;
           }

@@ -13,16 +13,19 @@ type PressableOpacityProps = {
   onPress: (event: GestureResponderEvent) => void;
   style: StyleProp<ViewStyle>;
   children: JSX.Element;
+  testOnly_pressed: boolean;
 };
 
 export default function PressableOpacity({
-  testID = "",
+  testID,
   onPress,
-  style = {},
+  style,
   children,
+  testOnly_pressed,
 }: PressableOpacityProps) {
   return (
     <Pressable
+      testOnly_pressed={testOnly_pressed}
       testID={testID}
       style={({ pressed }) => [
         style,
@@ -42,9 +45,11 @@ PressableOpacity.propTypes = {
   onPress: PropTypes.func.isRequired,
   style: ViewPropTypes.style,
   children: PropTypes.element.isRequired,
+  testOnly_pressed: PropTypes.bool,
 };
 
 PressableOpacity.defaultProps = {
   testID: "",
   style: {},
+  testOnly_pressed: false,
 };
