@@ -2,6 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react-native";
 import RecordDetailsScreen from "../RecordDetailsScreen";
 import { makeExampleRecord } from "../../record/Record";
+import { Labels } from "../../constants/Strings";
 
 describe("RecordDetailsScreen test suite", () => {
   test("sample with remote photos", () => {
@@ -27,8 +28,10 @@ describe("RecordDetailsScreen test suite", () => {
       getByText(new RegExp(route.params.locationDescription))
     ).toBeTruthy();
     expect(getByText(new RegExp(route.params.notes))).toBeTruthy();
-    expect(queryByText(/Atlas/)).toBeFalsy();
-    expect(queryByText(/Photos/)).toBeTruthy();
+    expect(
+      queryByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
+    ).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.Photos))).toBeTruthy();
   });
 
   test("sighting without photos", () => {
@@ -47,15 +50,17 @@ describe("RecordDetailsScreen test suite", () => {
     expect(getByText(new RegExp(route.params.name))).toBeTruthy();
     expect(getByText(new RegExp(route.params.organization))).toBeTruthy();
     expect(getByText(new RegExp(route.params.date))).toBeTruthy();
-    expect(queryByText(/TubeId/)).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
     expect(getByText(new RegExp(route.params.latitude))).toBeTruthy();
     expect(getByText(new RegExp(route.params.longitude))).toBeTruthy();
     expect(
       getByText(new RegExp(route.params.locationDescription))
     ).toBeTruthy();
     expect(getByText(new RegExp(route.params.notes))).toBeTruthy();
-    expect(queryByText(/Atlas/)).toBeFalsy();
-    expect(queryByText(/Photos/)).toBeFalsy();
+    expect(
+      queryByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
+    ).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.Photos))).toBeFalsy();
   });
 
   test("atlas with local photos", () => {
@@ -74,15 +79,18 @@ describe("RecordDetailsScreen test suite", () => {
     expect(getByText(new RegExp(route.params.name))).toBeTruthy();
     expect(getByText(new RegExp(route.params.organization))).toBeTruthy();
     expect(getByText(new RegExp(route.params.date))).toBeTruthy();
-    expect(queryByText(/TubeId/)).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
     expect(getByText(new RegExp(route.params.latitude))).toBeTruthy();
     expect(getByText(new RegExp(route.params.longitude))).toBeTruthy();
     expect(
       getByText(new RegExp(route.params.locationDescription))
     ).toBeTruthy();
     expect(getByText(new RegExp(route.params.notes))).toBeTruthy();
-    expect(getByText(/Atlas Surface Data/)).toBeTruthy();
-    expect(getByText(/Photos/)).toBeTruthy();
+    // TODO: check for Atlas: Red Dot (when string lookup exists)
+    expect(
+      getByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
+    ).toBeTruthy();
+    expect(getByText(new RegExp(Labels.RecordFields.Photos))).toBeTruthy();
   });
 
   test("sighting omit all optional fields", () => {
@@ -91,7 +99,7 @@ describe("RecordDetailsScreen test suite", () => {
         ...makeExampleRecord("Sighting"),
         organization: null,
         tubeId: null,
-        locationDesciption: null,
+        locationDescription: null,
         notes: null,
         photoUris: null,
       },
@@ -103,14 +111,20 @@ describe("RecordDetailsScreen test suite", () => {
 
     expect(getByText(new RegExp(route.params.type))).toBeTruthy();
     expect(queryByText(new RegExp(route.params.name))).toBeTruthy();
-    expect(queryByText(/Organization/)).toBeFalsy();
+    expect(
+      queryByText(new RegExp(Labels.RecordFields.Organization))
+    ).toBeFalsy();
     expect(getByText(new RegExp(route.params.date))).toBeTruthy();
     expect(getByText(new RegExp(route.params.latitude))).toBeTruthy();
     expect(getByText(new RegExp(route.params.longitude))).toBeTruthy();
-    expect(queryByText(/TubeId/)).toBeFalsy();
-    expect(queryByText(/Location Description/)).toBeFalsy();
-    expect(queryByText(/Notes/)).toBeFalsy();
-    expect(queryByText(/Atlas/)).toBeFalsy();
-    expect(queryByText(/Photos/)).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
+    expect(
+      queryByText(new RegExp(Labels.RecordFields.LocationDescription))
+    ).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.Notes))).toBeFalsy();
+    expect(
+      queryByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
+    ).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.Photos))).toBeFalsy();
   });
 });

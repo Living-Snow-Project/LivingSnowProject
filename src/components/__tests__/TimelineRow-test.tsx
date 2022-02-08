@@ -3,6 +3,7 @@ import { render } from "@testing-library/react-native";
 import TimelineRow from "../TimelineRow";
 import { makeExampleRecord } from "../../record/Record";
 import TestIds from "../../constants/TestIds";
+import { Labels } from "../../constants/Strings";
 
 describe("TimelineRow test suite", () => {
   let expectedRecord;
@@ -36,7 +37,7 @@ describe("TimelineRow test suite", () => {
 
     const { queryByText } = render(<TimelineRow record={expectedRecord} />);
 
-    expect(queryByText(/Name/)).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.Name))).toBeFalsy();
   });
 
   test("missing organization", () => {
@@ -44,7 +45,9 @@ describe("TimelineRow test suite", () => {
 
     const { queryByText } = render(<TimelineRow record={expectedRecord} />);
 
-    expect(queryByText(/Organization/)).toBeFalsy();
+    expect(
+      queryByText(new RegExp(Labels.RecordFields.Organization))
+    ).toBeFalsy();
   });
 
   test("missing location description", () => {
@@ -52,7 +55,9 @@ describe("TimelineRow test suite", () => {
 
     const { queryByText } = render(<TimelineRow record={expectedRecord} />);
 
-    expect(queryByText(/Location Description/)).toBeFalsy();
+    expect(
+      queryByText(new RegExp(Labels.RecordFields.LocationDescription))
+    ).toBeFalsy();
   });
 
   test("missing notes", () => {
@@ -60,7 +65,7 @@ describe("TimelineRow test suite", () => {
 
     const { queryByText } = render(<TimelineRow record={expectedRecord} />);
 
-    expect(queryByText(/Notes/)).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.Notes))).toBeFalsy();
   });
 
   test("photos icon", () => {

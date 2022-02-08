@@ -11,10 +11,28 @@ const Placeholders = {
     Username: "Enter your name",
     Organization: "Enter the organization you belong to (if any)",
   },
-  // TODO: RecordScreen placeholders
+  RecordScreen: {
+    TubeId: "Leave blank if tube does not have an id",
+    LocationDescription: "ie: Blue Lake, North Cascades, WA",
+    Notes: "ie. dark red algae on glacial ice",
+  },
 };
 
 const Labels = {
+  RecordFields: {
+    Type: "Type",
+    Name: "Name",
+    Organization: "Organization",
+    Date: "Date",
+    TubeId: "Tube Id",
+    GPSCoordinates: "GPS Coordinates",
+    Latitude: "Latitude",
+    Longitude: "Longitude",
+    LocationDescription: "Location Description",
+    Notes: "Notes",
+    AtlasSnowSurface: "Atlas Snow Surface",
+    Photos: "Photos",
+  },
   TimelineScreen: {
     DownloadedRecords: "Downloaded",
     NoRecords: "No records to display",

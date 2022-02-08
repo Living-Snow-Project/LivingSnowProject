@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import { downloadPhotoUri } from "../lib/Network";
 import { getAtlasPickerItem } from "../record/Atlas";
 import { isAtlas } from "../record/Record";
+import { Labels } from "../constants/Strings";
 
 const styles = StyleSheet.create({
   container: {
@@ -76,23 +77,25 @@ export default function RecordDetailsScreen({ route }) {
         >
           <Text style={{ textAlign: "center" }}>Data Sheet</Text>
         </View>
-        <Text>{`Date: ${date.slice(0, 10)}`}</Text>
+        <Text>{`${Labels.RecordFields.Date}: ${date.slice(0, 10)}`}</Text>
         {/* BUGBUG: downloaded records type=string, pending records type=enum and converted to string */}
-        <Text>{`Type: ${type}`}</Text>
-        <Text>{`Name: ${name}`}</Text>
-        {!!organization && <Text>{`Organization: ${organization}`}</Text>}
-        <Text>{`Location: ${latitude}, ${longitude}`}</Text>
-        {!!tubeId && <Text>{`TubeId: ${tubeId}`}</Text>}
+        <Text>{`${Labels.RecordFields.Type}: ${type}`}</Text>
+        <Text>{`${Labels.RecordFields.Name}: ${name}`}</Text>
+        {!!organization && (
+          <Text>{`${Labels.RecordFields.Organization}: ${organization}`}</Text>
+        )}
+        <Text>{`${Labels.RecordFields.GPSCoordinates}: ${latitude}, ${longitude}`}</Text>
+        {!!tubeId && <Text>{`${Labels.RecordFields.TubeId}: ${tubeId}`}</Text>}
         {isAtlas(type) && (
-          <Text>{`Atlas Surface Data: ${
+          <Text>{`${Labels.RecordFields.AtlasSnowSurface}: ${
             // BUGBUG: pickerItem.label... really?
             getAtlasPickerItem(atlasType).label
           }`}</Text>
         )}
         {!!locationDescription && (
-          <Text>{`Description: ${locationDescription}`}</Text>
+          <Text>{`${Labels.RecordFields.LocationDescription}: ${locationDescription}`}</Text>
         )}
-        {!!notes && <Text>{`Additional Notes: ${notes}`}</Text>}
+        {!!notes && <Text>{`${Labels.RecordFields.Notes}: ${notes}`}</Text>}
       </View>
       {photoUris.length > 0 && (
         <View
@@ -110,7 +113,9 @@ export default function RecordDetailsScreen({ route }) {
               backgroundColor: "lightblue",
             }}
           >
-            <Text style={{ textAlign: "center" }}>Photos</Text>
+            <Text style={{ textAlign: "center" }}>
+              {Labels.RecordFields.Photos}
+            </Text>
           </View>
           <View style={{ flex: photoUris.length, flexDirection: "column" }}>
             {photoUris.map((x, index) => (

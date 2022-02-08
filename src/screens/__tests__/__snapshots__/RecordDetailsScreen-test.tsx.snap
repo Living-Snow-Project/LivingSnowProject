@@ -52,16 +52,16 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
         Organization: test org
       </Text>
       <Text>
-        Location: -123.456, 96.96
+        GPS Coordinates: -123.456, 96.96
       </Text>
       <Text>
-        TubeId: LAB-1337
+        Tube Id: LAB-1337
       </Text>
       <Text>
-        Description: test location
+        Location Description: test location
       </Text>
       <Text>
-        Additional Notes: test notes
+        Notes: test notes
       </Text>
     </View>
     <View

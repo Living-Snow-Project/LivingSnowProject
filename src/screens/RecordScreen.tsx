@@ -30,7 +30,7 @@ import {
 } from "../record/Record";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
-import { Notifications } from "../constants/Strings";
+import { Labels, Notifications, Placeholders } from "../constants/Strings";
 
 export default function RecordScreen({ navigation }) {
   const notesRef = useRef<TextInput>(null);
@@ -168,8 +168,8 @@ export default function RecordScreen({ navigation }) {
           {/* Tube Id: only show Tube Id when recording a Sample */}
           {isSample(state.type) && (
             <CustomTextInput
-              description="Tube Id"
-              placeholder="Leave blank if the tube does not have an id"
+              description={Labels.RecordFields.TubeId}
+              placeholder={Placeholders.RecordScreen.TubeId}
               maxLength={20}
               onChangeText={(tubeId) =>
                 setState((prev) => ({ ...prev, tubeId }))
@@ -194,8 +194,8 @@ export default function RecordScreen({ navigation }) {
           />
 
           <CustomTextInput
-            description="Location Description (limit 255 characters)"
-            placeholder="ie: Blue Lake, North Cascades, WA"
+            description={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}
+            placeholder={Placeholders.RecordScreen.LocationDescription}
             onChangeText={(locationDescription) =>
               setState((prev) => ({ ...prev, locationDescription }))
             }
@@ -204,8 +204,8 @@ export default function RecordScreen({ navigation }) {
           />
 
           <CustomTextInput
-            description="Additional Notes (limit 255 characters)"
-            placeholder="ie. algae growing on glacial ice"
+            description={`${Labels.RecordFields.Notes} (limit 255 characters)`}
+            placeholder={Placeholders.RecordScreen.Notes}
             onChangeText={(notes) => setState((prev) => ({ ...prev, notes }))}
             ref={notesRef}
           />

@@ -423,7 +423,7 @@ exports[`RecordScreen test suite renders 1`] = `
         onChangeText={[Function]}
         onContentSizeChange={[Function]}
         onSubmitEditing={[Function]}
-        placeholder="Leave blank if the tube does not have an id"
+        placeholder="Leave blank if tube does not have an id"
         rejectResponderTermination={true}
         returnKeyType="done"
         style={
@@ -544,7 +544,7 @@ exports[`RecordScreen test suite renders 1`] = `
           }
         }
       >
-        Additional Notes (limit 255 characters)
+        Notes (limit 255 characters)
       </Text>
       <TextInput
         allowFontScaling={true}
@@ -554,7 +554,7 @@ exports[`RecordScreen test suite renders 1`] = `
         onChangeText={[Function]}
         onContentSizeChange={[Function]}
         onSubmitEditing={[Function]}
-        placeholder="ie. algae growing on glacial ice"
+        placeholder="ie. dark red algae on glacial ice"
         rejectResponderTermination={true}
         returnKeyType="done"
         style={

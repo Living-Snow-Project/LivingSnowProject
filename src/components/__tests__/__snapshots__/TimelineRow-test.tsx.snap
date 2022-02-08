@@ -42,7 +42,7 @@ exports[`TimelineRow test suite renders 1`] = `
         <Text>
           2021-09-16
 test name (test org)
-Location: -123.456, 96.96
+GPS Coordinates: -123.456, 96.96
         </Text>
       </View>
       <View
@@ -91,7 +91,7 @@ Location: -123.456, 96.96
       </View>
     </View>
     <Text>
-      Description: test location
+      Location Description: test location
 Notes: test notes
     </Text>
   </View>

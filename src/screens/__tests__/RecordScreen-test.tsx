@@ -303,9 +303,7 @@ describe("RecordScreen test suite", () => {
   describe("TextInput tests", () => {
     test("TubeId", () => {
       const { getByPlaceholderText, getByDisplayValue } = renderer;
-      const tubeId = getByPlaceholderText(
-        "Leave blank if the tube does not have an id"
-      );
+      const tubeId = getByPlaceholderText(Placeholders.RecordScreen.TubeId);
       const expected = "123-456";
 
       fireEvent.changeText(tubeId, expected);
@@ -316,7 +314,7 @@ describe("RecordScreen test suite", () => {
     test("Location Description", () => {
       const { getByPlaceholderText, getByDisplayValue } = renderer;
       const location = getByPlaceholderText(
-        "ie: Blue Lake, North Cascades, WA"
+        Placeholders.RecordScreen.LocationDescription
       );
       const expected = "Excelsior Pass on High Divide Trail";
 
@@ -327,7 +325,7 @@ describe("RecordScreen test suite", () => {
 
     test("Notes", () => {
       const { getByPlaceholderText, getByDisplayValue } = renderer;
-      const notes = getByPlaceholderText("ie. algae growing on glacial ice");
+      const notes = getByPlaceholderText(Placeholders.RecordScreen.Notes);
       const expected = "Frozen lake in a cold place with runnels of red snow";
 
       fireEvent.changeText(notes, expected);

@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { PictureIcon, RecordIcon } from "./Icons";
 import { RootStackNavigationProp } from "../navigation/Routes";
 import RecordPropType from "../record/RecordPropTypes";
+import { Labels } from "../constants/Strings";
 
 const styles = StyleSheet.create({
   recordContainer: {
@@ -51,7 +52,7 @@ function topText({ date, name, organization, latitude, longitude }) {
     result += `Anonymous Scientist`;
   }
 
-  result += `\nLocation: ${latitude}, ${longitude}`;
+  result += `\n${Labels.RecordFields.GPSCoordinates}: ${latitude}, ${longitude}`;
 
   return result;
 }
@@ -61,12 +62,12 @@ function bottomText({ locationDescription, notes }) {
   let newline = "";
 
   if (!empty(locationDescription)) {
-    result += `Description: ${locationDescription}`;
+    result += `${Labels.RecordFields.LocationDescription}: ${locationDescription}`;
     newline = "\n";
   }
 
   if (!empty(notes)) {
-    result += `${newline}Notes: ${notes}`;
+    result += `${newline}${Labels.RecordFields.Notes}: ${notes}`;
   }
 
   return result;
