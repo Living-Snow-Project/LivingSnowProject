@@ -50,7 +50,7 @@ Array [
     allowFontScaling={true}
     maxLength={50}
     onChangeText={[Function]}
-    placeholder="Enter the organization you belong to (if any)"
+    placeholder="Enter organization you belong to (if any)"
     rejectResponderTermination={true}
     returnKeyType="done"
     style={

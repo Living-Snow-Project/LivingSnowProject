@@ -41,6 +41,7 @@ export default function ImagesPickerScreen({ navigation, route }) {
         },
         defaultTopNavigator: {
           // TODO: this should be on react-navigation header not the component's
+          // TODO: possible to eliminate goBackText and backFunction?
           continueText: "Finish",
           goBackText: ``,
           buttonStyle: {},

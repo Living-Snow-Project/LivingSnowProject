@@ -15,21 +15,19 @@ export default function useCachedResources() {
   React.useEffect(() => {
     async function loadResourcesAndDataAsync() {
       try {
-        SplashScreen.preventAutoHideAsync().catch((e) =>
-          Logger.Warn(JSON.stringify(e))
-        );
+        // load app config
+        const appSettings = await Storage.loadAppConfig();
+        setAppSettings(appSettings === null ? DefaultAppSettings : appSettings);
+
+        await SplashScreen.preventAutoHideAsync();
 
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
           "space-mono": spaceMono,
         });
-
-        // load app config
-        const appSettings = await Storage.loadAppConfig();
-        setAppSettings(appSettings === null ? DefaultAppSettings : appSettings);
       } catch (e) {
-        Logger.Warn(JSON.stringify(e));
+        Logger.Warn(`${e}`);
       } finally {
         setLoadingComplete(true);
         SplashScreen.hideAsync();

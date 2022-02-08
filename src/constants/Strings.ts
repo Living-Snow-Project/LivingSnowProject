@@ -9,7 +9,7 @@ const Placeholders = {
   },
   Settings: {
     Username: "Enter your name",
-    Organization: "Enter the organization you belong to (if any)",
+    Organization: "Enter organization you belong to (if any)",
   },
   RecordScreen: {
     TubeId: "Leave blank if tube does not have an id",
@@ -25,7 +25,7 @@ const Labels = {
     Organization: "Organization",
     Date: "Date",
     TubeId: "Tube Id",
-    GPSCoordinates: "GPS Coordinates",
+    GPSCoordinates: "Coordinates",
     Latitude: "Latitude",
     Longitude: "Longitude",
     LocationDescription: "Location Description",
