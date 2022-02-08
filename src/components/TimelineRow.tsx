@@ -74,10 +74,6 @@ function bottomText({ locationDescription, notes }) {
 
 // TODO: make a recordClosure object
 function parsePhotoUris(photoUris) {
-  if (!photoUris) {
-    return [];
-  }
-
   const result = photoUris.split(`;`);
   result.pop();
 

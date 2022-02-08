@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineRow test suite renders 1`] = `
+<View
+  style={
+    Object {
+      "borderBottomWidth": 1,
+    }
+  }
+>
+  <View
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    testID="1234"
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+          "flexDirection": "row",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 0.7,
+            "marginLeft": 1,
+          }
+        }
+      >
+        <Text>
+          2021-09-16
+test name (test org)
+Location: -123.456, 96.96
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 0.15,
+            "marginLeft": 1,
+          }
+        }
+      >
+        <Text />
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 0.15,
+            "marginLeft": 1,
+          }
+        }
+      >
+        <Text />
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "flex-end",
+              "backgroundColor": "red",
+              "borderRadius": 40,
+              "position": "absolute",
+              "right": 2,
+              "top": 1,
+              "width": "33%",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          >
+            2
+          </Text>
+        </View>
+      </View>
+    </View>
+    <Text>
+      Description: test location
+Notes: test notes
+    </Text>
+  </View>
+</View>
+`;

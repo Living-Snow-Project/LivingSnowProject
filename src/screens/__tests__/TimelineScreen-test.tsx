@@ -13,25 +13,13 @@ import { Network } from "../../lib/Network";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 import { setAppSettings } from "../../../AppSettings";
+import { mockedNavigate } from "../../../jesttest.setup";
 
 // TimelineScreen takes navigation input prop
 const navigation = {
   navigate: jest.fn(),
   addListener: () => () => {},
 };
-
-// TimelineRow calls useNavigation
-const mockedNavigate = jest.fn();
-
-jest.mock("@react-navigation/native", () => {
-  const actualNav = jest.requireActual("@react-navigation/native");
-  return {
-    ...actualNav,
-    useNavigation: () => ({
-      navigate: mockedNavigate,
-    }),
-  };
-});
 
 const sharedTestRecordProps = makeExampleRecord("Sample");
 

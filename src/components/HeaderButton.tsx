@@ -30,6 +30,7 @@ export default function HeaderButton({
     <PressableOpacity testID={testID} style={style} onPress={() => onPress()}>
       <StockIcon
         name={Platform.OS === "ios" ? `ios-${iconName}` : `md-${iconName}`}
+        testID={iconName}
       />
     </PressableOpacity>
   );

@@ -8,3 +8,18 @@ jest.mock("react-native/Libraries/Components/Switch/Switch", () => {
   const mockComponent = require("react-native/jest/mockComponent");
   return mockComponent("react-native/Libraries/Components/Switch/Switch");
 });
+
+// TimelineRow calls useNavigation
+const mockedNavigate = jest.fn();
+
+jest.mock("@react-navigation/native", () => {
+  const actualNav = jest.requireActual("@react-navigation/native");
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: mockedNavigate,
+    }),
+  };
+});
+
+export { mockedNavigate };

@@ -23,6 +23,12 @@ const TestIds = {
     ShowAtlasRecords: "settings-screen-show-atlas-records",
     ShowOnlyAtlasRecords: "settings-screen-show-only-atlas-records",
   },
+  Icons: {
+    SampleIcon: "sample-icon",
+    SightingIcon: "sighting-icon",
+    PictureIcon: "picture-icon",
+    SnowIcon: "snow-icon",
+  },
 };
 
 export default TestIds;

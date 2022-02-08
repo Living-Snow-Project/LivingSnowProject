@@ -3,10 +3,19 @@ import { Platform, ViewPropTypes } from "react-native";
 import PropTypes from "prop-types";
 import * as Icon from "@expo/vector-icons";
 import Colors from "../constants/Colors";
-import * as Record from "../record/Record";
+import { RecordType, isSample } from "../record/Record";
+import TestIds from "../constants/TestIds";
 
-function StockIcon({ name, size, style, color }) {
-  return <Icon.Ionicons name={name} size={size} style={style} color={color} />;
+function StockIcon({ name, size, style, color, testID }) {
+  return (
+    <Icon.Ionicons
+      name={name}
+      size={size}
+      style={style}
+      color={color}
+      testID={testID}
+    />
+  );
 }
 
 StockIcon.propTypes = {
@@ -14,6 +23,7 @@ StockIcon.propTypes = {
   size: PropTypes.number,
   style: ViewPropTypes.style,
   color: PropTypes.string,
+  testID: PropTypes.string.isRequired,
 };
 
 StockIcon.defaultProps = {
@@ -22,20 +32,22 @@ StockIcon.defaultProps = {
   color: Colors.tabIconDefault,
 };
 
-function RecordIcon({ type }: { type: Record.RecordType }) {
+function RecordIcon({ type }: { type: RecordType }) {
   let name = Platform.OS === "ios" ? "ios-eye" : "md-eye";
   let color = "skyblue";
+  let testID = TestIds.Icons.SightingIcon;
 
-  if (Record.isSample(type)) {
+  if (isSample(type)) {
     name = Platform.OS === "ios" ? "ios-flask" : "md-flask";
     color = "lightcoral";
+    testID = TestIds.Icons.SampleIcon;
   }
 
-  return <StockIcon name={name} size={48} color={color} />;
+  return <StockIcon name={name} size={48} color={color} testID={testID} />;
 }
 
 RecordIcon.propTypes = {
-  type: PropTypes.oneOf(Object.values(Record.RecordType)).isRequired,
+  type: PropTypes.oneOf(Object.values(RecordType)).isRequired,
 };
 
 function PictureIcon() {
@@ -44,6 +56,7 @@ function PictureIcon() {
       name={Platform.OS === "ios" ? "ios-image" : "md-image"}
       color="green"
       size={48}
+      testID={TestIds.Icons.PictureIcon}
     />
   );
 }
@@ -53,6 +66,7 @@ function SnowIcon({ style }) {
     <StockIcon
       style={style}
       name={Platform.OS === "ios" ? "ios-snow" : "md-snow"}
+      testID={TestIds.Icons.SnowIcon}
     />
   );
 }
