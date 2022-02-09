@@ -4,9 +4,6 @@ import Navigation from "../MainTabNavigator";
 import { setAppSettings } from "../../../AppSettings";
 import { Labels } from "../../constants/Strings";
 
-// https://github.com/ptomasroos/react-native-scrollable-tab-view/issues/642
-jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
-
 describe("Navigation test suite", () => {
   test("renders first run screen", () => {
     const { toJSON } = render(<Navigation />);

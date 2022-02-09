@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`KeyboardShift test suite renders on android 1`] = `
+<View
+  style={
+    Object {
+      "height": "100%",
+      "left": 0,
+      "position": "absolute",
+      "top": 0,
+      "transform": Array [
+        Object {
+          "translateY": 0,
+        },
+      ],
+      "width": "100%",
+    }
+  }
+>
+  <TextInput
+    allowFontScaling={true}
+    rejectResponderTermination={true}
+    underlineColorAndroid="transparent"
+  />
+</View>
+`;
+
+exports[`KeyboardShift test suite renders on ios 1`] = `
+<View
+  style={
+    Object {
+      "height": "100%",
+      "left": 0,
+      "position": "absolute",
+      "top": 0,
+      "transform": Array [
+        Object {
+          "translateY": 0,
+        },
+      ],
+      "width": "100%",
+    }
+  }
+>
+  <TextInput
+    allowFontScaling={true}
+    rejectResponderTermination={true}
+    underlineColorAndroid="transparent"
+  />
+</View>
+`;

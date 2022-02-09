@@ -9,6 +9,10 @@ jest.mock("react-native/Libraries/Components/Switch/Switch", () => {
   return mockComponent("react-native/Libraries/Components/Switch/Switch");
 });
 
+// useNativeDriver for animations doesn't exist in test environment
+// https://github.com/ptomasroos/react-native-scrollable-tab-view/issues/642
+jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
+
 // TimelineRow calls useNavigation
 const mockedNavigate = jest.fn();
 
