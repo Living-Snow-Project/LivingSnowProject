@@ -54,6 +54,7 @@ const getRecordTypePickerItem = (type: RecordType): RecordTypePickerItem =>
     ? RecordTypePickerItems[type]
     : { value: RecordType.Undefined, label: RecordDescription.Undefined };
 
+// TODO: name collides with global Record, rename to something like AlgaeRecord and move to types.d.ts
 type Record = {
   id: string;
   type: RecordType;

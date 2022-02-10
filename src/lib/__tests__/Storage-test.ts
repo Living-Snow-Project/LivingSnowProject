@@ -1,6 +1,5 @@
 import mockAsyncStorage from "@react-native-async-storage/async-storage/jest/async-storage-mock";
 import * as Storage from "../Storage";
-import { AppSettings } from "../../../@types/AppSettings";
 import { Record, makeExampleRecord } from "../../record/Record";
 
 const makeTestAppConfig = (): AppSettings => ({
@@ -13,7 +12,7 @@ const makeTestAppConfig = (): AppSettings => ({
 });
 
 // TODO: move to Photo type file and import
-const makeExamplePhoto = () => ({
+const makeExamplePhoto = (): Photo => ({
   id: "test photo id",
   photoStream: "file://test/filepath",
 });

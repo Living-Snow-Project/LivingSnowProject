@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Logger from "./Logger";
-import { AppSettings } from "../../@types/AppSettings";
 import { Record } from "../record/Record";
 
 const StorageKeys = {
@@ -74,12 +73,6 @@ async function saveRecord(record: Record): Promise<void | Error> {
   records.push(record);
   return saveRecords(records);
 }
-
-// TODO: move this to a Photo type (like Record)
-type Photo = {
-  id: string;
-  photoStream: string;
-};
 
 // Photo Storage APIs
 async function loadPhotos(): Promise<Photo[]> {
