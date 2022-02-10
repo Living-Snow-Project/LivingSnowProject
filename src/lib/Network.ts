@@ -56,7 +56,7 @@ class Network {
       .catch((error) => failedFetch(operation, error));
   }
 
-  // photoStream = {uri, width, height}
+  // photoStream = uri\filepath
   // returns a resolved Promise<void> on success
   static async uploadPhoto({ id, photoStream }) {
     const operation = `uploadPhoto`;

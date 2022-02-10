@@ -8,6 +8,7 @@ module.exports = {
   collectCoverageFrom: [
     "**/*.{js,jsx,ts,tsx}",
     "!**/src/navigation/Routes.ts",
+    "!**/@types/AppSettings.ts",
     "!**/coverage/**",
     "!**/expo-images-picker/**",
     "!**/node_modules/**",

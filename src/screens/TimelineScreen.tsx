@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { RefreshControl, ScrollView, Text, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
-import Storage from "../lib/Storage";
+import { loadRecords } from "../lib/Storage";
 import { Network } from "../lib/Network";
 import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
@@ -40,9 +40,10 @@ export default function TimelineScreen({ navigation }) {
   const displaySavedRecords = () => {
     // records.photoUris is saved on disk as array of {uri, width, height} but RecordDetailsScreen expects `uri;uri;...` string format
     // BUGBUG: can downloaded and saved records have consistent structure?
-    Storage.loadRecords().then((records) => {
+    loadRecords().then((records) => {
       records.forEach((record, index) => {
         /* eslint-disable no-param-reassign */
+        // @ts-ignore (see BUGBUG above)
         records[index].photoUris = record.photoUris.reduce(
           (accumulator, photo) => `${accumulator}${photo.uri};`,
           ``

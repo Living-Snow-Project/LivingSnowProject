@@ -8,7 +8,7 @@ import {
 } from "../../navigation/MainTabNavigator";
 import RecordManager from "../../lib/RecordManager";
 import { makeExampleRecord } from "../../record/Record";
-import Storage from "../../lib/Storage";
+import * as Storage from "../../lib/Storage";
 import { Network } from "../../lib/Network";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
@@ -131,8 +131,10 @@ describe("TimelineScreen test suite", () => {
 
   test("pending records", async () => {
     const retryRecordsSpy = setupDownloadFailed();
-    const actualLoadRecords = Storage.loadRecords;
-    Storage.loadRecords = () => Promise.resolve([makePendingTestRecord()]);
+    jest
+      .spyOn(Storage, "loadRecords")
+      // @ts-ignore BUGBUG need to unify Record
+      .mockImplementationOnce(() => Promise.resolve([makePendingTestRecord()]));
 
     const { getByTestId, getByText } = render(
       <TimelineScreen navigation={navigation} />
@@ -141,8 +143,6 @@ describe("TimelineScreen test suite", () => {
     await waitFor(() => getByTestId(sharedTestRecordProps.id));
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
-
-    Storage.loadRecords = actualLoadRecords;
   });
 
   test.todo("non-atlas and atlas records are displayed");

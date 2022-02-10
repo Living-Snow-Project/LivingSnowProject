@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as React from "react";
-import Storage from "../lib/Storage";
+import { loadAppConfig } from "../lib/Storage";
 import Logger from "../lib/Logger";
 import { DefaultAppSettings, setAppSettings } from "../../AppSettings";
 
@@ -16,7 +16,7 @@ export default function useCachedResources() {
     async function loadResourcesAndDataAsync() {
       try {
         // load app config
-        const appSettings = await Storage.loadAppConfig();
+        const appSettings = await loadAppConfig();
         setAppSettings(appSettings === null ? DefaultAppSettings : appSettings);
 
         await SplashScreen.preventAutoHideAsync();

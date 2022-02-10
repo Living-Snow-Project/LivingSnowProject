@@ -1,4 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Logger from "./Logger";
+import { AppSettings } from "../../@types/AppSettings";
+import { Record } from "../record/Record";
 
 const StorageKeys = {
   appConfig: "appConfig",
@@ -6,73 +9,128 @@ const StorageKeys = {
   photos: "photos",
 };
 
-class Storage {
-  // AppConfig Storage APIs
-  static async loadAppConfig() {
-    return AsyncStorage.getItem(StorageKeys.appConfig).then((value) =>
-      value ? JSON.parse(value) : null
-    );
-  }
-
-  static saveAppConfig(appSettings) {
-    AsyncStorage.setItem(StorageKeys.appConfig, JSON.stringify(appSettings));
-  }
-
-  // Record Storage APIs
-  static async loadRecords() {
-    return AsyncStorage.getItem(StorageKeys.records)
-      .then((value) => (value ? JSON.parse(value) : []))
-      .catch((error) => error);
-  }
-
-  static async saveRecords(records) {
-    if (records) {
-      await AsyncStorage.setItem(StorageKeys.records, JSON.stringify(records));
-    }
-  }
-
-  static async clearRecords() {
-    await AsyncStorage.removeItem(StorageKeys.records);
-  }
-
-  static async saveRecord(record) {
-    if (!record) {
-      return;
-    }
-
-    // check for other pending records
-    const records = await Storage.loadRecords();
-    records.push(record);
-    await Storage.saveRecords(records);
-  }
-
-  // Photo Storage APIs
-  static async loadPhotos() {
-    return AsyncStorage.getItem(StorageKeys.photos)
-      .then((value) => (value ? JSON.parse(value) : []))
-      .catch((error) => error);
-  }
-
-  static async savePhotos(photos) {
-    if (photos) {
-      await AsyncStorage.setItem(StorageKeys.photos, JSON.stringify(photos));
-    }
-  }
-
-  static async clearPhotos() {
-    await AsyncStorage.removeItem(StorageKeys.photos);
-  }
-
-  static async savePhoto(photo) {
-    if (!photo) {
-      return;
-    }
-
-    // check for other pending photos
-    const photos = await Storage.loadPhotos();
-    photos.push(photo);
-    await Storage.savePhotos(photos);
-  }
+// AppConfig Storage APIs
+async function loadAppConfig(): Promise<AppSettings | null> {
+  return AsyncStorage.getItem(StorageKeys.appConfig)
+    .then((value) => (value ? JSON.parse(value) : null))
+    .catch((error) => {
+      Logger.Error(`loadAppConfig: ${error}`);
+      return null;
+    });
 }
 
-export default Storage;
+async function saveAppConfig(appSettings: AppSettings): Promise<void | Error> {
+  if (!appSettings) {
+    return Promise.resolve();
+  }
+
+  return AsyncStorage.setItem(
+    StorageKeys.appConfig,
+    JSON.stringify(appSettings)
+  ).catch((error) => {
+    Logger.Error(`saveAppConfig: ${error}`);
+    return error;
+  });
+}
+
+// Record Storage APIs
+async function loadRecords(): Promise<Record[]> {
+  return AsyncStorage.getItem(StorageKeys.records)
+    .then((value) => (value ? JSON.parse(value) : []))
+    .catch((error) => {
+      Logger.Error(`loadRecords: ${error}`);
+      return [];
+    });
+}
+
+async function saveRecords(records: Record[]): Promise<void | Error> {
+  if (!records) {
+    return Promise.resolve();
+  }
+
+  return AsyncStorage.setItem(
+    StorageKeys.records,
+    JSON.stringify(records)
+  ).catch((error) => {
+    Logger.Error(`saveRecords: ${error}`);
+    return error;
+  });
+}
+
+async function clearRecords(): Promise<void | Error> {
+  return AsyncStorage.removeItem(StorageKeys.records).catch((error) => {
+    Logger.Error(`clearRecords: ${error}`);
+    return error;
+  });
+}
+
+async function saveRecord(record: Record): Promise<void | Error> {
+  if (!record) {
+    return Promise.resolve();
+  }
+
+  // check for other pending records
+  const records = await loadRecords();
+  records.push(record);
+  return saveRecords(records);
+}
+
+// TODO: move this to a Photo type (like Record)
+type Photo = {
+  id: string;
+  photoStream: string;
+};
+
+// Photo Storage APIs
+async function loadPhotos(): Promise<Photo[]> {
+  return AsyncStorage.getItem(StorageKeys.photos)
+    .then((value) => (value ? JSON.parse(value) : []))
+    .catch((error) => {
+      Logger.Error(`${error}`);
+      return [];
+    });
+}
+
+async function savePhotos(photos: Photo[]): Promise<void | Error> {
+  if (!photos) {
+    return Promise.resolve();
+  }
+
+  return AsyncStorage.setItem(StorageKeys.photos, JSON.stringify(photos)).catch(
+    (error) => {
+      Logger.Error(`${error}`);
+      return error;
+    }
+  );
+}
+
+async function clearPhotos(): Promise<void | Error> {
+  return AsyncStorage.removeItem(StorageKeys.photos).catch((error) => {
+    Logger.Error(`${error}`);
+    return error;
+  });
+}
+
+async function savePhoto(photo: Photo): Promise<void | Error> {
+  if (!photo) {
+    return Promise.resolve();
+  }
+
+  // check for other pending photos
+  const photos = await loadPhotos();
+  photos.push(photo);
+  return savePhotos(photos);
+}
+
+export {
+  loadAppConfig,
+  saveAppConfig,
+  loadRecords,
+  saveRecords,
+  saveRecord,
+  clearRecords,
+  loadPhotos,
+  savePhotos,
+  clearPhotos,
+  savePhoto,
+};

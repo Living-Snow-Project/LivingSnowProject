@@ -1,13 +1,5 @@
-import Storage from "./src/lib/Storage";
-
-type AppSettings = {
-  name: string | undefined;
-  organization: string | undefined;
-  showFirstRun: boolean;
-  showGpsWarning: boolean;
-  showAtlasRecords: boolean;
-  showOnlyAtlasRecords: boolean;
-};
+import { saveAppConfig } from "./src/lib/Storage";
+import { AppSettings } from "./@types/AppSettings";
 
 const DefaultAppSettings: AppSettings = {
   name: undefined,
@@ -33,7 +25,7 @@ function setAppSettings(
     appSettingsContext = param;
   }
 
-  Storage.saveAppConfig(appSettingsContext);
+  saveAppConfig(appSettingsContext);
 }
 
 export { AppSettings, DefaultAppSettings, getAppSettings, setAppSettings };

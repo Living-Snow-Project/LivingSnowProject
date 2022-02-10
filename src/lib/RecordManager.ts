@@ -1,5 +1,12 @@
 import { Network } from "./Network";
-import Storage from "./Storage";
+import {
+  loadRecords,
+  saveRecord,
+  clearRecords,
+  loadPhotos,
+  savePhoto,
+  clearPhotos,
+} from "./Storage";
 import Logger from "./Logger";
 
 class RecordManager {
@@ -14,8 +21,8 @@ class RecordManager {
               promise.then(() => {
                 const photo = { id: response.id, photoStream: uri };
                 return Network.uploadPhoto(photo).catch(async (error) => {
-                  Logger.Warn(JSON.stringify(error));
-                  await Storage.savePhoto(photo);
+                  Logger.Warn(`${error}`);
+                  await savePhoto(photo);
                 });
               }),
             Promise.resolve()
@@ -23,22 +30,22 @@ class RecordManager {
           .then(() => Promise.resolve())
       )
       .catch(async (error) => {
-        Logger.Warn(JSON.stringify(error));
+        Logger.Warn(`${error}`);
         localRecord.id = record.id;
         localRecord.photoUris = photoUris;
-        await Storage.saveRecord(localRecord);
+        await saveRecord(localRecord);
         return Promise.reject(error);
       });
   }
 
   // uploads records that were saved while user was offline
   static async retryRecords() {
-    return Storage.loadRecords().then(async (records) => {
+    return loadRecords().then(async (records) => {
       if (!records) {
         return;
       }
 
-      await Storage.clearRecords();
+      await clearRecords();
 
       records
         .reduce(
@@ -46,48 +53,42 @@ class RecordManager {
             promise.then(() => {
               const photoUris = record?.photoUris;
               /* eslint-disable no-param-reassign */
-              record.photoUris = null;
+              record.photoUris = undefined;
 
               return RecordManager.uploadRecord(record, photoUris).catch(
                 (error) =>
                   Logger.Warn(
-                    `continue records reducer to prevent data loss: ${JSON.stringify(
-                      error
-                    )}`
+                    `continue records reducer to prevent data loss: ${error}`
                   )
               );
             }),
           Promise.resolve()
         )
-        .catch((error) =>
-          Logger.Error(`error in record reducer: ${JSON.stringify(error)}`)
-        );
+        .catch((error) => Logger.Error(`error in record reducer: ${error}`));
     });
   }
 
   // uploads photos that were saved while user was offline
   static async retryPhotos() {
-    return Storage.loadPhotos().then(async (photos) => {
+    return loadPhotos().then(async (photos) => {
       if (!photos) {
         return;
       }
 
-      await Storage.clearPhotos();
+      await clearPhotos();
 
       photos
         .reduce(
           (promise, photo) =>
             promise.then(() =>
-              Network.uploadPhoto(photo).catch((error) => {
-                Logger.Warn(JSON.stringify(error));
-                Storage.savePhoto(photo);
+              Network.uploadPhoto(photo).catch(async (error) => {
+                Logger.Warn(`${error}`);
+                await savePhoto(photo);
               })
             ),
           Promise.resolve()
         )
-        .catch((error) =>
-          Logger.Error(`error in photo reducer: ${JSON.stringify(error)}`)
-        );
+        .catch((error) => Logger.Error(`error in photo reducer: ${error}`));
     });
   }
 }
