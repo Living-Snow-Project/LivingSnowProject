@@ -9,6 +9,7 @@ module.exports = {
     "**/*.{js,jsx,ts,tsx}",
     "!**/src/navigation/Routes.ts",
     "!**/@types/AppSettings.ts",
+    "!**/src/lib/Logger.ts",
     "!**/coverage/**",
     "!**/expo-images-picker/**",
     "!**/node_modules/**",
