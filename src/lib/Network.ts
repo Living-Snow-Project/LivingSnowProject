@@ -1,4 +1,3 @@
-/* global fetch */
 import Logger from "./Logger";
 import serviceEndpoint from "../constants/Service";
 import { Record } from "../record/Record";
