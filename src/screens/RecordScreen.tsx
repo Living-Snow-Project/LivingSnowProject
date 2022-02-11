@@ -41,7 +41,7 @@ export default function RecordScreen({ navigation }) {
 
   // data collected and sent to the service
   const [state, setState] = useState<Record>({
-    id: `0`,
+    id: 0,
     name: appSettings.name ? appSettings.name : "Anonymous",
     organization: !appSettings.organization
       ? undefined

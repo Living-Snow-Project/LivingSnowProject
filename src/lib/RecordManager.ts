@@ -1,4 +1,4 @@
-import { Network } from "./Network";
+import { uploadRecord, uploadPhoto } from "./Network";
 import {
   loadRecords,
   saveRecord,
@@ -13,14 +13,14 @@ class RecordManager {
   static async uploadRecord(record, photoUris) {
     const localRecord = JSON.parse(JSON.stringify(record));
     localRecord.id = 0;
-    return Network.uploadRecord(localRecord)
+    return uploadRecord(localRecord)
       .then((response) =>
         photoUris
           .reduce(
             (promise, uri) =>
               promise.then(() => {
                 const photo = { id: response.id, photoStream: uri };
-                return Network.uploadPhoto(photo).catch(async (error) => {
+                return uploadPhoto(photo).catch(async (error) => {
                   Logger.Warn(`${error}`);
                   await savePhoto(photo);
                 });
@@ -81,7 +81,7 @@ class RecordManager {
         .reduce(
           (promise, photo) =>
             promise.then(() =>
-              Network.uploadPhoto(photo).catch(async (error) => {
+              uploadPhoto(photo).catch(async (error) => {
                 Logger.Warn(`${error}`);
                 await savePhoto(photo);
               })

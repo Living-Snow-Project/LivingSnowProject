@@ -11,6 +11,6 @@ type AppSettings = {
 
 // TODO: this will need to change to {id, {uri, height, width}}
 type Photo = {
-  id: string;
+  id: number;
   photoStream: string;
 };

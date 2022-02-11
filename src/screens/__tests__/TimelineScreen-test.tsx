@@ -9,7 +9,7 @@ import {
 import RecordManager from "../../lib/RecordManager";
 import { makeExampleRecord } from "../../record/Record";
 import * as Storage from "../../lib/Storage";
-import { Network } from "../../lib/Network";
+import * as Network from "../../lib/Network";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 import { setAppSettings } from "../../../AppSettings";
@@ -106,7 +106,7 @@ describe("TimelineScreen test suite", () => {
       <TimelineScreen navigation={navigation} />
     );
 
-    await waitFor(() => getByTestId(downloadedTestRecord.id));
+    await waitFor(() => getByTestId(downloadedTestRecord.id.toString()));
 
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(retryPhotosSpy).toBeCalledTimes(1);
@@ -140,7 +140,7 @@ describe("TimelineScreen test suite", () => {
       <TimelineScreen navigation={navigation} />
     );
 
-    await waitFor(() => getByTestId(sharedTestRecordProps.id));
+    await waitFor(() => getByTestId(sharedTestRecordProps.id.toString()));
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
   });
@@ -186,7 +186,7 @@ describe("TimelineScreen test suite", () => {
       <TimelineScreen navigation={navigation} />
     );
 
-    await waitFor(() => getByTestId(downloadedTestRecord.id));
+    await waitFor(() => getByTestId(downloadedTestRecord.id.toString()));
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
     await act(async () =>
@@ -249,9 +249,9 @@ describe("TimelineScreen test suite", () => {
 
     const { getByTestId } = render(<TimelineScreen navigation={navigation} />);
 
-    await waitFor(() => getByTestId(downloadedTestRecord.id));
+    await waitFor(() => getByTestId(downloadedTestRecord.id.toString()));
 
-    fireEvent.press(getByTestId(downloadedTestRecord.id));
+    fireEvent.press(getByTestId(downloadedTestRecord.id.toString()));
 
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(retryPhotosSpy).toBeCalledTimes(1);

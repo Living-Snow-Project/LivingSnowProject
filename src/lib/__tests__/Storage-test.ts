@@ -13,7 +13,7 @@ const makeTestAppConfig = (): AppSettings => ({
 
 // TODO: move to Photo type file and import
 const makeExamplePhoto = (): Photo => ({
-  id: "test photo id",
+  id: 987,
   photoStream: "file://test/filepath",
 });
 
@@ -166,7 +166,7 @@ describe("Storage test suite", () => {
     expect(received[0]).toEqual(expected);
   });
 
-  test("saveRecord with emptry record doesn't change existing records", async () => {
+  test("saveRecord with empty record doesn't change existing records", async () => {
     const expected = makeExampleRecord("Sample");
 
     // @ts-ignore

@@ -1,12 +1,14 @@
 /* global fetch */
 import Logger from "./Logger";
 import serviceEndpoint from "../constants/Service";
+import { Record } from "../record/Record";
 
-const recordsUri = `${serviceEndpoint}/api/records/`;
-const uploadPhotoUri = (id) => `${recordsUri}${id}/photo`;
-const downloadPhotoUri = (id) => `${serviceEndpoint}/api/photos/${id}`;
+const recordsUri: string = `${serviceEndpoint}/api/records/`;
+const uploadPhotoUri = (id: number): string => `${recordsUri}${id}/photo`;
+const downloadPhotoUri = (id: number): string =>
+  `${serviceEndpoint}/api/photos/${id}`;
 
-function dumpRecord(record) {
+function dumpRecord(record: Record): void {
   Logger.Info(
     `Handling POST Request: ${serviceEndpoint}/api/records` +
       `\n  Type: ${record.type}` +
@@ -23,69 +25,64 @@ function dumpRecord(record) {
   );
 }
 
-function failedFetch(operation, response) {
+function failedFetch(operation: string, response: Response): Promise<void> {
   const messagePrefix = `Failed to ${operation}.`;
 
   if (response?.status) {
-    const error = `${messagePrefix} ${response.status}: ${response.statusText}`;
+    const error: string = `${messagePrefix} ${response.status}: ${response.statusText}`;
     Logger.Error(error);
     return Promise.reject(error);
   }
 
-  Logger.Error(`${messagePrefix}: ${JSON.stringify(response)}`);
+  Logger.Error(`${messagePrefix}: ${response}`);
   return Promise.reject(response);
 }
 
-class Network {
-  // returns a resolved Promise<record> on success
-  static async uploadRecord(record) {
-    const operation = `uploadRecord`;
-    dumpRecord(record);
+async function uploadRecord(record: Record): Promise<Record> {
+  const operation = `uploadRecord`;
+  dumpRecord(record);
 
-    return fetch(recordsUri, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(record),
-    })
-      .then((response) =>
-        response.ok ? response.json() : failedFetch(operation, response)
-      )
-      .catch((error) => failedFetch(operation, error));
-  }
-
-  // photoStream = uri\filepath
-  // returns a resolved Promise<void> on success
-  static async uploadPhoto({ id, photoStream }) {
-    const operation = `uploadPhoto`;
-
-    return fetch(uploadPhotoUri(id), {
-      method: "POST",
-      headers: {
-        "Content-Type": "image/jpeg",
-      },
-      body: photoStream,
-    })
-      .then((response) =>
-        response.ok ? Promise.resolve() : failedFetch(operation, response)
-      )
-      .catch((error) => failedFetch(operation, error));
-  }
-
-  // returns a resolved Promise<records> on success
-  static async downloadRecords() {
-    const operation = `downloadRecords`;
-
-    Logger.Info(`Handling GET Request: ${recordsUri}`);
-
-    return fetch(recordsUri)
-      .then((response) =>
-        response.ok ? response.json() : failedFetch(operation, response)
-      )
-      .catch((error) => failedFetch(operation, error));
-  }
+  return fetch(recordsUri, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(record),
+  })
+    .then((response) =>
+      response.ok ? response.json() : failedFetch(operation, response)
+    )
+    .catch((error) => failedFetch(operation, error));
 }
 
-export { downloadPhotoUri, Network };
+async function uploadPhoto({ id, photoStream }: Photo): Promise<void> {
+  const operation = `uploadPhoto`;
+
+  return fetch(uploadPhotoUri(id), {
+    method: "POST",
+    headers: {
+      "Content-Type": "image/jpeg",
+    },
+    body: photoStream,
+  })
+    .then((response) =>
+      response.ok ? Promise.resolve() : failedFetch(operation, response)
+    )
+    .catch((error) => failedFetch(operation, error));
+}
+
+// TODO: replace any with Record[] when type alignment happens
+async function downloadRecords(): Promise<any> {
+  const operation = `downloadRecords`;
+
+  Logger.Info(`Handling GET Request: ${recordsUri}`);
+
+  return fetch(recordsUri)
+    .then((response) =>
+      response.ok ? response.json() : failedFetch(operation, response)
+    )
+    .catch((error) => failedFetch(operation, error));
+}
+
+export { downloadPhotoUri, uploadRecord, uploadPhoto, downloadRecords };

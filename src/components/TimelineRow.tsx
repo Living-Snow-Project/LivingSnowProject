@@ -86,7 +86,7 @@ export default function TimelineRow({ record }) {
   return (
     <View style={styles.recordContainer}>
       <Pressable
-        testID={record.id}
+        testID={record.id.toString()}
         onPress={() => navigate("RecordDetails", record)}
       >
         <View style={styles.recordTop}>

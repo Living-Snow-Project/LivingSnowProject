@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { RefreshControl, ScrollView, Text, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { loadRecords } from "../lib/Storage";
-import { Network } from "../lib/Network";
+import { downloadRecords } from "../lib/Network";
 import RecordManager from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import StatusBar from "../components/StatusBar";
@@ -74,7 +74,7 @@ export default function TimelineScreen({ navigation }) {
 
     RecordManager.retryRecords()
       .then(() => RecordManager.retryPhotos())
-      .then(() => Network.downloadRecords())
+      .then(() => downloadRecords())
       .then((response) => setDownloadedRecords(response))
       .catch(() =>
         Logger.Warn(`Could not download records. Please try again later.`)
