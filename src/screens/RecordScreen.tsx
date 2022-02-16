@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import KeyboardShift from "../components/KeyboardShift";
-import RecordManager from "../lib/RecordManager";
+import { uploadRecord } from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import { formInputStyles } from "../styles/FormInput";
 import HeaderButton from "../components/HeaderButton";
@@ -116,7 +116,8 @@ export default function RecordScreen({ navigation }) {
       atlasType: isAtlas(state.type) ? state.atlasType : AtlasType.Undefined,
     };
 
-    RecordManager.uploadRecord(record, photos)
+    // TODO: type alignment
+    uploadRecord(record as unknown as Record, photos)
       .then(() => {
         Alert.alert(
           Notifications.uploadSuccess.title,

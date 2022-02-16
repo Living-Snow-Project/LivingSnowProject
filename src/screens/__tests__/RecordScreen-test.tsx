@@ -11,7 +11,7 @@ import {
 import { setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
 import { Notifications, Placeholders } from "../../constants/Strings";
-import RecordManager from "../../lib/RecordManager";
+import * as RecordManager from "../../lib/RecordManager";
 
 const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
@@ -369,7 +369,7 @@ describe("RecordScreen test suite", () => {
 
       const uploadMock = jest
         .spyOn(RecordManager, "uploadRecord")
-        .mockImplementationOnce(() => Promise.resolve());
+        .mockImplementationOnce(() => Promise.resolve(""));
 
       const alertMock = jest
         .spyOn(Alert, "alert")

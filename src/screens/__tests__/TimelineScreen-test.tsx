@@ -6,7 +6,7 @@ import {
   SettingsButton,
   NewRecordButton,
 } from "../../navigation/MainTabNavigator";
-import RecordManager from "../../lib/RecordManager";
+import * as RecordManager from "../../lib/RecordManager";
 import { makeExampleRecord } from "../../record/Record";
 import * as Storage from "../../lib/Storage";
 import * as Network from "../../lib/Network";
