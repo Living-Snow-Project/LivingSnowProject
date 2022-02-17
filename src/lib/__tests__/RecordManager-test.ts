@@ -1,7 +1,6 @@
 import "isomorphic-fetch";
-import { server, rest, resetServer } from "../../mocks/server";
-import { recordsUri } from "../Network";
-import { clearRecords, clearPhotos, loadRecords } from "../Storage";
+import server from "../../mocks/server";
+import { clearRecords, clearPhotos, loadRecords, loadPhotos } from "../Storage";
 import { Record, makeExampleRecord } from "../../record/Record";
 import { uploadRecord } from "../RecordManager";
 
@@ -11,8 +10,7 @@ beforeAll(() => server.listen());
 // Reset any request handlers that we may add during the tests,
 // so they don't affect other tests.
 afterEach(async () => {
-  server.resetHandlers();
-  resetServer();
+  server.reset();
   await clearRecords();
   await clearPhotos();
 });
@@ -21,6 +19,12 @@ afterEach(async () => {
 afterAll(() => server.close());
 
 describe("RecordManager test suite", () => {
+  const examplePhoto = {
+    uri: "file:///path/to/file.jpg",
+    width: 100,
+    height: 160,
+  };
+
   test("uploadRecord succeeds", () => {
     const expected = makeExampleRecord("Sample");
 
@@ -30,19 +34,17 @@ describe("RecordManager test suite", () => {
     });
   });
 
-  test("uploadRecord succeeds with photos", () => {
+  test("uploadRecord with photos succeeds", () => {
     const expected = makeExampleRecord("Sample");
 
-    return uploadRecord(expected, [
-      { uri: "file:///path/to/file.jpg", width: 100, height: 160 },
-    ]).then((received: Record) => {
+    return uploadRecord(expected, [examplePhoto]).then((received: Record) => {
       expect(received.id).not.toEqual(expected.id);
       expect(received.type).toEqual(expected.type);
     });
   });
 
-  test("uploadRecord fails and record is saved", () => {
-    server.use(rest.post(recordsUri, (req, res, ctx) => res(ctx.status(500))));
+  test("uploadRecord fails, record is saved", () => {
+    server.postRecordInternalServerError();
 
     const expected = makeExampleRecord("Sample");
 
@@ -56,8 +58,27 @@ describe("RecordManager test suite", () => {
       );
   });
 
-  test("uploadRecord fails and record is saved with photos", () => {});
-  test("uploadRecord succeeds but uploadPhoto fails", () => {});
+  test("uploadRecord with photos, uploadRecord succeeds and uploadPhotos fails, photos are saved", () => {
+    // TODO: annotate
+    const expectedRecord = makeExampleRecord("Sample");
+    const expectedPhoto = examplePhoto;
+
+    server.postPhotoInternalServerError(server.getNextRecordId());
+
+    return uploadRecord(expectedRecord, [expectedPhoto]).then(
+      (receivedRecord: Record) => {
+        expect(receivedRecord.id).not.toEqual(expectedRecord.id);
+        expect(receivedRecord.type).toEqual(expectedRecord.type);
+
+        return loadPhotos().then((receivedPhotos) => {
+          expect(receivedPhotos[0].id).toEqual(receivedRecord.id);
+          // @ts-ignore
+          expect(receivedPhotos[0].photoStream.uri).toEqual(expectedPhoto.uri);
+        });
+      }
+    );
+  });
+
   test("multiple uploadRecord fails, records are saved", () => {});
   test("multiple uploadRecord fails, records are saved with photos", () => {});
   test("multiple uploadRecord fails, retryRecords does not delete saved records", () => {});

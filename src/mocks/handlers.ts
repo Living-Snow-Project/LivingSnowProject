@@ -4,12 +4,25 @@ import { recordsUri } from "../lib/Network";
 import serviceEndpoint from "../constants/Service";
 import { Record } from "../record/Record";
 
-let curRecordId = 0;
-let records: Array<Record> = new Array<Record>();
+type MockBackend = {
+  curRecordId: number;
+  records: Array<Record>;
+  resetBackend: () => void;
+  getNextRecordId: () => number;
+};
 
-const resetServer = () => {
-  curRecordId = 0;
-  records = new Array<Record>();
+const mockBackend: MockBackend = {
+  curRecordId: 0,
+  records: new Array<Record>(),
+
+  resetBackend() {
+    this.curRecordId = 0;
+    this.records = new Array<Record>();
+  },
+
+  getNextRecordId() {
+    return this.curRecordId + 1;
+  },
 };
 
 const handlers = [
@@ -17,9 +30,9 @@ const handlers = [
   rest.post(recordsUri, (req, res, ctx) => {
     if (typeof req.body === "object" && req.body !== null) {
       const { body } = req;
-      curRecordId += 1;
-      body.id = curRecordId;
-      records.push(body as Record);
+      mockBackend.curRecordId += 1;
+      body.id = mockBackend.curRecordId;
+      mockBackend.records.push(body as Record);
       return res(ctx.status(200), ctx.json(body));
     }
 
@@ -28,8 +41,8 @@ const handlers = [
 
   // Handles a GET /api/records request
   rest.get(recordsUri, (req, res, ctx) => {
-    if (records.length > 0) {
-      return res(ctx.status(200), ctx.json(records));
+    if (mockBackend.records.length > 0) {
+      return res(ctx.status(200), ctx.json(mockBackend.records));
     }
 
     return res(ctx.status(404));
@@ -42,4 +55,4 @@ const handlers = [
   ),
 ];
 
-export { handlers, resetServer };
+export { handlers, mockBackend };

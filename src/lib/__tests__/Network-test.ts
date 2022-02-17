@@ -1,12 +1,6 @@
-import { server, rest, resetServer } from "../../mocks/server";
 import "isomorphic-fetch";
-import {
-  downloadRecords,
-  uploadRecord,
-  uploadPhoto,
-  uploadPhotoUri,
-  recordsUri,
-} from "../Network";
+import server from "../../mocks/server";
+import { downloadRecords, uploadRecord, uploadPhoto } from "../Network";
 import { makeExampleRecord } from "../../record/Record";
 
 // Establish API mocking before all tests.
@@ -15,19 +9,18 @@ beforeAll(() => server.listen());
 // Reset any request handlers that we may add during the tests,
 // so they don't affect other tests.
 afterEach(() => {
-  server.resetHandlers();
-  resetServer();
+  server.reset();
 });
 
 // Clean up after the tests are finished.
 afterAll(() => server.close());
 
 describe("Network test suite", () => {
-  const internalServerError = "500: Internal Server Error";
-  const networkError = "totally crazy random error";
   const uploadRecordsFailureMsg = "uploadRecord was expected to fail";
   const downloadRecordsFailureMsg = "downloadRecords was expected to fail";
   const uploadPhotoFailureMsg = "uploadPhoto was expected to fail";
+  // TODO: makeExamplePhoto
+  const examplePhoto: Photo = { id: 0, photoStream: "" };
 
   test("upload record succeeds", async () => {
     const expected = makeExampleRecord("Sample");
@@ -43,7 +36,7 @@ describe("Network test suite", () => {
   });
 
   test("upload record fails, service error", () => {
-    server.use(rest.post(recordsUri, (req, res, ctx) => res(ctx.status(500))));
+    const internalServerError = server.postRecordInternalServerError();
     const record = makeExampleRecord("Sample");
 
     return (
@@ -55,9 +48,7 @@ describe("Network test suite", () => {
   });
 
   test("upload record fails, network error", () => {
-    server.use(
-      rest.post(recordsUri, (req, res) => res.networkError(networkError))
-    );
+    const networkError = server.postRecordNetworkError();
     const record = makeExampleRecord("Sample");
 
     return (
@@ -88,7 +79,7 @@ describe("Network test suite", () => {
   });
 
   test("download record fails, service error", () => {
-    server.use(rest.get(recordsUri, (req, res, ctx) => res(ctx.status(500))));
+    const internalServerError = server.getRecordsInternalServerError();
 
     return downloadRecords()
       .then(() => fail(downloadRecordsFailureMsg))
@@ -96,9 +87,7 @@ describe("Network test suite", () => {
   });
 
   test("download record fails, network error", () => {
-    server.use(
-      rest.get(recordsUri, (req, res) => res.networkError(networkError))
-    );
+    const networkError = server.getRecordsNetworkError();
 
     return downloadRecords()
       .then(() => fail(downloadRecordsFailureMsg))
@@ -106,25 +95,21 @@ describe("Network test suite", () => {
   });
 
   test("upload photo succeeds", async () => {
-    await uploadPhoto({ id: 100, photoStream: "file://stream" });
+    await uploadPhoto(examplePhoto);
   });
 
   test("upload photo fails, service error", () => {
-    server.use(
-      rest.post(uploadPhotoUri(0), (req, res, ctx) => res(ctx.status(500)))
-    );
+    const internalServerError = server.postPhotoInternalServerError(0);
 
-    return uploadPhoto({ id: 0, photoStream: "" })
+    return uploadPhoto(examplePhoto)
       .then(() => fail(uploadPhotoFailureMsg))
       .catch((error) => expect(error).toContain(internalServerError));
   });
 
   test("upload photo fails, network error", () => {
-    server.use(
-      rest.post(uploadPhotoUri(0), (req, res) => res.networkError(networkError))
-    );
+    const networkError = server.postPhotoNetworkError(0);
 
-    return uploadPhoto({ id: 0, photoStream: "" })
+    return uploadPhoto(examplePhoto)
       .then(() => fail(uploadPhotoFailureMsg))
       .catch((error) => expect(error).toContain(networkError));
   });
