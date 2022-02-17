@@ -99,7 +99,7 @@ describe("Network test suite", () => {
   });
 
   test("upload photo fails, service error", () => {
-    const internalServerError = server.postPhotoInternalServerError(0);
+    const internalServerError = server.postPhotoInternalServerError();
 
     return uploadPhoto(examplePhoto)
       .then(() => fail(uploadPhotoFailureMsg))
@@ -107,7 +107,7 @@ describe("Network test suite", () => {
   });
 
   test("upload photo fails, network error", () => {
-    const networkError = server.postPhotoNetworkError(0);
+    const networkError = server.postPhotoNetworkError();
 
     return uploadPhoto(examplePhoto)
       .then(() => fail(uploadPhotoFailureMsg))

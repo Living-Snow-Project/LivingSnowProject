@@ -51,10 +51,6 @@ const setupDownloadSuccess = () => {
     .spyOn(RecordManager, "retryRecords")
     .mockImplementationOnce(() => Promise.resolve());
 
-  const retryPhotosSpy = jest
-    .spyOn(RecordManager, "retryPhotos")
-    .mockImplementationOnce(() => Promise.resolve());
-
   const downloadRecordsSpy = jest
     .spyOn(Network, "downloadRecords")
     .mockImplementationOnce(() =>
@@ -65,7 +61,6 @@ const setupDownloadSuccess = () => {
 
   return {
     retryRecordsSpy,
-    retryPhotosSpy,
     downloadRecordsSpy,
   };
 };
@@ -91,8 +86,7 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("download records succeeds", async () => {
-    const { retryRecordsSpy, retryPhotosSpy, downloadRecordsSpy } =
-      setupDownloadSuccess();
+    const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
 
     // TODO: isolate to different test case, exists here now for code coverage reasons
     // ie. this assertion is "buried" and not easily discoverable
@@ -109,7 +103,6 @@ describe("TimelineScreen test suite", () => {
     await waitFor(() => getByTestId(downloadedTestRecord.id.toString()));
 
     expect(retryRecordsSpy).toBeCalledTimes(1);
-    expect(retryPhotosSpy).toBeCalledTimes(1);
     expect(downloadRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
@@ -244,8 +237,7 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("navigate to record details screen", async () => {
-    const { retryRecordsSpy, retryPhotosSpy, downloadRecordsSpy } =
-      setupDownloadSuccess();
+    const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
 
     const { getByTestId } = render(<TimelineScreen navigation={navigation} />);
 
@@ -254,7 +246,6 @@ describe("TimelineScreen test suite", () => {
     fireEvent.press(getByTestId(downloadedTestRecord.id.toString()));
 
     expect(retryRecordsSpy).toBeCalledTimes(1);
-    expect(retryPhotosSpy).toBeCalledTimes(1);
     expect(downloadRecordsSpy).toBeCalledTimes(1);
     expect(mockedNavigate).toBeCalledWith(
       "RecordDetails",

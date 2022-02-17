@@ -13,6 +13,7 @@ import Logger from "./Logger";
 // TODO: type alignment
 // photos[] = {uri: string; width: number; height: number}
 async function uploadRecord(record, photos): Promise<Record | string> {
+  let uploadPhotoError;
   const localRecord = JSON.parse(JSON.stringify(record));
   localRecord.id = 0;
   return Network.uploadRecord(localRecord)
@@ -25,6 +26,7 @@ async function uploadRecord(record, photos): Promise<Record | string> {
               const wrappedPhoto = { id: response.id, photoStream: photo };
               return Network.uploadPhoto(wrappedPhoto).catch(async (error) => {
                 Logger.Warn(`${error}`);
+                uploadPhotoError = error;
                 await savePhoto(wrappedPhoto);
               });
             }),
@@ -38,60 +40,65 @@ async function uploadRecord(record, photos): Promise<Record | string> {
       localRecord.photoUris = photos;
       await saveRecord(localRecord);
       return Promise.reject(error);
-    });
-}
-
-// uploads records that were saved while user was offline
-async function retryRecords(): Promise<void> {
-  return loadRecords().then(async (records) => {
-    if (!records) {
-      return;
-    }
-
-    await clearRecords();
-
-    records
-      .reduce(
-        (promise, record) =>
-          promise.then(() => {
-            const { photoUris } = record;
-            /* eslint-disable no-param-reassign */
-            record.photoUris = undefined;
-
-            return uploadRecord(record, photoUris).catch((error) =>
-              Logger.Warn(
-                `continue records reducer to prevent data loss: ${error}`
-              )
-            );
-          }),
-        Promise.resolve()
-      )
-      .catch((error) => Logger.Error(`error in record reducer: ${error}`));
-  });
+    })
+    .finally(() =>
+      !uploadPhotoError ? Promise.resolve() : Promise.reject(uploadPhotoError)
+    );
 }
 
 // uploads photos that were saved while user was offline
-async function retryPhotos(): Promise<void> {
+async function retryPhotos(): Promise<string | void> {
   return loadPhotos().then(async (photos) => {
-    if (!photos) {
-      return;
+    if (photos.length === 0) {
+      return Promise.resolve();
     }
 
     await clearPhotos();
 
-    photos
-      .reduce(
-        (promise, photo) =>
-          promise.then(() =>
-            Network.uploadPhoto(photo).catch(async (error) => {
-              Logger.Warn(`${error}`);
-              await savePhoto(photo);
-            })
-          ),
-        Promise.resolve()
-      )
-      .catch((error) => Logger.Error(`error in photo reducer: ${error}`));
+    return photos.reduce(
+      (promise, photo) =>
+        promise
+          .then(() => Network.uploadPhoto(photo))
+          .catch(async (error) => {
+            Logger.Warn(
+              `Network.uploadPhoto rejected: continue photo reducer to prevent data loss: ${error}`
+            );
+            await savePhoto(photo);
+          }),
+      Promise.resolve()
+    );
   });
 }
 
-export { uploadRecord, retryRecords, retryPhotos };
+// uploads records that were saved while user was offline
+async function retryRecords(): Promise<void | string | Record> {
+  return loadRecords()
+    .then(async (records) => {
+      if (records.length === 0) {
+        return Promise.resolve();
+      }
+
+      await clearRecords();
+
+      return records.reduce(
+        (promise, record) =>
+          promise
+            .then(() => {
+              const { photoUris } = record;
+              /* eslint-disable no-param-reassign */
+              record.photoUris = undefined;
+
+              return uploadRecord(record, photoUris);
+            })
+            .catch((error) =>
+              Logger.Warn(
+                `uploadRecord rejected: continue records reducer to prevent data loss: ${error}`
+              )
+            ),
+        Promise.resolve()
+      );
+    })
+    .then(() => retryPhotos());
+}
+
+export { uploadRecord, retryRecords };

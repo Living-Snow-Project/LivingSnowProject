@@ -3,7 +3,7 @@ import { RefreshControl, ScrollView, Text, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { loadRecords } from "../lib/Storage";
 import { downloadRecords } from "../lib/Network";
-import { retryRecords, retryPhotos } from "../lib/RecordManager";
+import { retryRecords } from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import StatusBar from "../components/StatusBar";
 import { Record, isAtlas } from "../record/Record";
@@ -73,7 +73,6 @@ export default function TimelineScreen({ navigation }) {
     }
 
     retryRecords()
-      .then(() => retryPhotos())
       .then(() => downloadRecords())
       .then((response) => setDownloadedRecords(response))
       .catch(() =>

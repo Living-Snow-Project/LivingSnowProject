@@ -7,21 +7,20 @@ import { Record } from "../record/Record";
 type MockBackend = {
   curRecordId: number;
   records: Array<Record>;
+  recordsUri: string;
+  photosUri: string;
   resetBackend: () => void;
-  getNextRecordId: () => number;
 };
 
 const mockBackend: MockBackend = {
   curRecordId: 0,
   records: new Array<Record>(),
+  recordsUri,
+  photosUri: `${serviceEndpoint}/api/records/:recordId/photo`,
 
   resetBackend() {
     this.curRecordId = 0;
     this.records = new Array<Record>();
-  },
-
-  getNextRecordId() {
-    return this.curRecordId + 1;
   },
 };
 
@@ -50,9 +49,7 @@ const handlers = [
 
   // Handles a POST /api/records/{recordId}/photo request
   // TODO: will likely implement more here once downloadPhoto is supported
-  rest.post(`${serviceEndpoint}/api/records/:recordId/photo`, (req, res, ctx) =>
-    res(ctx.status(200))
-  ),
+  rest.post(mockBackend.photosUri, (req, res, ctx) => res(ctx.status(200))),
 ];
 
 export { handlers, mockBackend };
