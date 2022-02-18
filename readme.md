@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/Living-Snow-Project/LivingSnowProject/branch/main/graph/badge.svg?token=QN8TPG4Q8U)](https://codecov.io/gh/Living-Snow-Project/LivingSnowProject)
+
 The app is written in React-Native then built and tested through Expo using its 'managed workflow'.
 
 Getting started:
