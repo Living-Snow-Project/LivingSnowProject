@@ -36,8 +36,4 @@ jobs:
       - run: yarn test
       # upload coverage to codecov
       - uses: codecov/codecov-action@v2
-  coverage:
-    status:
-      project:
-        default:
-          threshold: 1%
+      
