@@ -20,3 +20,8 @@ type NativePhoto = {
   width: number;
   height: number;
 };
+
+type TestPullRequestType = {
+  test: string;
+  reason: number;
+};
