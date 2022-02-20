@@ -1,16 +1,19 @@
 [![build](https://img.shields.io/github/workflow/status/Living-Snow-Project/LivingSnowProject/validate?logo=github&style=flat-square)](https://github.com/Living-Snow-Project/LivingSnowProject/actions?query=workflow%3Avalidate)
 [![coverage](https://img.shields.io/codecov/c/gh/Living-Snow-Project/LivingSnowProject?style=flat-square)](https://codecov.io/gh/Living-Snow-Project/LivingSnowProject)
 
-https://img.shields.io/codecov/c/:vcsName/:user/:repo?flag=flag_name&token=a1b2c3d4e5
-The app is written in React-Native then built and tested through Expo using its 'managed workflow'.
+Living Snow Project is a Citizen\Community Scientist project that studies snow algae. That's right, algae grows on snow (and ice) too! The purpose of this app is to assist the research team with data collection. More info [here](https://wp.wwu.edu/livingsnowproject/).
 
-Getting started:
+The app is written in React Native and Expo using their 'managed' workflow.
 
-1. Follow the Requirements and Recommended instructions here: https://docs.expo.io/get-started/installation/
-2. Don't install Expo CLI with npm - use yarn (yarn global add expo-cli)
-3. Create a project folder and clone the repo to it
-4. run 'yarn start' and make sure the Expo Client app is on your mobile device
+## After cloning the repo, run:
 
-See the Issues tab for contribution ideas and feel free to add your own.
+1. git submodule update --init --recursive
+2. yarn install
+3. yarn global add expo-cli
+4. yarn start
 
-Thanks for considering to contribute.
+## Before submitting pull requests, run:
+
+1. yarn precheck
+
+### Thanks for considering to contribute.
