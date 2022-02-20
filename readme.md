@@ -1,5 +1,7 @@
-[![codecov](https://codecov.io/gh/Living-Snow-Project/LivingSnowProject/branch/main/graph/badge.svg?token=QN8TPG4Q8U)](https://codecov.io/gh/Living-Snow-Project/LivingSnowProject)
+[![build](https://img.shields.io/github/workflow/status/Living-Snow-Project/LivingSnowProject/validate?logo=github&style=flat-square)](https://github.com/Living-Snow-Project/LivingSnowProject/actions?query=workflow%3Avalidate)
+[![coverage](https://img.shields.io/codecov/c/gh/Living-Snow-Project/LivingSnowProject?style=flat-square)](https://codecov.io/gh/Living-Snow-Project/LivingSnowProject)
 
+https://img.shields.io/codecov/c/:vcsName/:user/:repo?flag=flag_name&token=a1b2c3d4e5
 The app is written in React-Native then built and tested through Expo using its 'managed workflow'.
 
 Getting started:
