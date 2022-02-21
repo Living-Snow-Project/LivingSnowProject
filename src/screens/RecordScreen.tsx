@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -24,36 +30,50 @@ import PhotoControl from "../components/PhotoControl";
 import {
   Record,
   RecordType,
-  translateToLegacyRecordType,
   isAtlas,
   isSample,
+  recordDateFormat,
 } from "../record/Record";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
 
+type OffsetOperation = "add" | "subtract";
+
+const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
+  if (op === "add") {
+    return new Date(
+      date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
+    );
+  }
+
+  return new Date(
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+  );
+};
+
 export default function RecordScreen({ navigation }) {
   const notesRef = useRef<TextInput>(null);
   const locationDescriptionRef = useRef<TextInput>(null);
   const [uploading, setUploading] = useState(false);
-  const [date, setDate] = useState(new Date().toLocaleDateString("en-CA"));
   const appSettings = getAppSettings();
 
   // data collected and sent to the service
   const [state, setState] = useState<Record>({
-    id: 0,
+    id: uuidv4(),
     name: appSettings.name ? appSettings.name : "Anonymous",
     organization: !appSettings.organization
       ? undefined
       : appSettings.organization,
     type: RecordType.Sample, // sample or sighting
-    date: new Date(), // YYYY-MM-DD
-    latitude: undefined, // GPS
-    longitude: undefined, // GPS
-    atlasType: AtlasType.SnowAlgae, // (optional)
+    date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
+    latitude: 0, // GPS
+    longitude: 0, // GPS
+    atlasType: AtlasType.Undefined,
   });
 
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState<NativePhoto[]>([]);
+  const dateString = useMemo(() => recordDateFormat(state.date), [state.date]);
 
   // user input form validation
   const validateUserInput = () => {
@@ -100,24 +120,7 @@ export default function RecordScreen({ navigation }) {
       return;
     }
 
-    // TODO: construct from Record object
-    // const record = makeRecord(state)
-    const record = {
-      id: uuidv4(),
-      type: translateToLegacyRecordType(state.type),
-      name: state.name,
-      date: new Date(date),
-      organization: state.organization,
-      latitude: state.latitude,
-      longitude: state.longitude,
-      tubeId: state.tubeId,
-      locationDescription: state.locationDescription,
-      notes: state.notes,
-      atlasType: isAtlas(state.type) ? state.atlasType : AtlasType.Undefined,
-    };
-
-    // TODO: type alignment
-    uploadRecord(record as unknown as Record, photos)
+    uploadRecord(state, photos)
       .then(() => {
         Alert.alert(
           Notifications.uploadSuccess.title,
@@ -160,11 +163,31 @@ export default function RecordScreen({ navigation }) {
           {/* Sample, Sighting, Atlas, etc */}
           <TypeSelector
             type={state.type}
-            setType={(type) => setState((prev) => ({ ...prev, type }))}
+            setType={(type) =>
+              setState((prev) => {
+                let { atlasType } = prev;
+
+                if (isAtlas(prev.type) && !isAtlas(type)) {
+                  atlasType = AtlasType.Undefined;
+                } else if (!isAtlas(prev.type) && isAtlas(type)) {
+                  atlasType = AtlasType.SnowAlgae;
+                }
+
+                return { ...prev, type, atlasType };
+              })
+            }
           />
 
           {/* Date of Sample, Sighting, Atlas, etc */}
-          <DateSelector date={date} setDate={(newDate) => setDate(newDate)} />
+          <DateSelector
+            date={dateString}
+            setDate={(newDate) =>
+              setState((prev) => ({
+                ...prev,
+                date: dateWithOffset(new Date(newDate), "add"),
+              }))
+            }
+          />
 
           {/* Tube Id: only show Tube Id when recording a Sample */}
           {isSample(state.type) && (

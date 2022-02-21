@@ -1,6 +1,8 @@
 import { AtlasType } from "./Atlas";
 import { RecordDescription } from "../constants/Strings";
 
+// TODO: make this type RecordType = "Sample" | "Sighting" | "etc..."
+// because data going in to and out of the service API should not be magic numbers!
 enum RecordType {
   Undefined = -1,
   Sample,
@@ -33,19 +35,6 @@ const RecordTypePickerItems: RecordTypePickerItem[] = [
   },
 ];
 
-// TODO: remove this, update database, and break old clients :)
-const LegacyRecordTypeValues: string[] = [
-  "Sample",
-  "Sighting",
-  "AtlasRedDot",
-  "AtlasRedDotWithSample",
-  "AtlasBlueDot",
-  "AtlasBlueDotWithSample",
-];
-
-const translateToLegacyRecordType = (type: RecordType): string =>
-  LegacyRecordTypeValues[type];
-
 const getAllRecordTypePickerItems = (): RecordTypePickerItem[] =>
   RecordTypePickerItems;
 
@@ -60,8 +49,8 @@ type Record = {
   name?: string;
   organization?: string;
   date: Date;
-  latitude: number | undefined;
-  longitude: number | undefined;
+  latitude: number;
+  longitude: number;
   tubeId?: string;
   locationDescription?: string;
   notes?: string;
@@ -105,10 +94,10 @@ const makeExampleRecord = (type) => {
     id: 1234,
     type,
     name: "test name",
-    date: "2021-09-16",
+    date: new Date("2021-09-16T00:00:00"),
     organization: "test org",
-    latitude: "-123.456",
-    longitude: "96.96",
+    latitude: -123.456,
+    longitude: 96.96,
     tubeId: isSample(type) ? "LAB-1337" : "",
     locationDescription: "test location",
     notes: "test notes",
@@ -117,13 +106,46 @@ const makeExampleRecord = (type) => {
   };
 };
 
+// needed for JSON.parse, otherwise date property will become string
+// TODO: add test for photoUris key
+const recordReviver = (key: string, value: any): any => {
+  if (key === "date") {
+    return new Date(value);
+  }
+
+  return value;
+};
+
+const jsonToRecord = (json: string): Record | Record[] =>
+  JSON.parse(json, recordReviver);
+
+// want to display date in YYYY-MM-DD format
+const recordDateFormat = (date: Date): string => {
+  const dayNum: number = date.getDate();
+  let day: string = `${dayNum}`;
+
+  if (dayNum < 10) {
+    day = `0${dayNum}`;
+  }
+
+  const monthNum: number = date.getMonth() + 1;
+  let month: string = `${monthNum}`;
+
+  if (monthNum < 10) {
+    month = `0${monthNum}`;
+  }
+
+  return `${date.getFullYear()}-${month}-${day}`;
+};
+
 export {
   RecordType,
   Record,
-  translateToLegacyRecordType,
   getRecordTypePickerItem,
   getAllRecordTypePickerItems,
   makeExampleRecord,
   isSample,
   isAtlas,
+  jsonToRecord,
+  recordDateFormat,
 };

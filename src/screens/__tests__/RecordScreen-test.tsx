@@ -298,6 +298,24 @@ describe("RecordScreen test suite", () => {
         expect(getByDisplayValue(item.label)).toBeTruthy();
       });
     });
+
+    test("Type selection from Atlas back to not Atlas", () => {
+      const { getByTestId, queryByText } = renderer;
+      fireEvent(
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
+        "onValueChange",
+        RecordType.AtlasBlueDotWithSample
+      );
+
+      expect(isAtlasVisible(queryByText)).toBeTruthy();
+
+      fireEvent(
+        getByTestId("record-type-picker"),
+        "onValueChange",
+        RecordType.Sighting
+      );
+      expect(isAtlasVisible(queryByText)).toBeFalsy();
+    });
   });
 
   describe("TextInput tests", () => {

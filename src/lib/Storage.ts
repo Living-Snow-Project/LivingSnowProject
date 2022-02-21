@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Logger from "./Logger";
-import { Record } from "../record/Record";
+import { Record, jsonToRecord } from "../record/Record";
 
 const StorageKeys = {
   appConfig: "appConfig",
@@ -35,7 +35,7 @@ async function saveAppConfig(appSettings: AppSettings): Promise<void | Error> {
 // Record Storage APIs
 async function loadRecords(): Promise<Record[]> {
   return AsyncStorage.getItem(StorageKeys.records)
-    .then((value) => (value ? JSON.parse(value) : []))
+    .then((value) => (value ? (jsonToRecord(value) as Record[]) : []))
     .catch((error) => {
       Logger.Error(`loadRecords: ${error}`);
       return [];

@@ -10,7 +10,7 @@ import {
 import PropTypes from "prop-types";
 import { downloadPhotoUri } from "../lib/Network";
 import { getAtlasPickerItem } from "../record/Atlas";
-import { isAtlas } from "../record/Record";
+import { isAtlas, recordDateFormat } from "../record/Record";
 import { Labels } from "../constants/Strings";
 
 const styles = StyleSheet.create({
@@ -77,7 +77,7 @@ export default function RecordDetailsScreen({ route }) {
         >
           <Text style={{ textAlign: "center" }}>Data Sheet</Text>
         </View>
-        <Text>{`${Labels.RecordFields.Date}: ${date.slice(0, 10)}`}</Text>
+        <Text>{`${Labels.RecordFields.Date}: ${recordDateFormat(date)}`}</Text>
         {/* BUGBUG: downloaded records type=string, pending records type=enum and converted to string */}
         <Text>{`${Labels.RecordFields.Type}: ${type}`}</Text>
         <Text>{`${Labels.RecordFields.Name}: ${name}`}</Text>

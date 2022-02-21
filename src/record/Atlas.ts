@@ -1,5 +1,7 @@
 import { AtlasDescription } from "../constants/Strings";
 
+// TODO: make this type AtlasType = "Snow Algae" | "Dirt or Debris" | "etc..."
+// because data going in to and out of the service API should not be magic numbers!
 enum AtlasType {
   Undefined = -1,
   SnowAlgae,

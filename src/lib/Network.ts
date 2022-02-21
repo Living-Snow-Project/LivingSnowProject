@@ -1,6 +1,6 @@
 import Logger from "./Logger";
 import serviceEndpoint from "../constants/Service";
-import { Record } from "../record/Record";
+import { Record, jsonToRecord } from "../record/Record";
 
 const recordsUri: string = `${serviceEndpoint}/api/records/`;
 const uploadPhotoUri = (id: number): string => `${recordsUri}${id}/photo`;
@@ -53,7 +53,9 @@ async function uploadRecord(record: Record): Promise<Record> {
     body: JSON.stringify(record),
   })
     .then((response) =>
-      response.ok ? response.json() : Promise.reject(response)
+      response.ok
+        ? response.text().then((text) => jsonToRecord(text) as any)
+        : Promise.reject(response)
     )
     .catch((error) => failedFetch(operation, error));
 }
@@ -85,7 +87,9 @@ async function downloadRecords(): Promise<any> {
 
   return fetch(recordsUri)
     .then((response) =>
-      response.ok ? response.json() : Promise.reject(response)
+      response.ok
+        ? response.text().then((text) => jsonToRecord(text))
+        : Promise.reject(response)
     )
     .catch((error) => failedFetch(operation, error));
 }

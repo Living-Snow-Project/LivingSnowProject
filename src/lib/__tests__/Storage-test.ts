@@ -1,6 +1,6 @@
 import mockAsyncStorage from "@react-native-async-storage/async-storage/jest/async-storage-mock";
 import * as Storage from "../Storage";
-import { Record, makeExampleRecord } from "../../record/Record";
+import { makeExampleRecord } from "../../record/Record";
 
 const makeTestAppConfig = (): AppSettings => ({
   name: "Test Name",
@@ -60,7 +60,8 @@ describe("Storage test suite", () => {
     let received = await Storage.loadAppConfig();
     expect(received).toEqual(expected);
 
-    await Storage.saveAppConfig(null as unknown as AppSettings);
+    // @ts-ignore
+    await Storage.saveAppConfig(null);
     received = await Storage.loadAppConfig();
     expect(received).toEqual(expected);
   });
@@ -90,7 +91,6 @@ describe("Storage test suite", () => {
       makeExampleRecord("Sighting"),
     ];
 
-    // @ts-ignore
     await Storage.saveRecords(expected);
     const received = await Storage.loadRecords();
     expect(received).toEqual(expected);
@@ -102,12 +102,12 @@ describe("Storage test suite", () => {
       makeExampleRecord("Sighting"),
     ];
 
-    // @ts-ignore
     await Storage.saveRecords(expected);
     let received = await Storage.loadRecords();
     expect(received).toEqual(expected);
 
-    await Storage.saveRecords(null as unknown as Record[]);
+    // @ts-ignore
+    await Storage.saveRecords(null);
     received = await Storage.loadRecords();
     expect(received).toEqual(expected);
   });
@@ -116,7 +116,6 @@ describe("Storage test suite", () => {
     const expected = [makeExampleRecord("Sighting")];
     const expectedError = mockOneAsyncStorageFailure("setItem");
 
-    // @ts-ignore
     const received = await Storage.saveRecords(expected);
     expect(received).toEqual(expectedError);
   });
@@ -127,7 +126,6 @@ describe("Storage test suite", () => {
       makeExampleRecord("Sighting"),
     ];
 
-    // @ts-ignore
     await Storage.saveRecords(expected);
     let received = await Storage.loadRecords();
     expect(received).toEqual(expected);
@@ -143,7 +141,6 @@ describe("Storage test suite", () => {
       makeExampleRecord("Sighting"),
     ];
 
-    // @ts-ignore
     await Storage.saveRecords(expected);
     let received = await Storage.loadRecords();
     expect(received).toEqual(expected);
@@ -160,7 +157,6 @@ describe("Storage test suite", () => {
   test("saveRecord succeeds", async () => {
     const expected = makeExampleRecord("Sample");
 
-    // @ts-ignore
     await Storage.saveRecord(expected);
     const received = await Storage.loadRecords();
     expect(received[0]).toEqual(expected);
@@ -169,12 +165,12 @@ describe("Storage test suite", () => {
   test("saveRecord with empty record doesn't change existing records", async () => {
     const expected = makeExampleRecord("Sample");
 
-    // @ts-ignore
     await Storage.saveRecord(expected);
     let received = await Storage.loadRecords();
     expect(received[0]).toEqual(expected);
 
-    await Storage.saveRecord(null as unknown as Record);
+    // @ts-ignore
+    await Storage.saveRecord(null);
     received = await Storage.loadRecords();
     expect(received[0]).toEqual(expected);
   });
@@ -183,7 +179,6 @@ describe("Storage test suite", () => {
     const expected = makeExampleRecord("Sighting");
     const expectedError = mockOneAsyncStorageFailure("setItem");
 
-    // @ts-ignore
     const received = await Storage.saveRecord(expected);
     expect(received).toEqual(expectedError);
   });

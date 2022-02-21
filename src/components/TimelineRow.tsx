@@ -6,6 +6,7 @@ import { PictureIcon, RecordIcon } from "./Icons";
 import { RootStackNavigationProp } from "../navigation/Routes";
 import RecordPropType from "../record/RecordPropTypes";
 import { Labels } from "../constants/Strings";
+import { recordDateFormat } from "../record/Record";
 
 const styles = StyleSheet.create({
   recordContainer: {
@@ -40,7 +41,7 @@ function empty(text) {
 }
 
 function topText({ date, name, organization, latitude, longitude }) {
-  let result = `${date.slice(0, 10)}\n`;
+  let result = `${recordDateFormat(date)}\n`;
 
   if (!empty(name)) {
     result += name;

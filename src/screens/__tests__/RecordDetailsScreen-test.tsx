@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
 import RecordDetailsScreen from "../RecordDetailsScreen";
-import { makeExampleRecord } from "../../record/Record";
+import { makeExampleRecord, recordDateFormat } from "../../record/Record";
 import { Labels } from "../../constants/Strings";
 
 describe("RecordDetailsScreen test suite", () => {
@@ -20,10 +20,16 @@ describe("RecordDetailsScreen test suite", () => {
     expect(getByText(new RegExp(route.params.type))).toBeTruthy();
     expect(getByText(new RegExp(route.params.name))).toBeTruthy();
     expect(getByText(new RegExp(route.params.organization))).toBeTruthy();
-    expect(getByText(new RegExp(route.params.date))).toBeTruthy();
+    expect(
+      getByText(new RegExp(recordDateFormat(route.params.date)))
+    ).toBeTruthy();
     expect(getByText(new RegExp(route.params.tubeId))).toBeTruthy();
-    expect(getByText(new RegExp(route.params.latitude))).toBeTruthy();
-    expect(getByText(new RegExp(route.params.longitude))).toBeTruthy();
+    expect(
+      getByText(new RegExp(route.params.latitude.toString()))
+    ).toBeTruthy();
+    expect(
+      getByText(new RegExp(route.params.longitude.toString()))
+    ).toBeTruthy();
     expect(
       getByText(new RegExp(route.params.locationDescription))
     ).toBeTruthy();
@@ -49,10 +55,16 @@ describe("RecordDetailsScreen test suite", () => {
     expect(getByText(new RegExp(route.params.type))).toBeTruthy();
     expect(getByText(new RegExp(route.params.name))).toBeTruthy();
     expect(getByText(new RegExp(route.params.organization))).toBeTruthy();
-    expect(getByText(new RegExp(route.params.date))).toBeTruthy();
+    expect(
+      getByText(new RegExp(recordDateFormat(route.params.date)))
+    ).toBeTruthy();
     expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
-    expect(getByText(new RegExp(route.params.latitude))).toBeTruthy();
-    expect(getByText(new RegExp(route.params.longitude))).toBeTruthy();
+    expect(
+      getByText(new RegExp(route.params.latitude.toString()))
+    ).toBeTruthy();
+    expect(
+      getByText(new RegExp(route.params.longitude.toString()))
+    ).toBeTruthy();
     expect(
       getByText(new RegExp(route.params.locationDescription))
     ).toBeTruthy();
@@ -78,10 +90,16 @@ describe("RecordDetailsScreen test suite", () => {
     expect(getByText(new RegExp(route.params.type))).toBeTruthy();
     expect(getByText(new RegExp(route.params.name))).toBeTruthy();
     expect(getByText(new RegExp(route.params.organization))).toBeTruthy();
-    expect(getByText(new RegExp(route.params.date))).toBeTruthy();
+    expect(
+      getByText(new RegExp(recordDateFormat(route.params.date)))
+    ).toBeTruthy();
     expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
-    expect(getByText(new RegExp(route.params.latitude))).toBeTruthy();
-    expect(getByText(new RegExp(route.params.longitude))).toBeTruthy();
+    expect(
+      getByText(new RegExp(route.params.latitude.toString()))
+    ).toBeTruthy();
+    expect(
+      getByText(new RegExp(route.params.longitude.toString()))
+    ).toBeTruthy();
     expect(
       getByText(new RegExp(route.params.locationDescription))
     ).toBeTruthy();
@@ -114,9 +132,15 @@ describe("RecordDetailsScreen test suite", () => {
     expect(
       queryByText(new RegExp(Labels.RecordFields.Organization))
     ).toBeFalsy();
-    expect(getByText(new RegExp(route.params.date))).toBeTruthy();
-    expect(getByText(new RegExp(route.params.latitude))).toBeTruthy();
-    expect(getByText(new RegExp(route.params.longitude))).toBeTruthy();
+    expect(
+      getByText(new RegExp(recordDateFormat(route.params.date)))
+    ).toBeTruthy();
+    expect(
+      getByText(new RegExp(route.params.latitude.toString()))
+    ).toBeTruthy();
+    expect(
+      getByText(new RegExp(route.params.longitude.toString()))
+    ).toBeTruthy();
     expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
     expect(
       queryByText(new RegExp(Labels.RecordFields.LocationDescription))

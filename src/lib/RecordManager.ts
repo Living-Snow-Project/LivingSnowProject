@@ -7,14 +7,14 @@ import {
   savePhoto,
   clearPhotos,
 } from "./Storage";
-import { Record } from "../record/Record";
+import { Record, jsonToRecord } from "../record/Record";
 import Logger from "./Logger";
 
 // TODO: type alignment
 // photos[] = {uri: string; width: number; height: number}
-async function uploadRecord(record, photos): Promise<Record | string> {
+async function uploadRecord(record: Record, photos): Promise<Record | string> {
   let uploadPhotoError;
-  const localRecord = JSON.parse(JSON.stringify(record));
+  const localRecord = jsonToRecord(JSON.stringify(record)) as Record;
   localRecord.id = 0;
   return Network.uploadRecord(localRecord)
     .then((response) =>
