@@ -2,7 +2,6 @@ import React from "react";
 import { Platform } from "react-native";
 import { render } from "@testing-library/react-native";
 import { RecordIcon, PictureIcon, SnowIcon } from "../Icons";
-import { RecordType } from "../../record/Record";
 
 describe("Icons test suite", () => {
   describe("android", () => {
@@ -15,12 +14,12 @@ describe("Icons test suite", () => {
     });
 
     test("sample record icon", () => {
-      const { toJSON } = render(<RecordIcon type={RecordType.Sample} />);
+      const { toJSON } = render(<RecordIcon type="Sample" />);
       expect(toJSON()).toMatchSnapshot();
     });
 
     test("sighting record icon", () => {
-      const { toJSON } = render(<RecordIcon type={RecordType.Sighting} />);
+      const { toJSON } = render(<RecordIcon type="Sighting" />);
       expect(toJSON()).toMatchSnapshot();
     });
 
@@ -37,12 +36,12 @@ describe("Icons test suite", () => {
 
   describe("ios", () => {
     test("sample record icon", () => {
-      const { toJSON } = render(<RecordIcon type={RecordType.Sample} />);
+      const { toJSON } = render(<RecordIcon type="Sample" />);
       expect(toJSON()).toMatchSnapshot();
     });
 
     test("sighting record icon", () => {
-      const { toJSON } = render(<RecordIcon type={RecordType.Sighting} />);
+      const { toJSON } = render(<RecordIcon type="Sighting" />);
       expect(toJSON()).toMatchSnapshot();
       Platform.OS = "ios";
     });

@@ -8,11 +8,12 @@ import {
   getAtlasPickerItem,
   getAllAtlasPickerItems,
 } from "../../record/Atlas";
-import * as Record from "../../record/Record";
+import { isSample, isAtlas } from "../../record/Record";
+import { AlgaeRecordTypePropType } from "../../record/RecordPropTypes";
 import TestIds from "../../constants/TestIds";
 
 type AtlasSelectorProps = {
-  recordType: Record.RecordType;
+  recordType: AlgaeRecordType;
   atlasType: AtlasType;
   setAtlasType: (type: AtlasType) => void;
 };
@@ -22,7 +23,7 @@ export default function AtlasSelector({
   atlasType,
   setAtlasType,
 }: AtlasSelectorProps) {
-  if (!Record.isAtlas(recordType)) {
+  if (!isAtlas(recordType)) {
     return null;
   }
 
@@ -35,7 +36,7 @@ export default function AtlasSelector({
         useNativeAndroidPickerStyle={false}
         placeholder={{}}
         items={
-          Record.isSample(recordType)
+          isSample(recordType)
             ? [
                 getAtlasPickerItem(AtlasType.SnowAlgae),
                 getAtlasPickerItem(AtlasType.MixOfAlgaeAndDirt),
@@ -50,7 +51,7 @@ export default function AtlasSelector({
 }
 
 AtlasSelector.propTypes = {
-  recordType: PropTypes.oneOf(Object.values(Record.RecordType)).isRequired,
+  recordType: AlgaeRecordTypePropType.isRequired,
   atlasType: PropTypes.oneOf(Object.values(AtlasType)).isRequired,
   setAtlasType: PropTypes.func.isRequired,
 };

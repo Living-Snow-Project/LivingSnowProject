@@ -2,7 +2,6 @@ import React from "react";
 import { Alert } from "react-native";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import RecordScreen from "../RecordScreen";
-import { RecordType } from "../../record/Record";
 import {
   AtlasType,
   getAtlasPickerItem,
@@ -89,11 +88,7 @@ describe("RecordScreen test suite", () => {
 
     test("Sighting selected", () => {
       const { getByTestId, queryByText } = renderer;
-      fireEvent(
-        getByTestId("record-type-picker"),
-        "onValueChange",
-        RecordType.Sighting
-      );
+      fireEvent(getByTestId("record-type-picker"), "onValueChange", "Sighting");
       expect(isAtlasVisible(queryByText)).toBeFalsy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
     });
@@ -170,7 +165,7 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
-        RecordType.AtlasRedDot
+        "Atlas: Red Dot"
       );
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
@@ -181,7 +176,7 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
-        RecordType.AtlasRedDotWithSample
+        "Atlas: Red Dot with Sample"
       );
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
@@ -192,7 +187,7 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
-        RecordType.AtlasBlueDot
+        "Atlas: Blue Dot"
       );
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
@@ -203,7 +198,7 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
-        RecordType.AtlasRedDotWithSample
+        "Atlas: Blue Dot with Sample"
       );
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
@@ -214,7 +209,7 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
-        RecordType.AtlasRedDot
+        "Atlas: Red Dot"
       );
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
@@ -235,7 +230,7 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
-        RecordType.AtlasRedDotWithSample
+        "Atlas: Red Dot with Sample"
       );
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
@@ -259,7 +254,7 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
-        RecordType.AtlasBlueDot
+        "Atlas: Blue Dot"
       );
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
@@ -280,7 +275,7 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
-        RecordType.AtlasBlueDotWithSample
+        "Atlas: Blue Dot with Sample"
       );
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
@@ -304,16 +299,12 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
-        RecordType.AtlasBlueDotWithSample
+        "Atlas: Blue Dot with Sample"
       );
 
       expect(isAtlasVisible(queryByText)).toBeTruthy();
 
-      fireEvent(
-        getByTestId("record-type-picker"),
-        "onValueChange",
-        RecordType.Sighting
-      );
+      fireEvent(getByTestId("record-type-picker"), "onValueChange", "Sighting");
       expect(isAtlasVisible(queryByText)).toBeFalsy();
     });
   });

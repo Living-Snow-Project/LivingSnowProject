@@ -3,7 +3,8 @@ import { Platform, ViewPropTypes } from "react-native";
 import PropTypes from "prop-types";
 import * as Icon from "@expo/vector-icons";
 import Colors from "../constants/Colors";
-import { RecordType, isSample } from "../record/Record";
+import { isSample } from "../record/Record";
+import { AlgaeRecordTypePropType } from "../record/RecordPropTypes";
 import TestIds from "../constants/TestIds";
 
 function StockIcon({ name, size, style, color, testID }) {
@@ -32,7 +33,7 @@ StockIcon.defaultProps = {
   color: Colors.tabIconDefault,
 };
 
-function RecordIcon({ type }: { type: RecordType }) {
+function RecordIcon({ type }: { type: AlgaeRecordType }) {
   let name = Platform.OS === "ios" ? "ios-eye" : "md-eye";
   let color = "skyblue";
   let testID = TestIds.Icons.SightingIcon;
@@ -47,7 +48,7 @@ function RecordIcon({ type }: { type: RecordType }) {
 }
 
 RecordIcon.propTypes = {
-  type: PropTypes.oneOf(Object.values(RecordType)).isRequired,
+  type: AlgaeRecordTypePropType.isRequired,
 };
 
 function PictureIcon() {

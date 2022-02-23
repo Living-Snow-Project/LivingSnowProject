@@ -1,10 +1,9 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import PropTypes from "prop-types";
 import { PictureIcon, RecordIcon } from "./Icons";
 import { RootStackNavigationProp } from "../navigation/Routes";
-import RecordPropType from "../record/RecordPropTypes";
+import { AlgaeRecordPropType } from "../record/RecordPropTypes";
 import { Labels } from "../constants/Strings";
 import { recordDateFormat } from "../record/Record";
 
@@ -117,5 +116,5 @@ export default function TimelineRow({ record }) {
 }
 
 TimelineRow.propTypes = {
-  record: PropTypes.shape(RecordPropType).isRequired,
+  record: AlgaeRecordPropType.isRequired,
 };

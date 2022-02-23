@@ -1,94 +1,64 @@
 import { AtlasType } from "./Atlas";
 import { RecordDescription } from "../constants/Strings";
 
-// TODO: make this type RecordType = "Sample" | "Sighting" | "etc..."
-// because data going in to and out of the service API should not be magic numbers!
-enum RecordType {
-  Undefined = -1,
-  Sample,
-  Sighting,
-  AtlasRedDot,
-  AtlasRedDotWithSample,
-  AtlasBlueDot,
-  AtlasBlueDotWithSample,
-  Max,
-}
-
 type RecordTypePickerItem = {
-  value: RecordType;
+  value: AlgaeRecordType;
   label: string;
 };
 
 // specific format for RNPickerSelect
-const RecordTypePickerItems: RecordTypePickerItem[] = [
-  { value: RecordType.Sample, label: RecordDescription.Sample },
-  { value: RecordType.Sighting, label: RecordDescription.Sighting },
-  { value: RecordType.AtlasRedDot, label: RecordDescription.AtlasRedDot },
+const recordTypePickerItems: RecordTypePickerItem[] = [
+  { value: "Sample", label: RecordDescription.Sample },
+  { value: "Sighting", label: RecordDescription.Sighting },
+  { value: "Atlas: Red Dot", label: RecordDescription.AtlasRedDot },
   {
-    value: RecordType.AtlasRedDotWithSample,
+    value: "Atlas: Red Dot with Sample",
     label: RecordDescription.AtlasRedDotWithSample,
   },
-  { value: RecordType.AtlasBlueDot, label: RecordDescription.AtlasBlueDot },
+  { value: "Atlas: Blue Dot", label: RecordDescription.AtlasBlueDot },
   {
-    value: RecordType.AtlasBlueDotWithSample,
+    value: "Atlas: Blue Dot with Sample",
     label: RecordDescription.AtlasBlueDotWithSample,
   },
 ];
 
 const getAllRecordTypePickerItems = (): RecordTypePickerItem[] =>
-  RecordTypePickerItems;
+  recordTypePickerItems;
 
-const getRecordTypePickerItem = (type: RecordType): RecordTypePickerItem =>
-  type > RecordType.Undefined && type < RecordType.Max
-    ? RecordTypePickerItems[type]
-    : { value: RecordType.Undefined, label: RecordDescription.Undefined };
+const getRecordTypePickerItem = (
+  type: AlgaeRecordType
+): RecordTypePickerItem => {
+  const result = recordTypePickerItems.find((cur) => cur.value === type);
 
-type Record = {
-  id: number;
-  type: RecordType;
-  name?: string;
-  organization?: string;
-  date: Date;
-  latitude: number;
-  longitude: number;
-  tubeId?: string;
-  locationDescription?: string;
-  notes?: string;
-  photoUris?: string;
-  atlasType: AtlasType;
+  if (result === undefined) {
+    return { value: "Undefined", label: RecordDescription.Undefined };
+  }
+
+  return result;
 };
 
-// BUGBUG: because legacy record type = string, but we will change to enum and break old clients :)
-// So, Downloaded records => record.type = string, Pending\Saved records => record.type = RecordType
-const isSample = (type: RecordType): boolean =>
-  [
-    RecordType.Sample,
-    RecordType.AtlasRedDotWithSample,
-    RecordType.AtlasBlueDotWithSample,
+const isSample = (type: AlgaeRecordType): boolean =>
+  Array<AlgaeRecordType>(
     "Sample",
-    "AtlasRedDotWithSample",
-    "AtlasBlueDotWithSample",
-  ].includes(type);
+    "Atlas: Red Dot with Sample",
+    "Atlas: Blue Dot with Sample"
+  ).includes(type);
 
-// BUGBUG: because legacy record type = string, but we will change to enum and break old clients :)
-// So, Downloaded records => record.type = string, Pending\Saved records => record.type = RecordType
-const isAtlas = (type: RecordType | string): boolean =>
-  [
-    RecordType.AtlasRedDot,
-    RecordType.AtlasRedDotWithSample,
-    RecordType.AtlasBlueDot,
-    RecordType.AtlasBlueDotWithSample,
-    "AtlasRedDot",
-    "AtlasRedDotWithSample",
-    "AtlasBlueDot",
-    "AtlasBlueDotWithSample",
-  ].includes(type);
+const isAtlas = (type: AlgaeRecordType): boolean =>
+  Array<AlgaeRecordType>(
+    "Atlas: Red Dot",
+    "Atlas: Red Dot with Sample",
+    "Atlas: Blue Dot",
+    "Atlas: Blue Dot with Sample"
+  ).includes(type);
 
 // TODO: makeExampleRecord should also be used to seed RecordScreen (ie. no more "no records to display")
-// BUGBUG: type, atlasType, and photoUris need alignment (new signature below)
+// BUGBUG: photoUris need alignment (new signature below)
 // const makeExampleRecords = (type: RecordType): Record => ({
-const makeExampleRecord = (type) => {
-  const atlasType = isAtlas(type) ? AtlasType.SnowAlgae : AtlasType.Undefined;
+const makeExampleRecord = (type: AlgaeRecordType) => {
+  const atlasType: AtlasType = isAtlas(type)
+    ? AtlasType.SnowAlgae
+    : AtlasType.Undefined;
 
   return {
     id: 1234,
@@ -116,7 +86,8 @@ const recordReviver = (key: string, value: any): any => {
   return value;
 };
 
-const jsonToRecord = (json: string): Record | Record[] =>
+// TODO: see if this can be made generic; jsonToRecord<T> = (json: string): T
+const jsonToRecord = (json: string): AlgaeRecord | AlgaeRecord[] =>
   JSON.parse(json, recordReviver);
 
 // want to display date in YYYY-MM-DD format
@@ -139,8 +110,6 @@ const recordDateFormat = (date: Date): string => {
 };
 
 export {
-  RecordType,
-  Record,
   getRecordTypePickerItem,
   getAllRecordTypePickerItems,
   makeExampleRecord,

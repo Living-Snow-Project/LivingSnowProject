@@ -2,11 +2,10 @@
 import { rest } from "msw";
 import { recordsUri } from "../lib/Network";
 import serviceEndpoint from "../constants/Service";
-import { Record } from "../record/Record";
 
 type MockBackend = {
   curRecordId: number;
-  records: Array<Record>;
+  records: Array<AlgaeRecord>;
   recordsUri: string;
   photosUri: string;
   resetBackend: () => void;
@@ -14,13 +13,13 @@ type MockBackend = {
 
 const mockBackend: MockBackend = {
   curRecordId: 0,
-  records: new Array<Record>(),
+  records: new Array<AlgaeRecord>(),
   recordsUri,
   photosUri: `${serviceEndpoint}/api/records/:recordId/photo`,
 
   resetBackend() {
     this.curRecordId = 0;
-    this.records = new Array<Record>();
+    this.records = new Array<AlgaeRecord>();
   },
 };
 
@@ -31,7 +30,7 @@ const handlers = [
       const { body } = req;
       mockBackend.curRecordId += 1;
       body.id = mockBackend.curRecordId;
-      mockBackend.records.push(body as Record);
+      mockBackend.records.push(body as AlgaeRecord);
       return res(ctx.status(200), ctx.json(body));
     }
 

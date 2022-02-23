@@ -1,7 +1,7 @@
 import "isomorphic-fetch";
 import server from "../../mocks/server";
 import { clearRecords, clearPhotos, loadRecords, loadPhotos } from "../Storage";
-import { Record, makeExampleRecord } from "../../record/Record";
+import { makeExampleRecord } from "../../record/Record";
 import { retryRecords, uploadRecord } from "../RecordManager";
 
 // Establish API mocking before all tests.
@@ -28,7 +28,7 @@ describe("RecordManager test suite", () => {
   test("uploadRecord succeeds", () => {
     const expected = makeExampleRecord("Sample");
 
-    return uploadRecord(expected, []).then((received: Record) => {
+    return uploadRecord(expected, []).then((received: AlgaeRecord) => {
       expect(received.id).not.toEqual(expected.id);
       expect(received.type).toEqual(expected.type);
     });
@@ -37,10 +37,12 @@ describe("RecordManager test suite", () => {
   test("uploadRecord with photos succeeds", () => {
     const expected = makeExampleRecord("Sample");
 
-    return uploadRecord(expected, [examplePhoto]).then((received: Record) => {
-      expect(received.id).not.toEqual(expected.id);
-      expect(received.type).toEqual(expected.type);
-    });
+    return uploadRecord(expected, [examplePhoto]).then(
+      (received: AlgaeRecord) => {
+        expect(received.id).not.toEqual(expected.id);
+        expect(received.type).toEqual(expected.type);
+      }
+    );
   });
 
   test("uploadRecord fails, record is saved", () => {
@@ -51,7 +53,7 @@ describe("RecordManager test suite", () => {
     return uploadRecord(expected, [])
       .then(() => fail("uploadRecord was expected to succeed"))
       .catch(() =>
-        loadRecords().then((received: Record[]) => {
+        loadRecords().then((received: AlgaeRecord[]) => {
           expect(received[0].id).toEqual(expected.id);
           expect(received[0].type).toEqual(expected.type);
         })
@@ -87,7 +89,7 @@ describe("RecordManager test suite", () => {
     await uploadRecord(expectedOne, []);
     await uploadRecord(expectedTwo, []);
 
-    return loadRecords().then((received: Record[]) => {
+    return loadRecords().then((received: AlgaeRecord[]) => {
       expect(received.length).toEqual(0);
     });
   });
@@ -99,7 +101,7 @@ describe("RecordManager test suite", () => {
     await uploadRecord(expectedOne, [examplePhoto]);
     await uploadRecord(expectedTwo, [examplePhoto]);
 
-    return loadRecords().then((received: Record[]) => {
+    return loadRecords().then((received: AlgaeRecord[]) => {
       expect(received.length).toEqual(0);
 
       return loadPhotos().then((receivedPhotos: Photo[]) => {
@@ -128,7 +130,7 @@ describe("RecordManager test suite", () => {
 
     await retryRecords();
 
-    return loadRecords().then((received: Record[]) => {
+    return loadRecords().then((received: AlgaeRecord[]) => {
       expect(received[0].id).toEqual(expectedOne.id);
       expect(received[0].type).toEqual(expectedOne.type);
       expect(received[1].id).toEqual(expectedTwo.id);
@@ -156,7 +158,7 @@ describe("RecordManager test suite", () => {
 
     await retryRecords();
 
-    return loadRecords().then((received: Record[]) => {
+    return loadRecords().then((received: AlgaeRecord[]) => {
       expect(received.length).toEqual(2);
       expect(received[0].photoUris?.length).toEqual(1);
       expect(received[1].photoUris?.length).toEqual(1);

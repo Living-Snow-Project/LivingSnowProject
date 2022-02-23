@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Logger from "./Logger";
-import { Record, jsonToRecord } from "../record/Record";
+import { jsonToRecord } from "../record/Record";
 
 const StorageKeys = {
   appConfig: "appConfig",
@@ -33,16 +33,16 @@ async function saveAppConfig(appSettings: AppSettings): Promise<void | Error> {
 }
 
 // Record Storage APIs
-async function loadRecords(): Promise<Record[]> {
+async function loadRecords(): Promise<AlgaeRecord[]> {
   return AsyncStorage.getItem(StorageKeys.records)
-    .then((value) => (value ? (jsonToRecord(value) as Record[]) : []))
+    .then((value) => (value ? (jsonToRecord(value) as AlgaeRecord[]) : []))
     .catch((error) => {
       Logger.Error(`loadRecords: ${error}`);
       return [];
     });
 }
 
-async function saveRecords(records: Record[]): Promise<void | Error> {
+async function saveRecords(records: AlgaeRecord[]): Promise<void | Error> {
   if (!records) {
     return Promise.resolve();
   }
@@ -63,7 +63,7 @@ async function clearRecords(): Promise<void | Error> {
   });
 }
 
-async function saveRecord(record: Record): Promise<void | Error> {
+async function saveRecord(record: AlgaeRecord): Promise<void | Error> {
   if (!record) {
     return Promise.resolve();
   }

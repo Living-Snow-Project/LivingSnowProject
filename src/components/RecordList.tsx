@@ -1,15 +1,14 @@
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
 import PropTypes from "prop-types";
-import { Record } from "../record/Record";
-import RecordPropType from "../record/RecordPropTypes";
+import { AlgaeRecordPropType } from "../record/RecordPropTypes";
 import styles from "../styles/Timeline";
 import TimelineRow from "./TimelineRow";
 
 type RecordListProps = {
-  records: Record[];
+  records: AlgaeRecord[];
   header: string;
-  omitRecord?: (record: Record) => boolean;
+  omitRecord?: (record: AlgaeRecord) => boolean;
 };
 
 export default function RecordList({
@@ -21,7 +20,7 @@ export default function RecordList({
     () => (
       <>
         {records.map((record) => {
-          // @ts-ignore (see RecordList.defaultProps)
+          // @ts-ignore (TS complains it is possibly undefined however propTypes.defaultProps assigns it a value)
           if (omitRecord(record)) {
             return null;
           }
@@ -47,7 +46,7 @@ export default function RecordList({
 }
 
 RecordList.propTypes = {
-  records: PropTypes.arrayOf(PropTypes.shape(RecordPropType)).isRequired,
+  records: PropTypes.arrayOf(AlgaeRecordPropType).isRequired,
   header: PropTypes.string.isRequired,
   omitRecord: PropTypes.func,
 };

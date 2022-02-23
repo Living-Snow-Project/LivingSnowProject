@@ -21,16 +21,16 @@ const navigation = {
   addListener: () => () => {},
 };
 
-const sharedTestRecordProps = makeExampleRecord("Sample");
+const sharedTestRecordProps: AlgaeRecord = makeExampleRecord("Sample");
 
 // BUGBUG: can downloaded and saved/pending records have consistent structure (photoUris)?
-const downloadedTestRecord = {
+const downloadedTestRecord: AlgaeRecord = {
   ...sharedTestRecordProps,
 };
 
-const downloadedAtlasTestRecord = {
+const downloadedAtlasTestRecord: AlgaeRecord = {
   ...sharedTestRecordProps,
-  type: "AtlasRedDot",
+  type: "Atlas: Red Dot",
 };
 
 const makePendingTestRecord = () => ({

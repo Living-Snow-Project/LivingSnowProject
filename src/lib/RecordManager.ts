@@ -7,14 +7,17 @@ import {
   savePhoto,
   clearPhotos,
 } from "./Storage";
-import { Record, jsonToRecord } from "../record/Record";
+import { jsonToRecord } from "../record/Record";
 import Logger from "./Logger";
 
 // TODO: type alignment
 // photos[] = {uri: string; width: number; height: number}
-async function uploadRecord(record: Record, photos): Promise<Record | string> {
+async function uploadRecord(
+  record: AlgaeRecord,
+  photos
+): Promise<AlgaeRecord | string> {
   let uploadPhotoError;
-  const localRecord = jsonToRecord(JSON.stringify(record)) as Record;
+  const localRecord = jsonToRecord(JSON.stringify(record)) as AlgaeRecord;
   localRecord.id = 0;
   return Network.uploadRecord(localRecord)
     .then((response) =>
@@ -71,7 +74,7 @@ async function retryPhotos(): Promise<string | void> {
 }
 
 // uploads records that were saved while user was offline
-async function retryRecords(): Promise<void | string | Record> {
+async function retryRecords(): Promise<void | string | AlgaeRecord> {
   return loadRecords()
     .then(async (records) => {
       if (records.length === 0) {

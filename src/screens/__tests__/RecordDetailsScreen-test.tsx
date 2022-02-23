@@ -78,7 +78,7 @@ describe("RecordDetailsScreen test suite", () => {
   test("atlas with local photos", () => {
     const route = {
       params: {
-        ...makeExampleRecord("AtlasRedDot"),
+        ...makeExampleRecord("Atlas: Red Dot"),
         photoUris: "file://one.jpg;",
       },
     };

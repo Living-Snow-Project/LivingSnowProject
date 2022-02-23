@@ -6,7 +6,7 @@ import { downloadRecords } from "../lib/Network";
 import { retryRecords } from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import StatusBar from "../components/StatusBar";
-import { Record, isAtlas } from "../record/Record";
+import { isAtlas } from "../record/Record";
 import styles from "../styles/Timeline";
 import { getAppSettings } from "../../AppSettings";
 import RecordList from "../components/RecordList";
@@ -16,8 +16,8 @@ import TestIds from "../constants/TestIds";
 export default function TimelineScreen({ navigation }) {
   const [connected, setConnected] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const [pendingRecords, setPendingRecords] = useState<Record[]>([]);
-  const [downloadedRecords, setDownloadedRecords] = useState<Record[]>([]);
+  const [pendingRecords, setPendingRecords] = useState<AlgaeRecord[]>([]);
+  const [downloadedRecords, setDownloadedRecords] = useState<AlgaeRecord[]>([]);
   const [showAtlasRecords, setShowAtlasRecords] = useState<boolean>(
     getAppSettings().showAtlasRecords
   );

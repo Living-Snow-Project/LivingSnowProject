@@ -1,13 +1,13 @@
 import Logger from "./Logger";
 import serviceEndpoint from "../constants/Service";
-import { Record, jsonToRecord } from "../record/Record";
+import { jsonToRecord } from "../record/Record";
 
 const recordsUri: string = `${serviceEndpoint}/api/records/`;
 const uploadPhotoUri = (id: number): string => `${recordsUri}${id}/photo`;
 const downloadPhotoUri = (id: number): string =>
   `${serviceEndpoint}/api/photos/${id}`;
 
-function dumpRecord(record: Record): void {
+function dumpRecord(record: AlgaeRecord): void {
   Logger.Info(
     `Handling POST Request: ${serviceEndpoint}/api/records` +
       `\n  Type: ${record.type}` +
@@ -37,10 +37,10 @@ function failedFetch(operation: string, response: Response): Promise<string> {
   return Promise.reject(error);
 }
 
-// TODO: type alignment
+// TODO: Promise<error string> on failure
 // returns Promise<Record> on success, Promise<error string> on failure
-// async function uploadRecord(record: Record): Promise<Record | string> {
-async function uploadRecord(record: Record): Promise<Record> {
+// async function uploadRecord(record: AlgaeRecord): Promise<AlgaeRecord | string> {
+async function uploadRecord(record: AlgaeRecord): Promise<AlgaeRecord> {
   const operation = `uploadRecord`;
   dumpRecord(record);
 

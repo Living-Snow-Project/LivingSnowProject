@@ -27,13 +27,7 @@ import CustomTextInput from "../components/forms/CustomTextInput";
 import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
 import AtlasSelector from "../components/forms/AtlasSelector";
 import PhotoControl from "../components/PhotoControl";
-import {
-  Record,
-  RecordType,
-  isAtlas,
-  isSample,
-  recordDateFormat,
-} from "../record/Record";
+import { isAtlas, isSample, recordDateFormat } from "../record/Record";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
@@ -59,13 +53,13 @@ export default function RecordScreen({ navigation }) {
   const appSettings = getAppSettings();
 
   // data collected and sent to the service
-  const [state, setState] = useState<Record>({
+  const [state, setState] = useState<AlgaeRecord>({
     id: uuidv4(),
     name: appSettings.name ? appSettings.name : "Anonymous",
     organization: !appSettings.organization
       ? undefined
       : appSettings.organization,
-    type: RecordType.Sample, // sample or sighting
+    type: "Sample",
     date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
     latitude: 0, // GPS
     longitude: 0, // GPS

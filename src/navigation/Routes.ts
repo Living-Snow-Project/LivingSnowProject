@@ -1,5 +1,4 @@
 import { StackNavigationProp } from "@react-navigation/stack";
-import { Record } from "../record/Record";
 
 type RootStackParamList = {
   Welcome: undefined;
@@ -7,7 +6,7 @@ type RootStackParamList = {
   Record: undefined;
   Settings: undefined;
   ImageSelection: undefined;
-  RecordDetails: { record: Record };
+  RecordDetails: { record: AlgaeRecord };
 };
 
 type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
