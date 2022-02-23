@@ -86,9 +86,10 @@ const recordReviver = (key: string, value: any): any => {
   return value;
 };
 
-// TODO: see if this can be made generic; jsonToRecord<T> = (json: string): T
-const jsonToRecord = (json: string): AlgaeRecord | AlgaeRecord[] =>
-  JSON.parse(json, recordReviver);
+// decodes AlgaeRecord or AlgaeRecord[] JSON
+function jsonToRecord<T>(json: string): T {
+  return JSON.parse(json, recordReviver);
+}
 
 // want to display date in YYYY-MM-DD format
 const recordDateFormat = (date: Date): string => {

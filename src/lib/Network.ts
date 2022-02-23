@@ -25,7 +25,7 @@ function dumpRecord(record: AlgaeRecord): void {
 }
 
 // could be called after a failed service API call or after a failed network request
-function failedFetch(operation: string, response: Response): Promise<string> {
+function failedFetch(operation: string, response: Response): string {
   const messagePrefix: string = `${operation} failed:`;
   let error: string = `${messagePrefix} ${response}`;
 
@@ -34,12 +34,10 @@ function failedFetch(operation: string, response: Response): Promise<string> {
   }
 
   Logger.Error(`${error}`);
-  return Promise.reject(error);
+  return error;
 }
 
-// TODO: Promise<error string> on failure
-// returns Promise<Record> on success, Promise<error string> on failure
-// async function uploadRecord(record: AlgaeRecord): Promise<AlgaeRecord | string> {
+// rejects with an error string or the response object
 async function uploadRecord(record: AlgaeRecord): Promise<AlgaeRecord> {
   const operation = `uploadRecord`;
   dumpRecord(record);
@@ -54,14 +52,14 @@ async function uploadRecord(record: AlgaeRecord): Promise<AlgaeRecord> {
   })
     .then((response) =>
       response.ok
-        ? response.text().then((text) => jsonToRecord(text) as any)
+        ? response.text().then((text) => jsonToRecord<AlgaeRecord>(text))
         : Promise.reject(response)
     )
-    .catch((error) => failedFetch(operation, error));
+    .catch((error) => Promise.reject(failedFetch(operation, error)));
 }
 
-// returns Promise<void> on success, Promise<error string> on failure
-async function uploadPhoto({ id, photoStream }: Photo): Promise<void | string> {
+// rejects with an error string or the response object
+async function uploadPhoto({ id, photoStream }: Photo): Promise<void> {
   const operation = `uploadPhoto`;
 
   return fetch(uploadPhotoUri(id), {
@@ -74,13 +72,11 @@ async function uploadPhoto({ id, photoStream }: Photo): Promise<void | string> {
     .then((response) =>
       response.ok ? Promise.resolve() : Promise.reject(response)
     )
-    .catch((error) => failedFetch(operation, error));
+    .catch((error) => Promise.reject(failedFetch(operation, error)));
 }
 
-// TODO: type alignment
-// returns Promise<Record[]> on success and Promise<error string> on failure
-// async function downloadRecords(): Promise<Record[] | string> {
-async function downloadRecords(): Promise<any> {
+// rejects with an error string or the response object
+async function downloadRecords(): Promise<AlgaeRecord[]> {
   const operation = `downloadRecords`;
 
   Logger.Info(`Handling GET Request: ${recordsUri}`);
@@ -88,10 +84,10 @@ async function downloadRecords(): Promise<any> {
   return fetch(recordsUri)
     .then((response) =>
       response.ok
-        ? response.text().then((text) => jsonToRecord(text))
+        ? response.text().then((text) => jsonToRecord<AlgaeRecord[]>(text))
         : Promise.reject(response)
     )
-    .catch((error) => failedFetch(operation, error));
+    .catch((error) => Promise.reject(failedFetch(operation, error)));
 }
 
 export {

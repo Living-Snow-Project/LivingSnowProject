@@ -35,7 +35,7 @@ async function saveAppConfig(appSettings: AppSettings): Promise<void | Error> {
 // Record Storage APIs
 async function loadRecords(): Promise<AlgaeRecord[]> {
   return AsyncStorage.getItem(StorageKeys.records)
-    .then((value) => (value ? (jsonToRecord(value) as AlgaeRecord[]) : []))
+    .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
     .catch((error) => {
       Logger.Error(`loadRecords: ${error}`);
       return [];

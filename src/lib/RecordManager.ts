@@ -12,12 +12,10 @@ import Logger from "./Logger";
 
 // TODO: type alignment
 // photos[] = {uri: string; width: number; height: number}
-async function uploadRecord(
-  record: AlgaeRecord,
-  photos
-): Promise<AlgaeRecord | string> {
+// rejects with an error string
+async function uploadRecord(record: AlgaeRecord, photos): Promise<AlgaeRecord> {
   let uploadPhotoError;
-  const localRecord = jsonToRecord(JSON.stringify(record)) as AlgaeRecord;
+  const localRecord = jsonToRecord<AlgaeRecord>(JSON.stringify(record));
   localRecord.id = 0;
   return Network.uploadRecord(localRecord)
     .then((response) =>
@@ -50,7 +48,7 @@ async function uploadRecord(
 }
 
 // uploads photos that were saved while user was offline
-async function retryPhotos(): Promise<string | void> {
+async function retryPhotos(): Promise<void> {
   return loadPhotos().then(async (photos) => {
     if (photos.length === 0) {
       return Promise.resolve();
@@ -74,7 +72,7 @@ async function retryPhotos(): Promise<string | void> {
 }
 
 // uploads records that were saved while user was offline
-async function retryRecords(): Promise<void | string | AlgaeRecord> {
+async function retryRecords(): Promise<void> {
   return loadRecords()
     .then(async (records) => {
       if (records.length === 0) {
