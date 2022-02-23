@@ -2,11 +2,7 @@ import React from "react";
 import { Alert } from "react-native";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import RecordScreen from "../RecordScreen";
-import {
-  AtlasType,
-  getAtlasPickerItem,
-  getAllAtlasPickerItems,
-} from "../../record/Atlas";
+import { getAtlasPickerItem, getAllAtlasPickerItems } from "../../record/Atlas";
 import { setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
 import { Notifications, Placeholders } from "../../constants/Strings";
@@ -58,6 +54,7 @@ const renderWithGpsWarningOff = () => {
   return {
     expectedCoordinates: testCoordinates,
     getByDisplayValue,
+    getByPlaceholderText,
     getByTestId,
   };
 };
@@ -237,8 +234,8 @@ describe("RecordScreen test suite", () => {
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
 
       const atlasTypes = [
-        getAtlasPickerItem(AtlasType.SnowAlgae),
-        getAtlasPickerItem(AtlasType.MixOfAlgaeAndDirt),
+        getAtlasPickerItem("Snow Algae"),
+        getAtlasPickerItem("Mix of Algae and Dirt"),
       ];
       atlasTypes.forEach((item) => {
         fireEvent(
@@ -282,8 +279,8 @@ describe("RecordScreen test suite", () => {
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
 
       const atlasTypes = [
-        getAtlasPickerItem(AtlasType.SnowAlgae),
-        getAtlasPickerItem(AtlasType.MixOfAlgaeAndDirt),
+        getAtlasPickerItem("Snow Algae"),
+        getAtlasPickerItem("Mix of Algae and Dirt"),
       ];
       atlasTypes.forEach((item) => {
         fireEvent(
@@ -362,12 +359,16 @@ describe("RecordScreen test suite", () => {
   // navigation header component is independent of RecordScreen component
   describe("Upload tests", () => {
     let screenTestCoordinates;
+    let screenGetByTestId;
     let screenGetByDisplayValue;
+    let screenGetByPlaceholderText;
 
     beforeEach(() => {
       const recordScreen = renderWithGpsWarningOff();
       screenTestCoordinates = recordScreen.expectedCoordinates;
+      screenGetByTestId = recordScreen.getByTestId;
       screenGetByDisplayValue = recordScreen.getByDisplayValue;
+      screenGetByPlaceholderText = recordScreen.getByPlaceholderText;
     });
 
     afterEach(() => {
@@ -397,6 +398,69 @@ describe("RecordScreen test suite", () => {
       await waitFor(() => expect(navigation.goBack).toBeCalled());
       expect(uploadMock).toBeCalled();
       expect(alertMock).toBeCalled();
+    });
+
+    test("upload record successfully, empty fields are deleted", async () => {
+      const uploadButtonGetByTestId = render(uploadRecord()).getByTestId;
+
+      const uploadMock = jest
+        .spyOn(RecordManager, "uploadRecord")
+        .mockImplementationOnce((record: AlgaeRecord) =>
+          Promise.resolve(record)
+        );
+
+      const alertMock = jest
+        .spyOn(Alert, "alert")
+        .mockImplementationOnce((title, message) => {
+          expect(title).toEqual(Notifications.uploadSuccess.title);
+          expect(message).toEqual(Notifications.uploadSuccess.message);
+        });
+
+      // simulates user entering text then deleting it
+      fireEvent.changeText(
+        screenGetByPlaceholderText(Placeholders.RecordScreen.TubeId),
+        ""
+      );
+
+      fireEvent.changeText(
+        screenGetByPlaceholderText(Placeholders.RecordScreen.Notes),
+        ""
+      );
+
+      fireEvent.changeText(
+        screenGetByPlaceholderText(
+          Placeholders.RecordScreen.LocationDescription
+        ),
+        ""
+      );
+
+      // simulates user selecting Atlas then selecting non-Atlas
+      fireEvent(
+        screenGetByTestId(TestIds.Pickers.recordSelectorTestId),
+        "onValueChange",
+        "Atlas: Red Dot"
+      );
+
+      fireEvent(
+        screenGetByTestId(TestIds.Pickers.recordSelectorTestId),
+        "onValueChange",
+        "Sample"
+      );
+
+      // upload record
+      fireEvent.press(
+        uploadButtonGetByTestId(TestIds.RecordScreen.UploadButton)
+      );
+
+      await waitFor(() => expect(navigation.goBack).toBeCalled());
+
+      expect(alertMock).toBeCalled();
+      expect(uploadMock).toBeCalled();
+      const receivedRecord = uploadMock.mock.calls[0][0];
+      expect(receivedRecord.tubeId).not.toBeDefined();
+      expect(receivedRecord.notes).not.toBeDefined();
+      expect(receivedRecord.locationDescription).not.toBeDefined();
+      expect(receivedRecord.atlasType).not.toBeDefined();
     });
 
     test("upload record invalid user input", () => {

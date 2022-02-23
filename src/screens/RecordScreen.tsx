@@ -20,7 +20,6 @@ import { uploadRecord } from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import { formInputStyles } from "../styles/FormInput";
 import HeaderButton from "../components/HeaderButton";
-import { AtlasType } from "../record/Atlas";
 import TypeSelector from "../components/forms/TypeSelector";
 import DateSelector from "../components/forms/DateSelector";
 import CustomTextInput from "../components/forms/CustomTextInput";
@@ -63,7 +62,6 @@ export default function RecordScreen({ navigation }) {
     date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
     latitude: 0, // GPS
     longitude: 0, // GPS
-    atlasType: AtlasType.Undefined,
   });
 
   const [photos, setPhotos] = useState<NativePhoto[]>([]);
@@ -90,6 +88,30 @@ export default function RecordScreen({ navigation }) {
     return true;
   };
 
+  // unmodified records do not send these fields
+  // so if the fields are empty during submission, do not send them
+  const removeEmptyFields = useCallback((record: AlgaeRecord): AlgaeRecord => {
+    const newRecord = { ...record };
+
+    if (newRecord?.tubeId === "") {
+      delete newRecord.tubeId;
+    }
+
+    if (newRecord?.locationDescription === "") {
+      delete newRecord.locationDescription;
+    }
+
+    if (newRecord?.notes === "") {
+      delete newRecord.notes;
+    }
+
+    if (newRecord?.atlasType && newRecord.atlasType === "Undefined") {
+      delete newRecord.atlasType;
+    }
+
+    return newRecord;
+  }, []);
+
   const UploadRecord = useCallback(
     () => (
       <HeaderButton
@@ -114,7 +136,7 @@ export default function RecordScreen({ navigation }) {
       return;
     }
 
-    uploadRecord(state, photos)
+    uploadRecord(removeEmptyFields(state), photos)
       .then(() => {
         Alert.alert(
           Notifications.uploadSuccess.title,
@@ -162,9 +184,9 @@ export default function RecordScreen({ navigation }) {
                 let { atlasType } = prev;
 
                 if (isAtlas(prev.type) && !isAtlas(type)) {
-                  atlasType = AtlasType.Undefined;
+                  atlasType = "Undefined";
                 } else if (!isAtlas(prev.type) && isAtlas(type)) {
-                  atlasType = AtlasType.SnowAlgae;
+                  atlasType = "Snow Algae";
                 }
 
                 return { ...prev, type, atlasType };
@@ -203,13 +225,15 @@ export default function RecordScreen({ navigation }) {
             onSubmitEditing={() => locationDescriptionRef.current?.focus()}
           />
 
-          <AtlasSelector
-            recordType={state.type}
-            atlasType={state.atlasType}
-            setAtlasType={(atlasType) =>
-              setState((prev) => ({ ...prev, atlasType }))
-            }
-          />
+          {state?.atlasType && (
+            <AtlasSelector
+              recordType={state.type}
+              atlasType={state.atlasType}
+              setAtlasType={(atlasType) =>
+                setState((prev) => ({ ...prev, atlasType }))
+              }
+            />
+          )}
 
           <CustomTextInput
             description={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}

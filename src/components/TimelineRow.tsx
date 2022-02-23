@@ -3,7 +3,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { PictureIcon, RecordIcon } from "./Icons";
 import { RootStackNavigationProp } from "../navigation/Routes";
-import { AlgaeRecordPropType } from "../record/RecordPropTypes";
+import { AlgaeRecordPropType } from "../record/PropTypes";
 import { Labels } from "../constants/Strings";
 import { recordDateFormat } from "../record/Record";
 

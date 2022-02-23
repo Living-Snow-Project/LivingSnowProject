@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { AtlasType } from "./Atlas";
 
 const AlgaeRecordTypePropType: PropTypes.Requireable<AlgaeRecordType> =
   PropTypes.oneOf<AlgaeRecordType>([
@@ -12,10 +11,26 @@ const AlgaeRecordTypePropType: PropTypes.Requireable<AlgaeRecordType> =
     "Undefined",
   ]);
 
+const AtlasTypePropType: PropTypes.Requireable<AtlasType> =
+  PropTypes.oneOf<AtlasType>([
+    "Ash",
+    "Dirt or Debris",
+    "Forest or Vegetation",
+    "Mix of Algae and Dirt",
+    "Other",
+    "Snow Algae",
+    "White Snow",
+    "Undefined",
+  ]);
+
 // TODO: const AlgaeRecordPropType: PropTypes.Requireable<AlgaeRecord>...
 // backend types will need to change first (ie. lat, long are strings in db model)
 const AlgaeRecordPropType = PropTypes.shape({
-  id: PropTypes.number.isRequired,
+  // TODO: pendingRecords uses uuidv4() to generate an id...
+  id: PropTypes.oneOfType([
+    PropTypes.number.isRequired,
+    PropTypes.string.isRequired,
+  ]).isRequired,
   type: AlgaeRecordTypePropType.isRequired,
   name: PropTypes.string,
   organization: PropTypes.string,
@@ -26,7 +41,7 @@ const AlgaeRecordPropType = PropTypes.shape({
   locationDescription: PropTypes.string,
   notes: PropTypes.string,
   photoUris: PropTypes.string,
-  atlasType: PropTypes.oneOf(Object.values(AtlasType)).isRequired,
+  atlasType: AtlasTypePropType,
 });
 
-export { AlgaeRecordPropType, AlgaeRecordTypePropType };
+export { AlgaeRecordPropType, AlgaeRecordTypePropType, AtlasTypePropType };

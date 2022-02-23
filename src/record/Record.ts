@@ -1,4 +1,3 @@
-import { AtlasType } from "./Atlas";
 import { RecordDescription } from "../constants/Strings";
 
 type RecordTypePickerItem = {
@@ -56,9 +55,7 @@ const isAtlas = (type: AlgaeRecordType): boolean =>
 // BUGBUG: photoUris need alignment (new signature below)
 // const makeExampleRecords = (type: RecordType): Record => ({
 const makeExampleRecord = (type: AlgaeRecordType) => {
-  const atlasType: AtlasType = isAtlas(type)
-    ? AtlasType.SnowAlgae
-    : AtlasType.Undefined;
+  const atlasType: AtlasType = isAtlas(type) ? "Snow Algae" : "Undefined";
 
   return {
     id: 1234,

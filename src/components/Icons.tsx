@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import * as Icon from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import { isSample } from "../record/Record";
-import { AlgaeRecordTypePropType } from "../record/RecordPropTypes";
+import { AlgaeRecordTypePropType } from "../record/PropTypes";
 import TestIds from "../constants/TestIds";
 
 function StockIcon({ name, size, style, color, testID }) {

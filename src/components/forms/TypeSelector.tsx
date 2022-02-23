@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import RNPickerSelect from "react-native-picker-select";
 import { pickerSelectStyles, formInputStyles } from "../../styles/FormInput";
 import { getAllRecordTypePickerItems } from "../../record/Record";
-import { AlgaeRecordTypePropType } from "../../record/RecordPropTypes";
+import { AlgaeRecordTypePropType } from "../../record/PropTypes";
 import TestIds from "../../constants/TestIds";
 
 type TypeSelectorProps = {

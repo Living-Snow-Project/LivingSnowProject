@@ -3,13 +3,12 @@ import { Text } from "react-native";
 import PropTypes from "prop-types";
 import RNPickerSelect from "react-native-picker-select";
 import { formInputStyles, pickerSelectStyles } from "../../styles/FormInput";
-import {
-  AtlasType,
-  getAtlasPickerItem,
-  getAllAtlasPickerItems,
-} from "../../record/Atlas";
+import { getAtlasPickerItem, getAllAtlasPickerItems } from "../../record/Atlas";
 import { isSample, isAtlas } from "../../record/Record";
-import { AlgaeRecordTypePropType } from "../../record/RecordPropTypes";
+import {
+  AlgaeRecordTypePropType,
+  AtlasTypePropType,
+} from "../../record/PropTypes";
 import TestIds from "../../constants/TestIds";
 
 type AtlasSelectorProps = {
@@ -38,8 +37,8 @@ export default function AtlasSelector({
         items={
           isSample(recordType)
             ? [
-                getAtlasPickerItem(AtlasType.SnowAlgae),
-                getAtlasPickerItem(AtlasType.MixOfAlgaeAndDirt),
+                getAtlasPickerItem("Snow Algae"),
+                getAtlasPickerItem("Mix of Algae and Dirt"),
               ]
             : getAllAtlasPickerItems()
         }
@@ -52,6 +51,6 @@ export default function AtlasSelector({
 
 AtlasSelector.propTypes = {
   recordType: AlgaeRecordTypePropType.isRequired,
-  atlasType: PropTypes.oneOf(Object.values(AtlasType)).isRequired,
+  atlasType: AtlasTypePropType.isRequired,
   setAtlasType: PropTypes.func.isRequired,
 };

@@ -9,6 +9,19 @@ type AppSettings = {
   showOnlyAtlasRecords: boolean;
 };
 
+const AtlasTypeArray = [
+  "Snow Algae",
+  "Dirt or Debris",
+  "Ash",
+  "White Snow",
+  "Mix of Algae and Dirt",
+  "Forest or Vegetation",
+  "Other",
+  "Undefined",
+] as const;
+
+type AtlasType = typeof AtlasTypeArray[number];
+
 const AlgaeRecordTypeArray = [
   "Sample",
   "Sighting",
@@ -33,7 +46,7 @@ type AlgaeRecord = {
   locationDescription?: string;
   notes?: string;
   photoUris?: string;
-  atlasType: AtlasType;
+  atlasType?: AtlasType;
 };
 
 // TODO: this will need to change to something like "ServicePhoto" {recordId: number, photo: NativePhoto}

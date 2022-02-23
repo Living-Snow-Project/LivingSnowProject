@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import { Text, View } from "react-native";
 import PropTypes from "prop-types";
-import { AlgaeRecordPropType } from "../record/RecordPropTypes";
+import { AlgaeRecordPropType } from "../record/PropTypes";
 import styles from "../styles/Timeline";
 import TimelineRow from "./TimelineRow";
 

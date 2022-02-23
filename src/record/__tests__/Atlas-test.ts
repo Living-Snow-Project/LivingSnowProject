@@ -1,32 +1,32 @@
-import { AtlasType, getAtlasPickerItem } from "../Atlas";
+import { getAtlasPickerItem } from "../Atlas";
 import { AtlasDescription } from "../../constants/Strings";
 
 describe("Atlas test suite", () => {
   test("getAtlasPickerItem values", () => {
-    let cur = getAtlasPickerItem(AtlasType.SnowAlgae);
+    let cur = getAtlasPickerItem("Snow Algae");
     expect(cur.label).toEqual(AtlasDescription.SnowAlgae);
 
-    cur = getAtlasPickerItem(AtlasType.DirtOrDebris);
+    cur = getAtlasPickerItem("Dirt or Debris");
     expect(cur.label).toEqual(AtlasDescription.DirtOrDebris);
 
-    cur = getAtlasPickerItem(AtlasType.Ash);
+    cur = getAtlasPickerItem("Ash");
     expect(cur.label).toEqual(AtlasDescription.Ash);
 
-    cur = getAtlasPickerItem(AtlasType.WhiteSnow);
+    cur = getAtlasPickerItem("White Snow");
     expect(cur.label).toEqual(AtlasDescription.WhiteSnow);
 
-    cur = getAtlasPickerItem(AtlasType.MixOfAlgaeAndDirt);
+    cur = getAtlasPickerItem("Mix of Algae and Dirt");
     expect(cur.label).toEqual(AtlasDescription.MixOfAlgaeAndDirt);
 
-    cur = getAtlasPickerItem(AtlasType.ForestOrVegetation);
+    cur = getAtlasPickerItem("Forest or Vegetation");
     expect(cur.label).toEqual(AtlasDescription.ForestOrVegetation);
 
-    cur = getAtlasPickerItem(AtlasType.Other);
+    cur = getAtlasPickerItem("Other");
     expect(cur.label).toEqual(AtlasDescription.Other);
   });
 
   test("getAtlasPickerItem undefined atlas type", () => {
-    expect(getAtlasPickerItem(AtlasType.Undefined).label).toEqual(
+    expect(getAtlasPickerItem("Undefined").label).toEqual(
       AtlasDescription.Undefined
     );
   });

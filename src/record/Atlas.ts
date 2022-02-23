@@ -1,46 +1,37 @@
 import { AtlasDescription } from "../constants/Strings";
 
-// TODO: make this type AtlasType = "Snow Algae" | "Dirt or Debris" | "etc..."
-// because data going in to and out of the service API should not be magic numbers!
-enum AtlasType {
-  Undefined = -1,
-  SnowAlgae,
-  DirtOrDebris,
-  Ash,
-  WhiteSnow,
-  MixOfAlgaeAndDirt,
-  ForestOrVegetation,
-  Other,
-  Max,
-}
-
 type AtlasPickerItem = {
   value: AtlasType;
   label: string;
 };
 
 // specific format for RNPickerSelect
-const AtlasPickerItems: AtlasPickerItem[] = [
-  { value: AtlasType.SnowAlgae, label: AtlasDescription.SnowAlgae },
-  { value: AtlasType.DirtOrDebris, label: AtlasDescription.DirtOrDebris },
-  { value: AtlasType.Ash, label: AtlasDescription.Ash },
-  { value: AtlasType.WhiteSnow, label: AtlasDescription.WhiteSnow },
+const atlasPickerItems: AtlasPickerItem[] = [
+  { value: "Snow Algae", label: AtlasDescription.SnowAlgae },
+  { value: "Dirt or Debris", label: AtlasDescription.DirtOrDebris },
+  { value: "Ash", label: AtlasDescription.Ash },
+  { value: "White Snow", label: AtlasDescription.WhiteSnow },
   {
-    value: AtlasType.MixOfAlgaeAndDirt,
+    value: "Mix of Algae and Dirt",
     label: AtlasDescription.MixOfAlgaeAndDirt,
   },
   {
-    value: AtlasType.ForestOrVegetation,
+    value: "Forest or Vegetation",
     label: AtlasDescription.ForestOrVegetation,
   },
-  { value: AtlasType.Other, label: AtlasDescription.Other },
+  { value: "Other", label: AtlasDescription.Other },
 ];
 
-const getAtlasPickerItem = (type: AtlasType): AtlasPickerItem =>
-  type > AtlasType.Undefined && type < AtlasType.Max
-    ? AtlasPickerItems[type]
-    : { value: AtlasType.Undefined, label: AtlasDescription.Undefined };
+const getAtlasPickerItem = (type: AtlasType): AtlasPickerItem => {
+  const result = atlasPickerItems.find((cur) => cur.value === type);
 
-const getAllAtlasPickerItems = (): AtlasPickerItem[] => AtlasPickerItems;
+  if (result === undefined) {
+    return { value: "Undefined", label: AtlasDescription.Undefined };
+  }
 
-export { AtlasType, getAtlasPickerItem, getAllAtlasPickerItems };
+  return result;
+};
+
+const getAllAtlasPickerItems = (): AtlasPickerItem[] => atlasPickerItems;
+
+export { getAtlasPickerItem, getAllAtlasPickerItems };
