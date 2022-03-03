@@ -39,7 +39,13 @@ function empty(text) {
   return !text;
 }
 
-function topText({ date, name, organization, latitude, longitude }) {
+function topText({
+  date,
+  name,
+  organization,
+  latitude,
+  longitude,
+}: AlgaeRecord) {
   let result = `${recordDateFormat(date)}\n`;
 
   if (!empty(name)) {
@@ -57,7 +63,7 @@ function topText({ date, name, organization, latitude, longitude }) {
   return result;
 }
 
-function bottomText({ locationDescription, notes }) {
+function bottomText({ locationDescription, notes }: AlgaeRecord) {
   let result = "";
   let newline = "";
 
@@ -73,21 +79,17 @@ function bottomText({ locationDescription, notes }) {
   return result;
 }
 
-// TODO: make a recordClosure object
-function parsePhotoUris(photoUris) {
-  const result = photoUris.split(`;`);
-  result.pop();
+type TimelineRowProps = {
+  record: AlgaeRecord;
+};
 
-  return result;
-}
-
-export default function TimelineRow({ record }) {
+export default function TimelineRow({ record }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
   return (
     <View style={styles.recordContainer}>
       <Pressable
         testID={record.id.toString()}
-        onPress={() => navigate("RecordDetails", record)}
+        onPress={() => navigate("RecordDetails", { record })}
       >
         <View style={styles.recordTop}>
           <View style={styles.topText}>
@@ -96,13 +98,11 @@ export default function TimelineRow({ record }) {
           <View style={styles.topIcon}>
             <RecordIcon type={record.type} />
           </View>
-          {!empty(record.photoUris) && (
+          {record.photos !== undefined && record.photos.length > 0 && (
             <View style={styles.topIcon}>
               <PictureIcon />
               <View style={styles.photosNotification}>
-                <Text style={{ color: "white" }}>
-                  {parsePhotoUris(record.photoUris).length}
-                </Text>
+                <Text style={{ color: "white" }}>{record.photos.length}</Text>
               </View>
             </View>
           )}

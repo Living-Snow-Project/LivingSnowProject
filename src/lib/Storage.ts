@@ -75,7 +75,7 @@ async function saveRecord(record: AlgaeRecord): Promise<void | Error> {
 }
 
 // Photo Storage APIs
-async function loadPhotos(): Promise<Photo[]> {
+async function loadPhotos(): Promise<PendingPhoto[]> {
   return AsyncStorage.getItem(StorageKeys.photos)
     .then((value) => (value ? JSON.parse(value) : []))
     .catch((error) => {
@@ -84,7 +84,7 @@ async function loadPhotos(): Promise<Photo[]> {
     });
 }
 
-async function savePhotos(photos: Photo[]): Promise<void | Error> {
+async function savePhotos(photos: PendingPhoto[]): Promise<void | Error> {
   if (!photos) {
     return Promise.resolve();
   }
@@ -104,7 +104,7 @@ async function clearPhotos(): Promise<void | Error> {
   });
 }
 
-async function savePhoto(photo: Photo): Promise<void | Error> {
+async function savePhoto(photo: PendingPhoto): Promise<void | Error> {
   if (!photo) {
     return Promise.resolve();
   }

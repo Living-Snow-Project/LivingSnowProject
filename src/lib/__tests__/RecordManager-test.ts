@@ -19,8 +19,10 @@ afterEach(async () => {
 afterAll(() => server.close());
 
 describe("RecordManager test suite", () => {
-  const examplePhoto = {
+  // TODO: makeExamplePhoto
+  const examplePhoto: Photo = {
     uri: "file:///path/to/file.jpg",
+    size: 4096,
     width: 100,
     height: 160,
   };
@@ -61,7 +63,6 @@ describe("RecordManager test suite", () => {
   });
 
   test("uploadRecord with photos, uploadRecord succeeds and uploadPhotos fails, photos are saved", () => {
-    // TODO: annotate
     const expectedRecord = makeExampleRecord("Sample");
     const expectedPhoto = examplePhoto;
 
@@ -76,8 +77,7 @@ describe("RecordManager test suite", () => {
         expect(received).toContain("uploadPhoto");
 
         return loadPhotos().then((receivedPhotos) => {
-          // @ts-ignore
-          expect(receivedPhotos[0].photoStream.uri).toEqual(expectedPhoto.uri);
+          expect(receivedPhotos[0].uri).toEqual(expectedPhoto.uri);
         });
       });
   });
@@ -160,8 +160,8 @@ describe("RecordManager test suite", () => {
 
     return loadRecords().then((received: AlgaeRecord[]) => {
       expect(received.length).toEqual(2);
-      expect(received[0].photoUris?.length).toEqual(1);
-      expect(received[1].photoUris?.length).toEqual(1);
+      expect(received[0].photos?.length).toEqual(1);
+      expect(received[1].photos?.length).toEqual(1);
     });
   });
 
@@ -185,9 +185,17 @@ describe("RecordManager test suite", () => {
 
     await retryRecords();
 
-    return loadPhotos().then((received: Photo[]) => {
-      expect(received[0].photoStream).toEqual(examplePhoto);
-      expect(received[1].photoStream).toEqual(examplePhoto);
+    return loadPhotos().then((received: PendingPhoto[]) => {
+      expect(received[0].id).toEqual(1);
+      expect(received[0].uri).toEqual(examplePhoto.uri);
+      expect(received[0].size).toEqual(examplePhoto.size);
+      expect(received[0].width).toEqual(examplePhoto.width);
+      expect(received[0].height).toEqual(examplePhoto.height);
+      expect(received[1].id).toEqual(2);
+      expect(received[1].uri).toEqual(examplePhoto.uri);
+      expect(received[1].size).toEqual(examplePhoto.size);
+      expect(received[1].width).toEqual(examplePhoto.width);
+      expect(received[1].height).toEqual(examplePhoto.height);
     });
   });
 });

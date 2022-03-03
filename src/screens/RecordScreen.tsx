@@ -64,7 +64,7 @@ export default function RecordScreen({ navigation }) {
     longitude: 0, // GPS
   });
 
-  const [photos, setPhotos] = useState<NativePhoto[]>([]);
+  const [photos, setPhotos] = useState<Photo[]>([]);
   const dateString = useMemo(() => recordDateFormat(state.date), [state.date]);
 
   // user input form validation

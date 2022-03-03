@@ -37,22 +37,8 @@ export default function TimelineScreen({ navigation }) {
     return unsubscribe;
   }, []);
 
-  const displaySavedRecords = () => {
-    // records.photoUris is saved on disk as array of {uri, width, height} but RecordDetailsScreen expects `uri;uri;...` string format
-    // BUGBUG: can downloaded and saved records have consistent structure?
-    loadRecords().then((records) => {
-      records.forEach((record, index) => {
-        /* eslint-disable no-param-reassign */
-        // @ts-ignore (see BUGBUG above)
-        records[index].photoUris = record.photoUris.reduce(
-          (accumulator, photo) => `${accumulator}${photo.uri};`,
-          ``
-        );
-      });
-      setPendingRecords(records);
-    });
-  };
-
+  const displaySavedRecords = () =>
+    loadRecords().then((records) => setPendingRecords(records));
   // re-render when user comes back from Settings screen
   useEffect(() =>
     navigation.addListener("focus", () => {
@@ -85,8 +71,7 @@ export default function TimelineScreen({ navigation }) {
   }, [refreshing]);
 
   const omitRecord = useCallback(
-    (record) => {
-      // BUGBUG: because legacy type = string, but we will change to enum and break old clients :)
+    (record: AlgaeRecord) => {
       const atlas = isAtlas(record.type);
       return (atlas && !showAtlasRecords) || (!atlas && showOnlyAtlasRecords);
     },

@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { rest } from "msw";
 import { recordsUri } from "../lib/Network";
-import serviceEndpoint from "../constants/Service";
+import { serviceEndpoint } from "../constants/Service";
 
 type MockBackend = {
   curRecordId: number;

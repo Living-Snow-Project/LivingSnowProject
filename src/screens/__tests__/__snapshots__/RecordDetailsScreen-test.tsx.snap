@@ -117,7 +117,7 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
           <Image
             source={
               Object {
-                "uri": "https://snowalgaeproductionapp.azurewebsites.net/api/photos/46",
+                "uri": "https://snowalgaestorage.blob.core.windows.net/photos/46.jpg",
               }
             }
             style={
@@ -146,7 +146,7 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
           <Image
             source={
               Object {
-                "uri": "https://snowalgaeproductionapp.azurewebsites.net/api/photos/23",
+                "uri": "https://snowalgaestorage.blob.core.windows.net/photos/23.jpg",
               }
             }
             style={

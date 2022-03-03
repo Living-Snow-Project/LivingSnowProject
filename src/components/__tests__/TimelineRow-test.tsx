@@ -75,7 +75,7 @@ describe("TimelineRow test suite", () => {
   });
 
   test("no photos icon", () => {
-    expectedRecord.photoUris = undefined;
+    expectedRecord.photos = [];
 
     const { queryByTestId } = render(<TimelineRow record={expectedRecord} />);
 

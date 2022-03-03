@@ -10,10 +10,11 @@ import {
 import { jsonToRecord } from "../record/Record";
 import Logger from "./Logger";
 
-// TODO: type alignment
-// photos[] = {uri: string; width: number; height: number}
 // rejects with an error string
-async function uploadRecord(record: AlgaeRecord, photos): Promise<AlgaeRecord> {
+async function uploadRecord(
+  record: AlgaeRecord,
+  photos: Photo[]
+): Promise<AlgaeRecord> {
   let uploadPhotoError;
   const localRecord = jsonToRecord<AlgaeRecord>(JSON.stringify(record));
   localRecord.id = 0;
@@ -24,11 +25,11 @@ async function uploadRecord(record: AlgaeRecord, photos): Promise<AlgaeRecord> {
           (promise, photo) =>
             promise.then(() => {
               // picks up the record id of photo associated with
-              const wrappedPhoto = { id: response.id, photoStream: photo };
-              return Network.uploadPhoto(wrappedPhoto).catch(async (error) => {
+              const pendingPhoto: PendingPhoto = { id: response.id, ...photo };
+              return Network.uploadPhoto(pendingPhoto).catch(async (error) => {
                 Logger.Warn(`${error}`);
                 uploadPhotoError = error;
-                await savePhoto(wrappedPhoto);
+                await savePhoto(pendingPhoto);
               });
             }),
           Promise.resolve()
@@ -38,7 +39,7 @@ async function uploadRecord(record: AlgaeRecord, photos): Promise<AlgaeRecord> {
     .catch(async (error) => {
       Logger.Warn(`${error}`);
       localRecord.id = record.id;
-      localRecord.photoUris = photos;
+      localRecord.photos = photos;
       await saveRecord(localRecord);
       return Promise.reject(error);
     })
@@ -85,11 +86,9 @@ async function retryRecords(): Promise<void> {
         (promise, record) =>
           promise
             .then(() => {
-              const { photoUris } = record;
-              /* eslint-disable no-param-reassign */
-              record.photoUris = undefined;
-
-              return uploadRecord(record, photoUris);
+              const { photos } = record;
+              // @ts-ignore
+              return uploadRecord(record, photos);
             })
             .catch((error) =>
               Logger.Warn(

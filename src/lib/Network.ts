@@ -1,11 +1,14 @@
 import Logger from "./Logger";
-import serviceEndpoint from "../constants/Service";
+import {
+  serviceEndpoint,
+  photosBlobStorageEndpoint,
+} from "../constants/Service";
 import { jsonToRecord } from "../record/Record";
 
 const recordsUri: string = `${serviceEndpoint}/api/records/`;
 const uploadPhotoUri = (id: number): string => `${recordsUri}${id}/photo`;
-const downloadPhotoUri = (id: number): string =>
-  `${serviceEndpoint}/api/photos/${id}`;
+const downloadPhotoUri = (id: string): string =>
+  `${photosBlobStorageEndpoint}/${id}.jpg`;
 
 function dumpRecord(record: AlgaeRecord): void {
   Logger.Info(
@@ -59,15 +62,15 @@ async function uploadRecord(record: AlgaeRecord): Promise<AlgaeRecord> {
 }
 
 // rejects with an error string or the response object
-async function uploadPhoto({ id, photoStream }: Photo): Promise<void> {
+async function uploadPhoto(photo: PendingPhoto): Promise<void> {
   const operation = `uploadPhoto`;
 
-  return fetch(uploadPhotoUri(id), {
+  return fetch(uploadPhotoUri(photo.id), {
     method: "POST",
     headers: {
       "Content-Type": "image/jpeg",
     },
-    body: photoStream,
+    body: photo as any,
   })
     .then((response) =>
       response.ok ? Promise.resolve() : Promise.reject(response)

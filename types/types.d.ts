@@ -9,6 +9,19 @@ type AppSettings = {
   showOnlyAtlasRecords: boolean;
 };
 
+// what a photo looks like from service perspective
+interface Photo {
+  uri: string;
+  width: number;
+  height: number;
+  size: number;
+}
+
+// photo saved to disk when its record was uploaded
+interface PendingPhoto extends Photo {
+  id: number; // id of the uploaded record photo associated with
+}
+
 const AtlasTypeArray = [
   "Snow Algae",
   "Dirt or Debris",
@@ -45,18 +58,6 @@ type AlgaeRecord = {
   tubeId?: string;
   locationDescription?: string;
   notes?: string;
-  photoUris?: string;
+  photos?: Photo[];
   atlasType?: AtlasType;
-};
-
-// TODO: this will need to change to something like "ServicePhoto" {recordId: number, photo: NativePhoto}
-type Photo = {
-  id: number;
-  photoStream: string;
-};
-
-type NativePhoto = {
-  uri: string;
-  width: number;
-  height: number;
 };

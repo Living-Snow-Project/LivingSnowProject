@@ -20,12 +20,17 @@ describe("Network test suite", () => {
   const downloadRecordsFailureMsg = "downloadRecords was expected to fail";
   const uploadPhotoFailureMsg = "uploadPhoto was expected to fail";
   // TODO: makeExamplePhoto
-  const examplePhoto: Photo = { id: 0, photoStream: "" };
+  const examplePhoto: PendingPhoto = {
+    id: 1337,
+    uri: "",
+    size: 200,
+    width: 256,
+    height: 480,
+  };
 
   test("upload record succeeds", async () => {
     const expected = makeExampleRecord("Sample");
-    // TODO: any!
-    const received = await uploadRecord(expected as any);
+    const received = await uploadRecord(expected);
     if (typeof received === "object") {
       expect(received.id).not.toEqual(expected.id);
       expect(received.type).toEqual(expected.type);
@@ -39,30 +44,23 @@ describe("Network test suite", () => {
     const internalServerError = server.postRecordInternalServerError();
     const record = makeExampleRecord("Sample");
 
-    return (
-      // TODO: any!
-      uploadRecord(record as any)
-        .then(() => fail(uploadRecordsFailureMsg))
-        .catch((error) => expect(error).toContain(internalServerError))
-    );
+    return uploadRecord(record)
+      .then(() => fail(uploadRecordsFailureMsg))
+      .catch((error) => expect(error).toContain(internalServerError));
   });
 
   test("upload record fails, network error", () => {
     const networkError = server.postRecordNetworkError();
     const record = makeExampleRecord("Sample");
 
-    return (
-      // TODO: any!
-      uploadRecord(record as any)
-        .then(() => fail(uploadRecordsFailureMsg))
-        .catch((error) => expect(error).toContain(networkError))
-    );
+    return uploadRecord(record)
+      .then(() => fail(uploadRecordsFailureMsg))
+      .catch((error) => expect(error).toContain(networkError));
   });
 
   test("download records succeeds", async () => {
     const expected = makeExampleRecord("Sample");
-    // TODO: any!
-    const received = await uploadRecord(expected as any);
+    const received = await uploadRecord(expected);
 
     if (typeof received === "object") {
       // checking all the data fields is not important because server is mocked

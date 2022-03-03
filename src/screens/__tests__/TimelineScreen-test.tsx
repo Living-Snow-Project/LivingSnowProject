@@ -21,22 +21,10 @@ const navigation = {
   addListener: () => () => {},
 };
 
-const sharedTestRecordProps: AlgaeRecord = makeExampleRecord("Sample");
-
-// BUGBUG: can downloaded and saved/pending records have consistent structure (photoUris)?
-const downloadedTestRecord: AlgaeRecord = {
-  ...sharedTestRecordProps,
-};
-
-const downloadedAtlasTestRecord: AlgaeRecord = {
-  ...sharedTestRecordProps,
-  type: "Atlas: Red Dot",
-};
-
-const makePendingTestRecord = () => ({
-  ...sharedTestRecordProps,
-  photoUris: [{ uri: "" }],
-});
+const downloadedTestRecord: AlgaeRecord = makeExampleRecord("Sample");
+const downloadedAtlasTestRecord: AlgaeRecord =
+  makeExampleRecord("Atlas: Red Dot");
+const pendingTestRecord: AlgaeRecord = makeExampleRecord("Sighting");
 
 const setIsConntected = (isConnected: boolean): void => {
   jest.spyOn(NetInfo, "addEventListener").mockImplementationOnce((callback) => {
@@ -126,14 +114,13 @@ describe("TimelineScreen test suite", () => {
     const retryRecordsSpy = setupDownloadFailed();
     jest
       .spyOn(Storage, "loadRecords")
-      // @ts-ignore BUGBUG need to unify Record
-      .mockImplementationOnce(() => Promise.resolve([makePendingTestRecord()]));
+      .mockImplementationOnce(() => Promise.resolve([pendingTestRecord]));
 
     const { getByTestId, getByText } = render(
       <TimelineScreen navigation={navigation} />
     );
 
-    await waitFor(() => getByTestId(sharedTestRecordProps.id.toString()));
+    await waitFor(() => getByTestId(pendingTestRecord.id.toString()));
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
   });
@@ -208,7 +195,7 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("navigate back to TimelineScreen", async () => {
-    let cb;
+    let cb: () => void;
     const localNavigation = {
       navigate: jest.fn(),
       addListener: (event: string, callback: () => void) => {
@@ -247,9 +234,8 @@ describe("TimelineScreen test suite", () => {
 
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(downloadRecordsSpy).toBeCalledTimes(1);
-    expect(mockedNavigate).toBeCalledWith(
-      "RecordDetails",
-      downloadedTestRecord
-    );
+    expect(mockedNavigate).toBeCalledWith("RecordDetails", {
+      record: downloadedTestRecord,
+    });
   });
 });

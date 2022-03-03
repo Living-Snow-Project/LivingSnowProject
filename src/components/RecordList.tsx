@@ -20,7 +20,7 @@ export default function RecordList({
     () => (
       <>
         {records.map((record) => {
-          // @ts-ignore (TS complains it is possibly undefined however propTypes.defaultProps assigns it a value)
+          // @ts-ignore (propTypes.defaultProps assigns value)
           if (omitRecord(record)) {
             return null;
           }

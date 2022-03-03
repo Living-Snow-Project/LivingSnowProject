@@ -12,9 +12,12 @@ const makeTestAppConfig = (): AppSettings => ({
 });
 
 // TODO: move to Photo type file and import
-const makeExamplePhoto = (): Photo => ({
+const makeExamplePhoto = (): PendingPhoto => ({
   id: 987,
-  photoStream: "file://test/filepath",
+  uri: "file://test/filepath",
+  size: 100,
+  width: 16,
+  height: 16,
 });
 
 const mockOneAsyncStorageFailure = (method: string): Error => {

@@ -28,19 +28,16 @@ const styles = StyleSheet.create({
   },
 });
 
-// TODO: make an encapsulated Record object
-function parsePhotoUris(photoUris) {
-  if (!photoUris) {
-    return [];
-  }
-
-  const result = photoUris.split(`;`);
-  result.pop();
-
-  return result;
-}
-
-export default function RecordDetailsScreen({ route }) {
+type RecordDetailsScreenProps = {
+  route: {
+    params: {
+      record: AlgaeRecord;
+    };
+  };
+};
+export default function RecordDetailsScreen({
+  route,
+}: RecordDetailsScreenProps) {
   const {
     date,
     type,
@@ -52,8 +49,8 @@ export default function RecordDetailsScreen({ route }) {
     tubeId,
     notes,
     atlasType,
-  } = route.params;
-  const photoUris = parsePhotoUris(route.params.photoUris);
+    photos,
+  }: AlgaeRecord = route.params.record;
   // TODO: prefer to scale images based on its dominant axis
   // which means the server needs to store height, width
   const height = Dimensions.get("screen").height * 0.75;
@@ -78,7 +75,6 @@ export default function RecordDetailsScreen({ route }) {
           <Text style={{ textAlign: "center" }}>Data Sheet</Text>
         </View>
         <Text>{`${Labels.RecordFields.Date}: ${recordDateFormat(date)}`}</Text>
-        {/* BUGBUG: downloaded records type=string, pending records type=enum and converted to string */}
         <Text>{`${Labels.RecordFields.Type}: ${type}`}</Text>
         <Text>{`${Labels.RecordFields.Name}: ${name}`}</Text>
         {!!organization && (
@@ -86,9 +82,8 @@ export default function RecordDetailsScreen({ route }) {
         )}
         <Text>{`${Labels.RecordFields.GPSCoordinates}: ${latitude}, ${longitude}`}</Text>
         {!!tubeId && <Text>{`${Labels.RecordFields.TubeId}: ${tubeId}`}</Text>}
-        {isAtlas(type) && (
+        {isAtlas(type) && atlasType !== undefined && (
           <Text>{`${Labels.RecordFields.AtlasSnowSurface}: ${
-            // BUGBUG: pickerItem.label... really?
             getAtlasPickerItem(atlasType).label
           }`}</Text>
         )}
@@ -97,7 +92,7 @@ export default function RecordDetailsScreen({ route }) {
         )}
         {!!notes && <Text>{`${Labels.RecordFields.Notes}: ${notes}`}</Text>}
       </View>
-      {photoUris.length > 0 && (
+      {photos !== undefined && photos.length > 0 && (
         <View
           style={{
             borderColor: "black",
@@ -117,8 +112,8 @@ export default function RecordDetailsScreen({ route }) {
               {Labels.RecordFields.Photos}
             </Text>
           </View>
-          <View style={{ flex: photoUris.length, flexDirection: "column" }}>
-            {photoUris.map((x, index) => (
+          <View style={{ flex: photos.length, flexDirection: "column" }}>
+            {photos.map((x, index) => (
               <View
                 style={[
                   index === 0 ? styles.topImage : styles.image,
@@ -129,7 +124,11 @@ export default function RecordDetailsScreen({ route }) {
               >
                 <Image
                   style={{ width: "100%", height: "100%" }}
-                  source={{ uri: x.includes(`file`) ? x : downloadPhotoUri(x) }}
+                  source={{
+                    uri: x.uri.includes(`file`)
+                      ? x.uri
+                      : downloadPhotoUri(x.uri),
+                  }}
                 />
               </View>
             ))}
@@ -141,7 +140,7 @@ export default function RecordDetailsScreen({ route }) {
 }
 
 RecordDetailsScreen.propTypes = {
-  // TODO: make an encapsulated Record object (in TypeScript)
+  // TODO: type this properly
   // eslint-disable-next-line react/forbid-prop-types
   route: PropTypes.object.isRequired,
 };

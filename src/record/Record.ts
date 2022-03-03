@@ -52,9 +52,7 @@ const isAtlas = (type: AlgaeRecordType): boolean =>
   ).includes(type);
 
 // TODO: makeExampleRecord should also be used to seed RecordScreen (ie. no more "no records to display")
-// BUGBUG: photoUris need alignment (new signature below)
-// const makeExampleRecords = (type: RecordType): Record => ({
-const makeExampleRecord = (type: AlgaeRecordType) => {
+const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => {
   const atlasType: AtlasType = isAtlas(type) ? "Snow Algae" : "Undefined";
 
   return {
@@ -69,12 +67,19 @@ const makeExampleRecord = (type: AlgaeRecordType) => {
     locationDescription: "test location",
     notes: "test notes",
     atlasType,
-    photoUris: "46;23;",
+    photos: [
+      {
+        uri: "46",
+        size: 100,
+        width: 16,
+        height: 16,
+      },
+      { uri: "23", size: 4096, width: 128, height: 128 },
+    ],
   };
 };
 
 // needed for JSON.parse, otherwise date property will become string
-// TODO: add test for photoUris key
 const recordReviver = (key: string, value: any): any => {
   if (key === "date") {
     return new Date(value);
