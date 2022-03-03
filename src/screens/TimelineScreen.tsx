@@ -16,6 +16,7 @@ import TestIds from "../constants/TestIds";
 export default function TimelineScreen({ navigation }) {
   const [connected, setConnected] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
+  // BUGBUG: note that "pendingPhotos" is not considered\communicated to UX...
   const [pendingRecords, setPendingRecords] = useState<AlgaeRecord[]>([]);
   const [downloadedRecords, setDownloadedRecords] = useState<AlgaeRecord[]>([]);
   const [showAtlasRecords, setShowAtlasRecords] = useState<boolean>(

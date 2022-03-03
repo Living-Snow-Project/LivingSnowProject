@@ -1,6 +1,7 @@
 import mockAsyncStorage from "@react-native-async-storage/async-storage/jest/async-storage-mock";
 import * as Storage from "../Storage";
 import { makeExampleRecord } from "../../record/Record";
+import { makeExamplePendingPhoto } from "../../record/Photo";
 
 const makeTestAppConfig = (): AppSettings => ({
   name: "Test Name",
@@ -11,14 +12,8 @@ const makeTestAppConfig = (): AppSettings => ({
   showOnlyAtlasRecords: false,
 });
 
-// TODO: move to Photo type file and import
-const makeExamplePhoto = (): PendingPhoto => ({
-  id: 987,
-  uri: "file://test/filepath",
-  size: 100,
-  width: 16,
-  height: 16,
-});
+const makeExamplePhoto = (): PendingPhoto =>
+  makeExamplePendingPhoto({ isLocal: true });
 
 const mockOneAsyncStorageFailure = (method: string): Error => {
   const error = Error(`mocked ${method} error`);
@@ -30,6 +25,11 @@ const mockOneAsyncStorageFailure = (method: string): Error => {
 };
 
 describe("Storage test suite", () => {
+  afterEach(() => {
+    Storage.clearRecords();
+    Storage.clearPhotos();
+  });
+
   test("loadAppConfig succeeds with empty config", async () => {
     const received = await Storage.loadAppConfig();
     expect(received).toEqual(null);

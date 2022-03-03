@@ -1,4 +1,5 @@
 import { RecordDescription } from "../constants/Strings";
+import { makeExamplePhoto } from "./Photo";
 
 type RecordTypePickerItem = {
   value: AlgaeRecordType;
@@ -52,6 +53,7 @@ const isAtlas = (type: AlgaeRecordType): boolean =>
   ).includes(type);
 
 // TODO: makeExampleRecord should also be used to seed RecordScreen (ie. no more "no records to display")
+// consider randomizing more data; how that impacts snapshot testing and the above desired feature
 const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => {
   const atlasType: AtlasType = isAtlas(type) ? "Snow Algae" : "Undefined";
 
@@ -67,15 +69,7 @@ const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => {
     locationDescription: "test location",
     notes: "test notes",
     atlasType,
-    photos: [
-      {
-        uri: "46",
-        size: 100,
-        width: 16,
-        height: 16,
-      },
-      { uri: "23", size: 4096, width: 128, height: 128 },
-    ],
+    photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
   };
 };
 

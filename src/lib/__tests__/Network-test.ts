@@ -2,6 +2,7 @@ import "isomorphic-fetch";
 import server from "../../mocks/server";
 import { downloadRecords, uploadRecord, uploadPhoto } from "../Network";
 import { makeExampleRecord } from "../../record/Record";
+import { makeExamplePendingPhoto } from "../../record/Photo";
 
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());
@@ -19,14 +20,7 @@ describe("Network test suite", () => {
   const uploadRecordsFailureMsg = "uploadRecord was expected to fail";
   const downloadRecordsFailureMsg = "downloadRecords was expected to fail";
   const uploadPhotoFailureMsg = "uploadPhoto was expected to fail";
-  // TODO: makeExamplePhoto
-  const examplePhoto: PendingPhoto = {
-    id: 1337,
-    uri: "",
-    size: 200,
-    width: 256,
-    height: 480,
-  };
+  const examplePhoto = makeExamplePendingPhoto();
 
   test("upload record succeeds", async () => {
     const expected = makeExampleRecord("Sample");

@@ -3,6 +3,7 @@ import server from "../../mocks/server";
 import { clearRecords, clearPhotos, loadRecords, loadPhotos } from "../Storage";
 import { makeExampleRecord } from "../../record/Record";
 import { retryRecords, uploadRecord } from "../RecordManager";
+import { makeExamplePhoto } from "../../record/Photo";
 
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());
@@ -19,13 +20,7 @@ afterEach(async () => {
 afterAll(() => server.close());
 
 describe("RecordManager test suite", () => {
-  // TODO: makeExamplePhoto
-  const examplePhoto: Photo = {
-    uri: "file:///path/to/file.jpg",
-    size: 4096,
-    width: 100,
-    height: 160,
-  };
+  const examplePhoto = makeExamplePhoto({ isLocal: true });
 
   test("uploadRecord succeeds", () => {
     const expected = makeExampleRecord("Sample");
