@@ -87,7 +87,7 @@ async function retryRecords(): Promise<void> {
           promise
             .then(() => {
               const { photos } = record;
-              // @ts-ignore
+              // @ts-ignore (currently photos will always be [] and never undefined)
               return uploadRecord(record, photos);
             })
             .catch((error) =>

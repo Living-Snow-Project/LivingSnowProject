@@ -1,6 +1,9 @@
 import React from "react";
 import { act, fireEvent, render, waitFor } from "@testing-library/react-native";
-import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
+import NetInfo, {
+  NetInfoChangeHandler,
+  NetInfoState,
+} from "@react-native-community/netinfo";
 import TimelineScreen from "../TimelineScreen";
 import {
   SettingsButton,
@@ -12,7 +15,7 @@ import * as Storage from "../../lib/Storage";
 import * as Network from "../../lib/Network";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
-import { setAppSettings } from "../../../AppSettings";
+import { getAppSettings, setAppSettings } from "../../../AppSettings";
 import { mockedNavigate } from "../../../jesttest.setup";
 
 // TimelineScreen takes navigation input prop
@@ -21,10 +24,25 @@ const navigation = {
   addListener: () => () => {},
 };
 
-const downloadedTestRecord: AlgaeRecord = makeExampleRecord("Sample");
-const downloadedAtlasTestRecord: AlgaeRecord =
-  makeExampleRecord("Atlas: Red Dot");
-const pendingTestRecord: AlgaeRecord = makeExampleRecord("Sighting");
+const downloadedRecord: AlgaeRecord = {
+  ...makeExampleRecord("Sample"),
+  id: 1,
+};
+
+const downloadedAtlasRecord: AlgaeRecord = {
+  ...makeExampleRecord("Atlas: Red Dot"),
+  id: 2,
+};
+
+const pendingRecord: AlgaeRecord = {
+  ...makeExampleRecord("Sighting"),
+  id: 3,
+};
+
+const pendingAtlasRecord: AlgaeRecord = {
+  ...makeExampleRecord("Atlas: Blue Dot with Sample"),
+  id: 4,
+};
 
 const setIsConntected = (isConnected: boolean): void => {
   jest.spyOn(NetInfo, "addEventListener").mockImplementationOnce((callback) => {
@@ -42,7 +60,7 @@ const setupDownloadSuccess = () => {
   const downloadRecordsSpy = jest
     .spyOn(Network, "downloadRecords")
     .mockImplementationOnce(() =>
-      Promise.resolve([downloadedTestRecord, downloadedAtlasTestRecord])
+      Promise.resolve([downloadedRecord, downloadedAtlasRecord])
     );
 
   setIsConntected(true);
@@ -76,29 +94,15 @@ describe("TimelineScreen test suite", () => {
   test("download records succeeds", async () => {
     const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
 
-    // TODO: isolate to different test case, exists here now for code coverage reasons
-    // ie. this assertion is "buried" and not easily discoverable
-    setAppSettings((prev) => ({
-      ...prev,
-      showAtlasRecords: true,
-      showOnlyAtlasRecords: true,
-    }));
-
     const { getByTestId, getByText } = render(
       <TimelineScreen navigation={navigation} />
     );
 
-    await waitFor(() => getByTestId(downloadedTestRecord.id.toString()));
+    await waitFor(() => getByTestId(downloadedRecord.id.toString()));
 
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(downloadRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
-
-    setAppSettings((prev) => ({
-      ...prev,
-      showAtlasRecords: false,
-      showOnlyAtlasRecords: false,
-    }));
   });
 
   test("download records fails", async () => {
@@ -114,20 +118,104 @@ describe("TimelineScreen test suite", () => {
     const retryRecordsSpy = setupDownloadFailed();
     jest
       .spyOn(Storage, "loadRecords")
-      .mockImplementationOnce(() => Promise.resolve([pendingTestRecord]));
+      .mockImplementationOnce(() =>
+        Promise.resolve([pendingRecord, pendingAtlasRecord])
+      );
 
     const { getByTestId, getByText } = render(
       <TimelineScreen navigation={navigation} />
     );
 
-    await waitFor(() => getByTestId(pendingTestRecord.id.toString()));
+    // non-atlas visible
+    await waitFor(() => getByTestId(pendingRecord.id.toString()));
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
+
+    // atlas visible
+    expect(getByTestId(pendingAtlasRecord.id.toString())).toBeTruthy();
   });
 
-  test.todo("non-atlas and atlas records are displayed");
-  test.todo("atlas records are not displayed");
-  test.todo("only atlas records are displayed");
+  describe("atlas scenarios", () => {
+    let prevAppSettings: AppSettings;
+
+    beforeEach(() => {
+      prevAppSettings = getAppSettings();
+    });
+
+    afterEach(() => setAppSettings(prevAppSettings));
+
+    test("non-atlas and atlas records are displayed", async () => {
+      const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
+
+      setAppSettings((prev) => ({
+        ...prev,
+        showAtlasRecords: true,
+        showOnlyAtlasRecords: false,
+      }));
+
+      const { getByTestId, getByText } = render(
+        <TimelineScreen navigation={navigation} />
+      );
+
+      // non-atlas visible
+      await waitFor(() => getByTestId(downloadedRecord.id.toString()));
+
+      expect(retryRecordsSpy).toBeCalledTimes(1);
+      expect(downloadRecordsSpy).toBeCalledTimes(1);
+      expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
+
+      // atlas visible
+      expect(getByTestId(downloadedAtlasRecord.id.toString())).toBeTruthy();
+    });
+
+    test("atlas records are not displayed", async () => {
+      const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
+
+      setAppSettings((prev) => ({
+        ...prev,
+        showAtlasRecords: false,
+        showOnlyAtlasRecords: false,
+      }));
+
+      const { getByTestId, getByText, queryByTestId } = render(
+        <TimelineScreen navigation={navigation} />
+      );
+
+      // non-atlas visible
+      await waitFor(() => getByTestId(downloadedRecord.id.toString()));
+
+      expect(retryRecordsSpy).toBeCalledTimes(1);
+      expect(downloadRecordsSpy).toBeCalledTimes(1);
+      expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
+
+      // atlas not visible
+      expect(queryByTestId(downloadedAtlasRecord.id.toString())).toBeFalsy();
+    });
+
+    test("only atlas records are displayed", async () => {
+      const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
+
+      setAppSettings((prev) => ({
+        ...prev,
+        showAtlasRecords: true,
+        showOnlyAtlasRecords: true,
+      }));
+
+      const { getByTestId, getByText, queryByTestId } = render(
+        <TimelineScreen navigation={navigation} />
+      );
+
+      // atlas visible
+      await waitFor(() => getByTestId(downloadedAtlasRecord.id.toString()));
+
+      expect(retryRecordsSpy).toBeCalledTimes(1);
+      expect(downloadRecordsSpy).toBeCalledTimes(1);
+      expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
+
+      // non-atlas not visible
+      expect(queryByTestId(downloadedRecord.id.toString())).toBeFalsy();
+    });
+  });
 
   test("connection lost", async () => {
     setIsConntected(false);
@@ -138,7 +226,7 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("connection restored", async () => {
-    let cacheCallback;
+    let cacheCallback: NetInfoChangeHandler;
 
     jest
       .spyOn(NetInfo, "addEventListener")
@@ -166,7 +254,7 @@ describe("TimelineScreen test suite", () => {
       <TimelineScreen navigation={navigation} />
     );
 
-    await waitFor(() => getByTestId(downloadedTestRecord.id.toString()));
+    await waitFor(() => getByTestId(downloadedRecord.id.toString()));
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
     await act(async () =>
@@ -228,14 +316,14 @@ describe("TimelineScreen test suite", () => {
 
     const { getByTestId } = render(<TimelineScreen navigation={navigation} />);
 
-    await waitFor(() => getByTestId(downloadedTestRecord.id.toString()));
+    await waitFor(() => getByTestId(downloadedRecord.id.toString()));
 
-    fireEvent.press(getByTestId(downloadedTestRecord.id.toString()));
+    fireEvent.press(getByTestId(downloadedRecord.id.toString()));
 
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(downloadRecordsSpy).toBeCalledTimes(1);
     expect(mockedNavigate).toBeCalledWith("RecordDetails", {
-      record: downloadedTestRecord,
+      record: downloadedRecord,
     });
   });
 });
