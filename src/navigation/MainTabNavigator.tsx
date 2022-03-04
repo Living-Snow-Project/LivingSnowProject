@@ -64,7 +64,11 @@ function RootNavigator() {
         })}
       />
       <Stack.Screen name="Record" component={RecordScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{ gestureDirection: "horizontal-inverted" }}
+      />
       <Stack.Screen
         name="ImageSelection"
         component={ImagesPickerScreen}
