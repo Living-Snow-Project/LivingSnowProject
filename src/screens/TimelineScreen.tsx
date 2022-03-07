@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { RefreshControl, ScrollView, Text, View } from "react-native";
+import { RefreshControl, ScrollView, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { loadRecords } from "../lib/Storage";
 import { downloadRecords } from "../lib/Network";
 import { retryRecords } from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import StatusBar from "../components/StatusBar";
-import { isAtlas } from "../record/Record";
+import { isAtlas, productionExampleRecord } from "../record/Record";
 import styles from "../styles/Timeline";
 import { getAppSettings } from "../../AppSettings";
 import RecordList from "../components/RecordList";
@@ -26,26 +26,28 @@ export default function TimelineScreen({ navigation }) {
     getAppSettings().showOnlyAtlasRecords
   );
 
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener(({ isConnected }) => {
-      setConnected(!!isConnected);
+  useEffect(
+    () =>
+      NetInfo.addEventListener(({ isConnected }) => {
+        setConnected(!!isConnected);
 
-      if (isConnected) {
-        setRefreshing(true);
-      }
-    });
+        if (isConnected) {
+          setRefreshing(true);
+        }
+      }),
+    []
+  );
 
-    return unsubscribe;
-  }, []);
-
-  const displaySavedRecords = () =>
+  const displaySavedRecords = (): Promise<void> =>
     loadRecords().then((records) => setPendingRecords(records));
+
   // re-render when user comes back from Settings screen
   useEffect(() =>
     navigation.addListener("focus", () => {
-      displaySavedRecords();
-      setShowAtlasRecords(getAppSettings().showAtlasRecords);
-      setShowOnlyAtlasRecords(getAppSettings().showOnlyAtlasRecords);
+      displaySavedRecords().then(() => {
+        setShowAtlasRecords(getAppSettings().showAtlasRecords);
+        setShowOnlyAtlasRecords(getAppSettings().showOnlyAtlasRecords);
+      });
     })
   );
 
@@ -65,10 +67,7 @@ export default function TimelineScreen({ navigation }) {
       .catch(() =>
         Logger.Warn(`Could not download records. Please try again later.`)
       )
-      .finally(() => {
-        setRefreshing(false);
-        displaySavedRecords();
-      });
+      .finally(() => displaySavedRecords().then(() => setRefreshing(false)));
   }, [refreshing]);
 
   const omitRecord = useCallback(
@@ -93,9 +92,10 @@ export default function TimelineScreen({ navigation }) {
         }
       >
         {pendingRecords.length === 0 && downloadedRecords.length === 0 && (
-          <Text style={styles.noRecords}>
-            {Labels.TimelineScreen.NoRecords}
-          </Text>
+          <RecordList
+            records={[productionExampleRecord()]}
+            header={Labels.TimelineScreen.ExampleRecords}
+          />
         )}
 
         <RecordList

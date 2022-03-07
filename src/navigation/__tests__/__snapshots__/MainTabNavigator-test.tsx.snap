@@ -936,16 +936,160 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                         >
                           <RCTRefreshControl />
                           <View>
-                            <Text
+                            <View
                               style={
                                 Object {
-                                  "marginTop": 20,
-                                  "textAlign": "center",
+                                  "backgroundColor": "lightgrey",
+                                  "borderBottomWidth": 1,
                                 }
                               }
                             >
-                              No records to display
-                            </Text>
+                              <Text
+                                style={
+                                  Object {
+                                    "fontSize": 16,
+                                    "textAlign": "center",
+                                  }
+                                }
+                              >
+                                Example Record
+                              </Text>
+                            </View>
+                            <View
+                              style={
+                                Object {
+                                  "borderBottomWidth": 1,
+                                }
+                              }
+                            >
+                              <View
+                                accessible={true}
+                                collapsable={false}
+                                focusable={true}
+                                onBlur={[Function]}
+                                onClick={[Function]}
+                                onFocus={[Function]}
+                                onResponderGrant={[Function]}
+                                onResponderMove={[Function]}
+                                onResponderRelease={[Function]}
+                                onResponderTerminate={[Function]}
+                                onResponderTerminationRequest={[Function]}
+                                onStartShouldSetResponder={[Function]}
+                                testID="1234"
+                              >
+                                <View
+                                  style={
+                                    Object {
+                                      "flex": 1,
+                                      "flexDirection": "row",
+                                    }
+                                  }
+                                >
+                                  <View
+                                    style={
+                                      Object {
+                                        "flex": 0.7,
+                                        "marginLeft": 1,
+                                      }
+                                    }
+                                  >
+                                    <Text>
+                                      2022-04-01
+Helpful Individual (Community Scientist)
+Coordinates: 48.06727, -121.12165
+                                    </Text>
+                                  </View>
+                                  <View
+                                    style={
+                                      Object {
+                                        "flex": 0.15,
+                                        "marginLeft": 1,
+                                      }
+                                    }
+                                  >
+                                    <Text
+                                      allowFontScaling={false}
+                                      style={
+                                        Array [
+                                          Object {
+                                            "color": "lightcoral",
+                                            "fontSize": 48,
+                                          },
+                                          undefined,
+                                          Object {
+                                            "fontFamily": "ionicons",
+                                            "fontStyle": "normal",
+                                            "fontWeight": "normal",
+                                          },
+                                          Object {},
+                                        ]
+                                      }
+                                      testID="sample-icon"
+                                    >
+                                      
+                                    </Text>
+                                  </View>
+                                  <View
+                                    style={
+                                      Object {
+                                        "flex": 0.15,
+                                        "marginLeft": 1,
+                                      }
+                                    }
+                                  >
+                                    <Text
+                                      allowFontScaling={false}
+                                      style={
+                                        Array [
+                                          Object {
+                                            "color": "green",
+                                            "fontSize": 48,
+                                          },
+                                          undefined,
+                                          Object {
+                                            "fontFamily": "ionicons",
+                                            "fontStyle": "normal",
+                                            "fontWeight": "normal",
+                                          },
+                                          Object {},
+                                        ]
+                                      }
+                                      testID="picture-icon"
+                                    >
+                                      
+                                    </Text>
+                                    <View
+                                      style={
+                                        Object {
+                                          "alignItems": "center",
+                                          "alignSelf": "flex-end",
+                                          "backgroundColor": "red",
+                                          "borderRadius": 40,
+                                          "position": "absolute",
+                                          "right": 2,
+                                          "top": 1,
+                                          "width": "33%",
+                                        }
+                                      }
+                                    >
+                                      <Text
+                                        style={
+                                          Object {
+                                            "color": "white",
+                                          }
+                                        }
+                                      >
+                                        1
+                                      </Text>
+                                    </View>
+                                  </View>
+                                </View>
+                                <Text>
+                                  Location Description: White Chuck Glacier, Glacier Peak Wilderness, WA
+Notes: Dark red algae in runnels
+                                </Text>
+                              </View>
+                            </View>
                           </View>
                         </RCTScrollView>
                       </View>

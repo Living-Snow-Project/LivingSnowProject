@@ -110,7 +110,7 @@ describe("TimelineScreen test suite", () => {
 
     const { getByText } = render(<TimelineScreen navigation={navigation} />);
 
-    await waitFor(() => getByText(Labels.TimelineScreen.NoRecords));
+    await waitFor(() => getByText(Labels.TimelineScreen.ExampleRecords));
     expect(retryRecordsSpy).toBeCalledTimes(1);
   });
 

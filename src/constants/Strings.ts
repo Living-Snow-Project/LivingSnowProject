@@ -34,9 +34,9 @@ const Labels = {
     Photos: "Photos",
   },
   TimelineScreen: {
-    DownloadedRecords: "Downloaded",
-    NoRecords: "No records to display",
+    ExampleRecords: "Example Record",
     PendingRecords: "Pending",
+    DownloadedRecords: "Downloaded",
   },
   StatusBar: {
     NoConnection: "No Internet Connection",

@@ -1,7 +1,11 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
 import RecordDetailsScreen from "../RecordDetailsScreen";
-import { makeExampleRecord, recordDateFormat } from "../../record/Record";
+import {
+  makeExampleRecord,
+  productionExampleRecord,
+  recordDateFormat,
+} from "../../record/Record";
 import { makeExamplePhoto } from "../../record/Photo";
 import { Labels } from "../../constants/Strings";
 
@@ -61,6 +65,44 @@ describe("RecordDetailsScreen test suite", () => {
 
     const { record } = route.params;
 
+    expect(getByText(new RegExp(record.type))).toBeTruthy();
+    // @ts-ignore
+    expect(getByText(new RegExp(record.name))).toBeTruthy();
+    // @ts-ignore
+    expect(getByText(new RegExp(record.organization))).toBeTruthy();
+    expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
+    // @ts-ignore
+    expect(getByText(new RegExp(record.tubeId))).toBeTruthy();
+    expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
+    expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
+    expect(
+      // @ts-ignore
+      getByText(new RegExp(record.locationDescription))
+    ).toBeTruthy();
+    // @ts-ignore
+    expect(getByText(new RegExp(record.notes))).toBeTruthy();
+    expect(
+      queryByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
+    ).toBeFalsy();
+    expect(queryByText(new RegExp(Labels.RecordFields.Photos))).toBeTruthy();
+  });
+
+  test("example record with compiled photo", () => {
+    const route = {
+      params: {
+        record: {
+          ...productionExampleRecord(),
+        },
+      },
+    };
+
+    const { getByText, queryByText, toJSON } = render(
+      <RecordDetailsScreen route={route} />
+    );
+
+    const { record } = route.params;
+
+    expect(toJSON()).toMatchSnapshot();
     expect(getByText(new RegExp(record.type))).toBeTruthy();
     // @ts-ignore
     expect(getByText(new RegExp(record.name))).toBeTruthy();

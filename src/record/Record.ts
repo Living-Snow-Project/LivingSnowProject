@@ -52,6 +52,29 @@ const isAtlas = (type: AlgaeRecordType): boolean =>
     "Atlas: Blue Dot with Sample"
   ).includes(type);
 
+const examplePhoto = require("../../assets/images/splash.png");
+
+const productionExampleRecord = (): AlgaeRecord => ({
+  id: 1234,
+  type: "Sample",
+  name: "Helpful Individual",
+  organization: "Community Scientist",
+  date: new Date("2022-04-01T00:00:00"),
+  latitude: 48.06727,
+  longitude: -121.12165,
+  tubeId: "TUBE-1234",
+  locationDescription: "White Chuck Glacier, Glacier Peak Wilderness, WA",
+  notes: "Dark red algae in runnels",
+  photos: [
+    {
+      uri: examplePhoto,
+      size: 100,
+      width: 128,
+      height: 128,
+    },
+  ],
+});
+
 // TODO: makeExampleRecord should also be used to seed RecordScreen (ie. no more "no records to display")
 // consider randomizing more data; how that impacts snapshot testing and the above desired feature
 const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => {
@@ -110,6 +133,7 @@ export {
   getRecordTypePickerItem,
   getAllRecordTypePickerItems,
   makeExampleRecord,
+  productionExampleRecord,
   isSample,
   isAtlas,
   jsonToRecord,

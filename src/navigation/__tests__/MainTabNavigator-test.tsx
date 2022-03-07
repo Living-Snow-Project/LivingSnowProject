@@ -15,7 +15,7 @@ describe("Navigation test suite", () => {
     setAppSettings((prev) => ({ ...prev, showFirstRun: false }));
     const { getByText, toJSON } = render(<Navigation />);
 
-    await waitFor(() => getByText(Labels.TimelineScreen.NoRecords));
+    await waitFor(() => getByText(Labels.TimelineScreen.ExampleRecords));
     expect(toJSON()).toMatchSnapshot();
   });
 });

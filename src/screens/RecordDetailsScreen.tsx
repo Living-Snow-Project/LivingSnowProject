@@ -124,11 +124,18 @@ export default function RecordDetailsScreen({
               >
                 <Image
                   style={{ width: "100%", height: "100%" }}
-                  source={{
-                    uri: x.uri.includes(`file`)
+                  source={
+                    // compiled image\require(...) scenario
+                    typeof x.uri === "number"
                       ? x.uri
-                      : downloadPhotoUri(x.uri),
-                  }}
+                      : {
+                          uri: x.uri.includes("file")
+                            ? // images-picker scenario
+                              x.uri
+                            : // service scenario
+                              downloadPhotoUri(x.uri),
+                        }
+                  }
                 />
               </View>
             ))}
