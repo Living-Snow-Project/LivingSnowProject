@@ -4,9 +4,10 @@ import { jsonToRecord } from "../record/Record";
 
 const StorageKeys = {
   appConfig: "appConfig",
-  records: "records",
+  records: "records", // pending records (not uploaded)
+  cachedRecords: "cachedRecords", // previously downloaded
   photos: "photos",
-};
+} as const;
 
 // AppConfig Storage APIs
 async function loadAppConfig(): Promise<AppSettings | null> {
@@ -32,7 +33,7 @@ async function saveAppConfig(appSettings: AppSettings): Promise<void | Error> {
   });
 }
 
-// Record Storage APIs
+// Pending Records Storage APIs
 async function loadRecords(): Promise<AlgaeRecord[]> {
   return AsyncStorage.getItem(StorageKeys.records)
     .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
@@ -72,6 +73,32 @@ async function saveRecord(record: AlgaeRecord): Promise<void | Error> {
   const records = await loadRecords();
   records.push(record);
   return saveRecords(records);
+}
+
+// Cached Records Storage APIs
+async function loadCachedRecords(): Promise<AlgaeRecord[]> {
+  return AsyncStorage.getItem(StorageKeys.cachedRecords)
+    .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
+    .catch((error) => {
+      Logger.Error(`loadCachedRecords: ${error}`);
+      return [];
+    });
+}
+
+async function saveCachedRecords(
+  records: AlgaeRecord[]
+): Promise<void | Error> {
+  if (!records) {
+    return Promise.resolve();
+  }
+
+  return AsyncStorage.setItem(
+    StorageKeys.cachedRecords,
+    JSON.stringify(records)
+  ).catch((error) => {
+    Logger.Error(`saveCachedRecords: ${error}`);
+    return error;
+  });
 }
 
 // Photo Storage APIs
@@ -122,6 +149,8 @@ export {
   saveRecords,
   saveRecord,
   clearRecords,
+  loadCachedRecords,
+  saveCachedRecords,
   loadPhotos,
   savePhotos,
   clearPhotos,

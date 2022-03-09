@@ -123,6 +123,52 @@ describe("Storage test suite", () => {
     expect(received).toEqual(expectedError);
   });
 
+  test("loadCachedRecords succeeds with no records", async () => {
+    const received = await Storage.loadCachedRecords();
+    expect(received).toEqual([]);
+  });
+
+  test("loadCachedRecords fails", async () => {
+    mockOneAsyncStorageFailure("getItem");
+    const received = await Storage.loadCachedRecords();
+    expect(received).toEqual([]);
+  });
+
+  test("saveCachedRecords succeeds", async () => {
+    const expected = [
+      makeExampleRecord("Sample"),
+      makeExampleRecord("Sighting"),
+    ];
+
+    await Storage.saveCachedRecords(expected);
+    const received = await Storage.loadCachedRecords();
+    expect(received).toEqual(expected);
+  });
+
+  test("saveCachedRecords with empty records doesn't overwrite existing records", async () => {
+    const expected = [
+      makeExampleRecord("Sample"),
+      makeExampleRecord("Sighting"),
+    ];
+
+    await Storage.saveCachedRecords(expected);
+    let received = await Storage.loadCachedRecords();
+    expect(received).toEqual(expected);
+
+    // @ts-ignore
+    await Storage.saveCachedRecords(null);
+    received = await Storage.loadCachedRecords();
+    expect(received).toEqual(expected);
+  });
+
+  test("saveCachedRecords fails", async () => {
+    const expected = [makeExampleRecord("Sighting")];
+    const expectedError = mockOneAsyncStorageFailure("setItem");
+
+    const received = await Storage.saveCachedRecords(expected);
+    expect(received).toEqual(expectedError);
+  });
+
   test("clearRecords succeeds", async () => {
     const expected = [
       makeExampleRecord("Sample"),

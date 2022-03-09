@@ -8,10 +8,10 @@ import {
   View,
 } from "react-native";
 import PropTypes from "prop-types";
-import { downloadPhotoUri } from "../lib/Network";
 import { getAtlasPickerItem } from "../record/Atlas";
 import { isAtlas, recordDateFormat } from "../record/Record";
 import { Labels } from "../constants/Strings";
+import useCachedPhotos from "../hooks/useCachedPhotos";
 
 const styles = StyleSheet.create({
   container: {
@@ -35,6 +35,7 @@ type RecordDetailsScreenProps = {
     };
   };
 };
+
 export default function RecordDetailsScreen({
   route,
 }: RecordDetailsScreenProps) {
@@ -54,6 +55,7 @@ export default function RecordDetailsScreen({
   // TODO: prefer to scale images based on its dominant axis
   // which means the server needs to store height, width
   const height = Dimensions.get("screen").height * 0.75;
+  const cachedPhotos = useCachedPhotos(photos);
 
   return (
     <ScrollView style={styles.container}>
@@ -92,7 +94,7 @@ export default function RecordDetailsScreen({
         )}
         {!!notes && <Text>{`${Labels.RecordFields.Notes}: ${notes}`}</Text>}
       </View>
-      {photos !== undefined && photos.length > 0 && (
+      {cachedPhotos !== undefined && cachedPhotos.length > 0 && (
         <View
           style={{
             borderColor: "black",
@@ -112,8 +114,8 @@ export default function RecordDetailsScreen({
               {Labels.RecordFields.Photos}
             </Text>
           </View>
-          <View style={{ flex: photos.length, flexDirection: "column" }}>
-            {photos.map((x, index) => (
+          <View style={{ flex: cachedPhotos.length, flexDirection: "column" }}>
+            {cachedPhotos.map((x, index) => (
               <View
                 style={[
                   index === 0 ? styles.topImage : styles.image,
@@ -125,15 +127,12 @@ export default function RecordDetailsScreen({
                 <Image
                   style={{ width: "100%", height: "100%" }}
                   source={
-                    // compiled image\require(...) scenario
+                    // static\compiled photo from require(...) scenario
+                    // alternative is to write the file to disk on load
                     typeof x.uri === "number"
                       ? x.uri
                       : {
-                          uri: x.uri.includes("file")
-                            ? // images-picker scenario
-                              x.uri
-                            : // service scenario
-                              downloadPhotoUri(x.uri),
+                          uri: x.uri,
                         }
                   }
                 />

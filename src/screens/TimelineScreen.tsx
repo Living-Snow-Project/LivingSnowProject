@@ -1,7 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { RefreshControl, ScrollView, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
-import { loadRecords } from "../lib/Storage";
+import {
+  loadRecords,
+  loadCachedRecords,
+  saveCachedRecords,
+} from "../lib/Storage";
 import { downloadRecords } from "../lib/Network";
 import { retryRecords } from "../lib/RecordManager";
 import Logger from "../lib/Logger";
@@ -25,6 +29,14 @@ export default function TimelineScreen({ navigation }) {
   const [showOnlyAtlasRecords, setShowOnlyAtlasRecords] = useState<boolean>(
     getAppSettings().showOnlyAtlasRecords
   );
+
+  useEffect(() => {
+    loadCachedRecords().then((records) => {
+      if (records.length > 0) {
+        setDownloadedRecords(records);
+      }
+    });
+  }, []);
 
   useEffect(
     () =>
@@ -63,7 +75,10 @@ export default function TimelineScreen({ navigation }) {
 
     retryRecords()
       .then(() => downloadRecords())
-      .then((response) => setDownloadedRecords(response))
+      .then((response) => {
+        saveCachedRecords(response.slice(0, 20));
+        setDownloadedRecords(response);
+      })
       .catch(() =>
         Logger.Warn(`Could not download records. Please try again later.`)
       )

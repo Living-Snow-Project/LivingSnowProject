@@ -75,7 +75,6 @@ const productionExampleRecord = (): AlgaeRecord => ({
   ],
 });
 
-// TODO: makeExampleRecord should also be used to seed RecordScreen (ie. no more "no records to display")
 // consider randomizing more data; how that impacts snapshot testing and the above desired feature
 const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => {
   const atlasType: AtlasType = isAtlas(type) ? "Snow Algae" : "Undefined";

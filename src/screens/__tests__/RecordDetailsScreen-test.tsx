@@ -1,5 +1,6 @@
 import React from "react";
-import { render } from "@testing-library/react-native";
+import { render, waitFor } from "@testing-library/react-native";
+import * as FileSystem from "expo-file-system";
 import RecordDetailsScreen from "../RecordDetailsScreen";
 import {
   makeExampleRecord,
@@ -9,8 +10,24 @@ import {
 import { makeExamplePhoto } from "../../record/Photo";
 import { Labels } from "../../constants/Strings";
 
+jest.mock("expo-file-system", () => ({
+  downloadAsync: jest.fn(() => Promise.resolve({ md5: "md5", uri: "uri" })),
+  getInfoAsync: jest.fn(() =>
+    Promise.resolve({ exists: true, md5: "md5", uri: "uri" })
+  ),
+  readAsStringAsync: jest.fn(() => Promise.resolve()),
+  writeAsStringAsync: jest.fn(() => Promise.resolve()),
+  deleteAsync: jest.fn(() => Promise.resolve()),
+  moveAsync: jest.fn(() => Promise.resolve()),
+  copyAsync: jest.fn(() => Promise.resolve()),
+  makeDirectoryAsync: jest.fn(() => Promise.resolve()),
+  readDirectoryAsync: jest.fn(() => Promise.resolve()),
+  createDownloadResumable: jest.fn(() => Promise.resolve()),
+  documentDirectory: "file:///test-directory/",
+}));
+
 describe("RecordDetailsScreen test suite", () => {
-  test("sample with remote photos", () => {
+  test("sample with remote photos", async () => {
     const route = {
       params: {
         record: {
@@ -19,37 +36,113 @@ describe("RecordDetailsScreen test suite", () => {
       },
     };
 
+    // only mock once, because makeExampleRecord contains 2 photos, and want to exercise both existing\download code
+    jest
+      .spyOn(FileSystem, "getInfoAsync")
+      .mockImplementationOnce(() =>
+        Promise.resolve({ exists: false } as FileSystem.FileInfo)
+      );
+
+    const downloadAsyncSpy = jest
+      .spyOn(FileSystem, "downloadAsync")
+      .mockImplementation(() =>
+        Promise.resolve({ status: 200 } as FileSystem.FileSystemDownloadResult)
+      );
+
     const { getByText, queryByText, toJSON } = render(
       <RecordDetailsScreen route={route} />
     );
 
+    await waitFor(() => getByText(Labels.RecordFields.Photos));
+
     const { record } = route.params;
 
     expect(toJSON()).toMatchSnapshot();
-    expect(getByText(new RegExp(record.type))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.name))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.organization))).toBeTruthy();
-    expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.tubeId))).toBeTruthy();
-    expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
-    expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
-    expect(
-      // @ts-ignore
-      getByText(new RegExp(record.locationDescription))
-    ).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.notes))).toBeTruthy();
-    expect(
-      queryByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
-    ).toBeFalsy();
-    expect(queryByText(new RegExp(Labels.RecordFields.Photos))).toBeTruthy();
+
+    if (
+      record.name &&
+      record.organization &&
+      record.tubeId &&
+      record.locationDescription &&
+      record.notes
+    ) {
+      expect(getByText(new RegExp(record.type))).toBeTruthy();
+      expect(getByText(new RegExp(record.name))).toBeTruthy();
+      expect(getByText(new RegExp(record.organization))).toBeTruthy();
+      expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
+      expect(getByText(new RegExp(record.tubeId))).toBeTruthy();
+      expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
+      expect(getByText(new RegExp(record.notes))).toBeTruthy();
+      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
+      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
+    } else {
+      fail("one expected field was undefined");
+    }
+
+    downloadAsyncSpy.mockReset();
   });
 
-  test("sample with remote photos, no snapshot", () => {
-    // this test is a little silly but needed to test makeExmaplePhoto without a hard-coded uri
+  test("sample with remote photos, photo download fails", async () => {
+    const route = {
+      params: {
+        record: {
+          ...makeExampleRecord("Sample"),
+        },
+      },
+    };
+
+    const getInfoAsyncSpy = jest
+      .spyOn(FileSystem, "getInfoAsync")
+      .mockImplementation(() =>
+        Promise.resolve({ exists: false } as FileSystem.FileInfo)
+      );
+
+    const downloadAsyncSpy = jest
+      .spyOn(FileSystem, "downloadAsync")
+      .mockImplementation(() =>
+        Promise.resolve({ status: 404 } as FileSystem.FileSystemDownloadResult)
+      );
+
+    const { getByText, queryByText, toJSON } = render(
+      <RecordDetailsScreen route={route} />
+    );
+
+    await waitFor(() => getByText(Labels.RecordFields.Photos));
+
+    const { record } = route.params;
+
+    expect(toJSON()).toMatchSnapshot();
+
+    if (
+      record.name &&
+      record.organization &&
+      record.tubeId &&
+      record.locationDescription &&
+      record.notes
+    ) {
+      expect(getByText(new RegExp(record.type))).toBeTruthy();
+      expect(getByText(new RegExp(record.name))).toBeTruthy();
+      expect(getByText(new RegExp(record.organization))).toBeTruthy();
+      expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
+      expect(getByText(new RegExp(record.tubeId))).toBeTruthy();
+      expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
+      expect(getByText(new RegExp(record.notes))).toBeTruthy();
+      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
+      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
+    } else {
+      fail("one expected field was undefined");
+    }
+
+    getInfoAsyncSpy.mockReset();
+    downloadAsyncSpy.mockReset();
+  });
+
+  test("sample with remote photos, no snapshot", async () => {
+    // this test is a little silly but need to test makeExamplePhoto without a hard-coded uri that makeExampleRecord uses
     const route = {
       params: {
         record: {
@@ -63,28 +156,31 @@ describe("RecordDetailsScreen test suite", () => {
       <RecordDetailsScreen route={route} />
     );
 
+    await waitFor(() => getByText(Labels.RecordFields.Photos));
+
     const { record } = route.params;
 
-    expect(getByText(new RegExp(record.type))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.name))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.organization))).toBeTruthy();
-    expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.tubeId))).toBeTruthy();
-    expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
-    expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
-    expect(
-      // @ts-ignore
-      getByText(new RegExp(record.locationDescription))
-    ).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.notes))).toBeTruthy();
-    expect(
-      queryByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
-    ).toBeFalsy();
-    expect(queryByText(new RegExp(Labels.RecordFields.Photos))).toBeTruthy();
+    if (
+      record.name &&
+      record.organization &&
+      record.tubeId &&
+      record.locationDescription &&
+      record.notes
+    ) {
+      expect(getByText(new RegExp(record.type))).toBeTruthy();
+      expect(getByText(new RegExp(record.name))).toBeTruthy();
+      expect(getByText(new RegExp(record.organization))).toBeTruthy();
+      expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
+      expect(getByText(new RegExp(record.tubeId))).toBeTruthy();
+      expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
+      expect(getByText(new RegExp(record.notes))).toBeTruthy();
+      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
+      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
+    } else {
+      fail("one expected field was undefined");
+    }
   });
 
   test("example record with compiled photo", () => {
@@ -103,26 +199,28 @@ describe("RecordDetailsScreen test suite", () => {
     const { record } = route.params;
 
     expect(toJSON()).toMatchSnapshot();
-    expect(getByText(new RegExp(record.type))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.name))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.organization))).toBeTruthy();
-    expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.tubeId))).toBeTruthy();
-    expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
-    expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
-    expect(
-      // @ts-ignore
-      getByText(new RegExp(record.locationDescription))
-    ).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.notes))).toBeTruthy();
-    expect(
-      queryByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
-    ).toBeFalsy();
-    expect(queryByText(new RegExp(Labels.RecordFields.Photos))).toBeTruthy();
+
+    if (
+      record.name &&
+      record.organization &&
+      record.tubeId &&
+      record.locationDescription &&
+      record.notes
+    ) {
+      expect(getByText(new RegExp(record.type))).toBeTruthy();
+      expect(getByText(new RegExp(record.name))).toBeTruthy();
+      expect(getByText(new RegExp(record.organization))).toBeTruthy();
+      expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
+      expect(getByText(new RegExp(record.tubeId))).toBeTruthy();
+      expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
+      expect(getByText(new RegExp(record.notes))).toBeTruthy();
+      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
+      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
+    } else {
+      fail("one expected field was undefined");
+    }
   });
 
   test("sighting without photos", () => {
@@ -141,28 +239,29 @@ describe("RecordDetailsScreen test suite", () => {
 
     const { record } = route.params;
 
-    expect(getByText(new RegExp(record.type))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.name))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.organization))).toBeTruthy();
-    expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
-    expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
-    expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
-    expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
-    expect(
-      // @ts-ignore
-      getByText(new RegExp(record.locationDescription))
-    ).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.notes))).toBeTruthy();
-    expect(
-      queryByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
-    ).toBeFalsy();
-    expect(queryByText(new RegExp(Labels.RecordFields.Photos))).toBeFalsy();
+    if (
+      record.name &&
+      record.organization &&
+      record.locationDescription &&
+      record.notes
+    ) {
+      expect(getByText(new RegExp(record.type))).toBeTruthy();
+      expect(getByText(new RegExp(record.name))).toBeTruthy();
+      expect(getByText(new RegExp(record.organization))).toBeTruthy();
+      expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
+      expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
+      expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
+      expect(getByText(new RegExp(record.notes))).toBeTruthy();
+      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
+      expect(queryByText(Labels.RecordFields.Photos)).toBeFalsy();
+    } else {
+      fail("one expected field was undefined");
+    }
   });
 
-  test("atlas with local photos", () => {
+  test("atlas sighting with local photos", async () => {
     const route = {
       params: {
         record: {
@@ -176,27 +275,31 @@ describe("RecordDetailsScreen test suite", () => {
       <RecordDetailsScreen route={route} />
     );
 
+    await waitFor(() => getByText(Labels.RecordFields.Photos));
+
     const { record } = route.params;
 
-    expect(getByText(new RegExp(record.type))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.name))).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.organization))).toBeTruthy();
-    expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
-    expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
-    expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
-    expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
-    expect(
-      // @ts-ignore
-      getByText(new RegExp(record.locationDescription))
-    ).toBeTruthy();
-    // @ts-ignore
-    expect(getByText(new RegExp(record.notes))).toBeTruthy();
-    expect(
-      getByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
-    ).toBeTruthy();
-    expect(getByText(new RegExp(Labels.RecordFields.Photos))).toBeTruthy();
+    if (
+      record.name &&
+      record.organization &&
+      record.locationDescription &&
+      record.notes &&
+      record.atlasType
+    ) {
+      expect(getByText(new RegExp(record.type))).toBeTruthy();
+      expect(getByText(new RegExp(record.name))).toBeTruthy();
+      expect(getByText(new RegExp(record.organization))).toBeTruthy();
+      expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
+      expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
+      expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
+      expect(getByText(new RegExp(record.notes))).toBeTruthy();
+      expect(getByText(new RegExp(record.atlasType))).toBeTruthy();
+      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
+    } else {
+      fail("one expected field was undefined");
+    }
   });
 
   test("sighting omit all optional fields", () => {
@@ -208,7 +311,7 @@ describe("RecordDetailsScreen test suite", () => {
           tubeId: undefined,
           locationDescription: undefined,
           notes: undefined,
-          photos: [],
+          photos: undefined,
         },
       },
     };
@@ -219,23 +322,20 @@ describe("RecordDetailsScreen test suite", () => {
 
     const { record } = route.params;
 
-    expect(getByText(new RegExp(record.type))).toBeTruthy();
-    // @ts-ignore
-    expect(queryByText(new RegExp(record.name))).toBeTruthy();
-    expect(
-      queryByText(new RegExp(Labels.RecordFields.Organization))
-    ).toBeFalsy();
-    expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
-    expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
-    expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
-    expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
-    expect(
-      queryByText(new RegExp(Labels.RecordFields.LocationDescription))
-    ).toBeFalsy();
-    expect(queryByText(new RegExp(Labels.RecordFields.Notes))).toBeFalsy();
-    expect(
-      queryByText(new RegExp(Labels.RecordFields.AtlasSnowSurface))
-    ).toBeFalsy();
-    expect(queryByText(new RegExp(Labels.RecordFields.Photos))).toBeFalsy();
+    if (record.name) {
+      expect(getByText(new RegExp(record.type))).toBeTruthy();
+      expect(queryByText(new RegExp(record.name))).toBeTruthy();
+      expect(queryByText(Labels.RecordFields.Organization)).toBeFalsy();
+      expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
+      expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
+      expect(queryByText(Labels.RecordFields.TubeId)).toBeFalsy();
+      expect(queryByText(Labels.RecordFields.LocationDescription)).toBeFalsy();
+      expect(queryByText(Labels.RecordFields.Notes)).toBeFalsy();
+      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
+      expect(queryByText(Labels.RecordFields.Photos)).toBeFalsy();
+    } else {
+      fail("name field was not found");
+    }
   });
 });
