@@ -13,7 +13,7 @@ import StatusBar from "../components/StatusBar";
 import { isAtlas, productionExampleRecord } from "../record/Record";
 import styles from "../styles/Timeline";
 import { getAppSettings } from "../../AppSettings";
-import RecordList from "../components/RecordList";
+import { RecordList, PendingRecordList } from "../components/RecordList";
 import { Labels } from "../constants/Strings";
 import TestIds from "../constants/TestIds";
 
@@ -110,10 +110,11 @@ export default function TimelineScreen({ navigation }) {
           <RecordList
             records={[productionExampleRecord()]}
             header={Labels.TimelineScreen.ExampleRecords}
+            omitRecord={() => false}
           />
         )}
 
-        <RecordList
+        <PendingRecordList
           records={pendingRecords}
           header={Labels.TimelineScreen.PendingRecords}
         />

@@ -1,7 +1,13 @@
 import React from "react";
 import { Platform } from "react-native";
 import { render } from "@testing-library/react-native";
-import { RecordIcon, PictureIcon, SnowIcon } from "../Icons";
+import {
+  DeleteIcon,
+  EditIcon,
+  PictureIcon,
+  RecordIcon,
+  SnowIcon,
+} from "../Icons";
 
 describe("Icons test suite", () => {
   describe("android", () => {
@@ -32,6 +38,16 @@ describe("Icons test suite", () => {
       const { toJSON } = render(<SnowIcon />);
       expect(toJSON()).toMatchSnapshot();
     });
+
+    test("edit icon", () => {
+      const { toJSON } = render(<EditIcon />);
+      expect(toJSON()).toMatchSnapshot();
+    });
+
+    test("delete icon", () => {
+      const { toJSON } = render(<DeleteIcon />);
+      expect(toJSON()).toMatchSnapshot();
+    });
   });
 
   describe("ios", () => {
@@ -53,6 +69,16 @@ describe("Icons test suite", () => {
 
     test("snow icon", () => {
       const { toJSON } = render(<SnowIcon />);
+      expect(toJSON()).toMatchSnapshot();
+    });
+
+    test("edit icon", () => {
+      const { toJSON } = render(<EditIcon />);
+      expect(toJSON()).toMatchSnapshot();
+    });
+
+    test("delete icon", () => {
+      const { toJSON } = render(<DeleteIcon />);
       expect(toJSON()).toMatchSnapshot();
     });
   });

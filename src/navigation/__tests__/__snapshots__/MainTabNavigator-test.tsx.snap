@@ -914,7 +914,6 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                       <View
                         style={
                           Object {
-                            "backgroundColor": "#fff",
                             "flex": 1,
                           }
                         }
@@ -928,7 +927,6 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                           }
                           style={
                             Object {
-                              "backgroundColor": "#fff",
                               "flex": 1,
                             }
                           }
@@ -958,6 +956,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                             <View
                               style={
                                 Object {
+                                  "backgroundColor": "white",
                                   "borderBottomWidth": 1,
                                 }
                               }

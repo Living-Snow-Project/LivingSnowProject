@@ -62,6 +62,26 @@ function PictureIcon() {
   );
 }
 
+function DeleteIcon() {
+  return (
+    <StockIcon
+      name={Platform.OS === "ios" ? "ios-trash-outline" : "md-trash-outline"}
+      color="darkred"
+      testID={TestIds.Icons.DeleteIcon}
+    />
+  );
+}
+
+function EditIcon() {
+  return (
+    <StockIcon
+      name={Platform.OS === "ios" ? "ios-open-outline" : "md-open-outline"}
+      color="green"
+      testID={TestIds.Icons.EditIcon}
+    />
+  );
+}
+
 function SnowIcon({ style }) {
   return (
     <StockIcon
@@ -80,4 +100,4 @@ SnowIcon.defaultProps = {
   style: {},
 };
 
-export { PictureIcon, RecordIcon, StockIcon, SnowIcon };
+export { EditIcon, DeleteIcon, PictureIcon, RecordIcon, SnowIcon, StockIcon };

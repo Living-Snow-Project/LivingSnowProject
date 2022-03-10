@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 const TimelineStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
   noRecords: {
     textAlign: "center",

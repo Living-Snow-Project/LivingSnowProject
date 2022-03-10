@@ -27,7 +27,13 @@ const TestIds = {
     SampleIcon: "sample-icon",
     SightingIcon: "sighting-icon",
     PictureIcon: "picture-icon",
+    DeleteIcon: "delete-icon",
+    EditIcon: "edit-icon",
     SnowIcon: "snow-icon",
+  },
+  RecordList: {
+    EditRecordAction: "edit-record-action",
+    DeleteRecordAction: "delete-record-action",
   },
 };
 

@@ -123,6 +123,50 @@ describe("Storage test suite", () => {
     expect(received).toEqual(expectedError);
   });
 
+  test("deleteRecord removes record", async () => {
+    const expected = [
+      { ...makeExampleRecord("Sample"), id: 1 },
+      { ...makeExampleRecord("Sighting"), id: 2 },
+      { ...makeExampleRecord("Atlas: Blue Dot"), id: 3 },
+    ];
+
+    await Storage.saveRecords(expected);
+    await Storage.deleteRecord(expected[1]);
+
+    const received = await Storage.loadRecords();
+    const newExpected = [expected[0], expected[2]];
+    expect(received).toEqual(newExpected);
+  });
+
+  test("deleteRecord with record that does not exist", async () => {
+    const expected = [
+      { ...makeExampleRecord("Sample"), id: 1 },
+      { ...makeExampleRecord("Sighting"), id: 2 },
+      { ...makeExampleRecord("Atlas: Blue Dot"), id: 3 },
+    ];
+
+    await Storage.saveRecords(expected);
+    await Storage.deleteRecord(makeExampleRecord("Atlas: Red Dot"));
+
+    const received = await Storage.loadRecords();
+    expect(received).toEqual(expected);
+  });
+
+  test("deleteRecord empty record", async () => {
+    const expected = [
+      { ...makeExampleRecord("Sample"), id: 1 },
+      { ...makeExampleRecord("Sighting"), id: 2 },
+      { ...makeExampleRecord("Atlas: Blue Dot"), id: 3 },
+    ];
+
+    await Storage.saveRecords(expected);
+    // @ts-ignore
+    await Storage.deleteRecord(null);
+
+    const received = await Storage.loadRecords();
+    expect(received).toEqual(expected);
+  });
+
   test("loadCachedRecords succeeds with no records", async () => {
     const received = await Storage.loadCachedRecords();
     expect(received).toEqual([]);

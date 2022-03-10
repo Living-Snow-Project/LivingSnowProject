@@ -75,6 +75,24 @@ async function saveRecord(record: AlgaeRecord): Promise<void | Error> {
   return saveRecords(records);
 }
 
+async function deleteRecord(record: AlgaeRecord): Promise<void | Error> {
+  if (!record) {
+    return Promise.resolve();
+  }
+
+  // load all pending
+  const records = await loadRecords();
+  const index = records.findIndex((current) => current.id === record.id);
+
+  if (index !== -1) {
+    records.splice(index, 1);
+    const result = await saveRecords(records);
+    return result;
+  }
+
+  return Promise.resolve();
+}
+
 // Cached Records Storage APIs
 async function loadCachedRecords(): Promise<AlgaeRecord[]> {
   return AsyncStorage.getItem(StorageKeys.cachedRecords)
@@ -148,6 +166,7 @@ export {
   loadRecords,
   saveRecords,
   saveRecord,
+  deleteRecord,
   clearRecords,
   loadCachedRecords,
   saveCachedRecords,

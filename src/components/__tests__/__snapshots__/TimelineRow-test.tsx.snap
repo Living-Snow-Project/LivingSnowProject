@@ -4,6 +4,7 @@ exports[`TimelineRow test suite renders 1`] = `
 <View
   style={
     Object {
+      "backgroundColor": "white",
       "borderBottomWidth": 1,
     }
   }
