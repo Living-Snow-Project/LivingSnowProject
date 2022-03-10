@@ -128,7 +128,7 @@ export default function RecordDetailsScreen({
                   style={{ width: "100%", height: "100%" }}
                   source={
                     // static\compiled photo from require(...) scenario
-                    // alternative is to write the file to disk on load
+                    // alternative is to write the file to disk on load (but that duplicates data, needs a "resource manager")
                     typeof x.uri === "number"
                       ? x.uri
                       : {
