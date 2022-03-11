@@ -1,0 +1,279 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PendingRecordList tests renders 1`] = `
+Array [
+  <View
+    style={
+      Object {
+        "backgroundColor": "lightgrey",
+        "borderBottomWidth": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontSize": 16,
+          "textAlign": "center",
+        }
+      }
+    >
+      Pending
+    </Text>
+  </View>,
+  <View
+    collapsable={false}
+    forwardedRef={[Function]}
+    onGestureHandlerEvent={[Function]}
+    onGestureHandlerStateChange={[Function]}
+    onLayout={[Function]}
+    style={
+      Object {
+        "overflow": "hidden",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "bottom": 0,
+          "flexDirection": "row-reverse",
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateX": -10000,
+            },
+          ],
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "width": 128,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+              ],
+            }
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "borderBottomWidth": 1,
+                    "borderLeftWidth": 1,
+                    "height": "100%",
+                    "justifyContent": "center",
+                  },
+                  Object {
+                    "backgroundColor": "lightgrey",
+                  },
+                ],
+                Object {
+                  "opacity": 1,
+                },
+              ]
+            }
+            testID="delete-record-action"
+          >
+            <Text />
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+              ],
+            }
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Array [
+                  Object {
+                    "alignItems": "center",
+                    "borderBottomWidth": 1,
+                    "borderLeftWidth": 1,
+                    "height": "100%",
+                    "justifyContent": "center",
+                  },
+                  Object {
+                    "backgroundColor": "gainsboro",
+                  },
+                ],
+                Object {
+                  "opacity": 1,
+                },
+              ]
+            }
+            testID="edit-record-action"
+          >
+            <Text />
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+      />
+    </View>
+    <View
+      collapsable={false}
+      forwardedRef={[Function]}
+      onGestureHandlerEvent={[Function]}
+      onGestureHandlerStateChange={[Function]}
+      pointerEvents="auto"
+      style={
+        Object {
+          "transform": Array [
+            Object {
+              "translateX": -0,
+            },
+          ],
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "white",
+            "borderBottomWidth": 1,
+          }
+        }
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          testID="1234"
+        >
+          <View
+            style={
+              Object {
+                "flex": 1,
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 0.7,
+                  "marginLeft": 1,
+                }
+              }
+            >
+              <Text>
+                2021-09-16
+test name (test org)
+Coordinates: -123.456, 96.96
+              </Text>
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 0.15,
+                  "marginLeft": 1,
+                }
+              }
+            >
+              <Text />
+            </View>
+            <View
+              style={
+                Object {
+                  "flex": 0.15,
+                  "marginLeft": 1,
+                }
+              }
+            >
+              <Text />
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "alignSelf": "flex-end",
+                    "backgroundColor": "red",
+                    "borderRadius": 40,
+                    "position": "absolute",
+                    "right": 2,
+                    "top": 1,
+                    "width": "33%",
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "white",
+                    }
+                  }
+                >
+                  2
+                </Text>
+              </View>
+            </View>
+          </View>
+          <Text>
+            Location Description: test location
+Notes: test notes
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>,
+]
+`;

@@ -1,4 +1,5 @@
 import React from "react";
+import { Alert } from "react-native";
 import { act, fireEvent, render, waitFor } from "@testing-library/react-native";
 import NetInfo, {
   NetInfoChangeHandler,
@@ -133,6 +134,41 @@ describe("TimelineScreen test suite", () => {
 
     // atlas visible
     expect(getByTestId(pendingAtlasRecord.id.toString())).toBeTruthy();
+  });
+
+  // TODO: this needs to be fixed
+  // - too many state updates in TimelineScreen
+  // - waitFor x 2 causes a warning about act() during test execution
+  test("delete pending record", () => {
+    // validates a bug where pending records were not displayed when not connected
+    setIsConntected(false);
+    let okPressed = false;
+    const alertMock = jest
+      .spyOn(Alert, "alert")
+      .mockImplementationOnce((title, message, buttons) => {
+        // @ts-ignore
+        buttons[0].onPress(); // "Yes" button
+        okPressed = true;
+      });
+
+    return Storage.saveRecord(pendingRecord).then(() => {
+      const { getByTestId, getByText } = render(
+        <TimelineScreen navigation={navigation} />
+      );
+
+      return waitFor(() =>
+        expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy()
+      ).then(() => {
+        fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
+
+        return waitFor(() => expect(okPressed).toBe(true)).then(() =>
+          Storage.loadRecords().then((received) => {
+            expect(received).toEqual([]);
+            expect(alertMock).toBeCalledTimes(1);
+          })
+        );
+      });
+    });
   });
 
   describe("atlas scenarios", () => {

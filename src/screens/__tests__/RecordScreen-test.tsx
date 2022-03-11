@@ -104,11 +104,11 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
       expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
+      expect(alertMock).toBeCalledTimes(1);
       expect(noButtonMock).toHaveBeenLastCalledWith({
         text: "No",
         style: "cancel",
       });
-      alertMock.mockReset();
     });
 
     test("manual with confirmation", () => {
@@ -141,7 +141,6 @@ describe("RecordScreen test suite", () => {
       expect(queryByTestId(TestIds.GPS.gpsManualPressableTestId)).toBeNull();
       expect(alertMock).toBeCalledTimes(1);
       expect(getByDisplayValue(testCoordinates)).not.toBeNull();
-      alertMock.mockReset();
     });
 
     test("manual without confirmation", async () => {

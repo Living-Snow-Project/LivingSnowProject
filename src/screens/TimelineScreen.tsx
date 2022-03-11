@@ -30,14 +30,24 @@ export default function TimelineScreen({ navigation }) {
     getAppSettings().showOnlyAtlasRecords
   );
 
+  // TODO: this should be done during application startup
+  // saved records is a global application state, not a problem TimelineScreen should solve
+  // check the disk first before going to the network (which may not be available)
   useEffect(() => {
     loadCachedRecords().then((records) => {
       if (records.length > 0) {
         setDownloadedRecords(records);
       }
+
+      loadRecords().then((pending) => {
+        if (pending.length > 0) {
+          setPendingRecords(pending);
+        }
+      });
     });
   }, []);
 
+  // TODO: this should be Context done during application startup
   useEffect(
     () =>
       NetInfo.addEventListener(({ isConnected }) => {
@@ -50,6 +60,8 @@ export default function TimelineScreen({ navigation }) {
     []
   );
 
+  // TODO: can we get some kind of consistent naming...???
+  // saved, pending, regular...??? they are all the same, really??
   const displaySavedRecords = (): Promise<void> =>
     loadRecords().then((records) => setPendingRecords(records));
 
@@ -116,7 +128,10 @@ export default function TimelineScreen({ navigation }) {
 
         <PendingRecordList
           records={pendingRecords}
-          header={Labels.TimelineScreen.PendingRecords}
+          // TODO: PendingRecordList shouldn't be trying to update TimelineScreen state like this
+          onUpdate={() => {
+            loadRecords().then((records) => setPendingRecords(records));
+          }}
         />
 
         <RecordList

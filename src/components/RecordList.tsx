@@ -9,6 +9,7 @@ import { deleteRecord } from "../lib/Storage";
 import PressableOpacity from "./PressableOpacity";
 import { EditIcon, DeleteIcon } from "./Icons";
 import TestIds from "../constants/TestIds";
+import { Labels } from "../constants/Strings";
 
 const actionStyles = StyleSheet.create({
   style: {
@@ -63,10 +64,10 @@ RecordList.propTypes = {
 
 type PendingRecordListProps = {
   records: AlgaeRecord[];
-  header: string;
+  onUpdate: () => void;
 };
 
-function PendingRecordList({ records, header }: PendingRecordListProps) {
+function PendingRecordList({ records, onUpdate }: PendingRecordListProps) {
   const swipeable = useRef<Swipeable | null>();
 
   const renderAction = (
@@ -100,9 +101,21 @@ function PendingRecordList({ records, header }: PendingRecordListProps) {
   const closeAnimatedView = () => swipeable?.current?.close();
 
   const onDelete = (record: AlgaeRecord) => {
-    deleteRecord(record);
-    // TODO: re-render TimelineScreen...
-    closeAnimatedView();
+    Alert.alert("Delete record", "Are you sure?", [
+      {
+        text: "Yes",
+        onPress: async () => {
+          await deleteRecord(record);
+          closeAnimatedView();
+          onUpdate();
+        },
+      },
+      {
+        text: "No",
+        style: "cancel",
+        onPress: closeAnimatedView,
+      },
+    ]);
   };
 
   const onEdit = (record: AlgaeRecord) => {
@@ -162,7 +175,9 @@ function PendingRecordList({ records, header }: PendingRecordListProps) {
   return (
     <>
       <View style={styles.recordStatusContainer}>
-        <Text style={styles.recordStatusText}>{header}</Text>
+        <Text style={styles.recordStatusText}>
+          {Labels.TimelineScreen.PendingRecords}
+        </Text>
       </View>
       <RenderRecords />
     </>
@@ -171,7 +186,7 @@ function PendingRecordList({ records, header }: PendingRecordListProps) {
 
 PendingRecordList.propTypes = {
   records: PropTypes.arrayOf(AlgaeRecordPropType).isRequired,
-  header: PropTypes.string.isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export { RecordList, PendingRecordList };
