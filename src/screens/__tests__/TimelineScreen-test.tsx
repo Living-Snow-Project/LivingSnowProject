@@ -18,6 +18,8 @@ import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 import { getAppSettings, setAppSettings } from "../../../AppSettings";
 import { mockedNavigate } from "../../../jesttest.setup";
+import { RecordReducerStateContext } from "../../hooks/useRecordReducer";
+import { recordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 
 // TimelineScreen takes navigation input prop
 const navigation = {
@@ -117,14 +119,17 @@ describe("TimelineScreen test suite", () => {
 
   test("pending records", async () => {
     const retryRecordsSpy = setupDownloadFailed();
-    jest
-      .spyOn(Storage, "loadRecords")
-      .mockImplementationOnce(() =>
-        Promise.resolve([pendingRecord, pendingAtlasRecord])
-      );
+
+    /* eslint-disable react/jsx-no-constructed-context-values */
+    const recordStorageState: RecordReducerState = {
+      ...recordReducerStateMock,
+      pendingRecords: [pendingRecord, pendingAtlasRecord],
+    };
 
     const { getByTestId, getByText } = render(
-      <TimelineScreen navigation={navigation} />
+      <RecordReducerStateContext.Provider value={recordStorageState}>
+        <TimelineScreen navigation={navigation} />
+      </RecordReducerStateContext.Provider>
     );
 
     // non-atlas visible
@@ -136,9 +141,6 @@ describe("TimelineScreen test suite", () => {
     expect(getByTestId(pendingAtlasRecord.id.toString())).toBeTruthy();
   });
 
-  // TODO: this needs to be fixed
-  // - too many state updates in TimelineScreen
-  // - waitFor x 2 causes a warning about act() during test execution
   test("delete pending record", () => {
     // validates a bug where pending records were not displayed when not connected
     setIsConntected(false);
@@ -151,24 +153,28 @@ describe("TimelineScreen test suite", () => {
         okPressed = true;
       });
 
-    return Storage.saveRecord(pendingRecord).then(() => {
-      const { getByTestId, getByText } = render(
+    /* eslint-disable react/jsx-no-constructed-context-values */
+    const recordStorageState: RecordReducerState = {
+      ...recordReducerStateMock,
+      pendingRecords: [pendingRecord],
+    };
+
+    const { getByTestId, getByText } = render(
+      <RecordReducerStateContext.Provider value={recordStorageState}>
         <TimelineScreen navigation={navigation} />
-      );
+      </RecordReducerStateContext.Provider>
+    );
 
-      return waitFor(() =>
-        expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy()
-      ).then(() => {
-        fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
+    expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
 
-        return waitFor(() => expect(okPressed).toBe(true)).then(() =>
-          Storage.loadRecords().then((received) => {
-            expect(received).toEqual([]);
-            expect(alertMock).toBeCalledTimes(1);
-          })
-        );
-      });
-    });
+    fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
+
+    return waitFor(() => expect(okPressed).toBe(true)).then(() =>
+      Storage.loadRecords().then((received) => {
+        expect(received).toEqual([]);
+        expect(alertMock).toBeCalledTimes(1);
+      })
+    );
   });
 
   describe("atlas scenarios", () => {

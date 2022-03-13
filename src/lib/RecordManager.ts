@@ -73,6 +73,7 @@ async function retryPhotos(): Promise<void> {
 }
 
 // uploads records that were saved while user was offline
+// TODO: retryPendingRecords(): Promise<void>
 async function retryRecords(): Promise<void> {
   return loadRecords()
     .then(async (records) => {

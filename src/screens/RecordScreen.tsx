@@ -1,5 +1,6 @@
 import React, {
   useCallback,
+  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -16,7 +17,6 @@ import PropTypes from "prop-types";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import KeyboardShift from "../components/KeyboardShift";
-import { uploadRecord } from "../lib/RecordManager";
 import Logger from "../lib/Logger";
 import { formInputStyles } from "../styles/FormInput";
 import HeaderButton from "../components/HeaderButton";
@@ -30,6 +30,7 @@ import { isAtlas, isSample, recordDateFormat } from "../record/Record";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
+import { RecordReducerActionsContext } from "../hooks/useRecordReducer";
 
 type OffsetOperation = "add" | "subtract";
 
@@ -50,6 +51,7 @@ export default function RecordScreen({ navigation }) {
   const locationDescriptionRef = useRef<TextInput>(null);
   const [uploading, setUploading] = useState(false);
   const appSettings = getAppSettings();
+  const recordReducerActionsContext = useContext(RecordReducerActionsContext);
 
   // data collected and sent to the service
   const [state, setState] = useState<AlgaeRecord>({
@@ -136,7 +138,8 @@ export default function RecordScreen({ navigation }) {
       return;
     }
 
-    uploadRecord(removeEmptyFields(state), photos)
+    recordReducerActionsContext
+      .uploadRecord(removeEmptyFields(state), photos)
       .then(() => {
         Alert.alert(
           Notifications.uploadSuccess.title,

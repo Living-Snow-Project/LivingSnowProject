@@ -8,6 +8,8 @@ import TestIds from "../../constants/TestIds";
 import { Notifications, Placeholders } from "../../constants/Strings";
 import * as RecordManager from "../../lib/RecordManager";
 import { makeExampleRecord } from "../../record/Record";
+import { RecordReducerActionsContext } from "../../hooks/useRecordReducer";
+import { recordReducerActionsMock } from "../../mocks/useRecordReducer.mock";
 
 const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
@@ -32,12 +34,25 @@ const renderWithGpsWarningOff = () => {
     showGpsWarning: false,
   }));
 
+  /* eslint-disable react/jsx-no-constructed-context-values */
+  const recordActionsContext = {
+    ...recordReducerActionsMock,
+    uploadRecord: (record: AlgaeRecord, photos: Photo[]): Promise<void> => {
+      RecordManager.uploadRecord(record, photos);
+      return Promise.resolve();
+    },
+  };
+
   const {
     getByDisplayValue,
     getByPlaceholderText,
     getByTestId,
     queryByTestId,
-  } = render(<RecordScreen navigation={navigation} />);
+  } = render(
+    <RecordReducerActionsContext.Provider value={recordActionsContext}>
+      <RecordScreen navigation={navigation} />
+    </RecordReducerActionsContext.Provider>
+  );
 
   expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
   fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
@@ -395,8 +410,8 @@ describe("RecordScreen test suite", () => {
       );
 
       await waitFor(() => expect(navigation.goBack).toBeCalled());
-      expect(uploadMock).toBeCalled();
       expect(alertMock).toBeCalled();
+      expect(uploadMock).toBeCalled();
     });
 
     test("upload record successfully, empty fields are deleted", async () => {
@@ -491,7 +506,7 @@ describe("RecordScreen test suite", () => {
         .spyOn(RecordManager, "uploadRecord")
         .mockImplementationOnce(() => Promise.reject());
 
-      const alertMock = jest
+      const alertSpy = jest
         .spyOn(Alert, "alert")
         .mockImplementationOnce((title, message) => {
           expect(title).toEqual(Notifications.uploadFailed.title);
@@ -504,7 +519,7 @@ describe("RecordScreen test suite", () => {
 
       await waitFor(() => expect(navigation.goBack).toBeCalled());
       expect(uploadMock).toBeCalled();
-      expect(alertMock).toBeCalled();
+      expect(alertSpy).toBeCalled();
     });
   });
 });

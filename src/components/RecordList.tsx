@@ -1,15 +1,18 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { Alert, Animated, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { AlgaeRecordPropType } from "../record/PropTypes";
 import styles from "../styles/Timeline";
 import TimelineRow from "./TimelineRow";
-import { deleteRecord } from "../lib/Storage";
 import PressableOpacity from "./PressableOpacity";
 import { EditIcon, DeleteIcon } from "./Icons";
 import TestIds from "../constants/TestIds";
 import { Labels } from "../constants/Strings";
+import {
+  RecordReducerStateContext,
+  RecordReducerActionsContext,
+} from "../hooks/useRecordReducer";
 
 const actionStyles = StyleSheet.create({
   style: {
@@ -62,13 +65,10 @@ RecordList.propTypes = {
   omitRecord: PropTypes.func.isRequired,
 };
 
-type PendingRecordListProps = {
-  records: AlgaeRecord[];
-  onUpdate: () => void;
-};
-
-function PendingRecordList({ records, onUpdate }: PendingRecordListProps) {
+function PendingRecordList() {
   const swipeable = useRef<Swipeable | null>();
+  const recordReducerStateContext = useContext(RecordReducerStateContext);
+  const recordReducerActionsContext = useContext(RecordReducerActionsContext);
 
   const renderAction = (
     record: AlgaeRecord,
@@ -105,9 +105,8 @@ function PendingRecordList({ records, onUpdate }: PendingRecordListProps) {
       {
         text: "Yes",
         onPress: async () => {
-          await deleteRecord(record);
+          await recordReducerActionsContext.delete(record);
           closeAnimatedView();
-          onUpdate();
         },
       },
       {
@@ -151,7 +150,7 @@ function PendingRecordList({ records, onUpdate }: PendingRecordListProps) {
   const RenderRecords = useCallback(
     () => (
       <>
-        {records.map((record) => (
+        {recordReducerStateContext.pendingRecords.map((record) => (
           <Swipeable
             ref={(ref) => {
               swipeable.current = ref;
@@ -165,10 +164,10 @@ function PendingRecordList({ records, onUpdate }: PendingRecordListProps) {
         ))}
       </>
     ),
-    [records]
+    [recordReducerStateContext.pendingRecords]
   );
 
-  if (records.length === 0) {
+  if (recordReducerStateContext.pendingRecords.length === 0) {
     return null;
   }
 
@@ -183,10 +182,5 @@ function PendingRecordList({ records, onUpdate }: PendingRecordListProps) {
     </>
   );
 }
-
-PendingRecordList.propTypes = {
-  records: PropTypes.arrayOf(AlgaeRecordPropType).isRequired,
-  onUpdate: PropTypes.func.isRequired,
-};
 
 export { RecordList, PendingRecordList };

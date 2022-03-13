@@ -4,18 +4,32 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
 import Navigation from "./src/navigation/MainTabNavigator";
 import useCachedResources from "./src/hooks/useCachedResources";
+import {
+  useRecordReducer,
+  RecordReducerStateContext,
+  RecordReducerActionsContext,
+} from "./src/hooks/useRecordReducer";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
+  const [storageState, storageActions] = useRecordReducer();
 
-  if (!isLoadingComplete) {
+  if (!storageState.seeding && !storageState.seeded) {
+    storageActions.seed();
+  }
+
+  if (!isLoadingComplete || !storageState.seeded) {
     return null;
   }
 
   return (
-    <SafeAreaProvider>
-      <Navigation />
-      <StatusBar />
-    </SafeAreaProvider>
+    <RecordReducerStateContext.Provider value={storageState}>
+      <RecordReducerActionsContext.Provider value={storageActions}>
+        <SafeAreaProvider>
+          <Navigation />
+          <StatusBar />
+        </SafeAreaProvider>
+      </RecordReducerActionsContext.Provider>
+    </RecordReducerStateContext.Provider>
   );
 }

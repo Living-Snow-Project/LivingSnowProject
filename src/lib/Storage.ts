@@ -75,22 +75,23 @@ async function saveRecord(record: AlgaeRecord): Promise<void | Error> {
   return saveRecords(records);
 }
 
-async function deleteRecord(record: AlgaeRecord): Promise<void | Error> {
+// returns the new list of pending records
+async function deleteRecord(record: AlgaeRecord): Promise<AlgaeRecord[]> {
+  const records = await loadRecords();
+
   if (!record) {
-    return Promise.resolve();
+    return Promise.resolve(records);
   }
 
-  // load all pending
-  const records = await loadRecords();
   const index = records.findIndex((current) => current.id === record.id);
 
   if (index !== -1) {
     records.splice(index, 1);
-    const result = await saveRecords(records);
-    return result;
+    await saveRecords(records);
+    return Promise.resolve(records);
   }
 
-  return Promise.resolve();
+  return Promise.resolve(records);
 }
 
 // Cached Records Storage APIs

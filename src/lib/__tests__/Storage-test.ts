@@ -131,9 +131,7 @@ describe("Storage test suite", () => {
     ];
 
     await Storage.saveRecords(expected);
-    await Storage.deleteRecord(expected[1]);
-
-    const received = await Storage.loadRecords();
+    const received = await Storage.deleteRecord(expected[1]);
     const newExpected = [expected[0], expected[2]];
     expect(received).toEqual(newExpected);
   });
@@ -146,9 +144,10 @@ describe("Storage test suite", () => {
     ];
 
     await Storage.saveRecords(expected);
-    await Storage.deleteRecord(makeExampleRecord("Atlas: Red Dot"));
+    const received = await Storage.deleteRecord(
+      makeExampleRecord("Atlas: Red Dot")
+    );
 
-    const received = await Storage.loadRecords();
     expect(received).toEqual(expected);
   });
 
@@ -161,9 +160,7 @@ describe("Storage test suite", () => {
 
     await Storage.saveRecords(expected);
     // @ts-ignore
-    await Storage.deleteRecord(null);
-
-    const received = await Storage.loadRecords();
+    const received = await Storage.deleteRecord(null);
     expect(received).toEqual(expected);
   });
 
