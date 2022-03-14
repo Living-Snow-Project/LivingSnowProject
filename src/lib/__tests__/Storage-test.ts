@@ -97,9 +97,11 @@ describe("Storage test suite", () => {
         makeExampleRecord("Sighting"),
       ];
 
-      await Storage.savePendingRecords(expected);
-      const received = await Storage.loadPendingRecords();
+      const received = await Storage.savePendingRecords(expected);
       expect(received).toEqual(expected);
+
+      const pending = await Storage.loadPendingRecords();
+      expect(pending).toEqual(received);
     });
 
     test("savePendingRecords with empty records doesn't overwrite existing records", async () => {
@@ -108,14 +110,15 @@ describe("Storage test suite", () => {
         makeExampleRecord("Sighting"),
       ];
 
-      await Storage.savePendingRecords(expected);
-      let received = await Storage.loadPendingRecords();
+      let received = await Storage.savePendingRecords(expected);
       expect(received).toEqual(expected);
 
       // @ts-ignore
-      await Storage.savePendingRecords(null);
-      received = await Storage.loadPendingRecords();
+      received = await Storage.savePendingRecords(null);
       expect(received).toEqual(expected);
+
+      const pending = await Storage.loadPendingRecords();
+      expect(pending).toEqual(received);
     });
 
     test("savePendingRecords fails", async () => {
@@ -188,9 +191,11 @@ describe("Storage test suite", () => {
         makeExampleRecord("Sighting"),
       ];
 
-      await Storage.savePendingRecords(expected);
-      let received = await Storage.loadPendingRecords();
+      let received = await Storage.savePendingRecords(expected);
       expect(received).toEqual(expected);
+
+      const pending = await Storage.loadPendingRecords();
+      expect(pending).toEqual(received);
 
       const expectedError = mockOneAsyncStorageFailure("removeItem");
       const receievedError = await Storage.clearPendingRecords();
@@ -204,22 +209,25 @@ describe("Storage test suite", () => {
     test("savePendingRecord succeeds", async () => {
       const expected = makeExampleRecord("Sample");
 
-      await Storage.savePendingRecord(expected);
-      const received = await Storage.loadPendingRecords();
+      const received = await Storage.savePendingRecord(expected);
       expect(received[0]).toEqual(expected);
+
+      const pending = await Storage.loadPendingRecords();
+      expect(pending).toEqual(received);
     });
 
     test("savePendingRecord with empty record doesn't change existing records", async () => {
       const expected = makeExampleRecord("Sample");
 
-      await Storage.savePendingRecord(expected);
-      let received = await Storage.loadPendingRecords();
+      let received = await Storage.savePendingRecord(expected);
       expect(received[0]).toEqual(expected);
 
       // @ts-ignore
-      await Storage.savePendingRecord(null);
-      received = await Storage.loadPendingRecords();
+      received = await Storage.savePendingRecord(null);
       expect(received[0]).toEqual(expected);
+
+      const pending = await Storage.loadPendingRecords();
+      expect(pending).toEqual(received);
     });
 
     test("savePendingRecord fails", async () => {
@@ -249,9 +257,11 @@ describe("Storage test suite", () => {
         makeExampleRecord("Sighting"),
       ];
 
-      await Storage.saveCachedRecords(expected);
-      const received = await Storage.loadCachedRecords();
+      const received = await Storage.saveCachedRecords(expected);
       expect(received).toEqual(expected);
+
+      const pending = await Storage.loadCachedRecords();
+      expect(pending).toEqual(received);
     });
 
     test("saveCachedRecords with empty records doesn't overwrite existing records", async () => {
@@ -260,14 +270,15 @@ describe("Storage test suite", () => {
         makeExampleRecord("Sighting"),
       ];
 
-      await Storage.saveCachedRecords(expected);
-      let received = await Storage.loadCachedRecords();
+      let received = await Storage.saveCachedRecords(expected);
       expect(received).toEqual(expected);
 
       // @ts-ignore
-      await Storage.saveCachedRecords(null);
-      received = await Storage.loadCachedRecords();
+      received = await Storage.saveCachedRecords(null);
       expect(received).toEqual(expected);
+
+      const pending = await Storage.loadCachedRecords();
+      expect(pending).toEqual(received);
     });
 
     test("saveCachedRecords fails", async () => {
@@ -294,22 +305,25 @@ describe("Storage test suite", () => {
     test("savePhotos succeeds", async () => {
       const expected = [makeExamplePhoto()];
 
-      await Storage.savePendingPhotos(expected);
-      const received = await Storage.loadPendingPhotos();
+      const received = await Storage.savePendingPhotos(expected);
       expect(received).toEqual(expected);
+
+      const pending = await Storage.loadPendingPhotos();
+      expect(pending).toEqual(received);
     });
 
     test("savePhotos with empty photos doesn't overwrite existing photos", async () => {
       const expected = [makeExamplePhoto()];
 
-      await Storage.savePendingPhotos(expected);
-      let received = await Storage.loadPendingPhotos();
+      let received = await Storage.savePendingPhotos(expected);
       expect(received).toEqual(expected);
 
       // @ts-ignore
-      await Storage.savePendingPhotos(null);
-      received = await Storage.loadPendingPhotos();
+      received = await Storage.savePendingPhotos(null);
       expect(received).toEqual(expected);
+
+      const pending = await Storage.loadPendingPhotos();
+      expect(pending).toEqual(received);
     });
 
     test("savePhotos fails", async () => {
@@ -323,8 +337,7 @@ describe("Storage test suite", () => {
     test("clearPhotos succeeds", async () => {
       const expected = [makeExamplePhoto()];
 
-      await Storage.savePendingPhotos(expected);
-      let received = await Storage.loadPendingPhotos();
+      let received = await Storage.savePendingPhotos(expected);
       expect(received).toEqual(expected);
 
       await Storage.clearPendingPhotos();
@@ -351,22 +364,25 @@ describe("Storage test suite", () => {
     test("savePhoto succeeds", async () => {
       const expected = makeExamplePhoto();
 
-      await Storage.savePendingPhoto(expected);
-      const received = await Storage.loadPendingPhotos();
+      const received = await Storage.savePendingPhoto(expected);
       expect(received[0]).toEqual(expected);
+
+      const pending = await Storage.loadPendingPhotos();
+      expect(pending).toEqual(received);
     });
 
     test("savePhoto with empty photos doesn't change existing photos", async () => {
       const expected = makeExamplePhoto();
 
-      await Storage.savePendingPhoto(expected);
-      let received = await Storage.loadPendingPhotos();
+      let received = await Storage.savePendingPhoto(expected);
       expect(received[0]).toEqual(expected);
 
       // @ts-ignore
-      await Storage.savePendingPhoto(null);
-      received = await Storage.loadPendingPhotos();
+      received = await Storage.savePendingPhoto(null);
       expect(received[0]).toEqual(expected);
+
+      const pending = await Storage.loadPendingPhotos();
+      expect(pending).toEqual(received);
     });
 
     test("savePhoto fails", async () => {

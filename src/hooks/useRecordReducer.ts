@@ -1,7 +1,9 @@
 import React, { useReducer } from "react";
 import {
   deletePendingRecord,
+  loadCachedRecords,
   loadPendingRecords,
+  saveCachedRecords,
   savePendingRecord,
 } from "../lib/Storage";
 import { retryPendingRecords, uploadRecord } from "../lib/RecordManager";
@@ -21,16 +23,23 @@ type RecordReducerActionType =
   | "START_RETRY"
   | "END_RETRY";
 
+type RecordReducerPayload = {
+  pendingRecords: AlgaeRecord[];
+  downloadedRecords: AlgaeRecord[];
+};
+
 type RecordReducerAction = {
   type: RecordReducerActionType;
-  payload: AlgaeRecord[];
+  payload: RecordReducerPayload;
 };
 
 const reducer = (
   state: RecordReducerState,
   action: RecordReducerAction
 ): RecordReducerState => {
-  switch (action.type) {
+  const { type, payload } = action;
+
+  switch (type) {
     case "START_SEEDING":
       return { ...state, seeding: true };
 
@@ -39,27 +48,39 @@ const reducer = (
         ...state,
         seeded: true,
         seeding: false,
-        pendingRecords: action.payload,
-        // TODO: cachedRecords
+        pendingRecords: payload.pendingRecords,
+        downloadedRecords: payload.downloadedRecords,
       };
 
     case "START_SAVING":
       return { ...state, saving: true };
 
     case "END_SAVING":
-      return { ...state, saving: false, pendingRecords: action.payload };
+      return {
+        ...state,
+        saving: false,
+        pendingRecords: payload.pendingRecords,
+      };
 
     case "START_DELETING":
       return { ...state, deleting: true };
 
     case "END_DELETING":
-      return { ...state, deleting: false, pendingRecords: action.payload };
+      return {
+        ...state,
+        deleting: false,
+        pendingRecords: payload.pendingRecords,
+      };
 
     case "START_UPLOAD_RECORD":
       return { ...state, uploading: true };
 
     case "END_UPLOAD_RECORD":
-      return { ...state, uploading: false, pendingRecords: action.payload };
+      return {
+        ...state,
+        uploading: false,
+        pendingRecords: payload.pendingRecords,
+      };
 
     case "START_DOWNLOADING":
       return { ...state, downloading: true };
@@ -68,38 +89,54 @@ const reducer = (
       return {
         ...state,
         downloading: false,
-        downloadedRecords: action.payload,
+        downloadedRecords: payload.downloadedRecords,
       };
 
     case "START_RETRY":
       return { ...state, uploading: true };
 
     case "END_RETRY":
-      return { ...state, uploading: false, pendingRecords: action.payload };
+      return {
+        ...state,
+        uploading: false,
+        pendingRecords: payload.pendingRecords,
+      };
 
     default:
       throw new Error("no such action type");
   }
 };
 
+// !-- keep this in sync with RecordReducerPayload --!
+type RecordDispatchPayload = {
+  pendingRecords?: AlgaeRecord[];
+  downloadedRecords?: AlgaeRecord[];
+};
+
+type RecordDispatchProps = {
+  type: RecordReducerActionType;
+  payload?: RecordDispatchPayload;
+};
+
 // hide dispatch from public interface
 interface RecordReducerActionsDispatch extends RecordReducerActions {
-  dispatch: ({
-    type,
-    payload,
-  }: {
-    type: RecordReducerActionType;
-    payload?: AlgaeRecord[];
-  }) => void;
+  dispatch: ({ type, payload }: RecordDispatchProps) => void;
 }
 
 const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
   dispatch: () => {},
+
   seed: async function Seed(this: RecordReducerActionsDispatch): Promise<void> {
     this.dispatch({ type: "START_SEEDING" });
-    const records = await loadPendingRecords();
-    // TODO: cachedRecords
-    this.dispatch({ type: "END_SEEDING", payload: records });
+    const cachedRecords = await loadCachedRecords();
+    const pendingRecords = await loadPendingRecords();
+    this.dispatch({
+      type: "END_SEEDING",
+      payload: {
+        pendingRecords,
+        downloadedRecords: cachedRecords,
+      },
+    });
   },
 
   save: async function Save(
@@ -107,10 +144,8 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
     record: AlgaeRecord
   ): Promise<void> {
     this.dispatch({ type: "START_SAVING" });
-    await savePendingRecord(record);
-    // TODO: saveRecord should return the new record array
-    const records = await loadPendingRecords();
-    this.dispatch({ type: "END_SAVING", payload: records });
+    const pendingRecords = await savePendingRecord(record);
+    this.dispatch({ type: "END_SAVING", payload: { pendingRecords } });
   },
 
   delete: async function Delete(
@@ -118,8 +153,8 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
     record: AlgaeRecord
   ): Promise<void> {
     this.dispatch({ type: "START_DELETING" });
-    const records = await deletePendingRecord(record);
-    this.dispatch({ type: "END_DELETING", payload: records });
+    const pendingRecords = await deletePendingRecord(record);
+    this.dispatch({ type: "END_DELETING", payload: { pendingRecords } });
   },
 
   uploadRecord: async function UploadRecord(
@@ -141,7 +176,7 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
 
     // ? TODO: not necessary if uploadRecord success downloads latest and failure returns pendingRecords
     const pendingRecords = await loadPendingRecords();
-    this.dispatch({ type: "END_UPLOAD_RECORD", payload: pendingRecords });
+    this.dispatch({ type: "END_UPLOAD_RECORD", payload: { pendingRecords } });
   },
 
   downloadRecords: async function DownloadRecords(
@@ -149,7 +184,8 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
   ): Promise<void> {
     this.dispatch({ type: "START_DOWNLOADING" });
     const downloadedRecords = await downloadRecords();
-    this.dispatch({ type: "END_DOWNLOADING", payload: downloadedRecords });
+    await saveCachedRecords(downloadedRecords);
+    this.dispatch({ type: "END_DOWNLOADING", payload: { downloadedRecords } });
   },
 
   retryPendingRecords: async function RetryPendingRecords(
@@ -157,7 +193,7 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
   ): Promise<void> {
     this.dispatch({ type: "START_RETRY" });
     const pendingRecords = await retryPendingRecords();
-    this.dispatch({ type: "END_RETRY", payload: pendingRecords });
+    this.dispatch({ type: "END_RETRY", payload: { pendingRecords } });
   },
 };
 

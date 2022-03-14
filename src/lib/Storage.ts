@@ -3,11 +3,13 @@ import Logger from "./Logger";
 import { jsonToRecord } from "../record/Record";
 
 const StorageKeys = {
-  appConfig: "appConfig",
-  records: "records", // pending records (not uploaded)
-  cachedRecords: "cachedRecords", // previously downloaded
   photos: "photos",
+  appConfig: "appConfig",
+  cachedRecords: "cachedRecords",
+  pendingRecords: "pendingRecords",
 } as const;
+
+// TODO: don't hide errors and make the app handle them
 
 // AppConfig Storage APIs
 async function loadAppConfig(): Promise<AppSettings | null> {
@@ -19,7 +21,7 @@ async function loadAppConfig(): Promise<AppSettings | null> {
     });
 }
 
-async function saveAppConfig(appSettings: AppSettings): Promise<void | Error> {
+async function saveAppConfig(appSettings: AppSettings): Promise<void> {
   if (!appSettings) {
     return Promise.resolve();
   }
@@ -35,7 +37,7 @@ async function saveAppConfig(appSettings: AppSettings): Promise<void | Error> {
 
 // Pending Records Storage APIs
 async function loadPendingRecords(): Promise<AlgaeRecord[]> {
-  return AsyncStorage.getItem(StorageKeys.records)
+  return AsyncStorage.getItem(StorageKeys.pendingRecords)
     .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
     .catch((error) => {
       Logger.Error(`loadPendingRecords: ${error}`);
@@ -45,34 +47,38 @@ async function loadPendingRecords(): Promise<AlgaeRecord[]> {
 
 async function savePendingRecords(
   records: AlgaeRecord[]
-): Promise<void | Error> {
+): Promise<AlgaeRecord[]> {
+  const existing = await loadPendingRecords();
+
   if (!records) {
-    return Promise.resolve();
+    return existing;
   }
 
   return AsyncStorage.setItem(
-    StorageKeys.records,
+    StorageKeys.pendingRecords,
     JSON.stringify(records)
-  ).catch((error) => {
-    Logger.Error(`savePendingRecords: ${error}`);
-    return error;
-  });
+  )
+    .then(() => records)
+    .catch((error) => {
+      Logger.Error(`savePendingRecords: ${error}`);
+      return error;
+    });
 }
 
-async function clearPendingRecords(): Promise<void | Error> {
-  return AsyncStorage.removeItem(StorageKeys.records).catch((error) => {
+async function clearPendingRecords(): Promise<void> {
+  return AsyncStorage.removeItem(StorageKeys.pendingRecords).catch((error) => {
     Logger.Error(`clearPendingRecords: ${error}`);
     return error;
   });
 }
 
-async function savePendingRecord(record: AlgaeRecord): Promise<void | Error> {
+async function savePendingRecord(record: AlgaeRecord): Promise<AlgaeRecord[]> {
+  const records = await loadPendingRecords();
+
   if (!record) {
-    return Promise.resolve();
+    return records;
   }
 
-  // check for other pending records
-  const records = await loadPendingRecords();
   records.push(record);
   return savePendingRecords(records);
 }
@@ -84,7 +90,7 @@ async function deletePendingRecord(
   const records = await loadPendingRecords();
 
   if (!record) {
-    return Promise.resolve(records);
+    return records;
   }
 
   const index = records.findIndex((current) => current.id === record.id);
@@ -92,10 +98,10 @@ async function deletePendingRecord(
   if (index !== -1) {
     records.splice(index, 1);
     await savePendingRecords(records);
-    return Promise.resolve(records);
+    return records;
   }
 
-  return Promise.resolve(records);
+  return records;
 }
 
 // Cached Records Storage APIs
@@ -110,18 +116,22 @@ async function loadCachedRecords(): Promise<AlgaeRecord[]> {
 
 async function saveCachedRecords(
   records: AlgaeRecord[]
-): Promise<void | Error> {
+): Promise<AlgaeRecord[]> {
+  const existing = await loadCachedRecords();
+
   if (!records) {
-    return Promise.resolve();
+    return existing;
   }
 
   return AsyncStorage.setItem(
     StorageKeys.cachedRecords,
     JSON.stringify(records)
-  ).catch((error) => {
-    Logger.Error(`saveCachedRecords: ${error}`);
-    return error;
-  });
+  )
+    .then(() => records)
+    .catch((error) => {
+      Logger.Error(`saveCachedRecords: ${error}`);
+      return error;
+    });
 }
 
 // Pending Photo Storage APIs
@@ -136,29 +146,33 @@ async function loadPendingPhotos(): Promise<PendingPhoto[]> {
 
 async function savePendingPhotos(
   photos: PendingPhoto[]
-): Promise<void | Error> {
+): Promise<PendingPhoto[]> {
+  const existing = await loadPendingPhotos();
+
   if (!photos) {
-    return Promise.resolve();
+    return existing;
   }
 
-  return AsyncStorage.setItem(StorageKeys.photos, JSON.stringify(photos)).catch(
-    (error) => {
+  return AsyncStorage.setItem(StorageKeys.photos, JSON.stringify(photos))
+    .then(() => photos)
+    .catch((error) => {
       Logger.Error(`${error}`);
       return error;
-    }
-  );
+    });
 }
 
-async function clearPendingPhotos(): Promise<void | Error> {
+async function clearPendingPhotos(): Promise<void> {
   return AsyncStorage.removeItem(StorageKeys.photos).catch((error) => {
     Logger.Error(`${error}`);
     return error;
   });
 }
 
-async function savePendingPhoto(photo: PendingPhoto): Promise<void | Error> {
+async function savePendingPhoto(photo: PendingPhoto): Promise<PendingPhoto[]> {
+  const existing = await loadPendingPhotos();
+
   if (!photo) {
-    return Promise.resolve();
+    return existing;
   }
 
   // check for other pending photos

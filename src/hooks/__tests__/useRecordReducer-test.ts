@@ -63,10 +63,15 @@ describe("useRecordStorage test suite", () => {
   });
 
   describe("reducer tests", () => {
+    const payload = {
+      pendingRecords: [],
+      downloadedRecords: [],
+    };
+
     test("start seeding", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "START_SEEDING",
-        payload: [],
+        payload,
       });
       expect(state.seeding).toBe(true);
     });
@@ -74,7 +79,7 @@ describe("useRecordStorage test suite", () => {
     test("end seeding", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "END_SEEDING",
-        payload: [],
+        payload,
       });
       expect(state.seeding).toBe(false);
       expect(state.seeded).toBe(true);
@@ -83,7 +88,7 @@ describe("useRecordStorage test suite", () => {
     test("start saving", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "START_SAVING",
-        payload: [],
+        payload,
       });
       expect(state.saving).toBe(true);
     });
@@ -91,7 +96,7 @@ describe("useRecordStorage test suite", () => {
     test("end saving", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "END_SAVING",
-        payload: [],
+        payload,
       });
       expect(state.saving).toBe(false);
     });
@@ -99,7 +104,7 @@ describe("useRecordStorage test suite", () => {
     test("start deleting", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "START_DELETING",
-        payload: [],
+        payload,
       });
       expect(state.deleting).toBe(true);
     });
@@ -107,7 +112,7 @@ describe("useRecordStorage test suite", () => {
     test("end deleting", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "END_DELETING",
-        payload: [],
+        payload,
       });
       expect(state.deleting).toBe(false);
     });
@@ -115,7 +120,7 @@ describe("useRecordStorage test suite", () => {
     test("start uploading", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "START_UPLOAD_RECORD",
-        payload: [],
+        payload,
       });
       expect(state.uploading).toBe(true);
     });
@@ -123,7 +128,7 @@ describe("useRecordStorage test suite", () => {
     test("end uploading", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "END_UPLOAD_RECORD",
-        payload: [],
+        payload,
       });
       expect(state.uploading).toBe(false);
     });
@@ -131,7 +136,7 @@ describe("useRecordStorage test suite", () => {
     test("start downloading", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "START_DOWNLOADING",
-        payload: [],
+        payload,
       });
       expect(state.downloading).toBe(true);
     });
@@ -139,7 +144,7 @@ describe("useRecordStorage test suite", () => {
     test("end downloading", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "END_DOWNLOADING",
-        payload: [],
+        payload,
       });
       expect(state.downloading).toBe(false);
     });
@@ -147,7 +152,7 @@ describe("useRecordStorage test suite", () => {
     test("start retry pending records", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "START_RETRY",
-        payload: [],
+        payload,
       });
       expect(state.uploading).toBe(true);
     });
@@ -155,7 +160,7 @@ describe("useRecordStorage test suite", () => {
     test("end retry pending records", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "END_RETRY",
-        payload: [],
+        payload,
       });
       expect(state.uploading).toBe(false);
     });
