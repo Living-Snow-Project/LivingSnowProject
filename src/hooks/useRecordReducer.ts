@@ -1,5 +1,9 @@
 import React, { useReducer } from "react";
-import { deleteRecord, loadRecords, saveRecord } from "../lib/Storage";
+import {
+  deletePendingRecord,
+  loadPendingRecords,
+  savePendingRecord,
+} from "../lib/Storage";
 import { retryPendingRecords, uploadRecord } from "../lib/RecordManager";
 import { downloadRecords } from "../lib/Network";
 
@@ -93,7 +97,7 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
   dispatch: () => {},
   seed: async function Seed(this: RecordReducerActionsDispatch): Promise<void> {
     this.dispatch({ type: "START_SEEDING" });
-    const records = await loadRecords();
+    const records = await loadPendingRecords();
     // TODO: cachedRecords
     this.dispatch({ type: "END_SEEDING", payload: records });
   },
@@ -103,9 +107,9 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
     record: AlgaeRecord
   ): Promise<void> {
     this.dispatch({ type: "START_SAVING" });
-    await saveRecord(record);
+    await savePendingRecord(record);
     // TODO: saveRecord should return the new record array
-    const records = await loadRecords();
+    const records = await loadPendingRecords();
     this.dispatch({ type: "END_SAVING", payload: records });
   },
 
@@ -114,7 +118,7 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
     record: AlgaeRecord
   ): Promise<void> {
     this.dispatch({ type: "START_DELETING" });
-    const records = await deleteRecord(record);
+    const records = await deletePendingRecord(record);
     this.dispatch({ type: "END_DELETING", payload: records });
   },
 
@@ -136,7 +140,7 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
     }
 
     // ? TODO: not necessary if uploadRecord success downloads latest and failure returns pendingRecords
-    const pendingRecords = await loadRecords();
+    const pendingRecords = await loadPendingRecords();
     this.dispatch({ type: "END_UPLOAD_RECORD", payload: pendingRecords });
   },
 

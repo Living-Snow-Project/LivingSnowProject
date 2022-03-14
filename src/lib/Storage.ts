@@ -34,16 +34,18 @@ async function saveAppConfig(appSettings: AppSettings): Promise<void | Error> {
 }
 
 // Pending Records Storage APIs
-async function loadRecords(): Promise<AlgaeRecord[]> {
+async function loadPendingRecords(): Promise<AlgaeRecord[]> {
   return AsyncStorage.getItem(StorageKeys.records)
     .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
     .catch((error) => {
-      Logger.Error(`loadRecords: ${error}`);
+      Logger.Error(`loadPendingRecords: ${error}`);
       return [];
     });
 }
 
-async function saveRecords(records: AlgaeRecord[]): Promise<void | Error> {
+async function savePendingRecords(
+  records: AlgaeRecord[]
+): Promise<void | Error> {
   if (!records) {
     return Promise.resolve();
   }
@@ -52,32 +54,34 @@ async function saveRecords(records: AlgaeRecord[]): Promise<void | Error> {
     StorageKeys.records,
     JSON.stringify(records)
   ).catch((error) => {
-    Logger.Error(`saveRecords: ${error}`);
+    Logger.Error(`savePendingRecords: ${error}`);
     return error;
   });
 }
 
-async function clearRecords(): Promise<void | Error> {
+async function clearPendingRecords(): Promise<void | Error> {
   return AsyncStorage.removeItem(StorageKeys.records).catch((error) => {
-    Logger.Error(`clearRecords: ${error}`);
+    Logger.Error(`clearPendingRecords: ${error}`);
     return error;
   });
 }
 
-async function saveRecord(record: AlgaeRecord): Promise<void | Error> {
+async function savePendingRecord(record: AlgaeRecord): Promise<void | Error> {
   if (!record) {
     return Promise.resolve();
   }
 
   // check for other pending records
-  const records = await loadRecords();
+  const records = await loadPendingRecords();
   records.push(record);
-  return saveRecords(records);
+  return savePendingRecords(records);
 }
 
 // returns the new list of pending records
-async function deleteRecord(record: AlgaeRecord): Promise<AlgaeRecord[]> {
-  const records = await loadRecords();
+async function deletePendingRecord(
+  record: AlgaeRecord
+): Promise<AlgaeRecord[]> {
+  const records = await loadPendingRecords();
 
   if (!record) {
     return Promise.resolve(records);
@@ -87,7 +91,7 @@ async function deleteRecord(record: AlgaeRecord): Promise<AlgaeRecord[]> {
 
   if (index !== -1) {
     records.splice(index, 1);
-    await saveRecords(records);
+    await savePendingRecords(records);
     return Promise.resolve(records);
   }
 
@@ -120,8 +124,8 @@ async function saveCachedRecords(
   });
 }
 
-// Photo Storage APIs
-async function loadPhotos(): Promise<PendingPhoto[]> {
+// Pending Photo Storage APIs
+async function loadPendingPhotos(): Promise<PendingPhoto[]> {
   return AsyncStorage.getItem(StorageKeys.photos)
     .then((value) => (value ? JSON.parse(value) : []))
     .catch((error) => {
@@ -130,7 +134,9 @@ async function loadPhotos(): Promise<PendingPhoto[]> {
     });
 }
 
-async function savePhotos(photos: PendingPhoto[]): Promise<void | Error> {
+async function savePendingPhotos(
+  photos: PendingPhoto[]
+): Promise<void | Error> {
   if (!photos) {
     return Promise.resolve();
   }
@@ -143,36 +149,36 @@ async function savePhotos(photos: PendingPhoto[]): Promise<void | Error> {
   );
 }
 
-async function clearPhotos(): Promise<void | Error> {
+async function clearPendingPhotos(): Promise<void | Error> {
   return AsyncStorage.removeItem(StorageKeys.photos).catch((error) => {
     Logger.Error(`${error}`);
     return error;
   });
 }
 
-async function savePhoto(photo: PendingPhoto): Promise<void | Error> {
+async function savePendingPhoto(photo: PendingPhoto): Promise<void | Error> {
   if (!photo) {
     return Promise.resolve();
   }
 
   // check for other pending photos
-  const photos = await loadPhotos();
+  const photos = await loadPendingPhotos();
   photos.push(photo);
-  return savePhotos(photos);
+  return savePendingPhotos(photos);
 }
 
 export {
   loadAppConfig,
   saveAppConfig,
-  loadRecords,
-  saveRecords,
-  saveRecord,
-  deleteRecord,
-  clearRecords,
+  loadPendingRecords,
+  savePendingRecords,
+  savePendingRecord,
+  deletePendingRecord,
+  clearPendingRecords,
   loadCachedRecords,
   saveCachedRecords,
-  loadPhotos,
-  savePhotos,
-  clearPhotos,
-  savePhoto,
+  loadPendingPhotos,
+  savePendingPhotos,
+  clearPendingPhotos,
+  savePendingPhoto,
 };

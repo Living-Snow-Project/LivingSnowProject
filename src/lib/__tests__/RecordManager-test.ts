@@ -1,6 +1,11 @@
 import "isomorphic-fetch";
 import server from "../../mocks/server";
-import { clearRecords, clearPhotos, loadRecords, loadPhotos } from "../Storage";
+import {
+  clearPendingRecords,
+  clearPendingPhotos,
+  loadPendingRecords,
+  loadPendingPhotos,
+} from "../Storage";
 import { makeExampleRecord } from "../../record/Record";
 import { retryPendingRecords, uploadRecord } from "../RecordManager";
 import { makeExamplePhoto } from "../../record/Photo";
@@ -12,8 +17,8 @@ beforeAll(() => server.listen());
 // so they don't affect other tests.
 afterEach(async () => {
   server.reset();
-  await clearRecords();
-  await clearPhotos();
+  await clearPendingRecords();
+  await clearPendingPhotos();
 });
 
 // Clean up after the tests are finished.
@@ -50,7 +55,7 @@ describe("RecordManager test suite", () => {
     return uploadRecord(expected, [])
       .then(() => fail("uploadRecord was expected to succeed"))
       .catch(() =>
-        loadRecords().then((received: AlgaeRecord[]) => {
+        loadPendingRecords().then((received: AlgaeRecord[]) => {
           expect(received[0].id).toEqual(expected.id);
           expect(received[0].type).toEqual(expected.type);
         })
@@ -71,7 +76,7 @@ describe("RecordManager test suite", () => {
         expect(received).toContain(expectedError);
         expect(received).toContain("uploadPhoto");
 
-        return loadPhotos().then((receivedPhotos) => {
+        return loadPendingPhotos().then((receivedPhotos) => {
           expect(receivedPhotos[0].uri).toEqual(expectedPhoto.uri);
         });
       });
@@ -84,7 +89,7 @@ describe("RecordManager test suite", () => {
     await uploadRecord(expectedOne, []);
     await uploadRecord(expectedTwo, []);
 
-    return loadRecords().then((received: AlgaeRecord[]) => {
+    return loadPendingRecords().then((received: AlgaeRecord[]) => {
       expect(received.length).toEqual(0);
     });
   });
@@ -96,10 +101,10 @@ describe("RecordManager test suite", () => {
     await uploadRecord(expectedOne, [examplePhoto]);
     await uploadRecord(expectedTwo, [examplePhoto]);
 
-    return loadRecords().then((received: AlgaeRecord[]) => {
+    return loadPendingRecords().then((received: AlgaeRecord[]) => {
       expect(received.length).toEqual(0);
 
-      return loadPhotos().then((receivedPhotos: Photo[]) => {
+      return loadPendingPhotos().then((receivedPhotos: Photo[]) => {
         expect(receivedPhotos.length).toEqual(0);
       });
     });
@@ -176,7 +181,7 @@ describe("RecordManager test suite", () => {
 
     await retryPendingRecords();
 
-    return loadPhotos().then((received: PendingPhoto[]) => {
+    return loadPendingPhotos().then((received: PendingPhoto[]) => {
       expect(received[0].id).toEqual(1);
       expect(received[0].uri).toEqual(examplePhoto.uri);
       expect(received[0].size).toEqual(examplePhoto.size);

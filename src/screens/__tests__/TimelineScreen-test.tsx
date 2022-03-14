@@ -171,7 +171,7 @@ describe("TimelineScreen test suite", () => {
     fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
 
     return waitFor(() => expect(okPressed).toBe(true)).then(() =>
-      Storage.loadRecords().then((received) => {
+      Storage.loadPendingRecords().then((received) => {
         expect(received).toEqual([]);
         expect(alertMock).toBeCalledTimes(1);
       })
