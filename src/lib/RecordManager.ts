@@ -10,6 +10,7 @@ import {
 import { jsonToRecord } from "../record/Record";
 import Logger from "./Logger";
 
+// returns the AlgaeRecord server responds with
 // rejects with an error string
 async function uploadRecord(
   record: AlgaeRecord,
@@ -73,12 +74,12 @@ async function retryPhotos(): Promise<void> {
 }
 
 // uploads records that were saved while user was offline
-// TODO: retryPendingRecords(): Promise<void>
-async function retryRecords(): Promise<void> {
+// returns the current array of pending records
+async function retryPendingRecords(): Promise<AlgaeRecord[]> {
   return loadRecords()
     .then(async (records) => {
       if (records.length === 0) {
-        return Promise.resolve();
+        return Promise.resolve([]);
       }
 
       await clearRecords();
@@ -99,7 +100,7 @@ async function retryRecords(): Promise<void> {
         Promise.resolve()
       );
     })
-    .then(() => retryPhotos());
+    .then(() => retryPhotos().then(() => loadRecords()));
 }
 
-export { uploadRecord, retryRecords };
+export { uploadRecord, retryPendingRecords };

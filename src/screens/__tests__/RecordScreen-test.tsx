@@ -9,7 +9,7 @@ import { Notifications, Placeholders } from "../../constants/Strings";
 import * as RecordManager from "../../lib/RecordManager";
 import { makeExampleRecord } from "../../record/Record";
 import { RecordReducerActionsContext } from "../../hooks/useRecordReducer";
-import { recordReducerActionsMock } from "../../mocks/useRecordReducer.mock";
+import { makeRecordReducerActionsMock } from "../../mocks/useRecordReducer.mock";
 
 const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
@@ -36,7 +36,7 @@ const renderWithGpsWarningOff = () => {
 
   /* eslint-disable react/jsx-no-constructed-context-values */
   const recordActionsContext = {
-    ...recordReducerActionsMock,
+    ...makeRecordReducerActionsMock(),
     uploadRecord: (record: AlgaeRecord, photos: Photo[]): Promise<void> => {
       RecordManager.uploadRecord(record, photos);
       return Promise.resolve();

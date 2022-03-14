@@ -1,19 +1,23 @@
 import { makeExampleRecord } from "../record/Record";
 
-const recordReducerStateMock: RecordReducerState = {
+const makeRecordReducerStateMock = (): RecordReducerState => ({
   seeded: false,
   saving: false,
   seeding: false,
   deleting: false,
   uploading: false,
+  downloading: false,
   pendingRecords: [makeExampleRecord("Sighting")],
-};
+  downloadedRecords: [],
+});
 
-const recordReducerActionsMock: RecordReducerActions = {
+const makeRecordReducerActionsMock = (): RecordReducerActions => ({
   seed: jest.fn(),
   save: jest.fn(),
   delete: jest.fn(),
   uploadRecord: jest.fn(),
-};
+  downloadRecords: jest.fn(),
+  retryPendingRecords: jest.fn(),
+});
 
-export { recordReducerStateMock, recordReducerActionsMock };
+export { makeRecordReducerStateMock, makeRecordReducerActionsMock };

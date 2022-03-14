@@ -1,8 +1,13 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Alert, Animated, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
 import Swipeable from "react-native-gesture-handler/Swipeable";
-import { AlgaeRecordPropType } from "../record/PropTypes";
 import styles from "../styles/Timeline";
 import TimelineRow from "./TimelineRow";
 import PressableOpacity from "./PressableOpacity";
@@ -13,6 +18,8 @@ import {
   RecordReducerStateContext,
   RecordReducerActionsContext,
 } from "../hooks/useRecordReducer";
+import { isAtlas, productionExampleRecord } from "../record/Record";
+import { getAppSettings } from "../../AppSettings";
 
 const actionStyles = StyleSheet.create({
   style: {
@@ -25,16 +32,74 @@ const actionStyles = StyleSheet.create({
 });
 
 type RecordListProps = {
-  records: AlgaeRecord[];
   header: string;
-  omitRecord: (record: AlgaeRecord) => boolean;
+  renderRecords: () => JSX.Element;
 };
 
-function RecordList({ records, header, omitRecord }: RecordListProps) {
+function RecordList({ header, renderRecords }: RecordListProps) {
+  return (
+    <>
+      <View style={styles.recordStatusContainer}>
+        <Text style={styles.recordStatusText}>{header}</Text>
+      </View>
+      {renderRecords()}
+    </>
+  );
+}
+
+RecordList.propTypes = {
+  header: PropTypes.string.isRequired,
+  renderRecords: PropTypes.func.isRequired,
+};
+
+function ExampleRecordList() {
+  const recordReducerStateContext = useContext(RecordReducerStateContext);
+
+  if (
+    recordReducerStateContext.pendingRecords.length !== 0 ||
+    recordReducerStateContext.downloadedRecords.length !== 0
+  ) {
+    return null;
+  }
+
+  return (
+    <RecordList
+      header={Labels.TimelineScreen.ExampleRecords}
+      renderRecords={() => <TimelineRow record={productionExampleRecord()} />}
+    />
+  );
+}
+
+function DownloadedRecordList({ navigation }) {
+  const recordReducerStateContext = useContext(RecordReducerStateContext);
+
+  const [showAtlasRecords, setShowAtlasRecords] = useState<boolean>(
+    getAppSettings().showAtlasRecords
+  );
+  const [showOnlyAtlasRecords, setShowOnlyAtlasRecords] = useState<boolean>(
+    getAppSettings().showOnlyAtlasRecords
+  );
+
+  // re-render when user comes back from Settings screen
+  useEffect(() =>
+    navigation.addListener("focus", () => {
+      setShowAtlasRecords(getAppSettings().showAtlasRecords);
+      setShowOnlyAtlasRecords(getAppSettings().showOnlyAtlasRecords);
+    })
+  );
+
+  const omitRecord = useCallback(
+    (record: AlgaeRecord) => {
+      const atlas = isAtlas(record.type);
+      return (atlas && !showAtlasRecords) || (!atlas && showOnlyAtlasRecords);
+    },
+    [showAtlasRecords, showOnlyAtlasRecords]
+  );
+
   const RenderRecords = useCallback(
     () => (
       <>
-        {records.map((record) => {
+        {recordReducerStateContext.downloadedRecords.map((record) => {
           if (omitRecord(record)) {
             return null;
           }
@@ -42,30 +107,22 @@ function RecordList({ records, header, omitRecord }: RecordListProps) {
         })}
       </>
     ),
-    [records, omitRecord]
+    [recordReducerStateContext, omitRecord]
   );
 
-  if (records.length === 0) {
+  if (recordReducerStateContext.downloadedRecords.length === 0) {
     return null;
   }
 
   return (
-    <>
-      <View style={styles.recordStatusContainer}>
-        <Text style={styles.recordStatusText}>{header}</Text>
-      </View>
-      <RenderRecords />
-    </>
+    <RecordList
+      header={Labels.TimelineScreen.DownloadedRecords}
+      renderRecords={RenderRecords}
+    />
   );
 }
 
-RecordList.propTypes = {
-  records: PropTypes.arrayOf(AlgaeRecordPropType).isRequired,
-  header: PropTypes.string.isRequired,
-  omitRecord: PropTypes.func.isRequired,
-};
-
-function PendingRecordList() {
+function PendingRecordList({ navigation }) {
   const swipeable = useRef<Swipeable | null>();
   const recordReducerStateContext = useContext(RecordReducerStateContext);
   const recordReducerActionsContext = useContext(RecordReducerActionsContext);
@@ -118,8 +175,7 @@ function PendingRecordList() {
   };
 
   const onEdit = (record: AlgaeRecord) => {
-    Alert.alert("Edit", JSON.stringify(record));
-    // TODO: navigate to RecordScreen in edit mode...
+    navigation.navigate("Record", { params: { record } });
     closeAnimatedView();
   };
 
@@ -172,15 +228,11 @@ function PendingRecordList() {
   }
 
   return (
-    <>
-      <View style={styles.recordStatusContainer}>
-        <Text style={styles.recordStatusText}>
-          {Labels.TimelineScreen.PendingRecords}
-        </Text>
-      </View>
-      <RenderRecords />
-    </>
+    <RecordList
+      header={Labels.TimelineScreen.PendingRecords}
+      renderRecords={RenderRecords}
+    />
   );
 }
 
-export { RecordList, PendingRecordList };
+export { DownloadedRecordList, ExampleRecordList, PendingRecordList };

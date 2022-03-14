@@ -13,13 +13,12 @@ import {
 import * as RecordManager from "../../lib/RecordManager";
 import { makeExampleRecord } from "../../record/Record";
 import * as Storage from "../../lib/Storage";
-import * as Network from "../../lib/Network";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 import { getAppSettings, setAppSettings } from "../../../AppSettings";
 import { mockedNavigate } from "../../../jesttest.setup";
 import { RecordReducerStateContext } from "../../hooks/useRecordReducer";
-import { recordReducerStateMock } from "../../mocks/useRecordReducer.mock";
+import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 
 // TimelineScreen takes navigation input prop
 const navigation = {
@@ -57,26 +56,27 @@ const setIsConntected = (isConnected: boolean): void => {
 
 const setupDownloadSuccess = () => {
   const retryRecordsSpy = jest
-    .spyOn(RecordManager, "retryRecords")
-    .mockImplementationOnce(() => Promise.resolve());
+    .spyOn(RecordManager, "retryPendingRecords")
+    .mockImplementationOnce(() => Promise.resolve([]));
 
-  const downloadRecordsSpy = jest
-    .spyOn(Network, "downloadRecords")
-    .mockImplementationOnce(() =>
-      Promise.resolve([downloadedRecord, downloadedAtlasRecord])
-    );
+  const recordReducerStateMock = makeRecordReducerStateMock();
+
+  recordReducerStateMock.downloadedRecords = [
+    downloadedRecord,
+    downloadedAtlasRecord,
+  ];
 
   setIsConntected(true);
 
   return {
     retryRecordsSpy,
-    downloadRecordsSpy,
+    recordReducerStateMock,
   };
 };
 
 const setupDownloadFailed = () => {
   const retryRecordsSpy = jest
-    .spyOn(RecordManager, "retryRecords")
+    .spyOn(RecordManager, "retryPendingRecords")
     .mockImplementationOnce(() => Promise.reject());
 
   setIsConntected(true);
@@ -95,16 +95,17 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("download records succeeds", async () => {
-    const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
+    const { retryRecordsSpy, recordReducerStateMock } = setupDownloadSuccess();
 
     const { getByTestId, getByText } = render(
-      <TimelineScreen navigation={navigation} />
+      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+        <TimelineScreen navigation={navigation} />
+      </RecordReducerStateContext.Provider>
     );
 
     await waitFor(() => getByTestId(downloadedRecord.id.toString()));
 
     expect(retryRecordsSpy).toBeCalledTimes(1);
-    expect(downloadRecordsSpy).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
   });
 
@@ -121,13 +122,13 @@ describe("TimelineScreen test suite", () => {
     const retryRecordsSpy = setupDownloadFailed();
 
     /* eslint-disable react/jsx-no-constructed-context-values */
-    const recordStorageState: RecordReducerState = {
-      ...recordReducerStateMock,
+    const recordReducerStateMock: RecordReducerState = {
+      ...makeRecordReducerStateMock(),
       pendingRecords: [pendingRecord, pendingAtlasRecord],
     };
 
     const { getByTestId, getByText } = render(
-      <RecordReducerStateContext.Provider value={recordStorageState}>
+      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
         <TimelineScreen navigation={navigation} />
       </RecordReducerStateContext.Provider>
     );
@@ -154,13 +155,13 @@ describe("TimelineScreen test suite", () => {
       });
 
     /* eslint-disable react/jsx-no-constructed-context-values */
-    const recordStorageState: RecordReducerState = {
-      ...recordReducerStateMock,
+    const recordReducerStateMock: RecordReducerState = {
+      ...makeRecordReducerStateMock(),
       pendingRecords: [pendingRecord],
     };
 
     const { getByTestId, getByText } = render(
-      <RecordReducerStateContext.Provider value={recordStorageState}>
+      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
         <TimelineScreen navigation={navigation} />
       </RecordReducerStateContext.Provider>
     );
@@ -187,7 +188,8 @@ describe("TimelineScreen test suite", () => {
     afterEach(() => setAppSettings(prevAppSettings));
 
     test("non-atlas and atlas records are displayed", async () => {
-      const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
+      const { retryRecordsSpy, recordReducerStateMock } =
+        setupDownloadSuccess();
 
       setAppSettings((prev) => ({
         ...prev,
@@ -196,14 +198,15 @@ describe("TimelineScreen test suite", () => {
       }));
 
       const { getByTestId, getByText } = render(
-        <TimelineScreen navigation={navigation} />
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
       );
 
       // non-atlas visible
       await waitFor(() => getByTestId(downloadedRecord.id.toString()));
 
       expect(retryRecordsSpy).toBeCalledTimes(1);
-      expect(downloadRecordsSpy).toBeCalledTimes(1);
       expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
       // atlas visible
@@ -211,7 +214,8 @@ describe("TimelineScreen test suite", () => {
     });
 
     test("atlas records are not displayed", async () => {
-      const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
+      const { retryRecordsSpy, recordReducerStateMock } =
+        setupDownloadSuccess();
 
       setAppSettings((prev) => ({
         ...prev,
@@ -220,14 +224,15 @@ describe("TimelineScreen test suite", () => {
       }));
 
       const { getByTestId, getByText, queryByTestId } = render(
-        <TimelineScreen navigation={navigation} />
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
       );
 
       // non-atlas visible
       await waitFor(() => getByTestId(downloadedRecord.id.toString()));
 
       expect(retryRecordsSpy).toBeCalledTimes(1);
-      expect(downloadRecordsSpy).toBeCalledTimes(1);
       expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
       // atlas not visible
@@ -235,7 +240,8 @@ describe("TimelineScreen test suite", () => {
     });
 
     test("only atlas records are displayed", async () => {
-      const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
+      const { retryRecordsSpy, recordReducerStateMock } =
+        setupDownloadSuccess();
 
       setAppSettings((prev) => ({
         ...prev,
@@ -244,14 +250,15 @@ describe("TimelineScreen test suite", () => {
       }));
 
       const { getByTestId, getByText, queryByTestId } = render(
-        <TimelineScreen navigation={navigation} />
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
       );
 
       // atlas visible
       await waitFor(() => getByTestId(downloadedAtlasRecord.id.toString()));
 
       expect(retryRecordsSpy).toBeCalledTimes(1);
-      expect(downloadRecordsSpy).toBeCalledTimes(1);
       expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
       // non-atlas not visible
@@ -290,10 +297,12 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("pull to refresh with connection", async () => {
-    setupDownloadSuccess();
+    const { recordReducerStateMock } = setupDownloadSuccess();
 
     const { getByText, getByTestId } = render(
-      <TimelineScreen navigation={navigation} />
+      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+        <TimelineScreen navigation={navigation} />
+      </RecordReducerStateContext.Provider>
     );
 
     await waitFor(() => getByTestId(downloadedRecord.id.toString()));
@@ -311,7 +320,9 @@ describe("TimelineScreen test suite", () => {
   test("pull to refresh without connection", async () => {
     setIsConntected(false);
 
-    const { getByTestId } = render(<TimelineScreen navigation={navigation} />);
+    const { getByText, getByTestId } = render(
+      <TimelineScreen navigation={navigation} />
+    );
 
     // GO GO RNTL! "don't test the implementation..."
     await act(async () =>
@@ -320,8 +331,7 @@ describe("TimelineScreen test suite", () => {
       ).props.refreshControl.props.onRefresh()
     );
 
-    // nothing to assert, strictly for code coverage
-    // TODO: re-evaluate setPendingRecords initialization and displaySavedRecords()
+    expect(getByText(Labels.TimelineScreen.ExampleRecords)).toBeTruthy();
   });
 
   test("navigate back to TimelineScreen", async () => {
@@ -354,16 +364,19 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("navigate to record details screen", async () => {
-    const { retryRecordsSpy, downloadRecordsSpy } = setupDownloadSuccess();
+    const { retryRecordsSpy, recordReducerStateMock } = setupDownloadSuccess();
 
-    const { getByTestId } = render(<TimelineScreen navigation={navigation} />);
+    const { getByTestId } = render(
+      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+        <TimelineScreen navigation={navigation} />
+      </RecordReducerStateContext.Provider>
+    );
 
     await waitFor(() => getByTestId(downloadedRecord.id.toString()));
 
     fireEvent.press(getByTestId(downloadedRecord.id.toString()));
 
     expect(retryRecordsSpy).toBeCalledTimes(1);
-    expect(downloadRecordsSpy).toBeCalledTimes(1);
     expect(mockedNavigate).toBeCalledWith("RecordDetails", {
       record: downloadedRecord,
     });

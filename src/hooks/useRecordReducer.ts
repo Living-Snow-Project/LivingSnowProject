@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import { deleteRecord, loadRecords, saveRecord } from "../lib/Storage";
-import { uploadRecord } from "../lib/RecordManager";
+import { retryPendingRecords, uploadRecord } from "../lib/RecordManager";
+import { downloadRecords } from "../lib/Network";
 
 type RecordReducerActionType =
   | "START_SEEDING"
@@ -10,7 +11,11 @@ type RecordReducerActionType =
   | "START_DELETING"
   | "END_DELETING"
   | "START_UPLOAD_RECORD"
-  | "END_UPLOAD_RECORD";
+  | "END_UPLOAD_RECORD"
+  | "START_DOWNLOADING"
+  | "END_DOWNLOADING"
+  | "START_RETRY"
+  | "END_RETRY";
 
 type RecordReducerAction = {
   type: RecordReducerActionType;
@@ -31,6 +36,7 @@ const reducer = (
         seeded: true,
         seeding: false,
         pendingRecords: action.payload,
+        // TODO: cachedRecords
       };
 
     case "START_SAVING":
@@ -49,6 +55,22 @@ const reducer = (
       return { ...state, uploading: true };
 
     case "END_UPLOAD_RECORD":
+      return { ...state, uploading: false, pendingRecords: action.payload };
+
+    case "START_DOWNLOADING":
+      return { ...state, downloading: true };
+
+    case "END_DOWNLOADING":
+      return {
+        ...state,
+        downloading: false,
+        downloadedRecords: action.payload,
+      };
+
+    case "START_RETRY":
+      return { ...state, uploading: true };
+
+    case "END_RETRY":
       return { ...state, uploading: false, pendingRecords: action.payload };
 
     default:
@@ -72,6 +94,7 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
   seed: async function Seed(this: RecordReducerActionsDispatch): Promise<void> {
     this.dispatch({ type: "START_SEEDING" });
     const records = await loadRecords();
+    // TODO: cachedRecords
     this.dispatch({ type: "END_SEEDING", payload: records });
   },
 
@@ -116,6 +139,22 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
     const pendingRecords = await loadRecords();
     this.dispatch({ type: "END_UPLOAD_RECORD", payload: pendingRecords });
   },
+
+  downloadRecords: async function DownloadRecords(
+    this: RecordReducerActionsDispatch
+  ): Promise<void> {
+    this.dispatch({ type: "START_DOWNLOADING" });
+    const downloadedRecords = await downloadRecords();
+    this.dispatch({ type: "END_DOWNLOADING", payload: downloadedRecords });
+  },
+
+  retryPendingRecords: async function RetryPendingRecords(
+    this: RecordReducerActionsDispatch
+  ): Promise<void> {
+    this.dispatch({ type: "START_RETRY" });
+    const pendingRecords = await retryPendingRecords();
+    this.dispatch({ type: "END_RETRY", payload: pendingRecords });
+  },
 };
 
 const initialState: RecordReducerState = {
@@ -124,7 +163,9 @@ const initialState: RecordReducerState = {
   seeding: false,
   deleting: false,
   uploading: false,
+  downloading: false,
   pendingRecords: [],
+  downloadedRecords: [],
 };
 
 function useRecordReducer(): [RecordReducerState, RecordReducerActions] {

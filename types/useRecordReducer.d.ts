@@ -4,9 +4,10 @@ type RecordReducerState = {
   seeding: boolean;
   deleting: boolean;
   uploading: boolean;
+  downloading: boolean;
   pendingRecords: AlgaeRecord[];
+  downloadedRecords: AlgaeRecord[];
   // TODO:
-  //  downloadedRecords: AlgaeRecord[];
   //  pendingPhotos: Photos[];
 };
 
@@ -15,6 +16,6 @@ interface RecordReducerActions {
   save: (record: AlgaeRecord) => Promise<void>;
   delete: (record: AlgaeRecord) => Promise<void>;
   uploadRecord: (record: AlgaeRecord, photos: Photo[]) => Promise<void>;
-  // TODO:
-  // retryPendingRecords: () => Promise<void>;
+  downloadRecords: () => Promise<void>;
+  retryPendingRecords: () => Promise<void>;
 }

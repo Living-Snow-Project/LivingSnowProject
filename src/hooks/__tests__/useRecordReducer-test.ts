@@ -1,8 +1,9 @@
 import { makeExamplePhoto } from "../../record/Photo";
 import { makeExampleRecord } from "../../record/Record";
 import { reducer, recordReducerActionsDispatch } from "../useRecordReducer";
-import { recordReducerStateMock } from "../../mocks/useRecordReducer.mock";
+import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 import * as RecordManager from "../../lib/RecordManager";
+import * as Network from "../../lib/Network";
 
 describe("useRecordStorage test suite", () => {
   describe("dispatch tests", () => {
@@ -48,11 +49,22 @@ describe("useRecordStorage test suite", () => {
       ]);
       expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
     });
+
+    test("downloading action", async () => {
+      jest.spyOn(Network, "downloadRecords").mockResolvedValueOnce([]);
+      await recordReducerActionsDispatch.downloadRecords();
+      expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
+    });
+
+    test("retryPendingRecords action", async () => {
+      await recordReducerActionsDispatch.retryPendingRecords();
+      expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
+    });
   });
 
   describe("reducer tests", () => {
     test("start seeding", () => {
-      const state = reducer(recordReducerStateMock, {
+      const state = reducer(makeRecordReducerStateMock(), {
         type: "START_SEEDING",
         payload: [],
       });
@@ -60,7 +72,7 @@ describe("useRecordStorage test suite", () => {
     });
 
     test("end seeding", () => {
-      const state = reducer(recordReducerStateMock, {
+      const state = reducer(makeRecordReducerStateMock(), {
         type: "END_SEEDING",
         payload: [],
       });
@@ -69,7 +81,7 @@ describe("useRecordStorage test suite", () => {
     });
 
     test("start saving", () => {
-      const state = reducer(recordReducerStateMock, {
+      const state = reducer(makeRecordReducerStateMock(), {
         type: "START_SAVING",
         payload: [],
       });
@@ -77,7 +89,7 @@ describe("useRecordStorage test suite", () => {
     });
 
     test("end saving", () => {
-      const state = reducer(recordReducerStateMock, {
+      const state = reducer(makeRecordReducerStateMock(), {
         type: "END_SAVING",
         payload: [],
       });
@@ -85,7 +97,7 @@ describe("useRecordStorage test suite", () => {
     });
 
     test("start deleting", () => {
-      const state = reducer(recordReducerStateMock, {
+      const state = reducer(makeRecordReducerStateMock(), {
         type: "START_DELETING",
         payload: [],
       });
@@ -93,7 +105,7 @@ describe("useRecordStorage test suite", () => {
     });
 
     test("end deleting", () => {
-      const state = reducer(recordReducerStateMock, {
+      const state = reducer(makeRecordReducerStateMock(), {
         type: "END_DELETING",
         payload: [],
       });
@@ -101,7 +113,7 @@ describe("useRecordStorage test suite", () => {
     });
 
     test("start uploading", () => {
-      const state = reducer(recordReducerStateMock, {
+      const state = reducer(makeRecordReducerStateMock(), {
         type: "START_UPLOAD_RECORD",
         payload: [],
       });
@@ -109,8 +121,40 @@ describe("useRecordStorage test suite", () => {
     });
 
     test("end uploading", () => {
-      const state = reducer(recordReducerStateMock, {
+      const state = reducer(makeRecordReducerStateMock(), {
         type: "END_UPLOAD_RECORD",
+        payload: [],
+      });
+      expect(state.uploading).toBe(false);
+    });
+
+    test("start downloading", () => {
+      const state = reducer(makeRecordReducerStateMock(), {
+        type: "START_DOWNLOADING",
+        payload: [],
+      });
+      expect(state.downloading).toBe(true);
+    });
+
+    test("end downloading", () => {
+      const state = reducer(makeRecordReducerStateMock(), {
+        type: "END_DOWNLOADING",
+        payload: [],
+      });
+      expect(state.downloading).toBe(false);
+    });
+
+    test("start retry pending records", () => {
+      const state = reducer(makeRecordReducerStateMock(), {
+        type: "START_RETRY",
+        payload: [],
+      });
+      expect(state.uploading).toBe(true);
+    });
+
+    test("end retry pending records", () => {
+      const state = reducer(makeRecordReducerStateMock(), {
+        type: "END_RETRY",
         payload: [],
       });
       expect(state.uploading).toBe(false);
@@ -120,7 +164,7 @@ describe("useRecordStorage test suite", () => {
       let didThrow = false;
 
       try {
-        reducer(recordReducerStateMock, {
+        reducer(makeRecordReducerStateMock(), {
           // @ts-ignore
           type: "garbage",
         });

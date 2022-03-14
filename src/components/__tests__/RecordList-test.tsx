@@ -7,23 +7,34 @@ import {
   RecordReducerActionsContext,
 } from "../../hooks/useRecordReducer";
 import {
-  recordReducerStateMock,
-  recordReducerActionsMock,
+  makeRecordReducerStateMock,
+  makeRecordReducerActionsMock,
 } from "../../mocks/useRecordReducer.mock";
 import TestIds from "../../constants/TestIds";
 
-const customRender = () =>
-  render(
+const navigation = {
+  navigate: jest.fn(),
+};
+const recordReducerActionsMock = makeRecordReducerActionsMock();
+const customRender = () => {
+  const recordReducerStateMock = makeRecordReducerStateMock();
+  const renderResult = render(
     <RecordReducerStateContext.Provider value={recordReducerStateMock}>
       <RecordReducerActionsContext.Provider value={recordReducerActionsMock}>
-        <PendingRecordList />
+        <PendingRecordList navigation={navigation} />
       </RecordReducerActionsContext.Provider>
     </RecordReducerStateContext.Provider>
   );
 
+  return {
+    renderResult,
+    recordReducerStateMock,
+  };
+};
+
 describe("PendingRecordList tests", () => {
   test("renders", () => {
-    const { toJSON } = customRender();
+    const { toJSON } = customRender().renderResult;
     expect(toJSON()).toMatchSnapshot();
   });
 
@@ -37,7 +48,7 @@ describe("PendingRecordList tests", () => {
         okPressed = true;
       });
 
-    const { getByTestId } = customRender();
+    const { getByTestId } = customRender().renderResult;
 
     fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
     await waitFor(() => expect(okPressed).toBe(true));
@@ -56,7 +67,7 @@ describe("PendingRecordList tests", () => {
         noButtonMock(buttons[1]); // "No" button
       });
 
-    const { getByTestId } = customRender();
+    const { getByTestId } = customRender().renderResult;
 
     fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
     expect(alertMock).toBeCalledTimes(1);
@@ -69,10 +80,15 @@ describe("PendingRecordList tests", () => {
     alertMock.mockReset();
   });
 
-  // TODO: placeholder for now
   test("edit record", () => {
-    const { getByTestId } = customRender();
+    const { recordReducerStateMock, renderResult } = customRender();
 
-    fireEvent.press(getByTestId(TestIds.RecordList.EditRecordAction));
+    fireEvent.press(
+      renderResult.getByTestId(TestIds.RecordList.EditRecordAction)
+    );
+
+    expect(navigation.navigate).toBeCalledWith("Record", {
+      params: { record: recordReducerStateMock.pendingRecords[0] },
+    });
   });
 });

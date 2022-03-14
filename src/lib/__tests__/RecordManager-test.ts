@@ -2,7 +2,7 @@ import "isomorphic-fetch";
 import server from "../../mocks/server";
 import { clearRecords, clearPhotos, loadRecords, loadPhotos } from "../Storage";
 import { makeExampleRecord } from "../../record/Record";
-import { retryRecords, uploadRecord } from "../RecordManager";
+import { retryPendingRecords, uploadRecord } from "../RecordManager";
 import { makeExamplePhoto } from "../../record/Photo";
 
 // Establish API mocking before all tests.
@@ -105,7 +105,7 @@ describe("RecordManager test suite", () => {
     });
   });
 
-  test("multiple uploadRecord fails, retryRecords does not delete saved records", async () => {
+  test("multiple uploadRecord fails, retryPendingRecords does not delete saved records", async () => {
     const expectedError = server.postRecordInternalServerError();
 
     const expectedOne = makeExampleRecord("Sample");
@@ -123,9 +123,7 @@ describe("RecordManager test suite", () => {
       expect(receivedError).toContain(expectedError);
     }
 
-    await retryRecords();
-
-    return loadRecords().then((received: AlgaeRecord[]) => {
+    return retryPendingRecords().then((received: AlgaeRecord[]) => {
       expect(received[0].id).toEqual(expectedOne.id);
       expect(received[0].type).toEqual(expectedOne.type);
       expect(received[1].id).toEqual(expectedTwo.id);
@@ -133,7 +131,7 @@ describe("RecordManager test suite", () => {
     });
   });
 
-  test("multiple uploadRecord with photos fails, retryRecords does not delete saved records with photos", async () => {
+  test("multiple uploadRecord with photos fails, retryPendingRecords does not delete saved records with photos", async () => {
     const expectedError = server.postRecordInternalServerError();
 
     const expectedOne = makeExampleRecord("Sample");
@@ -151,16 +149,14 @@ describe("RecordManager test suite", () => {
       expect(receivedError).toContain(expectedError);
     }
 
-    await retryRecords();
-
-    return loadRecords().then((received: AlgaeRecord[]) => {
+    return retryPendingRecords().then((received: AlgaeRecord[]) => {
       expect(received.length).toEqual(2);
       expect(received[0].photos?.length).toEqual(1);
       expect(received[1].photos?.length).toEqual(1);
     });
   });
 
-  test("multiple uploadRecord succeeds, uploadPhotos fails, retryRecords does not delete saved photos", async () => {
+  test("multiple uploadRecord succeeds, uploadPhotos fails, retryPendingRecords does not delete saved photos", async () => {
     const expectedError = server.postPhotoInternalServerError();
 
     const expectedOne = makeExampleRecord("Sample");
@@ -178,7 +174,7 @@ describe("RecordManager test suite", () => {
       expect(receivedError).toContain(expectedError);
     }
 
-    await retryRecords();
+    await retryPendingRecords();
 
     return loadPhotos().then((received: PendingPhoto[]) => {
       expect(received[0].id).toEqual(1);
