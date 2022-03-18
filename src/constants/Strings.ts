@@ -49,10 +49,19 @@ const Notifications = {
     title: "Upload succeeded",
     message: "Thanks for your submission.",
   },
-  uploadFailed: {
+  uploadRecordFailed: {
     title: "Record Saved",
     message: "We will upload it later.",
   },
+  uploadPhotoFailed: {
+    title: "Photo Saved",
+    message: "We will upload it later.",
+  },
+  uploadPhotosFailed: {
+    title: "Photos Saved",
+    message: "We will upload them later.",
+  },
+
   invalidCoordinates: {
     title: "Invalid GPS coordinates",
     message:

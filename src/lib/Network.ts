@@ -51,7 +51,8 @@ async function uploadRecord(record: AlgaeRecord): Promise<AlgaeRecord> {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(record),
+    // server assigns id (fails if non-zero)
+    body: JSON.stringify({ ...record, id: 0 }),
   })
     .then((response) =>
       response.ok

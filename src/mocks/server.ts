@@ -6,10 +6,12 @@ import { handlers, mockBackend } from "./handlers";
 const mswServer = setupServer(...handlers);
 const networkError = "totally crazy random error";
 const internalServerError = "500: Internal Server Error";
+let postPhotoCount: number = 0;
 
 const reset = () => {
   mswServer.resetHandlers();
   mockBackend.resetBackend();
+  postPhotoCount = 0;
 };
 
 const postRecordNetworkError = (): string => {
@@ -66,6 +68,22 @@ const postPhotoInternalServerError = (): string => {
   return internalServerError;
 };
 
+const postPhotoSuccessThenFailure = (): string => {
+  mswServer.use(
+    rest.post(mockBackend.photosUri, (req, res, ctx) => {
+      postPhotoCount += 1;
+
+      if (postPhotoCount > 1) {
+        return res.networkError(networkError);
+      }
+
+      return res(ctx.status(200));
+    })
+  );
+
+  return networkError;
+};
+
 const server = {
   ...mswServer,
   reset,
@@ -75,6 +93,7 @@ const server = {
   getRecordsInternalServerError,
   postPhotoNetworkError,
   postPhotoInternalServerError,
+  postPhotoSuccessThenFailure,
 };
 
 export default server;

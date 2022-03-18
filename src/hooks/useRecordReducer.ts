@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import {
   deletePendingRecord,
   loadCachedRecords,
+  loadPendingPhotos,
   loadPendingRecords,
   saveCachedRecords,
   savePendingRecord,
@@ -24,6 +25,7 @@ type RecordReducerActionType =
   | "END_RETRY";
 
 type RecordReducerPayload = {
+  pendingPhotos: PendingPhoto[];
   pendingRecords: AlgaeRecord[];
   downloadedRecords: AlgaeRecord[];
 };
@@ -109,6 +111,7 @@ const reducer = (
 
 // !-- keep this in sync with RecordReducerPayload --!
 type RecordDispatchPayload = {
+  pendingPhotos?: PendingPhoto[];
   pendingRecords?: AlgaeRecord[];
   downloadedRecords?: AlgaeRecord[];
 };
@@ -166,17 +169,24 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
 
     try {
       await uploadRecord(record, photos);
-      // ? if (this.pendingRecords.length === 0)
-      // ? dispatch("END_UPLOAD_RECORD", payload: [])
-      // ? TODO: this.downloadRecords()?
-    } catch (pendingRecords) {
-      // ? TODO: uploadRecord errors with the record\photo(s) if they are not uploaded
-      // dispatch("END_UPLOADING_RECORD", payload:pendingRecords)
-    }
+      const pendingPhotos = await loadPendingPhotos();
+      const pendingRecords = await loadPendingRecords();
+      this.dispatch({
+        type: "END_UPLOAD_RECORD",
+        payload: { pendingPhotos, pendingRecords },
+      });
 
-    // ? TODO: not necessary if uploadRecord success downloads latest and failure returns pendingRecords
-    const pendingRecords = await loadPendingRecords();
-    this.dispatch({ type: "END_UPLOAD_RECORD", payload: { pendingRecords } });
+      return await Promise.resolve();
+    } catch (uploadError) {
+      const { pendingPhotos, pendingRecords } = uploadError;
+
+      this.dispatch({
+        type: "END_UPLOAD_RECORD",
+        payload: { pendingPhotos, pendingRecords },
+      });
+
+      return Promise.reject(uploadError);
+    }
   },
 
   downloadRecords: async function DownloadRecords(

@@ -147,14 +147,14 @@ export default function RecordScreen({ navigation }) {
         );
       })
       .catch((error) => {
-        Logger.Warn(`Failed to upload record: ${error}`);
-        Alert.alert(
-          Notifications.uploadFailed.title,
-          Notifications.uploadFailed.message
+        Logger.Warn(
+          `Failed to upload complete record: ${error.title}: ${error.message}`
         );
+        Alert.alert(error.title, error.message);
       })
       .finally(() => {
         setUploading(false);
+        recordReducerActionsContext.downloadRecords();
         navigation.goBack();
       });
   }, [uploading]);

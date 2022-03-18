@@ -1,6 +1,11 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import { Alert } from "react-native";
-import { render, fireEvent, waitFor } from "@testing-library/react-native";
+import {
+  RenderAPI,
+  render,
+  fireEvent,
+  waitFor,
+} from "@testing-library/react-native";
 import RecordScreen from "../RecordScreen";
 import { getAtlasPickerItem, getAllAtlasPickerItems } from "../../record/Atlas";
 import { setAppSettings } from "../../../AppSettings";
@@ -14,13 +19,13 @@ import { makeRecordReducerActionsMock } from "../../mocks/useRecordReducer.mock"
 const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 
-let renderer;
-let uploadRecord;
+let renderer: RenderAPI;
+let uploadRecordButton: () => ReactElement;
 const navigation = {
   goBack: jest.fn(),
   navigate: jest.fn(),
   setOptions: ({ headerRight }) => {
-    uploadRecord = headerRight;
+    uploadRecordButton = headerRight;
   },
 };
 
@@ -37,10 +42,8 @@ const renderWithGpsWarningOff = () => {
   /* eslint-disable react/jsx-no-constructed-context-values */
   const recordActionsContext = {
     ...makeRecordReducerActionsMock(),
-    uploadRecord: (record: AlgaeRecord, photos: Photo[]): Promise<void> => {
-      RecordManager.uploadRecord(record, photos);
-      return Promise.resolve();
-    },
+    uploadRecord: (record: AlgaeRecord, photos: Photo[]): Promise<void> =>
+      RecordManager.uploadRecord(record, photos).then(() => Promise.resolve()),
   };
 
   const {
@@ -390,7 +393,7 @@ describe("RecordScreen test suite", () => {
     });
 
     test("upload record successfully", async () => {
-      const uploadButtonGetByTestId = render(uploadRecord()).getByTestId;
+      const { getByTestId } = render(uploadRecordButton());
 
       const uploadMock = jest
         .spyOn(RecordManager, "uploadRecord")
@@ -405,17 +408,15 @@ describe("RecordScreen test suite", () => {
           expect(message).toEqual(Notifications.uploadSuccess.message);
         });
 
-      fireEvent.press(
-        uploadButtonGetByTestId(TestIds.RecordScreen.UploadButton)
-      );
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
 
-      await waitFor(() => expect(navigation.goBack).toBeCalled());
-      expect(alertMock).toBeCalled();
+      await waitFor(() => expect(alertMock).toBeCalled());
+      expect(navigation.goBack).toBeCalled();
       expect(uploadMock).toBeCalled();
     });
 
     test("upload record successfully, empty fields are deleted", async () => {
-      const uploadButtonGetByTestId = render(uploadRecord()).getByTestId;
+      const { getByTestId } = render(uploadRecordButton());
 
       const uploadMock = jest
         .spyOn(RecordManager, "uploadRecord")
@@ -462,13 +463,11 @@ describe("RecordScreen test suite", () => {
       );
 
       // upload record
-      fireEvent.press(
-        uploadButtonGetByTestId(TestIds.RecordScreen.UploadButton)
-      );
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
 
-      await waitFor(() => expect(navigation.goBack).toBeCalled());
+      await waitFor(() => expect(alertMock).toBeCalled());
 
-      expect(alertMock).toBeCalled();
+      expect(navigation.goBack).toBeCalled();
       expect(uploadMock).toBeCalled();
       const receivedRecord = uploadMock.mock.calls[0][0];
       expect(receivedRecord.tubeId).not.toBeDefined();
@@ -477,8 +476,8 @@ describe("RecordScreen test suite", () => {
       expect(receivedRecord.atlasType).not.toBeDefined();
     });
 
-    test("upload record invalid user input", () => {
-      const uploadButtonGetByTestId = render(uploadRecord()).getByTestId;
+    test("upload record invalid user input", async () => {
+      const { getByTestId } = render(uploadRecordButton());
 
       const alertMock = jest
         .spyOn(Alert, "alert")
@@ -492,34 +491,40 @@ describe("RecordScreen test suite", () => {
         "garbage, coordinates"
       );
 
-      fireEvent.press(
-        uploadButtonGetByTestId(TestIds.RecordScreen.UploadButton)
-      );
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
 
-      expect(alertMock).toBeCalled();
+      await waitFor(() => expect(alertMock).toBeCalled());
     });
 
     test("upload record network failure", async () => {
-      const uploadButtonGetByTestId = render(uploadRecord()).getByTestId;
+      const { getByTestId } = render(uploadRecordButton());
+      const uploadError = {
+        title: Notifications.uploadRecordFailed.title,
+        message: Notifications.uploadRecordFailed.message,
+      };
 
       const uploadMock = jest
         .spyOn(RecordManager, "uploadRecord")
-        .mockImplementationOnce(() => Promise.reject());
+        .mockRejectedValueOnce(uploadError);
 
       const alertSpy = jest
         .spyOn(Alert, "alert")
         .mockImplementationOnce((title, message) => {
-          expect(title).toEqual(Notifications.uploadFailed.title);
-          expect(message).toEqual(Notifications.uploadFailed.message);
+          expect(title).toEqual(Notifications.uploadRecordFailed.title);
+          expect(message).toEqual(Notifications.uploadRecordFailed.message);
         });
 
-      fireEvent.press(
-        uploadButtonGetByTestId(TestIds.RecordScreen.UploadButton)
-      );
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
 
-      await waitFor(() => expect(navigation.goBack).toBeCalled());
-      expect(uploadMock).toBeCalled();
-      expect(alertSpy).toBeCalled();
+      return waitFor(() => expect(navigation.goBack).toBeCalled()).then(() =>
+        waitFor(() => expect(alertSpy).toBeCalled()).then(() => {
+          expect(uploadMock).toBeCalled();
+          expect(alertSpy).toBeCalledWith(
+            Notifications.uploadRecordFailed.title,
+            Notifications.uploadRecordFailed.message
+          );
+        })
+      );
     });
   });
 });

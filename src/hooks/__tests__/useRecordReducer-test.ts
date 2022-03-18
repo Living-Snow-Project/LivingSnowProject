@@ -5,7 +5,7 @@ import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 import * as RecordManager from "../../lib/RecordManager";
 import * as Network from "../../lib/Network";
 
-describe("useRecordStorage test suite", () => {
+describe("useRecordReducer test suite", () => {
   describe("dispatch tests", () => {
     let dispatch;
     beforeEach(() => {
@@ -34,20 +34,47 @@ describe("useRecordStorage test suite", () => {
     });
 
     test("uploading action", async () => {
-      await recordReducerActionsDispatch.uploadRecord(
-        makeExampleRecord("Sample"),
-        [makeExamplePhoto()]
-      );
-      expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
+      const uploadMock = jest
+        .spyOn(RecordManager, "uploadRecord")
+        .mockImplementationOnce((record: AlgaeRecord) =>
+          Promise.resolve(record)
+        );
+
+      return recordReducerActionsDispatch
+        .uploadRecord(makeExampleRecord("Sample"), [makeExamplePhoto()])
+        .then(() => {
+          expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(
+            2
+          );
+          expect(uploadMock).toHaveBeenCalledTimes(1);
+          uploadMock.mockReset();
+        });
     });
 
     test("uploading action fails", async () => {
       const record = makeExampleRecord("Sample");
-      jest.spyOn(RecordManager, "uploadRecord").mockRejectedValueOnce(record);
-      await recordReducerActionsDispatch.uploadRecord(record, [
-        makeExamplePhoto(),
-      ]);
-      expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
+      const photo = makeExamplePhoto();
+      const uploadMock = jest
+        .spyOn(RecordManager, "uploadRecord")
+        .mockRejectedValueOnce({
+          pendingRecords: [photo],
+          pendingPhotos: [record],
+        });
+
+      return recordReducerActionsDispatch
+        .uploadRecord(record, [photo])
+        .then(() => {
+          fail(
+            "recordReducerActionsDispatch.uploadRecord was expected to reject"
+          );
+        })
+        .catch(() => {
+          expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(
+            2
+          );
+          expect(uploadMock).toHaveBeenCalledTimes(1);
+          uploadMock.mockReset();
+        });
     });
 
     test("downloading action", async () => {
@@ -64,6 +91,7 @@ describe("useRecordStorage test suite", () => {
 
   describe("reducer tests", () => {
     const payload = {
+      pendingPhotos: [],
       pendingRecords: [],
       downloadedRecords: [],
     };

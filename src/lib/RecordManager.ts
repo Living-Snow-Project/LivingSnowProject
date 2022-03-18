@@ -4,82 +4,139 @@ import {
   savePendingRecord,
   clearPendingRecords,
   loadPendingPhotos,
-  savePendingPhoto,
   clearPendingPhotos,
+  savePendingPhotos,
 } from "./Storage";
-import { jsonToRecord } from "../record/Record";
 import Logger from "./Logger";
+import { Notifications } from "../constants/Strings";
+
+// rejects with PendingPhoto[] (any photo not uploaded)
+async function uploadPhotos(photos: PendingPhoto[]): Promise<void> {
+  if (photos.length === 0) {
+    return Promise.resolve();
+  }
+
+  const failedPhotos: Array<PendingPhoto> = [];
+
+  // tried with an array of Promises but photos after first were arriving corrupted
+  await photos.reduce(
+    (promise, photo) =>
+      promise
+        .then(() => Network.uploadPhoto(photo))
+        .catch(() => {
+          failedPhotos.push(photo);
+        }),
+    Promise.resolve()
+  );
+
+  return failedPhotos.length === 0
+    ? Promise.resolve()
+    : Promise.reject(failedPhotos);
+}
+
+type UploadError = {
+  title: string;
+  message: string;
+  pendingPhotos: PendingPhoto[];
+  pendingRecords: AlgaeRecord[];
+};
 
 // returns the AlgaeRecord server responds with
-// rejects with an error string
+// rejects with UploadError
 async function uploadRecord(
   record: AlgaeRecord,
-  photos: Photo[]
+  photos: Photo[] = []
 ): Promise<AlgaeRecord> {
-  let uploadPhotoError;
-  const localRecord = jsonToRecord<AlgaeRecord>(JSON.stringify(record));
-  localRecord.id = 0;
-  return Network.uploadRecord(localRecord)
-    .then((response) =>
-      photos
-        .reduce(
-          (promise, photo) =>
-            promise.then(() => {
-              // picks up the record id of photo associated with
-              const pendingPhoto: PendingPhoto = { id: response.id, ...photo };
-              return Network.uploadPhoto(pendingPhoto).catch(async (error) => {
-                Logger.Warn(`${error}`);
-                uploadPhotoError = error;
-                await savePendingPhoto(pendingPhoto);
-              });
-            }),
-          Promise.resolve()
-        )
-        .then(() => Promise.resolve(response))
-    )
-    .catch(async (error) => {
-      Logger.Warn(`${error}`);
-      localRecord.id = record.id;
-      localRecord.photos = photos;
-      await savePendingRecord(localRecord);
-      return Promise.reject(error);
-    })
-    .finally(() =>
-      !uploadPhotoError ? Promise.resolve() : Promise.reject(uploadPhotoError)
-    );
+  let recordResponse: AlgaeRecord;
+
+  try {
+    recordResponse = await Network.uploadRecord(record);
+  } catch (error) {
+    // Network.uploadRecord rejects with string
+    Logger.Warn(`Netork.uploadRecord failed: ${error}`);
+
+    // when record fails to upload, attach photos and save together
+    const pendingRecords = await savePendingRecord({
+      ...record,
+      photos,
+    });
+
+    const pendingPhotos = await loadPendingPhotos();
+
+    const uploadError: UploadError = {
+      title: Notifications.uploadRecordFailed.title,
+      message: Notifications.uploadRecordFailed.message,
+      pendingRecords,
+      pendingPhotos,
+    };
+
+    return Promise.reject(uploadError);
+  }
+
+  try {
+    // attach server assigned record id to each photo
+    const pendingPhotos = photos.map<PendingPhoto>((photo) => ({
+      ...photo,
+      id: recordResponse.id,
+    }));
+    await uploadPhotos(pendingPhotos);
+  } catch (failedPhotos) {
+    Logger.Warn(`RecordManager.uploadPhotos failed`);
+
+    let pendingPhotos: Array<PendingPhoto> = await loadPendingPhotos();
+    pendingPhotos = await savePendingPhotos([
+      ...pendingPhotos,
+      ...failedPhotos,
+    ]);
+
+    const pendingRecords = await loadPendingRecords();
+    const title =
+      failedPhotos.length > 1
+        ? Notifications.uploadPhotosFailed.title
+        : Notifications.uploadPhotoFailed.title;
+    const message =
+      failedPhotos.length > 1
+        ? Notifications.uploadPhotosFailed.message
+        : Notifications.uploadPhotoFailed.message;
+
+    const uploadError: UploadError = {
+      title,
+      message,
+      pendingPhotos,
+      pendingRecords,
+    };
+
+    // propagate photo uploadError to uploadRecord.catch handler
+    return Promise.reject(uploadError);
+  }
+
+  return recordResponse;
 }
 
 // uploads photos that were saved while user was offline
-async function retryPhotos(): Promise<void> {
-  return loadPendingPhotos().then(async (photos) => {
-    if (photos.length === 0) {
+function retryPhotos(): Promise<void> {
+  return loadPendingPhotos().then((pendingPhotos) => {
+    if (pendingPhotos.length === 0) {
       return Promise.resolve();
     }
 
-    await clearPendingPhotos();
-
-    return photos.reduce(
-      (promise, photo) =>
-        promise
-          .then(() => Network.uploadPhoto(photo))
-          .catch(async (error) => {
-            Logger.Warn(
-              `Network.uploadPhoto rejected: continue photo reducer to prevent data loss: ${error}`
-            );
-            await savePendingPhoto(photo);
-          }),
-      Promise.resolve()
+    // don't propagate error in retry
+    return clearPendingPhotos().then(() =>
+      uploadPhotos(pendingPhotos).catch((failedPhotos) =>
+        savePendingPhotos(failedPhotos).then(() => Promise.resolve())
+      )
     );
   });
 }
 
 // uploads records that were saved while user was offline
 // returns the current array of pending records
-async function retryPendingRecords(): Promise<AlgaeRecord[]> {
+// TODO: rename "retryPendingData" and return void
+function retryPendingRecords(): Promise<AlgaeRecord[]> {
   return loadPendingRecords()
     .then(async (records) => {
       if (records.length === 0) {
-        return Promise.resolve([]);
+        return [];
       }
 
       await clearPendingRecords();
