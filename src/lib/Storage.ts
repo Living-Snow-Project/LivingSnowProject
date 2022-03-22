@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Logger from "./Logger";
 import { jsonToRecord } from "../record/Record";
+import { Errors } from "../constants/Strings";
 
 const StorageKeys = {
   photos: "photos",
@@ -81,6 +82,23 @@ async function savePendingRecord(record: AlgaeRecord): Promise<AlgaeRecord[]> {
 
   records.push(record);
   return savePendingRecords(records);
+}
+
+async function updatePendingRecord(
+  record: AlgaeRecord
+): Promise<AlgaeRecord[]> {
+  const pendingRecords = await loadPendingRecords();
+  const pendingRecordIndex = pendingRecords.findIndex(
+    (current) => current.id === record.id
+  );
+
+  if (pendingRecordIndex === -1) {
+    return Promise.reject(Errors.recordNotFound);
+  }
+
+  pendingRecords[pendingRecordIndex] = { ...record };
+
+  return savePendingRecords(pendingRecords).then((result) => result);
 }
 
 // returns the new list of pending records
@@ -187,6 +205,7 @@ export {
   loadPendingRecords,
   savePendingRecords,
   savePendingRecord,
+  updatePendingRecord,
   deletePendingRecord,
   clearPendingRecords,
   loadCachedRecords,

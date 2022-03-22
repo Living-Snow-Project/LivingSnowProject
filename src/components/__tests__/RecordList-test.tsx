@@ -88,7 +88,7 @@ describe("PendingRecordList tests", () => {
     );
 
     expect(navigation.navigate).toBeCalledWith("Record", {
-      params: { record: recordReducerStateMock.pendingRecords[0] },
+      record: recordReducerStateMock.pendingRecords[0],
     });
   });
 });

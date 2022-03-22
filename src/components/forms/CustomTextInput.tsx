@@ -1,9 +1,17 @@
 import React, { forwardRef, useRef, useState } from "react";
-import { Keyboard, Platform, Text, TextInput } from "react-native";
+import {
+  Keyboard,
+  NativeSyntheticEvent,
+  Platform,
+  Text,
+  TextInput,
+  TextInputContentSizeChangeEventData,
+} from "react-native";
 import PropTypes from "prop-types";
 import { formInputStyles } from "../../styles/FormInput";
 
 type CustomTextInputProps = {
+  defaultValue?: string | undefined;
   description: string;
   placeholder: string;
   maxLength?: number;
@@ -14,6 +22,7 @@ type CustomTextInputProps = {
 const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
   (
     {
+      defaultValue,
       description,
       placeholder,
       onChangeText,
@@ -23,10 +32,15 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
     ref
   ) => {
     const textInputHeight = useRef(0);
-    const [value, setValue] = useState("");
+    const [value, setValue] = useState<string>(
+      defaultValue ? defaultValue : ""
+    );
 
     // onContentSizeChange is called frequently for multiline TextInput, we only want to emit 'keyboardDidShow' event when height actually changes
-    const handleMultilineTextInputOnContentSizeChange = (height, event) => {
+    const handleMultilineTextInputOnContentSizeChange = (
+      height: number,
+      event: NativeSyntheticEvent<TextInputContentSizeChangeEventData>
+    ) => {
       if (height !== 0 && height !== event.nativeEvent.contentSize.height) {
         // 'keyboardDidShow' expects the height of the keyboard (which we could capture in a new event listener in this component)
         // since we only have 1 'keyboardDidShow' listener we changed its logic to respond to this input
@@ -46,6 +60,7 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
             formInputStyles.optionInputText,
             Platform.OS === "ios" ? formInputStyles.multilineTextInput : {},
           ]}
+          defaultValue={defaultValue}
           multiline
           blurOnSubmit
           ref={ref}
@@ -73,6 +88,7 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
 );
 
 CustomTextInput.propTypes = {
+  defaultValue: PropTypes.string,
   description: PropTypes.string.isRequired,
   placeholder: PropTypes.string.isRequired,
   maxLength: PropTypes.number,
@@ -81,6 +97,7 @@ CustomTextInput.propTypes = {
 };
 
 CustomTextInput.defaultProps = {
+  defaultValue: undefined,
   maxLength: 255,
   onSubmitEditing: () => {},
 };

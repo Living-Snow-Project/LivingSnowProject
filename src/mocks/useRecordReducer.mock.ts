@@ -18,6 +18,7 @@ const makeRecordReducerActionsMock = (): RecordReducerActions => ({
   uploadRecord: jest.fn(),
   downloadRecords: jest.fn(),
   retryPendingRecords: jest.fn(),
+  updatePendingRecord: jest.fn(),
 });
 
 export { makeRecordReducerStateMock, makeRecordReducerActionsMock };

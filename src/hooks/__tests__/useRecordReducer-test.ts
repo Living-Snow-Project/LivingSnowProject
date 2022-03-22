@@ -18,6 +18,7 @@ describe("useRecordReducer test suite", () => {
     });
 
     // TODO: consider additional assertions (ie. "calledWith")
+    // TODO: failure scenarios
     test("seed action", async () => {
       await recordReducerActionsDispatch.seed();
       expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
@@ -86,6 +87,15 @@ describe("useRecordReducer test suite", () => {
     test("retryPendingRecords action", async () => {
       await recordReducerActionsDispatch.retryPendingRecords();
       expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
+    });
+
+    test("updatePendingRecord action", async () => {
+      const record = makeExampleRecord("Sighting");
+      await recordReducerActionsDispatch.save(record);
+      expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
+      record.tubeId = "new tubeId";
+      await recordReducerActionsDispatch.updatePendingRecord(record);
+      expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(4);
     });
   });
 

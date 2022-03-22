@@ -6,7 +6,12 @@ import { StockIcon } from "./Icons";
 
 type HeaderButtonProps = {
   testID: string;
-  iconName: string;
+  iconName:
+    | "snow"
+    | "save-outline"
+    | "cloud-upload"
+    | "settings"
+    | "add-circle-outline";
   onPress: () => void;
   placement: "left" | "right";
 };

@@ -12,7 +12,8 @@
   "rules": {
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
-    "react/prop-types": ["error", { "ignore": ["navigation"] }]
+    "react/prop-types": ["error", { "ignore": ["navigation"] }],
+    "no-unneeded-ternary": ["error", { "defaultAssignment": true }]
   },
   "ignorePatterns": ["babel.config.js", "*test*.js"]
 }

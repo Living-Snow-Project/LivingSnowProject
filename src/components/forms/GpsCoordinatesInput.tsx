@@ -19,35 +19,44 @@ import { getAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
 import { Placeholders } from "../../constants/Strings";
 
-function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
+function GpsCoordinatesInput({
+  setGpsCoordinates,
+  onSubmitEditing,
+  coordinates,
+}) {
   const watchPosition = useRef<null | { remove(): void }>(null);
   const gpsCoordinatesRef = useRef<TextInput>(null);
   const [placeholderText, setPlaceholderText] = useState(
     Placeholders.GPS.AcquiringLocation
   );
-  const [gpsCoordinateString, setGpsCoordinateString] = useState<string>(``);
-  const [manualGpsCoordinates, setManualGpsCoordinates] = useState(false);
-  const { showGpsWarning } = getAppSettings();
-  const clipCoordinate = (coordinate) =>
+  const [useGps] = useState<boolean>(
+    coordinates.latitude === 0 && coordinates.longitude === 0
+  );
+  const [gpsCoordinateString, setGpsCoordinateString] = useState<string>(
+    useGps ? `` : `${coordinates.latitude}, ${coordinates.longitude}`
+  );
+  const [manualGpsCoordinates, setManualGpsCoordinates] = useState(!useGps);
+  const showGpsWarning = useGps ? getAppSettings().showGpsWarning : false;
+  const clipCoordinate = (coordinate: number) =>
     JSON.stringify(coordinate.toFixed(6)).replace('"', "").replace('"', "");
 
   // accepts inputs from both location subscription and typed user input
-  const updateGpsCoordinateString = (value) => {
+  const updateGpsCoordinateString = (value: string) => {
     setGpsCoordinateString(value);
 
     // some users are adding parenthesis when manually entering coordinates
     // we don't want them in the data set so quietly remove
-    const coordinates = value.replace(`(`, ``).replace(`)`, ``).split(",");
+    const coords = value.replace(`(`, ``).replace(`)`, ``).split(",");
 
     let latitude;
     let longitude;
 
-    if (coordinates[0]) {
-      latitude = coordinates[0].trim();
+    if (coords[0]) {
+      latitude = Number(coords[0].trim());
     }
 
-    if (coordinates[1]) {
-      longitude = coordinates[1].trim();
+    if (coords[1]) {
+      longitude = Number(coords[1].trim());
     }
 
     setGpsCoordinates(latitude, longitude);
@@ -62,6 +71,8 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
 
   // location subscription
   useEffect(() => {
+    if (!useGps) return () => {};
+
     (async () => {
       const { status } = await requestForegroundPermissionsAsync();
       if (status !== "granted") {
@@ -95,7 +106,9 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
   }, []);
 
   useEffect(() => {
-    gpsCoordinatesRef?.current?.focus();
+    if (useGps) {
+      gpsCoordinatesRef?.current?.focus();
+    }
   }, [manualGpsCoordinates]);
 
   const enableManualGpsCoordinates = () => {
@@ -167,6 +180,14 @@ function GpsCoordinatesInput({ setGpsCoordinates, onSubmitEditing }) {
 GpsCoordinatesInput.propTypes = {
   setGpsCoordinates: PropTypes.func.isRequired,
   onSubmitEditing: PropTypes.func.isRequired,
+  coordinates: PropTypes.shape({
+    longitude: PropTypes.number,
+    latitude: PropTypes.number,
+  }),
+};
+
+GpsCoordinatesInput.defaultProps = {
+  coordinates: { longitude: 0, latitude: 0 },
 };
 
 export default GpsCoordinatesInput;

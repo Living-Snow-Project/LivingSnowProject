@@ -4,54 +4,50 @@ import * as Location from "expo-location";
 import GpsCoordinatesInput from "../forms/GpsCoordinatesInput";
 import { Placeholders } from "../../constants/Strings";
 
-const requestForegroundPermissionsAsyncSuccessMock = () =>
-  jest
-    .spyOn(Location, "requestForegroundPermissionsAsync")
-    .mockImplementation(() =>
-      Promise.resolve({
-        status: "granted",
-      } as Location.LocationPermissionResponse)
-    );
-
-const watchPositionAsyncSuccessMock = () =>
-  jest
-    .spyOn(Location, "watchPositionAsync")
-    .mockImplementation((options, callback) => {
-      const location = {
-        coords: {
-          latitude: 123.456,
-          longitude: -98.765,
-        },
-      };
-
-      callback(location as Location.LocationObject);
-
-      const sub: Location.LocationSubscription = {
-        remove() {},
-      };
-
-      return Promise.resolve<Location.LocationSubscription>(sub);
-    });
-
 describe("GpsCoordinatesInput tests", () => {
-  const onSubmitEditing = jest.fn();
-  const setGpsCoordinates = jest.fn();
+  const onSubmitEditingMock = jest.fn();
+  const setGpsCoordinatesMock = jest.fn();
 
-  const requestForegroundPermissionsAsyncFailureMock = () => {
+  const requestForegroundPermissionsAsyncMock = (result: string) =>
     jest
       .spyOn(Location, "requestForegroundPermissionsAsync")
       .mockImplementation(() =>
         Promise.resolve({
-          status: "denied",
+          status: result,
         } as Location.LocationPermissionResponse)
       );
-  };
+
+  const requestForegroundPermissionsAsyncSuccessMock = () =>
+    requestForegroundPermissionsAsyncMock("granted");
+
+  const requestForegroundPermissionsAsyncFailureMock = () =>
+    requestForegroundPermissionsAsyncMock("denied");
+
+  const watchPositionAsyncSuccessMock = () =>
+    jest
+      .spyOn(Location, "watchPositionAsync")
+      .mockImplementation((options, callback) => {
+        const location = {
+          coords: {
+            latitude: 123.456,
+            longitude: -98.765,
+          },
+        };
+
+        callback(location as Location.LocationObject);
+
+        const sub: Location.LocationSubscription = {
+          remove() {},
+        };
+
+        return Promise.resolve<Location.LocationSubscription>(sub);
+      });
 
   const renderGpsCoordinatesInput = () =>
     render(
       <GpsCoordinatesInput
-        onSubmitEditing={onSubmitEditing}
-        setGpsCoordinates={setGpsCoordinates}
+        onSubmitEditing={onSubmitEditingMock}
+        setGpsCoordinates={setGpsCoordinatesMock}
       />
     );
 
@@ -81,6 +77,7 @@ describe("GpsCoordinatesInput tests", () => {
     jest
       .spyOn(Location, "watchPositionAsync")
       .mockImplementation(() => Promise.reject(Error("mock failure")));
+
     requestForegroundPermissionsAsyncSuccessMock();
 
     const { getByPlaceholderText } = renderGpsCoordinatesInput();
@@ -91,11 +88,10 @@ describe("GpsCoordinatesInput tests", () => {
   test("extra parenthesis and spaces are clipped", async () => {
     requestForegroundPermissionsAsyncFailureMock();
 
-    const setCoordinates = jest.fn();
     const { getByPlaceholderText } = render(
       <GpsCoordinatesInput
-        onSubmitEditing={onSubmitEditing}
-        setGpsCoordinates={setCoordinates}
+        onSubmitEditing={onSubmitEditingMock}
+        setGpsCoordinates={setGpsCoordinatesMock}
       />
     );
 
@@ -106,17 +102,16 @@ describe("GpsCoordinatesInput tests", () => {
       "(56.789  , 454.76)   "
     );
 
-    expect(setCoordinates).toBeCalledWith("56.789", "454.76");
+    expect(setGpsCoordinatesMock).toBeCalledWith(56.789, 454.76);
   });
 
   test("done editing", async () => {
     requestForegroundPermissionsAsyncFailureMock();
 
-    const submitEditing = jest.fn();
     const { getByPlaceholderText } = render(
       <GpsCoordinatesInput
-        onSubmitEditing={submitEditing}
-        setGpsCoordinates={setGpsCoordinates}
+        onSubmitEditing={onSubmitEditingMock}
+        setGpsCoordinates={setGpsCoordinatesMock}
       />
     );
 
@@ -125,6 +120,29 @@ describe("GpsCoordinatesInput tests", () => {
       getByPlaceholderText(Placeholders.GPS.NoPermissions),
       "onSubmitEditing"
     );
-    expect(submitEditing).toHaveBeenCalled();
+    expect(onSubmitEditingMock).toHaveBeenCalled();
+  });
+
+  test("edit mode with existing coordinates", async () => {
+    const foregroundPermissionMock =
+      requestForegroundPermissionsAsyncSuccessMock();
+    const coordinates = {
+      latitude: 33.77112,
+      longitude: -133.7331,
+    };
+
+    const { getByDisplayValue } = render(
+      <GpsCoordinatesInput
+        onSubmitEditing={onSubmitEditingMock}
+        setGpsCoordinates={setGpsCoordinatesMock}
+        coordinates={coordinates}
+      />
+    );
+
+    await waitFor(() =>
+      getByDisplayValue(`${coordinates.latitude}, ${coordinates.longitude}`)
+    );
+
+    expect(foregroundPermissionMock).not.toBeCalled();
   });
 });

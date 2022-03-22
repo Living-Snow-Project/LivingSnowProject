@@ -6,6 +6,7 @@ import {
   loadPendingRecords,
   saveCachedRecords,
   savePendingRecord,
+  updatePendingRecord,
 } from "../lib/Storage";
 import { retryPendingRecords, uploadRecord } from "../lib/RecordManager";
 import { downloadRecords } from "../lib/Network";
@@ -204,6 +205,15 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
     this.dispatch({ type: "START_RETRY" });
     const pendingRecords = await retryPendingRecords();
     this.dispatch({ type: "END_RETRY", payload: { pendingRecords } });
+  },
+
+  updatePendingRecord: async function UpdatePendingRecord(
+    this: RecordReducerActionsDispatch,
+    record: AlgaeRecord
+  ): Promise<void> {
+    this.dispatch({ type: "START_SAVING" });
+    const pendingRecords = await updatePendingRecord(record);
+    this.dispatch({ type: "END_SAVING", payload: { pendingRecords } });
   },
 };
 

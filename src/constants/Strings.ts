@@ -46,7 +46,7 @@ const Labels = {
 // for Alert.alert calls
 const Notifications = {
   uploadSuccess: {
-    title: "Upload succeeded",
+    title: "Record Uploaded",
     message: "Thanks for your submission.",
   },
   uploadRecordFailed: {
@@ -61,12 +61,23 @@ const Notifications = {
     title: "Photos Saved",
     message: "We will upload them later.",
   },
-
+  updateRecordSuccess: {
+    title: "Record Updated",
+  },
+  updateRecordFailed: {
+    title: "Update Failed",
+    message:
+      "This can happen when Internet connectivity is restored while updating the record.",
+  },
   invalidCoordinates: {
     title: "Invalid GPS coordinates",
     message:
       'Coordinates must be in "lat, long" format. ie. 12.345678, -123.456789',
   },
+};
+
+const Errors = {
+  recordNotFound: "Record to update not found",
 };
 
 const RecordDescription = {
@@ -91,6 +102,7 @@ const AtlasDescription = {
 };
 
 export {
+  Errors,
   Notifications,
   Placeholders,
   Labels,

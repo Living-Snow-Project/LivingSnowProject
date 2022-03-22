@@ -12,6 +12,7 @@ import { setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
 import { Notifications, Placeholders } from "../../constants/Strings";
 import * as RecordManager from "../../lib/RecordManager";
+import * as Storage from "../../lib/Storage";
 import { makeExampleRecord } from "../../record/Record";
 import { RecordReducerActionsContext } from "../../hooks/useRecordReducer";
 import { makeRecordReducerActionsMock } from "../../mocks/useRecordReducer.mock";
@@ -19,14 +20,37 @@ import { makeRecordReducerActionsMock } from "../../mocks/useRecordReducer.mock"
 const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 
-let renderer: RenderAPI;
-let uploadRecordButton: () => ReactElement;
+// record action button renders independently of the screen
+let recordActionButton: () => ReactElement;
 const navigation = {
   goBack: jest.fn(),
   navigate: jest.fn(),
-  setOptions: ({ headerRight }) => {
-    uploadRecordButton = headerRight;
+  setOptions: ({ headerRight }: { headerRight: () => JSX.Element }) => {
+    recordActionButton = headerRight;
   },
+};
+
+type RouteProp = {
+  params: {
+    record: AlgaeRecord;
+  };
+};
+
+const customRender = (route: RouteProp | undefined = undefined) => {
+  /* eslint-disable react/jsx-no-constructed-context-values */
+  const recordActionsContext = {
+    ...makeRecordReducerActionsMock(),
+    uploadRecord: (record: AlgaeRecord, photos: Photo[]): Promise<void> =>
+      RecordManager.uploadRecord(record, photos).then(() => Promise.resolve()),
+    updatePendingRecord: (record: AlgaeRecord): Promise<void> =>
+      Storage.updatePendingRecord(record).then(() => Promise.resolve()),
+  };
+
+  return render(
+    <RecordReducerActionsContext.Provider value={recordActionsContext}>
+      <RecordScreen navigation={navigation} route={route} />
+    </RecordReducerActionsContext.Provider>
+  );
 };
 
 const renderWithGpsWarningOff = () => {
@@ -39,23 +63,12 @@ const renderWithGpsWarningOff = () => {
     showGpsWarning: false,
   }));
 
-  /* eslint-disable react/jsx-no-constructed-context-values */
-  const recordActionsContext = {
-    ...makeRecordReducerActionsMock(),
-    uploadRecord: (record: AlgaeRecord, photos: Photo[]): Promise<void> =>
-      RecordManager.uploadRecord(record, photos).then(() => Promise.resolve()),
-  };
-
   const {
     getByDisplayValue,
     getByPlaceholderText,
     getByTestId,
     queryByTestId,
-  } = render(
-    <RecordReducerActionsContext.Provider value={recordActionsContext}>
-      <RecordScreen navigation={navigation} />
-    </RecordReducerActionsContext.Provider>
-  );
+  } = customRender();
 
   expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
   fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
@@ -78,33 +91,33 @@ const renderWithGpsWarningOff = () => {
 };
 
 describe("RecordScreen test suite", () => {
-  beforeEach(() => {
-    renderer = render(<RecordScreen navigation={navigation} />);
-  });
-
   afterEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   test("renders", () => {
-    const { getByTestId } = renderer;
+    const { getByTestId, toJSON } = customRender();
     fireEvent.press(getByTestId("calendar-pressable"));
     fireEvent(getByTestId("calendar"), "onDayPress", {
       dateString: "2022-01-01",
     });
-    expect(renderer.toJSON()).toMatchSnapshot();
+    expect(toJSON()).toMatchSnapshot();
   });
 
   describe("Record type picker tests", () => {
     test("Sample selected", () => {
-      const { queryByText } = renderer;
+      const { queryByText } = customRender();
       expect(isAtlasVisible(queryByText)).toBeFalsy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
     });
 
     test("Sighting selected", () => {
-      const { getByTestId, queryByText } = renderer;
-      fireEvent(getByTestId("record-type-picker"), "onValueChange", "Sighting");
+      const { getByTestId, queryByText } = customRender();
+      fireEvent(
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
+        "onValueChange",
+        "Sighting"
+      );
       expect(isAtlasVisible(queryByText)).toBeFalsy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
     });
@@ -112,7 +125,7 @@ describe("RecordScreen test suite", () => {
 
   describe("GPS coordinate tests", () => {
     test("with Expo.Location", () => {
-      const { getByTestId, queryByTestId } = renderer;
+      const { getByTestId, queryByTestId } = customRender();
       const noButtonMock = jest.fn();
       const alertMock = jest.spyOn(Alert, "alert").mockImplementationOnce(
         (title, message, buttons) =>
@@ -135,7 +148,7 @@ describe("RecordScreen test suite", () => {
         getByPlaceholderText,
         getByTestId,
         queryByTestId,
-      } = renderer;
+      } = customRender();
       const testCoordinates = "123.456, -98.765";
       const alertMock = jest.spyOn(Alert, "alert").mockImplementationOnce(
         (title, message, buttons) =>
@@ -169,63 +182,73 @@ describe("RecordScreen test suite", () => {
 
       expect(getByDisplayValue(expectedCoordinates)).not.toBeNull();
       fireEvent(getByDisplayValue(expectedCoordinates), "onSubmitEditing");
+
       expect(alertMock).not.toBeCalled();
-      alertMock.mockReset();
     });
   });
 
   describe("Atlas picker tests", () => {
     test("Red Dot", () => {
-      const { getByTestId, queryByText } = renderer;
+      const { getByTestId, queryByText } = customRender();
+
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         "Atlas: Red Dot"
       );
+
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
     });
 
     test("Red Dot with Sample", () => {
-      const { getByTestId, queryByText } = renderer;
+      const { getByTestId, queryByText } = customRender();
+
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         "Atlas: Red Dot with Sample"
       );
+
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
     });
 
     test("Blue Dot", () => {
-      const { getByTestId, queryByText } = renderer;
+      const { getByTestId, queryByText } = customRender();
+
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         "Atlas: Blue Dot"
       );
+
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
     });
 
     test("Blue Dot with Sample", () => {
-      const { getByTestId, queryByText } = renderer;
+      const { getByTestId, queryByText } = customRender();
+
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         "Atlas: Blue Dot with Sample"
       );
+
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
     });
 
     test("Red Dot surface picker", () => {
-      const { getByDisplayValue, getByTestId, queryByText } = renderer;
+      const { getByDisplayValue, getByTestId, queryByText } = customRender();
+
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         "Atlas: Red Dot"
       );
+
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
 
@@ -241,12 +264,14 @@ describe("RecordScreen test suite", () => {
     });
 
     test("Red Dot with Sample surface picker", () => {
-      const { getByDisplayValue, getByTestId, queryByText } = renderer;
+      const { getByDisplayValue, getByTestId, queryByText } = customRender();
+
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         "Atlas: Red Dot with Sample"
       );
+
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
 
@@ -254,6 +279,7 @@ describe("RecordScreen test suite", () => {
         getAtlasPickerItem("Snow Algae"),
         getAtlasPickerItem("Mix of Algae and Dirt"),
       ];
+
       atlasTypes.forEach((item) => {
         fireEvent(
           getByTestId(TestIds.Pickers.atlastSelectorTestId),
@@ -265,12 +291,14 @@ describe("RecordScreen test suite", () => {
     });
 
     test("Blue Dot surface picker", () => {
-      const { getByDisplayValue, getByTestId, queryByText } = renderer;
+      const { getByDisplayValue, getByTestId, queryByText } = customRender();
+
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         "Atlas: Blue Dot"
       );
+
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
 
@@ -286,12 +314,14 @@ describe("RecordScreen test suite", () => {
     });
 
     test("Blue Dot with Sample surface picker", () => {
-      const { getByDisplayValue, getByTestId, queryByText } = renderer;
+      const { getByDisplayValue, getByTestId, queryByText } = customRender();
+
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
         "Atlas: Blue Dot with Sample"
       );
+
       expect(isAtlasVisible(queryByText)).toBeTruthy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
 
@@ -299,6 +329,7 @@ describe("RecordScreen test suite", () => {
         getAtlasPickerItem("Snow Algae"),
         getAtlasPickerItem("Mix of Algae and Dirt"),
       ];
+
       atlasTypes.forEach((item) => {
         fireEvent(
           getByTestId(TestIds.Pickers.atlastSelectorTestId),
@@ -310,7 +341,8 @@ describe("RecordScreen test suite", () => {
     });
 
     test("Type selection from Atlas back to not Atlas", () => {
-      const { getByTestId, queryByText } = renderer;
+      const { getByTestId, queryByText } = customRender();
+
       fireEvent(
         getByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
@@ -319,14 +351,18 @@ describe("RecordScreen test suite", () => {
 
       expect(isAtlasVisible(queryByText)).toBeTruthy();
 
-      fireEvent(getByTestId("record-type-picker"), "onValueChange", "Sighting");
+      fireEvent(
+        getByTestId(TestIds.Pickers.recordSelectorTestId),
+        "onValueChange",
+        "Sighting"
+      );
       expect(isAtlasVisible(queryByText)).toBeFalsy();
     });
   });
 
   describe("TextInput tests", () => {
     test("TubeId", () => {
-      const { getByPlaceholderText, getByDisplayValue } = renderer;
+      const { getByPlaceholderText, getByDisplayValue } = customRender();
       const tubeId = getByPlaceholderText(Placeholders.RecordScreen.TubeId);
       const expected = "123-456";
 
@@ -336,23 +372,25 @@ describe("RecordScreen test suite", () => {
     });
 
     test("Location Description", () => {
-      const { getByPlaceholderText, getByDisplayValue } = renderer;
+      const { getByPlaceholderText, getByDisplayValue } = customRender();
       const location = getByPlaceholderText(
         Placeholders.RecordScreen.LocationDescription
       );
       const expected = "Excelsior Pass on High Divide Trail";
 
       fireEvent.changeText(location, expected);
+
       expect(getByDisplayValue(expected)).not.toBeNull();
       fireEvent(location, "onSubmitEditing");
     });
 
     test("Notes", () => {
-      const { getByPlaceholderText, getByDisplayValue } = renderer;
+      const { getByPlaceholderText, getByDisplayValue } = customRender();
       const notes = getByPlaceholderText(Placeholders.RecordScreen.Notes);
       const expected = "Frozen lake in a cold place with runnels of red snow";
 
       fireEvent.changeText(notes, expected);
+
       expect(getByDisplayValue(expected)).not.toBeNull();
       fireEvent(notes, "onSubmitEditing");
     });
@@ -360,7 +398,7 @@ describe("RecordScreen test suite", () => {
 
   describe("Photo tests", () => {
     test("navigate to camera roll selection screen", () => {
-      const { getByTestId } = renderer;
+      const { getByTestId } = customRender();
       navigation.navigate.mockImplementationOnce(
         (route: string, params: { onUpdatePhotos: (uris: any) => void }) => {
           expect(route).toEqual("ImageSelection");
@@ -369,6 +407,7 @@ describe("RecordScreen test suite", () => {
       );
 
       fireEvent.press(getByTestId(TestIds.Photos.photoSelectorTestId));
+
       expect(navigation.navigate).toBeCalledTimes(1);
     });
   });
@@ -388,12 +427,8 @@ describe("RecordScreen test suite", () => {
       screenGetByPlaceholderText = recordScreen.getByPlaceholderText;
     });
 
-    afterEach(() => {
-      jest.resetAllMocks();
-    });
-
     test("upload record successfully", async () => {
-      const { getByTestId } = render(uploadRecordButton());
+      const { getByTestId } = render(recordActionButton());
 
       const uploadMock = jest
         .spyOn(RecordManager, "uploadRecord")
@@ -401,22 +436,22 @@ describe("RecordScreen test suite", () => {
           Promise.resolve(makeExampleRecord("Sample"))
         );
 
-      const alertMock = jest
-        .spyOn(Alert, "alert")
-        .mockImplementationOnce((title, message) => {
-          expect(title).toEqual(Notifications.uploadSuccess.title);
-          expect(message).toEqual(Notifications.uploadSuccess.message);
-        });
+      const alertMock = jest.spyOn(Alert, "alert");
 
       fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
 
-      await waitFor(() => expect(alertMock).toBeCalled());
+      await waitFor(() =>
+        expect(alertMock).toBeCalledWith(
+          Notifications.uploadSuccess.title,
+          Notifications.uploadSuccess.message
+        )
+      );
       expect(navigation.goBack).toBeCalled();
       expect(uploadMock).toBeCalled();
     });
 
     test("upload record successfully, empty fields are deleted", async () => {
-      const { getByTestId } = render(uploadRecordButton());
+      const { getByTestId } = render(recordActionButton());
 
       const uploadMock = jest
         .spyOn(RecordManager, "uploadRecord")
@@ -424,12 +459,7 @@ describe("RecordScreen test suite", () => {
           Promise.resolve(record)
         );
 
-      const alertMock = jest
-        .spyOn(Alert, "alert")
-        .mockImplementationOnce((title, message) => {
-          expect(title).toEqual(Notifications.uploadSuccess.title);
-          expect(message).toEqual(Notifications.uploadSuccess.message);
-        });
+      const alertMock = jest.spyOn(Alert, "alert");
 
       // simulates user entering text then deleting it
       fireEvent.changeText(
@@ -465,7 +495,12 @@ describe("RecordScreen test suite", () => {
       // upload record
       fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
 
-      await waitFor(() => expect(alertMock).toBeCalled());
+      await waitFor(() =>
+        expect(alertMock).toBeCalledWith(
+          Notifications.uploadSuccess.title,
+          Notifications.uploadSuccess.message
+        )
+      );
 
       expect(navigation.goBack).toBeCalled();
       expect(uploadMock).toBeCalled();
@@ -477,14 +512,9 @@ describe("RecordScreen test suite", () => {
     });
 
     test("upload record invalid user input", async () => {
-      const { getByTestId } = render(uploadRecordButton());
+      const { getByTestId } = render(recordActionButton());
 
-      const alertMock = jest
-        .spyOn(Alert, "alert")
-        .mockImplementationOnce((title, message) => {
-          expect(title).toEqual(Notifications.invalidCoordinates.title);
-          expect(message).toEqual(Notifications.invalidCoordinates.message);
-        });
+      const alertMock = jest.spyOn(Alert, "alert");
 
       fireEvent.changeText(
         screenGetByDisplayValue(screenTestCoordinates),
@@ -493,11 +523,16 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
 
-      await waitFor(() => expect(alertMock).toBeCalled());
+      await waitFor(() =>
+        expect(alertMock).toBeCalledWith(
+          Notifications.invalidCoordinates.title,
+          Notifications.invalidCoordinates.message
+        )
+      );
     });
 
     test("upload record network failure", async () => {
-      const { getByTestId } = render(uploadRecordButton());
+      const { getByTestId } = render(recordActionButton());
       const uploadError = {
         title: Notifications.uploadRecordFailed.title,
         message: Notifications.uploadRecordFailed.message,
@@ -507,23 +542,109 @@ describe("RecordScreen test suite", () => {
         .spyOn(RecordManager, "uploadRecord")
         .mockRejectedValueOnce(uploadError);
 
-      const alertSpy = jest
-        .spyOn(Alert, "alert")
-        .mockImplementationOnce((title, message) => {
-          expect(title).toEqual(Notifications.uploadRecordFailed.title);
-          expect(message).toEqual(Notifications.uploadRecordFailed.message);
-        });
+      const alertSpy = jest.spyOn(Alert, "alert");
 
       fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
 
       return waitFor(() => expect(navigation.goBack).toBeCalled()).then(() =>
-        waitFor(() => expect(alertSpy).toBeCalled()).then(() => {
-          expect(uploadMock).toBeCalled();
+        waitFor(() =>
           expect(alertSpy).toBeCalledWith(
             Notifications.uploadRecordFailed.title,
             Notifications.uploadRecordFailed.message
-          );
+          )
+        ).then(() => {
+          expect(uploadMock).toBeCalled();
         })
+      );
+    });
+  });
+
+  describe("Edit mode tests", () => {
+    let record: AlgaeRecord;
+    let recordScreen: RenderAPI;
+
+    beforeEach(() => {
+      record = makeExampleRecord("Sample");
+      recordScreen = customRender({
+        params: { record },
+      });
+
+      return Storage.savePendingRecord(record);
+    });
+
+    test("renders", () => {
+      const { toJSON } = recordScreen;
+
+      expect(toJSON()).toMatchSnapshot();
+    });
+
+    test("update record successfully", async () => {
+      const { getByTestId } = render(recordActionButton());
+      const screenGetByTestId = recordScreen.getByTestId;
+
+      const alertMock = jest.spyOn(Alert, "alert");
+
+      fireEvent(
+        screenGetByTestId(TestIds.Pickers.recordSelectorTestId),
+        "onValueChange",
+        "Sighting"
+      );
+
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
+
+      record.type = "Sighting";
+      delete record.atlasType;
+      delete record.tubeId;
+
+      return waitFor(() =>
+        expect(alertMock).toBeCalledWith(
+          Notifications.updateRecordSuccess.title
+        )
+      ).then(() => {
+        expect(navigation.goBack).toBeCalled();
+
+        return Storage.loadPendingRecords().then((received) => {
+          expect(received[0]).toEqual(record);
+        });
+      });
+    });
+
+    test("update record invalid user input", async () => {
+      const screenGetByDisplayValue = recordScreen.getByDisplayValue;
+
+      const { getByTestId } = render(recordActionButton());
+
+      const alertMock = jest.spyOn(Alert, "alert");
+
+      fireEvent.changeText(
+        screenGetByDisplayValue(`${record.latitude}, ${record.longitude}`),
+        "garbage, coordinates"
+      );
+
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
+
+      return waitFor(() =>
+        expect(alertMock).toBeCalledWith(
+          Notifications.invalidCoordinates.title,
+          Notifications.invalidCoordinates.message
+        )
+      );
+    });
+
+    test("update record fails", async () => {
+      const { getByTestId } = render(recordActionButton());
+
+      const alertMock = jest.spyOn(Alert, "alert");
+
+      jest.spyOn(Storage, "updatePendingRecord").mockRejectedValueOnce("error");
+
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
+
+      return waitFor(() =>
+        expect(alertMock).toBeCalledWith(
+          Notifications.updateRecordFailed.title,
+          Notifications.updateRecordFailed.message
+        )
       );
     });
   });

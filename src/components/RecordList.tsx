@@ -175,7 +175,7 @@ function PendingRecordList({ navigation }) {
   };
 
   const onEdit = (record: AlgaeRecord) => {
-    navigation.navigate("Record", { params: { record } });
+    navigation.navigate("Record", { record });
     closeAnimatedView();
   };
 

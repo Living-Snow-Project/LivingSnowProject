@@ -12,6 +12,7 @@ const TestIds = {
   },
   RecordScreen: {
     UploadButton: "record-screen-upload-button",
+    UpdateButton: "record-screen-update-button",
   },
   TimelineScreen: {
     RefreshControl: "timeline-screen-refresh-control",
@@ -29,6 +30,7 @@ const TestIds = {
     PictureIcon: "picture-icon",
     DeleteIcon: "delete-icon",
     EditIcon: "edit-icon",
+    SaveIcon: "save-icon",
     SnowIcon: "snow-icon",
   },
   RecordList: {

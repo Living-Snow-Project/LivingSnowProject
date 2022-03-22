@@ -1,6 +1,7 @@
 import React from "react";
 import { Keyboard, Platform } from "react-native";
-import { render, fireEvent } from "@testing-library/react-native";
+import { ReactTestInstance } from "react-test-renderer";
+import { RenderAPI, render, fireEvent } from "@testing-library/react-native";
 import CustomTextInput from "../forms/CustomTextInput";
 
 describe("CustomTextInput tests", () => {
@@ -9,8 +10,8 @@ describe("CustomTextInput tests", () => {
     placeholder: "custom text input placeholder",
     onChangeText: jest.fn(),
   };
-  let renderer;
-  let customTextInput;
+  let renderer: RenderAPI;
+  let customTextInput: ReactTestInstance;
 
   beforeEach(() => {
     renderer = render(<CustomTextInput {...props} />);

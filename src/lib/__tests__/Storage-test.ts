@@ -2,6 +2,7 @@ import mockAsyncStorage from "@react-native-async-storage/async-storage/jest/asy
 import * as Storage from "../Storage";
 import { makeExampleRecord } from "../../record/Record";
 import { makeExamplePendingPhoto } from "../../record/Photo";
+import { Errors } from "../../constants/Strings";
 
 const makeTestAppConfig = (): AppSettings => ({
   name: "Test Name",
@@ -236,6 +237,35 @@ describe("Storage test suite", () => {
 
       const received = await Storage.savePendingRecord(expected);
       expect(received).toEqual(expectedError);
+    });
+
+    test("updatePendingRecord succeeds", async () => {
+      const expected = makeExampleRecord("Sample");
+
+      let received = await Storage.savePendingRecord(expected);
+      expect(received[0]).toEqual(expected);
+
+      const pending = await Storage.loadPendingRecords();
+      expect(pending).toEqual(received);
+
+      expected.type = "Sighting";
+      expected.latitude = 555.5555;
+      expected.longitude = -333.6666;
+      delete expected.tubeId;
+      delete expected.locationDescription;
+      delete expected.notes;
+
+      received = await Storage.updatePendingRecord(expected);
+      expect(received[0]).toEqual(expected);
+    });
+
+    test("updatePendingRecord fails", async () => {
+      try {
+        await Storage.updatePendingRecord(makeExampleRecord("Sample"));
+        fail("updatePendingRecord was expected to fail");
+      } catch (error) {
+        expect(error).toEqual(Errors.recordNotFound);
+      }
     });
   });
 

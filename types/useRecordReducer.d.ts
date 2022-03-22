@@ -18,4 +18,5 @@ interface RecordReducerActions {
   uploadRecord: (record: AlgaeRecord, photos: Photo[]) => Promise<void>;
   downloadRecords: () => Promise<void>;
   retryPendingRecords: () => Promise<void>;
+  updatePendingRecord: (record: AlgaeRecord) => Promise<void>;
 }

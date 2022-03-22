@@ -31,6 +31,7 @@ import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
 import { RecordReducerActionsContext } from "../hooks/useRecordReducer";
+import { AlgaeRecordPropType } from "../record/PropTypes";
 
 type OffsetOperation = "add" | "subtract";
 
@@ -46,32 +47,70 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
   );
 };
 
-export default function RecordScreen({ navigation }) {
+type RecordScreenRouteProp = {
+  params: {
+    record: AlgaeRecord;
+  };
+};
+
+type RecordScreenProps = {
+  navigation: {
+    goBack: () => void;
+    setOptions: ({ headerRight }: { headerRight: () => JSX.Element }) => void;
+  };
+  route: RecordScreenRouteProp;
+};
+
+const defaultRouteProps: RecordScreenRouteProp = {
+  params: {
+    record: {
+      id: -1,
+      type: "Sample",
+      date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
+      latitude: 0,
+      longitude: 0,
+    },
+  },
+};
+
+export default function RecordScreen({ navigation, route }: RecordScreenProps) {
+  const appSettings = getAppSettings();
+
+  // TODO: get updating\uploading from reducer
+  const [updating, setUpdating] = useState<boolean>(false);
+  const [uploading, setUploading] = useState<boolean>(false);
+  const [editMode] = useState<boolean>(
+    route?.params?.record?.id !== -1 && route?.params?.record !== undefined
+  );
+
   const notesRef = useRef<TextInput>(null);
   const locationDescriptionRef = useRef<TextInput>(null);
-  const [uploading, setUploading] = useState(false);
-  const appSettings = getAppSettings();
+
   const recordReducerActionsContext = useContext(RecordReducerActionsContext);
 
   // data collected and sent to the service
-  const [state, setState] = useState<AlgaeRecord>({
-    id: uuidv4(),
-    name: appSettings.name ? appSettings.name : "Anonymous",
-    organization: !appSettings.organization
-      ? undefined
-      : appSettings.organization,
-    type: "Sample",
-    date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
-    latitude: 0, // GPS
-    longitude: 0, // GPS
-  });
+  const [state, setState] = useState<AlgaeRecord>(
+    editMode
+      ? route.params.record
+      : {
+          ...defaultRouteProps.params.record,
+          id: uuidv4(),
+          name: appSettings.name ? appSettings.name : "Anonymous",
+          organization: !appSettings.organization
+            ? undefined
+            : appSettings.organization,
+        }
+  );
 
-  const [photos, setPhotos] = useState<Photo[]>([]);
+  const [photos, setPhotos] = useState<Photo[]>(
+    editMode && route.params.record.photos ? route.params.record.photos : []
+  );
+
   const dateString = useMemo(() => recordDateFormat(state.date), [state.date]);
 
   // user input form validation
   const validateUserInput = () => {
-    const isNumber = (value) => !Number.isNaN(Number(value));
+    const isNumber = (value: string | number) => !Number.isNaN(Number(value));
 
     if (
       !state.latitude ||
@@ -95,7 +134,7 @@ export default function RecordScreen({ navigation }) {
   const removeEmptyFields = useCallback((record: AlgaeRecord): AlgaeRecord => {
     const newRecord = { ...record };
 
-    if (newRecord?.tubeId === "") {
+    if (newRecord.type === "Sighting" || newRecord?.tubeId === "") {
       delete newRecord.tubeId;
     }
 
@@ -114,24 +153,60 @@ export default function RecordScreen({ navigation }) {
     return newRecord;
   }, []);
 
-  const UploadRecord = useCallback(
-    () => (
-      <HeaderButton
-        testID={TestIds.RecordScreen.UploadButton}
-        onPress={() => setUploading(true)}
-        iconName="cloud-upload"
-        placement="right"
-      />
-    ),
-    []
+  // useEffect(() => {
+  const RecordAction = editMode ? (
+    <HeaderButton
+      testID={TestIds.RecordScreen.UpdateButton}
+      onPress={() => setUpdating(true)}
+      iconName="save-outline"
+      placement="right"
+    />
+  ) : (
+    <HeaderButton
+      testID={TestIds.RecordScreen.UploadButton}
+      onPress={() => setUploading(true)}
+      iconName="cloud-upload"
+      placement="right"
+    />
   );
 
-  // data fetching side effect when "upload record" icon tapped
+  navigation.setOptions({
+    headerRight: () => RecordAction,
+  });
+  // }, []);
+
+  // update record effect
+  // TODO: get updating state from reducer
   useEffect(() => {
-    // effect executes when uploading is desired
-    if (!uploading) {
+    if (!updating) return;
+
+    if (!validateUserInput()) {
+      setUpdating(false);
       return;
     }
+
+    recordReducerActionsContext
+      .updatePendingRecord({
+        ...removeEmptyFields(state),
+        photos,
+      })
+      .then(() => Alert.alert(Notifications.updateRecordSuccess.title))
+      .catch(() =>
+        Alert.alert(
+          Notifications.updateRecordFailed.title,
+          Notifications.updateRecordFailed.message
+        )
+      )
+      .finally(() => {
+        setUpdating(false);
+        navigation.goBack();
+      });
+  }, [updating]);
+
+  // upload record effect
+  // TODO: get uploading state from reducer
+  useEffect(() => {
+    if (!uploading) return;
 
     if (!validateUserInput()) {
       setUploading(false);
@@ -140,12 +215,12 @@ export default function RecordScreen({ navigation }) {
 
     recordReducerActionsContext
       .uploadRecord(removeEmptyFields(state), photos)
-      .then(() => {
+      .then(() =>
         Alert.alert(
           Notifications.uploadSuccess.title,
           Notifications.uploadSuccess.message
-        );
-      })
+        )
+      )
       .catch((error) => {
         Logger.Warn(
           `Failed to upload complete record: ${error.title}: ${error.message}`
@@ -159,11 +234,9 @@ export default function RecordScreen({ navigation }) {
       });
   }, [uploading]);
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerRight: () => UploadRecord(),
-    });
-  }, []);
+  const gpsCoordinatesProps = editMode
+    ? { coordinates: { latitude: state.latitude, longitude: state.longitude } }
+    : {};
 
   return (
     <KeyboardShift>
@@ -211,6 +284,7 @@ export default function RecordScreen({ navigation }) {
           {/* Tube Id: only show Tube Id when recording a Sample */}
           {isSample(state.type) && (
             <CustomTextInput
+              defaultValue={state?.tubeId}
               description={Labels.RecordFields.TubeId}
               placeholder={Placeholders.RecordScreen.TubeId}
               maxLength={20}
@@ -222,6 +296,7 @@ export default function RecordScreen({ navigation }) {
           )}
 
           <GpsCoordinatesInput
+            {...gpsCoordinatesProps}
             setGpsCoordinates={(latitude, longitude) =>
               setState((prev) => ({ ...prev, latitude, longitude }))
             }
@@ -239,6 +314,7 @@ export default function RecordScreen({ navigation }) {
           )}
 
           <CustomTextInput
+            defaultValue={state?.locationDescription}
             description={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}
             placeholder={Placeholders.RecordScreen.LocationDescription}
             onChangeText={(locationDescription) =>
@@ -249,6 +325,7 @@ export default function RecordScreen({ navigation }) {
           />
 
           <CustomTextInput
+            defaultValue={state?.notes}
             description={`${Labels.RecordFields.Notes} (limit 255 characters)`}
             placeholder={Placeholders.RecordScreen.Notes}
             onChangeText={(notes) => setState((prev) => ({ ...prev, notes }))}
@@ -271,4 +348,13 @@ RecordScreen.propTypes = {
     goBack: PropTypes.func.isRequired,
     setOptions: PropTypes.func.isRequired,
   }).isRequired,
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      record: AlgaeRecordPropType,
+    }),
+  }),
+};
+
+RecordScreen.defaultProps = {
+  route: defaultRouteProps,
 };
