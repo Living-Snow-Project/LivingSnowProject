@@ -6,7 +6,6 @@ import React, {
   useState,
 } from "react";
 import { Alert, Animated, StyleSheet, Text, View } from "react-native";
-import PropTypes from "prop-types";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import styles from "../styles/Timeline";
 import TimelineRow from "./TimelineRow";
@@ -33,44 +32,33 @@ const actionStyles = StyleSheet.create({
 
 type RecordListProps = {
   header: string;
-  renderRecords: () => JSX.Element;
+  renderRecords: JSX.Element[];
 };
 
-function RecordList({ header, renderRecords }: RecordListProps) {
+function recordList({ header, renderRecords }: RecordListProps): JSX.Element[] {
+  return [
+    <View style={styles.recordStatusContainer}>
+      <Text style={styles.recordStatusText}>{header}</Text>
+    </View>,
+    ...renderRecords,
+  ];
+}
+
+function ExampleRecordList() {
+  const records = recordList({
+    header: Labels.TimelineScreen.ExampleRecords,
+    renderRecords: [<TimelineRow record={productionExampleRecord()} />],
+  });
+
   return (
     <>
-      <View style={styles.recordStatusContainer}>
-        <Text style={styles.recordStatusText}>{header}</Text>
-      </View>
-      {renderRecords()}
+      {records[0]}
+      {records[1]}
     </>
   );
 }
 
-RecordList.propTypes = {
-  header: PropTypes.string.isRequired,
-  renderRecords: PropTypes.func.isRequired,
-};
-
-function ExampleRecordList() {
-  const recordReducerStateContext = useContext(RecordReducerStateContext);
-
-  if (
-    recordReducerStateContext.pendingRecords.length !== 0 ||
-    recordReducerStateContext.downloadedRecords.length !== 0
-  ) {
-    return null;
-  }
-
-  return (
-    <RecordList
-      header={Labels.TimelineScreen.ExampleRecords}
-      renderRecords={() => <TimelineRow record={productionExampleRecord()} />}
-    />
-  );
-}
-
-function DownloadedRecordList({ navigation }) {
+function useDownloadedRecordList(navigation) {
   const recordReducerStateContext = useContext(RecordReducerStateContext);
 
   const [showAtlasRecords, setShowAtlasRecords] = useState<boolean>(
@@ -80,7 +68,7 @@ function DownloadedRecordList({ navigation }) {
     getAppSettings().showOnlyAtlasRecords
   );
 
-  // re-render when user comes back from Settings screen
+  // maybe re-render when user comes back to TimelineScreen
   useEffect(() =>
     navigation.addListener("focus", () => {
       setShowAtlasRecords(getAppSettings().showAtlasRecords);
@@ -96,17 +84,11 @@ function DownloadedRecordList({ navigation }) {
     [showAtlasRecords, showOnlyAtlasRecords]
   );
 
-  const RenderRecords = useCallback(
-    () => (
-      <>
-        {recordReducerStateContext.downloadedRecords.map((record) => {
-          if (omitRecord(record)) {
-            return null;
-          }
-          return <TimelineRow key={record.id} record={record} />;
-        })}
-      </>
-    ),
+  const renderRecords = useCallback(
+    () =>
+      recordReducerStateContext.downloadedRecords
+        .filter((record) => !omitRecord(record))
+        .map((record) => <TimelineRow key={record.id} record={record} />),
     [recordReducerStateContext, omitRecord]
   );
 
@@ -114,15 +96,13 @@ function DownloadedRecordList({ navigation }) {
     return null;
   }
 
-  return (
-    <RecordList
-      header={Labels.TimelineScreen.DownloadedRecords}
-      renderRecords={RenderRecords}
-    />
-  );
+  return recordList({
+    header: Labels.TimelineScreen.DownloadedRecords,
+    renderRecords: renderRecords(),
+  });
 }
 
-function PendingRecordList({ navigation }) {
+function usePendingRecordList(navigation) {
   const swipeable = useRef<Swipeable | null>();
   const recordReducerStateContext = useContext(RecordReducerStateContext);
   const recordReducerActionsContext = useContext(RecordReducerActionsContext);
@@ -203,23 +183,20 @@ function PendingRecordList({ navigation }) {
     </View>
   );
 
-  const RenderRecords = useCallback(
-    () => (
-      <>
-        {recordReducerStateContext.pendingRecords.map((record) => (
-          <Swipeable
-            ref={(ref) => {
-              swipeable.current = ref;
-            }}
-            key={record.id}
-            rightThreshold={40}
-            renderRightActions={() => renderRightActions(record)}
-          >
-            <TimelineRow record={record} />
-          </Swipeable>
-        ))}
-      </>
-    ),
+  const renderRecords = useCallback(
+    () =>
+      recordReducerStateContext.pendingRecords.map((record) => (
+        <Swipeable
+          ref={(ref) => {
+            swipeable.current = ref;
+          }}
+          key={record.id}
+          rightThreshold={40}
+          renderRightActions={() => renderRightActions(record)}
+        >
+          <TimelineRow record={record} />
+        </Swipeable>
+      )),
     [recordReducerStateContext.pendingRecords]
   );
 
@@ -227,12 +204,10 @@ function PendingRecordList({ navigation }) {
     return null;
   }
 
-  return (
-    <RecordList
-      header={Labels.TimelineScreen.PendingRecords}
-      renderRecords={RenderRecords}
-    />
-  );
+  return recordList({
+    header: Labels.TimelineScreen.PendingRecords,
+    renderRecords: renderRecords(),
+  });
 }
 
-export { DownloadedRecordList, ExampleRecordList, PendingRecordList };
+export { ExampleRecordList, useDownloadedRecordList, usePendingRecordList };

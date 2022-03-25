@@ -153,27 +153,27 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
     return newRecord;
   }, []);
 
-  // useEffect(() => {
-  const RecordAction = editMode ? (
-    <HeaderButton
-      testID={TestIds.RecordScreen.UpdateButton}
-      onPress={() => setUpdating(true)}
-      iconName="save-outline"
-      placement="right"
-    />
-  ) : (
-    <HeaderButton
-      testID={TestIds.RecordScreen.UploadButton}
-      onPress={() => setUploading(true)}
-      iconName="cloud-upload"
-      placement="right"
-    />
-  );
+  useEffect(() => {
+    const RecordAction = editMode ? (
+      <HeaderButton
+        testID={TestIds.RecordScreen.UpdateButton}
+        onPress={() => setUpdating(true)}
+        iconName="save-outline"
+        placement="right"
+      />
+    ) : (
+      <HeaderButton
+        testID={TestIds.RecordScreen.UploadButton}
+        onPress={() => setUploading(true)}
+        iconName="cloud-upload"
+        placement="right"
+      />
+    );
 
-  navigation.setOptions({
-    headerRight: () => RecordAction,
-  });
-  // }, []);
+    navigation.setOptions({
+      headerRight: () => RecordAction,
+    });
+  }, []);
 
   // update record effect
   // TODO: get updating state from reducer

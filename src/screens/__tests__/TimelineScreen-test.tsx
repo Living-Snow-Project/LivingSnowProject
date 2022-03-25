@@ -17,8 +17,14 @@ import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 import { getAppSettings, setAppSettings } from "../../../AppSettings";
 import { mockedNavigate } from "../../../jesttest.setup";
-import { RecordReducerStateContext } from "../../hooks/useRecordReducer";
-import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
+import {
+  RecordReducerActionsContext,
+  RecordReducerStateContext,
+} from "../../hooks/useRecordReducer";
+import {
+  makeRecordReducerActionsMock,
+  makeRecordReducerStateMock,
+} from "../../mocks/useRecordReducer.mock";
 
 // TimelineScreen takes navigation input prop
 const navigation = {
@@ -116,66 +122,6 @@ describe("TimelineScreen test suite", () => {
 
     await waitFor(() => getByText(Labels.TimelineScreen.ExampleRecords));
     expect(retryRecordsSpy).toBeCalledTimes(1);
-  });
-
-  test("pending records", async () => {
-    const retryRecordsSpy = setupDownloadFailed();
-
-    /* eslint-disable react/jsx-no-constructed-context-values */
-    const recordReducerStateMock: RecordReducerState = {
-      ...makeRecordReducerStateMock(),
-      pendingRecords: [pendingRecord, pendingAtlasRecord],
-    };
-
-    const { getByTestId, getByText } = render(
-      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-        <TimelineScreen navigation={navigation} />
-      </RecordReducerStateContext.Provider>
-    );
-
-    // non-atlas visible
-    await waitFor(() => getByTestId(pendingRecord.id.toString()));
-    expect(retryRecordsSpy).toBeCalledTimes(1);
-    expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
-
-    // atlas visible
-    expect(getByTestId(pendingAtlasRecord.id.toString())).toBeTruthy();
-  });
-
-  test("delete pending record", () => {
-    // validates a bug where pending records were not displayed when not connected
-    setIsConntected(false);
-    let okPressed = false;
-    const alertMock = jest
-      .spyOn(Alert, "alert")
-      .mockImplementationOnce((title, message, buttons) => {
-        // @ts-ignore
-        buttons[0].onPress(); // "Yes" button
-        okPressed = true;
-      });
-
-    /* eslint-disable react/jsx-no-constructed-context-values */
-    const recordReducerStateMock: RecordReducerState = {
-      ...makeRecordReducerStateMock(),
-      pendingRecords: [pendingRecord],
-    };
-
-    const { getByTestId, getByText } = render(
-      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-        <TimelineScreen navigation={navigation} />
-      </RecordReducerStateContext.Provider>
-    );
-
-    expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
-
-    fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
-
-    return waitFor(() => expect(okPressed).toBe(true)).then(() =>
-      Storage.loadPendingRecords().then((received) => {
-        expect(received).toEqual([]);
-        expect(alertMock).toBeCalledTimes(1);
-      })
-    );
   });
 
   describe("atlas scenarios", () => {
@@ -379,6 +325,110 @@ describe("TimelineScreen test suite", () => {
     expect(retryRecordsSpy).toBeCalledTimes(1);
     expect(mockedNavigate).toBeCalledWith("RecordDetails", {
       record: downloadedRecord,
+    });
+  });
+
+  describe("Pending records tests", () => {
+    const recordReducerActionsMock = makeRecordReducerActionsMock();
+    const customRender = () => {
+      // comes with a single pending record
+      const recordReducerStateMock = makeRecordReducerStateMock();
+      const renderResult = render(
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <RecordReducerActionsContext.Provider
+            value={recordReducerActionsMock}
+          >
+            <TimelineScreen navigation={navigation} />
+          </RecordReducerActionsContext.Provider>
+        </RecordReducerStateContext.Provider>
+      );
+
+      return {
+        renderResult,
+        recordReducerStateMock,
+      };
+    };
+
+    test("pending records render", async () => {
+      const retryRecordsSpy = setupDownloadFailed();
+
+      /* eslint-disable react/jsx-no-constructed-context-values */
+      const recordReducerStateMock: RecordReducerState = {
+        ...makeRecordReducerStateMock(),
+        pendingRecords: [pendingRecord, pendingAtlasRecord],
+      };
+
+      const { getByTestId, getByText } = render(
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
+      );
+
+      // non-atlas visible
+      await waitFor(() => getByTestId(pendingRecord.id.toString()));
+      expect(retryRecordsSpy).toBeCalledTimes(1);
+      expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
+
+      // atlas visible
+      expect(getByTestId(pendingAtlasRecord.id.toString())).toBeTruthy();
+    });
+
+    test("delete pending record", () => {
+      // validates a bug where pending records were not displayed when not connected
+      setIsConntected(false);
+      let okPressed = false;
+      const alertMock = jest
+        .spyOn(Alert, "alert")
+        .mockImplementationOnce((title, message, buttons) => {
+          // @ts-ignore
+          buttons[0].onPress(); // "Yes" button
+          okPressed = true;
+        });
+
+      const { getByTestId, getByText } = customRender().renderResult;
+
+      expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
+
+      fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
+
+      return waitFor(() => expect(okPressed).toBe(true)).then(() =>
+        Storage.loadPendingRecords().then((received) => {
+          expect(received).toEqual([]);
+          expect(alertMock).toBeCalledTimes(1);
+        })
+      );
+    });
+
+    test("cancel delete record", () => {
+      const noButtonMock = jest.fn();
+      const alertMock = jest
+        .spyOn(Alert, "alert")
+        .mockImplementationOnce((title, message, buttons) => {
+          // @ts-ignore
+          noButtonMock(buttons[1]); // "No" button
+        });
+
+      const { getByTestId } = customRender().renderResult;
+
+      fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
+      expect(alertMock).toBeCalledTimes(1);
+      expect(noButtonMock).toHaveBeenLastCalledWith({
+        onPress: expect.any(Function),
+        text: "No",
+        style: "cancel",
+      });
+    });
+
+    test("edit record", () => {
+      const { recordReducerStateMock, renderResult } = customRender();
+
+      fireEvent.press(
+        renderResult.getByTestId(TestIds.RecordList.EditRecordAction)
+      );
+
+      expect(navigation.navigate).toBeCalledWith("Record", {
+        record: recordReducerStateMock.pendingRecords[0],
+      });
     });
   });
 });
