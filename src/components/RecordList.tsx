@@ -29,18 +29,19 @@ const actionStyles = StyleSheet.create({
   },
 });
 
+const recordListInfoRow = (info: string): JSX.Element => (
+  <View style={styles.recordStatusContainer}>
+    <Text style={styles.recordStatusText}>{info}</Text>
+  </View>
+);
+
 type RecordListProps = {
   header: string;
   renderRecords: JSX.Element[];
 };
 
 function recordList({ header, renderRecords }: RecordListProps): JSX.Element[] {
-  return [
-    <View style={styles.recordStatusContainer}>
-      <Text style={styles.recordStatusText}>{header}</Text>
-    </View>,
-    ...renderRecords,
-  ];
+  return [recordListInfoRow(header), ...renderRecords];
 }
 
 function ExampleRecordList() {
@@ -83,13 +84,30 @@ function useDownloadedRecordList(navigation) {
     [showAtlasRecords, showOnlyAtlasRecords]
   );
 
-  const renderRecords = useCallback(
-    () =>
-      recordReducerStateContext.downloadedRecords
-        .filter((record) => !omitRecord(record))
-        .map((record) => <TimelineRow key={record.id} record={record} />),
-    [recordReducerStateContext, omitRecord]
-  );
+  const renderRecords = useCallback(() => {
+    const filtered = recordReducerStateContext.downloadedRecords.filter(
+      (record) => !omitRecord(record)
+    );
+
+    const result: Array<JSX.Element> = [];
+    let previousDate: Date | undefined;
+
+    for (let i = 0; i < filtered.length; ++i) {
+      const current = filtered[i];
+      if (
+        previousDate === undefined ||
+        previousDate.getFullYear() > current.date.getFullYear()
+      ) {
+        result.push(recordListInfoRow(current.date.getFullYear().toString()));
+      }
+
+      previousDate = current.date;
+
+      result.push(<TimelineRow key={current.id} record={current} />);
+    }
+
+    return result;
+  }, [recordReducerStateContext, omitRecord]);
 
   if (recordReducerStateContext.downloadedRecords.length === 0) {
     return null;
