@@ -15,7 +15,7 @@ const TestIds = {
     UpdateButton: "record-screen-update-button",
   },
   TimelineScreen: {
-    RefreshControl: "timeline-screen-refresh-control",
+    FlatList: "timeline-screen-flatlist",
     SettingsButton: "timeline-screen-settings-button",
     NewRecordButton: "timeline-screen-record-button",
   },

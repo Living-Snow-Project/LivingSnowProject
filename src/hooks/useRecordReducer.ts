@@ -22,6 +22,7 @@ type RecordReducerActionType =
   | "END_UPLOAD_RECORD"
   | "START_DOWNLOADING"
   | "END_DOWNLOADING"
+  | "END_DOWNLOADING_NEXT"
   | "START_RETRY"
   | "END_RETRY";
 
@@ -89,10 +90,25 @@ const reducer = (
       return { ...state, downloading: true };
 
     case "END_DOWNLOADING":
+      return payload?.downloadedRecords
+        ? {
+            ...state,
+            downloading: false,
+            downloadedRecords: payload.downloadedRecords,
+          }
+        : {
+            ...state,
+            downloading: false,
+          };
+
+    case "END_DOWNLOADING_NEXT":
       return {
         ...state,
         downloading: false,
-        downloadedRecords: payload.downloadedRecords,
+        downloadedRecords: [
+          ...state.downloadedRecords,
+          ...payload.downloadedRecords,
+        ],
       };
 
     case "START_RETRY":
@@ -194,9 +210,38 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
     this: RecordReducerActionsDispatch
   ): Promise<void> {
     this.dispatch({ type: "START_DOWNLOADING" });
-    const downloadedRecords = await downloadRecords();
-    await saveCachedRecords(downloadedRecords);
-    this.dispatch({ type: "END_DOWNLOADING", payload: { downloadedRecords } });
+
+    try {
+      const downloadedRecords = await downloadRecords();
+      await saveCachedRecords(downloadedRecords);
+      this.dispatch({
+        type: "END_DOWNLOADING",
+        payload: { downloadedRecords },
+      });
+    } catch (error) {
+      this.dispatch({
+        type: "END_DOWNLOADING",
+      });
+    }
+  },
+
+  downloadNextRecords: async function DownloadNextRecords(
+    this: RecordReducerActionsDispatch,
+    before: Date
+  ): Promise<void> {
+    this.dispatch({ type: "START_DOWNLOADING" });
+
+    try {
+      const downloadedRecords = await downloadRecords(before);
+      this.dispatch({
+        type: "END_DOWNLOADING_NEXT",
+        payload: { downloadedRecords },
+      });
+    } catch (error) {
+      this.dispatch({
+        type: "END_DOWNLOADING",
+      });
+    }
   },
 
   retryPendingRecords: async function RetryPendingRecords(

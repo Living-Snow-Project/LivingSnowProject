@@ -12,13 +12,14 @@ const makeRecordReducerStateMock = (): RecordReducerState => ({
 });
 
 const makeRecordReducerActionsMock = (): RecordReducerActions => ({
-  seed: jest.fn(),
-  save: jest.fn(),
-  delete: jest.fn(),
-  uploadRecord: jest.fn(),
-  downloadRecords: jest.fn(),
-  retryPendingRecords: jest.fn(),
-  updatePendingRecord: jest.fn(),
+  seed: jest.fn(() => Promise.resolve()),
+  save: jest.fn(() => Promise.resolve()),
+  delete: jest.fn(() => Promise.resolve()),
+  uploadRecord: jest.fn(() => Promise.resolve()),
+  downloadRecords: jest.fn(() => Promise.resolve()),
+  downloadNextRecords: jest.fn(() => Promise.resolve()),
+  retryPendingRecords: jest.fn(() => Promise.resolve()),
+  updatePendingRecord: jest.fn(() => Promise.resolve()),
 });
 
 export { makeRecordReducerStateMock, makeRecordReducerActionsMock };

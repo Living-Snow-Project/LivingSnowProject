@@ -25,8 +25,7 @@ const actionStyles = StyleSheet.create({
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
-    borderLeftWidth: 1,
-    borderBottomWidth: 1,
+    borderLeftWidth: StyleSheet.hairlineWidth,
   },
 });
 
@@ -169,7 +168,7 @@ function usePendingRecordList(navigation) {
       {renderAction(
         record,
         TestIds.RecordList.DeleteRecordAction,
-        "lightgrey",
+        "gainsboro",
         DeleteIcon(),
         onDelete
       )}

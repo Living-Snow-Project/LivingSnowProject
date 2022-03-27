@@ -52,7 +52,7 @@ const pendingAtlasRecord: AlgaeRecord = {
   id: 4,
 };
 
-const setIsConntected = (isConnected: boolean): void => {
+const setIsConnected = (isConnected: boolean): void => {
   jest.spyOn(NetInfo, "addEventListener").mockImplementationOnce((callback) => {
     callback({ isConnected } as NetInfoState);
 
@@ -72,7 +72,7 @@ const setupDownloadSuccess = () => {
     downloadedAtlasRecord,
   ];
 
-  setIsConntected(true);
+  setIsConnected(true);
 
   return {
     retryRecordsSpy,
@@ -85,7 +85,7 @@ const setupDownloadFailed = () => {
     .spyOn(RecordManager, "retryPendingRecords")
     .mockImplementationOnce(() => Promise.reject());
 
-  setIsConntected(true);
+  setIsConnected(true);
 
   return retryRecordsSpy;
 };
@@ -213,7 +213,7 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("connection lost", async () => {
-    setIsConntected(false);
+    setIsConnected(false);
     const { getByText } = render(<TimelineScreen navigation={navigation} />);
 
     await waitFor(() => getByText(Labels.StatusBar.NoConnection));
@@ -251,33 +251,58 @@ describe("TimelineScreen test suite", () => {
       </RecordReducerStateContext.Provider>
     );
 
-    await waitFor(() => getByTestId(downloadedRecord.id.toString()));
+    await waitFor(() =>
+      getByTestId(recordReducerStateMock.downloadedRecords[0].id.toString())
+    );
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
     await act(async () =>
-      getByTestId(
-        TestIds.TimelineScreen.RefreshControl
-      ).props.refreshControl.props.onRefresh()
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh()
     );
 
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
   });
 
   test("pull to refresh without connection", async () => {
-    setIsConntected(false);
+    setIsConnected(false);
 
     const { getByText, getByTestId } = render(
       <TimelineScreen navigation={navigation} />
     );
 
-    // GO GO RNTL! "don't test the implementation..."
     await act(async () =>
-      getByTestId(
-        TestIds.TimelineScreen.RefreshControl
-      ).props.refreshControl.props.onRefresh()
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh()
     );
 
     expect(getByText(Labels.TimelineScreen.ExampleRecords)).toBeTruthy();
+  });
+
+  test("onEndReached download records", async () => {
+    /* eslint-disable react/jsx-no-constructed-context-values */
+    const recordReducerStateMock = {
+      ...makeRecordReducerStateMock(),
+      downloadedRecords: [downloadedRecord],
+    };
+    const recordReducerActionsMock = makeRecordReducerActionsMock();
+
+    const { getByText, getByTestId } = render(
+      <RecordReducerActionsContext.Provider value={recordReducerActionsMock}>
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
+      </RecordReducerActionsContext.Provider>
+    );
+
+    await waitFor(() =>
+      getByTestId(recordReducerStateMock.downloadedRecords[0].id.toString())
+    );
+    expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
+
+    await act(async () =>
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onEndReached()
+    );
+
+    expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
   });
 
   test("navigate back to TimelineScreen", async () => {
@@ -375,7 +400,7 @@ describe("TimelineScreen test suite", () => {
 
     test("delete pending record", () => {
       // validates a bug where pending records were not displayed when not connected
-      setIsConntected(false);
+      setIsConnected(false);
       let okPressed = false;
       const alertMock = jest
         .spyOn(Alert, "alert")

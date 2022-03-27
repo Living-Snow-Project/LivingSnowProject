@@ -11,7 +11,7 @@ type AppSettings = {
 
 // what a photo looks like from service perspective
 interface Photo {
-  uri: string;
+  uri: string; // name of the photo file in Blob Storage Container
   width: number;
   height: number;
   size: number;

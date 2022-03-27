@@ -9,7 +9,6 @@ import { recordDateFormat } from "../record/Record";
 
 const styles = StyleSheet.create({
   recordContainer: {
-    borderBottomWidth: 1,
     backgroundColor: "white",
   },
   recordTop: {

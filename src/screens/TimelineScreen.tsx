@@ -6,14 +6,20 @@ import StatusBar from "../components/StatusBar";
 import { ExampleRecordList } from "../components/RecordList";
 import styles from "../styles/Timeline";
 import TestIds from "../constants/TestIds";
-import { RecordReducerActionsContext } from "../hooks/useRecordReducer";
+import {
+  RecordReducerActionsContext,
+  RecordReducerStateContext,
+} from "../hooks/useRecordReducer";
 import useRecordList from "../hooks/useRecordList";
+
+const separator = <View style={styles.separator} />;
 
 export default function TimelineScreen({ navigation }) {
   const recordList = useRecordList(navigation);
   const [connected, setConnected] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const recordReducerActionsContext = useContext(RecordReducerActionsContext);
+  const recordReducerStateContext = useContext(RecordReducerStateContext);
 
   // TODO: should be in App component and in a Reducer\Context
   useEffect(
@@ -54,12 +60,19 @@ export default function TimelineScreen({ navigation }) {
         data={recordList}
         renderItem={({ item }) => item}
         ListEmptyComponent={ExampleRecordList}
-        // ItemSeparatorComponent={Separator}
-        // onEndReachThreshold={() => setRefreshing(true)}
+        ItemSeparatorComponent={() => separator}
+        onEndReached={() => {
+          // keep an eye on this, if list is "empty" and this gets called
+          const { downloadedRecords } = recordReducerStateContext;
+          recordReducerActionsContext.downloadNextRecords(
+            downloadedRecords[downloadedRecords.length - 1].date
+          );
+        }}
+        onEndReachedThreshold={0.5}
         keyExtractor={(item, index) => `${index}`}
         refreshing={refreshing}
         onRefresh={() => setRefreshing(true)}
-        testID={TestIds.TimelineScreen.RefreshControl}
+        testID={TestIds.TimelineScreen.FlatList}
       />
     </View>
   );

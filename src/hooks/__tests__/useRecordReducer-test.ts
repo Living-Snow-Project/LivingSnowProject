@@ -17,7 +17,7 @@ describe("useRecordReducer test suite", () => {
       recordReducerActionsDispatch.dispatch = dispatch;
     });
 
-    // TODO: consider additional assertions (ie. "calledWith")
+    // TODO: consider additional assertions (ie. "toBeCalledWith")
     // TODO: failure scenarios
     test("seed action", async () => {
       await recordReducerActionsDispatch.seed();
@@ -78,9 +78,31 @@ describe("useRecordReducer test suite", () => {
         });
     });
 
-    test("downloading action", async () => {
+    test("downloadRecords action succeeds", async () => {
       jest.spyOn(Network, "downloadRecords").mockResolvedValueOnce([]);
       await recordReducerActionsDispatch.downloadRecords();
+      expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
+    });
+
+    test("downloadRecords action fails", async () => {
+      jest.spyOn(Network, "downloadRecords").mockRejectedValueOnce("");
+      await recordReducerActionsDispatch.downloadRecords();
+      expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
+    });
+
+    test("downloadNextRecords action succeeds", async () => {
+      jest.spyOn(Network, "downloadRecords").mockResolvedValueOnce([]);
+      await recordReducerActionsDispatch.downloadNextRecords(
+        new Date("2022-03-26")
+      );
+      expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
+    });
+
+    test("downloadNextRecords action fails", async () => {
+      jest.spyOn(Network, "downloadRecords").mockRejectedValueOnce("");
+      await recordReducerActionsDispatch.downloadNextRecords(
+        new Date("2022-03-26")
+      );
       expect(recordReducerActionsDispatch.dispatch).toHaveBeenCalledTimes(2);
     });
 
@@ -182,6 +204,22 @@ describe("useRecordReducer test suite", () => {
     test("end downloading", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "END_DOWNLOADING",
+        payload,
+      });
+      expect(state.downloading).toBe(false);
+    });
+
+    test("end downloading failed", () => {
+      // @ts-expect-error
+      const state = reducer(makeRecordReducerStateMock(), {
+        type: "END_DOWNLOADING",
+      });
+      expect(state.downloading).toBe(false);
+    });
+
+    test("end downloading next", () => {
+      const state = reducer(makeRecordReducerStateMock(), {
+        type: "END_DOWNLOADING_NEXT",
         payload,
       });
       expect(state.downloading).toBe(false);

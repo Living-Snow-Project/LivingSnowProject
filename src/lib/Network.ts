@@ -3,12 +3,17 @@ import {
   serviceEndpoint,
   photosBlobStorageEndpoint,
 } from "../constants/Service";
-import { jsonToRecord } from "../record/Record";
+import { recordDateFormat, jsonToRecord } from "../record/Record";
 
-const recordsUri: string = `${serviceEndpoint}/api/records/`;
-const uploadPhotoUri = (id: number): string => `${recordsUri}${id}/photo`;
-const downloadPhotoUri = (id: string): string =>
-  `${photosBlobStorageEndpoint}/${id}.jpg`;
+const recordsUri: string = `${serviceEndpoint}/api/records`;
+const recordsUriGet = (before: Date | undefined): string =>
+  before === undefined
+    ? `${recordsUri}?limit=20`
+    : `${recordsUri}?limit=20&before=${recordDateFormat(before)}`;
+const uploadPhotoUri = (recordId: number): string =>
+  `${recordsUri}/${recordId}/photo`;
+const downloadPhotoUri = (uri: string): string =>
+  `${photosBlobStorageEndpoint}/${uri}.jpg`;
 
 function dumpRecord(record: AlgaeRecord): void {
   Logger.Info(
@@ -80,12 +85,14 @@ async function uploadPhoto(photo: PendingPhoto): Promise<void> {
 }
 
 // rejects with an error string or the response object
-async function downloadRecords(): Promise<AlgaeRecord[]> {
+async function downloadRecords(
+  before: Date | undefined = undefined
+): Promise<AlgaeRecord[]> {
   const operation = `downloadRecords`;
 
   Logger.Info(`Handling GET Request: ${recordsUri}`);
 
-  return fetch(recordsUri)
+  return fetch(recordsUriGet(before))
     .then((response) =>
       response.ok
         ? response.text().then((text) => jsonToRecord<AlgaeRecord[]>(text))
@@ -101,4 +108,5 @@ export {
   uploadPhoto,
   uploadPhotoUri,
   recordsUri,
+  recordsUriGet,
 };

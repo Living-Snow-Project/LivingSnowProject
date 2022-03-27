@@ -16,7 +16,8 @@ interface RecordReducerActions {
   save: (record: AlgaeRecord) => Promise<void>;
   delete: (record: AlgaeRecord) => Promise<void>;
   uploadRecord: (record: AlgaeRecord, photos: Photo[]) => Promise<void>;
-  downloadRecords: () => Promise<void>;
+  downloadRecords: () => Promise<void>; // app startup\pull to refresh
+  downloadNextRecords: (before: Date) => Promise<void>; // scrolling
   retryPendingRecords: () => Promise<void>;
   updatePendingRecord: (record: AlgaeRecord) => Promise<void>;
 }

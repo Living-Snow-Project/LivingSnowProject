@@ -1,6 +1,11 @@
 import "isomorphic-fetch";
 import server from "../../mocks/server";
-import { downloadRecords, uploadRecord, uploadPhoto } from "../Network";
+import {
+  downloadRecords,
+  uploadRecord,
+  uploadPhoto,
+  recordsUriGet,
+} from "../Network";
 import { makeExampleRecord } from "../../record/Record";
 import { makeExamplePendingPhoto } from "../../record/Photo";
 
@@ -104,5 +109,9 @@ describe("Network test suite", () => {
     return uploadPhoto(examplePhoto)
       .then(() => fail(uploadPhotoFailureMsg))
       .catch((error) => expect(error).toContain(networkError));
+  });
+
+  test("recordsUriGet with before query parameter", () => {
+    expect(recordsUriGet(new Date("2022-3-9"))).toContain("2022-03-09");
   });
 });
