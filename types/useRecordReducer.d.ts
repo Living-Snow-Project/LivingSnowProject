@@ -1,10 +1,17 @@
+const RecordReducerStatesArray = [
+  "Ready",
+  "Saving",
+  "Seeding",
+  "Deleting",
+  "Uploading",
+  "Downloading",
+] as const;
+
+type RecordRecuderStates = typeof RecordReducerStatesArray[number];
+
 type RecordReducerState = {
-  saving: boolean;
+  state: RecordRecuderStates;
   seeded: boolean;
-  seeding: boolean;
-  deleting: boolean;
-  uploading: boolean;
-  downloading: boolean;
   pendingRecords: AlgaeRecord[];
   downloadedRecords: AlgaeRecord[];
   // TODO:

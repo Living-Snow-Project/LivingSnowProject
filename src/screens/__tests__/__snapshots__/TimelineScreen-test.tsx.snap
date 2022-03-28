@@ -8,6 +8,25 @@ exports[`TimelineScreen test suite renders 1`] = `
     }
   }
 >
+  <View
+    style={
+      Object {
+        "backgroundColor": "lightgrey",
+        "borderBottomWidth": 1,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontSize": 16,
+          "textAlign": "center",
+        }
+      }
+    >
+      Ready
+    </Text>
+  </View>
   <RCTScrollView
     ItemSeparatorComponent={[Function]}
     ListEmptyComponent={[Function]}

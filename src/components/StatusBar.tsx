@@ -15,26 +15,16 @@ const styles = StyleSheet.create({
 });
 
 type StatusBarProps = {
+  state: RecordRecuderStates;
   isConnected: boolean;
 };
 
-// status:
-//  "no internet", airplane mode scenario
-//  "success\saved", upload record result scenario
-//  "downloading\uploading" scenario
-//
-// todo: this component should probably always be visible, or have a smooth shrinking transition to disappear
-// currently when it stops rendering it feels very violent
-export default function StatusBar({ isConnected }: StatusBarProps) {
-  const text = Labels.StatusBar.NoConnection;
-
-  if (isConnected) {
-    return null;
-  }
-
+export default function StatusBar({ state, isConnected }: StatusBarProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.text}>
+        {isConnected ? state : Labels.StatusBar.NoConnection}
+      </Text>
     </View>
   );
 }

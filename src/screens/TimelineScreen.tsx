@@ -55,14 +55,17 @@ export default function TimelineScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <StatusBar isConnected={connected} />
+      <StatusBar
+        state={recordReducerStateContext.state}
+        isConnected={connected}
+      />
       <FlatList
         data={recordList}
         renderItem={({ item }) => item}
         ListEmptyComponent={ExampleRecordList}
         ItemSeparatorComponent={() => separator}
         onEndReached={() => {
-          // keep an eye on this, if list is "empty" and this gets called
+          // keep an eye on this (if list is "empty" and it gets called)
           const { downloadedRecords } = recordReducerStateContext;
           recordReducerActionsContext.downloadNextRecords(
             downloadedRecords[downloadedRecords.length - 1].date
@@ -70,7 +73,7 @@ export default function TimelineScreen({ navigation }) {
         }}
         onEndReachedThreshold={0.5}
         keyExtractor={(item, index) => `${index}`}
-        refreshing={refreshing}
+        refreshing={false}
         onRefresh={() => setRefreshing(true)}
         testID={TestIds.TimelineScreen.FlatList}
       />

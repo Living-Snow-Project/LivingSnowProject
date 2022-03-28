@@ -1,12 +1,8 @@
 import { makeExampleRecord } from "../record/Record";
 
 const makeRecordReducerStateMock = (): RecordReducerState => ({
+  state: "Ready",
   seeded: false,
-  saving: false,
-  seeding: false,
-  deleting: false,
-  uploading: false,
-  downloading: false,
   pendingRecords: [makeExampleRecord("Sighting")],
   downloadedRecords: [],
 });

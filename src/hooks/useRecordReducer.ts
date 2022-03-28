@@ -38,86 +38,86 @@ type RecordReducerAction = {
 };
 
 const reducer = (
-  state: RecordReducerState,
+  currentState: RecordReducerState,
   action: RecordReducerAction
 ): RecordReducerState => {
   const { type, payload } = action;
 
   switch (type) {
     case "START_SEEDING":
-      return { ...state, seeding: true };
+      return { ...currentState, state: "Seeding" };
 
     case "END_SEEDING":
       return {
-        ...state,
+        ...currentState,
         seeded: true,
-        seeding: false,
+        state: "Ready",
         pendingRecords: payload.pendingRecords,
         downloadedRecords: payload.downloadedRecords,
       };
 
     case "START_SAVING":
-      return { ...state, saving: true };
+      return { ...currentState, state: "Saving" };
 
     case "END_SAVING":
       return {
-        ...state,
-        saving: false,
+        ...currentState,
+        state: "Ready",
         pendingRecords: payload.pendingRecords,
       };
 
     case "START_DELETING":
-      return { ...state, deleting: true };
+      return { ...currentState, state: "Deleting" };
 
     case "END_DELETING":
       return {
-        ...state,
-        deleting: false,
+        ...currentState,
+        state: "Ready",
         pendingRecords: payload.pendingRecords,
       };
 
     case "START_UPLOAD_RECORD":
-      return { ...state, uploading: true };
+      return { ...currentState, state: "Uploading" };
 
     case "END_UPLOAD_RECORD":
       return {
-        ...state,
-        uploading: false,
+        ...currentState,
+        state: "Ready",
         pendingRecords: payload.pendingRecords,
       };
 
     case "START_DOWNLOADING":
-      return { ...state, downloading: true };
+      return { ...currentState, state: "Downloading" };
 
     case "END_DOWNLOADING":
       return payload?.downloadedRecords
         ? {
-            ...state,
-            downloading: false,
+            ...currentState,
+            state: "Ready",
             downloadedRecords: payload.downloadedRecords,
           }
         : {
-            ...state,
-            downloading: false,
+            ...currentState,
+            state: "Ready",
           };
 
     case "END_DOWNLOADING_NEXT":
       return {
-        ...state,
-        downloading: false,
+        ...currentState,
+        state: "Ready",
         downloadedRecords: [
-          ...state.downloadedRecords,
+          ...currentState.downloadedRecords,
           ...payload.downloadedRecords,
         ],
       };
 
     case "START_RETRY":
-      return { ...state, uploading: true };
+      return { ...currentState, state: "Uploading" };
 
     case "END_RETRY":
       return {
-        ...state,
-        uploading: false,
+        ...currentState,
+        state: "Ready",
         pendingRecords: payload.pendingRecords,
       };
 
@@ -263,12 +263,8 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
 };
 
 const initialState: RecordReducerState = {
-  saving: false,
+  state: "Ready",
   seeded: false,
-  seeding: false,
-  deleting: false,
-  uploading: false,
-  downloading: false,
   pendingRecords: [],
   downloadedRecords: [],
 };

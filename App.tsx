@@ -14,7 +14,7 @@ export default function App() {
   const isLoadingComplete = useCachedResources();
   const [storageState, storageActions] = useRecordReducer();
 
-  if (!storageState.seeding && !storageState.seeded) {
+  if (storageState.state !== "Seeding" && !storageState.seeded) {
     storageActions.seed();
   }
 

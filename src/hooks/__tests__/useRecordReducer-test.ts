@@ -133,7 +133,7 @@ describe("useRecordReducer test suite", () => {
         type: "START_SEEDING",
         payload,
       });
-      expect(state.seeding).toBe(true);
+      expect(state.state).toBe("Seeding");
     });
 
     test("end seeding", () => {
@@ -141,7 +141,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_SEEDING",
         payload,
       });
-      expect(state.seeding).toBe(false);
+      expect(state.state).toBe("Ready");
       expect(state.seeded).toBe(true);
     });
 
@@ -150,7 +150,7 @@ describe("useRecordReducer test suite", () => {
         type: "START_SAVING",
         payload,
       });
-      expect(state.saving).toBe(true);
+      expect(state.state).toBe("Saving");
     });
 
     test("end saving", () => {
@@ -158,7 +158,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_SAVING",
         payload,
       });
-      expect(state.saving).toBe(false);
+      expect(state.state).toBe("Ready");
     });
 
     test("start deleting", () => {
@@ -166,7 +166,7 @@ describe("useRecordReducer test suite", () => {
         type: "START_DELETING",
         payload,
       });
-      expect(state.deleting).toBe(true);
+      expect(state.state).toBe("Deleting");
     });
 
     test("end deleting", () => {
@@ -174,7 +174,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_DELETING",
         payload,
       });
-      expect(state.deleting).toBe(false);
+      expect(state.state).toBe("Ready");
     });
 
     test("start uploading", () => {
@@ -182,7 +182,7 @@ describe("useRecordReducer test suite", () => {
         type: "START_UPLOAD_RECORD",
         payload,
       });
-      expect(state.uploading).toBe(true);
+      expect(state.state).toBe("Uploading");
     });
 
     test("end uploading", () => {
@@ -190,7 +190,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_UPLOAD_RECORD",
         payload,
       });
-      expect(state.uploading).toBe(false);
+      expect(state.state).toBe("Ready");
     });
 
     test("start downloading", () => {
@@ -198,7 +198,7 @@ describe("useRecordReducer test suite", () => {
         type: "START_DOWNLOADING",
         payload,
       });
-      expect(state.downloading).toBe(true);
+      expect(state.state).toBe("Downloading");
     });
 
     test("end downloading", () => {
@@ -206,7 +206,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_DOWNLOADING",
         payload,
       });
-      expect(state.downloading).toBe(false);
+      expect(state.state).toBe("Ready");
     });
 
     test("end downloading failed", () => {
@@ -214,7 +214,7 @@ describe("useRecordReducer test suite", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "END_DOWNLOADING",
       });
-      expect(state.downloading).toBe(false);
+      expect(state.state).toBe("Ready");
     });
 
     test("end downloading next", () => {
@@ -222,7 +222,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_DOWNLOADING_NEXT",
         payload,
       });
-      expect(state.downloading).toBe(false);
+      expect(state.state).toBe("Ready");
     });
 
     test("start retry pending records", () => {
@@ -230,7 +230,7 @@ describe("useRecordReducer test suite", () => {
         type: "START_RETRY",
         payload,
       });
-      expect(state.uploading).toBe(true);
+      expect(state.state).toBe("Uploading");
     });
 
     test("end retry pending records", () => {
@@ -238,7 +238,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_RETRY",
         payload,
       });
-      expect(state.uploading).toBe(false);
+      expect(state.state).toBe("Ready");
     });
 
     test("unknown action", () => {
