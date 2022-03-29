@@ -305,6 +305,102 @@ describe("TimelineScreen test suite", () => {
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
   });
 
+  test("onScroll shows scrollToTop", async () => {
+    const { recordReducerStateMock } = setupDownloadSuccess();
+
+    const { getByTestId } = render(
+      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+        <TimelineScreen navigation={navigation} />
+      </RecordReducerStateContext.Provider>
+    );
+
+    await waitFor(() =>
+      getByTestId(recordReducerStateMock.downloadedRecords[0].id.toString())
+    );
+
+    await act(async () =>
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onScroll({
+        nativeEvent: {
+          contentSize: {
+            height: 1200,
+          },
+          layoutMeasurement: {
+            height: 1200,
+          },
+          contentOffset: {
+            y: 1001,
+          },
+        },
+      })
+    );
+
+    expect(getByTestId(TestIds.TimelineScreen.ScrollToTopButton)).toBeTruthy();
+  });
+
+  test("onScroll doesn't show scrollToTop", async () => {
+    const { recordReducerStateMock } = setupDownloadSuccess();
+
+    const { getByTestId, queryByTestId } = render(
+      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+        <TimelineScreen navigation={navigation} />
+      </RecordReducerStateContext.Provider>
+    );
+
+    await waitFor(() =>
+      getByTestId(recordReducerStateMock.downloadedRecords[0].id.toString())
+    );
+
+    await act(async () =>
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onScroll({
+        nativeEvent: {
+          contentSize: {
+            height: 1200,
+          },
+          layoutMeasurement: {
+            height: 1200,
+          },
+          contentOffset: {
+            y: 999,
+          },
+        },
+      })
+    );
+
+    expect(queryByTestId(TestIds.TimelineScreen.ScrollToTopButton)).toBeFalsy();
+  });
+
+  test("scrollToTop", async () => {
+    const { recordReducerStateMock } = setupDownloadSuccess();
+
+    const { getByTestId } = render(
+      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+        <TimelineScreen navigation={navigation} />
+      </RecordReducerStateContext.Provider>
+    );
+
+    await waitFor(() =>
+      getByTestId(recordReducerStateMock.downloadedRecords[0].id.toString())
+    );
+
+    await act(async () =>
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onScroll({
+        nativeEvent: {
+          contentSize: {
+            height: 1200,
+          },
+          layoutMeasurement: {
+            height: 1200,
+          },
+          contentOffset: {
+            y: 1001,
+          },
+        },
+      })
+    );
+
+    fireEvent.press(getByTestId(TestIds.TimelineScreen.ScrollToTopButton));
+  });
+
   test("navigate back to TimelineScreen", async () => {
     let cb: () => void;
     const localNavigation = {

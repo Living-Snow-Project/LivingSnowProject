@@ -15,6 +15,15 @@ const TimelineStyles = StyleSheet.create({
     backgroundColor: "black",
     height: StyleSheet.hairlineWidth,
   },
+  scrollToTop: {
+    zIndex: 1,
+    paddingLeft: 3,
+    position: "absolute",
+    borderWidth: 1,
+    borderColor: "grey",
+    borderRadius: 5,
+    backgroundColor: "lightgrey",
+  },
 });
 
 export default TimelineStyles;

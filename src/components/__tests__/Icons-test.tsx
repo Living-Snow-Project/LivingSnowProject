@@ -6,6 +6,7 @@ import {
   EditIcon,
   PictureIcon,
   RecordIcon,
+  ScrollTopIcon,
   SnowIcon,
 } from "../Icons";
 
@@ -31,6 +32,11 @@ describe("Icons test suite", () => {
 
     test("picture icon", () => {
       const { toJSON } = render(<PictureIcon />);
+      expect(toJSON()).toMatchSnapshot();
+    });
+
+    test("scroll top icon", () => {
+      const { toJSON } = render(<ScrollTopIcon />);
       expect(toJSON()).toMatchSnapshot();
     });
 
@@ -64,6 +70,11 @@ describe("Icons test suite", () => {
 
     test("picture icon", () => {
       const { toJSON } = render(<PictureIcon />);
+      expect(toJSON()).toMatchSnapshot();
+    });
+
+    test("scroll top icon", () => {
+      const { toJSON } = render(<ScrollTopIcon />);
       expect(toJSON()).toMatchSnapshot();
     });
 

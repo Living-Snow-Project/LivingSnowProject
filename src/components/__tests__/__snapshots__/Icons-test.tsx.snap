@@ -74,6 +74,30 @@ exports[`Icons test suite android picture icon 1`] = `
 
 exports[`Icons test suite android sample record icon 1`] = `<Text />`;
 
+exports[`Icons test suite android scroll top icon 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    Array [
+      Object {
+        "color": "black",
+        "fontSize": 48,
+      },
+      undefined,
+      Object {
+        "fontFamily": "ionicons",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+  testID="scroll-top-icon"
+>
+  
+</Text>
+`;
+
 exports[`Icons test suite android sighting record icon 1`] = `
 <Text
   allowFontScaling={false}
@@ -215,6 +239,30 @@ exports[`Icons test suite ios sample record icon 1`] = `
   testID="sample-icon"
 >
   
+</Text>
+`;
+
+exports[`Icons test suite ios scroll top icon 1`] = `
+<Text
+  allowFontScaling={false}
+  style={
+    Array [
+      Object {
+        "color": "black",
+        "fontSize": 48,
+      },
+      undefined,
+      Object {
+        "fontFamily": "ionicons",
+        "fontStyle": "normal",
+        "fontWeight": "normal",
+      },
+      Object {},
+    ]
+  }
+  testID="scroll-top-icon"
+>
+  
 </Text>
 `;
 

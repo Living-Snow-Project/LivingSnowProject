@@ -2,6 +2,7 @@
 
 exports[`TimelineScreen test suite renders 1`] = `
 <View
+  onLayout={[Function]}
   style={
     Object {
       "flex": 1,

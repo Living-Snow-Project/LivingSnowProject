@@ -82,6 +82,21 @@ function EditIcon() {
   );
 }
 
+function ScrollTopIcon() {
+  return (
+    <StockIcon
+      size={48}
+      name={
+        Platform.OS === "ios"
+          ? "ios-chevron-up-circle-outline"
+          : "md-chevron-up-circle-outline"
+      }
+      color="black"
+      testID={TestIds.Icons.ScrollTopIcon}
+    />
+  );
+}
+
 function SnowIcon({ style }) {
   return (
     <StockIcon
@@ -100,4 +115,12 @@ SnowIcon.defaultProps = {
   style: {},
 };
 
-export { EditIcon, DeleteIcon, PictureIcon, RecordIcon, SnowIcon, StockIcon };
+export {
+  EditIcon,
+  DeleteIcon,
+  PictureIcon,
+  RecordIcon,
+  ScrollTopIcon,
+  SnowIcon,
+  StockIcon,
+};

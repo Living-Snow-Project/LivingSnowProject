@@ -912,6 +912,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                       }
                     >
                       <View
+                        onLayout={[Function]}
                         style={
                           Object {
                             "flex": 1,

@@ -16,8 +16,9 @@ const TestIds = {
   },
   TimelineScreen: {
     FlatList: "timeline-screen-flatlist",
-    SettingsButton: "timeline-screen-settings-button",
     NewRecordButton: "timeline-screen-record-button",
+    SettingsButton: "timeline-screen-settings-button",
+    ScrollToTopButton: "timeline-screen-scroll-to-top-button",
   },
   SettingsScreen: {
     ShowGpsWarning: "settings-screen-show-gps-warning",
@@ -31,6 +32,7 @@ const TestIds = {
     DeleteIcon: "delete-icon",
     EditIcon: "edit-icon",
     SaveIcon: "save-icon",
+    ScrollTopIcon: "scroll-top-icon",
     SnowIcon: "snow-icon",
   },
   RecordList: {
