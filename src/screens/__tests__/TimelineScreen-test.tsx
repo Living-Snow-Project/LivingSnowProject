@@ -305,6 +305,29 @@ describe("TimelineScreen test suite", () => {
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
   });
 
+  test("record flatlist onLayout", async () => {
+    const { recordReducerStateMock } = setupDownloadSuccess();
+
+    const { getByTestId } = render(
+      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+        <TimelineScreen navigation={navigation} />
+      </RecordReducerStateContext.Provider>
+    );
+
+    await waitFor(() =>
+      getByTestId(recordReducerStateMock.downloadedRecords[0].id.toString())
+    );
+
+    fireEvent(getByTestId(TestIds.TimelineScreen.RecordListView), "onLayout", {
+      nativeEvent: {
+        layout: {
+          width: 600,
+          height: 1000,
+        },
+      },
+    });
+  });
+
   test("onScroll shows scrollToTop", async () => {
     const { recordReducerStateMock } = setupDownloadSuccess();
 

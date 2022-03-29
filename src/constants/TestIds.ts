@@ -16,6 +16,7 @@ const TestIds = {
   },
   TimelineScreen: {
     FlatList: "timeline-screen-flatlist",
+    RecordListView: "timeline-screen-record-list-view",
     NewRecordButton: "timeline-screen-record-button",
     SettingsButton: "timeline-screen-settings-button",
     ScrollToTopButton: "timeline-screen-scroll-to-top-button",

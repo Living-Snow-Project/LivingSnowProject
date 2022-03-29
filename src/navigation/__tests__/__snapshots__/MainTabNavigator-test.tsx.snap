@@ -918,6 +918,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                             "flex": 1,
                           }
                         }
+                        testID="timeline-screen-record-list-view"
                       >
                         <View
                           style={

@@ -74,6 +74,7 @@ export default function TimelineScreen({ navigation }) {
     <>
       <View
         style={styles.container}
+        testID={TestIds.TimelineScreen.RecordListView}
         onLayout={({ nativeEvent }) => setContainerDims(nativeEvent.layout)}
       >
         <StatusBar
