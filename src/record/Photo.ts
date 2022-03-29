@@ -1,4 +1,4 @@
-const randomInteger = (): number => Math.floor(Math.random() * 1_000_000);
+const randomInteger = (): number => Math.floor(Math.random() * 1000000);
 
 const makeExamplePhoto = ({
   isLocal = false,

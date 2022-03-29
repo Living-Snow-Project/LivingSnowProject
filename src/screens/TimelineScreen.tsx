@@ -112,7 +112,7 @@ export default function TimelineScreen({ navigation }) {
           style={[
             styles.scrollToTop,
             {
-              top: containerDims.height - 65,
+              top: containerDims.height - 85,
               left: containerDims.width / 2 - 25,
             },
           ]}
