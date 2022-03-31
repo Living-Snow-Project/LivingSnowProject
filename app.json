@@ -30,7 +30,7 @@
     },
     "android": {
       "package": "com.kodnerlab.livingsnowproject",
-      "versionCode": 7,
+      "versionCode": 9,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",

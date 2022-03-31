@@ -73,7 +73,10 @@ const defaultRouteProps: RecordScreenRouteProp = {
   },
 };
 
-export default function RecordScreen({ navigation, route }: RecordScreenProps) {
+export default function RecordScreen({
+  navigation,
+  route = defaultRouteProps,
+}: RecordScreenProps) {
   const appSettings = getAppSettings();
 
   // TODO: get updating\uploading from reducer
