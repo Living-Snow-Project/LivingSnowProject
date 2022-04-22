@@ -923,7 +923,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                         <View
                           style={
                             Object {
-                              "backgroundColor": "lightgrey",
+                              "backgroundColor": "rgba(211, 211, 211, 1)",
                               "borderBottomWidth": 1,
                             }
                           }

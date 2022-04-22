@@ -13,7 +13,7 @@ exports[`TimelineScreen test suite renders 1`] = `
   <View
     style={
       Object {
-        "backgroundColor": "lightgrey",
+        "backgroundColor": "rgba(211, 211, 211, 1)",
         "borderBottomWidth": 1,
       }
     }
