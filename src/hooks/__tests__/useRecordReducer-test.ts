@@ -5,6 +5,8 @@ import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 import * as RecordManager from "../../lib/RecordManager";
 import * as Network from "../../lib/Network";
 
+const defaultState: RecordRecuderStates = "Idle";
+
 describe("useRecordReducer test suite", () => {
   describe("dispatch tests", () => {
     let dispatch;
@@ -141,7 +143,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_SEEDING",
         payload,
       });
-      expect(state.state).toBe("Ready");
+      expect(state.state).toBe(defaultState);
       expect(state.seeded).toBe(true);
     });
 
@@ -158,7 +160,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_SAVING",
         payload,
       });
-      expect(state.state).toBe("Ready");
+      expect(state.state).toBe(defaultState);
     });
 
     test("start deleting", () => {
@@ -174,7 +176,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_DELETING",
         payload,
       });
-      expect(state.state).toBe("Ready");
+      expect(state.state).toBe(defaultState);
     });
 
     test("start uploading", () => {
@@ -190,7 +192,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_UPLOAD_RECORD",
         payload,
       });
-      expect(state.state).toBe("Ready");
+      expect(state.state).toBe(defaultState);
     });
 
     test("start downloading", () => {
@@ -206,7 +208,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_DOWNLOADING",
         payload,
       });
-      expect(state.state).toBe("Ready");
+      expect(state.state).toBe(defaultState);
     });
 
     test("end downloading failed", () => {
@@ -214,7 +216,7 @@ describe("useRecordReducer test suite", () => {
       const state = reducer(makeRecordReducerStateMock(), {
         type: "END_DOWNLOADING",
       });
-      expect(state.state).toBe("Ready");
+      expect(state.state).toBe(defaultState);
     });
 
     test("end downloading next", () => {
@@ -222,7 +224,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_DOWNLOADING_NEXT",
         payload,
       });
-      expect(state.state).toBe("Ready");
+      expect(state.state).toBe(defaultState);
     });
 
     test("start retry pending records", () => {
@@ -238,7 +240,7 @@ describe("useRecordReducer test suite", () => {
         type: "END_RETRY",
         payload,
       });
-      expect(state.state).toBe("Ready");
+      expect(state.state).toBe(defaultState);
     });
 
     test("unknown action", () => {

@@ -1,5 +1,5 @@
 const RecordReducerStatesArray = [
-  "Ready",
+  "Idle",
   "Saving",
   "Seeding",
   "Deleting",

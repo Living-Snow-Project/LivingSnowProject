@@ -37,6 +37,8 @@ type RecordReducerAction = {
   payload: RecordReducerPayload;
 };
 
+const defaultState: RecordRecuderStates = "Idle";
+
 const reducer = (
   currentState: RecordReducerState,
   action: RecordReducerAction
@@ -51,7 +53,7 @@ const reducer = (
       return {
         ...currentState,
         seeded: true,
-        state: "Ready",
+        state: defaultState,
         pendingRecords: payload.pendingRecords,
         downloadedRecords: payload.downloadedRecords,
       };
@@ -62,7 +64,7 @@ const reducer = (
     case "END_SAVING":
       return {
         ...currentState,
-        state: "Ready",
+        state: defaultState,
         pendingRecords: payload.pendingRecords,
       };
 
@@ -72,7 +74,7 @@ const reducer = (
     case "END_DELETING":
       return {
         ...currentState,
-        state: "Ready",
+        state: defaultState,
         pendingRecords: payload.pendingRecords,
       };
 
@@ -82,7 +84,7 @@ const reducer = (
     case "END_UPLOAD_RECORD":
       return {
         ...currentState,
-        state: "Ready",
+        state: defaultState,
         pendingRecords: payload.pendingRecords,
       };
 
@@ -93,18 +95,18 @@ const reducer = (
       return payload?.downloadedRecords
         ? {
             ...currentState,
-            state: "Ready",
+            state: defaultState,
             downloadedRecords: payload.downloadedRecords,
           }
         : {
             ...currentState,
-            state: "Ready",
+            state: defaultState,
           };
 
     case "END_DOWNLOADING_NEXT":
       return {
         ...currentState,
-        state: "Ready",
+        state: defaultState,
         downloadedRecords: [
           ...currentState.downloadedRecords,
           ...payload.downloadedRecords,
@@ -117,7 +119,7 @@ const reducer = (
     case "END_RETRY":
       return {
         ...currentState,
-        state: "Ready",
+        state: defaultState,
         pendingRecords: payload.pendingRecords,
       };
 
@@ -263,7 +265,7 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
 };
 
 const initialState: RecordReducerState = {
-  state: "Ready",
+  state: defaultState,
   seeded: false,
   pendingRecords: [],
   downloadedRecords: [],

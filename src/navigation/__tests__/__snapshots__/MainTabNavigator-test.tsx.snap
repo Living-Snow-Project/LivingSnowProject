@@ -936,7 +936,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                               }
                             }
                           >
-                            Ready
+                            Idle
                           </Text>
                         </View>
                         <RCTScrollView

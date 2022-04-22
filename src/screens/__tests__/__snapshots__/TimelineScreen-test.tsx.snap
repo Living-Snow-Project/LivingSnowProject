@@ -26,7 +26,7 @@ exports[`TimelineScreen test suite renders 1`] = `
         }
       }
     >
-      Ready
+      Idle
     </Text>
   </View>
   <RCTScrollView
