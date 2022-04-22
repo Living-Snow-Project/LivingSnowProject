@@ -4,49 +4,86 @@ import {
   downloadAsync,
   getInfoAsync,
 } from "expo-file-system";
+import NetInfo from "@react-native-community/netinfo";
 import { downloadPhotoUri } from "../lib/Network";
 
-const useCachedPhotos = (photos: Photo[] | undefined): Photo[] | undefined => {
-  if (photos === undefined) {
-    return undefined;
-  }
-
-  const [cachedPhotos, setCachedPhotos] = useState<Photo[]>([...photos]);
-
-  const updateCachedPhotos = (index: number, uri: string): void => {
-    setCachedPhotos((prev) => {
-      /* eslint-disable no-param-reassign */
-      prev[index].uri = uri;
-
-      return [...prev];
-    });
-  };
+const useCachedPhoto = (uri: string | number): string | number => {
+  const [cachedPhoto, setCachedPhoto] = useState<string | number>("Loading");
 
   useEffect(() => {
-    photos.forEach(async (photo, index) => {
-      // no action if static\compiled photo from require(...) OR file already cached
-      if (typeof photo.uri === "number" || photo.uri.includes("file:///")) {
+    let isMounted = true;
+    (async function GetPhoto() {
+      // no action if static photo from require(...)
+      if (typeof uri === "number") {
+        if (isMounted) {
+          setCachedPhoto(uri);
+        }
+
         return;
       }
 
-      const fileUri = `${documentDirectory}${photo.uri}.jpg`;
+      const remoteFileUri = downloadPhotoUri(uri);
 
-      const fileInfo = await getInfoAsync(fileUri);
+      // can't cache photo to hard drive
+      if (documentDirectory === null) {
+        if (isMounted) {
+          setCachedPhoto(remoteFileUri);
+        }
 
-      // photo not cached locally, download required
-      if (!fileInfo.exists) {
-        downloadAsync(downloadPhotoUri(photo.uri), fileUri).then((result) => {
-          if (result.status === 200) {
-            updateCachedPhotos(index, fileUri);
-          }
-        });
-      } else {
-        updateCachedPhotos(index, fileUri);
+        return;
       }
-    });
+
+      const localFileUri = `${documentDirectory}${uri}.jpg`;
+
+      try {
+        const { exists } = await getInfoAsync(localFileUri);
+
+        // photo already cached
+        if (exists) {
+          if (isMounted) {
+            setCachedPhoto(localFileUri);
+          }
+
+          return;
+        }
+
+        const { isConnected } = await NetInfo.fetch();
+
+        if (!isConnected) {
+          if (isMounted) {
+            setCachedPhoto("Offline: cannot download photo");
+          }
+
+          return;
+        }
+
+        // downloadAsync spins infinitely if app is offline
+        const { status } = await downloadAsync(remoteFileUri, localFileUri);
+
+        if (status === 200) {
+          if (isMounted) {
+            setCachedPhoto(localFileUri);
+          }
+
+          return;
+        }
+
+        if (isMounted) {
+          setCachedPhoto(`There was an error downloading the file: ${status}`);
+        }
+      } catch (error) {
+        if (isMounted) {
+          setCachedPhoto(`There was an error caching the file: ${error} `);
+        }
+      }
+    })();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-  return cachedPhotos;
+  return cachedPhoto;
 };
 
-export default useCachedPhotos;
+export default useCachedPhoto;

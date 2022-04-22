@@ -1,6 +1,7 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react-native";
 import * as FileSystem from "expo-file-system";
+import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import RecordDetailsScreen from "../RecordDetailsScreen";
 import {
   makeExampleRecord,
@@ -25,6 +26,10 @@ jest.mock("expo-file-system", () => ({
   createDownloadResumable: jest.fn(() => Promise.resolve()),
   documentDirectory: "file:///test-directory/",
 }));
+
+jest
+  .spyOn(NetInfo, "fetch")
+  .mockResolvedValue({ isConnected: true } as NetInfoState);
 
 describe("RecordDetailsScreen test suite", () => {
   test("sample with remote photos", async () => {
@@ -336,6 +341,57 @@ describe("RecordDetailsScreen test suite", () => {
       expect(queryByText(Labels.RecordFields.Photos)).toBeFalsy();
     } else {
       fail("name field was not found");
+    }
+  });
+
+  // "last test" because we are lazy with NetInfo.fetch mock
+  test("sample with remote photos, offline mode", async () => {
+    const route = {
+      params: {
+        record: {
+          ...makeExampleRecord("Sample"),
+        },
+      },
+    };
+
+    jest
+      .spyOn(FileSystem, "getInfoAsync")
+      .mockResolvedValue({ exists: false } as FileSystem.FileInfo);
+
+    jest
+      .spyOn(NetInfo, "fetch")
+      .mockResolvedValue({ isConnected: false } as NetInfoState);
+
+    const { getByText, queryByText, toJSON } = render(
+      <RecordDetailsScreen route={route} />
+    );
+
+    await waitFor(() => getByText(Labels.RecordFields.Photos));
+
+    const { record } = route.params;
+
+    expect(toJSON()).toMatchSnapshot();
+
+    if (
+      record.name &&
+      record.organization &&
+      record.tubeId &&
+      record.locationDescription &&
+      record.notes
+    ) {
+      expect(getByText(new RegExp(record.type))).toBeTruthy();
+      expect(getByText(new RegExp(record.name))).toBeTruthy();
+      expect(getByText(new RegExp(record.organization))).toBeTruthy();
+      expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
+      expect(getByText(new RegExp(record.tubeId))).toBeTruthy();
+      expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
+      expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
+      expect(getByText(new RegExp(record.notes))).toBeTruthy();
+      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
+      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
+    } else {
+      fail("one expected field was undefined");
     }
   });
 });

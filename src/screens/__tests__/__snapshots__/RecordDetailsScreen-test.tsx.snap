@@ -108,7 +108,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
                 "flex": 1,
               },
               Object {
+                "alignItems": "center",
                 "height": 1000.5,
+                "justifyContent": "center",
                 "width": "100%",
               },
             ]
@@ -238,7 +240,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
                 "flex": 1,
               },
               Object {
+                "alignItems": "center",
                 "height": 1000.5,
+                "justifyContent": "center",
                 "width": "100%",
               },
             ]
@@ -267,7 +271,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
                 "flex": 1,
               },
               Object {
+                "alignItems": "center",
                 "height": 1000.5,
+                "justifyContent": "center",
                 "width": "100%",
               },
             ]
@@ -286,6 +292,155 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
               }
             }
           />
+        </View>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;
+
+exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "flex": 1,
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "borderColor": "black",
+          "borderRadius": 2,
+          "borderWidth": 1,
+          "margin": 2,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderBottomWidth": 1,
+            "borderColor": "black",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Data Sheet
+        </Text>
+      </View>
+      <Text>
+        Date: 2021-09-16
+      </Text>
+      <Text>
+        Type: Sample
+      </Text>
+      <Text>
+        Name: test name
+      </Text>
+      <Text>
+        Organization: test org
+      </Text>
+      <Text>
+        Coordinates: -123.456, 96.96
+      </Text>
+      <Text>
+        Tube Id: LAB-1337
+      </Text>
+      <Text>
+        Location Description: test location
+      </Text>
+      <Text>
+        Notes: test notes
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "borderColor": "black",
+          "borderRadius": 2,
+          "borderWidth": 1,
+          "margin": 2,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "backgroundColor": "lightblue",
+            "borderBottomWidth": 1,
+            "borderColor": "black",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Photos
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "flex": 2,
+            "flexDirection": "column",
+          }
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "flex": 1,
+              },
+              Object {
+                "alignItems": "center",
+                "height": 1000.5,
+                "justifyContent": "center",
+                "width": "100%",
+              },
+            ]
+          }
+        >
+          <Text>
+            Offline: cannot download photo
+          </Text>
+          <Text />
+        </View>
+        <View
+          style={
+            Array [
+              Object {
+                "borderColor": "black",
+                "borderTopWidth": 1,
+                "flex": 1,
+              },
+              Object {
+                "alignItems": "center",
+                "height": 1000.5,
+                "justifyContent": "center",
+                "width": "100%",
+              },
+            ]
+          }
+        >
+          <Text>
+            Offline: cannot download photo
+          </Text>
+          <Text />
         </View>
       </View>
     </View>
@@ -401,25 +556,18 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
                 "flex": 1,
               },
               Object {
+                "alignItems": "center",
                 "height": 1000.5,
+                "justifyContent": "center",
                 "width": "100%",
               },
             ]
           }
         >
-          <Image
-            source={
-              Object {
-                "uri": "46",
-              }
-            }
-            style={
-              Object {
-                "height": "100%",
-                "width": "100%",
-              }
-            }
-          />
+          <Text>
+            There was an error downloading the file: 404
+          </Text>
+          <Text />
         </View>
         <View
           style={
@@ -430,25 +578,18 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
                 "flex": 1,
               },
               Object {
+                "alignItems": "center",
                 "height": 1000.5,
+                "justifyContent": "center",
                 "width": "100%",
               },
             ]
           }
         >
-          <Image
-            source={
-              Object {
-                "uri": "23",
-              }
-            }
-            style={
-              Object {
-                "height": "100%",
-                "width": "100%",
-              }
-            }
-          />
+          <Text>
+            There was an error downloading the file: 404
+          </Text>
+          <Text />
         </View>
       </View>
     </View>
