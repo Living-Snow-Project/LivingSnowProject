@@ -35,6 +35,33 @@ const AtlasTypeArray = [
 
 type AtlasType = typeof AtlasTypeArray[number];
 
+const AlgaeSizeArray = [
+  "Select a size",
+  "Fist",
+  "Shoe Box",
+  "Coffee Table",
+  "Car",
+  "Bus",
+  "Playground",
+  "Sports Field",
+  "Other",
+] as const;
+
+type AlgaeSize = typeof AlgaeSizeArray[number];
+
+const AlgaeColorArray = [
+  "Select a color",
+  "Red",
+  "Pink",
+  "Grey",
+  "Green",
+  "Orange",
+  "Yellow",
+  "Other",
+] as const;
+
+type AlgaeColor = typeof AlgaeColorArray[number];
+
 const AlgaeRecordTypeArray = [
   "Sample",
   "Sighting",
@@ -55,6 +82,8 @@ type AlgaeRecord = {
   date: Date;
   latitude: number;
   longitude: number;
+  size: AlgaeSize;
+  color: AlgaeColor;
   tubeId?: string;
   locationDescription?: string;
   notes?: string;

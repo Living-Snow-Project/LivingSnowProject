@@ -28,6 +28,8 @@ const Labels = {
     GPSCoordinates: "Coordinates",
     Latitude: "Latitude",
     Longitude: "Longitude",
+    Size: "Size",
+    Color: "Color",
     LocationDescription: "Location Description",
     Notes: "Notes",
     AtlasSnowSurface: "Atlas Snow Surface",
@@ -74,6 +76,12 @@ const Notifications = {
     message:
       'Coordinates must be in "lat, long" format. ie. 12.345678, -123.456789',
   },
+  invalidAlgaeSize: {
+    title: "A size must be specified",
+  },
+  invalidAlgaeColor: {
+    title: "A color must be specified",
+  },
 };
 
 const Errors = {
@@ -101,6 +109,27 @@ const AtlasDescription = {
   Undefined: "Undefined",
 };
 
+const AlgaeSizeDescription = {
+  Fist: "Fist",
+  ShoeBox: "Shoe Box",
+  CoffeeTable: "Coffee Table",
+  Car: "Car",
+  Bus: "Bus",
+  Playground: "Playground",
+  SportsField: "Sports Field",
+  Other: "Other (describe in notes)",
+};
+
+const AlgaeColorDescription = {
+  Red: "Red",
+  Pink: "Pink",
+  Grey: "Grey",
+  Green: "Green",
+  Orange: "Orange",
+  Yellow: "Yellow",
+  Other: "Other (describe in notes)",
+};
+
 export {
   Errors,
   Notifications,
@@ -108,4 +137,6 @@ export {
   Labels,
   RecordDescription,
   AtlasDescription,
+  AlgaeSizeDescription,
+  AlgaeColorDescription,
 };

@@ -20,7 +20,11 @@ import KeyboardShift from "../components/KeyboardShift";
 import Logger from "../lib/Logger";
 import { formInputStyles } from "../styles/FormInput";
 import HeaderButton from "../components/HeaderButton";
-import TypeSelector from "../components/forms/TypeSelector";
+import {
+  TypeSelector,
+  AlgaeSizePicker,
+  AlgaeColorPicker,
+} from "../components/forms/TypeSelector";
 import DateSelector from "../components/forms/DateSelector";
 import CustomTextInput from "../components/forms/CustomTextInput";
 import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
@@ -69,6 +73,8 @@ const defaultRouteProps: RecordScreenRouteProp = {
       date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
       latitude: 0,
       longitude: 0,
+      size: "Select a size",
+      color: "Select a color",
     },
   },
 };
@@ -126,6 +132,16 @@ export default function RecordScreen({
         Notifications.invalidCoordinates.message
       );
 
+      return false;
+    }
+
+    if (state.size === "Select a size") {
+      Alert.alert(Notifications.invalidAlgaeSize.title);
+      return false;
+    }
+
+    if (state.color === "Select a color") {
+      Alert.alert(Notifications.invalidAlgaeColor.title);
       return false;
     }
 
@@ -304,6 +320,20 @@ export default function RecordScreen({
               setState((prev) => ({ ...prev, latitude, longitude }))
             }
             onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+          />
+
+          <AlgaeSizePicker
+            size={state.size}
+            setSize={(size) => {
+              setState((prev) => ({ ...prev, size }));
+            }}
+          />
+
+          <AlgaeColorPicker
+            color={state.color}
+            setColor={(color) => {
+              setState((prev) => ({ ...prev, color }));
+            }}
           />
 
           {state?.atlasType && (

@@ -11,6 +11,31 @@ const AlgaeRecordTypePropType: PropTypes.Requireable<AlgaeRecordType> =
     "Undefined",
   ]);
 
+const AlgaeSizePropType: PropTypes.Requireable<AlgaeSize> =
+  PropTypes.oneOf<AlgaeSize>([
+    "Select a size",
+    "Fist",
+    "Shoe Box",
+    "Coffee Table",
+    "Car",
+    "Bus",
+    "Playground",
+    "Sports Field",
+    "Other",
+  ]);
+
+const AlgaeColorPropType: PropTypes.Requireable<AlgaeColor> =
+  PropTypes.oneOf<AlgaeColor>([
+    "Select a color",
+    "Red",
+    "Pink",
+    "Grey",
+    "Green",
+    "Orange",
+    "Yellow",
+    "Other",
+  ]);
+
 const AtlasTypePropType: PropTypes.Requireable<AtlasType> =
   PropTypes.oneOf<AtlasType>([
     "Ash",
@@ -37,6 +62,8 @@ const AlgaeRecordPropType = PropTypes.shape({
   date: PropTypes.instanceOf(Date).isRequired,
   latitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   longitude: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  size: AlgaeSizePropType.isRequired,
+  color: AlgaeColorPropType.isRequired,
   tubeId: PropTypes.string,
   locationDescription: PropTypes.string,
   notes: PropTypes.string,
@@ -44,4 +71,10 @@ const AlgaeRecordPropType = PropTypes.shape({
   atlasType: AtlasTypePropType,
 });
 
-export { AlgaeRecordPropType, AlgaeRecordTypePropType, AtlasTypePropType };
+export {
+  AlgaeRecordPropType,
+  AlgaeRecordTypePropType,
+  AtlasTypePropType,
+  AlgaeSizePropType,
+  AlgaeColorPropType,
+};

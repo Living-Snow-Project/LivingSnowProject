@@ -9,6 +9,8 @@ const TestIds = {
   Pickers: {
     recordSelectorTestId: "record-type-picker",
     atlastSelectorTestId: "atlas-type-picker",
+    algaeSizePickerTestId: "algae-size-picker",
+    algaeColorPickerTestId: "algae-color-picker",
   },
   RecordScreen: {
     UploadButton: "record-screen-upload-button",

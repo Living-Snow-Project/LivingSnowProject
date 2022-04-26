@@ -421,8 +421,22 @@ describe("RecordScreen test suite", () => {
 
     beforeEach(() => {
       const recordScreen = renderWithGpsWarningOff();
-      screenTestCoordinates = recordScreen.expectedCoordinates;
+
       screenGetByTestId = recordScreen.getByTestId;
+
+      fireEvent(
+        screenGetByTestId(TestIds.Pickers.algaeSizePickerTestId),
+        "onValueChange",
+        "Fist"
+      );
+
+      fireEvent(
+        screenGetByTestId(TestIds.Pickers.algaeColorPickerTestId),
+        "onValueChange",
+        "Red"
+      );
+
+      screenTestCoordinates = recordScreen.expectedCoordinates;
       screenGetByDisplayValue = recordScreen.getByDisplayValue;
       screenGetByPlaceholderText = recordScreen.getByPlaceholderText;
     });
@@ -511,7 +525,7 @@ describe("RecordScreen test suite", () => {
       expect(receivedRecord.atlasType).not.toBeDefined();
     });
 
-    test("upload record invalid user input", async () => {
+    test("upload record invalid gps user input", async () => {
       const { getByTestId } = render(recordActionButton());
 
       const alertMock = jest.spyOn(Alert, "alert");
@@ -528,6 +542,42 @@ describe("RecordScreen test suite", () => {
           Notifications.invalidCoordinates.title,
           Notifications.invalidCoordinates.message
         )
+      );
+    });
+
+    test("upload record invalid algae size user input", async () => {
+      const { getByTestId } = render(recordActionButton());
+
+      const alertMock = jest.spyOn(Alert, "alert");
+
+      fireEvent(
+        screenGetByTestId(TestIds.Pickers.algaeSizePickerTestId),
+        "onValueChange",
+        "Select a size"
+      );
+
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
+
+      await waitFor(() =>
+        expect(alertMock).toBeCalledWith(Notifications.invalidAlgaeSize.title)
+      );
+    });
+
+    test("upload record invalid algae color user input", async () => {
+      const { getByTestId } = render(recordActionButton());
+
+      const alertMock = jest.spyOn(Alert, "alert");
+
+      fireEvent(
+        screenGetByTestId(TestIds.Pickers.algaeColorPickerTestId),
+        "onValueChange",
+        "Select a color"
+      );
+
+      fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
+
+      await waitFor(() =>
+        expect(alertMock).toBeCalledWith(Notifications.invalidAlgaeColor.title)
       );
     });
 
