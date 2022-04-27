@@ -123,7 +123,7 @@ CachedPhotos.propTypes = {
       uri: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
       width: PropTypes.number.isRequired,
       height: PropTypes.number.isRequired,
-      size: PropTypes.number.isRequired,
+      size: PropTypes.number,
     })
   ),
 };

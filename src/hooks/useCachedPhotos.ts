@@ -33,6 +33,15 @@ const useCachedPhoto = (uri: string | number): string | number => {
         return;
       }
 
+      // pending photo (already exists on disk in an album)
+      if (uri.includes("file:///")) {
+        if (isMounted) {
+          setCachedPhoto(uri);
+        }
+
+        return;
+      }
+
       const localFileUri = `${documentDirectory}${uri}.jpg`;
 
       try {
