@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useContext, useRef } from "react";
 import { Alert, Animated, StyleSheet, Text, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import styles from "../styles/Timeline";
@@ -17,8 +11,7 @@ import {
   RecordReducerStateContext,
   RecordReducerActionsContext,
 } from "../hooks/useRecordReducer";
-import { isAtlas, productionExampleRecord } from "../record/Record";
-import { getAppSettings } from "../../AppSettings";
+import { productionExampleRecord } from "../record/Record";
 
 const actionStyles = StyleSheet.create({
   style: {
@@ -58,42 +51,16 @@ function ExampleRecordList() {
   );
 }
 
-function useDownloadedRecordList(navigation) {
+function useDownloadedRecordList() {
   const recordReducerStateContext = useContext(RecordReducerStateContext);
 
-  const [showAtlasRecords, setShowAtlasRecords] = useState<boolean>(
-    getAppSettings().showAtlasRecords
-  );
-  const [showOnlyAtlasRecords, setShowOnlyAtlasRecords] = useState<boolean>(
-    getAppSettings().showOnlyAtlasRecords
-  );
-
-  // maybe re-render when user comes back to TimelineScreen
-  useEffect(() =>
-    navigation.addListener("focus", () => {
-      setShowAtlasRecords(getAppSettings().showAtlasRecords);
-      setShowOnlyAtlasRecords(getAppSettings().showOnlyAtlasRecords);
-    })
-  );
-
-  const omitRecord = useCallback(
-    (record: AlgaeRecord) => {
-      const atlas = isAtlas(record.type);
-      return (atlas && !showAtlasRecords) || (!atlas && showOnlyAtlasRecords);
-    },
-    [showAtlasRecords, showOnlyAtlasRecords]
-  );
-
   const renderRecords = useCallback(() => {
-    const filtered = recordReducerStateContext.downloadedRecords.filter(
-      (record) => !omitRecord(record)
-    );
-
+    const records: AlgaeRecord[] = recordReducerStateContext.downloadedRecords;
     const result: Array<JSX.Element> = [];
     let previousDate: Date | undefined;
 
-    for (let i = 0; i < filtered.length; ++i) {
-      const current = filtered[i];
+    for (let i = 0; i < records.length; ++i) {
+      const current = records[i];
       if (
         previousDate === undefined ||
         previousDate.getFullYear() > current.date.getFullYear()
@@ -107,7 +74,7 @@ function useDownloadedRecordList(navigation) {
     }
 
     return result;
-  }, [recordReducerStateContext, omitRecord]);
+  }, [recordReducerStateContext]);
 
   if (recordReducerStateContext.downloadedRecords.length === 0) {
     return null;

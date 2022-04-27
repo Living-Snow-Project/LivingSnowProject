@@ -10,16 +10,6 @@ type RecordTypePickerItem = {
 const recordTypePickerItems: RecordTypePickerItem[] = [
   { value: "Sample", label: RecordDescription.Sample },
   { value: "Sighting", label: RecordDescription.Sighting },
-  { value: "Atlas: Red Dot", label: RecordDescription.AtlasRedDot },
-  {
-    value: "Atlas: Red Dot with Sample",
-    label: RecordDescription.AtlasRedDotWithSample,
-  },
-  { value: "Atlas: Blue Dot", label: RecordDescription.AtlasBlueDot },
-  {
-    value: "Atlas: Blue Dot with Sample",
-    label: RecordDescription.AtlasBlueDotWithSample,
-  },
 ];
 
 const getAllRecordTypePickerItems = (): RecordTypePickerItem[] =>
@@ -38,19 +28,7 @@ const getRecordTypePickerItem = (
 };
 
 const isSample = (type: AlgaeRecordType): boolean =>
-  Array<AlgaeRecordType>(
-    "Sample",
-    "Atlas: Red Dot with Sample",
-    "Atlas: Blue Dot with Sample"
-  ).includes(type);
-
-const isAtlas = (type: AlgaeRecordType): boolean =>
-  Array<AlgaeRecordType>(
-    "Atlas: Red Dot",
-    "Atlas: Red Dot with Sample",
-    "Atlas: Blue Dot",
-    "Atlas: Blue Dot with Sample"
-  ).includes(type);
+  Array<AlgaeRecordType>("Sample").includes(type);
 
 const examplePhoto = require("../../assets/images/splash.png");
 
@@ -78,26 +56,21 @@ const productionExampleRecord = (): AlgaeRecord => ({
 });
 
 // consider randomizing more data; how that impacts snapshot testing and the above desired feature
-const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => {
-  const atlasType: AtlasType = isAtlas(type) ? "Snow Algae" : "Undefined";
-
-  return {
-    id: 1234,
-    type,
-    name: "test name",
-    date: new Date("2021-09-16T00:00:00"),
-    organization: "test org",
-    latitude: -123.456,
-    longitude: 96.96,
-    size: "Fist",
-    color: "Red",
-    tubeId: isSample(type) ? "LAB-1337" : "",
-    locationDescription: "test location",
-    notes: "test notes",
-    atlasType,
-    photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
-  };
-};
+const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
+  id: 1234,
+  type,
+  name: "test name",
+  date: new Date("2021-09-16T00:00:00"),
+  organization: "test org",
+  latitude: -123.456,
+  longitude: 96.96,
+  size: "Fist",
+  color: "Red",
+  tubeId: isSample(type) ? "LAB-1337" : "",
+  locationDescription: "test location",
+  notes: "test notes",
+  photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
+});
 
 // needed for JSON.parse, otherwise date property will become string
 const recordReviver = (key: string, value: any): any => {
@@ -138,7 +111,6 @@ export {
   makeExampleRecord,
   productionExampleRecord,
   isSample,
-  isAtlas,
   jsonToRecord,
   recordDateFormat,
 };

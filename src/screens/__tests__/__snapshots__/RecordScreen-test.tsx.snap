@@ -322,30 +322,6 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                       "textColor": undefined,
                       "value": "Sighting",
                     },
-                    Object {
-                      "label": "Atlas: Red Dot",
-                      "testID": undefined,
-                      "textColor": undefined,
-                      "value": "Atlas: Red Dot",
-                    },
-                    Object {
-                      "label": "Atlas: Red Dot with Sample",
-                      "testID": undefined,
-                      "textColor": undefined,
-                      "value": "Atlas: Red Dot with Sample",
-                    },
-                    Object {
-                      "label": "Atlas: Blue Dot",
-                      "testID": undefined,
-                      "textColor": undefined,
-                      "value": "Atlas: Blue Dot",
-                    },
-                    Object {
-                      "label": "Atlas: Blue Dot with Sample",
-                      "testID": undefined,
-                      "textColor": undefined,
-                      "value": "Atlas: Blue Dot with Sample",
-                    },
                   ]
                 }
                 onChange={[Function]}
@@ -1679,30 +1655,6 @@ exports[`RecordScreen test suite renders 1`] = `
                       "testID": undefined,
                       "textColor": undefined,
                       "value": "Sighting",
-                    },
-                    Object {
-                      "label": "Atlas: Red Dot",
-                      "testID": undefined,
-                      "textColor": undefined,
-                      "value": "Atlas: Red Dot",
-                    },
-                    Object {
-                      "label": "Atlas: Red Dot with Sample",
-                      "testID": undefined,
-                      "textColor": undefined,
-                      "value": "Atlas: Red Dot with Sample",
-                    },
-                    Object {
-                      "label": "Atlas: Blue Dot",
-                      "testID": undefined,
-                      "textColor": undefined,
-                      "value": "Atlas: Blue Dot",
-                    },
-                    Object {
-                      "label": "Atlas: Blue Dot with Sample",
-                      "testID": undefined,
-                      "textColor": undefined,
-                      "value": "Atlas: Blue Dot with Sample",
                     },
                   ]
                 }

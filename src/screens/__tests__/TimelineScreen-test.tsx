@@ -15,7 +15,6 @@ import { makeExampleRecord } from "../../record/Record";
 import * as Storage from "../../lib/Storage";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
-import { getAppSettings, setAppSettings } from "../../../AppSettings";
 import { mockedNavigate } from "../../../jesttest.setup";
 import {
   RecordReducerActionsContext,
@@ -29,7 +28,6 @@ import {
 // TimelineScreen takes navigation input prop
 const navigation = {
   navigate: jest.fn(),
-  addListener: () => () => {},
 };
 
 const downloadedRecord: AlgaeRecord = {
@@ -37,19 +35,9 @@ const downloadedRecord: AlgaeRecord = {
   id: 1,
 };
 
-const downloadedAtlasRecord: AlgaeRecord = {
-  ...makeExampleRecord("Atlas: Red Dot"),
-  id: 2,
-};
-
 const pendingRecord: AlgaeRecord = {
   ...makeExampleRecord("Sighting"),
   id: 3,
-};
-
-const pendingAtlasRecord: AlgaeRecord = {
-  ...makeExampleRecord("Atlas: Blue Dot with Sample"),
-  id: 4,
 };
 
 const setIsConnected = (isConnected: boolean): void => {
@@ -69,7 +57,7 @@ const setupDownloadSuccess = () => {
 
   recordReducerStateMock.downloadedRecords = [
     downloadedRecord,
-    downloadedAtlasRecord,
+    makeExampleRecord("Sighting"),
   ];
 
   setIsConnected(true);
@@ -122,94 +110,6 @@ describe("TimelineScreen test suite", () => {
 
     await waitFor(() => getByText(Labels.TimelineScreen.ExampleRecords));
     expect(retryRecordsSpy).toBeCalledTimes(1);
-  });
-
-  describe("atlas scenarios", () => {
-    let prevAppSettings: AppSettings;
-
-    beforeEach(() => {
-      prevAppSettings = getAppSettings();
-    });
-
-    afterEach(() => setAppSettings(prevAppSettings));
-
-    test("non-atlas and atlas records are displayed", async () => {
-      const { retryRecordsSpy, recordReducerStateMock } =
-        setupDownloadSuccess();
-
-      setAppSettings((prev) => ({
-        ...prev,
-        showAtlasRecords: true,
-        showOnlyAtlasRecords: false,
-      }));
-
-      const { getByTestId, getByText } = render(
-        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-          <TimelineScreen navigation={navigation} />
-        </RecordReducerStateContext.Provider>
-      );
-
-      // non-atlas visible
-      await waitFor(() => getByTestId(downloadedRecord.id.toString()));
-
-      expect(retryRecordsSpy).toBeCalledTimes(1);
-      expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
-
-      // atlas visible
-      expect(getByTestId(downloadedAtlasRecord.id.toString())).toBeTruthy();
-    });
-
-    test("atlas records are not displayed", async () => {
-      const { retryRecordsSpy, recordReducerStateMock } =
-        setupDownloadSuccess();
-
-      setAppSettings((prev) => ({
-        ...prev,
-        showAtlasRecords: false,
-        showOnlyAtlasRecords: false,
-      }));
-
-      const { getByTestId, getByText, queryByTestId } = render(
-        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-          <TimelineScreen navigation={navigation} />
-        </RecordReducerStateContext.Provider>
-      );
-
-      // non-atlas visible
-      await waitFor(() => getByTestId(downloadedRecord.id.toString()));
-
-      expect(retryRecordsSpy).toBeCalledTimes(1);
-      expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
-
-      // atlas not visible
-      expect(queryByTestId(downloadedAtlasRecord.id.toString())).toBeFalsy();
-    });
-
-    test("only atlas records are displayed", async () => {
-      const { retryRecordsSpy, recordReducerStateMock } =
-        setupDownloadSuccess();
-
-      setAppSettings((prev) => ({
-        ...prev,
-        showAtlasRecords: true,
-        showOnlyAtlasRecords: true,
-      }));
-
-      const { getByTestId, getByText, queryByTestId } = render(
-        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-          <TimelineScreen navigation={navigation} />
-        </RecordReducerStateContext.Provider>
-      );
-
-      // atlas visible
-      await waitFor(() => getByTestId(downloadedAtlasRecord.id.toString()));
-
-      expect(retryRecordsSpy).toBeCalledTimes(1);
-      expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
-
-      // non-atlas not visible
-      expect(queryByTestId(downloadedRecord.id.toString())).toBeFalsy();
-    });
   });
 
   test("connection lost", async () => {
@@ -424,21 +324,6 @@ describe("TimelineScreen test suite", () => {
     fireEvent.press(getByTestId(TestIds.TimelineScreen.ScrollToTopButton));
   });
 
-  test("navigate back to TimelineScreen", async () => {
-    let cb: () => void;
-    const localNavigation = {
-      navigate: jest.fn(),
-      addListener: (event: string, callback: () => void) => {
-        expect(event).toEqual("focus");
-        cb = callback;
-      },
-    };
-
-    render(<TimelineScreen navigation={localNavigation} />);
-    await waitFor(() => expect(cb).not.toBeUndefined());
-    await act(async () => cb());
-  });
-
   test("navigate to SettingsScreen", () => {
     const navigate = jest.fn();
     const { getByTestId } = render(<SettingsButton navigate={navigate} />);
@@ -499,7 +384,7 @@ describe("TimelineScreen test suite", () => {
       /* eslint-disable react/jsx-no-constructed-context-values */
       const recordReducerStateMock: RecordReducerState = {
         ...makeRecordReducerStateMock(),
-        pendingRecords: [pendingRecord, pendingAtlasRecord],
+        pendingRecords: [pendingRecord],
       };
 
       const { getByTestId, getByText } = render(
@@ -508,13 +393,10 @@ describe("TimelineScreen test suite", () => {
         </RecordReducerStateContext.Provider>
       );
 
-      // non-atlas visible
+      // visible
       await waitFor(() => getByTestId(pendingRecord.id.toString()));
       expect(retryRecordsSpy).toBeCalledTimes(1);
       expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
-
-      // atlas visible
-      expect(getByTestId(pendingAtlasRecord.id.toString())).toBeTruthy();
     });
 
     test("delete pending record", () => {

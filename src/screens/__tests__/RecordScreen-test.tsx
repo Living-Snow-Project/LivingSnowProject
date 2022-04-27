@@ -7,7 +7,6 @@ import {
   waitFor,
 } from "@testing-library/react-native";
 import RecordScreen from "../RecordScreen";
-import { getAtlasPickerItem, getAllAtlasPickerItems } from "../../record/Atlas";
 import { setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
 import { Notifications, Placeholders } from "../../constants/Strings";
@@ -17,7 +16,6 @@ import { makeExampleRecord } from "../../record/Record";
 import { RecordReducerActionsContext } from "../../hooks/useRecordReducer";
 import { makeRecordReducerActionsMock } from "../../mocks/useRecordReducer.mock";
 
-const isAtlasVisible = (queryByText) => queryByText("Atlas Surface Data");
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 
 // record action button renders independently of the screen
@@ -107,7 +105,6 @@ describe("RecordScreen test suite", () => {
   describe("Record type picker tests", () => {
     test("Sample selected", () => {
       const { queryByText } = customRender();
-      expect(isAtlasVisible(queryByText)).toBeFalsy();
       expect(isTubeIdVisible(queryByText)).toBeTruthy();
     });
 
@@ -118,7 +115,6 @@ describe("RecordScreen test suite", () => {
         "onValueChange",
         "Sighting"
       );
-      expect(isAtlasVisible(queryByText)).toBeFalsy();
       expect(isTubeIdVisible(queryByText)).toBeFalsy();
     });
   });
@@ -184,179 +180,6 @@ describe("RecordScreen test suite", () => {
       fireEvent(getByDisplayValue(expectedCoordinates), "onSubmitEditing");
 
       expect(alertMock).not.toBeCalled();
-    });
-  });
-
-  describe("Atlas picker tests", () => {
-    test("Red Dot", () => {
-      const { getByTestId, queryByText } = customRender();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Red Dot"
-      );
-
-      expect(isAtlasVisible(queryByText)).toBeTruthy();
-      expect(isTubeIdVisible(queryByText)).toBeFalsy();
-    });
-
-    test("Red Dot with Sample", () => {
-      const { getByTestId, queryByText } = customRender();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Red Dot with Sample"
-      );
-
-      expect(isAtlasVisible(queryByText)).toBeTruthy();
-      expect(isTubeIdVisible(queryByText)).toBeTruthy();
-    });
-
-    test("Blue Dot", () => {
-      const { getByTestId, queryByText } = customRender();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Blue Dot"
-      );
-
-      expect(isAtlasVisible(queryByText)).toBeTruthy();
-      expect(isTubeIdVisible(queryByText)).toBeFalsy();
-    });
-
-    test("Blue Dot with Sample", () => {
-      const { getByTestId, queryByText } = customRender();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Blue Dot with Sample"
-      );
-
-      expect(isAtlasVisible(queryByText)).toBeTruthy();
-      expect(isTubeIdVisible(queryByText)).toBeTruthy();
-    });
-
-    test("Red Dot surface picker", () => {
-      const { getByDisplayValue, getByTestId, queryByText } = customRender();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Red Dot"
-      );
-
-      expect(isAtlasVisible(queryByText)).toBeTruthy();
-      expect(isTubeIdVisible(queryByText)).toBeFalsy();
-
-      const atlasTypes = getAllAtlasPickerItems();
-      atlasTypes.forEach((item) => {
-        fireEvent(
-          getByTestId(TestIds.Pickers.atlastSelectorTestId),
-          "onValueChange",
-          item.value
-        );
-        expect(getByDisplayValue(item.label)).toBeTruthy();
-      });
-    });
-
-    test("Red Dot with Sample surface picker", () => {
-      const { getByDisplayValue, getByTestId, queryByText } = customRender();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Red Dot with Sample"
-      );
-
-      expect(isAtlasVisible(queryByText)).toBeTruthy();
-      expect(isTubeIdVisible(queryByText)).toBeTruthy();
-
-      const atlasTypes = [
-        getAtlasPickerItem("Snow Algae"),
-        getAtlasPickerItem("Mix of Algae and Dirt"),
-      ];
-
-      atlasTypes.forEach((item) => {
-        fireEvent(
-          getByTestId(TestIds.Pickers.atlastSelectorTestId),
-          "onValueChange",
-          item.value
-        );
-        expect(getByDisplayValue(item.label)).toBeTruthy();
-      });
-    });
-
-    test("Blue Dot surface picker", () => {
-      const { getByDisplayValue, getByTestId, queryByText } = customRender();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Blue Dot"
-      );
-
-      expect(isAtlasVisible(queryByText)).toBeTruthy();
-      expect(isTubeIdVisible(queryByText)).toBeFalsy();
-
-      const atlasTypes = getAllAtlasPickerItems();
-      atlasTypes.forEach((item) => {
-        fireEvent(
-          getByTestId(TestIds.Pickers.atlastSelectorTestId),
-          "onValueChange",
-          item.value
-        );
-        expect(getByDisplayValue(item.label)).toBeTruthy();
-      });
-    });
-
-    test("Blue Dot with Sample surface picker", () => {
-      const { getByDisplayValue, getByTestId, queryByText } = customRender();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Blue Dot with Sample"
-      );
-
-      expect(isAtlasVisible(queryByText)).toBeTruthy();
-      expect(isTubeIdVisible(queryByText)).toBeTruthy();
-
-      const atlasTypes = [
-        getAtlasPickerItem("Snow Algae"),
-        getAtlasPickerItem("Mix of Algae and Dirt"),
-      ];
-
-      atlasTypes.forEach((item) => {
-        fireEvent(
-          getByTestId(TestIds.Pickers.atlastSelectorTestId),
-          "onValueChange",
-          item.value
-        );
-        expect(getByDisplayValue(item.label)).toBeTruthy();
-      });
-    });
-
-    test("Type selection from Atlas back to not Atlas", () => {
-      const { getByTestId, queryByText } = customRender();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Blue Dot with Sample"
-      );
-
-      expect(isAtlasVisible(queryByText)).toBeTruthy();
-
-      fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Sighting"
-      );
-      expect(isAtlasVisible(queryByText)).toBeFalsy();
     });
   });
 
@@ -493,13 +316,6 @@ describe("RecordScreen test suite", () => {
         ""
       );
 
-      // simulates user selecting Atlas then selecting non-Atlas
-      fireEvent(
-        screenGetByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
-        "Atlas: Red Dot"
-      );
-
       fireEvent(
         screenGetByTestId(TestIds.Pickers.recordSelectorTestId),
         "onValueChange",
@@ -522,7 +338,6 @@ describe("RecordScreen test suite", () => {
       expect(receivedRecord.tubeId).not.toBeDefined();
       expect(receivedRecord.notes).not.toBeDefined();
       expect(receivedRecord.locationDescription).not.toBeDefined();
-      expect(receivedRecord.atlasType).not.toBeDefined();
     });
 
     test("upload record invalid gps user input", async () => {
@@ -643,7 +458,6 @@ describe("RecordScreen test suite", () => {
       fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
 
       record.type = "Sighting";
-      delete record.atlasType;
       delete record.tubeId;
 
       return waitFor(() =>

@@ -5,8 +5,6 @@ const DefaultAppSettings: AppSettings = {
   organization: undefined,
   showFirstRun: true,
   showGpsWarning: true,
-  showAtlasRecords: false,
-  showOnlyAtlasRecords: false,
 };
 
 let appSettingsContext: AppSettings = DefaultAppSettings;

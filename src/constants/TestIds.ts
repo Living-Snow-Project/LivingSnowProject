@@ -8,7 +8,6 @@ const TestIds = {
   },
   Pickers: {
     recordSelectorTestId: "record-type-picker",
-    atlastSelectorTestId: "atlas-type-picker",
     algaeSizePickerTestId: "algae-size-picker",
     algaeColorPickerTestId: "algae-color-picker",
   },
@@ -25,8 +24,6 @@ const TestIds = {
   },
   SettingsScreen: {
     ShowGpsWarning: "settings-screen-show-gps-warning",
-    ShowAtlasRecords: "settings-screen-show-atlas-records",
-    ShowOnlyAtlasRecords: "settings-screen-show-only-atlas-records",
   },
   Icons: {
     SampleIcon: "sample-icon",

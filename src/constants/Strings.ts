@@ -32,7 +32,6 @@ const Labels = {
     Color: "Color",
     LocationDescription: "Location Description",
     Notes: "Notes",
-    AtlasSnowSurface: "Atlas Snow Surface",
     Photos: "Photos",
   },
   TimelineScreen: {
@@ -91,21 +90,6 @@ const Errors = {
 const RecordDescription = {
   Sample: `I'm Taking a Sample`,
   Sighting: `I'm Reporting a Sighting`,
-  AtlasRedDot: `Atlas: Red Dot`,
-  AtlasRedDotWithSample: `Atlas: Red Dot with Sample`,
-  AtlasBlueDot: `Atlas: Blue Dot`,
-  AtlasBlueDotWithSample: `Atlas: Blue Dot with Sample`,
-  Undefined: "Undefined",
-};
-
-const AtlasDescription = {
-  SnowAlgae: "Snow Algae",
-  DirtOrDebris: "Dirt or Debris",
-  Ash: "Ash",
-  WhiteSnow: "White Snow",
-  MixOfAlgaeAndDirt: `Mix of Algae and Dirt`,
-  ForestOrVegetation: `Forest or Vegetation`,
-  Other: `Other (please describe in notes)`,
   Undefined: "Undefined",
 };
 
@@ -136,7 +120,6 @@ export {
   Placeholders,
   Labels,
   RecordDescription,
-  AtlasDescription,
   AlgaeSizeDescription,
   AlgaeColorDescription,
 };

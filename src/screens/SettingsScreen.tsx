@@ -6,10 +6,7 @@ import { getAppSettings, setAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 
 export default function SettingsScreen() {
-  const [
-    { showGpsWarning, showAtlasRecords, showOnlyAtlasRecords },
-    setSettings,
-  ] = useState(getAppSettings());
+  const [{ showGpsWarning }, setSettings] = useState(getAppSettings());
 
   return (
     <>
@@ -30,38 +27,6 @@ export default function SettingsScreen() {
             });
           }}
           value={showGpsWarning}
-        />
-      </View>
-
-      <Text style={styles.optionStaticText}>Snow Algae Atlas</Text>
-      <View style={styles.optionContainer}>
-        <Text style={styles.optionStaticText}>Show Atlas Records</Text>
-        <Switch
-          testID={TestIds.SettingsScreen.ShowAtlasRecords}
-          style={styles.switch}
-          disabled={showOnlyAtlasRecords}
-          onValueChange={(value) => {
-            setSettings((prev) => {
-              setAppSettings({ ...prev, showAtlasRecords: value });
-              return { ...prev, showAtlasRecords: value };
-            });
-          }}
-          value={showAtlasRecords}
-        />
-      </View>
-      <View style={[styles.optionContainer, { marginTop: 5 }]}>
-        <Text style={styles.optionStaticText}>Show Only Atlas Records</Text>
-        <Switch
-          testID={TestIds.SettingsScreen.ShowOnlyAtlasRecords}
-          style={styles.switch}
-          disabled={!showAtlasRecords}
-          onValueChange={(value) => {
-            setSettings((prev) => {
-              setAppSettings({ ...prev, showOnlyAtlasRecords: value });
-              return { ...prev, showOnlyAtlasRecords: value };
-            });
-          }}
-          value={showOnlyAtlasRecords}
         />
       </View>
     </>

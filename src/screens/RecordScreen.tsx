@@ -28,9 +28,8 @@ import {
 import DateSelector from "../components/forms/DateSelector";
 import CustomTextInput from "../components/forms/CustomTextInput";
 import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
-import AtlasSelector from "../components/forms/AtlasSelector";
 import PhotoControl from "../components/PhotoControl";
-import { isAtlas, isSample, recordDateFormat } from "../record/Record";
+import { isSample, recordDateFormat } from "../record/Record";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
@@ -165,10 +164,6 @@ export default function RecordScreen({
       delete newRecord.notes;
     }
 
-    if (newRecord?.atlasType && newRecord.atlasType === "Undefined") {
-      delete newRecord.atlasType;
-    }
-
     return newRecord;
   }, []);
 
@@ -271,25 +266,13 @@ export default function RecordScreen({
             </View>
           )}
 
-          {/* Sample, Sighting, Atlas, etc */}
+          {/* Sample, Sighting */}
           <TypeSelector
             type={state.type}
-            setType={(type) =>
-              setState((prev) => {
-                let { atlasType } = prev;
-
-                if (isAtlas(prev.type) && !isAtlas(type)) {
-                  atlasType = "Undefined";
-                } else if (!isAtlas(prev.type) && isAtlas(type)) {
-                  atlasType = "Snow Algae";
-                }
-
-                return { ...prev, type, atlasType };
-              })
-            }
+            setType={(type) => setState((prev) => ({ ...prev, type }))}
           />
 
-          {/* Date of Sample, Sighting, Atlas, etc */}
+          {/* Date of Sample, Sighting */}
           <DateSelector
             date={dateString}
             setDate={(newDate) =>
@@ -335,16 +318,6 @@ export default function RecordScreen({
               setState((prev) => ({ ...prev, color }));
             }}
           />
-
-          {state?.atlasType && (
-            <AtlasSelector
-              recordType={state.type}
-              atlasType={state.atlasType}
-              setAtlasType={(atlasType) =>
-                setState((prev) => ({ ...prev, atlasType }))
-              }
-            />
-          )}
 
           <CustomTextInput
             defaultValue={state?.locationDescription}

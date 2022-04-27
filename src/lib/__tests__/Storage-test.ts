@@ -9,8 +9,6 @@ const makeTestAppConfig = (): AppSettings => ({
   organization: "Test Org",
   showFirstRun: true,
   showGpsWarning: false,
-  showAtlasRecords: true,
-  showOnlyAtlasRecords: false,
 });
 
 const makeExamplePhoto = (): PendingPhoto =>
@@ -134,7 +132,7 @@ describe("Storage test suite", () => {
       const expected = [
         { ...makeExampleRecord("Sample"), id: 1 },
         { ...makeExampleRecord("Sighting"), id: 2 },
-        { ...makeExampleRecord("Atlas: Blue Dot"), id: 3 },
+        { ...makeExampleRecord("Sample"), id: 3 },
       ];
 
       await Storage.savePendingRecords(expected);
@@ -147,12 +145,12 @@ describe("Storage test suite", () => {
       const expected = [
         { ...makeExampleRecord("Sample"), id: 1 },
         { ...makeExampleRecord("Sighting"), id: 2 },
-        { ...makeExampleRecord("Atlas: Blue Dot"), id: 3 },
+        { ...makeExampleRecord("Sample"), id: 3 },
       ];
 
       await Storage.savePendingRecords(expected);
       const received = await Storage.deletePendingRecord(
-        makeExampleRecord("Atlas: Red Dot")
+        makeExampleRecord("Sample")
       );
 
       expect(received).toEqual(expected);
@@ -162,7 +160,7 @@ describe("Storage test suite", () => {
       const expected = [
         { ...makeExampleRecord("Sample"), id: 1 },
         { ...makeExampleRecord("Sighting"), id: 2 },
-        { ...makeExampleRecord("Atlas: Blue Dot"), id: 3 },
+        { ...makeExampleRecord("Sample"), id: 3 },
       ];
 
       await Storage.savePendingRecords(expected);

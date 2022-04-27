@@ -1,8 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
-import { getAtlasPickerItem } from "../record/Atlas";
-import { isAtlas, recordDateFormat } from "../record/Record";
+import { recordDateFormat } from "../record/Record";
 import { Labels } from "../constants/Strings";
 import CachedPhotos from "../components/CachedPhotos";
 
@@ -36,7 +35,6 @@ export default function RecordDetailsScreen({
     color,
     tubeId,
     notes,
-    atlasType,
     photos,
   }: AlgaeRecord = route.params.record;
 
@@ -69,11 +67,6 @@ export default function RecordDetailsScreen({
         {!!tubeId && <Text>{`${Labels.RecordFields.TubeId}: ${tubeId}`}</Text>}
         {!!size && <Text>{`${Labels.RecordFields.Size}: ${size}`}</Text>}
         {!!color && <Text>{`${Labels.RecordFields.Color}: ${color}`}</Text>}
-        {isAtlas(type) && atlasType !== undefined && (
-          <Text>{`${Labels.RecordFields.AtlasSnowSurface}: ${
-            getAtlasPickerItem(atlasType).label
-          }`}</Text>
-        )}
         {!!locationDescription && (
           <Text>{`${Labels.RecordFields.LocationDescription}: ${locationDescription}`}</Text>
         )}

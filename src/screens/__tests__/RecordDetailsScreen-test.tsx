@@ -54,9 +54,7 @@ describe("RecordDetailsScreen test suite", () => {
         Promise.resolve({ status: 200 } as FileSystem.FileSystemDownloadResult)
       );
 
-    const { getByText, queryByText, toJSON } = render(
-      <RecordDetailsScreen route={route} />
-    );
+    const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
     await waitFor(() => getByText(Labels.RecordFields.Photos));
 
@@ -80,7 +78,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
       expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
@@ -110,9 +107,7 @@ describe("RecordDetailsScreen test suite", () => {
         Promise.resolve({ status: 404 } as FileSystem.FileSystemDownloadResult)
       );
 
-    const { getByText, queryByText, toJSON } = render(
-      <RecordDetailsScreen route={route} />
-    );
+    const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
     await waitFor(() => getByText(Labels.RecordFields.Photos));
 
@@ -136,7 +131,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
       expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
@@ -157,9 +151,7 @@ describe("RecordDetailsScreen test suite", () => {
       },
     };
 
-    const { getByText, queryByText } = render(
-      <RecordDetailsScreen route={route} />
-    );
+    const { getByText } = render(<RecordDetailsScreen route={route} />);
 
     await waitFor(() => getByText(Labels.RecordFields.Photos));
 
@@ -181,7 +173,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
       expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
@@ -197,9 +188,7 @@ describe("RecordDetailsScreen test suite", () => {
       },
     };
 
-    const { getByText, queryByText, toJSON } = render(
-      <RecordDetailsScreen route={route} />
-    );
+    const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
     const { record } = route.params;
 
@@ -221,7 +210,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
       expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
@@ -259,49 +247,7 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
       expect(queryByText(Labels.RecordFields.Photos)).toBeFalsy();
-    } else {
-      fail("one expected field was undefined");
-    }
-  });
-
-  test("atlas sighting with local photos", async () => {
-    const route = {
-      params: {
-        record: {
-          ...makeExampleRecord("Atlas: Red Dot"),
-          photos: [makeExamplePhoto({ isLocal: true })],
-        },
-      },
-    };
-
-    const { getByText, queryByText } = render(
-      <RecordDetailsScreen route={route} />
-    );
-
-    await waitFor(() => getByText(Labels.RecordFields.Photos));
-
-    const { record } = route.params;
-
-    if (
-      record.name &&
-      record.organization &&
-      record.locationDescription &&
-      record.notes &&
-      record.atlasType
-    ) {
-      expect(getByText(new RegExp(record.type))).toBeTruthy();
-      expect(getByText(new RegExp(record.name))).toBeTruthy();
-      expect(getByText(new RegExp(record.organization))).toBeTruthy();
-      expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
-      expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
-      expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
-      expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
-      expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
-      expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(getByText(new RegExp(record.atlasType))).toBeTruthy();
-      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
     }
@@ -337,7 +283,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(queryByText(Labels.RecordFields.TubeId)).toBeFalsy();
       expect(queryByText(Labels.RecordFields.LocationDescription)).toBeFalsy();
       expect(queryByText(Labels.RecordFields.Notes)).toBeFalsy();
-      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
       expect(queryByText(Labels.RecordFields.Photos)).toBeFalsy();
     } else {
       fail("name field was not found");
@@ -362,9 +307,7 @@ describe("RecordDetailsScreen test suite", () => {
       .spyOn(NetInfo, "fetch")
       .mockResolvedValue({ isConnected: false } as NetInfoState);
 
-    const { getByText, queryByText, toJSON } = render(
-      <RecordDetailsScreen route={route} />
-    );
+    const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
     await waitFor(() => getByText(Labels.RecordFields.Photos));
 
@@ -388,7 +331,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(queryByText(Labels.RecordFields.AtlasSnowSurface)).toBeFalsy();
       expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");

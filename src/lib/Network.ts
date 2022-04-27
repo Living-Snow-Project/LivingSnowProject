@@ -22,10 +22,11 @@ function dumpRecord(record: AlgaeRecord): void {
       `\n  Name: ${record.name}` +
       `\n  Date: ${record.date}` +
       `\n  Org: ${record.organization}` +
-      `\n  Atlas Type: ${record.atlasType}` +
       `\n  TubeId: ${record.tubeId}` +
       `\n  Latitude: ${record.latitude}` +
       `\n  Longitude: ${record.longitude}` +
+      `\n  Size: ${record.size}` +
+      `\n  Color: ${record.color}` +
       `\n  Description: ${record.locationDescription}` +
       `\n  Notes: ${record.notes}` +
       `\n JSON Body:\n${JSON.stringify(record)}`

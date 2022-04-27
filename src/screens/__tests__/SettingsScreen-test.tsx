@@ -52,36 +52,4 @@ describe("SettingsScreen test suite", () => {
 
     expect(getAppSettings().showGpsWarning).toEqual(!showGpsWarning);
   });
-
-  test("toggle showAtlasRecords", () => {
-    const { getByTestId } = render(<SettingsScreen />);
-    const { showAtlasRecords } = getAppSettings();
-
-    fireEvent(
-      getByTestId(TestIds.SettingsScreen.ShowAtlasRecords),
-      "onValueChange",
-      !showAtlasRecords
-    );
-
-    expect(getAppSettings().showAtlasRecords).toEqual(!showAtlasRecords);
-    expect(
-      getByTestId(TestIds.SettingsScreen.ShowOnlyAtlasRecords)
-    ).not.toBeDisabled();
-  });
-
-  test("toggle showOnlyAtlastRecords", () => {
-    const { getByTestId } = render(<SettingsScreen />);
-    const { showOnlyAtlasRecords } = getAppSettings();
-
-    fireEvent(
-      getByTestId(TestIds.SettingsScreen.ShowOnlyAtlasRecords),
-      "onValueChange",
-      !showOnlyAtlasRecords
-    );
-
-    expect(getAppSettings().showOnlyAtlasRecords).toEqual(
-      !showOnlyAtlasRecords
-    );
-    expect(getByTestId(TestIds.SettingsScreen.ShowAtlasRecords)).toBeDisabled();
-  });
 });

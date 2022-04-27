@@ -1,9 +1,4 @@
-import {
-  getRecordTypePickerItem,
-  isSample,
-  isAtlas,
-  recordDateFormat,
-} from "../Record";
+import { getRecordTypePickerItem, isSample, recordDateFormat } from "../Record";
 import { RecordDescription } from "../../constants/Strings";
 
 describe("Record test suite", () => {
@@ -13,18 +8,6 @@ describe("Record test suite", () => {
 
     cur = getRecordTypePickerItem("Sighting");
     expect(cur.label).toEqual(RecordDescription.Sighting);
-
-    cur = getRecordTypePickerItem("Atlas: Red Dot");
-    expect(cur.label).toEqual(RecordDescription.AtlasRedDot);
-
-    cur = getRecordTypePickerItem("Atlas: Red Dot with Sample");
-    expect(cur.label).toEqual(RecordDescription.AtlasRedDotWithSample);
-
-    cur = getRecordTypePickerItem("Atlas: Blue Dot");
-    expect(cur.label).toEqual(RecordDescription.AtlasBlueDot);
-
-    cur = getRecordTypePickerItem("Atlas: Blue Dot with Sample");
-    expect(cur.label).toEqual(RecordDescription.AtlasBlueDotWithSample);
   });
 
   test("getRecordTypePickerItem undefined record type", () => {
@@ -35,20 +18,7 @@ describe("Record test suite", () => {
 
   test("isSample combinations", () => {
     expect(isSample("Sample")).toEqual(true);
-    expect(isSample("Atlas: Red Dot with Sample")).toEqual(true);
-    expect(isSample("Atlas: Blue Dot with Sample")).toEqual(true);
     expect(isSample("Sighting")).toEqual(false);
-    expect(isSample("Atlas: Red Dot")).toEqual(false);
-    expect(isSample("Atlas: Blue Dot")).toEqual(false);
-  });
-
-  test("isAtlas combinations", () => {
-    expect(isAtlas("Sample")).toEqual(false);
-    expect(isAtlas("Sighting")).toEqual(false);
-    expect(isAtlas("Atlas: Red Dot")).toEqual(true);
-    expect(isAtlas("Atlas: Red Dot with Sample")).toEqual(true);
-    expect(isAtlas("Atlas: Blue Dot")).toEqual(true);
-    expect(isAtlas("Atlas: Blue Dot with Sample")).toEqual(true);
   });
 
   test("recordDateFormat small month and day", () => {

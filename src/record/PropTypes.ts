@@ -1,15 +1,7 @@
 import PropTypes from "prop-types";
 
 const AlgaeRecordTypePropType: PropTypes.Requireable<AlgaeRecordType> =
-  PropTypes.oneOf<AlgaeRecordType>([
-    "Sample",
-    "Sighting",
-    "Atlas: Red Dot",
-    "Atlas: Red Dot with Sample",
-    "Atlas: Blue Dot",
-    "Atlas: Blue Dot with Sample",
-    "Undefined",
-  ]);
+  PropTypes.oneOf<AlgaeRecordType>(["Sample", "Sighting", "Undefined"]);
 
 const AlgaeSizePropType: PropTypes.Requireable<AlgaeSize> =
   PropTypes.oneOf<AlgaeSize>([
@@ -36,18 +28,6 @@ const AlgaeColorPropType: PropTypes.Requireable<AlgaeColor> =
     "Other",
   ]);
 
-const AtlasTypePropType: PropTypes.Requireable<AtlasType> =
-  PropTypes.oneOf<AtlasType>([
-    "Ash",
-    "Dirt or Debris",
-    "Forest or Vegetation",
-    "Mix of Algae and Dirt",
-    "Other",
-    "Snow Algae",
-    "White Snow",
-    "Undefined",
-  ]);
-
 // TODO: const AlgaeRecordPropType: PropTypes.Requireable<AlgaeRecord>...
 // backend types will need to change first (ie. lat, long are strings in db model)
 const AlgaeRecordPropType = PropTypes.shape({
@@ -68,13 +48,11 @@ const AlgaeRecordPropType = PropTypes.shape({
   locationDescription: PropTypes.string,
   notes: PropTypes.string,
   photoUris: PropTypes.string,
-  atlasType: AtlasTypePropType,
 });
 
 export {
   AlgaeRecordPropType,
   AlgaeRecordTypePropType,
-  AtlasTypePropType,
   AlgaeSizePropType,
   AlgaeColorPropType,
 };

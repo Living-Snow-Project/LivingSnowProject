@@ -5,8 +5,6 @@ type AppSettings = {
   organization: string | undefined;
   showFirstRun: boolean;
   showGpsWarning: boolean;
-  showAtlasRecords: boolean;
-  showOnlyAtlasRecords: boolean;
 };
 
 // what a photo looks like from service perspective
@@ -21,19 +19,6 @@ interface Photo {
 interface PendingPhoto extends Photo {
   id: number; // id of the uploaded record photo associated with
 }
-
-const AtlasTypeArray = [
-  "Snow Algae",
-  "Dirt or Debris",
-  "Ash",
-  "White Snow",
-  "Mix of Algae and Dirt",
-  "Forest or Vegetation",
-  "Other",
-  "Undefined",
-] as const;
-
-type AtlasType = typeof AtlasTypeArray[number];
 
 const AlgaeSizeArray = [
   "Select a size",
@@ -62,15 +47,7 @@ const AlgaeColorArray = [
 
 type AlgaeColor = typeof AlgaeColorArray[number];
 
-const AlgaeRecordTypeArray = [
-  "Sample",
-  "Sighting",
-  "Atlas: Red Dot",
-  "Atlas: Red Dot with Sample",
-  "Atlas: Blue Dot",
-  "Atlas: Blue Dot with Sample",
-  "Undefined",
-] as const;
+const AlgaeRecordTypeArray = ["Sample", "Sighting", "Undefined"] as const;
 
 type AlgaeRecordType = typeof AlgaeRecordTypeArray[number];
 
@@ -88,5 +65,4 @@ type AlgaeRecord = {
   locationDescription?: string;
   notes?: string;
   photos?: Photo[];
-  atlasType?: AtlasType;
 };
