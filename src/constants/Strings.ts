@@ -94,6 +94,7 @@ const RecordDescription = {
 };
 
 const AlgaeSizeDescription = {
+  Select: "Select a size",
   Fist: "Fist",
   ShoeBox: "Shoe Box",
   CoffeeTable: "Coffee Table",
@@ -105,6 +106,7 @@ const AlgaeSizeDescription = {
 };
 
 const AlgaeColorDescription = {
+  Select: "Select a color",
   Red: "Red",
   Pink: "Pink",
   Grey: "Grey",

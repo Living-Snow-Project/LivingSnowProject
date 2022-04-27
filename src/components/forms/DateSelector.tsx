@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { Pressable, Text } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import PropTypes from "prop-types";
 import { Calendar } from "react-native-calendars";
 import { formInputStyles } from "../../styles/FormInput";
 
 export default function DateSelector({ date, setDate }) {
   const [calendarVisible, setCalendarVisible] = useState(false);
+
+  const textInputProps = {
+    style: formInputStyles.optionInputText,
+    value: date,
+  };
 
   return (
     <>
@@ -26,7 +31,9 @@ export default function DateSelector({ date, setDate }) {
           />
         )}
         {!calendarVisible && (
-          <Text style={formInputStyles.optionInputText}>{date}</Text>
+          <View pointerEvents="none">
+            <TextInput {...textInputProps} />
+          </View>
         )}
       </Pressable>
     </>

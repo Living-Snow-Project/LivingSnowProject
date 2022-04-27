@@ -107,6 +107,8 @@ export default function RecordScreen({
           organization: !appSettings.organization
             ? undefined
             : appSettings.organization,
+          size: "Select a size",
+          color: "Select a color",
         }
   );
 

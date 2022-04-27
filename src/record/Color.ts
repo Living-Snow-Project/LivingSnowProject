@@ -7,6 +7,7 @@ type AlgaeColorPickerItem = {
 
 // specific format for RNPickerSelect
 const algaeColorPickerItems: AlgaeColorPickerItem[] = [
+  { value: "Select a color", label: AlgaeColorDescription.Select },
   { value: "Red", label: AlgaeColorDescription.Red },
   { value: "Pink", label: AlgaeColorDescription.Pink },
   { value: "Grey", label: AlgaeColorDescription.Grey },

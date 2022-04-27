@@ -60,7 +60,7 @@ function AlgaeSizePicker({ size, setSize }: AlgaeSizePickerProps) {
         }}
         style={pickerSelectStyles}
         useNativeAndroidPickerStyle={false}
-        placeholder={{ value: "Select a size", label: "Select a size" }}
+        placeholder={{}}
         items={getAllAlgaeSizePickerItems()}
         onValueChange={(value) => setSize(value)}
         value={size}
@@ -91,7 +91,7 @@ function AlgaeColorPicker({ color, setColor }: AlgaeColorPickerProps) {
         }}
         style={pickerSelectStyles}
         useNativeAndroidPickerStyle={false}
-        placeholder={{ value: "Select a color", label: "Select a color" }}
+        placeholder={{}}
         items={getAllAlgaeColorPickerItems()}
         onValueChange={(value) => setColor(value)}
         value={color}

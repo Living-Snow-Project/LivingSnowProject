@@ -7,6 +7,7 @@ type AlgaeSizePickerItem = {
 
 // specific format for RNPickerSelect
 const algaeSizePickerItems: AlgaeSizePickerItem[] = [
+  { value: "Select a size", label: AlgaeSizeDescription.Select },
   { value: "Fist", label: AlgaeSizeDescription.Fist },
   { value: "Shoe Box", label: AlgaeSizeDescription.ShoeBox },
   { value: "Coffee Table", label: AlgaeSizeDescription.CoffeeTable },

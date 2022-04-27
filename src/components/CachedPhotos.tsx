@@ -40,7 +40,11 @@ function CachedPhoto({ uri }: { uri: string | number }) {
     return (
       <>
         <Text>{cachedPhoto}</Text>
-        <ActivityIndicator style={{ paddingTop: 5 }} size="large" />
+        <ActivityIndicator
+          style={{ paddingTop: 5 }}
+          size="large"
+          color="lightgrey"
+        />
       </>
     );
   }
