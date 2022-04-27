@@ -58,6 +58,12 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
         Tube Id: TUBE-1234
       </Text>
       <Text>
+        Size: Fist
+      </Text>
+      <Text>
+        Color: Red
+      </Text>
+      <Text>
         Location Description: White Chuck Glacier, Glacier Peak Wilderness, WA
       </Text>
       <Text>
@@ -188,6 +194,12 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
       </Text>
       <Text>
         Tube Id: LAB-1337
+      </Text>
+      <Text>
+        Size: Fist
+      </Text>
+      <Text>
+        Color: Red
       </Text>
       <Text>
         Location Description: test location
@@ -357,6 +369,12 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
         Tube Id: LAB-1337
       </Text>
       <Text>
+        Size: Fist
+      </Text>
+      <Text>
+        Color: Red
+      </Text>
+      <Text>
         Location Description: test location
       </Text>
       <Text>
@@ -504,6 +522,12 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
       </Text>
       <Text>
         Tube Id: LAB-1337
+      </Text>
+      <Text>
+        Size: Fist
+      </Text>
+      <Text>
+        Color: Red
       </Text>
       <Text>
         Location Description: test location

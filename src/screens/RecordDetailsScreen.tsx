@@ -32,6 +32,8 @@ export default function RecordDetailsScreen({
     locationDescription,
     latitude,
     longitude,
+    size,
+    color,
     tubeId,
     notes,
     atlasType,
@@ -65,6 +67,8 @@ export default function RecordDetailsScreen({
         )}
         <Text>{`${Labels.RecordFields.GPSCoordinates}: ${latitude}, ${longitude}`}</Text>
         {!!tubeId && <Text>{`${Labels.RecordFields.TubeId}: ${tubeId}`}</Text>}
+        {!!size && <Text>{`${Labels.RecordFields.Size}: ${size}`}</Text>}
+        {!!color && <Text>{`${Labels.RecordFields.Color}: ${color}`}</Text>}
         {isAtlas(type) && atlasType !== undefined && (
           <Text>{`${Labels.RecordFields.AtlasSnowSurface}: ${
             getAtlasPickerItem(atlasType).label
