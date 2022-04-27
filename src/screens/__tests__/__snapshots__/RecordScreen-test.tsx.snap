@@ -365,21 +365,27 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
         onStartShouldSetResponder={[Function]}
         testID="calendar-pressable"
       >
-        <Text
-          style={
-            Object {
-              "backgroundColor": "#efefef",
-              "borderColor": "gray",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "minHeight": "8%",
-              "paddingHorizontal": 15,
-              "paddingVertical": 15,
-            }
-          }
+        <View
+          pointerEvents="none"
         >
-          2021-09-16
-        </Text>
+          <TextInput
+            allowFontScaling={true}
+            rejectResponderTermination={true}
+            style={
+              Object {
+                "backgroundColor": "#efefef",
+                "borderColor": "gray",
+                "borderRadius": 4,
+                "borderWidth": 1,
+                "minHeight": "8%",
+                "paddingHorizontal": 15,
+                "paddingVertical": 15,
+              }
+            }
+            underlineColorAndroid="transparent"
+            value="2021-09-16"
+          />
+        </View>
       </View>
       <Text
         style={
@@ -1699,21 +1705,27 @@ exports[`RecordScreen test suite renders 1`] = `
         onStartShouldSetResponder={[Function]}
         testID="calendar-pressable"
       >
-        <Text
-          style={
-            Object {
-              "backgroundColor": "#efefef",
-              "borderColor": "gray",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "minHeight": "8%",
-              "paddingHorizontal": 15,
-              "paddingVertical": 15,
-            }
-          }
+        <View
+          pointerEvents="none"
         >
-          2022-01-01
-        </Text>
+          <TextInput
+            allowFontScaling={true}
+            rejectResponderTermination={true}
+            style={
+              Object {
+                "backgroundColor": "#efefef",
+                "borderColor": "gray",
+                "borderRadius": 4,
+                "borderWidth": 1,
+                "minHeight": "8%",
+                "paddingHorizontal": 15,
+                "paddingVertical": 15,
+              }
+            }
+            underlineColorAndroid="transparent"
+            value="2022-01-01"
+          />
+        </View>
       </View>
       <Text
         style={
@@ -1861,9 +1873,7 @@ exports[`RecordScreen test suite renders 1`] = `
                     "paddingHorizontal": 15,
                     "paddingVertical": 15,
                   },
-                  Object {
-                    "color": "#c7c7cd",
-                  },
+                  Object {},
                 ]
               }
               testID="text_input"
@@ -2218,9 +2228,7 @@ exports[`RecordScreen test suite renders 1`] = `
                     "paddingHorizontal": 15,
                     "paddingVertical": 15,
                   },
-                  Object {
-                    "color": "#c7c7cd",
-                  },
+                  Object {},
                 ]
               }
               testID="text_input"

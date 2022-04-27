@@ -3,7 +3,10 @@ import { AlgaeColorDescription } from "../../constants/Strings";
 
 describe("Algae Color test suite", () => {
   test("getAlgaeColorPickerItem values", () => {
-    let cur = getAlgaeColorPickerItem("Red");
+    let cur = getAlgaeColorPickerItem("Select a color");
+    expect(cur.label).toEqual(AlgaeColorDescription.Select);
+
+    cur = getAlgaeColorPickerItem("Red");
     expect(cur.label).toEqual(AlgaeColorDescription.Red);
 
     cur = getAlgaeColorPickerItem("Pink");
@@ -26,7 +29,7 @@ describe("Algae Color test suite", () => {
   });
 
   test("getAlgaeColorPickerItem Select a color", () => {
-    expect(getAlgaeColorPickerItem("Select a color").label).toEqual(
+    expect(getAlgaeColorPickerItem("garbage" as AlgaeColor).label).toEqual(
       AlgaeColorDescription.Other
     );
   });

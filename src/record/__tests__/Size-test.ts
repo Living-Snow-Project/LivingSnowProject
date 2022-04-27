@@ -3,7 +3,10 @@ import { AlgaeSizeDescription } from "../../constants/Strings";
 
 describe("Algae Size test suite", () => {
   test("getAlgaeSizePickerItem values", () => {
-    let cur = getAlgaeSizePickerItem("Fist");
+    let cur = getAlgaeSizePickerItem("Select a size");
+    expect(cur.label).toEqual(AlgaeSizeDescription.Select);
+
+    cur = getAlgaeSizePickerItem("Fist");
     expect(cur.label).toEqual(AlgaeSizeDescription.Fist);
 
     cur = getAlgaeSizePickerItem("Shoe Box");
@@ -29,7 +32,7 @@ describe("Algae Size test suite", () => {
   });
 
   test("getAlgaeSizePickerItem Select a size", () => {
-    expect(getAlgaeSizePickerItem("Select a size").label).toEqual(
+    expect(getAlgaeSizePickerItem("garbage" as AlgaeSize).label).toEqual(
       AlgaeSizeDescription.Other
     );
   });
