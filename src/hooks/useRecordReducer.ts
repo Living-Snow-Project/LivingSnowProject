@@ -14,7 +14,8 @@ import {
   registerBackgroundFetchAsync,
   unregisterBackgroundFetchAsync,
   retryPendingRecords,
-  uploadRecord } from "../lib/RecordManager";
+  uploadRecord,
+} from "../lib/RecordManager";
 import { downloadRecords } from "../lib/Network";
 import { BackgroundTasks } from "../constants/Strings";
 import Logger from "../lib/Logger";
@@ -102,14 +103,14 @@ const reducer = (
     case "END_DOWNLOADING":
       return payload?.downloadedRecords
         ? {
-          ...currentState,
-          state: defaultState,
-          downloadedRecords: payload.downloadedRecords,
-        }
+            ...currentState,
+            state: defaultState,
+            downloadedRecords: payload.downloadedRecords,
+          }
         : {
-          ...currentState,
-          state: defaultState,
-        };
+            ...currentState,
+            state: defaultState,
+          };
 
     case "END_DOWNLOADING_NEXT":
       return {
@@ -154,7 +155,7 @@ interface RecordReducerActionsDispatch extends RecordReducerActions {
 }
 
 const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
-  dispatch: () => { },
+  dispatch: () => {},
 
   seed: async function Seed(this: RecordReducerActionsDispatch): Promise<void> {
     this.dispatch({ type: "START_SEEDING" });
@@ -213,8 +214,8 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
       });
 
       registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
-        stopOnTerminate: false,   // android only,
-        startOnBoot: true,        // android only
+        stopOnTerminate: false, // android only,
+        startOnBoot: true, // android only
       });
 
       return Promise.reject(uploadError);
@@ -304,7 +305,7 @@ const RecordReducerActionsContext = React.createContext<RecordReducerActions>(
 // Defines tasks which can be executed in the background later
 // must return a BackgroundFetchResult; explained here: https://tinyurl.com/5yau6c5y
 TaskManager.defineTask(BackgroundTasks.UploadData, async () => {
-  Logger.Info("Executing background data upload attempt...")
+  Logger.Info("Executing background data upload attempt...");
   recordReducerActionsDispatch.retryPendingRecords();
   const pendingRecords: AlgaeRecord[] = await loadPendingRecords();
 

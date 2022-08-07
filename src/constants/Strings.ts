@@ -84,7 +84,7 @@ const Notifications = {
   backgroundTasksNotAllowed: {
     title: "Background Uploads Not Enabled",
     message:
-      "Please enable Background App Refresh if you would like stored records to be uploaded in the background."
+      "Please enable Background App Refresh if you would like stored records to be uploaded in the background.",
   },
 };
 
@@ -122,7 +122,7 @@ const AlgaeColorDescription = {
 };
 
 const BackgroundTasks = {
-  UploadData: "background-upload-task"
+  UploadData: "background-upload-task",
 };
 
 export {
@@ -133,5 +133,5 @@ export {
   RecordDescription,
   AlgaeSizeDescription,
   AlgaeColorDescription,
-  BackgroundTasks
+  BackgroundTasks,
 };
