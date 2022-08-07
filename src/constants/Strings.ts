@@ -81,6 +81,11 @@ const Notifications = {
   invalidAlgaeColor: {
     title: "A color must be specified",
   },
+  backgroundTasksNotAllowed: {
+    title: "Background Uploads Not Enabled",
+    message:
+      "Please enable Background App Refresh if you would like stored records to be uploaded in the background.",
+  },
 };
 
 const Errors = {
@@ -116,6 +121,10 @@ const AlgaeColorDescription = {
   Other: "Other (describe in notes)",
 };
 
+const BackgroundTasks = {
+  UploadData: "background-upload-task",
+};
+
 export {
   Errors,
   Notifications,
@@ -124,4 +133,5 @@ export {
   RecordDescription,
   AlgaeSizeDescription,
   AlgaeColorDescription,
+  BackgroundTasks,
 };

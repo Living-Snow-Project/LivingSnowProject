@@ -1,3 +1,6 @@
+import * as TaskManager from "expo-task-manager";
+import * as BackgroundFetch from "expo-background-fetch";
+import { Alert, Platform } from "react-native";
 import * as Network from "./Network";
 import {
   loadPendingRecords,
@@ -160,4 +163,48 @@ function retryPendingRecords(): Promise<AlgaeRecord[]> {
     .then(() => retryPhotos().then(() => loadPendingRecords()));
 }
 
-export { uploadRecord, retryPendingRecords };
+// in iOS background app refresh can be disbaled per app by the user
+// TODO: cache that the user has seen this message so they don't see it every time if they choose not to allow background refresh
+const checkAndPromptForBackgroundFetchPermission = async () => {
+  const isBackgroundFetchAllowed: BackgroundFetch.BackgroundFetchStatus | null =
+    await BackgroundFetch.getStatusAsync();
+  if (
+    isBackgroundFetchAllowed === BackgroundFetch.BackgroundFetchStatus.Denied &&
+    Platform.OS === "ios"
+  ) {
+    Alert.alert(
+      Notifications.backgroundTasksNotAllowed.title,
+      Notifications.backgroundTasksNotAllowed.message
+    );
+  }
+};
+
+// Register a task to be performed in the background.
+// Must have been added to the TaskManager globally using the same name.
+async function registerBackgroundFetchAsync(
+  taskName: string,
+  config: BackgroundFetch.BackgroundFetchOptions | undefined
+): Promise<void> {
+  await checkAndPromptForBackgroundFetchPermission();
+
+  const isTaskRegistered: boolean = await TaskManager.isTaskRegisteredAsync(
+    taskName
+  );
+  if (!isTaskRegistered) {
+    Logger.Info(`Registering background task "${taskName}"`);
+    BackgroundFetch.registerTaskAsync(taskName, config);
+  }
+}
+
+// Unregister (cancel) future tasks by specifying the task name
+async function unregisterBackgroundFetchAsync(taskName: string): Promise<void> {
+  Logger.Info(`Unregistering background task ${taskName}`);
+  BackgroundFetch.unregisterTaskAsync(taskName);
+}
+
+export {
+  uploadRecord,
+  retryPendingRecords,
+  registerBackgroundFetchAsync,
+  unregisterBackgroundFetchAsync,
+};

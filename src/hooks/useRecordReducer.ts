@@ -1,3 +1,5 @@
+import * as TaskManager from "expo-task-manager";
+import * as BackgroundFetch from "expo-background-fetch";
 import React, { useReducer } from "react";
 import {
   deletePendingRecord,
@@ -8,8 +10,15 @@ import {
   savePendingRecord,
   updatePendingRecord,
 } from "../lib/Storage";
-import { retryPendingRecords, uploadRecord } from "../lib/RecordManager";
+import {
+  registerBackgroundFetchAsync,
+  unregisterBackgroundFetchAsync,
+  retryPendingRecords,
+  uploadRecord,
+} from "../lib/RecordManager";
 import { downloadRecords } from "../lib/Network";
+import { BackgroundTasks } from "../constants/Strings";
+import Logger from "../lib/Logger";
 
 type RecordReducerActionType =
   | "START_SEEDING"
@@ -204,6 +213,11 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
         payload: { pendingPhotos, pendingRecords },
       });
 
+      registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
+        stopOnTerminate: false, // android only,
+        startOnBoot: true, // android only
+      });
+
       return Promise.reject(uploadError);
     }
   },
@@ -287,6 +301,22 @@ const RecordReducerStateContext =
 const RecordReducerActionsContext = React.createContext<RecordReducerActions>(
   recordReducerActionsDispatch
 );
+
+// Defines tasks which can be executed in the background later
+// must return a BackgroundFetchResult; explained here: https://tinyurl.com/5yau6c5y
+TaskManager.defineTask(BackgroundTasks.UploadData, async () => {
+  Logger.Info("Executing background data upload attempt...");
+  recordReducerActionsDispatch.retryPendingRecords();
+  const pendingRecords: AlgaeRecord[] = await loadPendingRecords();
+
+  if (pendingRecords.length === 0) {
+    unregisterBackgroundFetchAsync(BackgroundTasks.UploadData);
+    await recordReducerActionsDispatch.downloadRecords();
+    return BackgroundFetch.BackgroundFetchResult.NewData;
+  }
+
+  return BackgroundFetch.BackgroundFetchResult.Failed;
+});
 
 // for unit tests
 export { reducer, recordReducerActionsDispatch };
