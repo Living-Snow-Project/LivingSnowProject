@@ -14,11 +14,13 @@ const makeTestAppConfig = (): AppSettings => ({
 const makeExamplePhoto = (): PendingPhoto =>
   makeExamplePendingPhoto({ isLocal: true });
 
-const mockOneAsyncStorageFailure = (method: string): Error => {
+const mockOneAsyncStorageFailure = (
+  method: keyof typeof mockAsyncStorage
+): Error => {
   const error = Error(`mocked ${method} error`);
   jest
     .spyOn(mockAsyncStorage, method)
-    .mockImplementationOnce(() => Promise.reject(error));
+    .mockImplementationOnce(() => Promise.reject(error) as any);
 
   return error;
 };
