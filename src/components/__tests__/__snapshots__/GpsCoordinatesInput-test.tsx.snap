@@ -31,12 +31,10 @@ Array [
       pointerEvents="none"
     >
       <TextInput
-        allowFontScaling={true}
         defaultValue="123.456000, -98.765000"
         editable={false}
         maxLength={30}
         placeholder="Looking for GPS signal"
-        rejectResponderTermination={true}
         returnKeyType="done"
         style={
           Object {
@@ -49,7 +47,6 @@ Array [
             "paddingVertical": 15,
           }
         }
-        underlineColorAndroid="transparent"
       />
     </View>
   </View>,

@@ -58,6 +58,7 @@ exports[`HeaderButton test suite renders right on android 1`] = `
 >
   <Text
     allowFontScaling={false}
+    selectable={false}
     style={
       Array [
         Object {

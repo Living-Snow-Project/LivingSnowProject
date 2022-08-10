@@ -13,7 +13,6 @@ Array [
     test custom text input
   </Text>,
   <TextInput
-    allowFontScaling={true}
     blurOnSubmit={true}
     maxLength={255}
     multiline={true}
@@ -21,7 +20,6 @@ Array [
     onContentSizeChange={[Function]}
     onSubmitEditing={[Function]}
     placeholder="custom text input placeholder"
-    rejectResponderTermination={true}
     returnKeyType="done"
     style={
       Array [
@@ -37,7 +35,6 @@ Array [
         Object {},
       ]
     }
-    underlineColorAndroid="transparent"
     value=""
   />,
 ]
@@ -56,7 +53,6 @@ Array [
     test custom text input
   </Text>,
   <TextInput
-    allowFontScaling={true}
     blurOnSubmit={true}
     maxLength={255}
     multiline={true}
@@ -64,7 +60,6 @@ Array [
     onContentSizeChange={[Function]}
     onSubmitEditing={[Function]}
     placeholder="custom text input placeholder"
-    rejectResponderTermination={true}
     returnKeyType="done"
     style={
       Array [
@@ -82,7 +77,6 @@ Array [
         },
       ]
     }
-    underlineColorAndroid="transparent"
     value=""
   />,
 ]
