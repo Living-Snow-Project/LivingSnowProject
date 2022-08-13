@@ -3,17 +3,15 @@ import {
   GestureResponderEvent,
   Pressable,
   StyleProp,
-  ViewPropTypes,
   ViewStyle,
 } from "react-native";
-import PropTypes from "prop-types";
 
 type PressableOpacityProps = {
-  testID: string;
+  testID?: string;
   onPress: (event: GestureResponderEvent) => void;
-  style: StyleProp<ViewStyle>;
+  style?: StyleProp<ViewStyle>;
   children: JSX.Element;
-  testOnly_pressed: boolean;
+  testOnly_pressed?: boolean;
 };
 
 export default function PressableOpacity({
@@ -39,14 +37,6 @@ export default function PressableOpacity({
     </Pressable>
   );
 }
-
-PressableOpacity.propTypes = {
-  testID: PropTypes.string,
-  onPress: PropTypes.func.isRequired,
-  style: ViewPropTypes.style,
-  children: PropTypes.element.isRequired,
-  testOnly_pressed: PropTypes.bool,
-};
 
 PressableOpacity.defaultProps = {
   testID: "",

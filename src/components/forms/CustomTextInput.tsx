@@ -7,7 +7,6 @@ import {
   TextInput,
   TextInputContentSizeChangeEventData,
 } from "react-native";
-import PropTypes from "prop-types";
 import { formInputStyles } from "../../styles/FormInput";
 
 type CustomTextInputProps = {
@@ -86,15 +85,6 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
     );
   }
 );
-
-CustomTextInput.propTypes = {
-  defaultValue: PropTypes.string,
-  description: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  maxLength: PropTypes.number,
-  onChangeText: PropTypes.func.isRequired,
-  onSubmitEditing: PropTypes.func,
-};
 
 CustomTextInput.defaultProps = {
   defaultValue: undefined,

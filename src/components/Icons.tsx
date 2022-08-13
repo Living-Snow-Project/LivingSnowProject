@@ -1,13 +1,13 @@
 import React from "react";
-import { Platform, ViewPropTypes } from "react-native";
-import PropTypes from "prop-types";
+import { Platform, ViewStyle, StyleProp } from "react-native";
 import * as Icon from "@expo/vector-icons";
 import Colors from "../constants/Colors";
 import { isSample } from "../record/Record";
 import { AlgaeRecordTypePropType } from "../record/PropTypes";
 import TestIds from "../constants/TestIds";
 
-function StockIcon({ name, size, style, color, testID }) {
+function StockIcon(props: StockIconProps) {
+  const { name, size, color, style, testID } = props;
   return (
     <Icon.Ionicons
       name={name}
@@ -19,12 +19,18 @@ function StockIcon({ name, size, style, color, testID }) {
   );
 }
 
-StockIcon.propTypes = {
-  name: PropTypes.string.isRequired,
-  size: PropTypes.number,
-  style: ViewPropTypes.style,
-  color: PropTypes.string,
-  testID: PropTypes.string.isRequired,
+type IconNameType = keyof typeof Icon.Ionicons.glyphMap;
+
+type StockIconProps = {
+  name: IconNameType;
+  size?: number;
+  style?: StyleProp<ViewStyle>;
+  color?: string;
+  testID: string;
+};
+
+type SnowIconProps = {
+  style?: StyleProp<ViewStyle>;
 };
 
 StockIcon.defaultProps = {
@@ -34,7 +40,7 @@ StockIcon.defaultProps = {
 };
 
 function RecordIcon({ type }: { type: AlgaeRecordType }) {
-  let name = Platform.OS === "ios" ? "ios-eye" : "md-eye";
+  let name: IconNameType = Platform.OS === "ios" ? "ios-eye" : "md-eye";
   let color = "skyblue";
   let testID = TestIds.Icons.SightingIcon;
 
@@ -97,7 +103,8 @@ function ScrollTopIcon() {
   );
 }
 
-function SnowIcon({ style }) {
+function SnowIcon(props: SnowIconProps) {
+  const { style } = props;
   return (
     <StockIcon
       style={style}
@@ -106,10 +113,6 @@ function SnowIcon({ style }) {
     />
   );
 }
-
-SnowIcon.propTypes = {
-  style: ViewPropTypes.style,
-};
 
 SnowIcon.defaultProps = {
   style: {},
