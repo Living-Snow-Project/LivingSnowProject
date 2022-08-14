@@ -1,4 +1,4 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import PropTypes from "prop-types";
@@ -13,7 +13,7 @@ import { RootStackParamList } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function SettingsButton({ navigate }) {
   return (
@@ -67,7 +67,7 @@ function RootNavigator() {
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
-        options={{ gestureDirection: "horizontal-inverted" }}
+        options={{ gestureDirection: "horizontal" }}
       />
       <Stack.Screen
         name="ImageSelection"
