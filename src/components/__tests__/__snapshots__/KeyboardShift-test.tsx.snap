@@ -2,6 +2,7 @@
 
 exports[`KeyboardShift test suite renders on android 1`] = `
 <View
+  collapsable={false}
   style={
     Object {
       "height": "100%",
@@ -17,16 +18,13 @@ exports[`KeyboardShift test suite renders on android 1`] = `
     }
   }
 >
-  <TextInput
-    allowFontScaling={true}
-    rejectResponderTermination={true}
-    underlineColorAndroid="transparent"
-  />
+  <TextInput />
 </View>
 `;
 
 exports[`KeyboardShift test suite renders on ios 1`] = `
 <View
+  collapsable={false}
   style={
     Object {
       "height": "100%",
@@ -42,10 +40,6 @@ exports[`KeyboardShift test suite renders on ios 1`] = `
     }
   }
 >
-  <TextInput
-    allowFontScaling={true}
-    rejectResponderTermination={true}
-    underlineColorAndroid="transparent"
-  />
+  <TextInput />
 </View>
 `;

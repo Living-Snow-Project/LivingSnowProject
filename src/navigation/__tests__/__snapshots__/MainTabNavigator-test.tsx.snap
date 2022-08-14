@@ -31,6 +31,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
       }
     >
       <View
+        collapsable={false}
         pointerEvents="box-none"
         style={
           Object {
@@ -46,6 +47,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
           style={null}
         >
           <View
+            collapsable={false}
             pointerEvents="box-none"
             style={
               Object {
@@ -60,6 +62,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
             }
           >
             <View
+              collapsable={false}
               style={
                 Object {
                   "backgroundColor": "rgb(255, 255, 255)",
@@ -77,6 +80,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
             />
           </View>
           <View
+            collapsable={false}
             pointerEvents="box-none"
             style={
               Object {
@@ -107,6 +111,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
               }
             >
               <View
+                collapsable={false}
                 pointerEvents="box-none"
                 style={
                   Object {
@@ -120,6 +125,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
                 }
               />
               <View
+                collapsable={false}
                 pointerEvents="box-none"
                 style={
                   Object {
@@ -133,6 +139,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
                 <Text
                   accessibilityRole="header"
                   aria-level="1"
+                  collapsable={false}
                   numberOfLines={1}
                   onLayout={[Function]}
                   style={
@@ -147,6 +154,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
                 </Text>
               </View>
               <View
+                collapsable={false}
                 pointerEvents="box-none"
                 style={
                   Object {
@@ -173,7 +181,16 @@ exports[`Navigation test suite renders first run screen 1`] = `
       >
         <RNSScreen
           activityState={2}
+          collapsable={false}
           forwardedRef={[Function]}
+          gestureResponseDistance={
+            Object {
+              "bottom": -1,
+              "end": -1,
+              "start": -1,
+              "top": -1,
+            }
+          }
           pointerEvents="box-none"
           style={
             Object {
@@ -248,6 +265,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
             }
           >
             <View
+              collapsable={false}
               pointerEvents="box-none"
               style={
                 Object {
@@ -258,6 +276,8 @@ exports[`Navigation test suite renders first run screen 1`] = `
               <View
                 collapsable={false}
                 forwardedRef={[Function]}
+                handlerTag={1}
+                handlerType="PanGestureHandler"
                 needsOffscreenAlphaCompositing={false}
                 onGestureHandlerEvent={[Function]}
                 onGestureHandlerStateChange={[Function]}
@@ -307,6 +327,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
                       }
                     >
                       <View
+                        collapsable={false}
                         style={
                           Object {
                             "height": "100%",
@@ -382,12 +403,10 @@ exports[`Navigation test suite renders first run screen 1`] = `
                               Name
                             </Text>
                             <TextInput
-                              allowFontScaling={true}
                               maxLength={50}
                               onChangeText={[Function]}
                               onSubmitEditing={[Function]}
                               placeholder="Enter your name"
-                              rejectResponderTermination={true}
                               returnKeyType="done"
                               style={
                                 Object {
@@ -401,7 +420,6 @@ exports[`Navigation test suite renders first run screen 1`] = `
                                   "paddingVertical": 15,
                                 }
                               }
-                              underlineColorAndroid="transparent"
                             />
                             <Text
                               style={
@@ -415,11 +433,9 @@ exports[`Navigation test suite renders first run screen 1`] = `
                               Organization
                             </Text>
                             <TextInput
-                              allowFontScaling={true}
                               maxLength={50}
                               onChangeText={[Function]}
                               placeholder="Enter organization you belong to (if any)"
-                              rejectResponderTermination={true}
                               returnKeyType="done"
                               style={
                                 Object {
@@ -433,7 +449,6 @@ exports[`Navigation test suite renders first run screen 1`] = `
                                   "paddingVertical": 15,
                                 }
                               }
-                              underlineColorAndroid="transparent"
                             />
                             <View
                               style={
@@ -540,6 +555,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
       }
     >
       <View
+        collapsable={false}
         pointerEvents="box-none"
         style={
           Object {
@@ -555,6 +571,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
           style={null}
         >
           <View
+            collapsable={false}
             pointerEvents="box-none"
             style={
               Object {
@@ -569,6 +586,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
             }
           >
             <View
+              collapsable={false}
               style={
                 Object {
                   "backgroundColor": "rgb(255, 255, 255)",
@@ -586,6 +604,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
             />
           </View>
           <View
+            collapsable={false}
             pointerEvents="box-none"
             style={
               Object {
@@ -616,6 +635,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               }
             >
               <View
+                collapsable={false}
                 pointerEvents="box-none"
                 style={
                   Object {
@@ -655,6 +675,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 >
                   <Text
                     allowFontScaling={false}
+                    selectable={false}
                     style={
                       Array [
                         Object {
@@ -677,6 +698,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 </View>
               </View>
               <View
+                collapsable={false}
                 pointerEvents="box-none"
                 style={
                   Object {
@@ -690,6 +712,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 <Text
                   accessibilityRole="header"
                   aria-level="1"
+                  collapsable={false}
                   numberOfLines={1}
                   onLayout={[Function]}
                   style={
@@ -704,6 +727,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 </Text>
               </View>
               <View
+                collapsable={false}
                 pointerEvents="box-none"
                 style={
                   Object {
@@ -743,6 +767,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 >
                   <Text
                     allowFontScaling={false}
+                    selectable={false}
                     style={
                       Array [
                         Object {
@@ -778,7 +803,16 @@ exports[`Navigation test suite renders timeline screen 1`] = `
       >
         <RNSScreen
           activityState={2}
+          collapsable={false}
           forwardedRef={[Function]}
+          gestureResponseDistance={
+            Object {
+              "bottom": -1,
+              "end": -1,
+              "start": -1,
+              "top": -1,
+            }
+          }
           pointerEvents="box-none"
           style={
             Object {
@@ -853,6 +887,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
             }
           >
             <View
+              collapsable={false}
               pointerEvents="box-none"
               style={
                 Object {
@@ -863,6 +898,8 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               <View
                 collapsable={false}
                 forwardedRef={[Function]}
+                handlerTag={2}
+                handlerType="PanGestureHandler"
                 needsOffscreenAlphaCompositing={false}
                 onGestureHandlerEvent={[Function]}
                 onGestureHandlerStateChange={[Function]}
@@ -921,6 +958,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                         testID="timeline-screen-record-list-view"
                       >
                         <View
+                          collapsable={false}
                           style={
                             Object {
                               "backgroundColor": "rgba(211, 211, 211, 1)",
@@ -943,17 +981,14 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                           ItemSeparatorComponent={[Function]}
                           ListEmptyComponent={[Function]}
                           data={Array []}
-                          disableVirtualization={false}
                           getItem={[Function]}
                           getItemCount={[Function]}
-                          horizontal={false}
-                          initialNumToRender={10}
                           keyExtractor={[Function]}
-                          maxToRenderPerBatch={10}
                           onContentSizeChange={[Function]}
                           onEndReached={[Function]}
                           onEndReachedThreshold={0.5}
                           onLayout={[Function]}
+                          onMomentumScrollBegin={[Function]}
                           onMomentumScrollEnd={[Function]}
                           onRefresh={[Function]}
                           onScroll={[Function]}
@@ -971,9 +1006,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                           scrollEventThrottle={50}
                           stickyHeaderIndices={Array []}
                           testID="timeline-screen-flatlist"
-                          updateCellsBatchingPeriod={50}
                           viewabilityConfigCallbackPairs={Array []}
-                          windowSize={21}
                         >
                           <RCTRefreshControl />
                           <View>
@@ -1049,6 +1082,7 @@ Coordinates: 48.06727, -121.12165
                                   >
                                     <Text
                                       allowFontScaling={false}
+                                      selectable={false}
                                       style={
                                         Array [
                                           Object {
@@ -1079,6 +1113,7 @@ Coordinates: 48.06727, -121.12165
                                   >
                                     <Text
                                       allowFontScaling={false}
+                                      selectable={false}
                                       style={
                                         Array [
                                           Object {

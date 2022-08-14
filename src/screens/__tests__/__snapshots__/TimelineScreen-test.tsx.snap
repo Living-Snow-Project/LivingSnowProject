@@ -11,6 +11,7 @@ exports[`TimelineScreen test suite renders 1`] = `
   testID="timeline-screen-record-list-view"
 >
   <View
+    collapsable={false}
     style={
       Object {
         "backgroundColor": "rgba(211, 211, 211, 1)",
@@ -33,17 +34,14 @@ exports[`TimelineScreen test suite renders 1`] = `
     ItemSeparatorComponent={[Function]}
     ListEmptyComponent={[Function]}
     data={Array []}
-    disableVirtualization={false}
     getItem={[Function]}
     getItemCount={[Function]}
-    horizontal={false}
-    initialNumToRender={10}
     keyExtractor={[Function]}
-    maxToRenderPerBatch={10}
     onContentSizeChange={[Function]}
     onEndReached={[Function]}
     onEndReachedThreshold={0.5}
     onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
     onMomentumScrollEnd={[Function]}
     onRefresh={[Function]}
     onScroll={[Function]}
@@ -61,9 +59,7 @@ exports[`TimelineScreen test suite renders 1`] = `
     scrollEventThrottle={50}
     stickyHeaderIndices={Array []}
     testID="timeline-screen-flatlist"
-    updateCellsBatchingPeriod={50}
     viewabilityConfigCallbackPairs={Array []}
-    windowSize={21}
   >
     <RCTRefreshControl />
     <View>

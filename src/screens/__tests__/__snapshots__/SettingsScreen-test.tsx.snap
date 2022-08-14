@@ -14,12 +14,10 @@ Array [
     Name
   </Text>,
   <TextInput
-    allowFontScaling={true}
     maxLength={50}
     onChangeText={[Function]}
     onSubmitEditing={[Function]}
     placeholder="Enter your name"
-    rejectResponderTermination={true}
     returnKeyType="done"
     style={
       Object {
@@ -33,7 +31,6 @@ Array [
         "paddingVertical": 15,
       }
     }
-    underlineColorAndroid="transparent"
   />,
   <Text
     style={
@@ -47,11 +44,9 @@ Array [
     Organization
   </Text>,
   <TextInput
-    allowFontScaling={true}
     maxLength={50}
     onChangeText={[Function]}
     placeholder="Enter organization you belong to (if any)"
-    rejectResponderTermination={true}
     returnKeyType="done"
     style={
       Object {
@@ -65,7 +60,6 @@ Array [
         "paddingVertical": 15,
       }
     }
-    underlineColorAndroid="transparent"
   />,
   <Text
     style={
@@ -105,13 +99,22 @@ Array [
     >
       Show Manual Coordinates Warning
     </Text>
-    <Switch
-      onValueChange={[Function]}
+    <RCTSwitch
+      accessibilityRole="switch"
+      onChange={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Object {
-          "borderColor": "black",
-          "marginRight": 10,
-        }
+        Array [
+          Object {
+            "height": 31,
+            "width": 51,
+          },
+          Object {
+            "borderColor": "black",
+            "marginRight": 10,
+          },
+        ]
       }
       testID="settings-screen-show-gps-warning"
       value={true}

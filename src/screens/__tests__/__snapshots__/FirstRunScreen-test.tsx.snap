@@ -2,6 +2,7 @@
 
 exports[`validates Welcome Screen navigation 1`] = `
 <View
+  collapsable={false}
   style={
     Object {
       "height": "100%",
@@ -77,12 +78,10 @@ exports[`validates Welcome Screen navigation 1`] = `
         Name
       </Text>
       <TextInput
-        allowFontScaling={true}
         maxLength={50}
         onChangeText={[Function]}
         onSubmitEditing={[Function]}
         placeholder="Enter your name"
-        rejectResponderTermination={true}
         returnKeyType="done"
         style={
           Object {
@@ -96,7 +95,6 @@ exports[`validates Welcome Screen navigation 1`] = `
             "paddingVertical": 15,
           }
         }
-        underlineColorAndroid="transparent"
       />
       <Text
         style={
@@ -110,11 +108,9 @@ exports[`validates Welcome Screen navigation 1`] = `
         Organization
       </Text>
       <TextInput
-        allowFontScaling={true}
         maxLength={50}
         onChangeText={[Function]}
         placeholder="Enter organization you belong to (if any)"
-        rejectResponderTermination={true}
         returnKeyType="done"
         style={
           Object {
@@ -128,7 +124,6 @@ exports[`validates Welcome Screen navigation 1`] = `
             "paddingVertical": 15,
           }
         }
-        underlineColorAndroid="transparent"
       />
       <View
         style={

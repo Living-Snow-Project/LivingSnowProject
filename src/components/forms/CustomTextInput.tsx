@@ -1,13 +1,12 @@
 import React, { forwardRef, useRef, useState } from "react";
 import {
-  Keyboard,
   NativeSyntheticEvent,
   Platform,
   Text,
   TextInput,
   TextInputContentSizeChangeEventData,
 } from "react-native";
-import PropTypes from "prop-types";
+import RCTDeviceEventEmitter from "react-native/Libraries/EventEmitter/RCTDeviceEventEmitter";
 import { formInputStyles } from "../../styles/FormInput";
 
 type CustomTextInputProps = {
@@ -45,7 +44,7 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
         // 'keyboardDidShow' expects the height of the keyboard (which we could capture in a new event listener in this component)
         // since we only have 1 'keyboardDidShow' listener we changed its logic to respond to this input
         // this is potentially bad if we set up additional 'keyboardDidShow' listeners in the app
-        Keyboard.emit("keyboardDidShow", {});
+        RCTDeviceEventEmitter.emit("keyboardDidShow", {});
       }
 
       return event.nativeEvent.contentSize.height;
@@ -86,15 +85,6 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
     );
   }
 );
-
-CustomTextInput.propTypes = {
-  defaultValue: PropTypes.string,
-  description: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  maxLength: PropTypes.number,
-  onChangeText: PropTypes.func.isRequired,
-  onSubmitEditing: PropTypes.func,
-};
 
 CustomTextInput.defaultProps = {
   defaultValue: undefined,
