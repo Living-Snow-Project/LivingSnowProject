@@ -72,12 +72,14 @@ async function uploadRecord(record: AlgaeRecord): Promise<AlgaeRecord> {
 async function uploadPhoto(photo: PendingPhoto): Promise<void> {
   const operation = `uploadPhoto`;
 
+  const uri = { uri: photo.uri };
+
   return fetch(uploadPhotoUri(photo.id), {
     method: "POST",
     headers: {
       "Content-Type": "image/jpeg",
     },
-    body: photo as any,
+    body: uri as any,
   })
     .then((response) =>
       response.ok ? Promise.resolve() : Promise.reject(response)
