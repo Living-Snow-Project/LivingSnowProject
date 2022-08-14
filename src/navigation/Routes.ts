@@ -1,4 +1,4 @@
-import { StackNavigationProp } from "@react-navigation/stack";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 type RootStackParamList = {
   Welcome: undefined;
@@ -9,6 +9,6 @@ type RootStackParamList = {
   RecordDetails: { record: AlgaeRecord };
 };
 
-type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
+type RootStackNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 export { RootStackParamList, RootStackNavigationProp };
