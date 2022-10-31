@@ -1,12 +1,13 @@
 # Workflow
-name: validate
+name: validate-mobile
+working-directory: ./mobile
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 # Workflow Jobs
 jobs:
@@ -36,4 +37,3 @@ jobs:
       - run: yarn test
       # upload coverage to codecov
       - uses: codecov/codecov-action@v2
-      
