@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/living-snow-project.github.io/static/css/main.073c9b0a.css",
-    "main.js": "/living-snow-project.github.io/static/js/main.724930ac.js",
-    "static/js/787.c8b762d7.chunk.js": "/living-snow-project.github.io/static/js/787.c8b762d7.chunk.js",
-    "index.html": "/living-snow-project.github.io/index.html",
-    "main.073c9b0a.css.map": "/living-snow-project.github.io/static/css/main.073c9b0a.css.map",
-    "main.724930ac.js.map": "/living-snow-project.github.io/static/js/main.724930ac.js.map",
-    "787.c8b762d7.chunk.js.map": "/living-snow-project.github.io/static/js/787.c8b762d7.chunk.js.map"
+    "main.css": "/LivingSnowProject/static/css/main.073c9b0a.css",
+    "main.js": "/LivingSnowProject/static/js/main.0c1b6e65.js",
+    "static/js/787.c8b762d7.chunk.js": "/LivingSnowProject/static/js/787.c8b762d7.chunk.js",
+    "index.html": "/LivingSnowProject/index.html",
+    "main.073c9b0a.css.map": "/LivingSnowProject/static/css/main.073c9b0a.css.map",
+    "main.0c1b6e65.js.map": "/LivingSnowProject/static/js/main.0c1b6e65.js.map",
+    "787.c8b762d7.chunk.js.map": "/LivingSnowProject/static/js/787.c8b762d7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.724930ac.js"
+    "static/js/main.0c1b6e65.js"
   ]
 }
