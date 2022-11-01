@@ -47,7 +47,12 @@ function App() {
 
   return (
     <div className="App">
-      <p>Testing build</p>
+      <p>
+        This is (obviously) very crude and a work in progress. The goal is to
+        build a web app alongside the mobile app for the research team to better
+        interact with their data and also for volunteers to further explore
+        their contributions.
+      </p>
       <br />
       <table>
         <TableHeader />
