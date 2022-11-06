@@ -296,6 +296,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
                 }
               >
                 <View
+                  pointerEvents="box-none"
                   style={
                     Array [
                       Object {
@@ -918,6 +919,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 }
               >
                 <View
+                  pointerEvents="box-none"
                   style={
                     Array [
                       Object {

@@ -1,11 +1,6 @@
 import React, { ReactElement } from "react";
 import { Alert } from "react-native";
-import {
-  RenderAPI,
-  render,
-  fireEvent,
-  waitFor,
-} from "@testing-library/react-native";
+import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import RecordScreen from "../RecordScreen";
 import { setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
@@ -426,7 +421,7 @@ describe("RecordScreen test suite", () => {
 
   describe("Edit mode tests", () => {
     let record: AlgaeRecord;
-    let recordScreen: RenderAPI;
+    let recordScreen;
 
     beforeEach(() => {
       record = makeExampleRecord("Sample");
