@@ -1,10 +1,6 @@
 # Workflow
 name: validate-mobile
 
-defaults:
-  run:
-    working-directory: apps/mobile
-
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -34,9 +30,14 @@ jobs:
           expo-cache: true
       - run: git submodule update --init --recursive
       - run: yarn install
+        working-directory: apps/mobile
       - run: yarn pretty
+        working-directory: apps/mobile
       - run: yarn lint
+        working-directory: apps/mobile
       - run: yarn run tsc
+        working-directory: apps/mobile
       - run: yarn test
+        working-directory: apps/mobile
       # upload coverage to codecov
       - uses: codecov/codecov-action@v2
