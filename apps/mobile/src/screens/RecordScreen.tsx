@@ -16,6 +16,7 @@ import {
 import PropTypes from "prop-types";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { AlgaeRecord, Photo } from "@livingsnow/record";
 import KeyboardShift from "../components/KeyboardShift";
 import Logger from "../lib/Logger";
 import { formInputStyles } from "../styles/FormInput";

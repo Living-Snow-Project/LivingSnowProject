@@ -1,4 +1,5 @@
 import "isomorphic-fetch";
+import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
 import server from "../../mocks/server";
 import {
   clearPendingRecords,

@@ -1,5 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { rest } from "msw";
+import { AlgaeRecord } from "@livingsnow/record";
 import { recordsUri } from "../lib/Network";
 import { serviceEndpoint } from "../constants/Service";
 

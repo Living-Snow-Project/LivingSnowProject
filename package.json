@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "precheck": "cd apps\\mobile && yarn run precheck && cd..\\.."
+  },
   "workspaces": [
     "apps/*",
     "packages/*"

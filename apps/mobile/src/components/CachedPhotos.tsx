@@ -7,6 +7,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
+import { Photo } from "@livingsnow/record";
 import PropTypes from "prop-types";
 import { Labels } from "../constants/Strings";
 import useCachedPhoto from "../hooks/useCachedPhotos";

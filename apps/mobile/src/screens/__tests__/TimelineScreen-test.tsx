@@ -5,6 +5,7 @@ import NetInfo, {
   NetInfoChangeHandler,
   NetInfoState,
 } from "@react-native-community/netinfo";
+import { AlgaeRecord } from "@livingsnow/record";
 import TimelineScreen from "../TimelineScreen";
 import {
   SettingsButton,

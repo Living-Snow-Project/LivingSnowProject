@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useRef } from "react";
 import { Alert, Animated, StyleSheet, Text, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { AlgaeRecord } from "@livingsnow/record";
 import styles from "../styles/Timeline";
 import TimelineRow from "./TimelineRow";
 import PressableOpacity from "./PressableOpacity";

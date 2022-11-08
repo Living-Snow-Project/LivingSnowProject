@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "react-native";
 import PropTypes from "prop-types";
 import RNPickerSelect from "react-native-picker-select";
+import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 import { pickerSelectStyles, formInputStyles } from "../../styles/FormInput";
 import { getAllRecordTypePickerItems } from "../../record/Record";
 import { getAllAlgaeSizePickerItems } from "../../record/Size";

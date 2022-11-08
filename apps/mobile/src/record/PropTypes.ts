@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 
 const AlgaeRecordTypePropType: PropTypes.Requireable<AlgaeRecordType> =
   PropTypes.oneOf<AlgaeRecordType>(["Sample", "Sighting", "Undefined"]);

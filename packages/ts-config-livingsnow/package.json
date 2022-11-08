@@ -1,0 +1,14 @@
+{
+  "name": "ts-config-livingsnow",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "base.json",
+    "react-library.json"
+  ],
+  "scripts": {
+    "build": "echo ts-config build"
+  }
+}

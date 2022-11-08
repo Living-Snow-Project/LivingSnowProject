@@ -1,6 +1,7 @@
 import React from "react";
 import { Platform, ViewStyle, StyleProp } from "react-native";
 import * as Icon from "@expo/vector-icons";
+import { AlgaeRecordType } from "@livingsnow/record";
 import Colors from "../constants/Colors";
 import { isSample } from "../record/Record";
 import { AlgaeRecordTypePropType } from "../record/PropTypes";

@@ -1,6 +1,7 @@
 import * as TaskManager from "expo-task-manager";
 import * as BackgroundFetch from "expo-background-fetch";
 import React, { useReducer } from "react";
+import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
 import {
   deletePendingRecord,
   loadCachedRecords,

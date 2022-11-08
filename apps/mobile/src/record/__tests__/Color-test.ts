@@ -1,3 +1,4 @@
+import { AlgaeColor } from "@livingsnow/record";
 import { getAlgaeColorPickerItem } from "../Color";
 import { AlgaeColorDescription } from "../../constants/Strings";
 

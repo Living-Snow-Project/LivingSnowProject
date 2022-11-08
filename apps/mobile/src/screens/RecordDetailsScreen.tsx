@@ -1,6 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import PropTypes from "prop-types";
+import { AlgaeRecord } from "@livingsnow/record";
 import { recordDateFormat } from "../record/Record";
 import { Labels } from "../constants/Strings";
 import CachedPhotos from "../components/CachedPhotos";

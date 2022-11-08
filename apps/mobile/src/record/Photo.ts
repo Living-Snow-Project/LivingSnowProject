@@ -1,3 +1,5 @@
+import { PendingPhoto, Photo } from "@livingsnow/record";
+
 const randomInteger = (): number => Math.floor(Math.random() * 1000000);
 
 const makeExamplePhoto = ({

@@ -1,3 +1,4 @@
+import { AlgaeRecord, PendingPhoto } from "@livingsnow/record";
 import Logger from "./Logger";
 import {
   serviceEndpoint,

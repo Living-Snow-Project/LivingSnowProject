@@ -1,3 +1,4 @@
+import { AlgaeRecord } from "@livingsnow/record";
 import { makeExamplePhoto } from "../../record/Photo";
 import { makeExampleRecord } from "../../record/Record";
 import { reducer, recordReducerActionsDispatch } from "../useRecordReducer";

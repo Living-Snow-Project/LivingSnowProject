@@ -1,3 +1,4 @@
+import { AlgaeRecord, AlgaeRecordType } from "@livingsnow/record";
 import { RecordDescription } from "../constants/Strings";
 import { makeExamplePhoto } from "./Photo";
 

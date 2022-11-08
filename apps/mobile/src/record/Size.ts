@@ -1,3 +1,4 @@
+import { AlgaeSize } from "@livingsnow/record";
 import { AlgaeSizeDescription } from "../constants/Strings";
 
 type AlgaeSizePickerItem = {

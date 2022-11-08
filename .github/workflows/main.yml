@@ -30,7 +30,7 @@ jobs:
           expo-cache: true
       - run: git submodule update --init --recursive
       - run: yarn install
-        working-directory: apps/mobile
+      - run: yarn workspaces run build
       - run: yarn pretty
         working-directory: apps/mobile
       - run: yarn lint

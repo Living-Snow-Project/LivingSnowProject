@@ -1,3 +1,4 @@
+import { AlgaeColor } from "@livingsnow/record";
 import { AlgaeColorDescription } from "../constants/Strings";
 
 type AlgaeColorPickerItem = {

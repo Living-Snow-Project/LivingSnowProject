@@ -1,4 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack";
+import { AlgaeRecord } from "@livingsnow/record";
 
 type RootStackParamList = {
   Welcome: undefined;
