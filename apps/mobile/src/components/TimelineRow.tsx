@@ -1,12 +1,11 @@
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { AlgaeRecord } from "@livingsnow/record";
+import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
 import { PictureIcon, RecordIcon } from "./Icons";
 import { RootStackNavigationProp } from "../navigation/Routes";
 import { AlgaeRecordPropType } from "../record/PropTypes";
 import { Labels } from "../constants/Strings";
-import { recordDateFormat } from "../record/Record";
 
 const styles = StyleSheet.create({
   recordContainer: {

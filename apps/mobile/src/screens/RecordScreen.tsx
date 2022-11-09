@@ -16,7 +16,7 @@ import {
 import PropTypes from "prop-types";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { AlgaeRecord, Photo } from "@livingsnow/record";
+import { AlgaeRecord, Photo, recordDateFormat } from "@livingsnow/record";
 import KeyboardShift from "../components/KeyboardShift";
 import Logger from "../lib/Logger";
 import { formInputStyles } from "../styles/FormInput";
@@ -30,7 +30,7 @@ import DateSelector from "../components/forms/DateSelector";
 import CustomTextInput from "../components/forms/CustomTextInput";
 import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
 import PhotoControl from "../components/PhotoControl";
-import { isSample, recordDateFormat } from "../record/Record";
+import { isSample } from "../record/Record";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";

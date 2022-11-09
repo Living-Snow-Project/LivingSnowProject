@@ -2,12 +2,13 @@ import { AlgaeRecord, AlgaeRecordType } from "@livingsnow/record";
 import { RecordDescription } from "../constants/Strings";
 import { makeExamplePhoto } from "./Photo";
 
+// TODO: break up; test helpers and @livingsnow/record
+// specific format for RNPickerSelect
 type RecordTypePickerItem = {
   value: AlgaeRecordType;
   label: string;
 };
 
-// specific format for RNPickerSelect
 const recordTypePickerItems: RecordTypePickerItem[] = [
   { value: "Sample", label: RecordDescription.Sample },
   { value: "Sighting", label: RecordDescription.Sighting },
@@ -73,45 +74,10 @@ const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
   photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
 });
 
-// needed for JSON.parse, otherwise date property will become string
-const recordReviver = (key: string, value: any): any => {
-  if (key === "date") {
-    return new Date(value);
-  }
-
-  return value;
-};
-
-// decodes AlgaeRecord or AlgaeRecord[] JSON
-function jsonToRecord<T>(json: string): T {
-  return JSON.parse(json, recordReviver);
-}
-
-// want to display date in YYYY-MM-DD format
-const recordDateFormat = (date: Date): string => {
-  const dayNum: number = date.getDate();
-  let day: string = `${dayNum}`;
-
-  if (dayNum < 10) {
-    day = `0${dayNum}`;
-  }
-
-  const monthNum: number = date.getMonth() + 1;
-  let month: string = `${monthNum}`;
-
-  if (monthNum < 10) {
-    month = `0${monthNum}`;
-  }
-
-  return `${date.getFullYear()}-${month}-${day}`;
-};
-
 export {
   getRecordTypePickerItem,
   getAllRecordTypePickerItems,
   makeExampleRecord,
   productionExampleRecord,
   isSample,
-  jsonToRecord,
-  recordDateFormat,
 };

@@ -1,10 +1,14 @@
-import { AlgaeRecord, PendingPhoto } from "@livingsnow/record";
-import Logger from "./Logger";
 import {
-  serviceEndpoint,
-  photosBlobStorageEndpoint,
-} from "../constants/Service";
-import { recordDateFormat, jsonToRecord } from "../record/Record";
+  AlgaeRecord,
+  jsonToRecord,
+  PendingPhoto,
+  recordDateFormat,
+} from "@livingsnow/record";
+import Logger from "./Logger";
+
+const serviceEndpoint = "https://snowalgaeproductionapp.azurewebsites.net";
+const photosBlobStorageEndpoint =
+  "https://snowalgaestorage.blob.core.windows.net/photos";
 
 const recordsUri: string = `${serviceEndpoint}/api/records`;
 const recordsUriGet = (before: Date | undefined): string =>
@@ -108,9 +112,11 @@ async function downloadRecords(
 export {
   downloadRecords,
   downloadPhotoUri,
+  photosBlobStorageEndpoint,
+  recordsUri,
+  recordsUriGet,
+  serviceEndpoint,
   uploadRecord,
   uploadPhoto,
   uploadPhotoUri,
-  recordsUri,
-  recordsUriGet,
 };
