@@ -1,10 +1,10 @@
+import Logger from "@livingsnow/logger";
 import {
   AlgaeRecord,
   jsonToRecord,
   PendingPhoto,
   recordDateFormat,
 } from "@livingsnow/record";
-import Logger from "./Logger";
 
 const serviceEndpoint = "https://snowalgaeproductionapp.azurewebsites.net";
 const photosBlobStorageEndpoint =

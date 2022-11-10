@@ -1,7 +1,8 @@
+import React, { useReducer } from "react";
 import * as TaskManager from "expo-task-manager";
 import * as BackgroundFetch from "expo-background-fetch";
-import React, { useReducer } from "react";
 import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
+import Logger from "@livingsnow/logger";
 import {
   deletePendingRecord,
   loadCachedRecords,
@@ -19,8 +20,8 @@ import {
 } from "../lib/RecordManager";
 import { downloadRecords } from "../lib/Network";
 import { BackgroundTasks } from "../constants/Strings";
-import Logger from "../lib/Logger";
 
+// TODO: revisit this whole design (type action\payload pairs, consolidate cases, do we need to abstract dispatch, etc)
 type RecordReducerActionType =
   | "START_SEEDING"
   | "END_SEEDING"
@@ -296,6 +297,8 @@ function useRecordReducer(): [RecordReducerState, RecordReducerActions] {
 }
 
 // as per React documentation, there should be different providers for state and dispatch
+// TODO: is this still needed? Wouldn't a component needing RecordReducerState simply use RecordReducerActions
+//  and interact with state through that?
 const RecordReducerStateContext =
   React.createContext<RecordReducerState>(initialState);
 

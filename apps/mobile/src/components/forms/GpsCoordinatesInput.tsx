@@ -13,8 +13,8 @@ import {
   requestForegroundPermissionsAsync,
   watchPositionAsync,
 } from "expo-location";
+import Logger from "@livingsnow/logger";
 import { formInputStyles } from "../../styles/FormInput";
-import Logger from "../../lib/Logger";
 import { getAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
 import { Placeholders } from "../../constants/Strings";

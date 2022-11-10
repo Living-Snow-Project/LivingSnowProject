@@ -1,9 +1,9 @@
+import * as React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import * as React from "react";
+import Logger from "@livingsnow/logger";
 import { loadAppConfig } from "../lib/Storage";
-import Logger from "../lib/Logger";
 import { DefaultAppSettings, setAppSettings } from "../../AppSettings";
 
 const spaceMono = require("../../assets/fonts/SpaceMono-Regular.ttf");

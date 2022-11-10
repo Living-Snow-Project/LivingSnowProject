@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Logger from "@livingsnow/logger";
 import { AlgaeRecord, jsonToRecord, PendingPhoto } from "@livingsnow/record";
-import Logger from "./Logger";
 import { Errors } from "../constants/Strings";
 
 const StorageKeys = {
