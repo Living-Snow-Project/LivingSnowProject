@@ -4,7 +4,9 @@
     "precheck": "cd apps\\mobile && yarn run precheck && cd..\\.."
   },
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "packages/livingsnow-logger",
+    "packages/livingsnow-record",
+    "packages/*",
+    "apps/*"
   ]
 }
