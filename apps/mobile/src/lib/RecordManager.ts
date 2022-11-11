@@ -2,8 +2,8 @@ import * as TaskManager from "expo-task-manager";
 import * as BackgroundFetch from "expo-background-fetch";
 import { Alert, Platform } from "react-native";
 import Logger from "@livingsnow/logger";
+import * as Network from "@livingsnow/network";
 import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
-import * as Network from "./Network";
 import {
   loadPendingRecords,
   savePendingRecord,

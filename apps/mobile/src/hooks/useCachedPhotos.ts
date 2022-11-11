@@ -5,7 +5,7 @@ import {
   getInfoAsync,
 } from "expo-file-system";
 import NetInfo from "@react-native-community/netinfo";
-import { downloadPhotoUri } from "../lib/Network";
+import { downloadPhotoUri } from "@livingsnow/network";
 
 const useCachedPhoto = (uri: string | number): string | number => {
   const [cachedPhoto, setCachedPhoto] = useState<string | number>("Loading");

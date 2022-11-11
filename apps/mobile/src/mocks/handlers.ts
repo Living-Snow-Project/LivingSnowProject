@@ -1,7 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { rest } from "msw";
+import { recordsUri, serviceEndpoint } from "@livingsnow/network";
 import { AlgaeRecord } from "@livingsnow/record";
-import { recordsUri, serviceEndpoint } from "../lib/Network";
 
 type MockBackend = {
   curRecordId: number;

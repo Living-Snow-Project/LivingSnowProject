@@ -1,11 +1,12 @@
+// TODO: feels like this is supposed to be with packages/livingsnow-network
 import "isomorphic-fetch";
-import server from "../../mocks/server";
 import {
   downloadRecords,
   uploadRecord,
   uploadPhoto,
   recordsUriGet,
-} from "../Network";
+} from "@livingsnow/network";
+import server from "../../mocks/server";
 import { makeExampleRecord } from "../../record/Record";
 import { makeExamplePendingPhoto } from "../../record/Photo";
 

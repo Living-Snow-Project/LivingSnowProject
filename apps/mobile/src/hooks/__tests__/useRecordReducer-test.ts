@@ -4,7 +4,10 @@ import { makeExampleRecord } from "../../record/Record";
 import { reducer, recordReducerActionsDispatch } from "../useRecordReducer";
 import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 import * as RecordManager from "../../lib/RecordManager";
-import * as Network from "../../lib/Network";
+
+// TODO: works for now but look into exporting a mock (ie. like AsyncStorage)
+jest.mock("@livingsnow/network");
+const Network = require("@livingsnow/network");
 
 const defaultState: RecordRecuderStates = "Idle";
 

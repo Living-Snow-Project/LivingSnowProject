@@ -1,0 +1,14 @@
+{
+  "name": "@livingsnow/network",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --external react"
+  },
+  "dependencies": {
+    "@livingsnow/logger": "*",
+    "tsup": "5.10.1"
+  }
+}

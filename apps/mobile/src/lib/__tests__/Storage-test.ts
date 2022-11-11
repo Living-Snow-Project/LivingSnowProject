@@ -19,6 +19,7 @@ const mockOneAsyncStorageFailure = (
   method: keyof typeof mockAsyncStorage
 ): Error => {
   const error = Error(`mocked ${method} error`);
+  // TODO: type properly
   jest
     .spyOn(mockAsyncStorage, method)
     .mockImplementationOnce(() => Promise.reject(error) as any);
