@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/LivingSnowProject/static/css/main.073c9b0a.css",
-    "main.js": "/LivingSnowProject/static/js/main.a1048dcd.js",
-    "static/js/787.c8b762d7.chunk.js": "/LivingSnowProject/static/js/787.c8b762d7.chunk.js",
+    "main.js": "/LivingSnowProject/static/js/main.5b25b4ee.js",
+    "static/js/415.aa720b5a.chunk.js": "/LivingSnowProject/static/js/415.aa720b5a.chunk.js",
     "index.html": "/LivingSnowProject/index.html",
     "main.073c9b0a.css.map": "/LivingSnowProject/static/css/main.073c9b0a.css.map",
-    "main.a1048dcd.js.map": "/LivingSnowProject/static/js/main.a1048dcd.js.map",
-    "787.c8b762d7.chunk.js.map": "/LivingSnowProject/static/js/787.c8b762d7.chunk.js.map"
+    "main.5b25b4ee.js.map": "/LivingSnowProject/static/js/main.5b25b4ee.js.map",
+    "415.aa720b5a.chunk.js.map": "/LivingSnowProject/static/js/415.aa720b5a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.a1048dcd.js"
+    "static/js/main.5b25b4ee.js"
   ]
 }
