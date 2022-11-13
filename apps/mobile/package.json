@@ -11,7 +11,10 @@
     "precheck": "yarn pretty && yarn lint && echo Lint complete! && yarn run tsc && echo TypeScript check complete! && yarn test",
     "eject": "expo eject",
     "test": "jest",
-    "build": "echo mobile build"
+    "build": "echo mobile build",
+    "clean": "echo mobile clean does nothing, if you want to remove node_modules use nuke",
+    "nuke": "yarn run nuke:win",
+    "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules"
   },
   "dependencies": {
     "@expo/metro-config": "^0.3.11",

@@ -9,6 +9,8 @@
     "react-library.json"
   ],
   "scripts": {
-    "build": "echo ts-config build"
+    "build": "echo nothing to build in ts-config-livingsnow package",
+    "clean": "echo nothing to clean in ts-config-livingsnow package",
+    "nuke": "echo nothing to nuke in ts-config-livingsnow package"
   }
 }

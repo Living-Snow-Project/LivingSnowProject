@@ -26,8 +26,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
+    "clean": "yarn run clean:win",
+    "clean:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist build rd /s /q build",
+    "nuke": "yarn run clean:win && yarn run nuke:win",
+    "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules"
   },
   "eslintConfig": {
     "extends": [

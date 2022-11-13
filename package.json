@@ -1,7 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "precheck": "cd apps\\mobile && yarn run precheck && cd..\\.."
+    "build": "yarn workspaces run build",
+    "precheck": "cd apps\\mobile && yarn run precheck && cd..\\..",
+    "clean": "yarn workspaces run clean",
+    "nuke": "yarn run nuke:win && yarn workspaces run nuke",
+    "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules"
   },
   "workspaces": [
     "packages/livingsnow-logger",
