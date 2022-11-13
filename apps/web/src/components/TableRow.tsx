@@ -1,5 +1,5 @@
-import React from "react";
-import { photosBlobStorageEndpoint } from "../constants/service";
+import { AlgaeRecord, Photo } from "@livingsnow/record";
+import { photosBlobStorageEndpoint } from "@livingsnow/network";
 
 function TableHeader() {
   return (
@@ -24,12 +24,10 @@ function TableHeader() {
   );
 }
 
-function FormatPhotos(photos: any[]) {
+function FormatPhotos(photos: Photo[]) {
   return photos.map((item, index) => {
-    const first = index === 0;
     return (
-      <>
-        {!first && <br />}
+      <div key={index}>
         <a
           target={"_blank"}
           rel="noopener noreferrer"
@@ -37,31 +35,33 @@ function FormatPhotos(photos: any[]) {
         >
           {index + 1}
         </a>
-      </>
+      </div>
     );
   });
 }
 
-function TableRow(props: any) {
-  let name = props.item?.name ? props.item.name : `Anonymous`;
-  name = name.concat(
-    props.item?.organization ? ` (${props.item.organization})` : ``
-  );
+type TableRowProps = {
+  style: React.CSSProperties;
+  item: AlgaeRecord;
+};
+
+function TableRow({ style, item }: TableRowProps) {
+  let name = item.name || `Anonymous`;
+  name = name.concat(item.organization ? ` (${item.organization})` : ``);
+  const photos = item.photos ? FormatPhotos(item.photos) : ``;
 
   return (
-    <tr style={props.style}>
-      <td>{props.item.date}</td>
-      <td>{`${name}`}</td>
-      <td>{props.item.type}</td>
-      <td>{props.item?.tubeId ? props.item.tubeId : ``}</td>
-      <td>{`${props.item.latitude}, ${props.item.longitude}`}</td>
-      <td>{props.item?.size ? props.item.size : ``}</td>
-      <td>{props.item?.color ? props.item.color : ``}</td>
-      <td>
-        {props.item?.locationDescription ? props.item.locationDescription : ``}
-      </td>
-      <td>{props.item?.notes ? props.item.notes : ``}</td>
-      <td>{props.item?.photos ? FormatPhotos(props.item.photos) : ``}</td>
+    <tr style={style}>
+      <td>{item.date.toDateString()}</td>
+      <td>{name}</td>
+      <td>{item.type}</td>
+      <td>{item.tubeId || ``}</td>
+      <td>{`${item.latitude}, ${item.longitude}`}</td>
+      <td>{item.size || ``}</td>
+      <td>{item.color || ``}</td>
+      <td>{item.locationDescription || ``}</td>
+      <td>{item.notes || ``}</td>
+      <td>{photos}</td>
     </tr>
   );
 }

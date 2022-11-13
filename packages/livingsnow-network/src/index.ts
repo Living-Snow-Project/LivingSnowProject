@@ -109,8 +109,24 @@ async function downloadRecords(
     .catch((error) => Promise.reject(failedFetch(operation, error)));
 }
 
+// rejects with an error string or the response object
+async function downloadAllRecords(): Promise<AlgaeRecord[]> {
+  const operation = `downloadAllRecords`;
+
+  Logger.Info(`Handling GET Request: ${recordsUri}`);
+
+  return fetch(recordsUri)
+    .then((response) =>
+      response.ok
+        ? response.text().then((text) => jsonToRecord<AlgaeRecord[]>(text))
+        : Promise.reject(response)
+    )
+    .catch((error) => Promise.reject(failedFetch(operation, error)));
+}
+
 export {
   downloadRecords,
+  downloadAllRecords,
   downloadPhotoUri,
   photosBlobStorageEndpoint,
   recordsUri,

@@ -1,47 +1,33 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./App.css";
-import { serviceEndpoint } from "./constants/service";
+import { useEffect, useState } from "react";
+import { downloadAllRecords } from "@livingsnow/network";
 import { TableHeader, TableRow } from "./components/TableRow";
 
+import "./App.css";
+
 function App() {
-  const [records, setRecords] = useState("records");
-  const alreadyRan = useRef(false);
+  const [records, setRecords] = useState<JSX.Element[]>([]);
+
   useEffect(() => {
-    if (alreadyRan.current === true) {
-      return;
-    }
+    let isMounted = true;
 
-    fetch(`${serviceEndpoint}/api/records`)
+    downloadAllRecords()
       .then((response) => {
-        if (!response.ok) {
-          return;
-        }
+        const recs = response.map((item, index) => (
+          <TableRow
+            style={{
+              backgroundColor: index % 2 === 0 ? "lightgrey" : "lightblue",
+            }}
+            key={index}
+            item={item}
+          />
+        ));
 
-        console.log(response);
-
-        response
-          .json()
-          .then((data) => {
-            const recs = data.map((item: any, index: any) => {
-              return (
-                <TableRow
-                  style={{
-                    backgroundColor:
-                      index % 2 === 0 ? "lightgrey" : "lightblue",
-                  }}
-                  key={item.id}
-                  item={item}
-                />
-              );
-            });
-            setRecords(recs);
-          })
-          .catch((error) => console.log(`${error}`));
+        isMounted && setRecords(recs);
       })
-      .catch((error) => setRecords(`${error}`));
+      .catch((error) => console.log(error));
 
     return () => {
-      alreadyRan.current = true;
+      isMounted = false;
     };
   }, []);
 
