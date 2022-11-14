@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
+import { makeExampleRecord } from "@livingsnow/record";
 import TimelineRow from "../TimelineRow";
-import { makeExampleRecord } from "../../record/Record";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 

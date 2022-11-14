@@ -3,5 +3,5 @@
     "strictNullChecks": true
   },
 
-  "extends": "expo/tsconfig.base.json"
+  "extends": "expo/tsconfig.base"
 }

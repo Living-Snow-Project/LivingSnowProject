@@ -1,14 +1,13 @@
 import React, { ReactElement } from "react";
 import { Alert } from "react-native";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
-import { AlgaeRecord, Photo } from "@livingsnow/record";
+import { AlgaeRecord, Photo, makeExampleRecord } from "@livingsnow/record";
 import RecordScreen from "../RecordScreen";
 import { setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
 import { Notifications, Placeholders } from "../../constants/Strings";
 import * as RecordManager from "../../lib/RecordManager";
 import * as Storage from "../../lib/Storage";
-import { makeExampleRecord } from "../../record/Record";
 import { RecordReducerActionsContext } from "../../hooks/useRecordReducer";
 import { makeRecordReducerActionsMock } from "../../mocks/useRecordReducer.mock";
 

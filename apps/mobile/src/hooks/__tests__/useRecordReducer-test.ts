@@ -1,6 +1,8 @@
-import { AlgaeRecord } from "@livingsnow/record";
-import { makeExamplePhoto } from "../../record/Photo";
-import { makeExampleRecord } from "../../record/Record";
+import {
+  AlgaeRecord,
+  makeExamplePhoto,
+  makeExampleRecord,
+} from "@livingsnow/record";
 import { reducer, recordReducerActionsDispatch } from "../useRecordReducer";
 import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 import * as RecordManager from "../../lib/RecordManager";

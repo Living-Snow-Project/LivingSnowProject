@@ -2,13 +2,13 @@ import React from "react";
 import { render, waitFor } from "@testing-library/react-native";
 import * as FileSystem from "expo-file-system";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
-import { recordDateFormat } from "@livingsnow/record";
-import RecordDetailsScreen from "../RecordDetailsScreen";
 import {
+  makeExamplePhoto,
   makeExampleRecord,
-  productionExampleRecord,
-} from "../../record/Record";
-import { makeExamplePhoto } from "../../record/Photo";
+  recordDateFormat,
+} from "@livingsnow/record";
+import RecordDetailsScreen from "../RecordDetailsScreen";
+import { productionExampleRecord } from "../../record/Record";
 import { Labels } from "../../constants/Strings";
 
 jest.mock("expo-file-system", () => ({

@@ -1,8 +1,10 @@
 import mockAsyncStorage from "@react-native-async-storage/async-storage/jest/async-storage-mock";
-import { PendingPhoto } from "@livingsnow/record";
+import {
+  makeExampleRecord,
+  makeExamplePendingPhoto,
+  PendingPhoto,
+} from "@livingsnow/record";
 import * as Storage from "../Storage";
-import { makeExampleRecord } from "../../record/Record";
-import { makeExamplePendingPhoto } from "../../record/Photo";
 import { Errors } from "../../constants/Strings";
 
 const makeTestAppConfig = (): AppSettings => ({

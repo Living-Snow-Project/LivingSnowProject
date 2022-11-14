@@ -5,14 +5,13 @@ import NetInfo, {
   NetInfoChangeHandler,
   NetInfoState,
 } from "@react-native-community/netinfo";
-import { AlgaeRecord } from "@livingsnow/record";
+import { AlgaeRecord, makeExampleRecord } from "@livingsnow/record";
 import TimelineScreen from "../TimelineScreen";
 import {
   SettingsButton,
   NewRecordButton,
 } from "../../navigation/MainTabNavigator";
 import * as RecordManager from "../../lib/RecordManager";
-import { makeExampleRecord } from "../../record/Record";
 import * as Storage from "../../lib/Storage";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";

@@ -1,4 +1,4 @@
-import { makeExampleRecord } from "../record/Record";
+import { makeExampleRecord } from "@livingsnow/record";
 
 const makeRecordReducerStateMock = (): RecordReducerState => ({
   state: "Idle",

@@ -6,9 +6,8 @@ import {
   uploadPhoto,
   recordsUriGet,
 } from "@livingsnow/network";
+import { makeExamplePendingPhoto, makeExampleRecord } from "@livingsnow/record";
 import server from "../../mocks/server";
-import { makeExampleRecord } from "../../record/Record";
-import { makeExamplePendingPhoto } from "../../record/Photo";
 
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());

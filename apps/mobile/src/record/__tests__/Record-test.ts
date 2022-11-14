@@ -1,5 +1,5 @@
-import { recordDateFormat } from "@livingsnow/record";
-import { getRecordTypePickerItem, isSample } from "../Record";
+import { isSample, recordDateFormat } from "@livingsnow/record";
+import { getRecordTypePickerItem } from "../Record";
 import { RecordDescription } from "../../constants/Strings";
 
 describe("Record test suite", () => {

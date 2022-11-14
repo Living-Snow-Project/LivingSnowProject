@@ -1,5 +1,11 @@
 import "isomorphic-fetch";
-import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
+import {
+  AlgaeRecord,
+  PendingPhoto,
+  Photo,
+  makeExamplePhoto,
+  makeExampleRecord,
+} from "@livingsnow/record";
 import server from "../../mocks/server";
 import {
   clearPendingRecords,
@@ -7,9 +13,7 @@ import {
   loadPendingRecords,
   loadPendingPhotos,
 } from "../Storage";
-import { makeExampleRecord } from "../../record/Record";
 import { retryPendingRecords, uploadRecord } from "../RecordManager";
-import { makeExamplePhoto } from "../../record/Photo";
 import { Notifications } from "../../constants/Strings";
 
 // Establish API mocking before all tests.

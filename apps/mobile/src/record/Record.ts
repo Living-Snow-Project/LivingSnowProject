@@ -1,8 +1,6 @@
 import { AlgaeRecord, AlgaeRecordType } from "@livingsnow/record";
 import { RecordDescription } from "../constants/Strings";
-import { makeExamplePhoto } from "./Photo";
 
-// TODO: break up; test helpers and @livingsnow/record
 // specific format for RNPickerSelect
 type RecordTypePickerItem = {
   value: AlgaeRecordType;
@@ -29,9 +27,6 @@ const getRecordTypePickerItem = (
   return result;
 };
 
-const isSample = (type: AlgaeRecordType): boolean =>
-  Array<AlgaeRecordType>("Sample").includes(type);
-
 const examplePhoto = require("../../assets/images/splash.png");
 
 const productionExampleRecord = (): AlgaeRecord => ({
@@ -57,27 +52,8 @@ const productionExampleRecord = (): AlgaeRecord => ({
   ],
 });
 
-// consider randomizing more data; how that impacts snapshot testing and the above desired feature
-const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
-  id: 1234,
-  type,
-  name: "test name",
-  date: new Date("2021-09-16T00:00:00"),
-  organization: "test org",
-  latitude: -123.456,
-  longitude: 96.96,
-  size: "Fist",
-  color: "Red",
-  tubeId: isSample(type) ? "LAB-1337" : "",
-  locationDescription: "test location",
-  notes: "test notes",
-  photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
-});
-
 export {
   getRecordTypePickerItem,
   getAllRecordTypePickerItems,
-  makeExampleRecord,
   productionExampleRecord,
-  isSample,
 };
