@@ -5,13 +5,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --external react",
+    "build": "yarn run tsc",
     "clean": "yarn run clean:win",
     "clean:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist dist rd /s /q dist",
     "nuke": "yarn run clean:win && yarn run nuke:win",
     "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules"
   },
-  "dependencies": {
-    "tsup": "5.10.1"
-  }
+  "dependencies": {}
 }
