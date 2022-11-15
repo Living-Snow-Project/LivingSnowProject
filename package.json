@@ -2,15 +2,22 @@
   "private": true,
   "scripts": {
     "build": "yarn workspaces run build",
-    "precheck": "cd apps\\mobile && yarn run precheck && cd..\\..",
     "clean": "yarn workspaces run clean",
+    "lint": "eslint .",
     "nuke": "yarn run nuke:win && yarn workspaces run nuke",
-    "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules"
+    "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules",
+    "precheck": "cd apps\\mobile && yarn run precheck && cd..\\..",
+    "prettier": "prettier --check ."
   },
   "workspaces": [
     "packages/livingsnow-logger",
     "packages/livingsnow-record",
     "packages/*",
     "apps/*"
-  ]
+  ],
+  "dependencies": {
+    "eslint": "^8.27.0",
+    "eslint-config-universe": "^11.1.1",
+    "prettier": "^2.7.1"
+  }
 }

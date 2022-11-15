@@ -30,14 +30,9 @@ jobs:
           expo-cache: true
       - run: git submodule update --init --recursive
       - run: yarn install
-      - run: yarn workspaces run build
-      - run: yarn pretty
-        working-directory: apps/mobile
+      - run: yarn build
+      - run: yarn prettier
       - run: yarn lint
-        working-directory: apps/mobile
-      - run: yarn run tsc
-        working-directory: apps/mobile
-      - run: yarn test
-        working-directory: apps/mobile
+      - run: yarn precheck
       # upload coverage to codecov
       - uses: codecov/codecov-action@v3
