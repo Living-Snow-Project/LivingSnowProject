@@ -3,10 +3,10 @@
   "scripts": {
     "build": "yarn workspaces run build",
     "clean": "yarn workspaces run clean",
-    "lint": "eslint . && cd apps\\mobile && yarn run lint && cd ..\\..",
-    "nuke": "yarn run nuke:win && yarn workspaces run nuke",
+    "lint": "eslint . && cd apps\\mobile && yarn lint && cd ..\\..",
+    "nuke": "yarn nuke:win && yarn workspaces run nuke",
     "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules",
-    "precheck": "yarn run prettier && yarn run lint && yarn run test",
+    "precheck": "yarn prettier && yarn lint && yarn test",
     "prettier": "prettier --check .",
     "test": "yarn workspaces run test"
   },
