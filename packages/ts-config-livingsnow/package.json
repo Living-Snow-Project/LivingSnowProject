@@ -11,6 +11,7 @@
   "scripts": {
     "build": "echo nothing to build in ts-config-livingsnow package",
     "clean": "echo nothing to clean in ts-config-livingsnow package",
-    "nuke": "echo nothing to nuke in ts-config-livingsnow package"
+    "nuke": "echo nothing to nuke in ts-config-livingsnow package",
+    "test": "echo no ts-config-livingsnow tests"
   }
 }
