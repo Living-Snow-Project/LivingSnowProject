@@ -16,6 +16,8 @@ The mobile app is written in React Native and Expo using their 'managed' workflo
 3. yarn build
 4. yarn precheck
 
+Check the README files in `app/web` and `app/mobile` for information on running the apps locally.
+
 ## Before submitting pull requests, run:
 
 1. yarn precheck
