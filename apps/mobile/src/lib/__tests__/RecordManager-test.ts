@@ -6,7 +6,7 @@ import {
   makeExamplePhoto,
   makeExampleRecord,
 } from "@livingsnow/record";
-import server from "../../mocks/server";
+import { server } from "@livingsnow/network/mock/server";
 import {
   clearPendingRecords,
   clearPendingPhotos,

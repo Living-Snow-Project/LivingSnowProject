@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 });
 
 type StatusBarProps = {
-  state: RecordRecuderStates;
+  state: RecordReducerStates;
   isConnected: boolean;
 };
 

@@ -48,7 +48,7 @@ type RecordReducerAction = {
   payload: RecordReducerPayload;
 };
 
-const defaultState: RecordRecuderStates = "Idle";
+const defaultState: RecordReducerStates = "Idle";
 
 const reducer = (
   currentState: RecordReducerState,

@@ -1,11 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import { rest } from "msw";
-import { recordsUri, serviceEndpoint } from "@livingsnow/network";
 import { AlgaeRecord } from "@livingsnow/record";
+import { rest } from "msw";
+
+import { recordsUri, serviceEndpoint } from "../src";
 
 type MockBackend = {
   curRecordId: number;
-  records: Array<AlgaeRecord>;
+  records: AlgaeRecord[];
   recordsUri: string;
   photosUri: string;
   resetBackend: () => void;
@@ -13,28 +13,25 @@ type MockBackend = {
 
 const mockBackend: MockBackend = {
   curRecordId: 0,
-  records: new Array<AlgaeRecord>(),
+  records: [],
   recordsUri,
   photosUri: `${serviceEndpoint}/api/records/:recordId/photo`,
 
   resetBackend() {
     this.curRecordId = 0;
-    this.records = new Array<AlgaeRecord>();
+    this.records = [];
   },
 };
 
 const handlers = [
   // Handles a POST /api/records request
-  rest.post(recordsUri, (req, res, ctx) => {
-    if (typeof req.body === "object" && req.body !== null) {
-      const { body } = req;
-      mockBackend.curRecordId += 1;
-      body.id = mockBackend.curRecordId;
-      mockBackend.records.push(body as AlgaeRecord);
-      return res(ctx.status(200), ctx.json(body));
-    }
+  rest.post(recordsUri, async (req, res, ctx) => {
+    const body: AlgaeRecord = await req.json();
 
-    return res(ctx.status(200));
+    mockBackend.curRecordId += 1;
+    body.id = mockBackend.curRecordId;
+    mockBackend.records.push(body);
+    return res(ctx.status(200), ctx.json(body));
   }),
 
   // Handles a GET /api/records request

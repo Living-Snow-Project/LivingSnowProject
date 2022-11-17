@@ -1,6 +1,6 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { rest } from "msw";
 import { setupServer } from "msw/node";
+
 import { handlers, mockBackend } from "./handlers";
 
 const mswServer = setupServer(...handlers);
@@ -85,7 +85,8 @@ const postPhotoSuccessThenFailure = (): string => {
 };
 
 const server = {
-  ...mswServer,
+  listen: () => mswServer.listen(),
+  close: () => mswServer.close(),
   reset,
   postRecordNetworkError,
   postRecordInternalServerError,
@@ -96,4 +97,4 @@ const server = {
   postPhotoSuccessThenFailure,
 };
 
-export default server;
+export { server };

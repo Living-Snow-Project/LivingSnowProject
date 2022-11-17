@@ -1,13 +1,13 @@
-// TODO: feels like this is supposed to be with packages/livingsnow-network
 import "isomorphic-fetch";
+import { makeExamplePendingPhoto, makeExampleRecord } from "@livingsnow/record";
+
+import { server } from "../mock/server";
 import {
   downloadRecords,
   uploadRecord,
   uploadPhoto,
   recordsUriGet,
-} from "@livingsnow/network";
-import { makeExamplePendingPhoto, makeExampleRecord } from "@livingsnow/record";
-import server from "../../mocks/server";
+} from "../src";
 
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());

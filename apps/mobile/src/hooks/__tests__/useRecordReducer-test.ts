@@ -11,7 +11,7 @@ import * as RecordManager from "../../lib/RecordManager";
 jest.mock("@livingsnow/network");
 const Network = require("@livingsnow/network");
 
-const defaultState: RecordRecuderStates = "Idle";
+const defaultState: RecordReducerStates = "Idle";
 
 describe("useRecordReducer test suite", () => {
   describe("dispatch tests", () => {

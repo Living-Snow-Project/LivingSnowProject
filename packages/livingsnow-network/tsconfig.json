@@ -1,7 +1,7 @@
 {
   "extends": "ts-config-livingsnow/react-library.json",
   "include": ["."],
-  "exclude": ["dist", "build", "node_modules"],
+  "exclude": ["dist", "build", "test", "mock", "node_modules"],
   "compilerOptions": {
     "outDir": "./dist"
   }

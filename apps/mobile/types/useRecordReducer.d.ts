@@ -7,10 +7,10 @@ const RecordReducerStatesArray = [
   "Downloading",
 ] as const;
 
-type RecordRecuderStates = typeof RecordReducerStatesArray[number];
+type RecordReducerStates = typeof RecordReducerStatesArray[number];
 
 type RecordReducerState = {
-  state: RecordRecuderStates;
+  state: RecordReducerStates;
   seeded: boolean;
   pendingRecords: AlgaeRecord[];
   downloadedRecords: AlgaeRecord[];
