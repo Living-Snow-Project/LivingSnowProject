@@ -13,7 +13,7 @@
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
     "no-unneeded-ternary": ["error", { "defaultAssignment": true }],
-    "react/require-default-props": [0, {}]
+    "react/require-default-props": ["off", {}]
   },
   "ignorePatterns": ["babel.config.js", "*test*.js"]
 }
