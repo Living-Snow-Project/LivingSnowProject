@@ -1,17 +1,11 @@
 import React from "react";
 import { Text } from "react-native";
-import PropTypes from "prop-types";
 import RNPickerSelect from "react-native-picker-select";
 import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 import { pickerSelectStyles, formInputStyles } from "../../styles/FormInput";
 import { getAllRecordTypePickerItems } from "../../record/Record";
 import { getAllAlgaeSizePickerItems } from "../../record/Size";
 import { getAllAlgaeColorPickerItems } from "../../record/Color";
-import {
-  AlgaeRecordTypePropType,
-  AlgaeSizePropType,
-  AlgaeColorPropType,
-} from "../../record/PropTypes";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 
@@ -39,11 +33,6 @@ function TypeSelector({ type, setType }: TypeSelectorProps) {
   );
 }
 
-TypeSelector.propTypes = {
-  type: AlgaeRecordTypePropType.isRequired,
-  setType: PropTypes.func.isRequired,
-};
-
 type AlgaeSizePickerProps = {
   size: AlgaeSize;
   setSize: (type: AlgaeSize) => void;
@@ -70,11 +59,6 @@ function AlgaeSizePicker({ size, setSize }: AlgaeSizePickerProps) {
   );
 }
 
-AlgaeSizePicker.propTypes = {
-  size: AlgaeSizePropType.isRequired,
-  setSize: PropTypes.func.isRequired,
-};
-
 type AlgaeColorPickerProps = {
   color: AlgaeColor;
   setColor: (type: AlgaeColor) => void;
@@ -100,10 +84,5 @@ function AlgaeColorPicker({ color, setColor }: AlgaeColorPickerProps) {
     </>
   );
 }
-
-AlgaeColorPicker.propTypes = {
-  color: AlgaeColorPropType.isRequired,
-  setColor: PropTypes.func.isRequired,
-};
 
 export { TypeSelector, AlgaeSizePicker, AlgaeColorPicker };

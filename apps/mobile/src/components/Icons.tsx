@@ -3,11 +3,23 @@ import { Platform, ViewStyle, StyleProp } from "react-native";
 import * as Icon from "@expo/vector-icons";
 import { AlgaeRecordType, isSample } from "@livingsnow/record";
 import Colors from "../constants/Colors";
-import { AlgaeRecordTypePropType } from "../record/PropTypes";
 import TestIds from "../constants/TestIds";
 
-function StockIcon(props: StockIconProps) {
-  const { name, size, color, style, testID } = props;
+type StockIconProps = {
+  name: IconNameType;
+  size?: number;
+  style?: StyleProp<ViewStyle>;
+  color?: string;
+  testID: string;
+};
+
+function StockIcon({
+  name,
+  size = 32,
+  color = Colors.tabIconDefault,
+  style = undefined,
+  testID,
+}: StockIconProps) {
   return (
     <Icon.Ionicons
       name={name}
@@ -20,24 +32,6 @@ function StockIcon(props: StockIconProps) {
 }
 
 type IconNameType = keyof typeof Icon.Ionicons.glyphMap;
-
-type StockIconProps = {
-  name: IconNameType;
-  size?: number;
-  style?: StyleProp<ViewStyle>;
-  color?: string;
-  testID: string;
-};
-
-type SnowIconProps = {
-  style?: StyleProp<ViewStyle>;
-};
-
-StockIcon.defaultProps = {
-  size: 32,
-  style: undefined,
-  color: Colors.tabIconDefault,
-};
 
 function RecordIcon({ type }: { type: AlgaeRecordType }) {
   let name: IconNameType = Platform.OS === "ios" ? "ios-eye" : "md-eye";
@@ -52,10 +46,6 @@ function RecordIcon({ type }: { type: AlgaeRecordType }) {
 
   return <StockIcon name={name} size={48} color={color} testID={testID} />;
 }
-
-RecordIcon.propTypes = {
-  type: AlgaeRecordTypePropType.isRequired,
-};
 
 function PictureIcon() {
   return (
@@ -103,8 +93,11 @@ function ScrollTopIcon() {
   );
 }
 
-function SnowIcon(props: SnowIconProps) {
-  const { style } = props;
+type SnowIconProps = {
+  style?: StyleProp<ViewStyle>;
+};
+
+function SnowIcon({ style = {} }: SnowIconProps) {
   return (
     <StockIcon
       style={style}
@@ -113,10 +106,6 @@ function SnowIcon(props: SnowIconProps) {
     />
   );
 }
-
-SnowIcon.defaultProps = {
-  style: {},
-};
 
 export {
   EditIcon,

@@ -7,6 +7,7 @@ import {
   makeExampleRecord,
   recordDateFormat,
 } from "@livingsnow/record";
+import { RecordDetailsScreenRouteProp } from "../../navigation/Routes";
 import RecordDetailsScreen from "../RecordDetailsScreen";
 import { productionExampleRecord } from "../../record/Record";
 import { Labels } from "../../constants/Strings";
@@ -39,7 +40,7 @@ describe("RecordDetailsScreen test suite", () => {
           ...makeExampleRecord("Sample"),
         },
       },
-    };
+    } as RecordDetailsScreenRouteProp;
 
     // only mock once, because makeExampleRecord contains 2 photos, and want to exercise both existing\download code
     jest
@@ -93,7 +94,7 @@ describe("RecordDetailsScreen test suite", () => {
           ...makeExampleRecord("Sample"),
         },
       },
-    };
+    } as RecordDetailsScreenRouteProp;
 
     const getInfoAsyncSpy = jest
       .spyOn(FileSystem, "getInfoAsync")
@@ -149,7 +150,7 @@ describe("RecordDetailsScreen test suite", () => {
           photos: [makeExamplePhoto()],
         },
       },
-    };
+    } as RecordDetailsScreenRouteProp;
 
     const { getByText } = render(<RecordDetailsScreen route={route} />);
 
@@ -186,7 +187,7 @@ describe("RecordDetailsScreen test suite", () => {
           ...productionExampleRecord(),
         },
       },
-    };
+    } as RecordDetailsScreenRouteProp;
 
     const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
@@ -224,7 +225,7 @@ describe("RecordDetailsScreen test suite", () => {
           photos: [],
         },
       },
-    };
+    } as unknown as RecordDetailsScreenRouteProp;
 
     const { getByText, queryByText } = render(
       <RecordDetailsScreen route={route} />
@@ -265,7 +266,7 @@ describe("RecordDetailsScreen test suite", () => {
           photos: undefined,
         },
       },
-    };
+    } as RecordDetailsScreenRouteProp;
 
     const { getByText, queryByText } = render(
       <RecordDetailsScreen route={route} />
@@ -297,7 +298,7 @@ describe("RecordDetailsScreen test suite", () => {
           ...makeExampleRecord("Sample"),
         },
       },
-    };
+    } as RecordDetailsScreenRouteProp;
 
     jest
       .spyOn(FileSystem, "getInfoAsync")

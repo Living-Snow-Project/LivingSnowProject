@@ -5,6 +5,7 @@ import { SnowIcon } from "../components/Icons";
 import { setAppSettings } from "../../AppSettings";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
 import KeyboardShift from "../components/KeyboardShift";
+import { FirstRunScreenNavigationProp } from "../navigation/Routes";
 
 const styles = StyleSheet.create({
   ftreContainer: {
@@ -53,7 +54,11 @@ const styles = StyleSheet.create({
   snowRight: { marginLeft: 30 },
 });
 
-export default function FirstRunScreen({ navigation }) {
+type FirstRunScreenProps = {
+  navigation: FirstRunScreenNavigationProp;
+};
+
+export default function FirstRunScreen({ navigation }: FirstRunScreenProps) {
   return (
     <KeyboardShift>
       {() => (

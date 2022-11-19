@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { Image, LogBox, Pressable, StyleSheet, Text, View } from "react-native";
-import PropTypes from "prop-types";
+import { Photo } from "@livingsnow/record";
+import { RootStackNavigationProp } from "../navigation/Routes";
 import { formInputStyles } from "../styles/FormInput";
 import TestIds from "../constants/TestIds";
 import { PictureIcon } from "./Icons";
@@ -30,17 +31,27 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
+type PhotoControlProps = {
+  navigation: RootStackNavigationProp;
+  photos: Photo[];
+  onUpdatePhotos: (photos: Photo[]) => void;
+};
+
+export default function PhotoControl({
+  navigation,
+  photos,
+  onUpdatePhotos,
+}: PhotoControlProps) {
   const renderPhotos = useCallback(() => {
     const colsPerRow = 2;
 
     // layout algorithm for even number of photos
     if (photos.length % colsPerRow === 0) {
-      const result: Array<JSX.Element> = [];
+      const result: JSX.Element[] = [];
       const rows = photos.length / colsPerRow;
 
       for (let row = 0; row < rows; row++) {
-        const inner: Array<JSX.Element> = [];
+        const inner: JSX.Element[] = [];
         for (let col = 0; col < colsPerRow; col++) {
           const index = row * rows + col;
           inner.push(
@@ -93,20 +104,3 @@ export default function PhotoControl({ navigation, photos, onUpdatePhotos }) {
     </>
   );
 }
-
-PhotoControl.propTypes = {
-  photos: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.shape({
-        height: PropTypes.number,
-        uri: PropTypes.string,
-        width: PropTypes.number,
-      }),
-    ])
-  ),
-  onUpdatePhotos: PropTypes.func.isRequired,
-};
-
-PhotoControl.defaultProps = {
-  photos: undefined,
-};

@@ -1034,6 +1034,8 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                               style={
                                 Object {
                                   "backgroundColor": "white",
+                                  "paddingLeft": 2,
+                                  "paddingRight": 2,
                                 }
                               }
                             >

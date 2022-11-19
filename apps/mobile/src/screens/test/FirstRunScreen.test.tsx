@@ -1,11 +1,12 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
+import { FirstRunScreenNavigationProp } from "../../navigation/Routes";
 import FirstRunScreen from "../FirstRunScreen";
 
 test("validates Welcome Screen navigation", () => {
-  const navigation = {
-    navigate: jest.fn(),
-  };
+  const navigation: FirstRunScreenNavigationProp =
+    {} as FirstRunScreenNavigationProp;
+  navigation.navigate = jest.fn();
 
   const { getByText, toJSON } = render(
     <FirstRunScreen navigation={navigation} />

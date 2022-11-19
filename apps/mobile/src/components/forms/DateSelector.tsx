@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Pressable, Text, TextInput, View } from "react-native";
-import PropTypes from "prop-types";
 import { Calendar } from "react-native-calendars";
 import { formInputStyles } from "../../styles/FormInput";
 
-export default function DateSelector({ date, setDate }) {
+type DateSelectorProps = {
+  date: string;
+  setDate: (date: string) => void;
+};
+
+export default function DateSelector({ date, setDate }: DateSelectorProps) {
   const [calendarVisible, setCalendarVisible] = useState(false);
 
   const textInputProps = {
@@ -39,8 +43,3 @@ export default function DateSelector({ date, setDate }) {
     </>
   );
 }
-
-DateSelector.propTypes = {
-  date: PropTypes.string.isRequired,
-  setDate: PropTypes.func.isRequired,
-};

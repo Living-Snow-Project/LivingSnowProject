@@ -2,6 +2,10 @@ import React, { ReactElement } from "react";
 import { Alert } from "react-native";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { AlgaeRecord, Photo, makeExampleRecord } from "@livingsnow/record";
+import {
+  RecordScreenNavigationProp,
+  RecordScreenRouteProp,
+} from "../../navigation/Routes";
 import RecordScreen from "../RecordScreen";
 import { setAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
@@ -15,21 +19,22 @@ const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 
 // record action button renders independently of the screen
 let recordActionButton: () => ReactElement;
-const navigation = {
-  goBack: jest.fn(),
-  navigate: jest.fn(),
-  setOptions: ({ headerRight }: { headerRight: () => JSX.Element }) => {
-    recordActionButton = headerRight;
-  },
+
+// mock navigation prop
+const navigation = {} as RecordScreenNavigationProp;
+navigation.goBack = jest.fn();
+navigation.navigate = jest.fn();
+navigation.setOptions = ({
+  headerRight,
+}: {
+  headerRight: () => JSX.Element;
+}) => {
+  recordActionButton = headerRight;
 };
 
-type RouteProp = {
-  params: {
-    record: AlgaeRecord;
-  };
-};
+const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
 
-const customRender = (route: RouteProp | undefined = undefined) => {
+const customRender = (route: RecordScreenRouteProp = defaultRouteProp) => {
   /* eslint-disable react/jsx-no-constructed-context-values */
   const recordActionsContext = {
     ...makeRecordReducerActionsMock(),
@@ -217,12 +222,14 @@ describe("RecordScreen test suite", () => {
   describe("Photo tests", () => {
     test("navigate to camera roll selection screen", () => {
       const { getByTestId } = customRender();
-      navigation.navigate.mockImplementationOnce(
-        (route: string, params: { onUpdatePhotos: (uris: any) => void }) => {
-          expect(route).toEqual("ImageSelection");
-          params.onUpdatePhotos([]);
-        }
-      );
+      navigation.navigate = jest
+        .fn()
+        .mockImplementationOnce(
+          (route: string, params: { onUpdatePhotos: (uris: any) => void }) => {
+            expect(route).toEqual("ImageSelection");
+            params.onUpdatePhotos([]);
+          }
+        );
 
       fireEvent.press(getByTestId(TestIds.Photos.photoSelectorTestId));
 
@@ -427,7 +434,7 @@ describe("RecordScreen test suite", () => {
       record = makeExampleRecord("Sample");
       recordScreen = customRender({
         params: { record },
-      });
+      } as RecordScreenRouteProp);
 
       return Storage.savePendingRecord(record);
     });

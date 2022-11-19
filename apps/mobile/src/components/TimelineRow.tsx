@@ -4,12 +4,13 @@ import { useNavigation } from "@react-navigation/native";
 import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
 import { PictureIcon, RecordIcon } from "./Icons";
 import { RootStackNavigationProp } from "../navigation/Routes";
-import { AlgaeRecordPropType } from "../record/PropTypes";
 import { Labels } from "../constants/Strings";
 
 const styles = StyleSheet.create({
   recordContainer: {
     backgroundColor: "white",
+    paddingLeft: 2,
+    paddingRight: 2,
   },
   recordTop: {
     flexDirection: "row",
@@ -35,7 +36,7 @@ const styles = StyleSheet.create({
   },
 });
 
-function empty(text) {
+function empty(text: string | undefined) {
   return !text;
 }
 
@@ -114,7 +115,3 @@ export default function TimelineRow({ record }: TimelineRowProps) {
     </View>
   );
 }
-
-TimelineRow.propTypes = {
-  record: AlgaeRecordPropType.isRequired,
-};

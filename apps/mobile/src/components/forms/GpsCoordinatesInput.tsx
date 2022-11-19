@@ -7,7 +7,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import PropTypes from "prop-types";
 import {
   Accuracy,
   requestForegroundPermissionsAsync,
@@ -19,19 +18,28 @@ import { getAppSettings } from "../../../AppSettings";
 import TestIds from "../../constants/TestIds";
 import { Placeholders } from "../../constants/Strings";
 
-function GpsCoordinatesInput({
+type GpsCoordinates = {
+  latitude: number;
+  longitude: number;
+};
+
+type GpsCoordinatesInputProps = {
+  setGpsCoordinates: (latitude: number, longitude: number) => void;
+  onSubmitEditing: () => void;
+  coordinates?: GpsCoordinates;
+};
+
+export default function GpsCoordinatesInput({
   setGpsCoordinates,
   onSubmitEditing,
-  coordinates,
-}) {
+  coordinates = { latitude: 0, longitude: 0 },
+}: GpsCoordinatesInputProps) {
   const watchPosition = useRef<null | { remove(): void }>(null);
   const gpsCoordinatesRef = useRef<TextInput>(null);
   const [placeholderText, setPlaceholderText] = useState(
     Placeholders.GPS.AcquiringLocation
   );
-  const [useGps] = useState<boolean>(
-    coordinates.latitude === 0 && coordinates.longitude === 0
-  );
+  const useGps = coordinates.latitude === 0 && coordinates.longitude === 0;
   const [gpsCoordinateString, setGpsCoordinateString] = useState<string>(
     useGps ? `` : `${coordinates.latitude}, ${coordinates.longitude}`
   );
@@ -176,18 +184,3 @@ function GpsCoordinatesInput({
     </>
   );
 }
-
-GpsCoordinatesInput.propTypes = {
-  setGpsCoordinates: PropTypes.func.isRequired,
-  onSubmitEditing: PropTypes.func.isRequired,
-  coordinates: PropTypes.shape({
-    longitude: PropTypes.number,
-    latitude: PropTypes.number,
-  }),
-};
-
-GpsCoordinatesInput.defaultProps = {
-  coordinates: { longitude: 0, latitude: 0 },
-};
-
-export default GpsCoordinatesInput;

@@ -6,6 +6,10 @@ import NetInfo, {
   NetInfoState,
 } from "@react-native-community/netinfo";
 import { AlgaeRecord, makeExampleRecord } from "@livingsnow/record";
+import {
+  RootStackNavigationProp,
+  TimelineScreenNavigationProp,
+} from "../../navigation/Routes";
 import TimelineScreen from "../TimelineScreen";
 import {
   SettingsButton,
@@ -26,9 +30,8 @@ import {
 } from "../../mocks/useRecordReducer.mock";
 
 // TimelineScreen takes navigation input prop
-const navigation = {
-  navigate: jest.fn(),
-};
+const navigation = {} as TimelineScreenNavigationProp;
+navigation.navigate = jest.fn();
 
 const downloadedRecord: AlgaeRecord = {
   ...makeExampleRecord("Sample"),
@@ -325,17 +328,25 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("navigate to SettingsScreen", () => {
-    const navigate = jest.fn();
-    const { getByTestId } = render(<SettingsButton navigate={navigate} />);
+    const navigationInner = {} as RootStackNavigationProp;
+    navigationInner.navigate = jest.fn();
+
+    const { getByTestId } = render(
+      <SettingsButton navigation={navigationInner} />
+    );
     fireEvent.press(getByTestId(TestIds.TimelineScreen.SettingsButton));
-    expect(navigate).toBeCalledWith("Settings");
+    expect(navigationInner.navigate).toBeCalledWith("Settings");
   });
 
   test("navigate to RecordScreen", async () => {
-    const navigate = jest.fn();
-    const { getByTestId } = render(<NewRecordButton navigate={navigate} />);
+    const navigationInner = {} as RootStackNavigationProp;
+    navigationInner.navigate = jest.fn();
+
+    const { getByTestId } = render(
+      <NewRecordButton navigation={navigationInner} />
+    );
     fireEvent.press(getByTestId(TestIds.TimelineScreen.NewRecordButton));
-    expect(navigate).toBeCalledWith("Record");
+    expect(navigationInner.navigate).toBeCalledWith("Record");
   });
 
   test("navigate to record details screen", async () => {

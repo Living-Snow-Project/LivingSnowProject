@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import { Photo } from "@livingsnow/record";
-import PropTypes from "prop-types";
 import { Labels } from "../constants/Strings";
 import useCachedPhoto from "../hooks/useCachedPhotos";
 import { PictureIcon } from "./Icons";
@@ -28,7 +27,11 @@ const styles = StyleSheet.create({
   },
 });
 
-function CachedPhoto({ uri }: { uri: string | number }) {
+type CachedPhotoProps = {
+  uri: string | number;
+};
+
+function CachedPhoto({ uri }: CachedPhotoProps) {
   const cachedPhoto = useCachedPhoto(uri);
 
   // require(...) scenario returns number
@@ -117,18 +120,3 @@ export default function CachedPhotos({ photos }: CachedPhotosProps) {
     </View>
   );
 }
-
-CachedPhotos.propTypes = {
-  photos: PropTypes.arrayOf(
-    PropTypes.shape({
-      uri: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      width: PropTypes.number.isRequired,
-      height: PropTypes.number.isRequired,
-      size: PropTypes.number,
-    })
-  ),
-};
-
-CachedPhotos.defaultProps = {
-  photos: undefined,
-};

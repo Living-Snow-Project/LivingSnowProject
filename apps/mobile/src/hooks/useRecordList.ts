@@ -1,9 +1,12 @@
+import { TimelineScreenNavigationProp } from "../navigation/Routes";
 import {
   usePendingRecordList,
   useDownloadedRecordList,
 } from "../components/RecordList";
 
-const useRecordList = (navigation): JSX.Element[] => {
+const useRecordList = (
+  navigation: TimelineScreenNavigationProp
+): JSX.Element[] => {
   const pendingRecords = usePendingRecordList(navigation);
   const downloadedRecords = useDownloadedRecordList();
 

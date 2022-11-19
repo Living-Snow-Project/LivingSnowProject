@@ -1,11 +1,14 @@
 import React, { useCallback } from "react";
 import { Platform, Text } from "react-native";
-import PropTypes from "prop-types";
 import { Ionicons } from "@expo/vector-icons";
+import { ImagesPickerScreenProps } from "../navigation/Routes";
 /* eslint-disable import/no-relative-packages */
-import { AssetsSelector } from "../../expo-images-picker/index";
+import { AssetsSelector } from "../../expo-images-picker";
 
-export default function ImagesPickerScreen({ navigation, route }) {
+export default function ImagesPickerScreen({
+  navigation,
+  route,
+}: ImagesPickerScreenProps) {
   const noAssets = useCallback(() => <Text>No Assets</Text>, []);
   return (
     <AssetsSelector
@@ -59,11 +62,3 @@ export default function ImagesPickerScreen({ navigation, route }) {
     />
   );
 }
-
-ImagesPickerScreen.propTypes = {
-  route: PropTypes.shape({
-    params: PropTypes.shape({
-      onUpdatePhotos: PropTypes.func.isRequired,
-    }).isRequired,
-  }).isRequired,
-};

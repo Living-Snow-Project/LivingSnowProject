@@ -5,6 +5,8 @@ exports[`TimelineRow test suite renders 1`] = `
   style={
     Object {
       "backgroundColor": "white",
+      "paddingLeft": 2,
+      "paddingRight": 2,
     }
   }
 >

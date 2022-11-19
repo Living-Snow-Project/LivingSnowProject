@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import PropTypes from "prop-types";
 import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
+import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
 import { Labels } from "../constants/Strings";
 import CachedPhotos from "../components/CachedPhotos";
 
@@ -13,11 +13,7 @@ const styles = StyleSheet.create({
 });
 
 type RecordDetailsScreenProps = {
-  route: {
-    params: {
-      record: AlgaeRecord;
-    };
-  };
+  route: RecordDetailsScreenRouteProp;
 };
 
 export default function RecordDetailsScreen({
@@ -76,9 +72,3 @@ export default function RecordDetailsScreen({
     </ScrollView>
   );
 }
-
-RecordDetailsScreen.propTypes = {
-  // TODO: type this properly
-  // eslint-disable-next-line react/forbid-prop-types
-  route: PropTypes.object.isRequired,
-};

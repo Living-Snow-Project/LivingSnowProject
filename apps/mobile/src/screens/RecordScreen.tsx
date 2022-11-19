@@ -13,7 +13,6 @@ import {
   TextInput,
   View,
 } from "react-native";
-import PropTypes from "prop-types";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import Logger from "@livingsnow/logger";
@@ -23,6 +22,7 @@ import {
   isSample,
   recordDateFormat,
 } from "@livingsnow/record";
+import { RecordScreenProps } from "../navigation/Routes";
 import KeyboardShift from "../components/KeyboardShift";
 import { formInputStyles } from "../styles/FormInput";
 import HeaderButton from "../components/HeaderButton";
@@ -39,7 +39,6 @@ import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
 import { RecordReducerActionsContext } from "../hooks/useRecordReducer";
-import { AlgaeRecordPropType } from "../record/PropTypes";
 
 type OffsetOperation = "add" | "subtract";
 
@@ -55,47 +54,22 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
   );
 };
 
-type RecordScreenRouteProp = {
-  params: {
-    record: AlgaeRecord;
-  };
+const defaultRecord: AlgaeRecord = {
+  id: -1,
+  type: "Sample",
+  date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
+  latitude: 0,
+  longitude: 0,
+  size: "Select a size",
+  color: "Select a color",
 };
 
-type RecordScreenProps = {
-  navigation: {
-    goBack: () => void;
-    setOptions: ({ headerRight }: { headerRight: () => JSX.Element }) => void;
-  };
-  route: RecordScreenRouteProp;
-};
-
-const defaultRouteProps: RecordScreenRouteProp = {
-  params: {
-    record: {
-      id: -1,
-      type: "Sample",
-      date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
-      latitude: 0,
-      longitude: 0,
-      size: "Select a size",
-      color: "Select a color",
-    },
-  },
-};
-
-export default function RecordScreen({
-  navigation,
-  route = defaultRouteProps,
-}: RecordScreenProps) {
+export default function RecordScreen({ navigation, route }: RecordScreenProps) {
   const appSettings = getAppSettings();
 
   // TODO: get updating\uploading from reducer
   const [updating, setUpdating] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
-  const [editMode] = useState<boolean>(
-    route?.params?.record?.id !== -1 && route?.params?.record !== undefined
-  );
-
   const notesRef = useRef<TextInput>(null);
   const locationDescriptionRef = useRef<TextInput>(null);
 
@@ -103,10 +77,9 @@ export default function RecordScreen({
 
   // data collected and sent to the service
   const [state, setState] = useState<AlgaeRecord>(
-    editMode
-      ? route.params.record
-      : {
-          ...defaultRouteProps.params.record,
+    route === undefined || route.params === undefined
+      ? {
+          ...defaultRecord,
           id: uuidv4(),
           name: appSettings.name ? appSettings.name : "Anonymous",
           organization: !appSettings.organization
@@ -115,10 +88,15 @@ export default function RecordScreen({
           size: "Select a size",
           color: "Select a color",
         }
+      : { ...route.params.record }
   );
 
   const [photos, setPhotos] = useState<Photo[]>(
-    editMode && route.params.record.photos ? route.params.record.photos : []
+    route === undefined ||
+      route.params === undefined ||
+      !route.params.record.photos
+      ? []
+      : [...route.params.record.photos]
   );
 
   const dateString = useMemo(() => recordDateFormat(state.date), [state.date]);
@@ -173,6 +151,8 @@ export default function RecordScreen({
 
     return newRecord;
   }, []);
+
+  const editMode = route !== undefined && route.params !== undefined;
 
   useEffect(() => {
     const RecordAction = editMode ? (
@@ -355,19 +335,3 @@ export default function RecordScreen({
     </KeyboardShift>
   );
 }
-
-RecordScreen.propTypes = {
-  navigation: PropTypes.shape({
-    goBack: PropTypes.func.isRequired,
-    setOptions: PropTypes.func.isRequired,
-  }).isRequired,
-  route: PropTypes.shape({
-    params: PropTypes.shape({
-      record: AlgaeRecordPropType,
-    }),
-  }),
-};
-
-RecordScreen.defaultProps = {
-  route: defaultRouteProps,
-};

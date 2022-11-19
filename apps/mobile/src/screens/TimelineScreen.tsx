@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { FlatList, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import Logger from "@livingsnow/logger";
+import { TimelineScreenNavigationProp } from "../navigation/Routes";
 import StatusBar from "../components/StatusBar";
 import { ExampleRecordList } from "../components/RecordList";
 import styles from "../styles/Timeline";
@@ -23,7 +24,11 @@ type ContainerDimensions = {
   height: number;
 };
 
-export default function TimelineScreen({ navigation }) {
+type TimelineScreenProps = {
+  navigation: TimelineScreenNavigationProp;
+};
+
+export default function TimelineScreen({ navigation }: TimelineScreenProps) {
   const scrollViewRef = useRef<FlatList>(null);
   const [containerDims, setContainerDims] = useState<ContainerDimensions>({
     width: 0,

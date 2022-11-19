@@ -1,18 +1,21 @@
 import React from "react";
 import { Platform } from "react-native";
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
+import {
+  ImagesPickerScreenNavigationProp,
+  ImagesPickerScreenRouteProp,
+} from "../../navigation/Routes";
 import ImagesPickerScreen from "../ImagesPickerScreen";
 
-const navigation = {
-  navigate: jest.fn(),
-  goBack: jest.fn(),
-};
+const navigation = {} as ImagesPickerScreenNavigationProp;
+navigation.navigate = jest.fn();
+navigation.goBack = jest.fn();
 
 const route = {
   params: {
     onUpdatePhotos: jest.fn(),
   },
-};
+} as unknown as ImagesPickerScreenRouteProp;
 
 describe("ImagesPickerScreen test suite", () => {
   afterEach(() => {

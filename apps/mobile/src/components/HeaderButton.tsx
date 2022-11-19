@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Platform, StyleSheet } from "react-native";
 import PressableOpacity from "./PressableOpacity";
 import { StockIcon } from "./Icons";
@@ -40,14 +39,3 @@ export default function HeaderButton({
     </PressableOpacity>
   );
 }
-
-HeaderButton.propTypes = {
-  testID: PropTypes.string,
-  iconName: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
-  placement: PropTypes.string.isRequired,
-};
-
-HeaderButton.defaultProps = {
-  testID: "",
-};

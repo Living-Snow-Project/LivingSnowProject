@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import { Animated, StyleSheet, Text } from "react-native";
-import PropTypes from "prop-types";
 import { Labels } from "../constants/Strings";
 
 const styles = StyleSheet.create({
@@ -63,7 +62,3 @@ export default function StatusBar({ state, isConnected }: StatusBarProps) {
     </Animated.View>
   );
 }
-
-StatusBar.propTypes = {
-  isConnected: PropTypes.bool.isRequired,
-};
