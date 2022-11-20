@@ -42,7 +42,9 @@ function recordList({ header, renderRecords }: RecordListProps): JSX.Element[] {
 function ExampleRecordList() {
   const records = recordList({
     header: Labels.TimelineScreen.ExampleRecords,
-    renderRecords: [<TimelineRow record={productionExampleRecord()} />],
+    renderRecords: [
+      <TimelineRow key="single_example" record={productionExampleRecord()} />,
+    ],
   });
 
   return (

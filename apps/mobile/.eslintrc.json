@@ -2,7 +2,12 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint", "react", "react-native", "react-hooks"],
-  "extends": ["airbnb", "airbnb-typescript", "prettier"],
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "prettier",
+    "plugin:react/recommended"
+  ],
   "parserOptions": {
     "project": "./tsconfig.json",
     "ecmaFeatures": {
@@ -13,7 +18,11 @@
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
     "no-unneeded-ternary": ["error", { "defaultAssignment": true }],
-    "react/require-default-props": ["off", {}]
+    "react/require-default-props": ["off", {}],
+    "react/function-component-definition": [
+      "error",
+      { "namedComponents": "function-declaration" }
+    ]
   },
   "ignorePatterns": ["babel.config.js", "*test*.js"]
 }
