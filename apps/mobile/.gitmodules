@@ -1,4 +1,0 @@
-[submodule "expo-images-picker"]
-	path = expo-images-picker
-	url = https://github.com/Living-Snow-Project/expo-images-picker.git
-	branch = main
