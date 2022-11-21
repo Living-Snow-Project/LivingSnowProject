@@ -89,7 +89,7 @@ type CachedPhotosProps = {
 };
 
 export default function CachedPhotos({ photos }: CachedPhotosProps) {
-  if (photos === undefined || photos.length === 0) {
+  if (!photos || !photos.length) {
     return null;
   }
 
@@ -106,7 +106,7 @@ export default function CachedPhotos({ photos }: CachedPhotosProps) {
         <View
           style={[
             styles.photoCommon,
-            index === 0 ? styles.topPhoto : styles.photo,
+            index ? styles.photo : styles.topPhoto,
             {
               height: Math.floor(width * (photo.height / photo.width)),
             },
