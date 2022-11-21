@@ -62,9 +62,7 @@ exports[`ImagesPickerScreen test suite renders ios 1`] = `
     >
       <Text
         style={Object {}}
-      >
-        Back
-      </Text>
+      />
     </View>
     <Text
       style={

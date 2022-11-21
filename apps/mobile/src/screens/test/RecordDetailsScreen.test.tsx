@@ -6,6 +6,7 @@ import {
   makeExamplePhoto,
   makeExampleRecord,
   recordDateFormat,
+  Photo,
 } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../../navigation/Routes";
 import RecordDetailsScreen from "../RecordDetailsScreen";
@@ -32,6 +33,13 @@ jest
   .spyOn(NetInfo, "fetch")
   .mockResolvedValue({ isConnected: true } as NetInfoState);
 
+/* eslint-disable no-param-reassign */
+function setPhotosHeight(photos: Photo[]) {
+  photos[0].width = 758;
+  photos[0].height = 512;
+  photos[1].width = 758;
+  photos[1].height = 1024;
+}
 describe("RecordDetailsScreen test suite", () => {
   test("sample with remote photos", async () => {
     const route = {
@@ -54,6 +62,10 @@ describe("RecordDetailsScreen test suite", () => {
       .mockImplementation(() =>
         Promise.resolve({ status: 200 } as FileSystem.FileSystemDownloadResult)
       );
+
+    if (route.params.record.photos) {
+      setPhotosHeight(route.params.record.photos);
+    }
 
     const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
@@ -107,6 +119,10 @@ describe("RecordDetailsScreen test suite", () => {
       .mockImplementation(() =>
         Promise.resolve({ status: 404 } as FileSystem.FileSystemDownloadResult)
       );
+
+    if (route.params.record.photos) {
+      setPhotosHeight(route.params.record.photos);
+    }
 
     const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
@@ -307,6 +323,10 @@ describe("RecordDetailsScreen test suite", () => {
     jest
       .spyOn(NetInfo, "fetch")
       .mockResolvedValue({ isConnected: false } as NetInfoState);
+
+    if (route.params.record.photos) {
+      setPhotosHeight(route.params.record.photos);
+    }
 
     const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 

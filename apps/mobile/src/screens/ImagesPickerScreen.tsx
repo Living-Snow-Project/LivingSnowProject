@@ -4,7 +4,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { ImagesPickerScreenProps } from "../navigation/Routes";
 /* eslint-disable import/no-relative-packages */
 import { AssetsSelector } from "../../expo-images-picker";
-import { SettingsType, StylesType } from "../../expo-images-picker/src/Types";
+import {
+  NavigatorType,
+  ResizeType,
+  SettingsType,
+  StylesType,
+} from "../../expo-images-picker/src/Types";
 
 export default function ImagesPickerScreen({
   navigation,
@@ -50,10 +55,10 @@ export default function ImagesPickerScreen({
     },
   };
 
-  const widgetNavigator = {
+  const widgetNavigator: NavigatorType = {
     Texts: {
       finish: "Finish",
-      back: "Back",
+      back: "",
       selected: "",
     },
     buttonTextStyle: {},
@@ -67,9 +72,9 @@ export default function ImagesPickerScreen({
     },
   };
 
-  const widgetResize = {
-    compress: 0.4,
-    width: 1024, // TODO: ideally this would be the size constraint on the largest axis
+  const widgetResize: ResizeType = {
+    compress: 0.7,
+    majorAxis: 1024,
     base64: false,
     saveTo: "jpeg",
   };

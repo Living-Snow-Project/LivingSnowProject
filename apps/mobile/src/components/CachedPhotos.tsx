@@ -17,13 +17,32 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  topImage: {
-    flex: 1,
+  photosContainer: {
+    margin: 2,
   },
-  image: {
-    flex: 1,
-    borderTopWidth: 1,
+  photosHeader: {
     borderColor: "black",
+    borderTopLeftRadius: 2,
+    borderTopRightRadius: 2,
+    borderWidth: 1,
+    backgroundColor: "lightblue",
+  },
+  photoCommon: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  topPhoto: {
+    flex: 1,
+    borderRightWidth: 1,
+    borderLeftWidth: 1,
+    borderBottomWidth: 1,
+  },
+  photo: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: "black",
+    marginTop: 4,
   },
 });
 
@@ -70,53 +89,34 @@ type CachedPhotosProps = {
 };
 
 export default function CachedPhotos({ photos }: CachedPhotosProps) {
-  // TODO: prefer to scale images based on its dominant axis
-  // which means the server needs to store height, width
-  const height = Dimensions.get("screen").height * 0.75;
-
   if (photos === undefined || photos.length === 0) {
     return null;
   }
 
+  const { width } = Dimensions.get("screen");
+
   return (
-    <View
-      style={{
-        borderColor: "black",
-        borderWidth: 1,
-        borderRadius: 2,
-        margin: 2,
-      }}
-    >
-      <View
-        style={{
-          borderColor: "black",
-          borderBottomWidth: 1,
-          backgroundColor: "lightblue",
-        }}
-      >
+    <View style={styles.photosContainer}>
+      <View style={styles.photosHeader}>
         <Text style={{ textAlign: "center" }}>
           {Labels.RecordFields.Photos}
         </Text>
       </View>
-      <View style={{ flex: photos.length, flexDirection: "column" }}>
-        {photos.map((photo, index) => (
-          <View
-            style={[
-              index === 0 ? styles.topImage : styles.image,
-              {
-                width: "100%",
-                height,
-                alignItems: "center",
-                justifyContent: "center",
-              },
-            ]}
-            /* eslint-disable react/no-array-index-key */
-            key={index}
-          >
-            <CachedPhoto uri={photo.uri} />
-          </View>
-        ))}
-      </View>
+      {photos.map((photo, index) => (
+        <View
+          style={[
+            styles.photoCommon,
+            index === 0 ? styles.topPhoto : styles.photo,
+            {
+              height: Math.floor(width * (photo.height / photo.width)),
+            },
+          ]}
+          /* eslint-disable react/no-array-index-key */
+          key={index}
+        >
+          <CachedPhoto uri={photo.uri} />
+        </View>
+      ))}
     </View>
   );
 }
