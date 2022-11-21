@@ -60,7 +60,7 @@ function useDownloadedRecordList() {
 
   const renderRecords = useCallback(() => {
     const records: AlgaeRecord[] = recordReducerStateContext.downloadedRecords;
-    const result: Array<JSX.Element> = [];
+    const result: JSX.Element[] = [];
     let previousDate: Date | undefined;
 
     for (let i = 0; i < records.length; ++i) {

@@ -20,7 +20,7 @@ async function uploadPhotos(photos: PendingPhoto[]): Promise<void> {
     return Promise.resolve();
   }
 
-  const failedPhotos: Array<PendingPhoto> = [];
+  const failedPhotos: PendingPhoto[] = [];
 
   // tried with an array of Promises but photos after first were arriving corrupted
   await photos.reduce(
@@ -87,7 +87,7 @@ async function uploadRecord(
   } catch (failedPhotos) {
     Logger.Warn(`RecordManager.uploadPhotos failed`);
 
-    let pendingPhotos: Array<PendingPhoto> = await loadPendingPhotos();
+    let pendingPhotos: PendingPhoto[] = await loadPendingPhotos();
     pendingPhotos = await savePendingPhotos([
       ...pendingPhotos,
       ...failedPhotos,
