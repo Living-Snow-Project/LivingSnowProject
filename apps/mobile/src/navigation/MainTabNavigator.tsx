@@ -1,4 +1,4 @@
-import { createStackNavigator } from "@react-navigation/stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import TimelineScreen from "../screens/TimelineScreen";
@@ -12,7 +12,7 @@ import { RootStackParamList, RootStackNavigationProp } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 type SettingsButtonProps = {
   navigation: RootStackNavigationProp;
@@ -23,7 +23,7 @@ function SettingsButton({ navigation }: SettingsButtonProps) {
     <HeaderButton
       testID={TestIds.TimelineScreen.SettingsButton}
       onPress={() => navigation.navigate("Settings")}
-      iconName="settings"
+      iconName="settings-outline"
       placement="left"
     />
   );
@@ -63,11 +63,7 @@ function RootNavigator() {
         })}
       />
       <Stack.Screen name="Record" component={RecordScreen} />
-      <Stack.Screen
-        name="Settings"
-        component={SettingsScreen}
-        options={{ gestureDirection: "horizontal-inverted" }}
-      />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen
         name="ImageSelection"
         component={ImagesPickerScreen}

@@ -3,14 +3,17 @@ import { Platform, StyleSheet } from "react-native";
 import PressableOpacity from "./PressableOpacity";
 import { StockIcon } from "./Icons";
 
+type IconNames =
+  | "snow"
+  | "save-outline"
+  | "cloud-upload"
+  | "settings-outline"
+  | "add-circle-outline"
+  | "checkmark-circle-outline";
+
 type HeaderButtonProps = {
   testID: string;
-  iconName:
-    | "snow"
-    | "save-outline"
-    | "cloud-upload"
-    | "settings"
-    | "add-circle-outline";
+  iconName: IconNames;
   onPress: () => void;
   placement: "left" | "right";
 };

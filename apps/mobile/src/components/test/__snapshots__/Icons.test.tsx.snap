@@ -134,7 +134,7 @@ exports[`Icons test suite android snow icon 1`] = `
   style={
     Array [
       Object {
-        "color": "#ccc",
+        "color": "#0077ff",
         "fontSize": 32,
       },
       Object {},
@@ -309,7 +309,7 @@ exports[`Icons test suite ios snow icon 1`] = `
   style={
     Array [
       Object {
-        "color": "#ccc",
+        "color": "#0077ff",
         "fontSize": 32,
       },
       Object {},

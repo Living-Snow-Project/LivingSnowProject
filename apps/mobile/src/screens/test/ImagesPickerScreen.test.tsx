@@ -6,10 +6,21 @@ import {
   ImagesPickerScreenRouteProp,
 } from "../../navigation/Routes";
 import ImagesPickerScreen from "../ImagesPickerScreen";
+import TestIds from "../../constants/TestIds";
+
+// record action button renders independently of the screen
+let photoSelectedActionButton: () => JSX.Element;
 
 const navigation = {} as ImagesPickerScreenNavigationProp;
 navigation.navigate = jest.fn();
 navigation.goBack = jest.fn();
+navigation.setOptions = ({
+  headerRight,
+}: {
+  headerRight: () => JSX.Element;
+}) => {
+  photoSelectedActionButton = headerRight;
+};
 
 const route = {
   params: {
@@ -23,23 +34,26 @@ describe("ImagesPickerScreen test suite", () => {
   });
 
   test("renders ios", async () => {
-    const { getByText, toJSON } = render(
+    const { toJSON } = render(
       <ImagesPickerScreen navigation={navigation} route={route} />
     );
 
+    const { getByTestId } = render(photoSelectedActionButton());
+
     expect(toJSON()).toMatchSnapshot();
-    fireEvent.press(getByText("Finish"));
+    fireEvent.press(getByTestId(TestIds.Icons.DoneSelectingPhotosIcon));
     await waitFor(() => expect(navigation.goBack).toBeCalled());
     expect(route.params.onUpdatePhotos).toBeCalled();
   });
 
   test("renders android", async () => {
     Platform.OS = "android";
-    const { getByText } = render(
-      <ImagesPickerScreen navigation={navigation} route={route} />
-    );
 
-    fireEvent.press(getByText("Finish"));
+    render(<ImagesPickerScreen navigation={navigation} route={route} />);
+
+    const { getByTestId } = render(photoSelectedActionButton());
+
+    fireEvent.press(getByTestId(TestIds.Icons.DoneSelectingPhotosIcon));
     await waitFor(() => expect(navigation.goBack).toBeCalled());
     expect(route.params.onUpdatePhotos).toBeCalled();
     Platform.OS = "ios";

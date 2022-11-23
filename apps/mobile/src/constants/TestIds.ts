@@ -26,13 +26,14 @@ const TestIds = {
     ShowGpsWarning: "settings-screen-show-gps-warning",
   },
   Icons: {
-    SampleIcon: "sample-icon",
-    SightingIcon: "sighting-icon",
-    PictureIcon: "picture-icon",
     DeleteIcon: "delete-icon",
+    DoneSelectingPhotosIcon: "done-selecting-photos-icon",
     EditIcon: "edit-icon",
+    PictureIcon: "picture-icon",
+    SampleIcon: "sample-icon",
     SaveIcon: "save-icon",
     ScrollTopIcon: "scroll-top-icon",
+    SightingIcon: "sighting-icon",
     SnowIcon: "snow-icon",
   },
   RecordList: {

@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { Alert } from "react-native";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { AlgaeRecord, Photo, makeExampleRecord } from "@livingsnow/record";
@@ -18,7 +18,7 @@ import { makeRecordReducerActionsMock } from "../../mocks/useRecordReducer.mock"
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 
 // record action button renders independently of the screen
-let recordActionButton: () => ReactElement;
+let recordActionButton: () => JSX.Element;
 
 // mock navigation prop
 const navigation = {} as RecordScreenNavigationProp;

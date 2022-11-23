@@ -62,7 +62,7 @@ exports[`HeaderButton test suite renders right on android 1`] = `
     style={
       Array [
         Object {
-          "color": "#ccc",
+          "color": "#0077ff",
           "fontSize": 32,
         },
         undefined,

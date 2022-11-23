@@ -1,15 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { ImagesPickerScreenProps } from "../navigation/Routes";
+import {
+  ImagesPickerScreenProps,
+  ImagesPickerScreenNavigationProp,
+} from "../navigation/Routes";
 /* eslint-disable import/no-relative-packages */
 import { AssetsSelector } from "../../expo-images-picker";
 import {
-  NavigatorType,
   ResizeType,
   SettingsType,
   StylesType,
+  CustomNavigator as CustomNavigatorType,
 } from "../../expo-images-picker/src/Types";
+import HeaderButton from "../components/HeaderButton";
+import TestIds from "../constants/TestIds";
+
+type CustomNavigatorProps = {
+  navigation: ImagesPickerScreenNavigationProp;
+  onSuccess: () => void;
+};
+
+function CustomNavigator({ navigation, onSuccess }: CustomNavigatorProps) {
+  useEffect(() => {
+    const DoneAction = (
+      <HeaderButton
+        testID={TestIds.Icons.DoneSelectingPhotosIcon}
+        onPress={() => {
+          onSuccess();
+        }}
+        iconName="checkmark-circle-outline"
+        placement="right"
+      />
+    );
+
+    /* eslint-disable react/no-unstable-nested-components */
+    navigation.setOptions({
+      headerRight: () => DoneAction,
+    });
+  }, [navigation, onSuccess]);
+
+  return null;
+}
 
 export default function ImagesPickerScreen({
   navigation,
@@ -55,28 +87,22 @@ export default function ImagesPickerScreen({
     },
   };
 
-  const widgetNavigator: NavigatorType = {
-    Texts: {
-      finish: "Finish",
-      back: "",
-      selected: "",
-    },
-    buttonTextStyle: {},
-    buttonStyle: {},
-    // TODO: this should be on react-navigation header not the component's
-    // TODO: possible to eliminate goBackText and backFunction?
-    onBack: () => () => {},
-    onSuccess: (data: any[]) => {
-      route.params.onUpdatePhotos(data);
-      navigation.goBack();
-    },
-  };
-
   const widgetResize: ResizeType = {
     compress: 0.7,
     majorAxis: 1024,
     base64: false,
     saveTo: "jpeg",
+  };
+
+  const customNavigatorWidget: CustomNavigatorType = {
+    Component: CustomNavigator,
+    props: {
+      navigation,
+      onSuccess: (data: any[]) => {
+        route.params.onUpdatePhotos(data);
+        navigation.goBack();
+      },
+    },
   };
 
   return (
@@ -85,8 +111,8 @@ export default function ImagesPickerScreen({
       Settings={widgetSettings}
       Styles={widgetStyles}
       Errors={{}}
-      Navigator={widgetNavigator}
       Resize={widgetResize}
+      CustomNavigator={customNavigatorWidget}
     />
   );
 }

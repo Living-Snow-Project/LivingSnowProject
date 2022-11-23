@@ -1,4 +1,7 @@
-import { StackNavigationProp, StackScreenProps } from "@react-navigation/stack";
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from "@react-navigation/native-stack";
 import { AlgaeRecord, Photo } from "@livingsnow/record";
 
 export type RootStackParamList = {
@@ -10,24 +13,28 @@ export type RootStackParamList = {
   RecordDetails: { record: AlgaeRecord };
 };
 
-export type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;
+export type RootStackNavigationProp =
+  NativeStackNavigationProp<RootStackParamList>;
 
-export type FirstRunScreenNavigationProp = StackNavigationProp<
+export type FirstRunScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   "Welcome"
 >;
 
-export type TimelineScreenProps = StackScreenProps<
+export type TimelineScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "Timeline"
 >;
 export type TimelineScreenNavigationProp = TimelineScreenProps["navigation"];
 
-export type RecordScreenProps = StackScreenProps<RootStackParamList, "Record">;
+export type RecordScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  "Record"
+>;
 export type RecordScreenNavigationProp = RecordScreenProps["navigation"];
 export type RecordScreenRouteProp = RecordScreenProps["route"];
 
-export type ImagesPickerScreenProps = StackScreenProps<
+export type ImagesPickerScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "ImageSelection"
 >;
@@ -35,7 +42,7 @@ export type ImagesPickerScreenNavigationProp =
   ImagesPickerScreenProps["navigation"];
 export type ImagesPickerScreenRouteProp = ImagesPickerScreenProps["route"];
 
-export type RecordDetailsScreenProps = StackScreenProps<
+export type RecordDetailsScreenProps = NativeStackScreenProps<
   RootStackParamList,
   "RecordDetails"
 >;
