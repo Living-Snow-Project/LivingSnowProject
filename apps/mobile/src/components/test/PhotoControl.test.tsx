@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
-import { Photo } from "@livingsnow/record";
+import { SelectedPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
 import PhotoControl from "../PhotoControl";
 
@@ -10,9 +10,9 @@ navigation.navigate = () => {};
 
 describe("PhotoControl test suite", () => {
   test("even number of photos", () => {
-    const photos: Photo[] = [
-      { uri: "", size: 128, height: 16, width: 24 },
-      { uri: "", size: 256, height: 24, width: 16 },
+    const photos: SelectedPhoto[] = [
+      { id: "0", uri: "", height: 16, width: 24 },
+      { id: "1", uri: "", height: 24, width: 16 },
     ];
 
     const { toJSON } = render(
@@ -27,7 +27,9 @@ describe("PhotoControl test suite", () => {
   });
 
   test("odd number of photos", () => {
-    const photos: Photo[] = [{ uri: "", size: 1024, height: 16, width: 24 }];
+    const photos: SelectedPhoto[] = [
+      { id: "0", uri: "", height: 16, width: 24 },
+    ];
 
     const { toJSON } = render(
       <PhotoControl

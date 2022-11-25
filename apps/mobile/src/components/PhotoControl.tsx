@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { Image, LogBox, Pressable, StyleSheet, Text, View } from "react-native";
-import { Photo } from "@livingsnow/record";
+import { SelectedPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../navigation/Routes";
 import { formInputStyles } from "../styles/FormInput";
 import TestIds from "../constants/TestIds";
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
 
 type PhotoControlProps = {
   navigation: RootStackNavigationProp;
-  photos: Photo[];
-  onUpdatePhotos: (photos: Photo[]) => void;
+  photos: SelectedPhoto[];
+  onUpdatePhotos: (photos: SelectedPhoto[]) => void;
 };
 
 export default function PhotoControl({
@@ -92,11 +92,21 @@ export default function PhotoControl({
       </Text>
       <Pressable
         testID={TestIds.Photos.photoSelectorTestId}
-        onPress={() =>
+        onPress={() => {
+          let existingSelection: string[] | undefined;
+
+          if (photos.length > 0) {
+            existingSelection = [];
+            for (let i = 0; i < photos.length; i++) {
+              existingSelection.push(photos[i].id);
+            }
+          }
+
           navigation.navigate("ImageSelection", {
+            existingSelection,
             onUpdatePhotos,
-          })
-        }
+          });
+        }}
       >
         {photos.length === 0 && <PictureIcon />}
         {photos.length > 0 && renderPhotos()}

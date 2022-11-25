@@ -19,6 +19,7 @@ import Logger from "@livingsnow/logger";
 import {
   AlgaeRecord,
   Photo,
+  SelectedPhoto,
   isSample,
   recordDateFormat,
 } from "@livingsnow/record";
@@ -91,13 +92,26 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
       : { ...route.params.record }
   );
 
-  const [photos, setPhotos] = useState<Photo[]>(
-    route === undefined ||
-      route.params === undefined ||
-      !route.params.record.photos
-      ? []
-      : [...route.params.record.photos]
-  );
+  // don't want to change AlgaeRecord type for editing a pending record while offline
+  // but do want to preserve the SelectedPhotos experience
+  const [photos, setPhotos] = useState<SelectedPhoto[]>(() => {
+    if (!route || !route.params || !route.params.record.photos) {
+      return [];
+    }
+
+    return route.params.record.photos.map((photo: Photo | SelectedPhoto) => {
+      if ("id" in photo) {
+        return { ...photo };
+      }
+
+      return {
+        id: "",
+        uri: photo.uri,
+        width: photo.width,
+        height: photo.height,
+      };
+    });
+  });
 
   const dateString = useMemo(() => recordDateFormat(state.date), [state.date]);
 

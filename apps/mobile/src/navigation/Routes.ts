@@ -2,14 +2,17 @@ import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
-import { AlgaeRecord, Photo } from "@livingsnow/record";
+import { AlgaeRecord, SelectedPhoto } from "@livingsnow/record";
 
 export type RootStackParamList = {
   Welcome: undefined;
   Timeline: undefined;
   Record: { record: AlgaeRecord } | undefined; // edit record or new record
   Settings: undefined;
-  ImageSelection: { onUpdatePhotos: (photos: Photo[]) => void };
+  ImageSelection: {
+    existingSelection?: string[];
+    onUpdatePhotos: (photos: SelectedPhoto[]) => void;
+  };
   RecordDetails: { record: AlgaeRecord };
 };
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Asset } from "expo-media-library";
 import {
   ImagesPickerScreenProps,
   ImagesPickerScreenNavigationProp,
@@ -26,9 +27,7 @@ function CustomNavigator({ navigation, onSuccess }: CustomNavigatorProps) {
     const DoneAction = (
       <HeaderButton
         testID={TestIds.Icons.DoneSelectingPhotosIcon}
-        onPress={() => {
-          onSuccess();
-        }}
+        onPress={onSuccess}
         iconName="checkmark-circle-outline"
         placement="right"
       />
@@ -53,6 +52,7 @@ export default function ImagesPickerScreen({
     assetsType: ["photo"],
     minSelection: 0,
     maxSelection: 4,
+    existingSelectionIds: route.params.existingSelection,
     portraitCols: 4,
     landscapeCols: 5,
   };
@@ -81,8 +81,8 @@ export default function ImagesPickerScreen({
         Platform.OS === "ios"
           ? "ios-checkmark-circle-outline"
           : "md-checkmark-circle-outline",
-      color: "grey",
-      bg: "lightgrey",
+      color: "red",
+      bg: "#00000000",
       size: 40,
     },
   };
@@ -98,7 +98,7 @@ export default function ImagesPickerScreen({
     Component: CustomNavigator,
     props: {
       navigation,
-      onSuccess: (data: any[]) => {
+      onSuccess: (data: Asset[]) => {
         route.params.onUpdatePhotos(data);
         navigation.goBack();
       },
@@ -106,7 +106,6 @@ export default function ImagesPickerScreen({
   };
 
   return (
-    // TODO: how to tell what's already selected
     <AssetsSelector
       Settings={widgetSettings}
       Styles={widgetStyles}
