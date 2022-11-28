@@ -1,3 +1,5 @@
+import { AlgaeRecord, Photo } from "@livingsnow/record";
+
 const RecordReducerStatesArray = [
   "Idle",
   "Saving",
@@ -7,9 +9,9 @@ const RecordReducerStatesArray = [
   "Downloading",
 ] as const;
 
-type RecordReducerStates = typeof RecordReducerStatesArray[number];
+export type RecordReducerStates = typeof RecordReducerStatesArray[number];
 
-type RecordReducerState = {
+export type RecordReducerState = {
   state: RecordReducerStates;
   seeded: boolean;
   pendingRecords: AlgaeRecord[];
@@ -18,7 +20,7 @@ type RecordReducerState = {
   //  pendingPhotos: Photos[];
 };
 
-interface RecordReducerActions {
+export interface RecordReducerActions {
   seed: () => Promise<void>;
   save: (record: AlgaeRecord) => Promise<void>;
   delete: (record: AlgaeRecord) => Promise<void>;

@@ -200,10 +200,11 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
       return;
     }
 
+    // TODO: change updatePendingRecord to take SelectedPhoto?
     recordReducerActionsContext
       .updatePendingRecord({
         ...removeEmptyFields(state),
-        photos,
+        photos: photos && photos.map((value) => ({ ...value, size: 0 })),
       })
       .then(() => Alert.alert(Notifications.updateRecordSuccess.title))
       .catch(() =>
@@ -228,8 +229,12 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
       return;
     }
 
+    // TODO: change uploadRecord to take SelectedPhoto?
     recordReducerActionsContext
-      .uploadRecord(removeEmptyFields(state), photos)
+      .uploadRecord(
+        removeEmptyFields(state),
+        photos && photos.map((value) => ({ ...value, size: 0 }))
+      )
       .then(() =>
         Alert.alert(
           Notifications.uploadSuccess.title,

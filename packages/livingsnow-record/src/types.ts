@@ -63,5 +63,5 @@ export type AlgaeRecord = {
   tubeId?: string;
   locationDescription?: string;
   notes?: string;
-  photos?: Photo[];
+  photos?: Photo[]; // TODO: | SelectedPhoto[]; Photo[] on download, SelectedPhoto[] before upload, PendingPhoto[] on upload
 };

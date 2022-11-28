@@ -434,8 +434,20 @@ describe("RecordScreen test suite", () => {
       record = makeExampleRecord("Sample");
       // internally, RecordScreen maps Photo to SelectedPhoto, so we have to modify our expected results
       record.photos = [
-        { id: "", width: 100, height: 200, uri: "46" } as unknown as Photo,
-        { id: "", width: 100, height: 200, uri: "23" } as unknown as Photo,
+        {
+          id: "",
+          width: 100,
+          height: 200,
+          size: 0,
+          uri: "46",
+        } as unknown as Photo,
+        {
+          id: "",
+          width: 100,
+          height: 200,
+          size: 0,
+          uri: "23",
+        } as unknown as Photo,
       ];
 
       recordScreen = customRender({

@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { Animated, StyleSheet, Text } from "react-native";
+import { RecordReducerStates } from "../../types/AppState";
 import { Labels } from "../constants/Strings";
 
 const styles = StyleSheet.create({

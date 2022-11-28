@@ -6,6 +6,7 @@ import NetInfo, {
   NetInfoState,
 } from "@react-native-community/netinfo";
 import { AlgaeRecord, makeExampleRecord } from "@livingsnow/record";
+import { RecordReducerState } from "../../../types/AppState";
 import {
   RootStackNavigationProp,
   TimelineScreenNavigationProp,

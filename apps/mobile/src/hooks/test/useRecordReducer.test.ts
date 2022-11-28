@@ -3,6 +3,7 @@ import {
   makeExamplePhoto,
   makeExampleRecord,
 } from "@livingsnow/record";
+import { RecordReducerStates } from "../../../types/AppState";
 import { reducer, recordReducerActionsDispatch } from "../useRecordReducer";
 import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 import * as RecordManager from "../../lib/RecordManager";
