@@ -1,5 +1,8 @@
 import { makeExampleRecord } from "@livingsnow/record";
-import { RecordReducerState, RecordReducerActions } from "../../types/AppState";
+import {
+  RecordReducerState,
+  RecordReducerActions,
+} from "../../types/AlgaeRecords";
 
 const makeRecordReducerStateMock = (): RecordReducerState => ({
   state: "Idle",

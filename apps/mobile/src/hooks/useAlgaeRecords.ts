@@ -8,7 +8,7 @@ import {
   RecordReducerStates,
   RecordReducerState,
   RecordReducerActions,
-} from "../../types/AppState";
+} from "../../types/AlgaeRecords";
 import {
   deletePendingRecord,
   loadCachedRecords,

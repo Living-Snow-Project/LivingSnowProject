@@ -3,7 +3,7 @@ import {
   makeExamplePhoto,
   makeExampleRecord,
 } from "@livingsnow/record";
-import { RecordReducerStates } from "../../../types/AppState";
+import { RecordReducerStates } from "../../../types/AlgaeRecords";
 import { reducer, recordReducerActionsDispatch } from "../useAlgaeRecords";
 import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 import * as RecordManager from "../../lib/RecordManager";
