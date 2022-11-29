@@ -12,7 +12,7 @@ import { Labels } from "../constants/Strings";
 import {
   RecordReducerStateContext,
   RecordReducerActionsContext,
-} from "../hooks/useRecordReducer";
+} from "../hooks/useAlgaeRecords";
 import { productionExampleRecord } from "../record/Record";
 
 const actionStyles = StyleSheet.create({

@@ -5,14 +5,14 @@ import "react-native-gesture-handler";
 import Navigation from "./src/navigation/MainTabNavigator";
 import useCachedResources from "./src/hooks/useCachedResources";
 import {
-  useRecordReducer,
+  useAlgaeRecords,
   RecordReducerStateContext,
   RecordReducerActionsContext,
-} from "./src/hooks/useRecordReducer";
+} from "./src/hooks/useAlgaeRecords";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const [storageState, storageActions] = useRecordReducer();
+  const [storageState, storageActions] = useAlgaeRecords();
 
   if (storageState.state !== "Seeding" && !storageState.seeded) {
     storageActions.seed();

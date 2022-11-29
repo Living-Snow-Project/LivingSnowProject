@@ -292,7 +292,7 @@ const initialState: RecordReducerState = {
   downloadedRecords: [],
 };
 
-function useRecordReducer(): [RecordReducerState, RecordReducerActions] {
+function useAlgaeRecords(): [RecordReducerState, RecordReducerActions] {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // actions are asynchronous, call dispatch wrapped in them (like redux-thunk)
@@ -332,7 +332,7 @@ export { reducer, recordReducerActionsDispatch };
 
 // public API
 export {
-  useRecordReducer,
+  useAlgaeRecords,
   RecordReducerStateContext,
   RecordReducerActionsContext,
 };

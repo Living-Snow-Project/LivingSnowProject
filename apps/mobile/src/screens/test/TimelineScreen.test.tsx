@@ -24,7 +24,7 @@ import { mockedNavigate } from "../../../jesttest.setup";
 import {
   RecordReducerActionsContext,
   RecordReducerStateContext,
-} from "../../hooks/useRecordReducer";
+} from "../../hooks/useAlgaeRecords";
 import {
   makeRecordReducerActionsMock,
   makeRecordReducerStateMock,

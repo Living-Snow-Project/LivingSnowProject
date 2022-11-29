@@ -39,7 +39,7 @@ import PhotoControl from "../components/PhotoControl";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
-import { RecordReducerActionsContext } from "../hooks/useRecordReducer";
+import { RecordReducerActionsContext } from "../hooks/useAlgaeRecords";
 
 type OffsetOperation = "add" | "subtract";
 
