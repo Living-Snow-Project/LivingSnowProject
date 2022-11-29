@@ -5,9 +5,9 @@ import Logger from "@livingsnow/logger";
 import { downloadRecords } from "@livingsnow/network";
 import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
 import {
-  RecordReducerStates,
-  RecordReducerState,
-  RecordReducerActions,
+  AlgaeRecordsStates,
+  AlgaeRecordState,
+  IAlgaeRecords,
 } from "../../types/AlgaeRecords";
 import {
   deletePendingRecord,
@@ -53,12 +53,12 @@ type RecordReducerAction = {
   payload: RecordReducerPayload;
 };
 
-const defaultState: RecordReducerStates = "Idle";
+const defaultState: AlgaeRecordsStates = "Idle";
 
 const reducer = (
-  currentState: RecordReducerState,
+  currentState: AlgaeRecordState,
   action: RecordReducerAction
-): RecordReducerState => {
+): AlgaeRecordState => {
   const { type, payload } = action;
 
   switch (type) {
@@ -157,7 +157,7 @@ type RecordDispatchProps = {
 };
 
 // hide dispatch from public interface
-interface RecordReducerActionsDispatch extends RecordReducerActions {
+interface RecordReducerActionsDispatch extends IAlgaeRecords {
   dispatch: ({ type, payload }: RecordDispatchProps) => void;
 }
 
@@ -285,14 +285,14 @@ const recordReducerActionsDispatch: RecordReducerActionsDispatch = {
   },
 };
 
-const initialState: RecordReducerState = {
+const initialState: AlgaeRecordState = {
   state: defaultState,
   seeded: false,
   pendingRecords: [],
   downloadedRecords: [],
 };
 
-function useAlgaeRecords(): [RecordReducerState, RecordReducerActions] {
+function useAlgaeRecords(): [AlgaeRecordState, IAlgaeRecords] {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // actions are asynchronous, call dispatch wrapped in them (like redux-thunk)
@@ -305,9 +305,9 @@ function useAlgaeRecords(): [RecordReducerState, RecordReducerActions] {
 // TODO: is this still needed? Wouldn't a component needing RecordReducerState simply use RecordReducerActions
 //  and interact with state through that?
 const RecordReducerStateContext =
-  React.createContext<RecordReducerState>(initialState);
+  React.createContext<AlgaeRecordState>(initialState);
 
-const RecordReducerActionsContext = React.createContext<RecordReducerActions>(
+const RecordReducerActionsContext = React.createContext<IAlgaeRecords>(
   recordReducerActionsDispatch
 );
 

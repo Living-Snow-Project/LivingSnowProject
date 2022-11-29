@@ -6,7 +6,7 @@ import NetInfo, {
   NetInfoState,
 } from "@react-native-community/netinfo";
 import { AlgaeRecord, makeExampleRecord } from "@livingsnow/record";
-import { RecordReducerState } from "../../../types/AlgaeRecords";
+import { AlgaeRecordState } from "../../../types/AlgaeRecords";
 import {
   RootStackNavigationProp,
   TimelineScreenNavigationProp,
@@ -394,7 +394,7 @@ describe("TimelineScreen test suite", () => {
       const retryRecordsSpy = setupDownloadFailed();
 
       /* eslint-disable react/jsx-no-constructed-context-values */
-      const recordReducerStateMock: RecordReducerState = {
+      const recordReducerStateMock: AlgaeRecordState = {
         ...makeRecordReducerStateMock(),
         pendingRecords: [pendingRecord],
       };

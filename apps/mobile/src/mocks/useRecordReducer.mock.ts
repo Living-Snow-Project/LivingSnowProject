@@ -1,17 +1,14 @@
 import { makeExampleRecord } from "@livingsnow/record";
-import {
-  RecordReducerState,
-  RecordReducerActions,
-} from "../../types/AlgaeRecords";
+import { AlgaeRecordState, IAlgaeRecords } from "../../types/AlgaeRecords";
 
-const makeRecordReducerStateMock = (): RecordReducerState => ({
+const makeRecordReducerStateMock = (): AlgaeRecordState => ({
   state: "Idle",
   seeded: false,
   pendingRecords: [makeExampleRecord("Sighting")],
   downloadedRecords: [],
 });
 
-const makeRecordReducerActionsMock = (): RecordReducerActions => ({
+const makeRecordReducerActionsMock = (): IAlgaeRecords => ({
   seed: jest.fn(() => Promise.resolve()),
   save: jest.fn(() => Promise.resolve()),
   delete: jest.fn(() => Promise.resolve()),

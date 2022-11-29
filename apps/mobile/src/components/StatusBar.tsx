@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Animated, StyleSheet, Text } from "react-native";
-import { RecordReducerStates } from "../../types/AlgaeRecords";
+import { AlgaeRecordsStates } from "../../types/AlgaeRecords";
 import { Labels } from "../constants/Strings";
 
 const styles = StyleSheet.create({
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 });
 
 type StatusBarProps = {
-  state: RecordReducerStates;
+  state: AlgaeRecordsStates;
   isConnected: boolean;
 };
 

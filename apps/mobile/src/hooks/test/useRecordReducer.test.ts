@@ -3,7 +3,7 @@ import {
   makeExamplePhoto,
   makeExampleRecord,
 } from "@livingsnow/record";
-import { RecordReducerStates } from "../../../types/AlgaeRecords";
+import { AlgaeRecordsStates } from "../../../types/AlgaeRecords";
 import { reducer, recordReducerActionsDispatch } from "../useAlgaeRecords";
 import { makeRecordReducerStateMock } from "../../mocks/useRecordReducer.mock";
 import * as RecordManager from "../../lib/RecordManager";
@@ -12,7 +12,7 @@ import * as RecordManager from "../../lib/RecordManager";
 jest.mock("@livingsnow/network");
 const Network = require("@livingsnow/network");
 
-const defaultState: RecordReducerStates = "Idle";
+const defaultState: AlgaeRecordsStates = "Idle";
 
 describe("useRecordReducer test suite", () => {
   describe("dispatch tests", () => {

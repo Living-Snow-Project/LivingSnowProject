@@ -1,6 +1,6 @@
 import { AlgaeRecord, Photo } from "@livingsnow/record";
 
-const RecordReducerStatesArray = [
+const AlgaeRecordsStatesArray = [
   "Idle",
   "Saving",
   "Seeding",
@@ -9,18 +9,21 @@ const RecordReducerStatesArray = [
   "Downloading",
 ] as const;
 
-export type RecordReducerStates = typeof RecordReducerStatesArray[number];
+export type AlgaeRecordsStates = typeof AlgaeRecordsStatesArray[number];
 
-export type RecordReducerState = {
-  state: RecordReducerStates;
+export type AlgaeRecordState = {
+  state: AlgaeRecordsStates;
   seeded: boolean;
   pendingRecords: AlgaeRecord[];
   downloadedRecords: AlgaeRecord[];
   // TODO:
-  //  pendingPhotos: Photos[];
+  //  pendingPhotos: PendingPhoto[];
 };
 
-export interface RecordReducerActions {
+export interface IAlgaeRecords {
+  // getDownloadedRecords: () => AlgaeRecord[];
+  // getPendingRecords: () => AlgaeRecord[];
+  // getPendingPhotos: () => PendingPhoto[];
   seed: () => Promise<void>;
   save: (record: AlgaeRecord) => Promise<void>;
   delete: (record: AlgaeRecord) => Promise<void>;
