@@ -12,7 +12,7 @@ import TestIds from "../../constants/TestIds";
 import { Notifications, Placeholders } from "../../constants/Strings";
 import * as RecordManager from "../../lib/RecordManager";
 import * as Storage from "../../lib/Storage";
-import { RecordReducerActionsContext } from "../../hooks/useAlgaeRecords";
+import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { makeRecordReducerActionsMock } from "../../mocks/useRecordReducer.mock";
 
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
@@ -45,9 +45,9 @@ const customRender = (route: RecordScreenRouteProp = defaultRouteProp) => {
   };
 
   return render(
-    <RecordReducerActionsContext.Provider value={recordActionsContext}>
+    <AlgaeRecordsContext.Provider value={recordActionsContext}>
       <RecordScreen navigation={navigation} route={route} />
-    </RecordReducerActionsContext.Provider>
+    </AlgaeRecordsContext.Provider>
   );
 };
 

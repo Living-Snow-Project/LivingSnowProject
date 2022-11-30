@@ -11,7 +11,7 @@ import TestIds from "../constants/TestIds";
 import { Labels } from "../constants/Strings";
 import {
   RecordReducerStateContext,
-  RecordReducerActionsContext,
+  useAlgaeRecordsContext,
 } from "../hooks/useAlgaeRecords";
 import { productionExampleRecord } from "../record/Record";
 
@@ -56,10 +56,10 @@ function ExampleRecordList() {
 }
 
 function useDownloadedRecordList() {
-  const recordReducerStateContext = useContext(RecordReducerStateContext);
+  const algaeRecordsContext = useContext(RecordReducerStateContext);
 
   const renderRecords = useCallback(() => {
-    const records: AlgaeRecord[] = recordReducerStateContext.downloadedRecords;
+    const records: AlgaeRecord[] = algaeRecordsContext.downloadedRecords;
     const result: JSX.Element[] = [];
     let previousDate: Date | undefined;
 
@@ -78,9 +78,9 @@ function useDownloadedRecordList() {
     }
 
     return result;
-  }, [recordReducerStateContext]);
+  }, [algaeRecordsContext]);
 
-  if (recordReducerStateContext.downloadedRecords.length === 0) {
+  if (algaeRecordsContext.downloadedRecords.length === 0) {
     return null;
   }
 
@@ -93,7 +93,7 @@ function useDownloadedRecordList() {
 function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
   const swipeable = useRef<Swipeable | null>();
   const recordReducerStateContext = useContext(RecordReducerStateContext);
-  const recordReducerActionsContext = useContext(RecordReducerActionsContext);
+  const recordReducerActionsContext = useAlgaeRecordsContext();
 
   const renderAction = (
     record: AlgaeRecord,

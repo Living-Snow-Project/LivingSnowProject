@@ -16,13 +16,12 @@ import {
   SettingsButton,
   NewRecordButton,
 } from "../../navigation/MainTabNavigator";
-import * as RecordManager from "../../lib/RecordManager";
 import * as Storage from "../../lib/Storage";
 import TestIds from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 import { mockedNavigate } from "../../../jesttest.setup";
 import {
-  RecordReducerActionsContext,
+  AlgaeRecordsContext,
   RecordReducerStateContext,
 } from "../../hooks/useAlgaeRecords";
 import {
@@ -53,10 +52,6 @@ const setIsConnected = (isConnected: boolean): void => {
 };
 
 const setupDownloadSuccess = () => {
-  const retryRecordsSpy = jest
-    .spyOn(RecordManager, "retryPendingRecords")
-    .mockImplementationOnce(() => Promise.resolve([]));
-
   const recordReducerStateMock = makeRecordReducerStateMock();
 
   recordReducerStateMock.downloadedRecords = [
@@ -67,19 +62,20 @@ const setupDownloadSuccess = () => {
   setIsConnected(true);
 
   return {
-    retryRecordsSpy,
     recordReducerStateMock,
+    recordReducerActionsMock: makeRecordReducerActionsMock(),
   };
 };
 
 const setupDownloadFailed = () => {
-  const retryRecordsSpy = jest
-    .spyOn(RecordManager, "retryPendingRecords")
-    .mockImplementationOnce(() => Promise.reject());
+  const recordReducerActionsMock = makeRecordReducerActionsMock();
+  recordReducerActionsMock.retryPendingRecords = jest.fn(() =>
+    Promise.reject()
+  );
 
   setIsConnected(true);
 
-  return retryRecordsSpy;
+  return recordReducerActionsMock;
 };
 
 describe("TimelineScreen test suite", () => {
@@ -88,37 +84,53 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("renders", () => {
-    const { toJSON } = render(<TimelineScreen navigation={navigation} />);
+    const recordReducerActionsMock = makeRecordReducerActionsMock();
+    const { toJSON } = render(
+      <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+        <TimelineScreen navigation={navigation} />
+      </AlgaeRecordsContext.Provider>
+    );
     expect(toJSON()).toMatchSnapshot();
   });
 
   test("download records succeeds", async () => {
-    const { retryRecordsSpy, recordReducerStateMock } = setupDownloadSuccess();
+    const { recordReducerStateMock, recordReducerActionsMock } =
+      setupDownloadSuccess();
 
     const { getByTestId, getByText } = render(
-      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-        <TimelineScreen navigation={navigation} />
-      </RecordReducerStateContext.Provider>
+      <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
+      </AlgaeRecordsContext.Provider>
     );
 
     await waitFor(() => getByTestId(downloadedRecord.id.toString()));
 
-    expect(retryRecordsSpy).toBeCalledTimes(1);
+    expect(recordReducerActionsMock.retryPendingRecords).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
   });
 
   test("download records fails", async () => {
-    const retryRecordsSpy = setupDownloadFailed();
+    const recordReducerActionsMock = setupDownloadFailed();
 
-    const { getByText } = render(<TimelineScreen navigation={navigation} />);
+    const { getByText } = render(
+      <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+        <TimelineScreen navigation={navigation} />
+      </AlgaeRecordsContext.Provider>
+    );
 
     await waitFor(() => getByText(Labels.TimelineScreen.ExampleRecords));
-    expect(retryRecordsSpy).toBeCalledTimes(1);
+    expect(recordReducerActionsMock.retryPendingRecords).toBeCalledTimes(1);
   });
 
   test("connection lost", async () => {
     setIsConnected(false);
-    const { getByText } = render(<TimelineScreen navigation={navigation} />);
+    const { getByText } = render(
+      <AlgaeRecordsContext.Provider value={makeRecordReducerActionsMock()}>
+        <TimelineScreen navigation={navigation} />
+      </AlgaeRecordsContext.Provider>
+    );
 
     await waitFor(() => getByText(Labels.StatusBar.NoConnection));
     expect(getByText(Labels.StatusBar.NoConnection)).toBeTruthy();
@@ -136,7 +148,9 @@ describe("TimelineScreen test suite", () => {
       });
 
     const { getByText, queryByText } = render(
-      <TimelineScreen navigation={navigation} />
+      <AlgaeRecordsContext.Provider value={makeRecordReducerActionsMock()}>
+        <TimelineScreen navigation={navigation} />
+      </AlgaeRecordsContext.Provider>
     );
 
     await waitFor(() => getByText(Labels.StatusBar.NoConnection));
@@ -147,12 +161,15 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("pull to refresh with connection", async () => {
-    const { recordReducerStateMock } = setupDownloadSuccess();
+    const { recordReducerStateMock, recordReducerActionsMock } =
+      setupDownloadSuccess();
 
     const { getByText, getByTestId } = render(
-      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-        <TimelineScreen navigation={navigation} />
-      </RecordReducerStateContext.Provider>
+      <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
+      </AlgaeRecordsContext.Provider>
     );
 
     await waitFor(() =>
@@ -171,7 +188,9 @@ describe("TimelineScreen test suite", () => {
     setIsConnected(false);
 
     const { getByText, getByTestId } = render(
-      <TimelineScreen navigation={navigation} />
+      <AlgaeRecordsContext.Provider value={makeRecordReducerActionsMock()}>
+        <TimelineScreen navigation={navigation} />
+      </AlgaeRecordsContext.Provider>
     );
 
     await act(async () =>
@@ -187,14 +206,13 @@ describe("TimelineScreen test suite", () => {
       ...makeRecordReducerStateMock(),
       downloadedRecords: [downloadedRecord],
     };
-    const recordReducerActionsMock = makeRecordReducerActionsMock();
 
     const { getByText, getByTestId } = render(
-      <RecordReducerActionsContext.Provider value={recordReducerActionsMock}>
+      <AlgaeRecordsContext.Provider value={makeRecordReducerActionsMock()}>
         <RecordReducerStateContext.Provider value={recordReducerStateMock}>
           <TimelineScreen navigation={navigation} />
         </RecordReducerStateContext.Provider>
-      </RecordReducerActionsContext.Provider>
+      </AlgaeRecordsContext.Provider>
     );
 
     await waitFor(() =>
@@ -210,12 +228,15 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("record flatlist onLayout", async () => {
-    const { recordReducerStateMock } = setupDownloadSuccess();
+    const { recordReducerStateMock, recordReducerActionsMock } =
+      setupDownloadSuccess();
 
     const { getByTestId } = render(
-      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-        <TimelineScreen navigation={navigation} />
-      </RecordReducerStateContext.Provider>
+      <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
+      </AlgaeRecordsContext.Provider>
     );
 
     await waitFor(() =>
@@ -233,12 +254,15 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("onScroll shows scrollToTop", async () => {
-    const { recordReducerStateMock } = setupDownloadSuccess();
+    const { recordReducerStateMock, recordReducerActionsMock } =
+      setupDownloadSuccess();
 
     const { getByTestId } = render(
-      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-        <TimelineScreen navigation={navigation} />
-      </RecordReducerStateContext.Provider>
+      <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
+      </AlgaeRecordsContext.Provider>
     );
 
     await waitFor(() =>
@@ -265,12 +289,15 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("onScroll doesn't show scrollToTop", async () => {
-    const { recordReducerStateMock } = setupDownloadSuccess();
+    const { recordReducerStateMock, recordReducerActionsMock } =
+      setupDownloadSuccess();
 
     const { getByTestId, queryByTestId } = render(
-      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-        <TimelineScreen navigation={navigation} />
-      </RecordReducerStateContext.Provider>
+      <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
+      </AlgaeRecordsContext.Provider>
     );
 
     await waitFor(() =>
@@ -297,12 +324,15 @@ describe("TimelineScreen test suite", () => {
   });
 
   test("scrollToTop", async () => {
-    const { recordReducerStateMock } = setupDownloadSuccess();
+    const { recordReducerStateMock, recordReducerActionsMock } =
+      setupDownloadSuccess();
 
     const { getByTestId } = render(
-      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-        <TimelineScreen navigation={navigation} />
-      </RecordReducerStateContext.Provider>
+      <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
+      </AlgaeRecordsContext.Provider>
     );
 
     await waitFor(() =>
@@ -350,37 +380,37 @@ describe("TimelineScreen test suite", () => {
     expect(navigationInner.navigate).toBeCalledWith("Record");
   });
 
-  test("navigate to record details screen", async () => {
-    const { retryRecordsSpy, recordReducerStateMock } = setupDownloadSuccess();
+  test("navigate to RecordDetailsScreen", async () => {
+    const { recordReducerStateMock, recordReducerActionsMock } =
+      setupDownloadSuccess();
 
     const { getByTestId } = render(
-      <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-        <TimelineScreen navigation={navigation} />
-      </RecordReducerStateContext.Provider>
+      <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+          <TimelineScreen navigation={navigation} />
+        </RecordReducerStateContext.Provider>
+      </AlgaeRecordsContext.Provider>
     );
 
     await waitFor(() => getByTestId(downloadedRecord.id.toString()));
 
     fireEvent.press(getByTestId(downloadedRecord.id.toString()));
 
-    expect(retryRecordsSpy).toBeCalledTimes(1);
+    expect(recordReducerActionsMock.retryPendingRecords).toBeCalledTimes(1);
     expect(mockedNavigate).toBeCalledWith("RecordDetails", {
       record: downloadedRecord,
     });
   });
 
   describe("Pending records tests", () => {
-    const recordReducerActionsMock = makeRecordReducerActionsMock();
     const customRender = () => {
       // comes with a single pending record
       const recordReducerStateMock = makeRecordReducerStateMock();
       const renderResult = render(
         <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-          <RecordReducerActionsContext.Provider
-            value={recordReducerActionsMock}
-          >
+          <AlgaeRecordsContext.Provider value={makeRecordReducerActionsMock()}>
             <TimelineScreen navigation={navigation} />
-          </RecordReducerActionsContext.Provider>
+          </AlgaeRecordsContext.Provider>
         </RecordReducerStateContext.Provider>
       );
 
@@ -391,7 +421,7 @@ describe("TimelineScreen test suite", () => {
     };
 
     test("pending records render", async () => {
-      const retryRecordsSpy = setupDownloadFailed();
+      const recordReducerActionsMock = setupDownloadFailed();
 
       /* eslint-disable react/jsx-no-constructed-context-values */
       const recordReducerStateMock: AlgaeRecordState = {
@@ -400,14 +430,16 @@ describe("TimelineScreen test suite", () => {
       };
 
       const { getByTestId, getByText } = render(
-        <RecordReducerStateContext.Provider value={recordReducerStateMock}>
-          <TimelineScreen navigation={navigation} />
-        </RecordReducerStateContext.Provider>
+        <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
+          <RecordReducerStateContext.Provider value={recordReducerStateMock}>
+            <TimelineScreen navigation={navigation} />
+          </RecordReducerStateContext.Provider>
+        </AlgaeRecordsContext.Provider>
       );
 
       // visible
       await waitFor(() => getByTestId(pendingRecord.id.toString()));
-      expect(retryRecordsSpy).toBeCalledTimes(1);
+      expect(recordReducerActionsMock.retryPendingRecords).toBeCalledTimes(1);
       expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
     });
 

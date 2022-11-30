@@ -8,7 +8,7 @@ import { ExampleRecordList } from "../components/RecordList";
 import styles from "../styles/Timeline";
 import TestIds from "../constants/TestIds";
 import {
-  RecordReducerActionsContext,
+  useAlgaeRecordsContext,
   RecordReducerStateContext,
 } from "../hooks/useAlgaeRecords";
 import useRecordList from "../hooks/useRecordList";
@@ -40,7 +40,7 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
   const recordList = useRecordList(navigation);
   const [connected, setConnected] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
-  const recordReducerActionsContext = useContext(RecordReducerActionsContext);
+  const algaeRecordsContext = useAlgaeRecordsContext();
   const recordReducerStateContext = useContext(RecordReducerStateContext);
 
   // TODO: should be in App component and in a Reducer\Context
@@ -66,9 +66,9 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
       return;
     }
 
-    recordReducerActionsContext
+    algaeRecordsContext
       .retryPendingRecords()
-      .then(() => recordReducerActionsContext.downloadRecords())
+      .then(() => algaeRecordsContext.downloadRecords())
       .catch(() =>
         Logger.Warn(`Could not download records. Please try again later.`)
       )
@@ -105,7 +105,7 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
           onEndReached={() => {
             // keep an eye on this (if list is "empty" and it gets called)
             const { downloadedRecords } = recordReducerStateContext;
-            recordReducerActionsContext.downloadNextRecords(
+            algaeRecordsContext.downloadNextRecords(
               downloadedRecords[downloadedRecords.length - 1].date
             );
           }}

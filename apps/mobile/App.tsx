@@ -7,15 +7,15 @@ import useCachedResources from "./src/hooks/useCachedResources";
 import {
   useAlgaeRecords,
   RecordReducerStateContext,
-  RecordReducerActionsContext,
+  AlgaeRecordsContext,
 } from "./src/hooks/useAlgaeRecords";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const [storageState, storageActions] = useAlgaeRecords();
+  const [storageState, algaeRecords] = useAlgaeRecords();
 
   if (storageState.state !== "Seeding" && !storageState.seeded) {
-    storageActions.seed();
+    algaeRecords.seed();
   }
 
   if (!isLoadingComplete || !storageState.seeded) {
@@ -24,12 +24,12 @@ export default function App() {
 
   return (
     <RecordReducerStateContext.Provider value={storageState}>
-      <RecordReducerActionsContext.Provider value={storageActions}>
+      <AlgaeRecordsContext.Provider value={algaeRecords}>
         <SafeAreaProvider>
           <Navigation />
           <StatusBar />
         </SafeAreaProvider>
-      </RecordReducerActionsContext.Provider>
+      </AlgaeRecordsContext.Provider>
     </RecordReducerStateContext.Provider>
   );
 }

@@ -1,6 +1,5 @@
 import React, {
   useCallback,
-  useContext,
   useEffect,
   useMemo,
   useRef,
@@ -39,7 +38,7 @@ import PhotoControl from "../components/PhotoControl";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
-import { RecordReducerActionsContext } from "../hooks/useAlgaeRecords";
+import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 
 type OffsetOperation = "add" | "subtract";
 
@@ -74,7 +73,7 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
   const notesRef = useRef<TextInput>(null);
   const locationDescriptionRef = useRef<TextInput>(null);
 
-  const recordReducerActionsContext = useContext(RecordReducerActionsContext);
+  const algaeRecordsContext = useAlgaeRecordsContext();
 
   // data collected and sent to the service
   const [state, setState] = useState<AlgaeRecord>(
@@ -201,7 +200,7 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
     }
 
     // TODO: change updatePendingRecord to take SelectedPhoto?
-    recordReducerActionsContext
+    algaeRecordsContext
       .updatePendingRecord({
         ...removeEmptyFields(state),
         photos: photos && photos.map((value) => ({ ...value, size: 0 })),
@@ -230,7 +229,7 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
     }
 
     // TODO: change uploadRecord to take SelectedPhoto?
-    recordReducerActionsContext
+    algaeRecordsContext
       .uploadRecord(
         removeEmptyFields(state),
         photos && photos.map((value) => ({ ...value, size: 0 }))
@@ -249,7 +248,7 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
       })
       .finally(() => {
         setUploading(false);
-        recordReducerActionsContext.downloadRecords();
+        algaeRecordsContext.downloadRecords();
         navigation.goBack();
       });
   }, [uploading]);
