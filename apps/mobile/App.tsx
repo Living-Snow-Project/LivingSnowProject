@@ -1,7 +1,7 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
+import { NativeBaseProvider } from "native-base";
 import Navigation from "./src/navigation/MainTabNavigator";
 import useCachedResources from "./src/hooks/useCachedResources";
 import {
@@ -10,8 +10,8 @@ import {
 } from "./src/hooks/useAlgaeRecords";
 
 export default function App() {
-  const isLoadingComplete = useCachedResources();
   const [algaeRecords] = useAlgaeRecords();
+  const isLoadingComplete = useCachedResources();
 
   if (
     algaeRecords.getCurrentState() !== "Seeding" &&
@@ -26,10 +26,10 @@ export default function App() {
 
   return (
     <AlgaeRecordsContext.Provider value={algaeRecords}>
-      <SafeAreaProvider>
+      <NativeBaseProvider>
         <Navigation />
         <StatusBar />
-      </SafeAreaProvider>
+      </NativeBaseProvider>
     </AlgaeRecordsContext.Provider>
   );
 }
