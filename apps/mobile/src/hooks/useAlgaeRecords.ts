@@ -22,15 +22,30 @@ import {
 } from "../lib/RecordManager";
 import { BackgroundTasks } from "../constants/Strings";
 
+type NoPayloadTransitionOnlyStates =
+  | "START_DELETING"
+  | "START_DOWNLOADING"
+  | "START_RETRY"
+  | "START_SAVING"
+  | "START_SEEDING"
+  | "START_UPLOAD_RECORD";
+
+type NoPayloadTransitionOnlyStatesMapping = {
+  [key in NoPayloadTransitionOnlyStates]: AlgaeRecordsStates;
+};
+
+const statesMapping: NoPayloadTransitionOnlyStatesMapping = {
+  START_DELETING: "Deleting",
+  START_DOWNLOADING: "Downloading",
+  START_RETRY: "Uploading",
+  START_SAVING: "Saving",
+  START_SEEDING: "Seeding",
+  START_UPLOAD_RECORD: "Uploading",
+};
+
 type AlgaeRecordsActions =
   | {
-      type:
-        | "START_SEEDING"
-        | "START_SAVING"
-        | "START_DELETING"
-        | "START_UPLOAD_RECORD"
-        | "START_DOWNLOADING"
-        | "START_RETRY";
+      type: NoPayloadTransitionOnlyStates;
     }
   | {
       type: "END_SEEDING";
@@ -69,23 +84,13 @@ const algaeRecordsReducer = (
   const { type } = action;
 
   switch (type) {
-    case "START_SEEDING":
-      return { ...currentState, state: "Seeding" };
-
-    case "START_SAVING":
-      return { ...currentState, state: "Saving" };
-
     case "START_DELETING":
-      return { ...currentState, state: "Deleting" };
-
-    case "START_UPLOAD_RECORD":
-      return { ...currentState, state: "Uploading" };
-
     case "START_DOWNLOADING":
-      return { ...currentState, state: "Downloading" };
-
     case "START_RETRY":
-      return { ...currentState, state: "Uploading" };
+    case "START_SAVING":
+    case "START_SEEDING":
+    case "START_UPLOAD_RECORD":
+      return { ...currentState, state: statesMapping[type] };
 
     case "END_SEEDING":
       return {
