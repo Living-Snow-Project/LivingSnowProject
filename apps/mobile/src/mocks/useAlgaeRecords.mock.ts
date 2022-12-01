@@ -5,7 +5,7 @@ type ActionMockProps = {
   isEmpty: boolean;
 };
 
-const makeRecordReducerActionsMock = (
+const makeAlgaeRecordsMock = (
   { isEmpty }: ActionMockProps = { isEmpty: false }
 ): IAlgaeRecords => {
   const pendingRecord = makeExampleRecord("Sighting");
@@ -25,4 +25,4 @@ const makeRecordReducerActionsMock = (
   };
 };
 
-export default makeRecordReducerActionsMock;
+export default makeAlgaeRecordsMock;

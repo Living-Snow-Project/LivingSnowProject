@@ -13,7 +13,7 @@ import { Notifications, Placeholders } from "../../constants/Strings";
 import * as RecordManager from "../../lib/RecordManager";
 import * as Storage from "../../lib/Storage";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
-import makeRecordReducerActionsMock from "../../mocks/useRecordReducer.mock";
+import makeAlgaeRecordsMock from "../../mocks/useAlgaeRecords.mock";
 
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 
@@ -36,8 +36,8 @@ const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
 
 const customRender = (route: RecordScreenRouteProp = defaultRouteProp) => {
   /* eslint-disable react/jsx-no-constructed-context-values */
-  const recordActionsContext = {
-    ...makeRecordReducerActionsMock(),
+  const algaeRecords = {
+    ...makeAlgaeRecordsMock(),
     uploadRecord: (record: AlgaeRecord, photos: Photo[]): Promise<void> =>
       RecordManager.uploadRecord(record, photos).then(() => Promise.resolve()),
     updatePendingRecord: (record: AlgaeRecord): Promise<void> =>
@@ -45,7 +45,7 @@ const customRender = (route: RecordScreenRouteProp = defaultRouteProp) => {
   };
 
   return render(
-    <AlgaeRecordsContext.Provider value={recordActionsContext}>
+    <AlgaeRecordsContext.Provider value={algaeRecords}>
       <RecordScreen navigation={navigation} route={route} />
     </AlgaeRecordsContext.Provider>
   );
