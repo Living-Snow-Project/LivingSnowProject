@@ -11,19 +11,15 @@ const AlgaeRecordsStatesArray = [
 
 export type AlgaeRecordsStates = typeof AlgaeRecordsStatesArray[number];
 
-export type AlgaeRecordState = {
-  state: AlgaeRecordsStates;
-  seeded: boolean;
-  pendingRecords: AlgaeRecord[];
-  downloadedRecords: AlgaeRecord[];
-  // TODO:
-  //  pendingPhotos: PendingPhoto[];
-};
-
 export interface IAlgaeRecords {
-  // getDownloadedRecords: () => AlgaeRecord[];
-  // getPendingRecords: () => AlgaeRecord[];
+  // info
+  getDownloadedRecords: () => AlgaeRecord[];
+  getCurrentState: () => AlgaeRecordsStates;
+  getPendingRecords: () => AlgaeRecord[];
+  isSeeded: () => boolean;
   // getPendingPhotos: () => PendingPhoto[];
+
+  // actions
   seed: () => Promise<void>;
   save: (record: AlgaeRecord) => Promise<void>;
   delete: (record: AlgaeRecord) => Promise<void>;

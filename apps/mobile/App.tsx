@@ -6,30 +6,30 @@ import Navigation from "./src/navigation/MainTabNavigator";
 import useCachedResources from "./src/hooks/useCachedResources";
 import {
   useAlgaeRecords,
-  RecordReducerStateContext,
   AlgaeRecordsContext,
 } from "./src/hooks/useAlgaeRecords";
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const [storageState, algaeRecords] = useAlgaeRecords();
+  const [algaeRecords] = useAlgaeRecords();
 
-  if (storageState.state !== "Seeding" && !storageState.seeded) {
+  if (
+    algaeRecords.getCurrentState() !== "Seeding" &&
+    !algaeRecords.isSeeded()
+  ) {
     algaeRecords.seed();
   }
 
-  if (!isLoadingComplete || !storageState.seeded) {
+  if (!isLoadingComplete || !algaeRecords.isSeeded()) {
     return null;
   }
 
   return (
-    <RecordReducerStateContext.Provider value={storageState}>
-      <AlgaeRecordsContext.Provider value={algaeRecords}>
-        <SafeAreaProvider>
-          <Navigation />
-          <StatusBar />
-        </SafeAreaProvider>
-      </AlgaeRecordsContext.Provider>
-    </RecordReducerStateContext.Provider>
+    <AlgaeRecordsContext.Provider value={algaeRecords}>
+      <SafeAreaProvider>
+        <Navigation />
+        <StatusBar />
+      </SafeAreaProvider>
+    </AlgaeRecordsContext.Provider>
   );
 }

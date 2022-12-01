@@ -4,11 +4,7 @@ import * as BackgroundFetch from "expo-background-fetch";
 import Logger from "@livingsnow/logger";
 import { downloadRecords } from "@livingsnow/network";
 import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
-import {
-  AlgaeRecordsStates,
-  AlgaeRecordState,
-  IAlgaeRecords,
-} from "../../types/AlgaeRecords";
+import { AlgaeRecordsStates, IAlgaeRecords } from "../../types/AlgaeRecords";
 import {
   deletePendingRecord,
   loadCachedRecords,
@@ -94,7 +90,7 @@ const algaeRecordsReducer = (
     case "END_SEEDING":
       return {
         ...currentState,
-        seeded: true,
+        isSeeded: true,
         state: defaultState,
         pendingRecords: action.payload.pendingRecords,
         downloadedRecords: action.payload.downloadedRecords,
@@ -144,18 +140,38 @@ const algaeRecordsReducer = (
   }
 };
 
+type AlgaeRecordState = {
+  state: AlgaeRecordsStates;
+  isSeeded: boolean;
+  pendingRecords: AlgaeRecord[];
+  downloadedRecords: AlgaeRecord[];
+  // TODO:
+  //  pendingPhotos: PendingPhoto[];
+};
+
 const initialState: AlgaeRecordState = {
   state: defaultState,
-  seeded: false,
+  isSeeded: false,
   pendingRecords: [],
   downloadedRecords: [],
 };
 
-function useAlgaeRecords(): [AlgaeRecordState, IAlgaeRecords] {
-  const [state, dispatch] = useReducer(algaeRecordsReducer, initialState);
+function useAlgaeRecords(): [IAlgaeRecords] {
+  const [algaeRecordState, dispatch] = useReducer(
+    algaeRecordsReducer,
+    initialState
+  );
 
   const algaeRecords = useMemo<IAlgaeRecords>(
     () => ({
+      getDownloadedRecords: () => algaeRecordState.downloadedRecords,
+
+      getCurrentState: () => algaeRecordState.state,
+
+      getPendingRecords: () => algaeRecordState.pendingRecords,
+
+      isSeeded: () => algaeRecordState.isSeeded,
+
       seed: async () => {
         dispatch({ type: "START_SEEDING" });
         const cachedRecords = await loadCachedRecords();
@@ -256,17 +272,11 @@ function useAlgaeRecords(): [AlgaeRecordState, IAlgaeRecords] {
         dispatch({ type: "END_SAVING", payload: { pendingRecords } });
       },
     }),
-    [dispatch]
+    [algaeRecordState, dispatch]
   );
 
-  return [state, algaeRecords];
+  return [algaeRecords];
 }
-
-// as per React documentation, there should be different providers for state and dispatch
-// TODO: is this still needed? Wouldn't a component needing RecordReducerState simply use RecordReducerActions
-//  and interact with state through that?
-const RecordReducerStateContext =
-  React.createContext<AlgaeRecordState>(initialState);
 
 const AlgaeRecordsContext = React.createContext<IAlgaeRecords | null>(null);
 
@@ -300,9 +310,4 @@ TaskManager.defineTask(BackgroundTasks.UploadData, async () => {
 export { algaeRecordsReducer };
 
 // public API
-export {
-  useAlgaeRecords,
-  useAlgaeRecordsContext,
-  RecordReducerStateContext,
-  AlgaeRecordsContext,
-};
+export { useAlgaeRecords, useAlgaeRecordsContext, AlgaeRecordsContext };

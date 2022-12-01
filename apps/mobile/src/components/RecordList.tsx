@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import { Alert, Animated, StyleSheet, Text, View } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { AlgaeRecord } from "@livingsnow/record";
@@ -9,10 +9,7 @@ import PressableOpacity from "./PressableOpacity";
 import { EditIcon, DeleteIcon } from "./Icons";
 import TestIds from "../constants/TestIds";
 import { Labels } from "../constants/Strings";
-import {
-  RecordReducerStateContext,
-  useAlgaeRecordsContext,
-} from "../hooks/useAlgaeRecords";
+import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 import { productionExampleRecord } from "../record/Record";
 
 const actionStyles = StyleSheet.create({
@@ -56,10 +53,10 @@ function ExampleRecordList() {
 }
 
 function useDownloadedRecordList() {
-  const algaeRecordsContext = useContext(RecordReducerStateContext);
+  const algaeRecordsContext = useAlgaeRecordsContext();
 
   const renderRecords = useCallback(() => {
-    const records: AlgaeRecord[] = algaeRecordsContext.downloadedRecords;
+    const records: AlgaeRecord[] = algaeRecordsContext.getDownloadedRecords();
     const result: JSX.Element[] = [];
     let previousDate: Date | undefined;
 
@@ -80,7 +77,7 @@ function useDownloadedRecordList() {
     return result;
   }, [algaeRecordsContext]);
 
-  if (algaeRecordsContext.downloadedRecords.length === 0) {
+  if (algaeRecordsContext.getDownloadedRecords().length === 0) {
     return null;
   }
 
@@ -92,8 +89,7 @@ function useDownloadedRecordList() {
 
 function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
   const swipeable = useRef<Swipeable | null>();
-  const recordReducerStateContext = useContext(RecordReducerStateContext);
-  const recordReducerActionsContext = useAlgaeRecordsContext();
+  const algaeRecordsContext = useAlgaeRecordsContext();
 
   const renderAction = (
     record: AlgaeRecord,
@@ -130,7 +126,7 @@ function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
       {
         text: "Yes",
         onPress: async () => {
-          await recordReducerActionsContext.delete(record);
+          await algaeRecordsContext.delete(record);
           closeAnimatedView();
         },
       },
@@ -173,7 +169,7 @@ function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
 
   const renderRecords = useCallback(
     () =>
-      recordReducerStateContext.pendingRecords.map((record) => (
+      algaeRecordsContext.getPendingRecords().map((record) => (
         <Swipeable
           ref={(ref) => {
             swipeable.current = ref;
@@ -185,10 +181,10 @@ function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
           <TimelineRow record={record} />
         </Swipeable>
       )),
-    [recordReducerStateContext.pendingRecords]
+    [algaeRecordsContext.getPendingRecords()]
   );
 
-  if (recordReducerStateContext.pendingRecords.length === 0) {
+  if (algaeRecordsContext.getPendingRecords().length === 0) {
     return null;
   }
 

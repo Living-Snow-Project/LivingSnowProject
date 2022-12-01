@@ -13,7 +13,7 @@ import { Notifications, Placeholders } from "../../constants/Strings";
 import * as RecordManager from "../../lib/RecordManager";
 import * as Storage from "../../lib/Storage";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
-import { makeRecordReducerActionsMock } from "../../mocks/useRecordReducer.mock";
+import makeRecordReducerActionsMock from "../../mocks/useRecordReducer.mock";
 
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 

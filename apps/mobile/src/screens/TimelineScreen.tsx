@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FlatList, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import Logger from "@livingsnow/logger";
@@ -7,10 +7,7 @@ import StatusBar from "../components/StatusBar";
 import { ExampleRecordList } from "../components/RecordList";
 import styles from "../styles/Timeline";
 import TestIds from "../constants/TestIds";
-import {
-  useAlgaeRecordsContext,
-  RecordReducerStateContext,
-} from "../hooks/useAlgaeRecords";
+import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 import useRecordList from "../hooks/useRecordList";
 import PressableOpacity from "../components/PressableOpacity";
 import { ScrollTopIcon } from "../components/Icons";
@@ -41,7 +38,6 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
   const [connected, setConnected] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const algaeRecordsContext = useAlgaeRecordsContext();
-  const recordReducerStateContext = useContext(RecordReducerStateContext);
 
   // TODO: should be in App component and in a Reducer\Context
   useEffect(
@@ -83,7 +79,7 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
         onLayout={({ nativeEvent }) => setContainerDims(nativeEvent.layout)}
       >
         <StatusBar
-          state={recordReducerStateContext.state}
+          state={algaeRecordsContext.getCurrentState()}
           isConnected={connected}
         />
         <FlatList
@@ -104,7 +100,8 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
           refreshing={false} // StatusBar component handles activity indicator
           onEndReached={() => {
             // keep an eye on this (if list is "empty" and it gets called)
-            const { downloadedRecords } = recordReducerStateContext;
+            const downloadedRecords =
+              algaeRecordsContext.getDownloadedRecords();
             algaeRecordsContext.downloadNextRecords(
               downloadedRecords[downloadedRecords.length - 1].date
             );
