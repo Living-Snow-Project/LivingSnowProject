@@ -1,4 +1,5 @@
 import { saveAppConfig } from "./src/lib/Storage";
+import { AppSettings } from "./types/AppSettings";
 
 const DefaultAppSettings: AppSettings = {
   name: undefined,

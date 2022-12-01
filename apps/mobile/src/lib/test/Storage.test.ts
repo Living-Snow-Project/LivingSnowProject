@@ -5,6 +5,7 @@ import {
   PendingPhoto,
 } from "@livingsnow/record";
 import * as Storage from "../Storage";
+import { AppSettings } from "../../../types/AppSettings";
 import { Errors } from "../../constants/Strings";
 
 const makeTestAppConfig = (): AppSettings => ({
@@ -21,10 +22,9 @@ const mockOneAsyncStorageFailure = (
   method: keyof typeof mockAsyncStorage
 ): Error => {
   const error = Error(`mocked ${method} error`);
-  // TODO: type properly
   jest
     .spyOn(mockAsyncStorage, method)
-    .mockImplementationOnce(() => Promise.reject(error) as any);
+    .mockImplementationOnce(() => Promise.reject<void>(error));
 
   return error;
 };

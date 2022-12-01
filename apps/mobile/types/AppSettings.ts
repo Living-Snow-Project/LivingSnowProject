@@ -1,6 +1,4 @@
-// global types
-
-type AppSettings = {
+export type AppSettings = {
   name: string | undefined;
   organization: string | undefined;
   showFirstRun: boolean;
