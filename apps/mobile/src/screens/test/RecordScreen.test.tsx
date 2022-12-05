@@ -2,6 +2,7 @@ import React from "react";
 import { Alert } from "react-native";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { AlgaeRecord, Photo, makeExampleRecord } from "@livingsnow/record";
+import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import {
   RecordScreenNavigationProp,
   RecordScreenRouteProp,
@@ -45,9 +46,11 @@ const customRender = (route: RecordScreenRouteProp = defaultRouteProp) => {
   };
 
   return render(
-    <AlgaeRecordsContext.Provider value={algaeRecords}>
-      <RecordScreen navigation={navigation} route={route} />
-    </AlgaeRecordsContext.Provider>
+    <NativeBaseProviderForTesting>
+      <AlgaeRecordsContext.Provider value={algaeRecords}>
+        <RecordScreen navigation={navigation} route={route} />
+      </AlgaeRecordsContext.Provider>
+    </NativeBaseProviderForTesting>
   );
 };
 

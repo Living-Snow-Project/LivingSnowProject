@@ -1,20 +1,29 @@
 import React from "react";
-import { Keyboard, Platform } from "react-native";
+import { Platform } from "react-native";
 import { ReactTestInstance } from "react-test-renderer";
 import { render, fireEvent } from "@testing-library/react-native";
+import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import CustomTextInput from "../forms/CustomTextInput";
 
 describe("CustomTextInput tests", () => {
   const props = {
-    description: "test custom text input",
+    label: "test custom text input",
     placeholder: "custom text input placeholder",
     onChangeText: jest.fn(),
   };
   let renderer;
   let customTextInput: ReactTestInstance;
 
+  function WrappedCustomTextInput() {
+    return (
+      <NativeBaseProviderForTesting>
+        <CustomTextInput {...props} />
+      </NativeBaseProviderForTesting>
+    );
+  }
+
   beforeEach(() => {
-    renderer = render(<CustomTextInput {...props} />);
+    renderer = render(<WrappedCustomTextInput />);
 
     customTextInput = renderer.getByPlaceholderText(props.placeholder);
   });
@@ -31,21 +40,20 @@ describe("CustomTextInput tests", () => {
 
   test("renders on android", () => {
     Platform.OS = "android";
-    const { toJSON } = render(<CustomTextInput {...props} />);
+    const { toJSON } = render(<WrappedCustomTextInput />);
     expect(toJSON()).toMatchSnapshot();
     Platform.OS = "ios";
   });
 
   test("change text", () => {
     const testText = "test text";
-    const { getByDisplayValue } = renderer;
 
     expect(customTextInput).not.toBeNull();
     fireEvent.changeText(customTextInput, testText);
-    expect(getByDisplayValue(testText)).not.toBeNull();
     expect(props.onChangeText).toHaveBeenCalledWith(testText);
   });
 
+  /* TODO: delete or comment back in depending on what we do with a Keyboard Avoiding View
   test("multiline text", () => {
     const keyboardListener = jest.fn();
 
@@ -63,18 +71,20 @@ describe("CustomTextInput tests", () => {
     });
 
     expect(keyboardListener).toBeCalledTimes(1);
-  });
+  }); */
 
   test("submit text", () => {
     const onSubmitEditing = jest.fn();
     const { getByPlaceholderText } = render(
-      <CustomTextInput
-        description="test submitting"
-        placeholder={props.placeholder}
-        maxLength={10}
-        onChangeText={() => {}}
-        onSubmitEditing={onSubmitEditing}
-      />
+      <NativeBaseProviderForTesting>
+        <CustomTextInput
+          label="test submitting"
+          placeholder={props.placeholder}
+          maxLength={10}
+          onChangeText={() => {}}
+          onSubmitEditing={onSubmitEditing}
+        />
+      </NativeBaseProviderForTesting>
     );
 
     fireEvent(getByPlaceholderText(props.placeholder), "onSubmitEditing");

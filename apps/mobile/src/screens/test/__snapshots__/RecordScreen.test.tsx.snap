@@ -1,1029 +1,1467 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RecordScreen test suite Edit mode tests renders 1`] = `
-<View
-  collapsable={false}
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "height": "100%",
-      "left": 0,
-      "position": "absolute",
-      "top": 0,
-      "transform": Array [
-        Object {
-          "translateY": 0,
-        },
-      ],
-      "width": "100%",
-    }
-  }
->
-  <RCTScrollView
-    style={
+    Array [
       Object {
         "flex": 1,
-        "marginTop": 1,
-        "paddingHorizontal": 10,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    collapsable={false}
+    style={
+      Object {
+        "height": "100%",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "transform": Array [
+          Object {
+            "translateY": 0,
+          },
+        ],
+        "width": "100%",
       }
     }
   >
-    <View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
+    <RCTScrollView
+      style={
+        Object {
+          "flex": 1,
+          "marginTop": 1,
+          "paddingHorizontal": 10,
         }
-      >
-        Are you Taking a Sample or Reporting a Sighting?
-      </Text>
-      <View
-        style={
-          Array [
-            Object {
-              "alignSelf": "stretch",
-            },
-            undefined,
-          ]
-        }
-      >
-        <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+      }
+    >
+      <View>
+        <Text
           style={
             Object {
-              "opacity": 1,
+              "fontSize": 15,
+              "marginTop": 3,
             }
           }
-          testID="record-type-picker"
         >
-          <View
-            pointerEvents="box-only"
-          >
-            <TextInput
-              editable={false}
-              style={
-                Array [
-                  Object {
-                    "backgroundColor": "#efefef",
-                    "borderColor": "gray",
-                    "borderRadius": 4,
-                    "borderWidth": 1,
-                    "minHeight": "8%",
-                    "paddingHorizontal": 15,
-                    "paddingVertical": 15,
-                  },
-                  Object {},
-                ]
-              }
-              testID="text_input"
-              value="I'm Taking a Sample"
-            />
-          </View>
-        </View>
-        <Modal
-          hardwareAccelerated={false}
-          onOrientationChange={[Function]}
-          supportedOrientations={
+          Are you Taking a Sample or Reporting a Sighting?
+        </Text>
+        <View
+          style={
             Array [
-              "portrait",
-              "landscape",
+              Object {
+                "alignSelf": "stretch",
+              },
+              undefined,
             ]
           }
-          testID="ios_modal"
-          transparent={true}
-          visible={false}
-        />
-      </View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Date
-      </Text>
-      <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        testID="calendar-pressable"
-      >
-        <View
-          pointerEvents="none"
         >
-          <TextInput
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "backgroundColor": "#efefef",
-                "borderColor": "gray",
-                "borderRadius": 4,
-                "borderWidth": 1,
-                "minHeight": "8%",
-                "paddingHorizontal": 15,
-                "paddingVertical": 15,
+                "opacity": 1,
               }
             }
-            value="2021-09-16"
+            testID="record-type-picker"
+          >
+            <View
+              pointerEvents="box-only"
+            >
+              <TextInput
+                editable={false}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#efefef",
+                      "borderColor": "gray",
+                      "borderRadius": 4,
+                      "borderWidth": 1,
+                      "minHeight": "8%",
+                      "paddingHorizontal": 15,
+                      "paddingVertical": 15,
+                    },
+                    Object {},
+                  ]
+                }
+                testID="text_input"
+                value="I'm Taking a Sample"
+              />
+            </View>
+          </View>
+          <Modal
+            hardwareAccelerated={false}
+            onOrientationChange={[Function]}
+            supportedOrientations={
+              Array [
+                "portrait",
+                "landscape",
+              ]
+            }
+            testID="ios_modal"
+            transparent={true}
+            visible={false}
           />
         </View>
-      </View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Tube Id
-      </Text>
-      <TextInput
-        blurOnSubmit={true}
-        defaultValue="LAB-1337"
-        maxLength={20}
-        multiline={true}
-        onChangeText={[Function]}
-        onContentSizeChange={[Function]}
-        onSubmitEditing={[Function]}
-        placeholder="Leave blank if tube does not have an id"
-        returnKeyType="done"
-        style={
-          Array [
+        <Text
+          style={
             Object {
-              "backgroundColor": "#efefef",
-              "borderColor": "gray",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "minHeight": "8%",
-              "paddingHorizontal": 15,
-              "paddingVertical": 15,
-            },
-            Object {
-              "paddingTop": 15,
-            },
-          ]
-        }
-        value="LAB-1337"
-      />
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
+              "fontSize": 15,
+              "marginTop": 3,
+            }
           }
-        }
-      >
-        GPS Coordinates (latitude, longitude)
-      </Text>
-      <TextInput
-        defaultValue="-123.456, 96.96"
-        editable={true}
-        maxLength={30}
-        onChangeText={[Function]}
-        onSubmitEditing={[Function]}
-        placeholder="Looking for GPS signal"
-        returnKeyType="done"
-        style={
-          Object {
-            "backgroundColor": "#efefef",
-            "borderColor": "gray",
-            "borderRadius": 4,
-            "borderWidth": 1,
-            "minHeight": "8%",
-            "paddingHorizontal": 15,
-            "paddingVertical": 15,
-          }
-        }
-        testID="gps-manual-input"
-      />
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Size
-      </Text>
-      <View
-        style={
-          Array [
-            Object {
-              "alignSelf": "stretch",
-            },
-            undefined,
-          ]
-        }
-      >
+        >
+          Date
+        </Text>
         <View
           accessible={true}
           collapsable={false}
           focusable={true}
+          onBlur={[Function]}
           onClick={[Function]}
+          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID="algae-size-picker"
+          testID="calendar-pressable"
         >
           <View
-            pointerEvents="box-only"
+            pointerEvents="none"
           >
             <TextInput
-              editable={false}
               style={
-                Array [
-                  Object {
-                    "backgroundColor": "#efefef",
-                    "borderColor": "gray",
-                    "borderRadius": 4,
-                    "borderWidth": 1,
-                    "minHeight": "8%",
-                    "paddingHorizontal": 15,
-                    "paddingVertical": 15,
-                  },
-                  Object {},
-                ]
+                Object {
+                  "backgroundColor": "#efefef",
+                  "borderColor": "gray",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "minHeight": "8%",
+                  "paddingHorizontal": 15,
+                  "paddingVertical": 15,
+                }
               }
-              testID="text_input"
-              value="Fist"
+              value="2021-09-16"
             />
           </View>
         </View>
-        <Modal
-          hardwareAccelerated={false}
-          onOrientationChange={[Function]}
-          supportedOrientations={
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            dataSet={Object {}}
+            feedbackId="field-295-feedback"
+            hasFeedbackText={false}
+            hasHelpText={false}
+            helpTextId="field-295-helptext"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+            isRequired={false}
+            labelId="field-295-label"
+            nativeID="field-295-label"
+            setHasFeedbackText={[Function]}
+            setHasHelpText={[Function]}
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "flex-start",
+                "marginBottom": 4,
+                "marginTop": 4,
+              }
+            }
+          >
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#737373",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "500",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Tube Id
+            </Text>
+          </View>
+          <View
+            dataSet={Object {}}
+            isFocused={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "borderRadius": 0,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <TextInput
+              accessible={true}
+              blurOnSubmit={true}
+              dataSet={Object {}}
+              disabled={false}
+              editable={true}
+              isRequired={false}
+              maxLength={20}
+              multiline={true}
+              nativeID="field-295-input"
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              onKeyPress={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="Leave blank if tube does not have an id"
+              placeholderTextColor="#a3a3a3"
+              readOnly={false}
+              required={false}
+              returnKeyType="done"
+              secureTextEntry={false}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#171717",
+                  "flex": 1,
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "height": "100%",
+                  "paddingBottom": 8,
+                  "paddingLeft": 0,
+                  "paddingRight": 12,
+                  "paddingTop": 8,
+                  "width": "100%",
+                }
+              }
+              value="LAB-1337"
+            />
+          </View>
+        </View>
+        <Text
+          style={
+            Object {
+              "fontSize": 15,
+              "marginTop": 3,
+            }
+          }
+        >
+          GPS Coordinates (latitude, longitude)
+        </Text>
+        <TextInput
+          defaultValue="-123.456, 96.96"
+          editable={true}
+          maxLength={30}
+          onChangeText={[Function]}
+          onSubmitEditing={[Function]}
+          placeholder="Looking for GPS signal"
+          returnKeyType="done"
+          style={
+            Object {
+              "backgroundColor": "#efefef",
+              "borderColor": "gray",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "minHeight": "8%",
+              "paddingHorizontal": 15,
+              "paddingVertical": 15,
+            }
+          }
+          testID="gps-manual-input"
+        />
+        <Text
+          style={
+            Object {
+              "fontSize": 15,
+              "marginTop": 3,
+            }
+          }
+        >
+          Size
+        </Text>
+        <View
+          style={
             Array [
-              "portrait",
-              "landscape",
+              Object {
+                "alignSelf": "stretch",
+              },
+              undefined,
             ]
           }
-          testID="ios_modal"
-          transparent={true}
-          visible={false}
-        />
-      </View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Color
-      </Text>
-      <View
-        style={
-          Array [
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+            testID="algae-size-picker"
+          >
+            <View
+              pointerEvents="box-only"
+            >
+              <TextInput
+                editable={false}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#efefef",
+                      "borderColor": "gray",
+                      "borderRadius": 4,
+                      "borderWidth": 1,
+                      "minHeight": "8%",
+                      "paddingHorizontal": 15,
+                      "paddingVertical": 15,
+                    },
+                    Object {},
+                  ]
+                }
+                testID="text_input"
+                value="Fist"
+              />
+            </View>
+          </View>
+          <Modal
+            hardwareAccelerated={false}
+            onOrientationChange={[Function]}
+            supportedOrientations={
+              Array [
+                "portrait",
+                "landscape",
+              ]
+            }
+            testID="ios_modal"
+            transparent={true}
+            visible={false}
+          />
+        </View>
+        <Text
+          style={
             Object {
-              "alignSelf": "stretch",
-            },
-            undefined,
-          ]
-        }
-      >
+              "fontSize": 15,
+              "marginTop": 3,
+            }
+          }
+        >
+          Color
+        </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "alignSelf": "stretch",
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+            testID="algae-color-picker"
+          >
+            <View
+              pointerEvents="box-only"
+            >
+              <TextInput
+                editable={false}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#efefef",
+                      "borderColor": "gray",
+                      "borderRadius": 4,
+                      "borderWidth": 1,
+                      "minHeight": "8%",
+                      "paddingHorizontal": 15,
+                      "paddingVertical": 15,
+                    },
+                    Object {},
+                  ]
+                }
+                testID="text_input"
+                value="Red"
+              />
+            </View>
+          </View>
+          <Modal
+            hardwareAccelerated={false}
+            onOrientationChange={[Function]}
+            supportedOrientations={
+              Array [
+                "portrait",
+                "landscape",
+              ]
+            }
+            testID="ios_modal"
+            transparent={true}
+            visible={false}
+          />
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            dataSet={Object {}}
+            feedbackId="field-296-feedback"
+            hasFeedbackText={false}
+            hasHelpText={false}
+            helpTextId="field-296-helptext"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+            isRequired={false}
+            labelId="field-296-label"
+            nativeID="field-296-label"
+            setHasFeedbackText={[Function]}
+            setHasHelpText={[Function]}
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "flex-start",
+                "marginBottom": 4,
+                "marginTop": 4,
+              }
+            }
+          >
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#737373",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "500",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Location Description (limit 255 characters)
+            </Text>
+          </View>
+          <View
+            dataSet={Object {}}
+            isFocused={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "borderRadius": 0,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <TextInput
+              accessible={true}
+              blurOnSubmit={true}
+              dataSet={Object {}}
+              disabled={false}
+              editable={true}
+              isRequired={false}
+              maxLength={255}
+              multiline={true}
+              nativeID="field-296-input"
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              onKeyPress={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="ie: Blue Lake, North Cascades, WA"
+              placeholderTextColor="#a3a3a3"
+              readOnly={false}
+              required={false}
+              returnKeyType="done"
+              secureTextEntry={false}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#171717",
+                  "flex": 1,
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "height": "100%",
+                  "paddingBottom": 8,
+                  "paddingLeft": 0,
+                  "paddingRight": 12,
+                  "paddingTop": 8,
+                  "width": "100%",
+                }
+              }
+              value="test location"
+            />
+          </View>
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            dataSet={Object {}}
+            feedbackId="field-297-feedback"
+            hasFeedbackText={false}
+            hasHelpText={false}
+            helpTextId="field-297-helptext"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+            isRequired={false}
+            labelId="field-297-label"
+            nativeID="field-297-label"
+            setHasFeedbackText={[Function]}
+            setHasHelpText={[Function]}
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "flex-start",
+                "marginBottom": 4,
+                "marginTop": 4,
+              }
+            }
+          >
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#737373",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "500",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Notes (limit 255 characters)
+            </Text>
+          </View>
+          <View
+            dataSet={Object {}}
+            isFocused={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "borderRadius": 0,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <TextInput
+              accessible={true}
+              blurOnSubmit={true}
+              dataSet={Object {}}
+              disabled={false}
+              editable={true}
+              isRequired={false}
+              maxLength={255}
+              multiline={true}
+              nativeID="field-297-input"
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              onKeyPress={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="ie. dark red algae on glacial ice"
+              placeholderTextColor="#a3a3a3"
+              readOnly={false}
+              required={false}
+              returnKeyType="done"
+              secureTextEntry={false}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#171717",
+                  "flex": 1,
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "height": "100%",
+                  "paddingBottom": 8,
+                  "paddingLeft": 0,
+                  "paddingRight": 12,
+                  "paddingTop": 8,
+                  "width": "100%",
+                }
+              }
+              value="test notes"
+            />
+          </View>
+        </View>
+        <Text
+          style={
+            Object {
+              "fontSize": 15,
+              "marginTop": 3,
+            }
+          }
+        >
+          Select Photos (limit 4)
+        </Text>
         <View
           accessible={true}
           collapsable={false}
           focusable={true}
+          onBlur={[Function]}
           onClick={[Function]}
+          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID="algae-color-picker"
+          testID="photo-selector"
         >
           <View
-            pointerEvents="box-only"
+            style={
+              Object {
+                "flex": 1,
+                "flexDirection": "row",
+              }
+            }
           >
-            <TextInput
-              editable={false}
+            <View
               style={
-                Array [
+                Object {
+                  "flex": 1,
+                  "height": 100,
+                  "margin": 1,
+                }
+              }
+            >
+              <Image
+                source={
                   Object {
-                    "backgroundColor": "#efefef",
-                    "borderColor": "gray",
-                    "borderRadius": 4,
+                    "uri": "46",
+                  }
+                }
+                style={
+                  Object {
+                    "borderColor": "black",
+                    "borderRadius": 2,
                     "borderWidth": 1,
-                    "minHeight": "8%",
-                    "paddingHorizontal": 15,
-                    "paddingVertical": 15,
-                  },
-                  Object {},
-                ]
-              }
-              testID="text_input"
-              value="Red"
-            />
-          </View>
-        </View>
-        <Modal
-          hardwareAccelerated={false}
-          onOrientationChange={[Function]}
-          supportedOrientations={
-            Array [
-              "portrait",
-              "landscape",
-            ]
-          }
-          testID="ios_modal"
-          transparent={true}
-          visible={false}
-        />
-      </View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Location Description (limit 255 characters)
-      </Text>
-      <TextInput
-        blurOnSubmit={true}
-        defaultValue="test location"
-        maxLength={255}
-        multiline={true}
-        onChangeText={[Function]}
-        onContentSizeChange={[Function]}
-        onSubmitEditing={[Function]}
-        placeholder="ie: Blue Lake, North Cascades, WA"
-        returnKeyType="done"
-        style={
-          Array [
-            Object {
-              "backgroundColor": "#efefef",
-              "borderColor": "gray",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "minHeight": "8%",
-              "paddingHorizontal": 15,
-              "paddingVertical": 15,
-            },
-            Object {
-              "paddingTop": 15,
-            },
-          ]
-        }
-        value="test location"
-      />
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Notes (limit 255 characters)
-      </Text>
-      <TextInput
-        blurOnSubmit={true}
-        defaultValue="test notes"
-        maxLength={255}
-        multiline={true}
-        onChangeText={[Function]}
-        onContentSizeChange={[Function]}
-        onSubmitEditing={[Function]}
-        placeholder="ie. dark red algae on glacial ice"
-        returnKeyType="done"
-        style={
-          Array [
-            Object {
-              "backgroundColor": "#efefef",
-              "borderColor": "gray",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "minHeight": "8%",
-              "paddingHorizontal": 15,
-              "paddingVertical": 15,
-            },
-            Object {
-              "paddingTop": 15,
-            },
-          ]
-        }
-        value="test notes"
-      />
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Select Photos (limit 4)
-      </Text>
-      <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        testID="photo-selector"
-      >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flex": 1,
-                "height": 100,
-                "margin": 1,
-              }
-            }
-          >
-            <Image
-              source={
-                Object {
-                  "uri": "46",
+                    "height": "100%",
+                    "width": "100%",
+                  }
                 }
-              }
+              />
+            </View>
+            <View
               style={
                 Object {
-                  "borderColor": "black",
-                  "borderRadius": 2,
-                  "borderWidth": 1,
-                  "height": "100%",
-                  "width": "100%",
+                  "flex": 1,
+                  "height": 100,
+                  "margin": 1,
                 }
               }
-            />
-          </View>
-          <View
-            style={
-              Object {
-                "flex": 1,
-                "height": 100,
-                "margin": 1,
-              }
-            }
-          >
-            <Image
-              source={
-                Object {
-                  "uri": "23",
+            >
+              <Image
+                source={
+                  Object {
+                    "uri": "23",
+                  }
                 }
-              }
-              style={
-                Object {
-                  "borderColor": "black",
-                  "borderRadius": 2,
-                  "borderWidth": 1,
-                  "height": "100%",
-                  "width": "100%",
+                style={
+                  Object {
+                    "borderColor": "black",
+                    "borderRadius": 2,
+                    "borderWidth": 1,
+                    "height": "100%",
+                    "width": "100%",
+                  }
                 }
-              }
-            />
+              />
+            </View>
           </View>
         </View>
       </View>
-    </View>
-  </RCTScrollView>
-</View>
+    </RCTScrollView>
+  </View>
+</RNCSafeAreaProvider>
 `;
 
 exports[`RecordScreen test suite renders 1`] = `
-<View
-  collapsable={false}
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "height": "100%",
-      "left": 0,
-      "position": "absolute",
-      "top": 0,
-      "transform": Array [
-        Object {
-          "translateY": 0,
-        },
-      ],
-      "width": "100%",
-    }
-  }
->
-  <RCTScrollView
-    style={
+    Array [
       Object {
         "flex": 1,
-        "marginTop": 1,
-        "paddingHorizontal": 10,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    collapsable={false}
+    style={
+      Object {
+        "height": "100%",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "transform": Array [
+          Object {
+            "translateY": 0,
+          },
+        ],
+        "width": "100%",
       }
     }
   >
-    <View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
+    <RCTScrollView
+      style={
+        Object {
+          "flex": 1,
+          "marginTop": 1,
+          "paddingHorizontal": 10,
         }
-      >
-        Are you Taking a Sample or Reporting a Sighting?
-      </Text>
-      <View
-        style={
-          Array [
-            Object {
-              "alignSelf": "stretch",
-            },
-            undefined,
-          ]
-        }
-      >
-        <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+      }
+    >
+      <View>
+        <Text
           style={
             Object {
-              "opacity": 1,
+              "fontSize": 15,
+              "marginTop": 3,
             }
           }
-          testID="record-type-picker"
         >
-          <View
-            pointerEvents="box-only"
-          >
-            <TextInput
-              editable={false}
-              style={
-                Array [
-                  Object {
-                    "backgroundColor": "#efefef",
-                    "borderColor": "gray",
-                    "borderRadius": 4,
-                    "borderWidth": 1,
-                    "minHeight": "8%",
-                    "paddingHorizontal": 15,
-                    "paddingVertical": 15,
-                  },
-                  Object {},
-                ]
-              }
-              testID="text_input"
-              value="I'm Taking a Sample"
-            />
-          </View>
-        </View>
-        <Modal
-          hardwareAccelerated={false}
-          onOrientationChange={[Function]}
-          supportedOrientations={
+          Are you Taking a Sample or Reporting a Sighting?
+        </Text>
+        <View
+          style={
             Array [
-              "portrait",
-              "landscape",
+              Object {
+                "alignSelf": "stretch",
+              },
+              undefined,
             ]
           }
-          testID="ios_modal"
-          transparent={true}
-          visible={false}
-        />
-      </View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Date
-      </Text>
-      <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        testID="calendar-pressable"
-      >
-        <View
-          pointerEvents="none"
         >
-          <TextInput
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "backgroundColor": "#efefef",
-                "borderColor": "gray",
-                "borderRadius": 4,
-                "borderWidth": 1,
-                "minHeight": "8%",
-                "paddingHorizontal": 15,
-                "paddingVertical": 15,
+                "opacity": 1,
               }
             }
-            value="2022-01-01"
+            testID="record-type-picker"
+          >
+            <View
+              pointerEvents="box-only"
+            >
+              <TextInput
+                editable={false}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#efefef",
+                      "borderColor": "gray",
+                      "borderRadius": 4,
+                      "borderWidth": 1,
+                      "minHeight": "8%",
+                      "paddingHorizontal": 15,
+                      "paddingVertical": 15,
+                    },
+                    Object {},
+                  ]
+                }
+                testID="text_input"
+                value="I'm Taking a Sample"
+              />
+            </View>
+          </View>
+          <Modal
+            hardwareAccelerated={false}
+            onOrientationChange={[Function]}
+            supportedOrientations={
+              Array [
+                "portrait",
+                "landscape",
+              ]
+            }
+            testID="ios_modal"
+            transparent={true}
+            visible={false}
           />
         </View>
-      </View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Tube Id
-      </Text>
-      <TextInput
-        blurOnSubmit={true}
-        maxLength={20}
-        multiline={true}
-        onChangeText={[Function]}
-        onContentSizeChange={[Function]}
-        onSubmitEditing={[Function]}
-        placeholder="Leave blank if tube does not have an id"
-        returnKeyType="done"
-        style={
-          Array [
+        <Text
+          style={
             Object {
-              "backgroundColor": "#efefef",
-              "borderColor": "gray",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "minHeight": "8%",
-              "paddingHorizontal": 15,
-              "paddingVertical": 15,
-            },
-            Object {
-              "paddingTop": 15,
-            },
-          ]
-        }
-        value=""
-      />
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
+              "fontSize": 15,
+              "marginTop": 3,
+            }
           }
-        }
-      >
-        GPS Coordinates (latitude, longitude)
-      </Text>
-      <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        testID="gps-manual-pressable"
-      >
-        <View
-          pointerEvents="none"
         >
-          <TextInput
-            defaultValue=""
-            editable={false}
-            maxLength={30}
-            placeholder="Looking for GPS signal"
-            returnKeyType="done"
+          Date
+        </Text>
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          testID="calendar-pressable"
+        >
+          <View
+            pointerEvents="none"
+          >
+            <TextInput
+              style={
+                Object {
+                  "backgroundColor": "#efefef",
+                  "borderColor": "gray",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "minHeight": "8%",
+                  "paddingHorizontal": 15,
+                  "paddingVertical": 15,
+                }
+              }
+              value="2022-01-01"
+            />
+          </View>
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            dataSet={Object {}}
+            feedbackId="field-4-feedback"
+            hasFeedbackText={false}
+            hasHelpText={false}
+            helpTextId="field-4-helptext"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+            isRequired={false}
+            labelId="field-4-label"
+            nativeID="field-4-label"
+            setHasFeedbackText={[Function]}
+            setHasHelpText={[Function]}
             style={
               Object {
-                "backgroundColor": "#efefef",
-                "borderColor": "gray",
-                "borderRadius": 4,
-                "borderWidth": 1,
-                "minHeight": "8%",
-                "paddingHorizontal": 15,
-                "paddingVertical": 15,
+                "flexDirection": "row",
+                "justifyContent": "flex-start",
+                "marginBottom": 4,
+                "marginTop": 4,
               }
             }
+          >
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#737373",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "500",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Tube Id
+            </Text>
+          </View>
+          <View
+            dataSet={Object {}}
+            isFocused={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "borderRadius": 0,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <TextInput
+              accessible={true}
+              blurOnSubmit={true}
+              dataSet={Object {}}
+              disabled={false}
+              editable={true}
+              isRequired={false}
+              maxLength={20}
+              multiline={true}
+              nativeID="field-4-input"
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              onKeyPress={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="Leave blank if tube does not have an id"
+              placeholderTextColor="#a3a3a3"
+              readOnly={false}
+              required={false}
+              returnKeyType="done"
+              secureTextEntry={false}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#171717",
+                  "flex": 1,
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "height": "100%",
+                  "paddingBottom": 8,
+                  "paddingLeft": 0,
+                  "paddingRight": 12,
+                  "paddingTop": 8,
+                  "width": "100%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <Text
+          style={
+            Object {
+              "fontSize": 15,
+              "marginTop": 3,
+            }
+          }
+        >
+          GPS Coordinates (latitude, longitude)
+        </Text>
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          testID="gps-manual-pressable"
+        >
+          <View
+            pointerEvents="none"
+          >
+            <TextInput
+              defaultValue=""
+              editable={false}
+              maxLength={30}
+              placeholder="Looking for GPS signal"
+              returnKeyType="done"
+              style={
+                Object {
+                  "backgroundColor": "#efefef",
+                  "borderColor": "gray",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "minHeight": "8%",
+                  "paddingHorizontal": 15,
+                  "paddingVertical": 15,
+                }
+              }
+            />
+          </View>
+        </View>
+        <Text
+          style={
+            Object {
+              "fontSize": 15,
+              "marginTop": 3,
+            }
+          }
+        >
+          Size
+        </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "alignSelf": "stretch",
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+            testID="algae-size-picker"
+          >
+            <View
+              pointerEvents="box-only"
+            >
+              <TextInput
+                editable={false}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#efefef",
+                      "borderColor": "gray",
+                      "borderRadius": 4,
+                      "borderWidth": 1,
+                      "minHeight": "8%",
+                      "paddingHorizontal": 15,
+                      "paddingVertical": 15,
+                    },
+                    Object {},
+                  ]
+                }
+                testID="text_input"
+                value="Select a size"
+              />
+            </View>
+          </View>
+          <Modal
+            hardwareAccelerated={false}
+            onOrientationChange={[Function]}
+            supportedOrientations={
+              Array [
+                "portrait",
+                "landscape",
+              ]
+            }
+            testID="ios_modal"
+            transparent={true}
+            visible={false}
           />
         </View>
-      </View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Size
-      </Text>
-      <View
-        style={
-          Array [
+        <Text
+          style={
             Object {
-              "alignSelf": "stretch",
-            },
-            undefined,
-          ]
-        }
-      >
+              "fontSize": 15,
+              "marginTop": 3,
+            }
+          }
+        >
+          Color
+        </Text>
+        <View
+          style={
+            Array [
+              Object {
+                "alignSelf": "stretch",
+              },
+              undefined,
+            ]
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "opacity": 1,
+              }
+            }
+            testID="algae-color-picker"
+          >
+            <View
+              pointerEvents="box-only"
+            >
+              <TextInput
+                editable={false}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "#efefef",
+                      "borderColor": "gray",
+                      "borderRadius": 4,
+                      "borderWidth": 1,
+                      "minHeight": "8%",
+                      "paddingHorizontal": 15,
+                      "paddingVertical": 15,
+                    },
+                    Object {},
+                  ]
+                }
+                testID="text_input"
+                value="Select a color"
+              />
+            </View>
+          </View>
+          <Modal
+            hardwareAccelerated={false}
+            onOrientationChange={[Function]}
+            supportedOrientations={
+              Array [
+                "portrait",
+                "landscape",
+              ]
+            }
+            testID="ios_modal"
+            transparent={true}
+            visible={false}
+          />
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            dataSet={Object {}}
+            feedbackId="field-5-feedback"
+            hasFeedbackText={false}
+            hasHelpText={false}
+            helpTextId="field-5-helptext"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+            isRequired={false}
+            labelId="field-5-label"
+            nativeID="field-5-label"
+            setHasFeedbackText={[Function]}
+            setHasHelpText={[Function]}
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "flex-start",
+                "marginBottom": 4,
+                "marginTop": 4,
+              }
+            }
+          >
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#737373",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "500",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Location Description (limit 255 characters)
+            </Text>
+          </View>
+          <View
+            dataSet={Object {}}
+            isFocused={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "borderRadius": 0,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <TextInput
+              accessible={true}
+              blurOnSubmit={true}
+              dataSet={Object {}}
+              disabled={false}
+              editable={true}
+              isRequired={false}
+              maxLength={255}
+              multiline={true}
+              nativeID="field-5-input"
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              onKeyPress={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="ie: Blue Lake, North Cascades, WA"
+              placeholderTextColor="#a3a3a3"
+              readOnly={false}
+              required={false}
+              returnKeyType="done"
+              secureTextEntry={false}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#171717",
+                  "flex": 1,
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "height": "100%",
+                  "paddingBottom": 8,
+                  "paddingLeft": 0,
+                  "paddingRight": 12,
+                  "paddingTop": 8,
+                  "width": "100%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            dataSet={Object {}}
+            feedbackId="field-6-feedback"
+            hasFeedbackText={false}
+            hasHelpText={false}
+            helpTextId="field-6-helptext"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+            isRequired={false}
+            labelId="field-6-label"
+            nativeID="field-6-label"
+            setHasFeedbackText={[Function]}
+            setHasHelpText={[Function]}
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "flex-start",
+                "marginBottom": 4,
+                "marginTop": 4,
+              }
+            }
+          >
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#737373",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "500",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Notes (limit 255 characters)
+            </Text>
+          </View>
+          <View
+            dataSet={Object {}}
+            isFocused={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "borderRadius": 0,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <TextInput
+              accessible={true}
+              blurOnSubmit={true}
+              dataSet={Object {}}
+              disabled={false}
+              editable={true}
+              isRequired={false}
+              maxLength={255}
+              multiline={true}
+              nativeID="field-6-input"
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              onKeyPress={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="ie. dark red algae on glacial ice"
+              placeholderTextColor="#a3a3a3"
+              readOnly={false}
+              required={false}
+              returnKeyType="done"
+              secureTextEntry={false}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#171717",
+                  "flex": 1,
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "height": "100%",
+                  "paddingBottom": 8,
+                  "paddingLeft": 0,
+                  "paddingRight": 12,
+                  "paddingTop": 8,
+                  "width": "100%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <Text
+          style={
+            Object {
+              "fontSize": 15,
+              "marginTop": 3,
+            }
+          }
+        >
+          Select Photos (limit 4)
+        </Text>
         <View
           accessible={true}
           collapsable={false}
           focusable={true}
+          onBlur={[Function]}
           onClick={[Function]}
+          onFocus={[Function]}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
           onResponderTerminate={[Function]}
           onResponderTerminationRequest={[Function]}
           onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID="algae-size-picker"
+          testID="photo-selector"
         >
-          <View
-            pointerEvents="box-only"
-          >
-            <TextInput
-              editable={false}
-              style={
-                Array [
-                  Object {
-                    "backgroundColor": "#efefef",
-                    "borderColor": "gray",
-                    "borderRadius": 4,
-                    "borderWidth": 1,
-                    "minHeight": "8%",
-                    "paddingHorizontal": 15,
-                    "paddingVertical": 15,
-                  },
-                  Object {},
-                ]
-              }
-              testID="text_input"
-              value="Select a size"
-            />
-          </View>
+          <Text />
         </View>
-        <Modal
-          hardwareAccelerated={false}
-          onOrientationChange={[Function]}
-          supportedOrientations={
-            Array [
-              "portrait",
-              "landscape",
-            ]
-          }
-          testID="ios_modal"
-          transparent={true}
-          visible={false}
-        />
       </View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Color
-      </Text>
-      <View
-        style={
-          Array [
-            Object {
-              "alignSelf": "stretch",
-            },
-            undefined,
-          ]
-        }
-      >
-        <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onClick={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-          testID="algae-color-picker"
-        >
-          <View
-            pointerEvents="box-only"
-          >
-            <TextInput
-              editable={false}
-              style={
-                Array [
-                  Object {
-                    "backgroundColor": "#efefef",
-                    "borderColor": "gray",
-                    "borderRadius": 4,
-                    "borderWidth": 1,
-                    "minHeight": "8%",
-                    "paddingHorizontal": 15,
-                    "paddingVertical": 15,
-                  },
-                  Object {},
-                ]
-              }
-              testID="text_input"
-              value="Select a color"
-            />
-          </View>
-        </View>
-        <Modal
-          hardwareAccelerated={false}
-          onOrientationChange={[Function]}
-          supportedOrientations={
-            Array [
-              "portrait",
-              "landscape",
-            ]
-          }
-          testID="ios_modal"
-          transparent={true}
-          visible={false}
-        />
-      </View>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Location Description (limit 255 characters)
-      </Text>
-      <TextInput
-        blurOnSubmit={true}
-        maxLength={255}
-        multiline={true}
-        onChangeText={[Function]}
-        onContentSizeChange={[Function]}
-        onSubmitEditing={[Function]}
-        placeholder="ie: Blue Lake, North Cascades, WA"
-        returnKeyType="done"
-        style={
-          Array [
-            Object {
-              "backgroundColor": "#efefef",
-              "borderColor": "gray",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "minHeight": "8%",
-              "paddingHorizontal": 15,
-              "paddingVertical": 15,
-            },
-            Object {
-              "paddingTop": 15,
-            },
-          ]
-        }
-        value=""
-      />
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Notes (limit 255 characters)
-      </Text>
-      <TextInput
-        blurOnSubmit={true}
-        maxLength={255}
-        multiline={true}
-        onChangeText={[Function]}
-        onContentSizeChange={[Function]}
-        onSubmitEditing={[Function]}
-        placeholder="ie. dark red algae on glacial ice"
-        returnKeyType="done"
-        style={
-          Array [
-            Object {
-              "backgroundColor": "#efefef",
-              "borderColor": "gray",
-              "borderRadius": 4,
-              "borderWidth": 1,
-              "minHeight": "8%",
-              "paddingHorizontal": 15,
-              "paddingVertical": 15,
-            },
-            Object {
-              "paddingTop": 15,
-            },
-          ]
-        }
-        value=""
-      />
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "marginTop": 3,
-          }
-        }
-      >
-        Select Photos (limit 4)
-      </Text>
-      <View
-        accessible={true}
-        collapsable={false}
-        focusable={true}
-        onBlur={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        testID="photo-selector"
-      >
-        <Text />
-      </View>
-    </View>
-  </RCTScrollView>
-</View>
+    </RCTScrollView>
+  </View>
+</RNCSafeAreaProvider>
 `;

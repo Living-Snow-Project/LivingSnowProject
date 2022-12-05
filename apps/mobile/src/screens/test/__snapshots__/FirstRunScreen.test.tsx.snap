@@ -1,189 +1,354 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`validates Welcome Screen navigation 1`] = `
-<View
-  collapsable={false}
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "height": "100%",
-      "left": 0,
-      "position": "absolute",
-      "top": 0,
-      "transform": Array [
-        Object {
-          "translateY": 0,
-        },
-      ],
-      "width": "100%",
-    }
-  }
->
-  <RCTScrollView
-    style={
+    Array [
       Object {
         "flex": 1,
-        "marginTop": 30,
-        "paddingHorizontal": 10,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    collapsable={false}
+    style={
+      Object {
+        "height": "100%",
+        "left": 0,
+        "position": "absolute",
+        "top": 0,
+        "transform": Array [
+          Object {
+            "translateY": 0,
+          },
+        ],
+        "width": "100%",
       }
     }
   >
-    <View>
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-            "justifyContent": "center",
-          }
+    <RCTScrollView
+      style={
+        Object {
+          "flex": 1,
+          "marginTop": 30,
+          "paddingHorizontal": 10,
         }
-      >
-        <Text />
+      }
+    >
+      <View>
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text />
+          <Text
+            style={
+              Object {
+                "fontSize": 25,
+                "fontWeight": "bold",
+                "marginTop": 1,
+                "textAlign": "center",
+              }
+            }
+          >
+            Living Snow Project
+          </Text>
+          <Text />
+        </View>
         <Text
           style={
             Object {
-              "fontSize": 25,
-              "fontWeight": "bold",
-              "marginTop": 1,
+              "color": "red",
+              "fontSize": 12,
+              "marginBottom": 20,
+              "marginLeft": 20,
+              "marginRight": 20,
+              "marginTop": 20,
               "textAlign": "center",
             }
           }
         >
-          Living Snow Project
+          Enter your name and the organization you are associated with, or skip and remain anonymous. You can change these at any time in the Settings tab.
         </Text>
-        <Text />
-      </View>
-      <Text
-        style={
-          Object {
-            "color": "red",
-            "fontSize": 12,
-            "marginBottom": 20,
-            "marginLeft": 20,
-            "marginRight": 20,
-            "marginTop": 20,
-            "textAlign": "center",
-          }
-        }
-      >
-        Enter your name and the organization you are associated with, or skip and remain anonymous. You can change these at any time in the Settings tab.
-      </Text>
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "paddingLeft": 10,
-            "paddingVertical": 2,
-          }
-        }
-      >
-        Name
-      </Text>
-      <TextInput
-        maxLength={50}
-        onChangeText={[Function]}
-        onSubmitEditing={[Function]}
-        placeholder="Enter your name"
-        returnKeyType="done"
-        style={
-          Object {
-            "backgroundColor": "#efefef",
-            "borderColor": "gray",
-            "borderRadius": 4,
-            "borderWidth": 1,
-            "marginLeft": 10,
-            "marginRight": 10,
-            "paddingHorizontal": 15,
-            "paddingVertical": 15,
-          }
-        }
-      />
-      <Text
-        style={
-          Object {
-            "fontSize": 15,
-            "paddingLeft": 10,
-            "paddingVertical": 2,
-          }
-        }
-      >
-        Organization
-      </Text>
-      <TextInput
-        maxLength={50}
-        onChangeText={[Function]}
-        placeholder="Enter organization you belong to (if any)"
-        returnKeyType="done"
-        style={
-          Object {
-            "backgroundColor": "#efefef",
-            "borderColor": "gray",
-            "borderRadius": 4,
-            "borderWidth": 1,
-            "marginLeft": 10,
-            "marginRight": 10,
-            "paddingHorizontal": 15,
-            "paddingVertical": 15,
-          }
-        }
-      />
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 2,
-            "justifyContent": "flex-start",
-            "marginTop": 30,
-          }
-        }
-      >
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+          dataSet={Object {}}
           style={
-            Array [
-              Object {},
-              Object {
-                "opacity": 1,
-              },
-            ]
+            Object {
+              "width": "100%",
+            }
           }
-          testID=""
         >
           <View
+            dataSet={Object {}}
+            feedbackId="field-1-feedback"
+            hasFeedbackText={false}
+            hasHelpText={false}
+            helpTextId="field-1-helptext"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+            isRequired={false}
+            labelId="field-1-label"
+            nativeID="field-1-label"
+            setHasFeedbackText={[Function]}
+            setHasHelpText={[Function]}
             style={
               Object {
-                "backgroundColor": "lightpink",
-                "borderRadius": 5,
-                "height": 40,
-                "justifyContent": "center",
-                "width": 200,
+                "flexDirection": "row",
+                "justifyContent": "flex-start",
+                "marginBottom": 4,
+                "marginTop": 4,
               }
             }
           >
             <Text
+              dataSet={Object {}}
               style={
                 Object {
-                  "fontSize": 20,
-                  "fontWeight": "bold",
-                  "textAlign": "center",
+                  "backgroundColor": undefined,
+                  "color": "#737373",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "500",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
                 }
               }
             >
-              Let's get started!
+              Name
             </Text>
+          </View>
+          <View
+            dataSet={Object {}}
+            isFocused={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "borderRadius": 0,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <TextInput
+              accessible={true}
+              blurOnSubmit={true}
+              dataSet={Object {}}
+              disabled={false}
+              editable={true}
+              isRequired={false}
+              maxLength={50}
+              multiline={true}
+              nativeID="field-1-input"
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              onKeyPress={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="Enter your name"
+              placeholderTextColor="#a3a3a3"
+              readOnly={false}
+              required={false}
+              returnKeyType="done"
+              secureTextEntry={false}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#171717",
+                  "flex": 1,
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "height": "100%",
+                  "paddingBottom": 8,
+                  "paddingLeft": 0,
+                  "paddingRight": 12,
+                  "paddingTop": 8,
+                  "width": "100%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            dataSet={Object {}}
+            feedbackId="field-2-feedback"
+            hasFeedbackText={false}
+            hasHelpText={false}
+            helpTextId="field-2-helptext"
+            isDisabled={false}
+            isInvalid={false}
+            isReadOnly={false}
+            isRequired={false}
+            labelId="field-2-label"
+            nativeID="field-2-label"
+            setHasFeedbackText={[Function]}
+            setHasHelpText={[Function]}
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "flex-start",
+                "marginBottom": 4,
+                "marginTop": 4,
+              }
+            }
+          >
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#737373",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "500",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Organization
+            </Text>
+          </View>
+          <View
+            dataSet={Object {}}
+            isFocused={false}
+            style={
+              Object {
+                "alignItems": "center",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "borderRadius": 0,
+                "borderWidth": 0,
+                "flexDirection": "row",
+                "overflow": "hidden",
+              }
+            }
+          >
+            <TextInput
+              accessible={true}
+              blurOnSubmit={true}
+              dataSet={Object {}}
+              disabled={false}
+              editable={true}
+              isRequired={false}
+              maxLength={50}
+              multiline={true}
+              nativeID="field-2-input"
+              onBlur={[Function]}
+              onChangeText={[Function]}
+              onFocus={[Function]}
+              onKeyPress={[Function]}
+              onSubmitEditing={[Function]}
+              placeholder="Enter organization you belong to (if any)"
+              placeholderTextColor="#a3a3a3"
+              readOnly={false}
+              required={false}
+              returnKeyType="done"
+              secureTextEntry={false}
+              style={
+                Object {
+                  "backgroundColor": "transparent",
+                  "color": "#171717",
+                  "flex": 1,
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "height": "100%",
+                  "paddingBottom": 8,
+                  "paddingLeft": 0,
+                  "paddingRight": 12,
+                  "paddingTop": 8,
+                  "width": "100%",
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flex": 2,
+              "justifyContent": "flex-start",
+              "marginTop": 30,
+            }
+          }
+        >
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {},
+                Object {
+                  "opacity": 1,
+                },
+              ]
+            }
+            testID=""
+          >
+            <View
+              style={
+                Object {
+                  "backgroundColor": "lightpink",
+                  "borderRadius": 5,
+                  "height": 40,
+                  "justifyContent": "center",
+                  "width": 200,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "fontSize": 20,
+                    "fontWeight": "bold",
+                    "textAlign": "center",
+                  }
+                }
+              >
+                Let's get started!
+              </Text>
+            </View>
           </View>
         </View>
       </View>
-    </View>
-  </RCTScrollView>
-</View>
+    </RCTScrollView>
+  </View>
+</RNCSafeAreaProvider>
 `;

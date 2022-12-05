@@ -1,14 +1,23 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react-native";
+import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import Navigation from "../MainTabNavigator";
 import { setAppSettings } from "../../../AppSettings";
 import { Labels } from "../../constants/Strings";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import makeAlgaeRecordsMock from "../../mocks/useAlgaeRecords.mock";
 
+function WrappedNavigation() {
+  return (
+    <NativeBaseProviderForTesting>
+      <Navigation />
+    </NativeBaseProviderForTesting>
+  );
+}
+
 describe("Navigation test suite", () => {
   test("renders first run screen", () => {
-    const { toJSON } = render(<Navigation />);
+    const { toJSON } = render(<WrappedNavigation />);
 
     expect(toJSON()).toMatchSnapshot();
   });
