@@ -39,6 +39,10 @@ const Labels = {
     PendingRecords: "Pending",
     DownloadedRecords: "Downloaded",
   },
+  SettingsScreen: {
+    DarkMode: "Dark",
+    ManualCoordinates: "Manual Coordinates Warning",
+  },
   StatusBar: {
     NoConnection: "No Internet Connection",
   },
@@ -125,10 +129,17 @@ const BackgroundTasks = {
   UploadData: "background-upload-task",
 };
 
+const Headers = {
+  Prompts: "Prompts",
+  Theme: "Theme",
+  UserInformation: "Your Information",
+};
+
 export {
   Errors,
   Notifications,
   Placeholders,
+  Headers,
   Labels,
   RecordDescription,
   AlgaeSizeDescription,

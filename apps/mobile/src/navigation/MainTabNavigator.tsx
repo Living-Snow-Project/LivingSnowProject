@@ -1,6 +1,11 @@
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  NavigationContainer,
+  DarkTheme,
+  DefaultTheme,
+} from "@react-navigation/native";
+import { useColorMode } from "native-base";
 import TimelineScreen from "../screens/TimelineScreen";
 import RecordScreen from "../screens/RecordScreen";
 import SettingsScreen from "../screens/SettingsScreen";
@@ -79,8 +84,17 @@ function RootNavigator() {
 }
 
 export default function Navigation() {
+  const { colorMode } = useColorMode();
+  const dark = colorMode == "light";
+  const theme = dark
+    ? {
+        ...DefaultTheme,
+        dark,
+      }
+    : { ...DarkTheme, dark };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <RootNavigator />
     </NavigationContainer>
   );

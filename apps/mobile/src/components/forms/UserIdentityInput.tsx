@@ -1,48 +1,41 @@
 import React, { useState, useRef } from "react";
-import { Text, TextInput } from "react-native";
-import styles from "../../styles/Settings";
+import CustomTextInput from "./CustomTextInput";
 import { AppSettings } from "../../../types/AppSettings";
 import { getAppSettings, setAppSettings } from "../../../AppSettings";
-import { Placeholders } from "../../constants/Strings";
+import { Labels, Placeholders } from "../../constants/Strings";
 
 export default function UserIdentityInput() {
   const [{ name, organization }, setSettings] = useState<AppSettings>(
     getAppSettings()
   );
-  const orgRef = useRef<TextInput>(null);
+  const orgRef = useRef<any>(null);
 
   return (
     <>
-      <Text style={styles.optionStaticText}>Name</Text>
-      <TextInput
-        style={styles.optionInputText}
+      <CustomTextInput
         value={name}
+        label={Labels.RecordFields.Name}
         placeholder={Placeholders.Settings.Username}
         onChangeText={(value) => {
-          setSettings((prev) => {
-            setAppSettings({ ...prev, name: value });
-            return { ...prev, name: value };
-          });
+          setSettings((prev) => ({
+            ...setAppSettings({ ...prev, name: value }),
+          }));
         }}
         onSubmitEditing={() => orgRef.current?.focus()}
         maxLength={50}
-        returnKeyType="done"
       />
 
-      <Text style={styles.optionStaticText}>Organization</Text>
-      <TextInput
+      <CustomTextInput
         ref={orgRef}
-        style={styles.optionInputText}
         value={organization}
+        label={Labels.RecordFields.Organization}
         placeholder={Placeholders.Settings.Organization}
         onChangeText={(value) => {
-          setSettings((prev) => {
-            setAppSettings({ ...prev, organization: value });
-            return { ...prev, organization: value };
-          });
+          setSettings((prev) => ({
+            ...setAppSettings({ ...prev, organization: value }),
+          }));
         }}
         maxLength={50}
-        returnKeyType="done"
       />
     </>
   );

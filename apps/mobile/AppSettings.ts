@@ -16,14 +16,16 @@ function getAppSettings(): AppSettings {
 
 function setAppSettings(
   param: AppSettings | ((appSettings: AppSettings) => AppSettings)
-): void {
+): AppSettings {
   if (typeof param === "function") {
     appSettingsContext = param(appSettingsContext);
   } else {
-    appSettingsContext = param;
+    appSettingsContext = { ...param };
   }
 
   saveAppConfig(appSettingsContext);
+
+  return appSettingsContext;
 }
 
 export { DefaultAppSettings, getAppSettings, setAppSettings };

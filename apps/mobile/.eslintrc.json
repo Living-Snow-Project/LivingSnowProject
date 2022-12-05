@@ -14,6 +14,7 @@
     }
   },
   "rules": {
+    "eqeqeq": ["off"],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
     "no-unneeded-ternary": ["error", { "defaultAssignment": true }],

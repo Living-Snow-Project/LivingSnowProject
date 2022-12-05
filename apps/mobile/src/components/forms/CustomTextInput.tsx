@@ -1,39 +1,33 @@
-import React, { forwardRef, useRef, useState } from "react";
-import {
+import React, { forwardRef /* useRef */ } from "react";
+import { FormControl, Input } from "native-base";
+/* import {
   NativeSyntheticEvent,
-  Platform,
-  Text,
-  TextInput,
   TextInputContentSizeChangeEventData,
 } from "react-native";
-import RCTDeviceEventEmitter from "react-native/Libraries/EventEmitter/RCTDeviceEventEmitter";
-import { formInputStyles } from "../../styles/FormInput";
+import RCTDeviceEventEmitter from "react-native/Libraries/EventEmitter/RCTDeviceEventEmitter"; */
 
 type CustomTextInputProps = {
-  defaultValue?: string | undefined;
-  description: string;
+  value?: string | undefined;
+  label: string;
   placeholder: string;
   maxLength?: number;
   onChangeText: (text: string) => void;
   onSubmitEditing?: () => void;
 };
 
-const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
+const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
   (
     {
-      defaultValue,
-      description,
+      value,
+      label,
       placeholder,
       onChangeText,
-      maxLength,
-      onSubmitEditing,
+      maxLength = 255,
+      onSubmitEditing = () => {},
     }: CustomTextInputProps,
     ref
-  ) => {
-    const textInputHeight = useRef(0);
-    const [value, setValue] = useState<string>(
-      defaultValue ? defaultValue : ""
-    );
+  ) => (
+    /* const textInputHeight = useRef(0);
 
     // onContentSizeChange is called frequently for multiline TextInput, we only want to emit 'keyboardDidShow' event when height actually changes
     const handleMultilineTextInputOnContentSizeChange = (
@@ -48,51 +42,38 @@ const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
       }
 
       return event.nativeEvent.contentSize.height;
-    };
+    }; */
 
-    return (
-      <>
-        <Text style={formInputStyles.optionStaticText}>{description}</Text>
-        <TextInput
-          // hack to get placeholder text to appear vertically centered on ios when TextInput is multiline
-          style={[
-            formInputStyles.optionInputText,
-            Platform.OS === "ios" ? formInputStyles.multilineTextInput : {},
-          ]}
-          defaultValue={defaultValue}
-          multiline
-          blurOnSubmit
-          ref={ref}
-          value={value}
-          placeholder={placeholder}
-          onChangeText={(text) => {
-            setValue(text);
-            onChangeText(text);
-          }}
-          // @ts-expect-error (defaultProps assigns a value but default value in function signature results in unreachable code)
-          onSubmitEditing={() => onSubmitEditing()}
-          onContentSizeChange={(event) => {
-            textInputHeight.current =
-              handleMultilineTextInputOnContentSizeChange(
-                textInputHeight.current,
-                event
-              );
-          }}
-          maxLength={maxLength}
-          returnKeyType="done"
-        />
-      </>
-    );
-  }
+    <FormControl>
+      <FormControl.Label>{label}</FormControl.Label>
+      <Input
+        size="lg"
+        multiline
+        blurOnSubmit
+        // @ts-ignore ref typing isn't quite right in native-base yet
+        ref={ref}
+        value={value}
+        placeholder={placeholder}
+        onChangeText={(text) => {
+          onChangeText(text);
+        }}
+        onSubmitEditing={() => onSubmitEditing()}
+        /* onContentSizeChange={(event) => {
+          textInputHeight.current =
+            handleMultilineTextInputOnContentSizeChange(
+              textInputHeight.current,
+              event
+            );
+        }} */
+        maxLength={maxLength}
+        returnKeyType="done"
+        variant="underlined"
+      />
+    </FormControl>
+  )
 );
 
-CustomTextInput.defaultProps = {
-  defaultValue: undefined,
-  maxLength: 255,
-  onSubmitEditing: () => {},
-};
+export default CustomTextInput;
 
 // this is needed because of forwardRef
 CustomTextInput.displayName = `CustomTextInput`;
-
-export default CustomTextInput;

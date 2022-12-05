@@ -5,13 +5,7 @@ import React, {
   useRef,
   useState,
 } from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  ScrollView,
-  TextInput,
-  View,
-} from "react-native";
+import { ActivityIndicator, Alert, ScrollView, View } from "react-native";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import Logger from "@livingsnow/logger";
@@ -70,8 +64,9 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
   // TODO: get updating\uploading from reducer
   const [updating, setUpdating] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
-  const notesRef = useRef<TextInput>(null);
-  const locationDescriptionRef = useRef<TextInput>(null);
+  // NativeBase typings not quite right for refs
+  const notesRef = useRef<any>(null);
+  const locationDescriptionRef = useRef<any>(null);
 
   const algaeRecordsContext = useAlgaeRecordsContext();
 
@@ -291,8 +286,8 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
           {/* Tube Id: only show Tube Id when recording a Sample */}
           {isSample(state.type) && (
             <CustomTextInput
-              defaultValue={state?.tubeId}
-              description={Labels.RecordFields.TubeId}
+              value={state?.tubeId}
+              label={Labels.RecordFields.TubeId}
               placeholder={Placeholders.RecordScreen.TubeId}
               maxLength={20}
               onChangeText={(tubeId) =>
@@ -325,8 +320,8 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
           />
 
           <CustomTextInput
-            defaultValue={state?.locationDescription}
-            description={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}
+            value={state?.locationDescription}
+            label={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}
             placeholder={Placeholders.RecordScreen.LocationDescription}
             onChangeText={(locationDescription) =>
               setState((prev) => ({ ...prev, locationDescription }))
@@ -336,8 +331,8 @@ export default function RecordScreen({ navigation, route }: RecordScreenProps) {
           />
 
           <CustomTextInput
-            defaultValue={state?.notes}
-            description={`${Labels.RecordFields.Notes} (limit 255 characters)`}
+            value={state?.notes}
+            label={`${Labels.RecordFields.Notes} (limit 255 characters)`}
             placeholder={Placeholders.RecordScreen.Notes}
             onChangeText={(notes) => setState((prev) => ({ ...prev, notes }))}
             ref={notesRef}
