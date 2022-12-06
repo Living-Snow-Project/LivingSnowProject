@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FlatList, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
+import { Divider } from "native-base";
 import Logger from "@livingsnow/logger";
 import { TimelineScreenNavigationProp } from "../navigation/Routes";
 import StatusBar from "../components/StatusBar";
@@ -11,10 +12,6 @@ import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 import useRecordList from "../hooks/useRecordList";
 import PressableOpacity from "../components/PressableOpacity";
 import { ScrollTopIcon } from "../components/Icons";
-
-function Separator() {
-  return <View style={styles.separator} />;
-}
 
 type ContainerDimensions = {
   width: number;
@@ -89,7 +86,7 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
           renderItem={({ item }) => item}
           keyExtractor={(item, index) => `${index}`}
           ListEmptyComponent={ExampleRecordList}
-          ItemSeparatorComponent={Separator}
+          ItemSeparatorComponent={Divider}
           onScroll={({ nativeEvent }) => {
             if (nativeEvent.contentOffset.y < 1000) {
               setScrollingToTop(false);

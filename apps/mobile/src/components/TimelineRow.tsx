@@ -1,83 +1,35 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import {
+  Box,
+  HStack,
+  Pressable,
+  Text,
+  ThreeDotsIcon,
+  VStack,
+} from "native-base";
 import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
-import { PictureIcon, RecordIcon } from "./Icons";
 import { RootStackNavigationProp } from "../navigation/Routes";
-import { Labels } from "../constants/Strings";
+import getUserStyle from "./UserStyle";
 
-const styles = StyleSheet.create({
-  recordContainer: {
-    backgroundColor: "white",
-    paddingLeft: 2,
-    paddingRight: 2,
-  },
-  recordTop: {
-    flexDirection: "row",
-    flex: 1,
-  },
-  topText: {
-    marginLeft: 1,
-    flex: 0.7,
-  },
-  topIcon: {
-    marginLeft: 1,
-    flex: 0.15,
-  },
-  photosNotification: {
-    position: "absolute",
-    alignSelf: "flex-end",
-    top: 1,
-    right: 2,
-    backgroundColor: "red",
-    borderRadius: 40,
-    alignItems: "center",
-    width: "33%",
-  },
-});
-
-function empty(text: string | undefined) {
-  return !text;
-}
-
-function topText({
-  date,
-  name,
-  organization,
-  latitude,
-  longitude,
-}: AlgaeRecord) {
-  let result = `${recordDateFormat(date)}\n`;
-
-  if (!empty(name)) {
-    result += name;
-
-    if (!empty(organization)) {
-      result += ` (${organization})`;
-    }
-  } else {
-    result += `Anonymous Scientist`;
+function bottomText({
+  locationDescription,
+  notes,
+}: AlgaeRecord): JSX.Element[] | null {
+  const result: JSX.Element[] = [];
+  if (locationDescription) {
+    result.push(
+      <Text key={0} fontWeight="500">
+        {locationDescription}
+      </Text>
+    );
   }
 
-  result += `\n${Labels.RecordFields.GPSCoordinates}: ${latitude}, ${longitude}`;
-
-  return result;
-}
-
-function bottomText({ locationDescription, notes }: AlgaeRecord) {
-  let result = "";
-  let newline = "";
-
-  if (!empty(locationDescription)) {
-    result += `${Labels.RecordFields.LocationDescription}: ${locationDescription}`;
-    newline = "\n";
+  if (notes) {
+    result.push(<Text key={1}>{notes}</Text>);
   }
 
-  if (!empty(notes)) {
-    result += `${newline}${Labels.RecordFields.Notes}: ${notes}`;
-  }
-
-  return result;
+  return result.length > 0 ? result : null;
 }
 
 type TimelineRowProps = {
@@ -86,32 +38,36 @@ type TimelineRowProps = {
 
 export default function TimelineRow({ record }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
+  const { org, name, avatar } = getUserStyle(record.name, record.organization);
+  // useCachedPhotos
+
   return (
-    <View style={styles.recordContainer}>
+    <Box px={2} py={1}>
       <Pressable
         testID={record.id.toString()}
         onPress={() => navigate("RecordDetails", { record })}
       >
-        <View style={styles.recordTop}>
-          <View style={styles.topText}>
-            <Text>{topText(record)}</Text>
-          </View>
-          <View style={styles.topIcon}>
-            <RecordIcon type={record.type} />
-          </View>
-          {record.photos !== undefined && record.photos.length > 0 && (
-            <View style={styles.topIcon}>
-              <PictureIcon />
-              <View style={styles.photosNotification}>
-                <Text style={{ color: "white" }}>{record.photos.length}</Text>
-              </View>
-            </View>
-          )}
-        </View>
-        {(!empty(record.locationDescription) || !empty(record.notes)) && (
-          <Text>{bottomText(record)}</Text>
-        )}
+        <VStack>
+          <HStack>
+            <Box width="15%">{avatar}</Box>
+            <Box width="75%">
+              <VStack ml={2}>
+                {name}
+                {org}
+                <Text fontWeight={500} color="blue.700">
+                  {`${record.type} on ${recordDateFormat(record.date)}`}
+                </Text>
+              </VStack>
+            </Box>
+            <Box>
+              {/** generates a React key list error */}
+              <ThreeDotsIcon />
+            </Box>
+          </HStack>
+          {bottomText(record)}
+          {/* photo(s) */}
+        </VStack>
       </Pressable>
-    </View>
+    </Box>
   );
 }
