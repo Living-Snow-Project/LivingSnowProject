@@ -43,15 +43,15 @@ type UserStyle = {
   avatar: JSX.Element;
 };
 
-function getInitials(name: string): string {
+function computeInitials(name: string): string {
   const splitName = name.split(" ");
 
-  // John Doe = JD
+  // ie. John Doe = JD
   if (splitName.length > 1) {
     return `${splitName[0][0]}${splitName[1][0]}`;
   }
 
-  // John = JO
+  // ie. John = JO
   if (name.length > 1) {
     return `${name[0]}${name[1]}`;
   }
@@ -60,7 +60,7 @@ function getInitials(name: string): string {
   return "CS";
 }
 
-function getColor(name: string): string {
+function computeColor(name: string): string {
   const hash = name
     .split("")
     .map((char) => char.charCodeAt(0))
@@ -69,38 +69,30 @@ function getColor(name: string): string {
   return avatarColors[hash % avatarColors.length];
 }
 
-function getOrganization(org: string | undefined): JSX.Element | null {
-  if (org) {
-    return <Text>{org}</Text>;
-  }
-
-  return null;
-}
-
 type AvatarProps = {
   color: string;
   initials: string;
 };
 
-function computeAvatarProps(name: string) {
+function computeAvatarProps(name: string): AvatarProps {
   return {
-    color: getColor(name),
-    initials: getInitials(name).toUpperCase(),
+    color: computeColor(name),
+    initials: computeInitials(name).toUpperCase(),
   };
 }
 
-const userStyles: Map<string, AvatarProps> = new Map();
+// avoid recomputing initials and color
+const userAvatars: Map<string, AvatarProps> = new Map();
 
 function getAvatarProps(name: string): AvatarProps {
-  // lookup
-  let result = userStyles.get(name);
+  let result = userAvatars.get(name);
   if (result) {
     return { ...result };
   }
 
   result = computeAvatarProps(name);
 
-  userStyles.set(name, { ...result });
+  userAvatars.set(name, { ...result });
 
   return { ...result };
 }
@@ -122,7 +114,7 @@ export default function getUserStyle(
   const newName = name || "Community Scientist";
 
   return {
-    org: getOrganization(org),
+    org: org ? <Text>{org}</Text> : null,
     name: <Text fontWeight={600}>{newName}</Text>,
     avatar: getAvatar(newName),
   };
