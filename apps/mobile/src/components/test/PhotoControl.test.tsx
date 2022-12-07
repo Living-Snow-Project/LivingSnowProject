@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react-native";
 import { SelectedPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
-import PhotoControl from "../PhotoControl";
+import PhotoControl from "../forms/PhotoControl";
 
 const navigation: RootStackNavigationProp = {} as RootStackNavigationProp;
 navigation.goBack = () => {};

@@ -1,10 +1,10 @@
 import React, { useCallback } from "react";
 import { Image, LogBox, Pressable, StyleSheet, Text, View } from "react-native";
 import { SelectedPhoto } from "@livingsnow/record";
-import { RootStackNavigationProp } from "../navigation/Routes";
-import { formInputStyles } from "../styles/FormInput";
-import TestIds from "../constants/TestIds";
-import { PictureIcon } from "./Icons";
+import { RootStackNavigationProp } from "../../navigation/Routes";
+import { formInputStyles } from "../../styles/FormInput";
+import TestIds from "../../constants/TestIds";
+import { PictureIcon } from "../Icons";
 
 // because we pass a callback in params, more info from the following links
 // follow links for best practices, look at Context
