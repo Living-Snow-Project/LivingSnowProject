@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions } from "react-native";
-import { Box, HStack, Image, Text } from "native-base";
+import { Box, HStack, Image, Text, useTheme } from "native-base";
 import { Photo } from "@livingsnow/record";
 import useCachedPhoto from "../hooks/useCachedPhotos";
 
@@ -43,6 +43,7 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps) {
     );
   }
 
+  // TODO: remove when all layouts completed
   const props = width && height ? { width, height } : { size: "md" };
 
   return (
@@ -57,14 +58,15 @@ type PhotosLayoutProps = {
 export default function PhotosLayout({
   photos,
 }: PhotosLayoutProps): JSX.Element | null {
+  const theme = useTheme();
   if (!photos || !photos.length) {
     return null;
   }
 
   const newPhotos: Photo[] = [];
   const { width: screenWidth } = Dimensions.get("screen");
-  const halfScreen = Math.floor((screenWidth - 24) / 2); // px={2} maps to 8px, x3 for 3 paddings
-  const thirdScreen = Math.floor((screenWidth - 24) / 3);
+  const halfScreen = Math.ceil((screenWidth - theme.sizes[2]) / 2); // Box px={2}
+  const thirdScreen = Math.ceil((screenWidth - theme.sizes[2]) / 3);
 
   let portraitCount = 0;
   let landscapeCount = 0;
@@ -110,7 +112,7 @@ export default function PhotosLayout({
 
     if (portraitCount == 2 || landscapeCount == 2) {
       renderLayout = (
-        <HStack pr={2}>
+        <HStack>
           <CachedPhoto
             uri={uri}
             width={halfScreen}

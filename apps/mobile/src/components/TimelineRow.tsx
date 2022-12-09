@@ -55,11 +55,11 @@ export default function TimelineRow({ record }: TimelineRowProps) {
   const { org, name, avatar } = getUserStyle(record.name, record.organization);
 
   return (
-    <Box px={2} py={1}>
-      <Pressable
-        testID={record.id.toString()}
-        onPress={() => navigate("RecordDetails", { record })}
-      >
+    <Pressable
+      testID={record.id.toString()}
+      onPress={() => navigate("RecordDetails", { record })}
+    >
+      <Box px={2} py={1}>
         <VStack>
           <HStack>
             <Box width="15%">{avatar}</Box>
@@ -76,9 +76,9 @@ export default function TimelineRow({ record }: TimelineRowProps) {
             </Box>
           </HStack>
           {bottomText(record)}
-          <PhotosLayout photos={record.photos} />
         </VStack>
-      </Pressable>
-    </Box>
+      </Box>
+      <PhotosLayout photos={record.photos} />
+    </Pressable>
   );
 }
