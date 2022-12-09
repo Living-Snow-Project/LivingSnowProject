@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions } from "react-native";
-import { Box, HStack, Image, Text, useTheme } from "native-base";
+import { Box, HStack, Image, Text, VStack, useTheme } from "native-base";
 import { Photo } from "@livingsnow/record";
 import useCachedPhoto from "../hooks/useCachedPhotos";
 
@@ -59,19 +59,21 @@ export default function PhotosLayout({
   photos,
 }: PhotosLayoutProps): JSX.Element | null {
   const theme = useTheme();
+
   if (!photos || !photos.length) {
     return null;
   }
 
   const newPhotos: Photo[] = [];
   const { width: screenWidth } = Dimensions.get("screen");
-  const halfScreen = Math.ceil((screenWidth - theme.sizes[2]) / 2); // Box px={2}
-  const thirdScreen = Math.ceil((screenWidth - theme.sizes[2]) / 3);
+  const halfScreenWidth = Math.ceil((screenWidth - theme.sizes[2]) / 2); // theme.sizes[2] is the # pixels behind Box px={2}
+  const oneThirdScreenWidth = Math.ceil((screenWidth - theme.sizes[2]) / 3);
+  const twoThirdScreenWidth = oneThirdScreenWidth + oneThirdScreenWidth;
 
   let portraitCount = 0;
   let landscapeCount = 0;
 
-  // sort portait to landscape and count
+  // sort portrait to landscape and count number of each
   photos.forEach((current: Photo) => {
     if (current.height > current.width) {
       newPhotos.unshift({ ...current });
@@ -81,6 +83,24 @@ export default function PhotosLayout({
       landscapeCount += 1;
     }
   });
+
+  // assumes given 2 portrait or 2 landscape
+  const renderSideBySide = (first: Photo, second: Photo) => {
+    const { uri, width, height } = first;
+    const fixedHeight = Math.floor(halfScreenWidth * (height / width));
+
+    return (
+      <HStack>
+        <CachedPhoto uri={uri} width={halfScreenWidth} height={fixedHeight} />
+        <Box pr={2} />
+        <CachedPhoto
+          uri={second.uri}
+          width={halfScreenWidth}
+          height={fixedHeight}
+        />
+      </HStack>
+    );
+  };
 
   // default layout
   let renderLayout: JSX.Element = (
@@ -92,8 +112,8 @@ export default function PhotosLayout({
     </HStack>
   );
 
-  // we restrict the app to 4 photos per record which results in 14 combinations
-  // #1 and #2 - single photo, portrait or landscape
+  // app is restricted to 4 photos per record which results in 14 portrait\landscape combinations
+  // combinations #1 and #2 - single photo, portrait or landscape
   if (newPhotos.length == 1) {
     const { uri, width, height } = newPhotos[0];
     renderLayout = (
@@ -105,42 +125,132 @@ export default function PhotosLayout({
     );
   }
 
-  // #3, #4, and #5
+  // cominbations #3, #4, and #5
   if (newPhotos.length == 2) {
-    const { uri, width, height } = newPhotos[0];
-    const { uri: uri2 } = newPhotos[1];
-
     if (portraitCount == 2 || landscapeCount == 2) {
+      renderLayout = renderSideBySide(newPhotos[0], newPhotos[1]);
+    } else {
+      // 1 portrait and 1 landscape
+      const { uri, width, height } = newPhotos[0];
+      const fixedHeight = Math.floor(oneThirdScreenWidth * (height / width));
+
       renderLayout = (
         <HStack>
           <CachedPhoto
             uri={uri}
-            width={halfScreen}
-            height={Math.floor(halfScreen * (height / width))}
+            width={oneThirdScreenWidth}
+            height={fixedHeight}
           />
           <Box pr={2} />
           <CachedPhoto
-            uri={uri2}
-            width={halfScreen}
-            height={Math.floor(halfScreen * (height / width))}
+            uri={newPhotos[1].uri}
+            width={twoThirdScreenWidth}
+            height={fixedHeight}
           />
         </HStack>
       );
-    } else {
+    }
+  }
+
+  // combinations #6, #7, #8, #9
+  /* if (newPhotos.length == 3) {
+
+  } */
+
+  // combinations #10, #11, #12, #13, #14
+  if (newPhotos.length == 4) {
+    if (
+      portraitCount == 4 ||
+      landscapeCount == 4 ||
+      (portraitCount == 2 && landscapeCount == 2)
+    ) {
       renderLayout = (
+        <>
+          {renderSideBySide(newPhotos[0], newPhotos[1])}
+          <Box pt={2} />
+          {renderSideBySide(newPhotos[2], newPhotos[3])}
+        </>
+      );
+    } else if (portraitCount == 1 && landscapeCount == 3) {
+      const { uri, width, height } = newPhotos[0];
+      const controlHeight = Math.floor(halfScreenWidth * (height / width));
+      // account for 2x <Box pt={2}/>
+      const landscapeHeight = Math.floor(
+        (controlHeight - 2 * theme.sizes[2]) / 3
+      );
+
+      renderLayout = (
+        // TODO: this HStack can be re-used for length == 3 && portraitCount == 3
         <HStack>
           <CachedPhoto
             uri={uri}
-            width={thirdScreen}
-            height={Math.floor(thirdScreen * (height / width))}
+            width={halfScreenWidth}
+            height={controlHeight}
           />
           <Box pr={2} />
-          <CachedPhoto
-            uri={uri2}
-            width={2 * thirdScreen}
-            height={Math.floor(thirdScreen * (height / width))}
-          />
+          <VStack>
+            <CachedPhoto
+              uri={newPhotos[1].uri}
+              width={halfScreenWidth}
+              height={landscapeHeight}
+            />
+            <Box pt={2} />
+            <CachedPhoto
+              uri={newPhotos[2].uri}
+              width={halfScreenWidth}
+              height={landscapeHeight}
+            />
+            <Box pt={2} />
+            <CachedPhoto
+              uri={newPhotos[3].uri}
+              width={halfScreenWidth}
+              // account for floating point precision
+              height={controlHeight - 2 * (landscapeHeight + theme.sizes[2])}
+            />
+          </VStack>
         </HStack>
+      );
+    } else {
+      // 3 portrait, 1 landscape
+      const { uri, width, height } = newPhotos[0];
+      const controlHeight = Math.floor(twoThirdScreenWidth * (height / width));
+      // account for <Box pt={2}/>
+      const portraitHeight = Math.floor((controlHeight - theme.sizes[2]) / 2);
+
+      renderLayout = (
+        <>
+          <HStack>
+            <CachedPhoto
+              uri={uri}
+              width={twoThirdScreenWidth}
+              height={controlHeight}
+            />
+            <Box pr={2} />
+            <VStack>
+              <CachedPhoto
+                uri={newPhotos[1].uri}
+                width={oneThirdScreenWidth}
+                height={portraitHeight}
+              />
+              <Box pt={2} />
+              <CachedPhoto
+                uri={newPhotos[2].uri}
+                width={oneThirdScreenWidth}
+                // account for floating point precision
+                height={controlHeight - portraitHeight - theme.sizes[2]}
+              />
+            </VStack>
+          </HStack>
+          <Box pt={2}>
+            <CachedPhoto
+              uri={newPhotos[3].uri}
+              width={screenWidth}
+              height={Math.floor(
+                screenWidth * (newPhotos[3].height / newPhotos[3].width)
+              )}
+            />
+          </Box>
+        </>
       );
     }
   }
