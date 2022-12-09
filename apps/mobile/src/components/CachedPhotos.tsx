@@ -59,6 +59,7 @@ function CachedPhoto({ uri }: CachedPhotoProps) {
     return <Image style={styles.fullSizeImage} source={cachedPhoto} />;
   }
 
+  // TODO: what on earth was I thinking, these should be a separate state variable not recycled in the uri
   if (cachedPhoto.includes("Loading")) {
     return (
       <>

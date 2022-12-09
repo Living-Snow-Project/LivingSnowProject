@@ -5,12 +5,13 @@ import {
   HStack,
   Pressable,
   Text,
-  ThreeDotsIcon,
+  // ThreeDotsIcon,
   VStack,
 } from "native-base";
 import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../navigation/Routes";
 import getUserStyle from "./UserStyle";
+import PhotosLayout from "./PhotosLayout";
 
 function bottomText({
   locationDescription,
@@ -32,6 +33,19 @@ function bottomText({
   return result.length > 0 ? result : null;
 }
 
+function getRecordInfo(record: AlgaeRecord) {
+  return (
+    <HStack>
+      <Text fontWeight={700} color="blue.700">
+        {`${record.type}`}
+      </Text>
+      <Text fontWeight={400} color="blue.700">
+        {` on ${recordDateFormat(record.date)}`}
+      </Text>
+    </HStack>
+  );
+}
+
 type TimelineRowProps = {
   record: AlgaeRecord;
 };
@@ -39,7 +53,6 @@ type TimelineRowProps = {
 export default function TimelineRow({ record }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
   const { org, name, avatar } = getUserStyle(record.name, record.organization);
-  // useCachedPhotos
 
   return (
     <Box px={2} py={1}>
@@ -54,18 +67,16 @@ export default function TimelineRow({ record }: TimelineRowProps) {
               <VStack ml={2}>
                 {name}
                 {org}
-                <Text fontWeight={500} color="blue.700">
-                  {`${record.type} on ${recordDateFormat(record.date)}`}
-                </Text>
+                {getRecordInfo(record)}
               </VStack>
             </Box>
             <Box>
               {/** generates a React key list error */}
-              <ThreeDotsIcon />
+              {/* <ThreeDotsIcon /> */}
             </Box>
           </HStack>
           {bottomText(record)}
-          {/* photo(s) */}
+          <PhotosLayout photos={record.photos} />
         </VStack>
       </Pressable>
     </Box>
