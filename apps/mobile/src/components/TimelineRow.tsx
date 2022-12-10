@@ -1,13 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import {
-  Box,
-  HStack,
-  Pressable,
-  Text,
-  // ThreeDotsIcon,
-  VStack,
-} from "native-base";
+import { Box, HStack, Pressable, Text, VStack } from "native-base";
 import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../navigation/Routes";
 import getUserStyle from "./UserStyle";
@@ -69,10 +62,6 @@ export default function TimelineRow({ record }: TimelineRowProps) {
                 {org}
                 {getRecordInfo(record)}
               </VStack>
-            </Box>
-            <Box>
-              {/** generates a React key list error */}
-              {/* <ThreeDotsIcon /> */}
             </Box>
           </HStack>
           {bottomText(record)}
