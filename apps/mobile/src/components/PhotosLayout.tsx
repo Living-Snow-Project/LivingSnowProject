@@ -102,6 +102,38 @@ export default function PhotosLayout({
     );
   };
 
+  const renderThreePortrait = (first: Photo, second: Photo, third: Photo) => {
+    const { uri, width, height } = first;
+    const controlHeight = Math.floor(twoThirdScreenWidth * (height / width));
+    // account for <Box pt={2}/>
+    const portraitHeight = Math.floor((controlHeight - theme.sizes[2]) / 2);
+
+    return (
+      <HStack>
+        <CachedPhoto
+          uri={uri}
+          width={twoThirdScreenWidth}
+          height={controlHeight}
+        />
+        <Box pr={2} />
+        <VStack>
+          <CachedPhoto
+            uri={second.uri}
+            width={oneThirdScreenWidth}
+            height={portraitHeight}
+          />
+          <Box pt={2} />
+          <CachedPhoto
+            uri={third.uri}
+            width={oneThirdScreenWidth}
+            // account for floating point precision
+            height={controlHeight - portraitHeight - theme.sizes[2]}
+          />
+        </VStack>
+      </HStack>
+    );
+  };
+
   // default layout
   let renderLayout: JSX.Element = (
     <HStack justifyContent="space-evenly">
@@ -153,9 +185,73 @@ export default function PhotosLayout({
   }
 
   // combinations #6, #7, #8, #9
-  /* if (newPhotos.length == 3) {
+  if (newPhotos.length == 3) {
+    if (portraitCount == 3) {
+      renderLayout = renderThreePortrait(
+        newPhotos[0],
+        newPhotos[1],
+        newPhotos[2]
+      );
+    } else if (portraitCount == 2 /* && landscapeCount == 1 */) {
+      renderLayout = (
+        <>
+          {renderSideBySide(newPhotos[0], newPhotos[1])}
+          <Box pt={2} />
+          <CachedPhoto
+            uri={newPhotos[2].uri}
+            width={screenWidth}
+            height={Math.floor(
+              screenWidth * (newPhotos[2].height / newPhotos[2].width)
+            )}
+          />
+        </>
+      );
+    } else if (portraitCount == 1 /* && landscapeCount == 2 */) {
+      const { uri, width, height } = newPhotos[0];
+      const controlHeight = Math.floor(halfScreenWidth * (height / width));
+      // account for <Box pt={2}/>
+      const portraitHeight = Math.floor((controlHeight - theme.sizes[2]) / 2);
 
-  } */
+      return (
+        <HStack>
+          <CachedPhoto
+            uri={uri}
+            width={halfScreenWidth}
+            height={controlHeight}
+          />
+          <Box pr={2} />
+          <VStack>
+            <CachedPhoto
+              uri={newPhotos[1].uri}
+              width={halfScreenWidth}
+              height={portraitHeight}
+            />
+            <Box pt={2} />
+            <CachedPhoto
+              uri={newPhotos[2].uri}
+              width={halfScreenWidth}
+              // account for floating point precision
+              height={controlHeight - portraitHeight - theme.sizes[2]}
+            />
+          </VStack>
+        </HStack>
+      );
+    } else if (landscapeCount == 3) {
+      renderLayout = (
+        <>
+          <CachedPhoto
+            uri={newPhotos[2].uri}
+            width={screenWidth}
+            height={Math.floor(
+              screenWidth * (newPhotos[2].height / newPhotos[2].width)
+            )}
+          />
+          <Box pt={2} />
+          {renderSideBySide(newPhotos[0], newPhotos[1])}
+        </>
+      );
+    }
+  }
 
   // combinations #10, #11, #12, #13, #14
   if (newPhotos.length == 4) {
@@ -180,7 +276,6 @@ export default function PhotosLayout({
       );
 
       renderLayout = (
-        // TODO: this HStack can be re-used for length == 3 && portraitCount == 3
         <HStack>
           <CachedPhoto
             uri={uri}
@@ -212,35 +307,9 @@ export default function PhotosLayout({
       );
     } else {
       // 3 portrait, 1 landscape
-      const { uri, width, height } = newPhotos[0];
-      const controlHeight = Math.floor(twoThirdScreenWidth * (height / width));
-      // account for <Box pt={2}/>
-      const portraitHeight = Math.floor((controlHeight - theme.sizes[2]) / 2);
-
       renderLayout = (
         <>
-          <HStack>
-            <CachedPhoto
-              uri={uri}
-              width={twoThirdScreenWidth}
-              height={controlHeight}
-            />
-            <Box pr={2} />
-            <VStack>
-              <CachedPhoto
-                uri={newPhotos[1].uri}
-                width={oneThirdScreenWidth}
-                height={portraitHeight}
-              />
-              <Box pt={2} />
-              <CachedPhoto
-                uri={newPhotos[2].uri}
-                width={oneThirdScreenWidth}
-                // account for floating point precision
-                height={controlHeight - portraitHeight - theme.sizes[2]}
-              />
-            </VStack>
-          </HStack>
+          {renderThreePortrait(newPhotos[0], newPhotos[1], newPhotos[2])}
           <Box pt={2}>
             <CachedPhoto
               uri={newPhotos[3].uri}
