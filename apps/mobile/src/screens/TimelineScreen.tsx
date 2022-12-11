@@ -21,26 +21,20 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
   const [refreshing, setRefreshing] = useState<boolean>(false);
   const algaeRecordsContext = useAlgaeRecordsContext();
 
-  // TODO: should be in App component and in a Reducer\Context
-  useEffect(
-    () =>
-      NetInfo.addEventListener(({ isConnected }) => {
-        setConnected(!!isConnected);
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener(({ isConnected }) => {
+      setConnected(!!isConnected);
 
-        if (isConnected) {
-          setRefreshing(true);
-        }
-      }),
-    []
-  );
+      if (isConnected) {
+        setRefreshing(true);
+      }
+    });
+
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
-    if (!refreshing) {
-      return;
-    }
-
-    if (!connected) {
-      setRefreshing(false);
+    if (!refreshing || !connected) {
       return;
     }
 
@@ -51,7 +45,13 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
         Logger.Warn(`Could not download records. Please try again later.`)
       )
       .finally(() => setRefreshing(false));
-  }, [refreshing]);
+  }, [refreshing, connected]);
+
+  const onRefreshHandler = () => {
+    if (connected) {
+      setRefreshing(true);
+    }
+  };
 
   return (
     <View
@@ -69,7 +69,7 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
         keyExtractor={(item, index) => `${index}`}
         ListEmptyComponent={ExampleRecordList}
         ItemSeparatorComponent={Divider}
-        onRefresh={() => setRefreshing(true)}
+        onRefresh={onRefreshHandler}
         refreshing={false} // StatusBar component handles activity indicator
         onEndReached={() => {
           // keep an eye on this (if list is "empty" and it gets called)
