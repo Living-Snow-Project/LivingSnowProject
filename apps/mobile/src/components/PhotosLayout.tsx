@@ -1,55 +1,8 @@
 import React from "react";
 import { Dimensions } from "react-native";
-import { Box, HStack, Image, Text, VStack, useTheme } from "native-base";
+import { Box, HStack, VStack, useTheme } from "native-base";
 import { Photo } from "@livingsnow/record";
-import useCachedPhoto from "../hooks/useCachedPhotos";
-
-// TODO: 1. copy/paste Cached Photo component for now, 2. width\height required when all layouts in, 3. make sure useCachedPhoto not downloading and useMemo likely
-type CachedPhotoProps = {
-  uri: string | number;
-  width?: number;
-  height?: number;
-};
-
-function CachedPhoto({ uri, width, height }: CachedPhotoProps) {
-  const cachedPhoto = useCachedPhoto(uri);
-
-  // require(...) scenario returns number
-  // alternative is to write the file to disk on load but that duplicates data and needs a "resource manager"
-  if (typeof cachedPhoto === "number") {
-    return <Image source={cachedPhoto} />;
-  }
-
-  // TODO: what on earth was I thinking, these should be a separate state variable not recycled in the uri
-  if (cachedPhoto.includes("Loading")) {
-    return (
-      <>
-        <Text>{cachedPhoto}</Text>
-        {/* <ActivityIndicator
-          style={{ paddingTop: 5 }}
-          size="large"
-          color="lightgrey"
-    /> */}
-      </>
-    );
-  }
-
-  if (cachedPhoto.includes("error") || cachedPhoto.includes("Offline")) {
-    return (
-      <>
-        <Text>{cachedPhoto}</Text>
-        {/* <PictureIcon /> */}
-      </>
-    );
-  }
-
-  // TODO: remove when all layouts completed
-  const props = width && height ? { width, height } : { size: "md" };
-
-  return (
-    <Image {...props} source={{ uri: cachedPhoto }} alt="some alt text here" />
-  );
-}
+import { CachedPhoto } from "./CachedPhotos";
 
 type PhotosLayoutProps = {
   photos?: Photo[];
@@ -134,15 +87,7 @@ export default function PhotosLayout({
     );
   };
 
-  // default layout
-  let renderLayout: JSX.Element = (
-    <HStack justifyContent="space-evenly">
-      {/* eslint-disable react/no-array-index-key */}
-      {newPhotos.map((photo, index) => (
-        <CachedPhoto key={index} uri={photo.uri} />
-      ))}
-    </HStack>
-  );
+  let renderLayout: JSX.Element | null = null;
 
   // app is restricted to 4 photos per record which results in 14 portrait\landscape combinations
   // combinations #1 and #2 - single photo, portrait or landscape
