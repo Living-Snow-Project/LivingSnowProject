@@ -1,9 +1,10 @@
-import React, { useCallback, useRef } from "react";
-import { Alert, Animated, StyleSheet, Text, View } from "react-native";
+import React, { useMemo, useRef } from "react";
+import { Alert, Animated, StyleSheet, View } from "react-native";
+import { Box } from "native-base";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { AlgaeRecord } from "@livingsnow/record";
 import { TimelineScreenNavigationProp } from "../navigation/Routes";
-import styles from "../styles/Timeline";
+import Divider from "./Divider";
 import TimelineRow from "./TimelineRow";
 import PressableOpacity from "./PressableOpacity";
 import { EditIcon, DeleteIcon } from "./Icons";
@@ -21,28 +22,14 @@ const actionStyles = StyleSheet.create({
   },
 });
 
-const recordListInfoRow = (info: string): JSX.Element => (
-  <View style={styles.recordStatusContainer}>
-    <Text style={styles.recordStatusText}>{info}</Text>
-  </View>
-);
-
-type RecordListProps = {
-  header: string;
-  renderRecords: JSX.Element[];
-};
-
-function recordList({ header, renderRecords }: RecordListProps): JSX.Element[] {
-  return [recordListInfoRow(header), ...renderRecords];
-}
-
 function ExampleRecordList() {
-  const records = recordList({
-    header: Labels.TimelineScreen.ExampleRecords,
-    renderRecords: [
-      <TimelineRow key="single_example" record={productionExampleRecord()} />,
-    ],
-  });
+  const records = [
+    <Divider
+      key={Labels.TimelineScreen.ExampleRecords}
+      text={Labels.TimelineScreen.ExampleRecords}
+    />,
+    <TimelineRow key="single_example" record={productionExampleRecord()} />,
+  ];
 
   return (
     <>
@@ -55,18 +42,46 @@ function ExampleRecordList() {
 function useDownloadedRecordList() {
   const algaeRecordsContext = useAlgaeRecordsContext();
 
-  const renderRecords = useCallback(() => {
+  const renderRecords = useMemo(() => {
     const records: AlgaeRecord[] = algaeRecordsContext.getDownloadedRecords();
     const result: JSX.Element[] = [];
     let previousDate: Date | undefined;
 
+    // Downloaded Divider is only useful if there are pending records
+    if (algaeRecordsContext.getPendingRecords().length > 0) {
+      result.push(
+        <Box borderBottomWidth={1} borderTopWidth={1}>
+          <Divider
+            key={Labels.TimelineScreen.DownloadedRecords}
+            text={Labels.TimelineScreen.DownloadedRecords}
+          />
+        </Box>
+      );
+    }
+
     for (let i = 0; i < records.length; ++i) {
       const current = records[i];
       if (
-        previousDate === undefined ||
+        !previousDate ||
         previousDate.getFullYear() > current.date.getFullYear()
       ) {
-        result.push(recordListInfoRow(current.date.getFullYear().toString()));
+        // because of StatusBar, first date would have extra thick border width
+        if (i == 0) {
+          result.push(
+            <Box borderBottomWidth={1}>
+              <Divider text={current.date.getFullYear().toString()} />
+            </Box>
+          );
+        } else {
+          result.push(
+            <>
+              <Box borderBottomWidth={1} borderTopWidth={1}>
+                <Divider text={current.date.getFullYear().toString()} />
+              </Box>
+              <Divider />
+            </>
+          );
+        }
       }
 
       previousDate = current.date;
@@ -77,14 +92,11 @@ function useDownloadedRecordList() {
     return result;
   }, [algaeRecordsContext]);
 
-  if (algaeRecordsContext.getDownloadedRecords().length === 0) {
+  if (algaeRecordsContext.getDownloadedRecords().length == 0) {
     return null;
   }
 
-  return recordList({
-    header: Labels.TimelineScreen.DownloadedRecords,
-    renderRecords: renderRecords(),
-  });
+  return renderRecords;
 }
 
 function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
@@ -167,9 +179,24 @@ function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
     </View>
   );
 
-  const renderRecords = useCallback(
-    () =>
-      algaeRecordsContext.getPendingRecords().map((record) => (
+  const renderRecords = useMemo(() => {
+    const result: JSX.Element[] = [];
+
+    if (algaeRecordsContext.getPendingRecords().length == 0) {
+      return null;
+    }
+
+    result.push(
+      <Box borderBottomWidth={1}>
+        <Divider
+          key={Labels.TimelineScreen.PendingRecords}
+          text={Labels.TimelineScreen.PendingRecords}
+        />
+      </Box>
+    );
+
+    algaeRecordsContext.getPendingRecords().forEach((record) =>
+      result.push(
         <Swipeable
           ref={(ref) => {
             swipeable.current = ref;
@@ -180,18 +207,13 @@ function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
         >
           <TimelineRow record={record} />
         </Swipeable>
-      )),
-    [algaeRecordsContext.getPendingRecords()]
-  );
+      )
+    );
 
-  if (algaeRecordsContext.getPendingRecords().length === 0) {
-    return null;
-  }
+    return result;
+  }, [algaeRecordsContext.getPendingRecords()]);
 
-  return recordList({
-    header: Labels.TimelineScreen.PendingRecords,
-    renderRecords: renderRecords(),
-  });
+  return renderRecords;
 }
 
 export { ExampleRecordList, useDownloadedRecordList, usePendingRecordList };

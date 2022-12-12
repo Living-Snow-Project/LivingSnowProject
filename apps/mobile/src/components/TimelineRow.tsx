@@ -5,6 +5,7 @@ import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../navigation/Routes";
 import getUserStyle from "./UserStyle";
 import PhotosLayout from "./PhotosLayout";
+import Divider from "./Divider";
 
 function bottomText({
   locationDescription,
@@ -49,26 +50,29 @@ export default function TimelineRow({ record }: TimelineRowProps) {
   const { org, name, avatar } = getUserStyle(record.name, record.organization);
 
   return (
-    <Pressable
-      testID={record.id.toString()}
-      onPress={() => navigate("RecordDetails", { record })}
-    >
-      <Box px={2} py={1}>
-        <VStack>
-          <HStack>
-            <Box width="15%">{avatar}</Box>
-            <Box width="75%">
-              <VStack ml={2}>
-                {name}
-                {org}
-                {getRecordInfo(record)}
-              </VStack>
-            </Box>
-          </HStack>
-          {bottomText(record)}
-        </VStack>
-      </Box>
-      <PhotosLayout photos={record.photos} />
-    </Pressable>
+    <>
+      <Pressable
+        testID={record.id.toString()}
+        onPress={() => navigate("RecordDetails", { record })}
+      >
+        <Box px={2} py={1}>
+          <VStack>
+            <HStack>
+              <Box width="15%">{avatar}</Box>
+              <Box width="75%">
+                <VStack ml={2}>
+                  {name}
+                  {org}
+                  {getRecordInfo(record)}
+                </VStack>
+              </Box>
+            </HStack>
+            {bottomText(record)}
+          </VStack>
+        </Box>
+        <PhotosLayout photos={record.photos} />
+      </Pressable>
+      <Divider />
+    </>
   );
 }

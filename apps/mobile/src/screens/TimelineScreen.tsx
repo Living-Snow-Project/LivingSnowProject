@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
-import { Divider } from "native-base";
 import Logger from "@livingsnow/logger";
 import { TimelineScreenNavigationProp } from "../navigation/Routes";
 import StatusBar from "../components/StatusBar";
@@ -68,7 +67,6 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
         renderItem={({ item }) => item}
         keyExtractor={(item, index) => `${index}`}
         ListEmptyComponent={ExampleRecordList}
-        ItemSeparatorComponent={Divider}
         onRefresh={onRefreshHandler}
         refreshing={false} // StatusBar component handles activity indicator
         onEndReached={() => {
