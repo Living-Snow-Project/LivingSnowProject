@@ -4,32 +4,30 @@ import {
   downloadAsync,
   getInfoAsync,
 } from "expo-file-system";
+import { manipulateAsync } from "expo-image-manipulator";
 import NetInfo from "@react-native-community/netinfo";
 import { downloadPhotoUri } from "@livingsnow/network";
 
-/* TODO:
-1. take width, height paramters
-2. construct uri that includes width and height
-3. resize image to width and height, save to disk, and return that image's uri when requested
-4. if that doesn't solve flicker in FlatList, try the following:
-   a. replace FlatList with NativeBase FlatList (which we'll do any way)
-   b. make an in-memory cache with base64 version of image to pass to Image with uri: "data:image\jpeg;base64,abc...xyz"
-*/
+// TODO: fast implementation of memory cache that would be problematic if the app saw a lot of usage
+// FlatList loads\unloads components, results in flicker loading images scrolling back up, so cache images in memory
+const cachedPhotos: Map<string, string> = new Map<string, string>();
+
 type CachedPhotoResult = {
   uri: string | number;
   state: "Loaded" | "Loading" | "Downloading" | "Offline" | "Error";
 };
 
-type UseCachedPhotoProps = {
+type UseCachedPhotoArgs = {
   uri: string | number;
   width?: number;
   height?: number;
 };
+
 const useCachedPhoto = ({
   uri,
   width,
   height,
-}: UseCachedPhotoProps): CachedPhotoResult => {
+}: UseCachedPhotoArgs): CachedPhotoResult => {
   const [cachedPhoto, setCachedPhoto] = useState<CachedPhotoResult>({
     uri,
     state: "Loading",
@@ -43,39 +41,68 @@ const useCachedPhoto = ({
       }
     };
 
+    const resizeAndCache = async (
+      localFileUri: string,
+      fileCacheKey: string
+    ) => {
+      const resized = await manipulateAsync(
+        localFileUri,
+        [{ resize: { width, height } }],
+        { base64: true }
+      );
+
+      const base64uri = `data:image/jpg;base64,${resized.base64}`;
+      cachedPhotos.set(fileCacheKey, base64uri);
+
+      setCachedPhotoWrapper({ uri: base64uri, state: "Loaded" });
+    };
+
     (async function CachePhotoAsync() {
       // no action if static photo from require(...)
-      if (typeof uri === "number") {
+      if (typeof uri == "number") {
+        setCachedPhotoWrapper({ uri, state: "Loaded" });
+        return;
+      }
+
+      // photo already exists on disk (pending photos scenario)
+      if (uri.includes("file:///")) {
         setCachedPhotoWrapper({ uri, state: "Loaded" });
         return;
       }
 
       const remoteFileUri = downloadPhotoUri(uri);
 
-      // can't cache photo to hard drive
-      if (documentDirectory === null) {
+      // can't save photo to hard drive
+      if (documentDirectory == null) {
         setCachedPhotoWrapper({ uri: remoteFileUri, state: "Loaded" });
         return;
       }
 
-      // photo already exists on disk
-      if (uri.includes("file:///")) {
-        setCachedPhotoWrapper({ uri, state: "Loaded" });
+      const localFileUri = `${documentDirectory}/${uri}.jpg`;
+      const fileCacheKey = `${uri}_${width}_${height}`;
+
+      // is in memory cache?
+      const cachedBase64 = cachedPhotos.get(fileCacheKey);
+
+      if (cachedBase64) {
+        setCachedPhotoWrapper({
+          uri: cachedBase64,
+          state: "Loaded",
+        });
         return;
       }
-
-      // TODO: construct `${documentDirectory}/${uri}_${width}_${height}.jpg
-      const localFileUri = `${documentDirectory}${uri}.jpg`;
 
       try {
         const { exists } = await getInfoAsync(localFileUri);
 
-        // photo already cached
+        // photo already written to disk (but not in memory cache)
         if (exists) {
-          setCachedPhotoWrapper({ uri: localFileUri, state: "Loaded" });
+          resizeAndCache(localFileUri, fileCacheKey);
           return;
         }
 
+        // photo doesn't exist locally; it must be downloaded
+        // however, downloadAsync spins infinitely if app is offline (in Expo 44), so check Network status
         const { isConnected } = await NetInfo.fetch();
 
         if (!isConnected) {
@@ -83,12 +110,10 @@ const useCachedPhoto = ({
           return;
         }
 
-        // downloadAsync spins infinitely if app is offline
         const { status } = await downloadAsync(remoteFileUri, localFileUri);
 
-        if (status === 200) {
-          // TODO: resize image
-          setCachedPhotoWrapper({ uri: localFileUri, state: "Loaded" });
+        if (status == 200) {
+          resizeAndCache(localFileUri, fileCacheKey);
           return;
         }
 
@@ -101,7 +126,7 @@ const useCachedPhoto = ({
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [uri, width, height]);
 
   return cachedPhoto;
 };

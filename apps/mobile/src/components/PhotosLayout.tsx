@@ -1,11 +1,11 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import { Box, HStack, VStack, useTheme } from "native-base";
-import { Photo } from "@livingsnow/record";
+import { Photo, SelectedPhoto } from "@livingsnow/record";
 import { CachedPhoto } from "./CachedPhotos";
 
 type PhotosLayoutProps = {
-  photos?: Photo[];
+  photos?: Photo[] | SelectedPhoto[];
 };
 
 export default function PhotosLayout({
@@ -27,12 +27,12 @@ export default function PhotosLayout({
   let landscapeCount = 0;
 
   // sort portrait to landscape and count number of each
-  photos.forEach((current: Photo) => {
+  photos.forEach((current: Photo | SelectedPhoto) => {
     if (current.height > current.width) {
-      newPhotos.unshift({ ...current });
+      newPhotos.unshift({ ...current, size: 0 });
       portraitCount += 1;
     } else {
-      newPhotos.push({ ...current });
+      newPhotos.push({ ...current, size: 0 });
       landscapeCount += 1;
     }
   });
