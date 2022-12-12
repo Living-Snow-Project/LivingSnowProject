@@ -6,13 +6,15 @@ import {
   DefaultTheme,
 } from "@react-navigation/native";
 import { useColorMode } from "native-base";
-import TimelineScreen from "../screens/TimelineScreen";
-import RecordScreen from "../screens/RecordScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import FirstRunScreen from "../screens/FirstRunScreen";
-import ImagesPickerScreen from "../screens/ImagesPickerScreen";
+import {
+  FirstRunScreen,
+  ImagesPickerScreen,
+  RecordDetailsScreen,
+  RecordScreen,
+  SettingsScreen,
+  TimelineScreen,
+} from "../screens";
 import HeaderButton from "../components/HeaderButton";
-import RecordDetailsScreen from "../screens/RecordDetailsScreen";
 import { RootStackParamList, RootStackNavigationProp } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
 import TestIds from "../constants/TestIds";
