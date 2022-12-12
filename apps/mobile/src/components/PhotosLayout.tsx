@@ -87,13 +87,11 @@ export default function PhotosLayout({
     );
   };
 
-  let renderLayout: JSX.Element | null = null;
-
   // app is restricted to 4 photos per record which results in 14 portrait\landscape combinations
   // combinations #1 and #2 - single photo, portrait or landscape
   if (newPhotos.length == 1) {
     const { uri, width, height } = newPhotos[0];
-    renderLayout = (
+    return (
       <CachedPhoto
         uri={uri}
         width={screenWidth}
@@ -105,40 +103,38 @@ export default function PhotosLayout({
   // cominbations #3, #4, and #5
   if (newPhotos.length == 2) {
     if (portraitCount == 2 || landscapeCount == 2) {
-      renderLayout = renderSideBySide(newPhotos[0], newPhotos[1]);
-    } else {
-      // 1 portrait and 1 landscape
-      const { uri, width, height } = newPhotos[0];
-      const fixedHeight = Math.floor(oneThirdScreenWidth * (height / width));
-
-      renderLayout = (
-        <HStack>
-          <CachedPhoto
-            uri={uri}
-            width={oneThirdScreenWidth}
-            height={fixedHeight}
-          />
-          <Box pr={2} />
-          <CachedPhoto
-            uri={newPhotos[1].uri}
-            width={twoThirdScreenWidth}
-            height={fixedHeight}
-          />
-        </HStack>
-      );
+      return renderSideBySide(newPhotos[0], newPhotos[1]);
     }
+
+    // 1 portrait and 1 landscape
+    const { uri, width, height } = newPhotos[0];
+    const fixedHeight = Math.floor(oneThirdScreenWidth * (height / width));
+
+    return (
+      <HStack>
+        <CachedPhoto
+          uri={uri}
+          width={oneThirdScreenWidth}
+          height={fixedHeight}
+        />
+        <Box pr={2} />
+        <CachedPhoto
+          uri={newPhotos[1].uri}
+          width={twoThirdScreenWidth}
+          height={fixedHeight}
+        />
+      </HStack>
+    );
   }
 
   // combinations #6, #7, #8, #9
   if (newPhotos.length == 3) {
     if (portraitCount == 3) {
-      renderLayout = renderThreePortrait(
-        newPhotos[0],
-        newPhotos[1],
-        newPhotos[2]
-      );
-    } else if (portraitCount == 2 /* && landscapeCount == 1 */) {
-      renderLayout = (
+      return renderThreePortrait(newPhotos[0], newPhotos[1], newPhotos[2]);
+    }
+
+    if (portraitCount == 2 /* && landscapeCount == 1 */) {
+      return (
         <>
           {renderSideBySide(newPhotos[0], newPhotos[1])}
           <Box pt={2} />
@@ -151,7 +147,9 @@ export default function PhotosLayout({
           />
         </>
       );
-    } else if (portraitCount == 1 /* && landscapeCount == 2 */) {
+    }
+
+    if (portraitCount == 1 /* && landscapeCount == 2 */) {
       const { uri, width, height } = newPhotos[0];
       const controlHeight = Math.floor(halfScreenWidth * (height / width));
       // account for <Box pt={2}/>
@@ -181,8 +179,10 @@ export default function PhotosLayout({
           </VStack>
         </HStack>
       );
-    } else if (landscapeCount == 3) {
-      renderLayout = (
+    }
+
+    if (landscapeCount == 3) {
+      return (
         <>
           <CachedPhoto
             uri={newPhotos[2].uri}
@@ -205,14 +205,16 @@ export default function PhotosLayout({
       landscapeCount == 4 ||
       (portraitCount == 2 && landscapeCount == 2)
     ) {
-      renderLayout = (
+      return (
         <>
           {renderSideBySide(newPhotos[0], newPhotos[1])}
           <Box pt={2} />
           {renderSideBySide(newPhotos[2], newPhotos[3])}
         </>
       );
-    } else if (portraitCount == 1 && landscapeCount == 3) {
+    }
+
+    if (portraitCount == 1 && landscapeCount == 3) {
       const { uri, width, height } = newPhotos[0];
       const controlHeight = Math.floor(halfScreenWidth * (height / width));
       // account for 2x <Box pt={2}/>
@@ -220,7 +222,7 @@ export default function PhotosLayout({
         (controlHeight - 2 * theme.sizes[2]) / 3
       );
 
-      renderLayout = (
+      return (
         <HStack>
           <CachedPhoto
             uri={uri}
@@ -250,24 +252,24 @@ export default function PhotosLayout({
           </VStack>
         </HStack>
       );
-    } else {
-      // 3 portrait, 1 landscape
-      renderLayout = (
-        <>
-          {renderThreePortrait(newPhotos[0], newPhotos[1], newPhotos[2])}
-          <Box pt={2}>
-            <CachedPhoto
-              uri={newPhotos[3].uri}
-              width={screenWidth}
-              height={Math.floor(
-                screenWidth * (newPhotos[3].height / newPhotos[3].width)
-              )}
-            />
-          </Box>
-        </>
-      );
     }
+
+    // 3 portrait, 1 landscape
+    return (
+      <>
+        {renderThreePortrait(newPhotos[0], newPhotos[1], newPhotos[2])}
+        <Box pt={2}>
+          <CachedPhoto
+            uri={newPhotos[3].uri}
+            width={screenWidth}
+            height={Math.floor(
+              screenWidth * (newPhotos[3].height / newPhotos[3].width)
+            )}
+          />
+        </Box>
+      </>
+    );
   }
 
-  return renderLayout;
+  return null;
 }

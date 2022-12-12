@@ -27,6 +27,7 @@ function bottomText({
 }
 
 function getRecordInfo(record: AlgaeRecord) {
+  // TODO: useColorModeValue
   return (
     <HStack>
       <Text fontWeight={700} color="blue.700">

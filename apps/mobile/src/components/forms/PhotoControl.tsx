@@ -7,6 +7,7 @@ import TestIds from "../../constants/TestIds";
 import { PictureIcon } from "../Icons";
 import PhotosLayout from "../PhotosLayout";
 
+// TODO: use a proper implementation
 // because we pass a callback in params, more info from the following links
 // follow links for best practices, look at Context
 // https://reactnavigation.org/docs/troubleshooting/#i-get-the-warning-non-serializable-values-were-found-in-the-navigation-state

@@ -8,7 +8,7 @@ import { manipulateAsync } from "expo-image-manipulator";
 import NetInfo from "@react-native-community/netinfo";
 import { downloadPhotoUri } from "@livingsnow/network";
 
-// TODO: fast implementation of memory cache that would be problematic if the app saw a lot of usage
+// TODO: this implementation of a memory cache would likely be problematic if the app saw a lot of usage
 // FlatList loads\unloads components, results in flicker loading images scrolling back up, so cache images in memory
 const cachedPhotos: Map<string, string> = new Map<string, string>();
 
@@ -19,8 +19,8 @@ type CachedPhotoResult = {
 
 type UseCachedPhotoArgs = {
   uri: string | number;
-  width?: number;
-  height?: number;
+  width: number;
+  height: number;
 };
 
 const useCachedPhoto = ({
