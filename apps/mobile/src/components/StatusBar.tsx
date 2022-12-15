@@ -1,14 +1,8 @@
 import React, { useRef } from "react";
-import { Animated, StyleSheet, Text } from "react-native";
+import { Animated } from "react-native";
+import { Text, useColorModeValue, useTheme } from "native-base";
 import { AlgaeRecordsStates } from "../../types/AlgaeRecords";
 import { Labels } from "../constants/Strings";
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 16,
-    textAlign: "center",
-  },
-});
 
 type StatusBarProps = {
   state: AlgaeRecordsStates;
@@ -16,48 +10,47 @@ type StatusBarProps = {
 };
 
 export default function StatusBar({ state, isConnected }: StatusBarProps) {
+  const { colors } = useTheme();
+  const startColor = useColorModeValue(colors.light[300], colors.black);
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const isAnimating = useRef(false);
-  const currentState = useRef(state);
   const color = fadeAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ["rgb(211, 211, 211)", "rgb(155, 155, 155)"],
+    outputRange: [startColor, colors.light[500]],
   });
 
-  currentState.current = state;
-
-  const animate = () => {
-    isAnimating.current = true;
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 1000,
-      useNativeDriver: false,
-    }).start(() => {
+  const animate = Animated.loop(
+    Animated.sequence([
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: false,
+      }),
       Animated.timing(fadeAnim, {
         toValue: 0,
         duration: 1000,
         useNativeDriver: false,
-      }).start(() => {
-        isAnimating.current = false;
-        if (currentState.current !== "Idle") {
-          animate();
-        }
-      });
-    });
-  };
+      }),
+    ])
+  );
 
-  if (state !== "Idle" && !isAnimating.current) {
-    animate();
+  if (state == "Idle") {
+    animate.stop();
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+  } else {
+    animate.start();
   }
 
   return (
     <Animated.View
       style={{
-        borderBottomWidth: 1,
         backgroundColor: color,
       }}
     >
-      <Text style={styles.text}>
+      <Text textAlign="center">
         {isConnected ? state : Labels.StatusBar.NoConnection}
       </Text>
     </Animated.View>

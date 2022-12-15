@@ -38,8 +38,7 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
     }
 
     algaeRecordsContext
-      .retryPendingRecords()
-      .then(() => algaeRecordsContext.downloadRecords())
+      .fullSync()
       .catch(() =>
         Logger.Warn(`Could not download records. Please try again later.`)
       )

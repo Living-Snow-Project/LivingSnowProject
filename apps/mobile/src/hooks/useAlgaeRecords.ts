@@ -73,6 +73,13 @@ type AlgaeRecordsActions =
   | {
       type: "END_DOWNLOADING_NEXT";
       payload: { downloadedRecords: AlgaeRecord[] };
+    }
+  | {
+      type: "END_FULL_SYNC";
+      payload: {
+        pendingRecords?: AlgaeRecord[];
+        downloadedRecords?: AlgaeRecord[];
+      };
     };
 
 const defaultState: AlgaeRecordsStates = "Idle";
@@ -138,6 +145,37 @@ const algaeRecordsReducer = (
           ...currentState.downloadedRecords,
           ...action.payload.downloadedRecords,
         ],
+      };
+
+    case "END_FULL_SYNC":
+      if (action.payload.pendingRecords && action.payload.downloadedRecords) {
+        return {
+          ...currentState,
+          state: defaultState,
+          downloadedRecords: action.payload.downloadedRecords,
+          pendingRecords: action.payload.pendingRecords,
+        };
+      }
+
+      if (action.payload.pendingRecords) {
+        return {
+          ...currentState,
+          state: defaultState,
+          pendingRecords: action.payload.pendingRecords,
+        };
+      }
+
+      if (action.payload.downloadedRecords) {
+        return {
+          ...currentState,
+          state: defaultState,
+          downloadedRecords: action.payload.downloadedRecords,
+        };
+      }
+
+      return {
+        ...currentState,
+        state: defaultState,
       };
 
     default:
@@ -269,6 +307,32 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         dispatch({ type: "START_RETRY" });
         const pendingRecords = await retryPendingRecords();
         dispatch({ type: "END_RETRY", payload: { pendingRecords } });
+      },
+
+      fullSync: async () => {
+        /* eslint-disable no-undef-init */
+        let pendingRecords: AlgaeRecord[] | undefined = undefined;
+        let downloadedRecords: AlgaeRecord[] | undefined = undefined;
+
+        // avoids intermediate "Idle" state between upload and download
+        try {
+          dispatch({ type: "START_RETRY" });
+          pendingRecords = await retryPendingRecords();
+
+          dispatch({ type: "START_DOWNLOADING" });
+          downloadedRecords = await downloadRecords();
+          await saveCachedRecords(downloadedRecords);
+
+          dispatch({
+            type: "END_FULL_SYNC",
+            payload: { pendingRecords, downloadedRecords },
+          });
+        } catch (error) {
+          dispatch({
+            type: "END_FULL_SYNC",
+            payload: { pendingRecords, downloadedRecords },
+          });
+        }
       },
 
       updatePendingRecord: async (record: AlgaeRecord) => {

@@ -45,12 +45,11 @@ function useDownloadedRecordList() {
   const renderRecords = useMemo(() => {
     const records: AlgaeRecord[] = algaeRecordsContext.getDownloadedRecords();
     const result: JSX.Element[] = [];
-    let previousDate: Date | undefined;
 
     // Downloaded Divider is only useful if there are pending records
     if (algaeRecordsContext.getPendingRecords().length > 0) {
       result.push(
-        <Box borderBottomWidth={1} borderTopWidth={1}>
+        <Box>
           <Divider
             key={Labels.TimelineScreen.DownloadedRecords}
             text={Labels.TimelineScreen.DownloadedRecords}
@@ -60,33 +59,7 @@ function useDownloadedRecordList() {
     }
 
     for (let i = 0; i < records.length; ++i) {
-      const current = records[i];
-      if (
-        !previousDate ||
-        previousDate.getFullYear() > current.date.getFullYear()
-      ) {
-        // because of StatusBar, first date would have extra thick border width
-        if (i == 0) {
-          result.push(
-            <Box borderBottomWidth={1}>
-              <Divider text={current.date.getFullYear().toString()} />
-            </Box>
-          );
-        } else {
-          result.push(
-            <>
-              <Box borderBottomWidth={1} borderTopWidth={1}>
-                <Divider text={current.date.getFullYear().toString()} />
-              </Box>
-              <Divider />
-            </>
-          );
-        }
-      }
-
-      previousDate = current.date;
-
-      result.push(<TimelineRow key={current.id} record={current} />);
+      result.push(<TimelineRow key={records[i].id} record={records[i]} />);
     }
 
     return result;
@@ -187,7 +160,7 @@ function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
     }
 
     result.push(
-      <Box borderBottomWidth={1}>
+      <Box>
         <Divider
           key={Labels.TimelineScreen.PendingRecords}
           text={Labels.TimelineScreen.PendingRecords}

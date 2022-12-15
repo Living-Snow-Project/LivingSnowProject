@@ -7,10 +7,11 @@ type DividerProps = {
 
 export default function Divider({ text }: DividerProps) {
   const bg = useColorModeValue("light.300", "black");
+  const infoBg = useColorModeValue("light.400", "dark.300");
 
   if (text) {
     return (
-      <Box bgColor={bg} width="100%">
+      <Box bgColor={infoBg} width="100%">
         <Text textAlign="center">{text}</Text>
       </Box>
     );
