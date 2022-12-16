@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList } from "native-base";
 import NetInfo from "@react-native-community/netinfo";
 import Logger from "@livingsnow/logger";
 import { TimelineScreenNavigationProp } from "../navigation/Routes";
 import StatusBar from "../components/StatusBar";
 import { ExampleRecordList } from "../components/RecordList";
-import styles from "../styles/Timeline";
 import TestIds from "../constants/TestIds";
 import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 import useRecordList from "../hooks/useRecordList";
@@ -45,17 +44,24 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
       .finally(() => setRefreshing(false));
   }, [refreshing, connected]);
 
+  const renderItem = ({ item }) => item;
+
   const onRefreshHandler = () => {
     if (connected) {
       setRefreshing(true);
     }
   };
 
+  const onEndReached = () => {
+    // keep an eye on this (if list is "empty" and it gets called)
+    const downloadedRecords = algaeRecordsContext.getDownloadedRecords();
+    algaeRecordsContext.downloadNextRecords(
+      downloadedRecords[downloadedRecords.length - 1].date
+    );
+  };
+
   return (
-    <View
-      style={styles.container}
-      testID={TestIds.TimelineScreen.RecordListView}
-    >
+    <>
       <StatusBar
         state={algaeRecordsContext.getCurrentState()}
         isConnected={connected}
@@ -63,20 +69,13 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
       <FlatList
         data={recordList}
         testID={TestIds.TimelineScreen.FlatList}
-        renderItem={({ item }) => item}
-        keyExtractor={(item, index) => `${index}`}
+        renderItem={renderItem}
         ListEmptyComponent={ExampleRecordList}
         onRefresh={onRefreshHandler}
-        refreshing={false} // StatusBar component handles activity indicator
-        onEndReached={() => {
-          // keep an eye on this (if list is "empty" and it gets called)
-          const downloadedRecords = algaeRecordsContext.getDownloadedRecords();
-          algaeRecordsContext.downloadNextRecords(
-            downloadedRecords[downloadedRecords.length - 1].date
-          );
-        }}
-        onEndReachedThreshold={0.5}
+        refreshing={false} // StatusBar component handles activity
+        onEndReachedThreshold={5}
+        onEndReached={onEndReached}
       />
-    </View>
+    </>
   );
 }
