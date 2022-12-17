@@ -52,6 +52,7 @@ export default function TimelineScreen({ navigation }: TimelineScreenProps) {
     }
   };
 
+  // TODO: called repeatedly when "true-end" reached and results in appending duplicate records
   const onEndReached = () => {
     // keep an eye on this (if list is "empty" and it gets called)
     const downloadedRecords = algaeRecordsContext.getDownloadedRecords();

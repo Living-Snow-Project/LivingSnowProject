@@ -141,6 +141,7 @@ const algaeRecordsReducer = (
       return {
         ...currentState,
         state: defaultState,
+        // TODO: smart merge - what if the record is duplicated? this can happen with onEndReached behavior
         downloadedRecords: [
           ...currentState.downloadedRecords,
           ...action.payload.downloadedRecords,
@@ -292,6 +293,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
 
         try {
           const downloadedRecords = await downloadRecords(before);
+          // TODO: start downloading photos instead of waiting until the next render
           dispatch({
             type: "END_DOWNLOADING_NEXT",
             payload: { downloadedRecords },

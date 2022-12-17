@@ -51,6 +51,8 @@ const useCachedPhoto = ({
         { base64: true }
       );
 
+      // TODO: save resized.uri to disk (currently in cacheDirectory and would need to be written to documentDirectory)
+
       const base64uri = `data:image/jpg;base64,${resized.base64}`;
       cachedPhotos.set(fileCacheKey, base64uri);
 
@@ -91,6 +93,9 @@ const useCachedPhoto = ({
         });
         return;
       }
+
+      // TODO: is resized file on disk
+      // then use readAsStringAsync() instead of doing manipulateAsync() again
 
       try {
         const { exists } = await getInfoAsync(localFileUri);
