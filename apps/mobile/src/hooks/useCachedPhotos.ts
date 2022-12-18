@@ -3,7 +3,7 @@ import {
   PhotoToCache,
   CachedPhotoResult,
   getCachedPhoto,
-} from "../lib/PhotoManager";
+} from "../lib/CachedPhotoLoader";
 
 const useCachedPhoto = (photo: PhotoToCache): CachedPhotoResult => {
   const [cachedPhoto, setCachedPhoto] = useState<CachedPhotoResult>({
