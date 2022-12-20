@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import {
   Box,
-  Center,
-  Divider,
   Heading,
   HStack,
   Switch,
@@ -11,60 +9,96 @@ import {
   useColorMode,
 } from "native-base";
 import UserIdentityInput from "../components/forms/UserIdentityInput";
+import DiskUsage from "../components/DiskUsage";
+import Divider from "../components/Divider";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
 import { Headers, Labels } from "../constants/Strings";
 import TestIds from "../constants/TestIds";
+
+type SettingsGroupProps = {
+  label: string;
+  children: JSX.Element;
+};
+
+function SettingsGroup({ label, children }: SettingsGroupProps) {
+  return (
+    <Box px="2">
+      <Heading my={1} size="sm">
+        {label}
+      </Heading>
+      {children}
+    </Box>
+  );
+}
+
+type SettingsGroupItemProps = {
+  label: string;
+  right:
+    | JSX.Element
+    | ((props: { setLabel: (value: string) => void }) => JSX.Element);
+};
+
+function SettingsGroupItem({ label, right }: SettingsGroupItemProps) {
+  const [labelValue, setLabelValue] = useState(label);
+  const setLabel = (value: string) => setLabelValue(value);
+
+  return (
+    <HStack pb="1" height="10" justifyContent="space-between">
+      <Text mt="3" fontSize="md">
+        {labelValue}
+      </Text>
+      {typeof right == "function" ? right({ setLabel }) : right}
+    </HStack>
+  );
+}
 
 export default function SettingsScreen() {
   const [{ showGpsWarning }, setSettings] = useState(getAppSettings());
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Box>
-      <VStack mx="3">
-        <Heading mt={3} mb={1} size="sm">
-          {Headers.UserInformation}
-        </Heading>
-        <Box>
+    <Box _dark={{ bg: "dark.100" }}>
+      <VStack>
+        <SettingsGroup label={Headers.Profile}>
           <UserIdentityInput />
-        </Box>
+        </SettingsGroup>
+        <Divider />
 
-        <Heading mt={3} mb={1} size="sm">
-          {Headers.Prompts}
-        </Heading>
-        <Box>
-          <HStack justifyContent="space-between">
-            <Center>
-              <Text fontSize="md">
-                {Labels.SettingsScreen.ManualCoordinates}
-              </Text>
-            </Center>
-            <Switch
-              testID={TestIds.SettingsScreen.ShowGpsWarning}
-              onValueChange={(value) => {
-                setSettings((prev) => ({
-                  ...setAppSettings({ ...prev, showGpsWarning: value }),
-                }));
-              }}
-              isChecked={showGpsWarning}
-            />
-          </HStack>
-          <Divider mt={2} />
-        </Box>
-
-        <Heading mt={3} mb={1} size="sm">
-          {Headers.Theme}
-        </Heading>
-        <HStack justifyContent="space-between">
-          <Center>
-            <Text fontSize="md">{Labels.SettingsScreen.DarkMode}</Text>
-          </Center>
-          <Switch
-            testID="Dark Mode"
-            onValueChange={toggleColorMode}
-            isChecked={colorMode == "dark"}
+        <SettingsGroup label={Headers.Prompts}>
+          <SettingsGroupItem
+            label={Labels.SettingsScreen.ManualCoordinates}
+            right={
+              <Switch
+                testID={TestIds.SettingsScreen.ShowGpsWarning}
+                onValueChange={(value) => {
+                  setSettings((prev) => ({
+                    ...setAppSettings({ ...prev, showGpsWarning: value }),
+                  }));
+                }}
+                isChecked={showGpsWarning}
+              />
+            }
           />
-        </HStack>
+        </SettingsGroup>
+        <Divider />
+
+        <SettingsGroup label={Headers.Theme}>
+          <SettingsGroupItem
+            label={Labels.SettingsScreen.DarkMode}
+            right={
+              <Switch
+                testID="Dark Mode"
+                onValueChange={toggleColorMode}
+                isChecked={colorMode == "dark"}
+              />
+            }
+          />
+        </SettingsGroup>
+        <Divider />
+
+        <SettingsGroup label={Headers.DiskUsage}>
+          <SettingsGroupItem label="Calculating" right={DiskUsage} />
+        </SettingsGroup>
       </VStack>
     </Box>
   );

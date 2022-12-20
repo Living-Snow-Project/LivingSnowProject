@@ -130,9 +130,10 @@ const BackgroundTasks = {
 };
 
 const Headers = {
+  DiskUsage: "Disk Usage",
+  Profile: "Profile",
   Prompts: "Prompts",
   Theme: "Theme",
-  UserInformation: "Your Information",
 };
 
 export {

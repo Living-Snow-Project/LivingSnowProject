@@ -55,7 +55,7 @@ export default function TimelineRow({ record }: TimelineRowProps) {
         testID={record.id.toString()}
         onPress={() => navigate("RecordDetails", { record })}
       >
-        <Box px={2} py={1}>
+        <Box px={2} py={1} _dark={{ bg: "dark.100" }}>
           <VStack>
             <HStack>
               <Box width="15%">{avatar}</Box>
