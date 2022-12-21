@@ -1,14 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "native-base";
 import {
-  // deleteAsync,
+  deleteAsync,
   documentDirectory,
   getInfoAsync,
   readDirectoryAsync,
 } from "expo-file-system";
+import Modal from "./Modal";
 
 type DiskUsageState = {
-  state: "Calculating" | "Error Calculating" | "Completed";
+  state: "Calculating" | "Error Calculating" | "Completed" | "Error Deleting";
   files: number;
   bytes: number;
 };
@@ -18,6 +19,8 @@ type DiskUsageProps = {
 };
 
 export default function DiskUsage({ setLabel }: DiskUsageProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
   const computeLabel = ({ state, files, bytes }: DiskUsageState) => {
     if (state != "Completed") {
       return setLabel(state);
@@ -52,14 +55,15 @@ export default function DiskUsage({ setLabel }: DiskUsageProps) {
           .reduce(
             (prev, current) =>
               getInfoAsync(`${documentDirectory}/${current}`).then((info) => {
-                if (info.size) {
+                if (info.uri.includes(".jpg") && info.size) {
                   bytes += info.size;
                 }
               }),
             Promise.resolve(0)
           )
           .then(() =>
-            computeLabel({ state: "Completed", files: files.length, bytes })
+            // subtract 1 to account for AppSettings
+            computeLabel({ state: "Completed", files: files.length - 1, bytes })
           );
       })
       .catch(() =>
@@ -67,9 +71,40 @@ export default function DiskUsage({ setLabel }: DiskUsageProps) {
       );
   }, []);
 
+  const deletePhotos = () => {
+    if (!documentDirectory) {
+      return;
+    }
+
+    readDirectoryAsync(documentDirectory)
+      .then((files) => {
+        files
+          .reduce((prev, current) => {
+            if (current.includes(".jpg")) {
+              return deleteAsync(`${documentDirectory}/${current}`);
+            }
+
+            return Promise.resolve();
+          }, Promise.resolve())
+          .then(() => computeLabel({ state: "Completed", files: 0, bytes: 0 }));
+      })
+      .catch(() =>
+        computeLabel({ state: "Error Deleting", files: 0, bytes: 0 })
+      );
+  };
+
   return (
-    <Button height="8" py="1">
-      Clear
-    </Button>
+    <>
+      <Modal
+        body="Confirm deleting photos?"
+        header="Confirm Delete"
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onConfirm={deletePhotos}
+      />
+      <Button height="8" py="1" onPress={() => setIsOpen(true)}>
+        Delete
+      </Button>
+    </>
   );
 }
