@@ -5,7 +5,7 @@ import {
   getCachedPhoto,
 } from "../lib/CachedPhotoLoader";
 
-const useCachedPhoto = (photo: PhotoToCache): CachedPhotoResult => {
+export const useCachedPhoto = (photo: PhotoToCache): CachedPhotoResult => {
   const [cachedPhoto, setCachedPhoto] = useState<CachedPhotoResult>({
     uri: photo.uri,
     state: "Loading",
@@ -27,5 +27,3 @@ const useCachedPhoto = (photo: PhotoToCache): CachedPhotoResult => {
 
   return cachedPhoto;
 };
-
-export default useCachedPhoto;

@@ -15,7 +15,7 @@ import {
 import Logger from "@livingsnow/logger";
 import { formInputStyles } from "../../styles/FormInput";
 import { getAppSettings } from "../../../AppSettings";
-import TestIds from "../../constants/TestIds";
+import { TestIds } from "../../constants/TestIds";
 import { Placeholders } from "../../constants/Strings";
 
 type GpsCoordinates = {
@@ -29,7 +29,7 @@ type GpsCoordinatesInputProps = {
   coordinates?: GpsCoordinates;
 };
 
-export default function GpsCoordinatesInput({
+export function GpsCoordinatesInput({
   setGpsCoordinates,
   onSubmitEditing,
   coordinates = { latitude: 0, longitude: 0 },

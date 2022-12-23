@@ -10,17 +10,17 @@ import {
   RootStackNavigationProp,
   TimelineScreenNavigationProp,
 } from "../../navigation/Routes";
-import TimelineScreen from "../TimelineScreen";
+import { TimelineScreen } from "../TimelineScreen";
 import {
   SettingsButton,
   NewRecordButton,
 } from "../../navigation/MainTabNavigator";
 import * as Storage from "../../lib/Storage";
-import TestIds from "../../constants/TestIds";
+import { TestIds } from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 import { mockedNavigate } from "../../../jesttest.setup";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
-import makeAlgaeRecordsMock from "../../mocks/useAlgaeRecords.mock";
+import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
 
 // TimelineScreen takes navigation input prop
 const navigation = {} as TimelineScreenNavigationProp;

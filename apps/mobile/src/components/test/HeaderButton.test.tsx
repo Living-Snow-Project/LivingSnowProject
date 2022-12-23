@@ -1,7 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
 import { fireEvent, render } from "@testing-library/react-native";
-import HeaderButton from "../HeaderButton";
+import { HeaderButton } from "../HeaderButton";
 
 describe("HeaderButton test suite", () => {
   const testID = "test-button";

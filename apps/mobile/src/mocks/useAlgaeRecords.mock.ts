@@ -5,7 +5,7 @@ type ActionMockProps = {
   isEmpty: boolean;
 };
 
-const makeAlgaeRecordsMock = (
+export const makeAlgaeRecordsMock = (
   { isEmpty }: ActionMockProps = { isEmpty: false }
 ): IAlgaeRecords => {
   const pendingRecord = makeExampleRecord("Sighting");
@@ -17,6 +17,7 @@ const makeAlgaeRecordsMock = (
     seed: jest.fn(() => Promise.resolve()),
     save: jest.fn(() => Promise.resolve()),
     delete: jest.fn(() => Promise.resolve()),
+    fullSync: jest.fn(() => Promise.resolve()),
     uploadRecord: jest.fn(() => Promise.resolve()),
     downloadRecords: jest.fn(() => Promise.resolve()),
     downloadNextRecords: jest.fn(() => Promise.resolve()),
@@ -24,5 +25,3 @@ const makeAlgaeRecordsMock = (
     updatePendingRecord: jest.fn(() => Promise.resolve()),
   };
 };
-
-export default makeAlgaeRecordsMock;

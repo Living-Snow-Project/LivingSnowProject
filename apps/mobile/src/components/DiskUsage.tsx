@@ -6,7 +6,7 @@ import {
   getInfoAsync,
   readDirectoryAsync,
 } from "expo-file-system";
-import Modal from "./Modal";
+import { Modal } from "./Modal";
 
 type DiskUsageState = {
   state: "Calculating" | "Error Calculating" | "Completed" | "Error Deleting";
@@ -18,7 +18,7 @@ type DiskUsageProps = {
   setLabel: (value: string) => void;
 };
 
-export default function DiskUsage({ setLabel }: DiskUsageProps) {
+export function DiskUsage({ setLabel }: DiskUsageProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const computeLabel = ({ state, files, bytes }: DiskUsageState) => {

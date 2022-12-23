@@ -13,6 +13,7 @@ const makeTestAppConfig = (): AppSettings => ({
   organization: "Test Org",
   showFirstRun: true,
   showGpsWarning: false,
+  colorMode: "light",
 });
 
 const makeExamplePhoto = (): PendingPhoto =>

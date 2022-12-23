@@ -5,8 +5,8 @@ import {
   ImagesPickerScreenNavigationProp,
   ImagesPickerScreenRouteProp,
 } from "../../navigation/Routes";
-import ImagesPickerScreen from "../ImagesPickerScreen";
-import TestIds from "../../constants/TestIds";
+import { ImagesPickerScreen } from "../ImagesPickerScreen";
+import { TestIds } from "../../constants/TestIds";
 
 // record action button renders independently of the screen
 let photoSelectedActionButton: () => JSX.Element;

@@ -8,7 +8,7 @@ type PhotosLayoutProps = {
   photos?: Photo[] | SelectedPhoto[];
 };
 
-export default function PhotosLayout({
+export function PhotosLayout({
   photos,
 }: PhotosLayoutProps): JSX.Element | null {
   const theme = useTheme();

@@ -1,4 +1,4 @@
-const TestIds = {
+export const TestIds = {
   GPS: {
     gpsManualInputTestId: "gps-manual-input",
     gpsManualPressableTestId: "gps-manual-pressable",
@@ -41,5 +41,3 @@ const TestIds = {
     DeleteRecordAction: "delete-record-action",
   },
 };
-
-export default TestIds;

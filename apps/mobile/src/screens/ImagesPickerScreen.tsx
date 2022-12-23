@@ -14,8 +14,8 @@ import {
   StylesType,
   CustomNavigator as CustomNavigatorType,
 } from "../../expo-images-picker/src/Types";
-import HeaderButton from "../components/HeaderButton";
-import TestIds from "../constants/TestIds";
+import { HeaderButton } from "../components/HeaderButton";
+import { TestIds } from "../constants/TestIds";
 
 type CustomNavigatorProps = {
   navigation: ImagesPickerScreenNavigationProp;
@@ -82,7 +82,7 @@ const widgetResize: ResizeType = {
 // TODO: probably should do something here
 const widgetErrors = {};
 
-export default function ImagesPickerScreen({
+export function ImagesPickerScreen({
   navigation,
   route,
 }: ImagesPickerScreenProps) {

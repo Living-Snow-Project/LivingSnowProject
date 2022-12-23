@@ -3,7 +3,7 @@ import React from "react";
 import { ActivityIndicator, Dimensions, Text } from "react-native";
 import { Image } from "native-base";
 import { Photo } from "@livingsnow/record";
-import useCachedPhoto from "../hooks/useCachedPhotos";
+import { useCachedPhoto } from "../hooks/useCachedPhotos";
 import { PictureIcon } from "./Icons";
 
 type CachedPhotoProps = {
@@ -12,11 +12,7 @@ type CachedPhotoProps = {
   height: number;
 };
 
-export function CachedPhoto({
-  uri,
-  width,
-  height,
-}: CachedPhotoProps): JSX.Element {
+function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
   const cachedPhoto = useCachedPhoto({ uri, width, height });
 
   // require(...) scenario returns number
@@ -61,20 +57,26 @@ type CachedPhotosProps = {
   photos?: Photo[];
 };
 
-export default function CachedPhotos({ photos }: CachedPhotosProps) {
+function CachedPhotos({ photos }: CachedPhotosProps): JSX.Element | null {
   if (!photos || !photos.length) {
     return null;
   }
 
   const { width } = Dimensions.get("screen");
 
-  return photos.map((photo, index) => (
-    /* eslint-disable react/no-array-index-key */
-    <CachedPhoto
-      key={index}
-      uri={photo.uri}
-      width={width}
-      height={Math.floor(width * (photo.height / photo.width))}
-    />
-  ));
+  return (
+    <>
+      {photos.map((photo, index) => (
+        /* eslint-disable react/no-array-index-key */
+        <CachedPhoto
+          key={index}
+          uri={photo.uri}
+          width={width}
+          height={Math.floor(width * (photo.height / photo.width))}
+        />
+      ))}
+    </>
+  );
 }
+
+export { CachedPhoto, CachedPhotos };

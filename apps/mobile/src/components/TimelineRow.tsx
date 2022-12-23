@@ -3,9 +3,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Box, HStack, Pressable, Text, VStack } from "native-base";
 import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../navigation/Routes";
-import getUserStyle from "./UserStyle";
-import PhotosLayout from "./PhotosLayout";
-import Divider from "./Divider";
+import { getUserStyle } from "./UserStyle";
+import { PhotosLayout } from "./PhotosLayout";
+import { Divider } from "./Divider";
 
 function bottomText({
   locationDescription,
@@ -45,7 +45,7 @@ type TimelineRowProps = {
   record: AlgaeRecord;
 };
 
-export default function TimelineRow({ record }: TimelineRowProps) {
+export function TimelineRow({ record }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
   const { org, name, avatar } = getUserStyle(record.name, record.organization);
 

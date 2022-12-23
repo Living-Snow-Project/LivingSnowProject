@@ -107,7 +107,7 @@ function getAvatar(name: string) {
   );
 }
 
-export default function getUserStyle(
+export function getUserStyle(
   name: string | undefined,
   org: string | undefined
 ): UserStyle {

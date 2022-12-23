@@ -1,10 +1,10 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import PressableOpacity from "../components/PressableOpacity";
+import { PressableOpacity } from "../components/PressableOpacity";
 import { SnowIcon } from "../components/Icons";
 import { setAppSettings } from "../../AppSettings";
-import UserIdentityInput from "../components/forms/UserIdentityInput";
-import KeyboardShift from "../components/KeyboardShift";
+import { UserIdentityInput } from "../components/forms/UserIdentityInput";
+import { KeyboardShift } from "../components/KeyboardShift";
 import { FirstRunScreenNavigationProp } from "../navigation/Routes";
 
 const styles = StyleSheet.create({
@@ -58,7 +58,7 @@ type FirstRunScreenProps = {
   navigation: FirstRunScreenNavigationProp;
 };
 
-export default function FirstRunScreen({ navigation }: FirstRunScreenProps) {
+export function FirstRunScreen({ navigation }: FirstRunScreenProps) {
   return (
     <KeyboardShift>
       {() => (

@@ -29,7 +29,7 @@ interface IState {
 
 const { State: TextInputState } = TextInput;
 
-export default class KeyboardShift extends Component<IProps, IState> {
+export class KeyboardShift extends Component<IProps, IState> {
   isHiding: Animated.CompositeAnimation | null;
 
   previousGap: number;

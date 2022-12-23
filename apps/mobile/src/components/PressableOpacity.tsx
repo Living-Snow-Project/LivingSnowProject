@@ -14,7 +14,7 @@ type PressableOpacityProps = {
   testOnly_pressed?: boolean;
 };
 
-export default function PressableOpacity({
+export function PressableOpacity({
   testID,
   onPress,
   style,

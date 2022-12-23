@@ -3,9 +3,9 @@ import { LogBox, Pressable, Text } from "react-native";
 import { SelectedPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
 import { formInputStyles } from "../../styles/FormInput";
-import TestIds from "../../constants/TestIds";
+import { TestIds } from "../../constants/TestIds";
 import { PictureIcon } from "../Icons";
-import PhotosLayout from "../PhotosLayout";
+import { PhotosLayout } from "../PhotosLayout";
 
 // TODO: use a proper implementation
 // because we pass a callback in params, more info from the following links
@@ -23,7 +23,7 @@ type PhotoControlProps = {
   onUpdatePhotos: (photos: SelectedPhoto[]) => void;
 };
 
-export default function PhotoControl({
+export function PhotoControl({
   navigation,
   photos,
   onUpdatePhotos,

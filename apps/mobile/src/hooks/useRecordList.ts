@@ -4,7 +4,7 @@ import {
   useDownloadedRecordList,
 } from "../components/RecordList";
 
-const useRecordList = (
+export const useRecordList = (
   navigation: TimelineScreenNavigationProp
 ): JSX.Element[] => {
   const pendingRecords = usePendingRecordList(navigation);
@@ -22,5 +22,3 @@ const useRecordList = (
 
   return result;
 };
-
-export default useRecordList;

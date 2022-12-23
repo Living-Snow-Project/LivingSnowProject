@@ -17,20 +17,20 @@ import {
   recordDateFormat,
 } from "@livingsnow/record";
 import { RecordScreenProps } from "../navigation/Routes";
-import KeyboardShift from "../components/KeyboardShift";
+import { KeyboardShift } from "../components/KeyboardShift";
 import { formInputStyles } from "../styles/FormInput";
-import HeaderButton from "../components/HeaderButton";
+import { HeaderButton } from "../components/HeaderButton";
 import {
   TypeSelector,
   AlgaeSizePicker,
   AlgaeColorPicker,
 } from "../components/forms/TypeSelector";
-import DateSelector from "../components/forms/DateSelector";
-import CustomTextInput from "../components/forms/CustomTextInput";
-import GpsCoordinatesInput from "../components/forms/GpsCoordinatesInput";
-import PhotoControl from "../components/forms/PhotoControl";
+import { DateSelector } from "../components/forms/DateSelector";
+import { CustomTextInput } from "../components/forms/CustomTextInput";
+import { GpsCoordinatesInput } from "../components/forms/GpsCoordinatesInput";
+import { PhotoControl } from "../components/forms/PhotoControl";
 import { getAppSettings } from "../../AppSettings";
-import TestIds from "../constants/TestIds";
+import { TestIds } from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
 import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 
@@ -58,7 +58,7 @@ const defaultRecord: AlgaeRecord = {
   color: "Select a color",
 };
 
-export default function RecordScreen({ navigation, route }: RecordScreenProps) {
+export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const appSettings = getAppSettings();
 
   // TODO: get updating\uploading from reducer

@@ -1,8 +1,8 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
 import { makeExampleRecord } from "@livingsnow/record";
-import TimelineRow from "../TimelineRow";
-import TestIds from "../../constants/TestIds";
+import { TimelineRow } from "../TimelineRow";
+import { TestIds } from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 
 describe("TimelineRow test suite", () => {

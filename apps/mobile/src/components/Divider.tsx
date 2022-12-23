@@ -5,7 +5,7 @@ type DividerProps = {
   text?: string;
 };
 
-export default function Divider({ text }: DividerProps) {
+export function Divider({ text }: DividerProps) {
   const bg = useColorModeValue("light.300", "black");
   const infoBg = useColorModeValue("light.400", "dark.300");
 

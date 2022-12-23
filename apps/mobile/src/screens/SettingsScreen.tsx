@@ -8,13 +8,13 @@ import {
   VStack,
   useColorMode,
 } from "native-base";
-import UserIdentityInput from "../components/forms/UserIdentityInput";
-import DiskUsage from "../components/DiskUsage";
-import Divider from "../components/Divider";
+import { UserIdentityInput } from "../components/forms/UserIdentityInput";
+import { DiskUsage } from "../components/DiskUsage";
+import { Divider } from "../components/Divider";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
 import { colorModeManager } from "../providers";
 import { Headers, Labels } from "../constants/Strings";
-import TestIds from "../constants/TestIds";
+import { TestIds } from "../constants/TestIds";
 
 type SettingsGroupProps = {
   label: string;
@@ -53,7 +53,7 @@ function SettingsGroupItem({ label, right }: SettingsGroupItemProps) {
   );
 }
 
-export default function SettingsScreen() {
+export function SettingsScreen() {
   const [{ showGpsWarning }, setSettings] = useState(getAppSettings());
   const { colorMode, toggleColorMode } = useColorMode();
 

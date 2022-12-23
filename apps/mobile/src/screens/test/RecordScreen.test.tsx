@@ -7,14 +7,14 @@ import {
   RecordScreenNavigationProp,
   RecordScreenRouteProp,
 } from "../../navigation/Routes";
-import RecordScreen from "../RecordScreen";
+import { RecordScreen } from "../RecordScreen";
 import { setAppSettings } from "../../../AppSettings";
-import TestIds from "../../constants/TestIds";
+import { TestIds } from "../../constants/TestIds";
 import { Notifications, Placeholders } from "../../constants/Strings";
 import * as RecordManager from "../../lib/RecordManager";
 import * as Storage from "../../lib/Storage";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
-import makeAlgaeRecordsMock from "../../mocks/useAlgaeRecords.mock";
+import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
 
 const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 

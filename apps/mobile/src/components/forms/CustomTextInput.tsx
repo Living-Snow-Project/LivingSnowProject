@@ -15,7 +15,7 @@ type CustomTextInputProps = {
   onSubmitEditing?: () => void;
 };
 
-const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
+export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
   (
     {
       value,
@@ -72,8 +72,6 @@ const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
     </FormControl>
   )
 );
-
-export default CustomTextInput;
 
 // this is needed because of forwardRef
 CustomTextInput.displayName = `CustomTextInput`;

@@ -9,7 +9,7 @@ type StatusBarProps = {
   isConnected: boolean;
 };
 
-export default function StatusBar({ state, isConnected }: StatusBarProps) {
+export function StatusBar({ state, isConnected }: StatusBarProps) {
   const { colors } = useTheme();
   const startColor = useColorModeValue(colors.light[300], colors.black);
   const fadeAnim = useRef(new Animated.Value(0)).current;

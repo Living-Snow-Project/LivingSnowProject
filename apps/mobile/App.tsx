@@ -2,14 +2,14 @@ import React from "react";
 import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
 import { NativeBaseProvider } from "./src/providers";
-import Navigation from "./src/navigation/MainTabNavigator";
-import useCachedResources from "./src/hooks/useCachedResources";
+import { Navigation } from "./src/navigation/MainTabNavigator";
+import { useCachedResources } from "./src/hooks/useCachedResources";
 import {
   useAlgaeRecords,
   AlgaeRecordsContext,
 } from "./src/hooks/useAlgaeRecords";
 
-export default function App() {
+export function App() {
   const [algaeRecords] = useAlgaeRecords();
   const isLoadingComplete = useCachedResources();
 

@@ -3,17 +3,17 @@ import { FlatList } from "native-base";
 import NetInfo from "@react-native-community/netinfo";
 import Logger from "@livingsnow/logger";
 import { TimelineScreenNavigationProp } from "../navigation/Routes";
-import StatusBar from "../components/StatusBar";
+import { StatusBar } from "../components/StatusBar";
 import { ExampleRecordList } from "../components/RecordList";
-import TestIds from "../constants/TestIds";
+import { TestIds } from "../constants/TestIds";
 import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
-import useRecordList from "../hooks/useRecordList";
+import { useRecordList } from "../hooks/useRecordList";
 
 type TimelineScreenProps = {
   navigation: TimelineScreenNavigationProp;
 };
 
-export default function TimelineScreen({ navigation }: TimelineScreenProps) {
+export function TimelineScreen({ navigation }: TimelineScreenProps) {
   const recordList = useRecordList(navigation);
   const [connected, setConnected] = useState<boolean>(true);
   const [refreshing, setRefreshing] = useState<boolean>(false);

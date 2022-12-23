@@ -2,7 +2,7 @@ import * as React from "react";
 import { preventAutoHideAsync } from "expo-splash-screen";
 import { act, create } from "react-test-renderer";
 /* eslint-disable import/extensions */
-import App from "../App";
+import { App } from "../App";
 
 jest.mock("expo-splash-screen", () => {
   const actual = jest.requireActual("expo-splash-screen");

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const TimelineStyles = StyleSheet.create({
+export const TimelineStyles = StyleSheet.create({
   container: {
     flex: 1,
   },
@@ -25,5 +25,3 @@ const TimelineStyles = StyleSheet.create({
     backgroundColor: "lightgrey",
   },
 });
-
-export default TimelineStyles;

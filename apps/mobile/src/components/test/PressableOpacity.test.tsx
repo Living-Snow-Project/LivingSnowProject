@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "react-native";
 import { fireEvent, render } from "@testing-library/react-native";
-import PressableOpacity from "../PressableOpacity";
+import { PressableOpacity } from "../PressableOpacity";
 
 describe("PressableOpacity test suite", () => {
   const testID = "pressable-testid";

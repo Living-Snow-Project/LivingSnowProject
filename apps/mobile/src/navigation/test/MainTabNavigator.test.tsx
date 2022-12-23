@@ -1,11 +1,11 @@
 import React from "react";
 import { render, waitFor } from "@testing-library/react-native";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
-import Navigation from "../MainTabNavigator";
+import { Navigation } from "../MainTabNavigator";
 import { setAppSettings } from "../../../AppSettings";
 import { Labels } from "../../constants/Strings";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
-import makeAlgaeRecordsMock from "../../mocks/useAlgaeRecords.mock";
+import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
 
 function WrappedNavigation() {
   return (

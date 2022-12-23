@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const SettingsStyles = StyleSheet.create({
+export const SettingsStyles = StyleSheet.create({
   optionContainer: {
     backgroundColor: "#efefef",
     borderWidth: 1,
@@ -38,5 +38,3 @@ const SettingsStyles = StyleSheet.create({
     borderColor: "black",
   },
 });
-
-export default SettingsStyles;

@@ -8,7 +8,7 @@ type DateSelectorProps = {
   setDate: (date: string) => void;
 };
 
-export default function DateSelector({ date, setDate }: DateSelectorProps) {
+export function DateSelector({ date, setDate }: DateSelectorProps) {
   const [calendarVisible, setCalendarVisible] = useState(false);
 
   const textInputProps = {

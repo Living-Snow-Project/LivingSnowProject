@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
-import CustomTextInput from "./CustomTextInput";
+import { CustomTextInput } from "./CustomTextInput";
 import { AppSettings } from "../../../types/AppSettings";
 import { getAppSettings, setAppSettings } from "../../../AppSettings";
 import { Labels, Placeholders } from "../../constants/Strings";
 
-export default function UserIdentityInput() {
+export function UserIdentityInput() {
   const [{ name, organization }, setSettings] = useState<AppSettings>(
     getAppSettings()
   );

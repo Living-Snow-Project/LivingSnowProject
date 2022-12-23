@@ -6,7 +6,7 @@ import { pickerSelectStyles, formInputStyles } from "../../styles/FormInput";
 import { getAllRecordTypePickerItems } from "../../record/Record";
 import { getAllAlgaeSizePickerItems } from "../../record/Size";
 import { getAllAlgaeColorPickerItems } from "../../record/Color";
-import TestIds from "../../constants/TestIds";
+import { TestIds } from "../../constants/TestIds";
 import { Labels } from "../../constants/Strings";
 
 type TypeSelectorProps = {

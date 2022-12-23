@@ -2,8 +2,8 @@ import React from "react";
 import { Platform, ViewStyle, StyleProp } from "react-native";
 import * as Icon from "@expo/vector-icons";
 import { AlgaeRecordType, isSample } from "@livingsnow/record";
-import Colors from "../constants/Colors";
-import TestIds from "../constants/TestIds";
+import { Colors } from "../constants/Colors";
+import { TestIds } from "../constants/TestIds";
 
 type StockIconProps = {
   name: IconNameType;

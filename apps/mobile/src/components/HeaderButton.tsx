@@ -1,6 +1,6 @@
 import React from "react";
 import { Platform, StyleSheet } from "react-native";
-import PressableOpacity from "./PressableOpacity";
+import { PressableOpacity } from "./PressableOpacity";
 import { StockIcon } from "./Icons";
 
 type IconNames =
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   right: { right: marginWidth },
 });
 
-export default function HeaderButton({
+export function HeaderButton({
   testID,
   iconName,
   onPress,

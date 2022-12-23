@@ -15,14 +15,16 @@
   },
   "rules": {
     "eqeqeq": ["off"],
-    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-    "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
-    "no-unneeded-ternary": ["error", { "defaultAssignment": true }],
-    "react/require-default-props": ["off", {}],
+    "import/no-default-export": ["error"],
+    "import/prefer-default-export": ["off"],
     "react/function-component-definition": [
       "error",
       { "namedComponents": "function-declaration" }
-    ]
+    ],
+    "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
+    "react/require-default-props": ["off", {}],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "no-unneeded-ternary": ["error", { "defaultAssignment": true }]
   },
   "ignorePatterns": ["babel.config.js", "*test*.js"]
 }

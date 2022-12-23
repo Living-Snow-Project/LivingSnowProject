@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import { FirstRunScreenNavigationProp } from "../../navigation/Routes";
-import FirstRunScreen from "../FirstRunScreen";
+import { FirstRunScreen } from "../FirstRunScreen";
 
 test("validates Welcome Screen navigation", () => {
   const navigation: FirstRunScreenNavigationProp =

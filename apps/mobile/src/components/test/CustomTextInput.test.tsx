@@ -3,7 +3,7 @@ import { Platform } from "react-native";
 import { ReactTestInstance } from "react-test-renderer";
 import { render, fireEvent } from "@testing-library/react-native";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
-import CustomTextInput from "../forms/CustomTextInput";
+import { CustomTextInput } from "../forms/CustomTextInput";
 
 describe("CustomTextInput tests", () => {
   const props = {

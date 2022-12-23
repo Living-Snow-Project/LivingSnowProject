@@ -9,7 +9,7 @@ type ModalProps = {
   onConfirm: () => void;
 };
 
-export default function Modal({
+export function Modal({
   body,
   header,
   isOpen,

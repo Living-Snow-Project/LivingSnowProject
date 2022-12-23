@@ -1,10 +1,10 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
-import SettingsScreen from "../SettingsScreen";
+import { SettingsScreen } from "../SettingsScreen";
 import { Placeholders } from "../../constants/Strings";
 import { getAppSettings } from "../../../AppSettings";
-import TestIds from "../../constants/TestIds";
+import { TestIds } from "../../constants/TestIds";
 
 function WrappedSettingsScreen() {
   return (

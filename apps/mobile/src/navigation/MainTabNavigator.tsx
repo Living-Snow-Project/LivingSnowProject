@@ -14,10 +14,10 @@ import {
   SettingsScreen,
   TimelineScreen,
 } from "../screens";
-import HeaderButton from "../components/HeaderButton";
+import { HeaderButton } from "../components/HeaderButton";
 import { RootStackParamList, RootStackNavigationProp } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
-import TestIds from "../constants/TestIds";
+import { TestIds } from "../constants/TestIds";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -85,7 +85,7 @@ function RootNavigator() {
   );
 }
 
-export default function Navigation() {
+export function Navigation() {
   const { colorMode } = useColorMode();
   const dark = colorMode == "light";
   const theme = dark

@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
 import { Labels } from "../constants/Strings";
-import CachedPhotos from "../components/CachedPhotos";
+import { CachedPhotos } from "../components/CachedPhotos";
 
 const styles = StyleSheet.create({
   container: {
@@ -16,9 +16,7 @@ type RecordDetailsScreenProps = {
   route: RecordDetailsScreenRouteProp;
 };
 
-export default function RecordDetailsScreen({
-  route,
-}: RecordDetailsScreenProps) {
+export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
   const {
     date,
     type,

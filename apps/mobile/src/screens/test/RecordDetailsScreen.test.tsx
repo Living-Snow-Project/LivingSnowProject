@@ -9,7 +9,7 @@ import {
   Photo,
 } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../../navigation/Routes";
-import RecordDetailsScreen from "../RecordDetailsScreen";
+import { RecordDetailsScreen } from "../RecordDetailsScreen";
 import { productionExampleRecord } from "../../record/Record";
 import { Labels } from "../../constants/Strings";
 
