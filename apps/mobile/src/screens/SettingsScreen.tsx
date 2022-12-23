@@ -12,6 +12,7 @@ import UserIdentityInput from "../components/forms/UserIdentityInput";
 import DiskUsage from "../components/DiskUsage";
 import Divider from "../components/Divider";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
+import { colorModeManager } from "../providers";
 import { Headers, Labels } from "../constants/Strings";
 import TestIds from "../constants/TestIds";
 
@@ -56,6 +57,11 @@ export default function SettingsScreen() {
   const [{ showGpsWarning }, setSettings] = useState(getAppSettings());
   const { colorMode, toggleColorMode } = useColorMode();
 
+  const toggleColorModeAndPersist = () => {
+    colorModeManager.set(colorMode == "light" ? "dark" : "light");
+    toggleColorMode();
+  };
+
   return (
     <Box _dark={{ bg: "dark.100" }}>
       <VStack>
@@ -88,7 +94,7 @@ export default function SettingsScreen() {
             right={
               <Switch
                 testID="Dark Mode"
-                onValueChange={toggleColorMode}
+                onValueChange={toggleColorModeAndPersist}
                 isChecked={colorMode == "dark"}
               />
             }

@@ -1,7 +1,7 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
-import NativeBaseProvider from "./src/providers";
+import { NativeBaseProvider } from "./src/providers";
 import Navigation from "./src/navigation/MainTabNavigator";
 import useCachedResources from "./src/hooks/useCachedResources";
 import {

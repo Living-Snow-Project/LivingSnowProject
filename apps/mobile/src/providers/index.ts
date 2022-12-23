@@ -1,3 +1,4 @@
-import NativeBaseProvider from "./NativeBase";
-
-export default NativeBaseProvider;
+export {
+  NativeBaseProviderWrapper as NativeBaseProvider,
+  colorModeManager,
+} from "./NativeBase";
