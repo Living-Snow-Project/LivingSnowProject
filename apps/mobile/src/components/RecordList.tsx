@@ -1,26 +1,21 @@
-import React, { useMemo, useRef } from "react";
-import { Alert, Animated, StyleSheet, View } from "react-native";
-import { Box } from "native-base";
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import React, { useMemo, useState } from "react";
+import * as Icon from "@expo/vector-icons";
+import { Box, Icon as NBIcon, Menu, Pressable } from "native-base";
 import { AlgaeRecord } from "@livingsnow/record";
 import { TimelineScreenNavigationProp } from "../navigation/Routes";
+import { Modal } from "./Modal";
 import { Divider } from "./Divider";
 import { TimelineRow } from "./TimelineRow";
-import { PressableOpacity } from "./PressableOpacity";
-import { EditIcon, DeleteIcon } from "./Icons";
-import { TestIds } from "../constants/TestIds";
 import { Labels } from "../constants/Strings";
 import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 import { productionExampleRecord } from "../record/Record";
+import { IAlgaeRecords } from "../../types/AlgaeRecords";
 
-const actionStyles = StyleSheet.create({
-  style: {
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    borderLeftWidth: StyleSheet.hairlineWidth,
-  },
-});
+function ThreeDotsIcon() {
+  return (
+    <NBIcon as={Icon.Ionicons} name="ellipsis-horizontal-outline" size="lg" />
+  );
+}
 
 function ExampleRecordList() {
   const records = [
@@ -40,14 +35,15 @@ function ExampleRecordList() {
 }
 
 function useDownloadedRecordList() {
-  const algaeRecordsContext = useAlgaeRecordsContext();
+  const algaeRecords = useAlgaeRecordsContext();
+  const records = algaeRecords.getDownloadedRecords();
+  const pendingLength = algaeRecords.getPendingRecords().length;
 
   const renderRecords = useMemo(() => {
-    const records: AlgaeRecord[] = algaeRecordsContext.getDownloadedRecords();
     const result: JSX.Element[] = [];
 
-    // Downloaded Divider is only useful if there are pending records
-    if (algaeRecordsContext.getPendingRecords().length > 0) {
+    // "Downloaded Divider" is only useful if there are pending records
+    if (pendingLength > 0) {
       result.push(
         <Box>
           <Divider
@@ -58,104 +54,71 @@ function useDownloadedRecordList() {
       );
     }
 
-    for (let i = 0; i < records.length; ++i) {
-      result.push(<TimelineRow key={records[i].id} record={records[i]} />);
-    }
+    records.forEach((record) =>
+      result.push(<TimelineRow key={record.id} record={record} />)
+    );
 
     return result;
-  }, [algaeRecordsContext]);
+  }, [records, pendingLength]);
 
-  if (algaeRecordsContext.getDownloadedRecords().length == 0) {
+  if (records.length == 0) {
     return null;
   }
 
   return renderRecords;
 }
 
+type PendingTimelineRowProps = {
+  record: AlgaeRecord;
+  algaeRecords: IAlgaeRecords;
+  navigation: TimelineScreenNavigationProp;
+};
+
+function PendingTimelineRow({
+  record,
+  algaeRecords,
+  navigation,
+}: PendingTimelineRowProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onPressDelete = () => setIsOpen(true);
+  const onConfirmDelete = () => algaeRecords.delete(record);
+
+  const onEdit = () => navigation.navigate("Record", { record });
+
+  const menuTrigger = (props: any) => (
+    <Pressable {...props}>
+      <ThreeDotsIcon />
+    </Pressable>
+  );
+
+  const actionsMenu = (
+    <>
+      <Modal
+        body="Are you sure you want to delete this pending record?"
+        header="Confirm Delete"
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        onConfirm={onConfirmDelete}
+      />
+      <Menu trigger={menuTrigger}>
+        <Menu.Item onPress={onEdit}>Edit</Menu.Item>
+        <Menu.Item onPress={onPressDelete}>Delete</Menu.Item>
+      </Menu>
+    </>
+  );
+
+  return <TimelineRow record={record} actionsMenu={actionsMenu} />;
+}
+
 function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
-  const swipeable = useRef<Swipeable | null>();
-  const algaeRecordsContext = useAlgaeRecordsContext();
-
-  const renderAction = (
-    record: AlgaeRecord,
-    testId: string,
-    color: string,
-    icon: JSX.Element,
-    onPress: (record: AlgaeRecord) => void
-  ) => (
-    <Animated.View
-      style={{
-        flex: 1,
-        transform: [{ translateX: 0 }],
-      }}
-    >
-      <PressableOpacity
-        testID={testId}
-        style={[
-          actionStyles.style,
-          {
-            backgroundColor: color,
-          },
-        ]}
-        onPress={() => onPress(record)}
-      >
-        {icon}
-      </PressableOpacity>
-    </Animated.View>
-  );
-
-  const closeAnimatedView = () => swipeable?.current?.close();
-
-  const onDelete = (record: AlgaeRecord) => {
-    Alert.alert("Delete record", "Are you sure?", [
-      {
-        text: "Yes",
-        onPress: async () => {
-          await algaeRecordsContext.delete(record);
-          closeAnimatedView();
-        },
-      },
-      {
-        text: "No",
-        style: "cancel",
-        onPress: closeAnimatedView,
-      },
-    ]);
-  };
-
-  const onEdit = (record: AlgaeRecord) => {
-    navigation.navigate("Record", { record });
-    closeAnimatedView();
-  };
-
-  const renderRightActions = (record: AlgaeRecord) => (
-    <View
-      style={{
-        width: 128,
-        flexDirection: "row",
-      }}
-    >
-      {renderAction(
-        record,
-        TestIds.RecordList.DeleteRecordAction,
-        "gainsboro",
-        DeleteIcon(),
-        onDelete
-      )}
-      {renderAction(
-        record,
-        TestIds.RecordList.EditRecordAction,
-        "gainsboro",
-        EditIcon(),
-        onEdit
-      )}
-    </View>
-  );
+  const algaeRecords = useAlgaeRecordsContext();
+  const pendingRecords = algaeRecords.getPendingRecords();
 
   const renderRecords = useMemo(() => {
     const result: JSX.Element[] = [];
 
-    if (algaeRecordsContext.getPendingRecords().length == 0) {
+    if (pendingRecords.length == 0) {
       return null;
     }
 
@@ -168,23 +131,20 @@ function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
       </Box>
     );
 
-    algaeRecordsContext.getPendingRecords().forEach((record) =>
+    pendingRecords.forEach((record, index) => {
+      /* eslint-disable react/no-array-index-key */
       result.push(
-        <Swipeable
-          ref={(ref) => {
-            swipeable.current = ref;
-          }}
-          key={record.id}
-          rightThreshold={40}
-          renderRightActions={() => renderRightActions(record)}
-        >
-          <TimelineRow record={record} />
-        </Swipeable>
-      )
-    );
+        <PendingTimelineRow
+          key={`pending-${index}`}
+          record={record}
+          algaeRecords={algaeRecords}
+          navigation={navigation}
+        />
+      );
+    });
 
     return result;
-  }, [algaeRecordsContext.getPendingRecords()]);
+  }, [pendingRecords]);
 
   return renderRecords;
 }

@@ -43,9 +43,10 @@ function getRecordInfo(record: AlgaeRecord) {
 
 type TimelineRowProps = {
   record: AlgaeRecord;
+  actionsMenu?: JSX.Element;
 };
 
-export function TimelineRow({ record }: TimelineRowProps) {
+export function TimelineRow({ record, actionsMenu }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
   const { org, name, avatar } = getUserStyle(record.name, record.organization);
 
@@ -59,13 +60,14 @@ export function TimelineRow({ record }: TimelineRowProps) {
           <VStack>
             <HStack>
               <Box width="15%">{avatar}</Box>
-              <Box width="75%">
+              <Box width="78%" pr="1">
                 <VStack ml={2}>
                   {name}
                   {org}
                   {getRecordInfo(record)}
                 </VStack>
               </Box>
+              <Box width="7%">{actionsMenu}</Box>
             </HStack>
             {bottomText(record)}
           </VStack>

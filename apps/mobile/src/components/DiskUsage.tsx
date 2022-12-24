@@ -96,7 +96,7 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
   return (
     <>
       <Modal
-        body="Confirm deleting photos?"
+        body="Are you sure you want to delete saved photos?"
         header="Confirm Delete"
         isOpen={isOpen}
         setIsOpen={setIsOpen}
