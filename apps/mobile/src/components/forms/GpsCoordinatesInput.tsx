@@ -111,12 +111,16 @@ export function GpsCoordinatesInput({
     })();
 
     return stopGps;
+    // revisit when we add NativeBase to this component and clean it up
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (useGps) {
       gpsCoordinatesRef?.current?.focus();
     }
+    // revisit when we add NativeBase to this component and clean it up
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [manualGpsCoordinates]);
 
   const enableManualGpsCoordinates = () => {

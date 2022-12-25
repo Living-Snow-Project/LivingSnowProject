@@ -40,8 +40,7 @@ type SettingsGroupItemProps = {
 };
 
 function SettingsGroupItem({ label, right }: SettingsGroupItemProps) {
-  const [labelValue, setLabelValue] = useState(label);
-  const setLabel = (value: string) => setLabelValue(value);
+  const [labelValue, setLabel] = useState(label);
 
   return (
     <HStack pb="1" height="10" justifyContent="space-between">

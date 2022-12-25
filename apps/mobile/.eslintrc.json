@@ -23,6 +23,7 @@
     ],
     "react/jsx-props-no-spreading": ["error", { "custom": "ignore" }],
     "react/require-default-props": ["off", {}],
+    "react-hooks/exhaustive-deps": ["error"],
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "no-unneeded-ternary": ["error", { "defaultAssignment": true }]
   },

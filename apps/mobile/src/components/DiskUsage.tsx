@@ -69,6 +69,8 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
       .catch(() =>
         computeLabel({ state: "Error Calculating", files: 0, bytes: 0 })
       );
+    // hook only runs on mount with local computeLabel and no unstable deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const deletePhotos = () => {

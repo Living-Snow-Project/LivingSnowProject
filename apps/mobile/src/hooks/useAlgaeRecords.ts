@@ -343,7 +343,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         dispatch({ type: "END_SAVING", payload: { pendingRecords } });
       },
     }),
-    [algaeRecordState, dispatch]
+    [algaeRecordState]
   );
 
   return [algaeRecords];

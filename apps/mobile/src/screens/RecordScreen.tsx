@@ -182,6 +182,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     navigation.setOptions({
       headerRight: () => RecordAction,
     });
+    // need to setup header right button on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // update record effect
@@ -211,6 +213,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         setUpdating(false);
         navigation.goBack();
       });
+    // this shouldn't even be a hook
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updating]);
 
   // upload record effect
@@ -246,6 +250,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         algaeRecordsContext.downloadRecords();
         navigation.goBack();
       });
+    // this shouldn't even be a hook
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploading]);
 
   const gpsCoordinatesProps = editMode

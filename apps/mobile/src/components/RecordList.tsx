@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import * as Icon from "@expo/vector-icons";
 import { Box, Icon as NBIcon, Menu, Pressable } from "native-base";
 import { AlgaeRecord } from "@livingsnow/record";
@@ -71,15 +72,11 @@ function useDownloadedRecordList() {
 type PendingTimelineRowProps = {
   record: AlgaeRecord;
   algaeRecords: IAlgaeRecords;
-  navigation: TimelineScreenNavigationProp;
 };
 
-function PendingTimelineRow({
-  record,
-  algaeRecords,
-  navigation,
-}: PendingTimelineRowProps) {
+function PendingTimelineRow({ record, algaeRecords }: PendingTimelineRowProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const navigation = useNavigation<TimelineScreenNavigationProp>();
 
   const onPressDelete = () => setIsOpen(true);
   const onConfirmDelete = () => algaeRecords.delete(record);
@@ -111,7 +108,7 @@ function PendingTimelineRow({
   return <TimelineRow record={record} actionsMenu={actionsMenu} />;
 }
 
-function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
+function usePendingRecordList() {
   const algaeRecords = useAlgaeRecordsContext();
   const pendingRecords = algaeRecords.getPendingRecords();
 
@@ -138,13 +135,12 @@ function usePendingRecordList(navigation: TimelineScreenNavigationProp) {
           key={`pending-${index}`}
           record={record}
           algaeRecords={algaeRecords}
-          navigation={navigation}
         />
       );
     });
 
     return result;
-  }, [pendingRecords]);
+  }, [algaeRecords, pendingRecords]);
 
   return renderRecords;
 }

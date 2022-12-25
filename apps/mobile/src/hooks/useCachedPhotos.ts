@@ -23,6 +23,8 @@ export const useCachedPhoto = (photo: PhotoToCache): CachedPhotoResult => {
     return () => {
       isMounted = false;
     };
+    // photo is potentially unstable dep, but its uri, width, height are not
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photo.uri, photo.width, photo.height]);
 
   return cachedPhoto;
