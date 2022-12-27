@@ -9,9 +9,9 @@ import RCTDeviceEventEmitter from "react-native/Libraries/EventEmitter/RCTDevice
 type CustomTextInputProps = {
   value?: string | undefined;
   label: string;
-  placeholder: string;
   maxLength?: number;
-  onChangeText: (text: string) => void;
+  placeholder: string;
+  onChangeText?: (text: string) => void;
   onSubmitEditing?: () => void;
 };
 
@@ -21,8 +21,8 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
       value,
       label,
       placeholder,
-      onChangeText,
       maxLength = 255,
+      onChangeText = () => {},
       onSubmitEditing = () => {},
     }: CustomTextInputProps,
     ref
@@ -54,10 +54,8 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
         ref={ref}
         value={value}
         placeholder={placeholder}
-        onChangeText={(text) => {
-          onChangeText(text);
-        }}
-        onSubmitEditing={() => onSubmitEditing()}
+        onChangeText={onChangeText}
+        onSubmitEditing={onSubmitEditing}
         /* onContentSizeChange={(event) => {
           textInputHeight.current =
             handleMultilineTextInputOnContentSizeChange(

@@ -1,91 +1,181 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Alert,
-  Pressable,
-  ReturnKeyTypeOptions,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import React, { useEffect, useReducer, useRef } from "react";
+import { Pressable, View } from "native-base";
 import {
   Accuracy,
+  LocationSubscription,
   requestForegroundPermissionsAsync,
   watchPositionAsync,
 } from "expo-location";
 import Logger from "@livingsnow/logger";
-import { formInputStyles } from "../../styles/FormInput";
+import { CustomTextInput } from "./CustomTextInput";
+import { Modal } from "../Modal";
 import { getAppSettings } from "../../../AppSettings";
 import { TestIds } from "../../constants/TestIds";
 import { Placeholders } from "../../constants/Strings";
 
-type GpsCoordinates = {
-  latitude: number;
-  longitude: number;
+export type GpsCoordinates = {
+  latitude: number | undefined;
+  longitude: number | undefined;
 };
 
+type GpsState = {
+  value: string;
+  placeholder: string;
+  isConfirmManualEntryOpen: boolean;
+  usingManualEntry: boolean; // edit mode or during record creation
+};
+
+const createInitialGpsState = ({
+  coordinates,
+  usingGps,
+}: {
+  coordinates: GpsCoordinates;
+  usingGps: boolean;
+}): GpsState => {
+  const value =
+    coordinates.latitude && coordinates.longitude
+      ? `${coordinates.latitude}, ${coordinates.longitude}`
+      : ``;
+
+  return {
+    value,
+    placeholder: Placeholders.GPS.AcquiringLocation,
+    isConfirmManualEntryOpen: false,
+    usingManualEntry: !usingGps,
+  };
+};
+
+type GpsAction =
+  | { type: "UPDATE"; displayValue: string }
+  | { type: "SWITCH_TO_MANUAL" }
+  | { type: "NO_PERMISSION" }
+  | { type: "ERROR_WATCHING_LOCATION" }
+  | { type: "SHOW_CONFIRM_MANUAL" }
+  | { type: "CLOSE_CONFIRM_MANUAL" };
+
+function gpsCoordinatesReducer(current: GpsState, action: GpsAction): GpsState {
+  switch (action.type) {
+    case "UPDATE":
+      return {
+        ...current,
+        value: action.displayValue,
+      };
+
+    case "SWITCH_TO_MANUAL":
+      return {
+        value: "",
+        placeholder: Placeholders.GPS.EnterCoordinates,
+        isConfirmManualEntryOpen: false,
+        usingManualEntry: true,
+      };
+
+    case "NO_PERMISSION":
+      return {
+        ...current,
+        placeholder: Placeholders.GPS.NoPermissions,
+        usingManualEntry: true,
+      };
+
+    case "ERROR_WATCHING_LOCATION":
+      return {
+        ...current,
+        placeholder: Placeholders.GPS.NoLocation,
+        usingManualEntry: true,
+      };
+
+    case "SHOW_CONFIRM_MANUAL":
+      return {
+        ...current,
+        isConfirmManualEntryOpen: true,
+      };
+
+    case "CLOSE_CONFIRM_MANUAL":
+      return {
+        ...current,
+        isConfirmManualEntryOpen: false,
+      };
+
+    default:
+      throw new Error("Unexpected action type in Gps Coordinate reducer");
+  }
+}
+
+// Gaia GPS and CalTopo both use 5 decimal places
+const precision = 5;
+
 type GpsCoordinatesInputProps = {
-  setGpsCoordinates: (latitude: number, longitude: number) => void;
+  coordinates: GpsCoordinates;
+  usingGps: boolean;
+  setCoordinates: (coordinates: GpsCoordinates) => void;
   onSubmitEditing: () => void;
-  coordinates?: GpsCoordinates;
 };
 
 export function GpsCoordinatesInput({
-  setGpsCoordinates,
+  coordinates,
+  usingGps,
+  setCoordinates,
   onSubmitEditing,
-  coordinates = { latitude: 0, longitude: 0 },
 }: GpsCoordinatesInputProps) {
-  const watchPosition = useRef<null | { remove(): void }>(null);
-  const gpsCoordinatesRef = useRef<TextInput>(null);
-  const [placeholderText, setPlaceholderText] = useState(
-    Placeholders.GPS.AcquiringLocation
+  const watchPosition = useRef<LocationSubscription | null>(null);
+  const coordinatesInputRef = useRef<any>(null);
+  const [state, dispatch] = useReducer(
+    gpsCoordinatesReducer,
+    { coordinates, usingGps },
+    createInitialGpsState
   );
-  const useGps = coordinates.latitude === 0 && coordinates.longitude === 0;
-  const [gpsCoordinateString, setGpsCoordinateString] = useState<string>(
-    useGps ? `` : `${coordinates.latitude}, ${coordinates.longitude}`
-  );
-  const [manualGpsCoordinates, setManualGpsCoordinates] = useState(!useGps);
-  const showGpsWarning = useGps ? getAppSettings().showGpsWarning : false;
+
+  const showGpsWarning = usingGps && getAppSettings().showGpsWarning;
+
   const clipCoordinate = (coordinate: number) =>
-    JSON.stringify(coordinate.toFixed(6)).replace('"', "").replace('"', "");
+    Number(coordinate.toFixed(precision));
 
-  // accepts inputs from both location subscription and typed user input
-  const updateGpsCoordinateString = (value: string) => {
-    setGpsCoordinateString(value);
+  // watch location callback
+  const onCoordinatesWatch = ({
+    latitude,
+    longitude,
+  }: {
+    latitude: number;
+    longitude: number;
+  }) => {
+    const lat = clipCoordinate(latitude);
+    const long = clipCoordinate(longitude);
 
-    // some users are adding parenthesis when manually entering coordinates
-    // we don't want them in the data set so quietly remove
-    const coords = value.replace(`(`, ``).replace(`)`, ``).split(",");
-
-    let latitude;
-    let longitude;
-
-    if (coords[0]) {
-      latitude = Number(coords[0].trim());
-    }
-
-    if (coords[1]) {
-      longitude = Number(coords[1].trim());
-    }
-
-    setGpsCoordinates(latitude, longitude);
+    dispatch({ type: "UPDATE", displayValue: `${lat}, ${long}` });
+    setCoordinates({ latitude: lat, longitude: long });
   };
 
-  const stopGps = () => {
-    if (watchPosition.current) {
-      watchPosition.current?.remove();
-      watchPosition.current = null;
-    }
+  // typed user input
+  const onCoordinatesChanged = (value: string) => {
+    // some users add parenthesis when manually entering
+    const coords = value.replace(`(`, ``).replace(`)`, ``).split(",");
+
+    const latitude = coords[0]
+      ? Number(Number(coords[0].trim()).toFixed(precision))
+      : undefined;
+    const longitude = coords[1]
+      ? Number(Number(coords[1].trim()).toFixed(precision))
+      : undefined;
+
+    dispatch({ type: "UPDATE", displayValue: value });
+    setCoordinates({ latitude, longitude });
+  };
+
+  const stopWatchPosition = () => {
+    watchPosition.current?.remove();
+    watchPosition.current = null;
   };
 
   // location subscription
   useEffect(() => {
-    if (!useGps) return () => {};
+    if (!usingGps) {
+      return () => {};
+    }
 
     (async () => {
       const { status } = await requestForegroundPermissionsAsync();
-      if (status !== "granted") {
-        setManualGpsCoordinates(true);
-        setPlaceholderText(Placeholders.GPS.NoPermissions);
+
+      if (status != "granted") {
+        dispatch({ type: "NO_PERMISSION" });
         Logger.Warn(`Permission to access foreground location was ${status}.`);
         return;
       }
@@ -97,94 +187,83 @@ export function GpsCoordinatesInput({
             timeInterval: 5000,
           },
           ({ coords }) =>
-            updateGpsCoordinateString(
-              `${clipCoordinate(coords.latitude)}, ${clipCoordinate(
-                coords.longitude
-              )}`
-            )
+            onCoordinatesWatch({
+              latitude: coords.latitude,
+              longitude: coords.longitude,
+            })
         );
       } catch (error) {
-        setManualGpsCoordinates(true);
-        setPlaceholderText(Placeholders.GPS.NoLocation);
+        dispatch({ type: "ERROR_WATCHING_LOCATION" });
         Logger.Error(`Location.watchPositionAsync() failed: ${error}`);
       }
     })();
 
-    return stopGps;
-    // revisit when we add NativeBase to this component and clean it up
+    return stopWatchPosition;
+    // only subscribe to the location subscription on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // sets focus when switching to manual entry
   useEffect(() => {
-    if (useGps) {
-      gpsCoordinatesRef?.current?.focus();
-    }
-    // revisit when we add NativeBase to this component and clean it up
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [manualGpsCoordinates]);
+    // ref doesn't exist at time of enabling manual entry event
+    coordinatesInputRef.current?.focus();
+  }, [state.usingManualEntry]);
 
-  const enableManualGpsCoordinates = () => {
-    stopGps();
-    updateGpsCoordinateString("");
-    setManualGpsCoordinates(true);
-    setPlaceholderText(Placeholders.GPS.EnterCoordinates);
+  const enableManualEntry = () => {
+    stopWatchPosition();
+    dispatch({ type: "SWITCH_TO_MANUAL" });
   };
 
-  const confirmManualGpsCoordinates = () => {
+  const showConfirmManualEntry = () => {
     if (showGpsWarning) {
-      Alert.alert(
-        "Enter GPS coordinates manually?",
-        "This message can be disabled in Settings.",
-        [
-          {
-            text: "Yes",
-            onPress: () => enableManualGpsCoordinates(),
-          },
-          {
-            text: "No",
-            style: "cancel",
-          },
-        ]
-      );
+      dispatch({ type: "SHOW_CONFIRM_MANUAL" });
     } else {
-      enableManualGpsCoordinates();
+      // user knows what they are doing and doesn't want to be prompted
+      enableManualEntry();
     }
   };
+
+  const dismissConfirmManualEntry = () =>
+    dispatch({ type: "CLOSE_CONFIRM_MANUAL" });
 
   const gpsFieldProps = {
-    style: formInputStyles.optionInputText,
-    editable: manualGpsCoordinates,
+    value: state.value,
+    label: "GPS Coordinates (latitude, longitude)",
     maxLength: 30,
-    placeholder: placeholderText,
-    defaultValue: gpsCoordinateString,
-    returnKeyType: "done" as ReturnKeyTypeOptions,
+    placeholder: state.placeholder,
   };
+
+  const renderCoordinatesInput = state.usingManualEntry ? (
+    <CustomTextInput
+      {...gpsFieldProps}
+      onChangeText={onCoordinatesChanged}
+      onSubmitEditing={onSubmitEditing}
+      ref={coordinatesInputRef}
+    />
+  ) : (
+    // user confirms they want to enter GPS coordinates manually
+    <Pressable
+      onPress={showConfirmManualEntry}
+      testID={TestIds.GPS.gpsManualPressableTestId}
+    >
+      <View pointerEvents="none">
+        <CustomTextInput {...gpsFieldProps} />
+      </View>
+    </Pressable>
+  );
+
+  const message = `Some users enter coordinates manually if they cannot acquire GPS signal or when they return home.\n\nThis message can be disabled in Settings.`;
 
   return (
     <>
-      <Text style={formInputStyles.optionStaticText}>
-        GPS Coordinates (latitude, longitude)
-      </Text>
-      {!manualGpsCoordinates && (
-        /* user confirms they want to enter GPS coordinates manually */
-        <Pressable
-          onPress={() => confirmManualGpsCoordinates()}
-          testID={TestIds.GPS.gpsManualPressableTestId}
-        >
-          <View pointerEvents="none">
-            <TextInput {...gpsFieldProps} />
-          </View>
-        </Pressable>
-      )}
-      {manualGpsCoordinates && (
-        <TextInput
-          {...gpsFieldProps}
-          testID={TestIds.GPS.gpsManualInputTestId}
-          onChangeText={(value) => updateGpsCoordinateString(value)}
-          onSubmitEditing={() => onSubmitEditing()}
-          ref={gpsCoordinatesRef}
-        />
-      )}
+      <Modal
+        header="Enter coordinates manually?"
+        body={message}
+        isOpen={state.isConfirmManualEntryOpen}
+        setIsOpen={dismissConfirmManualEntry}
+        onConfirm={enableManualEntry}
+      />
+      {renderCoordinatesInput}
     </>
   );
 }

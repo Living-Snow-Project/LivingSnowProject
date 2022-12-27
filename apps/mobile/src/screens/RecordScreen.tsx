@@ -27,7 +27,10 @@ import {
 } from "../components/forms/TypeSelector";
 import { DateSelector } from "../components/forms/DateSelector";
 import { CustomTextInput } from "../components/forms/CustomTextInput";
-import { GpsCoordinatesInput } from "../components/forms/GpsCoordinatesInput";
+import {
+  GpsCoordinates,
+  GpsCoordinatesInput,
+} from "../components/forms/GpsCoordinatesInput";
 import { PhotoControl } from "../components/forms/PhotoControl";
 import { getAppSettings } from "../../AppSettings";
 import { TestIds } from "../constants/TestIds";
@@ -48,7 +51,13 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
   );
 };
 
-const defaultRecord: AlgaeRecord = {
+// while user entering input, latitude and longitude can be undefined
+type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
+  latitude: number | undefined;
+  longitude: number | undefined;
+};
+
+const defaultRecord: AlgaeRecordInput = {
   id: -1,
   type: "Sample",
   date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
@@ -59,20 +68,19 @@ const defaultRecord: AlgaeRecord = {
 };
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
-  const appSettings = getAppSettings();
-
   // TODO: get updating\uploading from reducer
   const [updating, setUpdating] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
   // NativeBase typings not quite right for refs
   const notesRef = useRef<any>(null);
   const locationDescriptionRef = useRef<any>(null);
-
   const algaeRecordsContext = useAlgaeRecordsContext();
 
+  const appSettings = getAppSettings();
+
   // data collected and sent to the service
-  const [state, setState] = useState<AlgaeRecord>(
-    route === undefined || route.params === undefined
+  const [state, setState] = useState<AlgaeRecordInput>(
+    route == undefined || route.params == undefined
       ? {
           ...defaultRecord,
           id: uuidv4(),
@@ -127,12 +135,12 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       return false;
     }
 
-    if (state.size === "Select a size") {
+    if (state.size == "Select a size") {
       Alert.alert(Notifications.invalidAlgaeSize.title);
       return false;
     }
 
-    if (state.color === "Select a color") {
+    if (state.color == "Select a color") {
       Alert.alert(Notifications.invalidAlgaeColor.title);
       return false;
     }
@@ -145,22 +153,22 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const removeEmptyFields = useCallback((record: AlgaeRecord): AlgaeRecord => {
     const newRecord = { ...record };
 
-    if (newRecord.type === "Sighting" || newRecord?.tubeId === "") {
+    if (newRecord.type == "Sighting" || newRecord?.tubeId == "") {
       delete newRecord.tubeId;
     }
 
-    if (newRecord?.locationDescription === "") {
+    if (newRecord?.locationDescription == "") {
       delete newRecord.locationDescription;
     }
 
-    if (newRecord?.notes === "") {
+    if (newRecord?.notes == "") {
       delete newRecord.notes;
     }
 
     return newRecord;
   }, []);
 
-  const editMode = route !== undefined && route.params !== undefined;
+  const editMode = route != undefined && route.params != undefined;
 
   useEffect(() => {
     const RecordAction = editMode ? (
@@ -199,7 +207,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     // TODO: change updatePendingRecord to take SelectedPhoto?
     algaeRecordsContext
       .updatePendingRecord({
-        ...removeEmptyFields(state),
+        ...removeEmptyFields(state as AlgaeRecord),
         photos: photos && photos.map((value) => ({ ...value, size: 0 })),
       })
       .then(() => Alert.alert(Notifications.updateRecordSuccess.title))
@@ -230,7 +238,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     // TODO: change uploadRecord to take SelectedPhoto?
     algaeRecordsContext
       .uploadRecord(
-        removeEmptyFields(state),
+        removeEmptyFields(state as AlgaeRecord),
         photos && photos.map((value) => ({ ...value, size: 0 }))
       )
       .then(() =>
@@ -253,10 +261,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     // this shouldn't even be a hook
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploading]);
-
-  const gpsCoordinatesProps = editMode
-    ? { coordinates: { latitude: state.latitude, longitude: state.longitude } }
-    : {};
 
   return (
     <KeyboardShift>
@@ -304,11 +308,15 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           )}
 
           <GpsCoordinatesInput
-            {...gpsCoordinatesProps}
-            setGpsCoordinates={(latitude, longitude) =>
+            coordinates={{
+              latitude: state.latitude,
+              longitude: state.longitude,
+            }}
+            setCoordinates={({ latitude, longitude }: GpsCoordinates) =>
               setState((prev) => ({ ...prev, latitude, longitude }))
             }
             onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+            usingGps={!editMode}
           />
 
           <AlgaeSizePicker
