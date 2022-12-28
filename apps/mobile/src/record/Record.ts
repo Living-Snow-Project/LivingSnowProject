@@ -8,8 +8,8 @@ type RecordTypePickerItem = {
 };
 
 const recordTypePickerItems: RecordTypePickerItem[] = [
-  { value: "Sample", label: RecordDescription.Sample },
   { value: "Sighting", label: RecordDescription.Sighting },
+  { value: "Sample", label: RecordDescription.Sample },
 ];
 
 const getAllRecordTypePickerItems = (): RecordTypePickerItem[] =>

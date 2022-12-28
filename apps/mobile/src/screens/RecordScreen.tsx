@@ -59,7 +59,7 @@ type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
 
 const defaultRecord: AlgaeRecordInput = {
   id: -1,
-  type: "Sample",
+  type: "Sighting",
   date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
   latitude: 0,
   longitude: 0,

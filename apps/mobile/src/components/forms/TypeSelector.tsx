@@ -1,13 +1,15 @@
 import React from "react";
 import { Text } from "react-native";
 import RNPickerSelect from "react-native-picker-select";
+import { Box, FormControl, HStack, Radio } from "native-base";
 import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 import { pickerSelectStyles, formInputStyles } from "../../styles/FormInput";
-import { getAllRecordTypePickerItems } from "../../record/Record";
-import { getAllAlgaeSizePickerItems } from "../../record/Size";
-import { getAllAlgaeColorPickerItems } from "../../record/Color";
-import { TestIds } from "../../constants/TestIds";
-import { Labels } from "../../constants/Strings";
+import {
+  getAllAlgaeColorPickerItems,
+  getAllAlgaeSizePickerItems,
+  getAllRecordTypePickerItems,
+} from "../../record";
+import { Labels, TestIds } from "../../constants";
 
 type TypeSelectorProps = {
   type: AlgaeRecordType;
@@ -16,20 +18,23 @@ type TypeSelectorProps = {
 
 function TypeSelector({ type, setType }: TypeSelectorProps) {
   return (
-    <>
-      <Text style={formInputStyles.optionStaticText}>
-        Are you Taking a Sample or Reporting a Sighting?
-      </Text>
-      <RNPickerSelect
-        touchableWrapperProps={{ testID: TestIds.Pickers.recordSelectorTestId }}
-        style={pickerSelectStyles}
-        useNativeAndroidPickerStyle={false}
-        placeholder={{}}
-        items={getAllRecordTypePickerItems()}
-        onValueChange={(value) => setType(value)}
-        value={type}
-      />
-    </>
+    <FormControl>
+      <FormControl.Label>{Labels.RecordForm.Type}</FormControl.Label>
+      <Radio.Group
+        name="type selector"
+        accessibilityLabel="select type"
+        defaultValue={type}
+        onChange={setType}
+      >
+        <HStack mt="1">
+          {getAllRecordTypePickerItems().map((item) => (
+            <Box mr="3" key={item.value}>
+              <Radio value={item.value}>{item.label}</Radio>
+            </Box>
+          ))}
+        </HStack>
+      </Radio.Group>
+    </FormControl>
   );
 }
 

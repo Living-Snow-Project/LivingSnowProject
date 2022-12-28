@@ -1,5 +1,5 @@
 // for TextInput placeholder prop
-const Placeholders = {
+export const Placeholders = {
   GPS: {
     AcquiringLocation: "Looking for GPS signal",
     EnterCoordinates: "ie. 12.345678, -123.456789",
@@ -18,7 +18,11 @@ const Placeholders = {
   },
 };
 
-const Labels = {
+export const Labels = {
+  RecordForm: {
+    Type: "Are you Reporting a Sighting or Taking a Sample?",
+  },
+  // TODO: rename to RecordDetailsFields
   RecordFields: {
     Type: "Type",
     Name: "Name",
@@ -49,7 +53,7 @@ const Labels = {
 };
 
 // for Alert.alert calls
-const Notifications = {
+export const Notifications = {
   uploadSuccess: {
     title: "Record Uploaded",
     message: "Thanks for your submission.",
@@ -92,17 +96,17 @@ const Notifications = {
   },
 };
 
-const Errors = {
+export const Errors = {
   recordNotFound: "Record to update not found",
 };
 
-const RecordDescription = {
-  Sample: `I'm Taking a Sample`,
-  Sighting: `I'm Reporting a Sighting`,
+export const RecordDescription = {
+  Sample: `Sample`,
+  Sighting: `Sighting`,
   Undefined: "Undefined",
 };
 
-const AlgaeSizeDescription = {
+export const AlgaeSizeDescription = {
   Select: "Select a size",
   Fist: "Fist",
   ShoeBox: "Shoe Box",
@@ -114,7 +118,7 @@ const AlgaeSizeDescription = {
   Other: "Other (describe in notes)",
 };
 
-const AlgaeColorDescription = {
+export const AlgaeColorDescription = {
   Select: "Select a color",
   Red: "Red",
   Pink: "Pink",
@@ -125,25 +129,14 @@ const AlgaeColorDescription = {
   Other: "Other (describe in notes)",
 };
 
-const BackgroundTasks = {
+export const BackgroundTasks = {
   UploadData: "background-upload-task",
 };
 
-const Headers = {
+// TODO: move this to Labels
+export const Headers = {
   DiskUsage: "Disk Usage",
   Profile: "Profile",
   Prompts: "Prompts",
   Theme: "Theme",
-};
-
-export {
-  Errors,
-  Notifications,
-  Placeholders,
-  Headers,
-  Labels,
-  RecordDescription,
-  AlgaeSizeDescription,
-  AlgaeColorDescription,
-  BackgroundTasks,
 };
