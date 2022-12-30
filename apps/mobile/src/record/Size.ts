@@ -1,14 +1,12 @@
 import { AlgaeSize } from "@livingsnow/record";
 import { AlgaeSizeDescription } from "../constants/Strings";
 
-type AlgaeSizePickerItem = {
+type AlgaeSizeSelectorItem = {
   value: AlgaeSize;
   label: string;
 };
 
-// specific format for RNPickerSelect
-const algaeSizePickerItems: AlgaeSizePickerItem[] = [
-  { value: "Select a size", label: AlgaeSizeDescription.Select },
+const algaeSizeSelectorItems: AlgaeSizeSelectorItem[] = [
   { value: "Fist", label: AlgaeSizeDescription.Fist },
   { value: "Shoe Box", label: AlgaeSizeDescription.ShoeBox },
   { value: "Coffee Table", label: AlgaeSizeDescription.CoffeeTable },
@@ -19,17 +17,7 @@ const algaeSizePickerItems: AlgaeSizePickerItem[] = [
   { value: "Other", label: AlgaeSizeDescription.Other },
 ];
 
-const getAlgaeSizePickerItem = (size: AlgaeSize): AlgaeSizePickerItem => {
-  const result = algaeSizePickerItems.find((cur) => cur.value === size);
+const getAllAlgaeSizeSelectorItems = (): AlgaeSizeSelectorItem[] =>
+  algaeSizeSelectorItems;
 
-  if (result === undefined) {
-    return { value: "Other", label: AlgaeSizeDescription.Other };
-  }
-
-  return result;
-};
-
-const getAllAlgaeSizePickerItems = (): AlgaeSizePickerItem[] =>
-  algaeSizePickerItems;
-
-export { getAlgaeSizePickerItem, getAllAlgaeSizePickerItems };
+export { getAllAlgaeSizeSelectorItems };

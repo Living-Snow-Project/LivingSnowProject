@@ -1,23 +1,23 @@
 import React from "react";
-import RNPickerSelect from "react-native-picker-select";
 import {
   Box,
   Checkbox,
+  CheckIcon,
   Flex,
   FormControl,
   HStack,
   Radio,
+  Select,
   Text,
   useColorMode,
 } from "native-base";
 import { AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
-import { pickerSelectStyles, formInputStyles } from "../../styles/FormInput";
 import {
   getAllAlgaeColorSelectorItems,
-  getAllAlgaeSizePickerItems,
-  getAllRecordTypePickerItems,
+  getAllAlgaeSizeSelectorItems,
+  getAllRecordTypeSelectorItems,
 } from "../../record";
-import { Labels, TestIds } from "../../constants";
+import { Labels, Placeholders } from "../../constants";
 
 type AlgaeRecordTypeSelectorProps = {
   type: AlgaeRecordType;
@@ -38,7 +38,7 @@ function AlgaeRecordTypeSelector({
         onChange={setType}
       >
         <HStack>
-          {getAllRecordTypePickerItems().map((item) => (
+          {getAllRecordTypeSelectorItems().map((item) => (
             <Box mr="3" key={item.value}>
               <Radio value={item.value}>{item.label}</Radio>
             </Box>
@@ -49,29 +49,32 @@ function AlgaeRecordTypeSelector({
   );
 }
 
-type AlgaeSizePickerProps = {
+type AlgaeSizeSelectorProps = {
   size: AlgaeSize;
   setSize: (type: AlgaeSize) => void;
 };
 
-function AlgaeSizePicker({ size, setSize }: AlgaeSizePickerProps) {
+function AlgaeSizeSelector({ size, setSize }: AlgaeSizeSelectorProps) {
+  const renderSizes = () =>
+    getAllAlgaeSizeSelectorItems().map((item) => (
+      <Select.Item key={item.label} label={item.label} value={item.value} />
+    ));
+
   return (
-    <>
-      <Text style={formInputStyles.optionStaticText}>
-        {Labels.RecordFields.Size}
-      </Text>
-      <RNPickerSelect
-        touchableWrapperProps={{
-          testID: TestIds.Pickers.algaeSizePickerTestId,
+    <FormControl isRequired>
+      <FormControl.Label>{Labels.RecordFields.Size}</FormControl.Label>
+      <Select
+        size="xl"
+        selectedValue={size}
+        placeholder={Placeholders.RecordScreen.Size}
+        onValueChange={setSize}
+        _selectedItem={{
+          endIcon: <CheckIcon size="5" />,
         }}
-        style={pickerSelectStyles}
-        useNativeAndroidPickerStyle={false}
-        placeholder={{}}
-        items={getAllAlgaeSizePickerItems()}
-        onValueChange={(value) => setSize(value)}
-        value={size}
-      />
-    </>
+      >
+        {renderSizes()}
+      </Select>
+    </FormControl>
   );
 }
 
@@ -124,4 +127,4 @@ function AlgaeColorSelector(/* { colors, setColors }: AlgaeColorSelectorProps */
   );
 }
 
-export { AlgaeRecordTypeSelector, AlgaeSizePicker, AlgaeColorSelector };
+export { AlgaeRecordTypeSelector, AlgaeSizeSelector, AlgaeColorSelector };

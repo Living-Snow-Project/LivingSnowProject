@@ -22,7 +22,7 @@ import { formInputStyles } from "../styles/FormInput";
 import { HeaderButton } from "../components/HeaderButton";
 import {
   AlgaeRecordTypeSelector,
-  AlgaeSizePicker,
+  AlgaeSizeSelector,
   AlgaeColorSelector,
 } from "../components/forms/TypeSelector";
 import { DateSelector } from "../components/forms/DateSelector";
@@ -303,7 +303,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             usingGps={!editMode}
           />
 
-          <AlgaeSizePicker
+          <AlgaeSizeSelector
             size={state.size}
             setSize={(size) => {
               setState((prev) => ({ ...prev, size }));

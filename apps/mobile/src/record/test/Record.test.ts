@@ -1,17 +1,29 @@
-import { getRecordTypePickerItem } from "../Record";
+import { getAllRecordTypeSelectorItems } from "../Record";
 import { RecordDescription } from "../../constants/Strings";
 
+const getRecordTypeSelectorItem = (type) => {
+  const result = getAllRecordTypeSelectorItems().find(
+    (cur) => cur.value == type
+  );
+
+  if (result == undefined) {
+    return { value: "Undefined", label: RecordDescription.Undefined };
+  }
+
+  return result;
+};
+
 describe("Record test suite", () => {
-  test("getRecordTypePickerItem values", () => {
-    let cur = getRecordTypePickerItem("Sample");
+  test("getRecordTypeSelectorItem values", () => {
+    let cur = getRecordTypeSelectorItem("Sample");
     expect(cur.label).toEqual(RecordDescription.Sample);
 
-    cur = getRecordTypePickerItem("Sighting");
+    cur = getRecordTypeSelectorItem("Sighting");
     expect(cur.label).toEqual(RecordDescription.Sighting);
   });
 
-  test("getRecordTypePickerItem undefined record type", () => {
-    expect(getRecordTypePickerItem("Undefined").label).toEqual(
+  test("getRecordTypeSelectorItem undefined record type", () => {
+    expect(getRecordTypeSelectorItem("Undefined").label).toEqual(
       RecordDescription.Undefined
     );
   });

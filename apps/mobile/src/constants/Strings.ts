@@ -12,10 +12,11 @@ export const Placeholders = {
     Organization: "Enter organization you belong to (if any)",
   },
   RecordScreen: {
-    TubeId: "Leave blank if tube does not have an id",
-    TubeIdDisabled: "Disabled - only used for Samples",
     LocationDescription: "ie: Blue Lake, North Cascades, WA",
     Notes: "ie. dark red algae on glacial ice",
+    Size: "Select a size",
+    TubeId: "Leave blank if tube does not have an id",
+    TubeIdDisabled: "Disabled - only used for Samples",
   },
 };
 

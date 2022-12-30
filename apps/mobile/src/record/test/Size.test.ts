@@ -1,39 +1,48 @@
 import { AlgaeSize } from "@livingsnow/record";
-import { getAlgaeSizePickerItem } from "../Size";
+import { getAllAlgaeSizeSelectorItems } from "../Size";
 import { AlgaeSizeDescription } from "../../constants/Strings";
 
-describe("Algae Size test suite", () => {
-  test("getAlgaeSizePickerItem values", () => {
-    let cur = getAlgaeSizePickerItem("Select a size");
-    expect(cur.label).toEqual(AlgaeSizeDescription.Select);
+const getAlgaeSizeSelectorItem = (size: AlgaeSize) => {
+  const result = getAllAlgaeSizeSelectorItems().find(
+    (cur) => cur.value == size
+  );
 
-    cur = getAlgaeSizePickerItem("Fist");
+  if (result == undefined) {
+    return { value: "Other", label: AlgaeSizeDescription.Other };
+  }
+
+  return result;
+};
+
+describe("Algae Size test suite", () => {
+  test("getAlgaeSizeSelectorItem values", () => {
+    let cur = getAlgaeSizeSelectorItem("Fist");
     expect(cur.label).toEqual(AlgaeSizeDescription.Fist);
 
-    cur = getAlgaeSizePickerItem("Shoe Box");
+    cur = getAlgaeSizeSelectorItem("Shoe Box");
     expect(cur.label).toEqual(AlgaeSizeDescription.ShoeBox);
 
-    cur = getAlgaeSizePickerItem("Coffee Table");
+    cur = getAlgaeSizeSelectorItem("Coffee Table");
     expect(cur.label).toEqual(AlgaeSizeDescription.CoffeeTable);
 
-    cur = getAlgaeSizePickerItem("Car");
+    cur = getAlgaeSizeSelectorItem("Car");
     expect(cur.label).toEqual(AlgaeSizeDescription.Car);
 
-    cur = getAlgaeSizePickerItem("Bus");
+    cur = getAlgaeSizeSelectorItem("Bus");
     expect(cur.label).toEqual(AlgaeSizeDescription.Bus);
 
-    cur = getAlgaeSizePickerItem("Playground");
+    cur = getAlgaeSizeSelectorItem("Playground");
     expect(cur.label).toEqual(AlgaeSizeDescription.Playground);
 
-    cur = getAlgaeSizePickerItem("Sports Field");
+    cur = getAlgaeSizeSelectorItem("Sports Field");
     expect(cur.label).toEqual(AlgaeSizeDescription.SportsField);
 
-    cur = getAlgaeSizePickerItem("Other");
+    cur = getAlgaeSizeSelectorItem("Other");
     expect(cur.label).toEqual(AlgaeSizeDescription.Other);
   });
 
-  test("getAlgaeSizePickerItem Select a size", () => {
-    expect(getAlgaeSizePickerItem("garbage" as AlgaeSize).label).toEqual(
+  test("getAlgaeSizeSelectorItem bad value", () => {
+    expect(getAlgaeSizeSelectorItem("garbage" as AlgaeSize).label).toEqual(
       AlgaeSizeDescription.Other
     );
   });

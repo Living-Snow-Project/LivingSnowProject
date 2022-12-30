@@ -1,31 +1,18 @@
 import { AlgaeRecord, AlgaeRecordType } from "@livingsnow/record";
 import { RecordDescription } from "../constants/Strings";
 
-// specific format for RNPickerSelect
-type RecordTypePickerItem = {
+type RecordTypeSelectorItem = {
   value: AlgaeRecordType;
   label: string;
 };
 
-const recordTypePickerItems: RecordTypePickerItem[] = [
+const recordTypeSelectorItems: RecordTypeSelectorItem[] = [
   { value: "Sighting", label: RecordDescription.Sighting },
   { value: "Sample", label: RecordDescription.Sample },
 ];
 
-const getAllRecordTypePickerItems = (): RecordTypePickerItem[] =>
-  recordTypePickerItems;
-
-const getRecordTypePickerItem = (
-  type: AlgaeRecordType
-): RecordTypePickerItem => {
-  const result = recordTypePickerItems.find((cur) => cur.value === type);
-
-  if (result === undefined) {
-    return { value: "Undefined", label: RecordDescription.Undefined };
-  }
-
-  return result;
-};
+const getAllRecordTypeSelectorItems = (): RecordTypeSelectorItem[] =>
+  recordTypeSelectorItems;
 
 const examplePhoto = require("../../assets/images/splash.png");
 
@@ -52,8 +39,4 @@ const productionExampleRecord = (): AlgaeRecord => ({
   ],
 });
 
-export {
-  getRecordTypePickerItem,
-  getAllRecordTypePickerItems,
-  productionExampleRecord,
-};
+export { getAllRecordTypeSelectorItems, productionExampleRecord };
