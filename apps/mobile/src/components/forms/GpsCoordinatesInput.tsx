@@ -228,6 +228,7 @@ export function GpsCoordinatesInput({
 
   const gpsFieldProps = {
     value: state.value,
+    isRequired: true,
     label: "GPS Coordinates (latitude, longitude)",
     maxLength: 30,
     placeholder: state.placeholder,

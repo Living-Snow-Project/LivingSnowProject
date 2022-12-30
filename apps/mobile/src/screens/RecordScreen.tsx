@@ -6,6 +6,7 @@ import React, {
   useState,
 } from "react";
 import { ActivityIndicator, Alert, ScrollView, View } from "react-native";
+import { Box } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import Logger from "@livingsnow/logger";
@@ -65,6 +66,10 @@ const defaultRecord: AlgaeRecordInput = {
   size: "Select a size",
   color: "Select a color",
 };
+
+function Space() {
+  return <Box my="1" />;
+}
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
   // TODO: get updating\uploading from reducer
@@ -275,13 +280,12 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             </View>
           )}
 
-          {/* Sample, Sighting */}
           <AlgaeRecordTypeSelector
             type={state.type}
             setType={(type) => setState((prev) => ({ ...prev, type }))}
           />
 
-          {/* Date of Sample, Sighting */}
+          <Space />
           <DateSelector
             date={dateString}
             maxDate={today}
@@ -293,6 +297,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             }
           />
 
+          <Space />
           <GpsCoordinatesInput
             coordinates={{
               latitude: state.latitude,
@@ -305,6 +310,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             usingGps={!editMode}
           />
 
+          <Space />
           <AlgaeSizeSelector
             size={state.size}
             setSize={(size) => {
@@ -312,6 +318,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             }}
           />
 
+          <Space />
           <AlgaeColorSelector
           /* TODO: v2 API colors={state.color}
             setColors={(color) => {
@@ -319,6 +326,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             }} */
           />
 
+          <Space />
           <CustomTextInput
             value={state?.tubeId}
             label={Labels.RecordFields.TubeId}
@@ -333,6 +341,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             onSubmitEditing={() => locationDescriptionRef.current?.focus()}
           />
 
+          <Space />
           <CustomTextInput
             value={state?.locationDescription}
             label={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}
@@ -344,6 +353,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             ref={locationDescriptionRef}
           />
 
+          <Space />
           <CustomTextInput
             value={state?.notes}
             label={`${Labels.RecordFields.Notes} (limit 255 characters)`}
@@ -352,6 +362,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             ref={notesRef}
           />
 
+          <Space />
           <PhotoControl
             navigation={navigation}
             photos={photos}

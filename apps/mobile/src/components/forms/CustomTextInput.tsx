@@ -11,6 +11,7 @@ type CustomTextInputProps = {
   placeholder: string;
   value?: string | undefined;
   maxLength?: number;
+  isRequired?: boolean;
   isDisabled?: boolean;
   onChangeText?: (text: string) => void;
   onSubmitEditing?: () => void;
@@ -24,6 +25,7 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
       placeholder,
       maxLength = 255,
       isDisabled = false,
+      isRequired = false,
       onChangeText = () => {},
       onSubmitEditing = () => {},
     }: CustomTextInputProps,
@@ -46,7 +48,7 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
       return event.nativeEvent.contentSize.height;
     }; */
 
-    <FormControl>
+    <FormControl isRequired={isRequired}>
       <FormControl.Label>{label}</FormControl.Label>
       <Input
         size="lg"

@@ -51,7 +51,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
         >
           <Text style={{ textAlign: "center" }}>Data Sheet</Text>
         </View>
-        <Text>{`${Labels.RecordFields.Date}: ${recordDateFormat(date)}`}</Text>
+        <Text>{`${Labels.Date}: ${recordDateFormat(date)}`}</Text>
         <Text>{`${Labels.RecordFields.Type}: ${type}`}</Text>
         <Text>{`${Labels.RecordFields.Name}: ${name}`}</Text>
         {!!organization && (
