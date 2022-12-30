@@ -4194,17 +4194,17 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-native@~0.70.6":
-  version "0.70.8"
-  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.70.8.tgz#3302a0f7eddcd3350448ca17a9e415d02b1efde6"
-  integrity sha512-jvs5QMOrlyi0ScfT5Brha2roDoOWtbIOadNkp0jsueVen5+pH4SQAYtzL6xu0+dIcx3J/5LtZ/JYby2C1/zUug==
+"@types/react-native@^0.69.5", "@types/react-native@~0.70.6":
+  version "0.69.16"
+  resolved "https://registry.yarnpkg.com/@types/react-native/-/react-native-0.69.16.tgz#6ae7002840f7f4a2e598630e8daba9a7e691e692"
+  integrity sha512-wNaFnc3fyl33OcoZxRpamb9LN6B4bBkvQS/SswJLLM+h6y7SpsKmAIwKAxFAdttr+DZj9pVMwTIn6XA4Bto3KQ==
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^18.0.9", "@types/react@~18.0.24":
-  version "18.0.25"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.25.tgz#8b1dcd7e56fe7315535a4af25435e0bb55c8ae44"
-  integrity sha512-xD6c0KDT4m7n9uD4ZHi02lzskaiqcBxf4zi+tXZY98a04wvc0hi/TcCPC2FOESZi51Nd7tlUeOJY8RofL799/g==
+"@types/react@*", "@types/react@^18.0.17", "@types/react@^18.0.9", "@types/react@~18.0.24":
+  version "18.0.26"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.26.tgz#8ad59fc01fef8eaf5c74f4ea392621749f0b7917"
+  integrity sha512-hCR3PJQsAIXyxhTNSiDFY//LhnMZWpNNr5etoCqx/iUfGc5gXWtQR2Phl908jVR6uPXacojQWTg4qRpkxTuGug==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -12047,7 +12047,7 @@ mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-moment@^2.24.0:
+moment@^2.29.4:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
@@ -13790,10 +13790,10 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-native-calendars@^1.1287.0:
-  version "1.1291.0"
-  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1291.0.tgz#15b2335d4660deb71b9983be1fb2918710776c5b"
-  integrity sha512-WBkcpD0B+Fq/VMD5E3laRFf3/1VEaZGqzXW8D1csJUGnXwKbCvh5GOzEUBJJJ2dBTIjww0o4AOUyt4St9qbC8w==
+react-native-calendars@1.1293.0:
+  version "1.1293.0"
+  resolved "https://registry.yarnpkg.com/react-native-calendars/-/react-native-calendars-1.1293.0.tgz#3b06a7cbc050a074ec876a5accc90e49e9db84a1"
+  integrity sha512-/wWBlNOooHAVTCDhZptdeZEa1+DTUW1E3cI9auEPblJ56t1TXqe0gVK1UTchPDsA5d2eIXxdhTThpFD846yq7g==
   dependencies:
     hoist-non-react-statics "^3.3.1"
     immutable "^4.0.0-rc.12"
@@ -13804,7 +13804,7 @@ react-native-calendars@^1.1287.0:
     recyclerlistview "^3.0.5"
     xdate "^0.8.0"
   optionalDependencies:
-    moment "^2.24.0"
+    moment "^2.29.4"
 
 react-native-codegen@^0.70.6:
   version "0.70.6"

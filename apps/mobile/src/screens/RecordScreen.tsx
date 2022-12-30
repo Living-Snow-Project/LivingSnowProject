@@ -27,10 +27,7 @@ import {
 } from "../components/forms/TypeSelector";
 import { DateSelector } from "../components/forms/DateSelector";
 import { CustomTextInput } from "../components/forms/CustomTextInput";
-import {
-  GpsCoordinates,
-  GpsCoordinatesInput,
-} from "../components/forms/GpsCoordinatesInput";
+import { GpsCoordinatesInput } from "../components/forms/GpsCoordinatesInput";
 import { PhotoControl } from "../components/forms/PhotoControl";
 import { getAppSettings } from "../../AppSettings";
 import { TestIds } from "../constants/TestIds";
@@ -40,7 +37,7 @@ import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 type OffsetOperation = "add" | "subtract";
 
 const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
-  if (op === "add") {
+  if (op == "add") {
     return new Date(
       date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
     );
@@ -50,6 +47,8 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
     date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
   );
 };
+
+const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
 
 // while user entering input, latitude and longitude can be undefined
 type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
@@ -71,9 +70,11 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   // TODO: get updating\uploading from reducer
   const [updating, setUpdating] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
+
   // NativeBase typings not quite right for refs
   const notesRef = useRef<any>(null);
   const locationDescriptionRef = useRef<any>(null);
+
   const algaeRecordsContext = useAlgaeRecordsContext();
 
   const appSettings = getAppSettings();
@@ -283,6 +284,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           {/* Date of Sample, Sighting */}
           <DateSelector
             date={dateString}
+            maxDate={today}
             setDate={(newDate) =>
               setState((prev) => ({
                 ...prev,
@@ -296,7 +298,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               latitude: state.latitude,
               longitude: state.longitude,
             }}
-            setCoordinates={({ latitude, longitude }: GpsCoordinates) =>
+            setCoordinates={({ latitude, longitude }) =>
               setState((prev) => ({ ...prev, latitude, longitude }))
             }
             onSubmitEditing={() => locationDescriptionRef.current?.focus()}

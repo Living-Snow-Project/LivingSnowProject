@@ -21,16 +21,16 @@ export const Placeholders = {
 };
 
 export const Labels = {
+  Date: "Date",
   RecordForm: {
-    Type: "Are you Reporting a Sighting or Taking a Sample?",
     Color: "Color (select all that apply)",
+    Type: "Are you Reporting a Sighting or Taking a Sample?",
   },
   // TODO: rename to RecordDetailsFields
   RecordFields: {
     Type: "Type",
     Name: "Name",
     Organization: "Organization",
-    Date: "Date",
     TubeId: "Tube Id",
     GPSCoordinates: "Coordinates",
     Latitude: "Latitude",
