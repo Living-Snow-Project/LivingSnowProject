@@ -1,6 +1,18 @@
 import { AlgaeColor } from "@livingsnow/record";
-import { getAlgaeColorPickerItem } from "../Color";
+import { getAllAlgaeColorSelectorItems } from "../Color";
 import { AlgaeColorDescription } from "../../constants/Strings";
+
+const getAlgaeColorPickerItem = (color: AlgaeColor) => {
+  const result = getAllAlgaeColorSelectorItems().find(
+    (cur) => cur.value == color
+  );
+
+  if (result == undefined) {
+    return { value: "Other", label: AlgaeColorDescription.Other };
+  }
+
+  return result;
+};
 
 describe("Algae Color test suite", () => {
   test("getAlgaeColorPickerItem values", () => {

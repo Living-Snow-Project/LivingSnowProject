@@ -7,10 +7,11 @@ import { FormControl, Input } from "native-base";
 import RCTDeviceEventEmitter from "react-native/Libraries/EventEmitter/RCTDeviceEventEmitter"; */
 
 type CustomTextInputProps = {
-  value?: string | undefined;
   label: string;
-  maxLength?: number;
   placeholder: string;
+  value?: string | undefined;
+  maxLength?: number;
+  isDisabled?: boolean;
   onChangeText?: (text: string) => void;
   onSubmitEditing?: () => void;
 };
@@ -22,6 +23,7 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
       label,
       placeholder,
       maxLength = 255,
+      isDisabled = false,
       onChangeText = () => {},
       onSubmitEditing = () => {},
     }: CustomTextInputProps,
@@ -54,6 +56,7 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
         ref={ref}
         value={value}
         placeholder={placeholder}
+        isDisabled={isDisabled}
         onChangeText={onChangeText}
         onSubmitEditing={onSubmitEditing}
         /* onContentSizeChange={(event) => {
@@ -65,7 +68,7 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
         }} */
         maxLength={maxLength}
         returnKeyType="done"
-        variant="underlined"
+        variant="outline"
       />
     </FormControl>
   )

@@ -21,9 +21,9 @@ import { KeyboardShift } from "../components/KeyboardShift";
 import { formInputStyles } from "../styles/FormInput";
 import { HeaderButton } from "../components/HeaderButton";
 import {
-  TypeSelector,
+  AlgaeRecordTypeSelector,
   AlgaeSizePicker,
-  AlgaeColorPicker,
+  AlgaeColorSelector,
 } from "../components/forms/TypeSelector";
 import { DateSelector } from "../components/forms/DateSelector";
 import { CustomTextInput } from "../components/forms/CustomTextInput";
@@ -84,10 +84,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       ? {
           ...defaultRecord,
           id: uuidv4(),
-          name: appSettings.name ? appSettings.name : "Anonymous",
-          organization: !appSettings.organization
-            ? undefined
-            : appSettings.organization,
+          name: appSettings.name ?? "Anonymous",
+          organization: appSettings.organization,
           size: "Select a size",
           color: "Select a color",
         }
@@ -277,7 +275,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           )}
 
           {/* Sample, Sighting */}
-          <TypeSelector
+          <AlgaeRecordTypeSelector
             type={state.type}
             setType={(type) => setState((prev) => ({ ...prev, type }))}
           />
@@ -292,20 +290,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               }))
             }
           />
-
-          {/* Tube Id: only show Tube Id when recording a Sample */}
-          {isSample(state.type) && (
-            <CustomTextInput
-              value={state?.tubeId}
-              label={Labels.RecordFields.TubeId}
-              placeholder={Placeholders.RecordScreen.TubeId}
-              maxLength={20}
-              onChangeText={(tubeId) =>
-                setState((prev) => ({ ...prev, tubeId }))
-              }
-              onSubmitEditing={() => locationDescriptionRef.current?.focus()}
-            />
-          )}
 
           <GpsCoordinatesInput
             coordinates={{
@@ -326,11 +310,25 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             }}
           />
 
-          <AlgaeColorPicker
-            color={state.color}
-            setColor={(color) => {
+          <AlgaeColorSelector
+          /* TODO: v2 API colors={state.color}
+            setColors={(color) => {
               setState((prev) => ({ ...prev, color }));
-            }}
+            }} */
+          />
+
+          <CustomTextInput
+            value={state?.tubeId}
+            label={Labels.RecordFields.TubeId}
+            placeholder={
+              isSample(state.type)
+                ? Placeholders.RecordScreen.TubeId
+                : Placeholders.RecordScreen.TubeIdDisabled
+            }
+            maxLength={20}
+            isDisabled={!isSample(state.type)}
+            onChangeText={(tubeId) => setState((prev) => ({ ...prev, tubeId }))}
+            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
           />
 
           <CustomTextInput

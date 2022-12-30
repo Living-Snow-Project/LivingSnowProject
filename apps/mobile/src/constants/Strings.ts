@@ -2,7 +2,7 @@
 export const Placeholders = {
   GPS: {
     AcquiringLocation: "Looking for GPS signal",
-    EnterCoordinates: "ie. 12.345678, -123.456789",
+    EnterCoordinates: "ie. 12.34567, -123.45678",
     NoPermissions:
       "Check location permissions in Settings. Enter coordinates manually.",
     NoLocation: "Could not determine location. Enter coordinates manually.",
@@ -13,6 +13,7 @@ export const Placeholders = {
   },
   RecordScreen: {
     TubeId: "Leave blank if tube does not have an id",
+    TubeIdDisabled: "Disabled - only used for Samples",
     LocationDescription: "ie: Blue Lake, North Cascades, WA",
     Notes: "ie. dark red algae on glacial ice",
   },
@@ -21,6 +22,7 @@ export const Placeholders = {
 export const Labels = {
   RecordForm: {
     Type: "Are you Reporting a Sighting or Taking a Sample?",
+    Color: "Color (select all that apply)",
   },
   // TODO: rename to RecordDetailsFields
   RecordFields: {

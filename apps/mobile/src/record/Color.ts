@@ -1,34 +1,47 @@
 import { AlgaeColor } from "@livingsnow/record";
 import { AlgaeColorDescription } from "../constants/Strings";
 
-type AlgaeColorPickerItem = {
+type AlgaeColorSelectorItem = {
   value: AlgaeColor;
   label: string;
+  color?: { light: string; dark: string };
 };
 
-// specific format for RNPickerSelect
-const algaeColorPickerItems: AlgaeColorPickerItem[] = [
-  { value: "Select a color", label: AlgaeColorDescription.Select },
-  { value: "Red", label: AlgaeColorDescription.Red },
-  { value: "Pink", label: AlgaeColorDescription.Pink },
-  { value: "Grey", label: AlgaeColorDescription.Grey },
-  { value: "Green", label: AlgaeColorDescription.Green },
-  { value: "Orange", label: AlgaeColorDescription.Orange },
-  { value: "Yellow", label: AlgaeColorDescription.Yellow },
+const algaeColorSelectorItems: AlgaeColorSelectorItem[] = [
+  {
+    value: "Red",
+    label: AlgaeColorDescription.Red,
+    color: { light: "red.700", dark: "red.500" },
+  },
+  {
+    value: "Pink",
+    label: AlgaeColorDescription.Pink,
+    color: { light: "pink.500", dark: "pink.400" },
+  },
+  {
+    value: "Green",
+    label: AlgaeColorDescription.Green,
+    color: { light: "green.700", dark: "green.400" },
+  },
+  {
+    value: "Orange",
+    label: AlgaeColorDescription.Orange,
+    color: { light: "orange.500", dark: "orange.400" },
+  },
+  {
+    value: "Yellow",
+    label: AlgaeColorDescription.Yellow,
+    color: { light: "yellow.600", dark: "yellow.500" },
+  },
+  {
+    value: "Grey",
+    label: AlgaeColorDescription.Grey,
+    color: { light: "gray.600", dark: "gray.300" },
+  },
   { value: "Other", label: AlgaeColorDescription.Other },
 ];
 
-const getAlgaeColorPickerItem = (color: AlgaeColor): AlgaeColorPickerItem => {
-  const result = algaeColorPickerItems.find((cur) => cur.value === color);
+const getAllAlgaeColorSelectorItems = (): AlgaeColorSelectorItem[] =>
+  algaeColorSelectorItems;
 
-  if (result === undefined) {
-    return { value: "Other", label: AlgaeColorDescription.Other };
-  }
-
-  return result;
-};
-
-const getAllAlgaeColorPickerItems = (): AlgaeColorPickerItem[] =>
-  algaeColorPickerItems;
-
-export { getAlgaeColorPickerItem, getAllAlgaeColorPickerItems };
+export { getAllAlgaeColorSelectorItems };

@@ -43,7 +43,7 @@ function SettingsGroupItem({ label, right }: SettingsGroupItemProps) {
   const [labelValue, setLabel] = useState(label);
 
   return (
-    <HStack pb="1" height="10" justifyContent="space-between">
+    <HStack height="10" justifyContent="space-between">
       <Text mt="3" fontSize="md">
         {labelValue}
       </Text>
@@ -64,9 +64,11 @@ export function SettingsScreen() {
   return (
     <Box _dark={{ bg: "dark.100" }}>
       <VStack>
-        <SettingsGroup label={Headers.Profile}>
-          <UserIdentityInput />
-        </SettingsGroup>
+        <Box mb="1">
+          <SettingsGroup label={Headers.Profile}>
+            <UserIdentityInput />
+          </SettingsGroup>
+        </Box>
         <Divider />
 
         <SettingsGroup label={Headers.Prompts}>
