@@ -1,6 +1,10 @@
 import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
+import {
+  AlgaeRecord,
+  jsonToRecord,
+  recordDateFormat,
+} from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
 import { Labels } from "../constants/Strings";
 import { CachedPhotos } from "../components/CachedPhotos";
@@ -30,7 +34,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
     tubeId,
     notes,
     photos,
-  }: AlgaeRecord = route.params.record;
+  }: AlgaeRecord = jsonToRecord(route.params.record);
 
   return (
     <ScrollView style={styles.container}>

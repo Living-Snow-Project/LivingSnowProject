@@ -81,7 +81,8 @@ function PendingTimelineRow({ record, algaeRecords }: PendingTimelineRowProps) {
   const onPressDelete = () => setIsOpen(true);
   const onConfirmDelete = () => algaeRecords.delete(record);
 
-  const onEdit = () => navigation.navigate("Record", { record });
+  const onEdit = () =>
+    navigation.navigate("Record", { record: JSON.stringify(record) });
 
   const menuTrigger = (props: any) => (
     <Pressable {...props}>

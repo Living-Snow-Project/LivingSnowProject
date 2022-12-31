@@ -54,7 +54,9 @@ export function TimelineRow({ record, actionsMenu }: TimelineRowProps) {
     <>
       <Pressable
         testID={record.id.toString()}
-        onPress={() => navigate("RecordDetails", { record })}
+        onPress={() =>
+          navigate("RecordDetails", { record: JSON.stringify(record) })
+        }
       >
         <Box px={2} py={1} _dark={{ bg: "dark.100" }}>
           <VStack>

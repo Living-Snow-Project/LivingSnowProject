@@ -204,10 +204,13 @@ export function GpsCoordinatesInput({
   }, []);
 
   // sets focus when switching to manual entry
+  // in useEffect because ref doesn't exist at time of enabling manual entry event
   useEffect(() => {
-    // ref doesn't exist at time of enabling manual entry event
-    coordinatesInputRef.current?.focus();
-  }, [state.usingManualEntry]);
+    // don't set focus in Edit Mode
+    if (usingGps) {
+      coordinatesInputRef.current?.focus();
+    }
+  }, [state.usingManualEntry, usingGps]);
 
   const enableManualEntry = () => {
     stopWatchPosition();

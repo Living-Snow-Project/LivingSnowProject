@@ -14,6 +14,7 @@ import {
   AlgaeRecord,
   Photo,
   SelectedPhoto,
+  jsonToRecord,
   isSample,
   recordDateFormat,
 } from "@livingsnow/record";
@@ -29,7 +30,7 @@ import {
 import { DateSelector } from "../components/forms/DateSelector";
 import { CustomTextInput } from "../components/forms/CustomTextInput";
 import { GpsCoordinatesInput } from "../components/forms/GpsCoordinatesInput";
-import { PhotoControl } from "../components/forms/PhotoSelector";
+import { PhotoSelector } from "../components/forms/PhotoSelector";
 import { getAppSettings } from "../../AppSettings";
 import { TestIds } from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
@@ -51,7 +52,10 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
 
 const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
 
-// while user entering input, latitude and longitude can be undefined
+// latitude\longitude can be undefined if:
+//  1. location permission off
+//  2. can't acquire signal
+//  3. entering coordinates manually
 type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
   latitude: number | undefined;
   longitude: number | undefined;
@@ -67,8 +71,12 @@ const defaultRecord: AlgaeRecordInput = {
   color: "Select a color",
 };
 
-function Space() {
-  return <Box my="1" />;
+type SpaceProps = {
+  my?: string;
+};
+
+function Space({ my = "1" }: SpaceProps) {
+  return <Box my={my} />;
 }
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
@@ -76,18 +84,20 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const [updating, setUpdating] = useState<boolean>(false);
   const [uploading, setUploading] = useState<boolean>(false);
 
-  // NativeBase typings not quite right for refs
+  // NativeBase typings not correct for refs
   const notesRef = useRef<any>(null);
   const locationDescriptionRef = useRef<any>(null);
 
   const algaeRecordsContext = useAlgaeRecordsContext();
 
   const appSettings = getAppSettings();
+  const editMode = route && route.params && route.params.record;
 
   // data collected and sent to the service
   const [state, setState] = useState<AlgaeRecordInput>(
-    route == undefined || route.params == undefined
-      ? {
+    editMode
+      ? { ...jsonToRecord<AlgaeRecordInput>(route.params.record) }
+      : {
           ...defaultRecord,
           id: uuidv4(),
           name: appSettings.name ?? "Anonymous",
@@ -95,17 +105,16 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           size: "Select a size",
           color: "Select a color",
         }
-      : { ...route.params.record }
   );
 
   // don't want to change AlgaeRecord type for editing a pending record while offline
   // but do want to preserve the SelectedPhotos experience
   const [photos, setPhotos] = useState<SelectedPhoto[]>(() => {
-    if (!route || !route.params || !route.params.record.photos) {
+    if (!editMode || !state.photos) {
       return [];
     }
 
-    return route.params.record.photos.map((photo: Photo | SelectedPhoto) => {
+    return state.photos.map((photo: Photo | SelectedPhoto) => {
       if ("id" in photo) {
         return { ...photo };
       }
@@ -118,6 +127,13 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       };
     });
   });
+
+  // navigation.navigate from ImagesPickerScreen with selected photos
+  useEffect(() => {
+    if (route?.params?.photos) {
+      setPhotos(route.params.photos);
+    }
+  }, [route?.params?.photos]);
 
   const dateString = useMemo(() => recordDateFormat(state.date), [state.date]);
 
@@ -171,8 +187,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
     return newRecord;
   }, []);
-
-  const editMode = route != undefined && route.params != undefined;
 
   useEffect(() => {
     const RecordAction = editMode ? (
@@ -363,11 +377,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           />
 
           <Space />
-          <PhotoControl
-            navigation={navigation}
-            photos={photos}
-            onUpdatePhotos={(newPhotos) => setPhotos(newPhotos)}
-          />
+          <PhotoSelector navigation={navigation} photos={photos} />
+          <Space my="2" />
         </ScrollView>
       )}
     </KeyboardShift>

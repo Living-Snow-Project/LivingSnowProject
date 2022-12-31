@@ -2,18 +2,22 @@ import {
   NativeStackNavigationProp,
   NativeStackScreenProps,
 } from "@react-navigation/native-stack";
-import { AlgaeRecord, SelectedPhoto } from "@livingsnow/record";
+import { Asset } from "expo-media-library";
+
+type RecordScreenRouteProps = {
+  record?: string; // when coming from Timeline, Edit Mode, JSON.stringify'd AlgaeRecord
+  photos?: Asset[]; // when coming (back) from Image Selection
+};
 
 export type RootStackParamList = {
   Welcome: undefined;
   Timeline: undefined;
-  Record: { record: AlgaeRecord } | undefined; // edit record or new record
+  Record: RecordScreenRouteProps | undefined; // undefined => new record
   Settings: undefined;
   ImageSelection: {
     existingSelection?: string[];
-    onUpdatePhotos: (photos: SelectedPhoto[]) => void;
   };
-  RecordDetails: { record: AlgaeRecord };
+  RecordDetails: { record: string }; // JSON.stringify'd AlgaeRecord
 };
 
 export type RootStackNavigationProp =

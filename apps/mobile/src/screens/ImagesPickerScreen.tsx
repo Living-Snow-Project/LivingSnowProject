@@ -56,14 +56,14 @@ const widgetStyles: StylesType = {
   },
   videoIcon: {
     Component: Ionicons,
-    iconName: Platform.OS === "ios" ? "ios-videocam" : "md-videocam",
+    iconName: Platform.OS == "ios" ? "ios-videocam" : "md-videocam",
     color: "white",
     size: 20,
   },
   selectedIcon: {
     Component: Ionicons,
     iconName:
-      Platform.OS === "ios"
+      Platform.OS == "ios"
         ? "ios-checkmark-circle-outline"
         : "md-checkmark-circle-outline",
     color: "red",
@@ -106,12 +106,11 @@ export function ImagesPickerScreen({
       props: {
         navigation,
         onSuccess: (data: Asset[]) => {
-          route.params.onUpdatePhotos(data);
-          navigation.goBack();
+          navigation.navigate({ name: "Record", params: { photos: data } });
         },
       },
     }),
-    [navigation, route]
+    [navigation]
   );
 
   return (

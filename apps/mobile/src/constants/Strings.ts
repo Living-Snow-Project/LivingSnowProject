@@ -24,6 +24,7 @@ export const Labels = {
   Date: "Date",
   RecordForm: {
     Color: "Color (select all that apply)",
+    Photos: "Select Photos (limit 4)",
     Type: "Are you Reporting a Sighting or Taking a Sample?",
   },
   // TODO: rename to RecordDetailsFields
