@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Alert, ScrollView, View } from "react-native";
 import { Box } from "native-base";
 import "react-native-get-random-values";
@@ -38,6 +32,7 @@ import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 
 type OffsetOperation = "add" | "subtract";
 
+// unfortunate, because how react-native-calendar works with dates
 const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
   if (op == "add") {
     return new Date(
@@ -59,6 +54,26 @@ const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
 type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
   latitude: number | undefined;
   longitude: number | undefined;
+};
+
+// unmodified records do not send these fields
+// so if the fields are empty during submission, do not send them
+const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
+  const newRecord = { ...record };
+
+  if (newRecord.type == "Sighting" || newRecord?.tubeId == "") {
+    delete newRecord.tubeId;
+  }
+
+  if (newRecord?.locationDescription == "") {
+    delete newRecord.locationDescription;
+  }
+
+  if (newRecord?.notes == "") {
+    delete newRecord.notes;
+  }
+
+  return newRecord;
 };
 
 const defaultRecord: AlgaeRecordInput = {
@@ -107,6 +122,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         }
   );
 
+  const dateString = recordDateFormat(state.date);
+
   // don't want to change AlgaeRecord type for editing a pending record while offline
   // but do want to preserve the SelectedPhotos experience
   const [photos, setPhotos] = useState<SelectedPhoto[]>(() => {
@@ -134,8 +151,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       setPhotos(route.params.photos);
     }
   }, [route?.params?.photos]);
-
-  const dateString = useMemo(() => recordDateFormat(state.date), [state.date]);
 
   // user input form validation
   const validateUserInput = () => {
@@ -167,26 +182,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
     return true;
   };
-
-  // unmodified records do not send these fields
-  // so if the fields are empty during submission, do not send them
-  const removeEmptyFields = useCallback((record: AlgaeRecord): AlgaeRecord => {
-    const newRecord = { ...record };
-
-    if (newRecord.type == "Sighting" || newRecord?.tubeId == "") {
-      delete newRecord.tubeId;
-    }
-
-    if (newRecord?.locationDescription == "") {
-      delete newRecord.locationDescription;
-    }
-
-    if (newRecord?.notes == "") {
-      delete newRecord.notes;
-    }
-
-    return newRecord;
-  }, []);
 
   useEffect(() => {
     const RecordAction = editMode ? (
