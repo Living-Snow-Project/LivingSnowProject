@@ -13,7 +13,7 @@ export function TimelineScreen() {
   const algaeRecords = useAlgaeRecordsContext();
 
   const state = algaeRecords.getCurrentState();
-  const refreshing = state == "Downloading" || state == "Deleting";
+  const refreshing = state != "Idle";
 
   useEffect(() => {
     let prevIsConnected = connected;

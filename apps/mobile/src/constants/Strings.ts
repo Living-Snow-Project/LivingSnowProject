@@ -22,8 +22,10 @@ export const Placeholders = {
 
 export const Labels = {
   Date: "Date",
+  Delete: "Delete",
   RecordForm: {
     Color: "Color (select all that apply)",
+    Gps: "GPS Coordinates (latitude, longitude)",
     Photos: "Select Photos (limit 4)",
     Type: "Are you Reporting a Sighting or Taking a Sample?",
   },
@@ -53,6 +55,18 @@ export const Labels = {
   },
   StatusBar: {
     NoConnection: "No Internet Connection",
+  },
+  Modal: {
+    Cancel: "Cancel",
+    Confirm: "Confirm",
+    DiskUsage: {
+      header: "Confirm Delete",
+      body: "Are you sure you want to delete saved photos?",
+    },
+    GpsManualEntry: {
+      header: "Enter coordinates manually?",
+      body: `Some users enter coordinates manually if they cannot acquire GPS signal or when they return home.\n\nThis message can be disabled in Settings.`,
+    },
   },
 };
 

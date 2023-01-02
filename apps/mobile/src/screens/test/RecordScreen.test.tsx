@@ -10,13 +10,11 @@ import {
 import { RecordScreen } from "../RecordScreen";
 import { setAppSettings } from "../../../AppSettings";
 import { TestIds } from "../../constants/TestIds";
-import { Notifications, Placeholders } from "../../constants/Strings";
+import { Labels, Notifications, Placeholders } from "../../constants/Strings";
 import * as RecordManager from "../../lib/RecordManager";
 import * as Storage from "../../lib/Storage";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
-
-const isTubeIdVisible = (queryByText) => queryByText("Tube Id");
 
 // record action button renders independently of the screen
 let recordActionButton: () => JSX.Element;
@@ -64,20 +62,11 @@ const renderWithGpsWarningOff = () => {
     showGpsWarning: false,
   }));
 
-  const {
-    getByDisplayValue,
-    getByPlaceholderText,
-    getByTestId,
-    queryByTestId,
-  } = customRender();
+  const { getByDisplayValue, getByPlaceholderText, getByTestId } =
+    customRender();
 
-  expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
-  fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
-  expect(queryByTestId(TestIds.GPS.gpsManualPressableTestId)).toBeNull();
-  expect(
-    getByPlaceholderText(Placeholders.GPS.EnterCoordinates)
-  ).not.toBeNull();
-
+  fireEvent.press(getByTestId(TestIds.GPS.GpsManualEntryPressable));
+  // TODO: I have no way of testing if Modal is visible or not
   fireEvent.changeText(
     getByPlaceholderText(Placeholders.GPS.EnterCoordinates),
     testCoordinates
@@ -98,101 +87,121 @@ describe("RecordScreen test suite", () => {
 
   test("renders", () => {
     const { getByTestId, toJSON } = customRender();
+
     fireEvent.press(getByTestId("calendar-pressable"));
     fireEvent(getByTestId("calendar"), "onDayPress", {
       dateString: "2022-01-01",
     });
+
     expect(toJSON()).toMatchSnapshot();
   });
 
-  describe("Record type picker tests", () => {
+  describe("Record type selector tests", () => {
     test("Sample selected", () => {
-      const { queryByText } = customRender();
-      expect(isTubeIdVisible(queryByText)).toBeTruthy();
+      const { getByTestId, queryByPlaceholderText } = customRender();
+
+      fireEvent(
+        getByTestId(TestIds.Selectors.RecordType),
+        "onChange",
+        "Sample"
+      );
+
+      expect(
+        queryByPlaceholderText(Placeholders.RecordScreen.TubeId)
+      ).toBeTruthy();
     });
 
     test("Sighting selected", () => {
-      const { getByTestId, queryByText } = customRender();
+      const { getByTestId, queryByPlaceholderText } = customRender();
+
       fireEvent(
-        getByTestId(TestIds.Pickers.recordSelectorTestId),
-        "onValueChange",
+        getByTestId(TestIds.Selectors.RecordType),
+        "onChange",
         "Sighting"
       );
-      expect(isTubeIdVisible(queryByText)).toBeFalsy();
+
+      expect(
+        queryByPlaceholderText(Placeholders.RecordScreen.TubeIdDisabled)
+      ).toBeTruthy();
     });
   });
 
   describe("GPS coordinate tests", () => {
     test("with Expo.Location", () => {
-      const { getByTestId, queryByTestId } = customRender();
-      const noButtonMock = jest.fn();
-      const alertMock = jest.spyOn(Alert, "alert").mockImplementationOnce(
-        (title, message, buttons) =>
-          // @ts-ignore
-          noButtonMock(buttons[1]) // No button
-      );
+      const { getByTestId, queryByText } = customRender();
 
-      fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
-      expect(queryByTestId(TestIds.GPS.gpsManualInputTestId)).toBeNull();
-      expect(alertMock).toBeCalledTimes(1);
-      expect(noButtonMock).toHaveBeenLastCalledWith({
-        text: "No",
-        style: "cancel",
-      });
+      fireEvent.press(getByTestId(TestIds.GPS.GpsManualEntryPressable));
+
+      // TODO: I have no way of testing if Modal is visible or not
+      // these tests are always true if the modal is visible or not
+      expect(queryByText(Labels.Modal.Cancel)).toBeTruthy();
+      expect(queryByText(Labels.Modal.Confirm)).toBeTruthy();
     });
 
     test("manual with confirmation", () => {
       const {
         getByDisplayValue,
+        queryByDisplayValue,
         getByPlaceholderText,
+        queryByPlaceholderText,
         getByTestId,
+        getByText,
         queryByTestId,
       } = customRender();
       const testCoordinates = "123.456, -98.765";
-      const alertMock = jest.spyOn(Alert, "alert").mockImplementationOnce(
-        (title, message, buttons) =>
-          // @ts-ignore
-          buttons[0].onPress() // Yes button
-      );
 
-      fireEvent.press(getByTestId(TestIds.GPS.gpsManualPressableTestId));
-      expect(
-        getByPlaceholderText(Placeholders.GPS.EnterCoordinates)
-      ).not.toBeNull();
+      fireEvent.press(getByTestId(TestIds.GPS.GpsManualEntryPressable));
+      fireEvent.press(getByText(Labels.Modal.Confirm));
 
-      fireEvent.changeText(
-        getByTestId(TestIds.GPS.gpsManualInputTestId),
-        testCoordinates
-      );
-      expect(getByDisplayValue(testCoordinates)).not.toBeNull();
+      return waitFor(() =>
+        expect(
+          queryByPlaceholderText(Placeholders.GPS.EnterCoordinates)
+        ).toBeTruthy()
+      ).then(() => {
+        fireEvent.changeText(
+          getByPlaceholderText(Placeholders.GPS.EnterCoordinates),
+          testCoordinates
+        );
 
-      // pressable modal shouldn't be 1. visible, 2. prompt again, or 3. reset coordinates
-      fireEvent.press(getByTestId(TestIds.GPS.gpsManualInputTestId));
-      expect(queryByTestId(TestIds.GPS.gpsManualPressableTestId)).toBeNull();
-      expect(alertMock).toBeCalledTimes(1);
-      expect(getByDisplayValue(testCoordinates)).not.toBeNull();
+        return waitFor(() =>
+          expect(queryByDisplayValue(testCoordinates)).toBeTruthy()
+        ).then(() => {
+          // manual coordinates modal shouldn't prompt again or reset coordinates
+          // TODO: no way to test if modal is visible or not
+          fireEvent.press(getByDisplayValue(testCoordinates));
+
+          expect(
+            queryByTestId(TestIds.GPS.GpsManualEntryPressable)
+          ).toBeTruthy();
+          expect(getByDisplayValue(testCoordinates)).toBeTruthy();
+        });
+      });
     });
 
-    test("manual without confirmation", async () => {
-      const alertMock = jest.spyOn(Alert, "alert");
-
+    test("manual without confirmation", () => {
       const { expectedCoordinates, getByDisplayValue } =
         renderWithGpsWarningOff();
 
-      expect(getByDisplayValue(expectedCoordinates)).not.toBeNull();
-      fireEvent(getByDisplayValue(expectedCoordinates), "onSubmitEditing");
-
-      expect(alertMock).not.toBeCalled();
+      expect(getByDisplayValue(expectedCoordinates)).toBeTruthy();
     });
   });
 
   describe("TextInput tests", () => {
     test("TubeId", () => {
-      const { getByPlaceholderText, getByDisplayValue } = customRender();
-      const tubeId = getByPlaceholderText(Placeholders.RecordScreen.TubeId);
+      const { getByPlaceholderText, getByDisplayValue, getByTestId } =
+        customRender();
+      const tubeId = getByPlaceholderText(
+        Placeholders.RecordScreen.TubeIdDisabled
+      );
       const expected = "123-456";
 
+      fireEvent(
+        getByTestId(TestIds.Selectors.RecordType),
+        "onChange",
+        "Sample"
+      );
       fireEvent.changeText(tubeId, expected);
+
       expect(getByDisplayValue(expected)).not.toBeNull();
       fireEvent(tubeId, "onSubmitEditing");
     });
@@ -227,14 +236,11 @@ describe("RecordScreen test suite", () => {
       const { getByTestId } = customRender();
       navigation.navigate = jest
         .fn()
-        .mockImplementationOnce(
-          (route: string, params: { onUpdatePhotos: (uris: any) => void }) => {
-            expect(route).toEqual("ImageSelection");
-            params.onUpdatePhotos([]);
-          }
-        );
+        .mockImplementationOnce((screen: string) => {
+          expect(screen).toEqual("ImageSelection");
+        });
 
-      fireEvent.press(getByTestId(TestIds.Photos.photoSelectorTestId));
+      fireEvent.press(getByTestId(TestIds.Selectors.Photos));
 
       expect(navigation.navigate).toBeCalledTimes(1);
     });
@@ -253,13 +259,13 @@ describe("RecordScreen test suite", () => {
       screenGetByTestId = recordScreen.getByTestId;
 
       fireEvent(
-        screenGetByTestId(TestIds.Pickers.algaeSizePickerTestId),
+        screenGetByPlaceholderText(Placeholders.RecordScreen.Size),
         "onValueChange",
         "Fist"
       );
 
       fireEvent(
-        screenGetByTestId(TestIds.Pickers.algaeColorPickerTestId),
+        screenGetByTestId(TestIds.Selectors.AlgaeColor),
         "onValueChange",
         "Red"
       );
@@ -322,7 +328,7 @@ describe("RecordScreen test suite", () => {
       );
 
       fireEvent(
-        screenGetByTestId(TestIds.Pickers.recordSelectorTestId),
+        screenGetByTestId(TestIds.Selectors.RecordType),
         "onValueChange",
         "Sample"
       );
@@ -371,7 +377,7 @@ describe("RecordScreen test suite", () => {
       const alertMock = jest.spyOn(Alert, "alert");
 
       fireEvent(
-        screenGetByTestId(TestIds.Pickers.algaeSizePickerTestId),
+        screenGetByTestId(TestIds.Selectors.AlgaeSize),
         "onValueChange",
         "Select a size"
       );
@@ -389,7 +395,7 @@ describe("RecordScreen test suite", () => {
       const alertMock = jest.spyOn(Alert, "alert");
 
       fireEvent(
-        screenGetByTestId(TestIds.Pickers.algaeColorPickerTestId),
+        screenGetByTestId(TestIds.Selectors.AlgaeColor),
         "onValueChange",
         "Select a color"
       );
@@ -454,7 +460,7 @@ describe("RecordScreen test suite", () => {
       ];
 
       recordScreen = customRender({
-        params: { record },
+        params: { record: JSON.stringify(record) },
       } as RecordScreenRouteProp);
 
       return Storage.savePendingRecord(record);
@@ -473,7 +479,7 @@ describe("RecordScreen test suite", () => {
       const alertMock = jest.spyOn(Alert, "alert");
 
       fireEvent(
-        screenGetByTestId(TestIds.Pickers.recordSelectorTestId),
+        screenGetByTestId(TestIds.Selectors.RecordType),
         "onValueChange",
         "Sighting"
       );

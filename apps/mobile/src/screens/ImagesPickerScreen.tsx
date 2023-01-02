@@ -106,7 +106,11 @@ export function ImagesPickerScreen({
       props: {
         navigation,
         onSuccess: (data: Asset[]) => {
-          navigation.navigate({ name: "Record", params: { photos: data } });
+          navigation.navigate({
+            name: "Record",
+            params: { photos: data },
+            merge: true,
+          });
         },
       },
     }),

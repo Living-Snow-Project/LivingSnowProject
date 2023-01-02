@@ -7,6 +7,7 @@ import {
   readDirectoryAsync,
 } from "expo-file-system";
 import { Modal } from "./Modal";
+import { Labels, TestIds } from "../constants";
 
 type DiskUsageState = {
   state: "Calculating" | "Error Calculating" | "Completed" | "Error Deleting";
@@ -98,14 +99,15 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
   return (
     <>
       <Modal
-        body="Are you sure you want to delete saved photos?"
-        header="Confirm Delete"
+        header={Labels.Modal.DiskUsage.header}
+        body={Labels.Modal.DiskUsage.body}
         isOpen={isOpen}
+        testId={TestIds.Modal.DiskUsageDeletePhotos}
         setIsOpen={setIsOpen}
         onConfirm={deletePhotos}
       />
       <Button height="8" py="1" onPress={() => setIsOpen(true)}>
-        Delete
+        {Labels.Delete}
       </Button>
     </>
   );

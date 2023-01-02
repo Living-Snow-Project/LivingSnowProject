@@ -2,11 +2,12 @@ import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import * as Location from "expo-location";
 import { GpsCoordinatesInput } from "../forms/GpsCoordinatesInput";
-import { Placeholders } from "../../constants/Strings";
+import { Placeholders } from "../../constants";
+import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 
 describe("GpsCoordinatesInput tests", () => {
   const onSubmitEditingMock = jest.fn();
-  const setGpsCoordinatesMock = jest.fn();
+  const setCoordinatesMock = jest.fn();
 
   const requestForegroundPermissionsAsyncMock = (result: string) =>
     jest
@@ -36,19 +37,23 @@ describe("GpsCoordinatesInput tests", () => {
 
         callback(location as Location.LocationObject);
 
-        const sub: Location.LocationSubscription = {
+        const unsub: Location.LocationSubscription = {
           remove() {},
         };
 
-        return Promise.resolve<Location.LocationSubscription>(sub);
+        return Promise.resolve<Location.LocationSubscription>(unsub);
       });
 
   const renderGpsCoordinatesInput = () =>
     render(
-      <GpsCoordinatesInput
-        onSubmitEditing={onSubmitEditingMock}
-        setGpsCoordinates={setGpsCoordinatesMock}
-      />
+      <NativeBaseProviderForTesting>
+        <GpsCoordinatesInput
+          coordinates={{ latitude: undefined, longitude: undefined }}
+          usingGps
+          onSubmitEditing={onSubmitEditingMock}
+          setCoordinates={setCoordinatesMock}
+        />
+      </NativeBaseProviderForTesting>
     );
 
   afterEach(() => {
@@ -61,7 +66,7 @@ describe("GpsCoordinatesInput tests", () => {
 
     const { getByDisplayValue, toJSON } = renderGpsCoordinatesInput();
 
-    await waitFor(() => getByDisplayValue("123.456000, -98.765000"));
+    await waitFor(() => getByDisplayValue("123.456, -98.765"));
     expect(toJSON()).toMatchSnapshot();
   });
 
@@ -89,10 +94,14 @@ describe("GpsCoordinatesInput tests", () => {
     requestForegroundPermissionsAsyncFailureMock();
 
     const { getByPlaceholderText } = render(
-      <GpsCoordinatesInput
-        onSubmitEditing={onSubmitEditingMock}
-        setGpsCoordinates={setGpsCoordinatesMock}
-      />
+      <NativeBaseProviderForTesting>
+        <GpsCoordinatesInput
+          coordinates={{ latitude: undefined, longitude: undefined }}
+          usingGps
+          onSubmitEditing={onSubmitEditingMock}
+          setCoordinates={setCoordinatesMock}
+        />
+      </NativeBaseProviderForTesting>
     );
 
     await waitFor(() => getByPlaceholderText(Placeholders.GPS.NoPermissions));
@@ -102,17 +111,24 @@ describe("GpsCoordinatesInput tests", () => {
       "(56.789  , 454.76)   "
     );
 
-    expect(setGpsCoordinatesMock).toBeCalledWith(56.789, 454.76);
+    expect(setCoordinatesMock).toBeCalledWith({
+      latitude: 56.789,
+      longitude: 454.76,
+    });
   });
 
   test("done editing", async () => {
     requestForegroundPermissionsAsyncFailureMock();
 
     const { getByPlaceholderText } = render(
-      <GpsCoordinatesInput
-        onSubmitEditing={onSubmitEditingMock}
-        setGpsCoordinates={setGpsCoordinatesMock}
-      />
+      <NativeBaseProviderForTesting>
+        <GpsCoordinatesInput
+          coordinates={{ latitude: undefined, longitude: undefined }}
+          usingGps
+          onSubmitEditing={onSubmitEditingMock}
+          setCoordinates={setCoordinatesMock}
+        />
+      </NativeBaseProviderForTesting>
     );
 
     await waitFor(() => getByPlaceholderText(Placeholders.GPS.NoPermissions));
@@ -132,11 +148,14 @@ describe("GpsCoordinatesInput tests", () => {
     };
 
     const { getByDisplayValue } = render(
-      <GpsCoordinatesInput
-        onSubmitEditing={onSubmitEditingMock}
-        setGpsCoordinates={setGpsCoordinatesMock}
-        coordinates={coordinates}
-      />
+      <NativeBaseProviderForTesting>
+        <GpsCoordinatesInput
+          coordinates={coordinates}
+          usingGps={false}
+          onSubmitEditing={onSubmitEditingMock}
+          setCoordinates={setCoordinatesMock}
+        />
+      </NativeBaseProviderForTesting>
     );
 
     await waitFor(() =>

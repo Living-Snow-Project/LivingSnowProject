@@ -1,20 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GpsCoordinatesInput tests renders 1`] = `
-Array [
-  <Text
-    style={
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
+  style={
+    Array [
       Object {
-        "fontSize": 15,
-        "marginTop": 3,
-      }
-    }
-  >
-    GPS Coordinates (latitude, longitude)
-  </Text>,
+        "flex": 1,
+      },
+      undefined,
+    ]
+  }
+>
   <View
     accessible={true}
     collapsable={false}
+    dataSet={Object {}}
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -25,30 +26,636 @@ Array [
     onResponderTerminate={[Function]}
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
+    style={Object {}}
     testID="gps-manual-pressable"
   >
     <View
+      dataSet={Object {}}
       pointerEvents="none"
+      style={Object {}}
     >
-      <TextInput
-        defaultValue="123.456000, -98.765000"
-        editable={false}
-        maxLength={30}
-        placeholder="Looking for GPS signal"
-        returnKeyType="done"
+      <View
+        dataSet={Object {}}
+        isRequired={true}
         style={
           Object {
-            "backgroundColor": "#efefef",
-            "borderColor": "gray",
-            "borderRadius": 4,
-            "borderWidth": 1,
-            "minHeight": "8%",
-            "paddingHorizontal": 15,
-            "paddingVertical": 15,
+            "width": "100%",
+          }
+        }
+      >
+        <View
+          dataSet={Object {}}
+          feedbackId="field-2-feedback"
+          hasFeedbackText={false}
+          hasHelpText={false}
+          helpTextId="field-2-helptext"
+          isDisabled={false}
+          isInvalid={false}
+          isReadOnly={false}
+          isRequired={true}
+          labelId="field-2-label"
+          nativeID="field-2-label"
+          setHasFeedbackText={[Function]}
+          setHasHelpText={[Function]}
+          style={
+            Object {
+              "flexDirection": "row",
+              "justifyContent": "flex-start",
+              "marginBottom": 4,
+              "marginTop": 4,
+            }
+          }
+        >
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#737373",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "500",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            GPS Coordinates (latitude, longitude)
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#dc2626",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            *
+          </Text>
+        </View>
+        <View
+          dataSet={Object {}}
+          isFocused={false}
+          style={
+            Object {
+              "alignItems": "center",
+              "borderColor": "#d4d4d4",
+              "borderRadius": 4,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "overflow": "hidden",
+            }
+          }
+        >
+          <TextInput
+            accessibilityRequired={true}
+            accessible={true}
+            blurOnSubmit={true}
+            dataSet={Object {}}
+            disabled={false}
+            editable={true}
+            isRequired={true}
+            maxLength={30}
+            multiline={true}
+            nativeID="field-2-input"
+            onBlur={[Function]}
+            onChangeText={[Function]}
+            onFocus={[Function]}
+            onKeyPress={[Function]}
+            onSubmitEditing={[MockFunction]}
+            placeholder="Looking for GPS signal"
+            placeholderTextColor="#a3a3a3"
+            readOnly={false}
+            required={true}
+            returnKeyType="done"
+            secureTextEntry={false}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "color": "#171717",
+                "flex": 1,
+                "fontFamily": undefined,
+                "fontSize": 16,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "height": "100%",
+                "paddingBottom": 8,
+                "paddingLeft": 12,
+                "paddingRight": 12,
+                "paddingTop": 8,
+                "width": "100%",
+              }
+            }
+            value="123.456, -98.765"
+          />
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    collapsable={false}
+    pointerEvents="box-none"
+    style={
+      Array [
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "display": "none",
+        },
+      ]
+    }
+  >
+    <View
+      collapsable={false}
+      pointerEvents="none"
+      style={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateY": 0,
+            },
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "scale": 1,
+            },
+            Object {
+              "scaleX": 1,
+            },
+            Object {
+              "scaleY": 1,
+            },
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+        }
+      }
+    >
+      <View
+        accessible={false}
+        collapsable={false}
+        dataSet={Object {}}
+        focusable={true}
+        importantForAccessibility="no"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgb(0, 0, 0)",
+            "bottom": 0,
+            "left": 0,
+            "opacity": 0.3,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
           }
         }
       />
     </View>
-  </View>,
-]
+    <View
+      collapsable={false}
+      pointerEvents="none"
+      style={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateY": 0,
+            },
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "scale": 1,
+            },
+            Object {
+              "scaleX": 1,
+            },
+            Object {
+              "scaleY": 1,
+            },
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+        }
+      }
+    >
+      <View
+        closeOnOverlayClick={true}
+        dataSet={Object {}}
+        pointerEvents="box-none"
+        style={
+          Object {
+            "alignItems": "center",
+            "height": "100%",
+            "justifyContent": "center",
+            "width": "100%",
+          }
+        }
+        testID="gps-enable-manual-coordinates-modal"
+      >
+        <View
+          accessibilityViewIsModal={true}
+          aria-modal="true"
+          dataSet={Object {}}
+          onAccessibilityEscape={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#fafafa",
+              "borderRadius": 8,
+              "elevation": 2,
+              "maxHeight": 1184,
+              "maxWidth": 320,
+              "overflow": "hidden",
+              "shadowColor": "#000000",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 0,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 1.41,
+              "width": "65%",
+            }
+          }
+        >
+          <View
+            accessibilityRole="button"
+            accessible={true}
+            collapsable={false}
+            colorScheme="coolGray"
+            dataSet={Object {}}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "borderRadius": 4,
+                "paddingBottom": 8,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 8,
+                "position": "absolute",
+                "right": 12,
+                "top": 12,
+                "zIndex": 1,
+              }
+            }
+          >
+            <RNSVGSvgView
+              accessibilityRole="image"
+              align="xMidYMid"
+              bbHeight="16"
+              bbWidth="16"
+              dataSet={Object {}}
+              focusable={false}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              stroke=""
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  Object {
+                    "color": "#737373",
+                    "height": 16,
+                    "width": 16,
+                  },
+                  Object {
+                    "flex": 0,
+                    "height": 16,
+                    "width": 16,
+                  },
+                ]
+              }
+              tintColor="#737373"
+              vbHeight={24}
+              vbWidth={24}
+            >
+              <RNSVGGroup
+                propList={
+                  Array [
+                    "stroke",
+                  ]
+                }
+                stroke={null}
+              >
+                <RNSVGGroup>
+                  <RNSVGPath
+                    d="M12 9.77778L4.22222 2L2 4.22222L9.77778 12L2 19.7778L4.22222 22L12 14.2222L19.7778 22L22 19.7778L14.2222 12L22 4.22222L19.7778 2L12 9.77778Z"
+                    fill={
+                      Object {
+                        "type": 2,
+                      }
+                    }
+                    propList={
+                      Array [
+                        "fill",
+                        "stroke",
+                      ]
+                    }
+                    stroke={null}
+                  />
+                </RNSVGGroup>
+              </RNSVGGroup>
+            </RNSVGSvgView>
+          </View>
+          <View
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": "#fafafa",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              }
+            }
+          >
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "600",
+                  "letterSpacing": 0,
+                  "lineHeight": 20,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Enter coordinates manually?
+            </Text>
+          </View>
+          <RCTScrollView
+            contentContainerStyle={
+              Array [
+                Object {},
+                Object {
+                  "dataSet": Object {},
+                },
+                Object {},
+              ]
+            }
+            dataSet={Object {}}
+            style={Object {}}
+          >
+            <View>
+              <View
+                dataSet={Object {}}
+                style={
+                  Object {
+                    "paddingBottom": 16,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 16,
+                  }
+                }
+              >
+                <Text
+                  dataSet={Object {}}
+                  style={
+                    Object {
+                      "backgroundColor": undefined,
+                      "color": "#171717",
+                      "fontFamily": undefined,
+                      "fontSize": 14,
+                      "fontStyle": "normal",
+                      "fontWeight": "400",
+                      "letterSpacing": 0,
+                      "lineHeight": 21,
+                      "textDecorationLine": undefined,
+                    }
+                  }
+                >
+                  Some users enter coordinates manually if they cannot acquire GPS signal or when they return home.
+
+This message can be disabled in Settings.
+                </Text>
+              </View>
+            </View>
+          </RCTScrollView>
+          <View
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": "#fafafa",
+                "borderColor": "#d4d4d4",
+                "borderTopWidth": 1,
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              }
+            }
+          >
+            <View
+              dataSet={Object {}}
+              style={
+                Object {
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                accessibilityRole="button"
+                accessible={true}
+                collapsable={false}
+                colorScheme="blueGray"
+                dataSet={Object {}}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderRadius": 4,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": 10,
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "paddingTop": 10,
+                  }
+                }
+                testID="modal-no-button"
+              >
+                <View
+                  dataSet={Object {}}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                    }
+                  }
+                  test={true}
+                >
+                  <View
+                    dataSet={Object {}}
+                    style={Object {}}
+                  >
+                    <Text
+                      dataSet={Object {}}
+                      style={
+                        Object {
+                          "backgroundColor": undefined,
+                          "color": "#475569",
+                          "fontFamily": undefined,
+                          "fontSize": 14,
+                          "fontStyle": "normal",
+                          "fontWeight": "400",
+                          "letterSpacing": 0,
+                          "lineHeight": 21,
+                          "textDecorationLine": undefined,
+                        }
+                      }
+                    >
+                      Cancel
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View
+                dataSet={Object {}}
+                style={
+                  Object {
+                    "width": 8,
+                  }
+                }
+              />
+              <View
+                accessibilityRole="button"
+                accessible={true}
+                collapsable={false}
+                colorScheme="primary"
+                dataSet={Object {}}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "#0891b2",
+                    "borderRadius": 4,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": 10,
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "paddingTop": 10,
+                  }
+                }
+                testID="modal-confirm-button"
+              >
+                <View
+                  dataSet={Object {}}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                    }
+                  }
+                  test={true}
+                >
+                  <View
+                    dataSet={Object {}}
+                    style={Object {}}
+                  >
+                    <Text
+                      dataSet={Object {}}
+                      style={
+                        Object {
+                          "backgroundColor": undefined,
+                          "color": "#fafafa",
+                          "fontFamily": undefined,
+                          "fontSize": 14,
+                          "fontStyle": "normal",
+                          "fontWeight": "400",
+                          "letterSpacing": 0,
+                          "lineHeight": 21,
+                          "textDecorationLine": undefined,
+                        }
+                      }
+                    >
+                      Confirm
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</RNCSafeAreaProvider>
 `;

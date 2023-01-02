@@ -17,7 +17,7 @@ import {
   getAllAlgaeSizeSelectorItems,
   getAllRecordTypeSelectorItems,
 } from "../../record";
-import { Labels, Placeholders } from "../../constants";
+import { Labels, Placeholders, TestIds } from "../../constants";
 
 type AlgaeRecordTypeSelectorProps = {
   type: AlgaeRecordType;
@@ -36,6 +36,7 @@ function AlgaeRecordTypeSelector({
         accessibilityLabel="select type of record"
         defaultValue={type}
         onChange={setType}
+        testID={TestIds.Selectors.RecordType}
       >
         <HStack>
           {getAllRecordTypeSelectorItems().map((item) => (

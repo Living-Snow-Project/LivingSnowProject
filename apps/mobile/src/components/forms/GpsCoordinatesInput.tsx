@@ -10,8 +10,7 @@ import Logger from "@livingsnow/logger";
 import { CustomTextInput } from "./CustomTextInput";
 import { Modal } from "../Modal";
 import { getAppSettings } from "../../../AppSettings";
-import { TestIds } from "../../constants/TestIds";
-import { Placeholders } from "../../constants/Strings";
+import { Labels, Placeholders, TestIds } from "../../constants";
 
 export type GpsCoordinates = {
   latitude: number | undefined;
@@ -203,17 +202,9 @@ export function GpsCoordinatesInput({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // sets focus when switching to manual entry
-  // in useEffect because ref doesn't exist at time of enabling manual entry event
-  useEffect(() => {
-    // don't set focus in Edit Mode
-    if (usingGps) {
-      coordinatesInputRef.current?.focus();
-    }
-  }, [state.usingManualEntry, usingGps]);
-
   const enableManualEntry = () => {
     stopWatchPosition();
+    coordinatesInputRef.current.focus();
     dispatch({ type: "SWITCH_TO_MANUAL" });
   };
 
@@ -229,41 +220,34 @@ export function GpsCoordinatesInput({
   const dismissConfirmManualEntry = () =>
     dispatch({ type: "CLOSE_CONFIRM_MANUAL" });
 
-  const gpsFieldProps = {
-    value: state.value,
-    isRequired: true,
-    label: "GPS Coordinates (latitude, longitude)",
-    maxLength: 30,
-    placeholder: state.placeholder,
-  };
-
-  const renderCoordinatesInput = state.usingManualEntry ? (
-    <CustomTextInput
-      {...gpsFieldProps}
-      onChangeText={onCoordinatesChanged}
-      onSubmitEditing={onSubmitEditing}
-      ref={coordinatesInputRef}
-    />
-  ) : (
+  const renderCoordinatesInput = (
     // user confirms they want to enter GPS coordinates manually
     <Pressable
       onPress={showConfirmManualEntry}
-      testID={TestIds.GPS.gpsManualPressableTestId}
+      testID={TestIds.GPS.GpsManualEntryPressable}
     >
-      <View pointerEvents="none">
-        <CustomTextInput {...gpsFieldProps} />
+      <View pointerEvents={state.usingManualEntry ? "auto" : "none"}>
+        <CustomTextInput
+          value={state.value}
+          isRequired
+          label={Labels.RecordForm.Gps}
+          maxLength={30}
+          placeholder={state.placeholder}
+          onChangeText={onCoordinatesChanged}
+          onSubmitEditing={onSubmitEditing}
+          ref={coordinatesInputRef}
+        />
       </View>
     </Pressable>
   );
 
-  const message = `Some users enter coordinates manually if they cannot acquire GPS signal or when they return home.\n\nThis message can be disabled in Settings.`;
-
   return (
     <>
       <Modal
-        header="Enter coordinates manually?"
-        body={message}
+        header={Labels.Modal.GpsManualEntry.header}
+        body={Labels.Modal.GpsManualEntry.body}
         isOpen={state.isConfirmManualEntryOpen}
+        testId={TestIds.GPS.GpsManualEntryModal}
         setIsOpen={dismissConfirmManualEntry}
         onConfirm={enableManualEntry}
       />

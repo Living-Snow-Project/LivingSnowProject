@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, Alert, ScrollView, View } from "react-native";
+import { Alert, ScrollView } from "react-native";
 import { Box } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
@@ -30,6 +30,7 @@ import { TestIds } from "../constants/TestIds";
 import { Labels, Notifications, Placeholders } from "../constants/Strings";
 import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 
+// TODO: move to @living-snow/records
 type OffsetOperation = "add" | "subtract";
 
 // unfortunate, because how react-native-calendar works with dates
@@ -56,6 +57,7 @@ type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
   longitude: number | undefined;
 };
 
+// TODO: move to @living-snow/records
 // unmodified records do not send these fields
 // so if the fields are empty during submission, do not send them
 const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
@@ -95,15 +97,12 @@ function Space({ my = "1" }: SpaceProps) {
 }
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
-  // TODO: get updating\uploading from reducer
-  const [updating, setUpdating] = useState<boolean>(false);
-  const [uploading, setUploading] = useState<boolean>(false);
-
   // NativeBase typings not correct for refs
   const notesRef = useRef<any>(null);
   const locationDescriptionRef = useRef<any>(null);
 
-  const algaeRecordsContext = useAlgaeRecordsContext();
+  const algaeRecords = useAlgaeRecordsContext();
+  const algaeRecordsState = algaeRecords.getCurrentState();
 
   const appSettings = getAppSettings();
   const editMode = route && route.params && route.params.record;
@@ -122,10 +121,13 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         }
   );
 
-  const dateString = recordDateFormat(state.date);
+  /* TODO: merge setState and setPhotos in to single useState
+	  1. change upload\update /lib to take pending photo (rename to [Client|Input]Photo)
+	  2. Typings for ServiceAlgaeRecord and [Client|Input]AlgaeRecord
+       a. typings are messy right now with all this mapping and omit nonsense
 
-  // don't want to change AlgaeRecord type for editing a pending record while offline
-  // but do want to preserve the SelectedPhotos experience
+  don't want to change AlgaeRecord type for editing a pending record while offline
+  but do want to preserve the SelectedPhotos experience */
   const [photos, setPhotos] = useState<SelectedPhoto[]>(() => {
     if (!editMode || !state.photos) {
       return [];
@@ -151,6 +153,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       setPhotos(route.params.photos);
     }
   }, [route?.params?.photos]);
+
+  const dateString = recordDateFormat(state.date);
 
   // user input form validation
   const validateUserInput = () => {
@@ -183,42 +187,13 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     return true;
   };
 
-  useEffect(() => {
-    const RecordAction = editMode ? (
-      <HeaderButton
-        testID={TestIds.RecordScreen.UpdateButton}
-        onPress={() => setUpdating(true)}
-        iconName="save-outline"
-        placement="right"
-      />
-    ) : (
-      <HeaderButton
-        testID={TestIds.RecordScreen.UploadButton}
-        onPress={() => setUploading(true)}
-        iconName="cloud-upload"
-        placement="right"
-      />
-    );
-
-    navigation.setOptions({
-      headerRight: () => RecordAction,
-    });
-    // need to setup header right button on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // update record effect
-  // TODO: get updating state from reducer
-  useEffect(() => {
-    if (!updating) return;
-
-    if (!validateUserInput()) {
-      setUpdating(false);
+  const onUpdateHandler = () => {
+    if (algaeRecordsState != "Idle" || !validateUserInput()) {
       return;
     }
 
     // TODO: change updatePendingRecord to take SelectedPhoto?
-    algaeRecordsContext
+    algaeRecords
       .updatePendingRecord({
         ...removeEmptyFields(state as AlgaeRecord),
         photos: photos && photos.map((value) => ({ ...value, size: 0 })),
@@ -231,25 +206,17 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         )
       )
       .finally(() => {
-        setUpdating(false);
         navigation.goBack();
       });
-    // this shouldn't even be a hook
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [updating]);
+  };
 
-  // upload record effect
-  // TODO: get uploading state from reducer
-  useEffect(() => {
-    if (!uploading) return;
-
-    if (!validateUserInput()) {
-      setUploading(false);
+  const onUploadHandler = () => {
+    if (algaeRecordsState != "Idle" || !validateUserInput()) {
       return;
     }
 
     // TODO: change uploadRecord to take SelectedPhoto?
-    algaeRecordsContext
+    algaeRecords
       .uploadRecord(
         removeEmptyFields(state as AlgaeRecord),
         photos && photos.map((value) => ({ ...value, size: 0 }))
@@ -267,28 +234,40 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         Alert.alert(error.title, error.message);
       })
       .finally(() => {
-        setUploading(false);
-        algaeRecordsContext.downloadRecords();
+        algaeRecords.downloadRecords();
         navigation.goBack();
       });
-    // this shouldn't even be a hook
+  };
+
+  useEffect(() => {
+    const RecordAction = editMode ? (
+      <HeaderButton
+        testID={TestIds.RecordScreen.UpdateButton}
+        onPress={onUpdateHandler}
+        iconName="save-outline"
+        placement="right"
+      />
+    ) : (
+      <HeaderButton
+        testID={TestIds.RecordScreen.UploadButton}
+        onPress={onUploadHandler}
+        iconName="cloud-upload"
+        placement="right"
+      />
+    );
+
+    navigation.setOptions({
+      headerRight: () => RecordAction,
+    });
+    // event handlers need to refresh whenever state or photos update
+    // this is safe because navigation header renders independently of screen
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uploading]);
+  }, [state, photos]);
 
   return (
     <KeyboardShift>
       {() => (
         <ScrollView style={formInputStyles.container}>
-          {uploading && (
-            <View style={{ marginTop: 3 }}>
-              <ActivityIndicator
-                animating={uploading}
-                size="large"
-                color="#0000ff"
-              />
-            </View>
-          )}
-
           <AlgaeRecordTypeSelector
             type={state.type}
             setType={(type) => setState((prev) => ({ ...prev, type }))}

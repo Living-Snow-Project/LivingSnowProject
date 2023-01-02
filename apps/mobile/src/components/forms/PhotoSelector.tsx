@@ -2,9 +2,8 @@ import React from "react";
 import { AddIcon, Box, FormControl, Pressable } from "native-base";
 import { SelectedPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
-import { TestIds } from "../../constants/TestIds";
+import { Labels, TestIds } from "../../constants";
 import { PhotosLayout } from "../PhotosLayout";
-import { Labels } from "../../constants";
 
 type PhotoSelectorProps = {
   navigation: RootStackNavigationProp;
@@ -40,10 +39,7 @@ export function PhotoSelector({ navigation, photos }: PhotoSelectorProps) {
   return (
     <FormControl>
       <FormControl.Label>{Labels.RecordForm.Photos}</FormControl.Label>
-      <Pressable
-        testID={TestIds.Photos.photoSelectorTestId}
-        onPress={handleOnPress}
-      >
+      <Pressable testID={TestIds.Selectors.Photos} onPress={handleOnPress}>
         {renderPhotos()}
       </Pressable>
     </FormControl>

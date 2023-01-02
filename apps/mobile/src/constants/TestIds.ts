@@ -1,15 +1,13 @@
 export const TestIds = {
   GPS: {
-    gpsManualInputTestId: "gps-manual-input",
-    gpsManualPressableTestId: "gps-manual-pressable",
+    GpsManualEntryModal: "gps-enable-manual-coordinates-modal",
+    GpsManualEntryPressable: "gps-manual-pressable",
   },
-  Photos: {
-    photoSelectorTestId: "photo-selector",
-  },
-  Pickers: {
-    recordSelectorTestId: "record-type-picker",
-    algaeSizePickerTestId: "algae-size-picker",
-    algaeColorPickerTestId: "algae-color-picker",
+  Selectors: {
+    AlgaeColor: "algae-color-selector",
+    AlgaeSize: "algae-size-selector",
+    Photos: "photo-selector",
+    RecordType: "record-type-selector",
   },
   RecordScreen: {
     UploadButton: "record-screen-upload-button",
@@ -39,5 +37,10 @@ export const TestIds = {
   RecordList: {
     EditRecordAction: "edit-record-action",
     DeleteRecordAction: "delete-record-action",
+  },
+  Modal: {
+    ConfirmButton: "modal-confirm-button",
+    DiskUsageDeletePhotos: "disk-usage-delete-photos-modal",
+    NoButton: "modal-no-button",
   },
 };
