@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 import { Box } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
@@ -26,9 +26,9 @@ import { CustomTextInput } from "../components/forms/CustomTextInput";
 import { GpsCoordinatesInput } from "../components/forms/GpsCoordinatesInput";
 import { PhotoSelector } from "../components/forms/PhotoSelector";
 import { getAppSettings } from "../../AppSettings";
-import { TestIds } from "../constants/TestIds";
-import { Labels, Notifications, Placeholders } from "../constants/Strings";
-import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
+import { Labels, Notifications, Placeholders, TestIds } from "../constants";
+import { useAlgaeRecordsContext, useToast } from "../hooks";
+import { ToastAlert } from "../components/Toast";
 
 // TODO: move to @living-snow/records
 type OffsetOperation = "add" | "subtract";
@@ -100,6 +100,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   // NativeBase typings not correct for refs
   const notesRef = useRef<any>(null);
   const locationDescriptionRef = useRef<any>(null);
+  const toast = useToast();
 
   const algaeRecords = useAlgaeRecordsContext();
   const algaeRecordsState = algaeRecords.getCurrentState();
@@ -116,8 +117,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           id: uuidv4(),
           name: appSettings.name ?? "Anonymous",
           organization: appSettings.organization,
-          size: "Select a size",
-          color: "Select a color",
         }
   );
 
@@ -166,21 +165,21 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       !isNumber(state.latitude) ||
       !isNumber(state.longitude)
     ) {
-      Alert.alert(
+      /* Alert.alert(
         Notifications.invalidCoordinates.title,
         Notifications.invalidCoordinates.message
-      );
+      ); */
 
       return false;
     }
 
     if (state.size == "Select a size") {
-      Alert.alert(Notifications.invalidAlgaeSize.title);
+      // Alert.alert(Notifications.invalidAlgaeSize.title);
       return false;
     }
 
     if (state.color == "Select a color") {
-      Alert.alert(Notifications.invalidAlgaeColor.title);
+      // Alert.alert(Notifications.invalidAlgaeColor.title);
       return false;
     }
 
@@ -198,11 +197,21 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         ...removeEmptyFields(state as AlgaeRecord),
         photos: photos && photos.map((value) => ({ ...value, size: 0 })),
       })
-      .then(() => Alert.alert(Notifications.updateRecordSuccess.title))
+      .then(() =>
+        toast.show(
+          <ToastAlert
+            status="success"
+            title={Notifications.updateRecordSuccess.title}
+          />
+        )
+      )
       .catch(() =>
-        Alert.alert(
-          Notifications.updateRecordFailed.title,
-          Notifications.updateRecordFailed.message
+        toast.show(
+          <ToastAlert
+            status="info"
+            title={Notifications.updateRecordFailed.title}
+            message={Notifications.updateRecordFailed.message}
+          />
         )
       )
       .finally(() => {
@@ -222,16 +231,26 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         photos && photos.map((value) => ({ ...value, size: 0 }))
       )
       .then(() =>
-        Alert.alert(
-          Notifications.uploadSuccess.title,
-          Notifications.uploadSuccess.message
+        toast.show(
+          <ToastAlert
+            status="success"
+            title={Notifications.uploadSuccess.title}
+            message={Notifications.uploadSuccess.message}
+          />
         )
       )
       .catch((error) => {
         Logger.Warn(
           `Failed to upload complete record: ${error.title}: ${error.message}`
         );
-        Alert.alert(error.title, error.message);
+
+        toast.show(
+          <ToastAlert
+            status="info"
+            title={error.title}
+            message={error.message}
+          />
+        );
       })
       .finally(() => {
         algaeRecords.downloadRecords();
