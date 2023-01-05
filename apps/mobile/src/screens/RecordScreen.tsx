@@ -12,6 +12,9 @@ import {
   isSample,
   recordDateFormat,
 } from "@livingsnow/record";
+import { setOnFocusTimelineAction } from "./TimelineScreen";
+import { uploadRecord } from "../lib/RecordManager";
+import { updatePendingRecord } from "../lib/Storage";
 import { RecordScreenProps } from "../navigation/Routes";
 import { KeyboardShift } from "../components/KeyboardShift";
 import { formInputStyles } from "../styles/FormInput";
@@ -27,10 +30,9 @@ import { GpsCoordinatesInput } from "../components/forms/GpsCoordinatesInput";
 import { PhotoSelector } from "../components/forms/PhotoSelector";
 import { getAppSettings } from "../../AppSettings";
 import { Labels, Notifications, Placeholders, TestIds } from "../constants";
-import { useAlgaeRecordsContext, useToast } from "../hooks";
-import { ToastAlert } from "../components/Toast";
+import { useToast } from "../hooks";
+import { ToastAlert, ToastAlertProps } from "../components/Toast";
 
-// TODO: move to @living-snow/records
 type OffsetOperation = "add" | "subtract";
 
 // unfortunate, because how react-native-calendar works with dates
@@ -102,8 +104,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const locationDescriptionRef = useRef<any>(null);
   const toast = useToast();
 
-  const algaeRecords = useAlgaeRecordsContext();
-  const algaeRecordsState = algaeRecords.getCurrentState();
+  const [status, setStatus] = useState<"Idle" | "Uploading" | "Saving">("Idle");
+
+  // prevents multiple events from quick taps
+  const inHandler = useRef(false);
 
   const appSettings = getAppSettings();
   const editMode = route && route.params && route.params.record;
@@ -187,74 +191,70 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   };
 
   const onUpdateHandler = () => {
-    if (algaeRecordsState != "Idle" || !validateUserInput()) {
+    if (status != "Idle" || inHandler.current || !validateUserInput()) {
       return;
     }
 
+    inHandler.current = true;
+    setStatus("Saving");
+
+    const toastProps: ToastAlertProps = {
+      status: "success",
+      title: Notifications.updateRecordSuccess.title,
+    };
+
     // TODO: change updatePendingRecord to take SelectedPhoto?
-    algaeRecords
-      .updatePendingRecord({
-        ...removeEmptyFields(state as AlgaeRecord),
-        photos: photos && photos.map((value) => ({ ...value, size: 0 })),
+    updatePendingRecord({
+      ...removeEmptyFields(state as AlgaeRecord),
+      photos: photos && photos.map((value) => ({ ...value, size: 0 })),
+    })
+      .catch(() => {
+        // TODO: this case is most likely error and not info
+        toastProps.status = "info";
+        toastProps.title = Notifications.updateRecordFailed.title;
+        toastProps.message = Notifications.updateRecordFailed.message;
       })
-      .then(() =>
-        toast.show(
-          <ToastAlert
-            status="success"
-            title={Notifications.updateRecordSuccess.title}
-          />
-        )
-      )
-      .catch(() =>
-        toast.show(
-          <ToastAlert
-            status="info"
-            title={Notifications.updateRecordFailed.title}
-            message={Notifications.updateRecordFailed.message}
-          />
-        )
-      )
       .finally(() => {
+        setOnFocusTimelineAction("Update Pending");
         navigation.goBack();
+        toast.show(<ToastAlert {...toastProps} />);
       });
   };
 
   const onUploadHandler = () => {
-    if (algaeRecordsState != "Idle" || !validateUserInput()) {
+    if (status != "Idle" || inHandler.current || !validateUserInput()) {
       return;
     }
 
+    inHandler.current = true;
+    setStatus("Uploading");
+
+    const toastProps: ToastAlertProps = {
+      status: "success",
+      title: Notifications.uploadSuccess.title,
+      message: Notifications.uploadSuccess.message,
+    };
+
     // TODO: change uploadRecord to take SelectedPhoto?
-    algaeRecords
-      .uploadRecord(
-        removeEmptyFields(state as AlgaeRecord),
-        photos && photos.map((value) => ({ ...value, size: 0 }))
-      )
-      .then(() =>
-        toast.show(
-          <ToastAlert
-            status="success"
-            title={Notifications.uploadSuccess.title}
-            message={Notifications.uploadSuccess.message}
-          />
-        )
-      )
+    uploadRecord(
+      removeEmptyFields(state as AlgaeRecord),
+      photos && photos.map((value) => ({ ...value, size: 0 }))
+    )
+      .then(() => setOnFocusTimelineAction("Update Downloaded"))
       .catch((error) => {
         Logger.Warn(
           `Failed to upload complete record: ${error.title}: ${error.message}`
         );
 
-        toast.show(
-          <ToastAlert
-            status="info"
-            title={error.title}
-            message={error.message}
-          />
-        );
+        setOnFocusTimelineAction("Update Pending");
+        // TODO: this could be info (record saved) or it could be error (record failed to save)
+        toastProps.status = "info";
+        toastProps.title = error.title;
+        toastProps.message = error.message;
       })
       .finally(() => {
-        algaeRecords.downloadRecords();
         navigation.goBack();
+        toast.show(<ToastAlert {...toastProps} />);
       });
   };
 

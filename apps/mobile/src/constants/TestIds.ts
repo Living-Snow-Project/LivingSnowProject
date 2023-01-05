@@ -40,6 +40,7 @@ export const TestIds = {
   },
   Modal: {
     ConfirmButton: "modal-confirm-button",
+    DeletePendingRecord: "delete-pending-record",
     DiskUsageDeletePhotos: "disk-usage-delete-photos-modal",
     NoButton: "modal-no-button",
   },

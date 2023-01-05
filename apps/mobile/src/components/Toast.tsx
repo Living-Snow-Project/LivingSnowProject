@@ -1,13 +1,13 @@
 import React from "react";
 import { Alert, HStack, Text, VStack } from "native-base";
 
-type ToastInfoProps = {
+export type ToastAlertProps = {
   status: "success" | "info";
   title: string;
   message?: string;
 };
 
-export function ToastAlert({ status, title, message }: ToastInfoProps) {
+export function ToastAlert({ status, title, message }: ToastAlertProps) {
   const renderMessage = message ? (
     <Text px="6" color="darkText">
       {message}

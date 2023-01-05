@@ -312,9 +312,8 @@ function useAlgaeRecords(): [IAlgaeRecords] {
       },
 
       fullSync: async () => {
-        /* eslint-disable no-undef-init */
-        let pendingRecords: AlgaeRecord[] | undefined = undefined;
-        let downloadedRecords: AlgaeRecord[] | undefined = undefined;
+        let pendingRecords: AlgaeRecord[] | undefined;
+        let downloadedRecords: AlgaeRecord[] | undefined;
 
         // avoids intermediate "Idle" state between upload and download
         try {

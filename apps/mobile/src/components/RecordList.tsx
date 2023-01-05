@@ -7,7 +7,7 @@ import { TimelineScreenNavigationProp } from "../navigation/Routes";
 import { Modal } from "./Modal";
 import { Divider } from "./Divider";
 import { TimelineRow } from "./TimelineRow";
-import { Labels } from "../constants/Strings";
+import { Labels, TestIds } from "../constants";
 import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 import { productionExampleRecord } from "../record/Record";
 import { IAlgaeRecords } from "../../types/AlgaeRecords";
@@ -96,6 +96,7 @@ function PendingTimelineRow({ record, algaeRecords }: PendingTimelineRowProps) {
         body="Are you sure you want to delete this pending record?"
         header="Confirm Delete"
         isOpen={isOpen}
+        testId={TestIds.Modal.DeletePendingRecord}
         setIsOpen={setIsOpen}
         onConfirm={onConfirmDelete}
       />

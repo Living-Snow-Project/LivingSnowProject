@@ -1,19 +1,48 @@
 import React, { useEffect, useState } from "react";
 import { FlatList } from "native-base";
 import NetInfo from "@react-native-community/netinfo";
+import { TimelineScreenProps } from "../navigation/Routes";
 import { StatusBar } from "../components/StatusBar";
 import { ExampleRecordList } from "../components/RecordList";
 import { TestIds } from "../constants/TestIds";
 import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
 import { useRecordList } from "../hooks/useRecordList";
 
-export function TimelineScreen() {
+type OnFocusTimelineAction = "Idle" | "Update Pending" | "Update Downloaded";
+let onFocusTimelineAction: OnFocusTimelineAction = "Idle";
+
+export function setOnFocusTimelineAction(action: OnFocusTimelineAction) {
+  onFocusTimelineAction = action;
+}
+
+export function TimelineScreen({ navigation }: TimelineScreenProps) {
   const recordList = useRecordList();
   const [connected, setConnected] = useState<boolean>(false);
   const algaeRecords = useAlgaeRecordsContext();
 
   const state = algaeRecords.getCurrentState();
   const refreshing = state != "Idle";
+
+  useEffect(
+    () =>
+      navigation.addListener("focus", () => {
+        switch (onFocusTimelineAction) {
+          case "Update Pending":
+            algaeRecords.retryPendingRecords();
+            break;
+
+          case "Update Downloaded":
+            algaeRecords.downloadRecords();
+            break;
+
+          default:
+            break;
+        }
+
+        onFocusTimelineAction = "Idle";
+      }),
+    [navigation, algaeRecords]
+  );
 
   useEffect(() => {
     let prevIsConnected = connected;
