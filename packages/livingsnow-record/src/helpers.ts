@@ -40,7 +40,7 @@ export const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
   latitude: -123.456,
   longitude: 96.96,
   size: "Fist",
-  color: "Red",
+  color: ["Red", "Green"],
   tubeId: isSample(type) ? "LAB-1337" : "",
   locationDescription: "test location",
   notes: "test notes",

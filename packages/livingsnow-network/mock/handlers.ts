@@ -1,7 +1,7 @@
 import { AlgaeRecord } from "@livingsnow/record";
 import { rest } from "msw";
 
-import { recordsUri, serviceEndpoint } from "../src";
+import { RecordsApiV2, AlgaeRecordResponseV2 } from "../src";
 
 type MockBackend = {
   curRecordId: number;
@@ -14,8 +14,8 @@ type MockBackend = {
 const mockBackend: MockBackend = {
   curRecordId: 0,
   records: [],
-  recordsUri,
-  photosUri: `${serviceEndpoint}/api/records/:recordId/photo`,
+  recordsUri: RecordsApiV2.baseUrl,
+  photosUri: `${RecordsApiV2.baseUrl}/:recordId/photo`,
 
   resetBackend() {
     this.curRecordId = 0;
@@ -23,9 +23,9 @@ const mockBackend: MockBackend = {
   },
 };
 
-const handlers = [
-  // Handles a POST /api/records request
-  rest.post(recordsUri, async (req, res, ctx) => {
+const handlersV2 = [
+  // Handles a POST /api/v2.0/records request
+  rest.post(RecordsApiV2.baseUrl, async (req, res, ctx) => {
     const body: AlgaeRecord = await req.json();
 
     mockBackend.curRecordId += 1;
@@ -34,18 +34,26 @@ const handlers = [
     return res(ctx.status(200), ctx.json(body));
   }),
 
-  // Handles a GET /api/records request
-  rest.get(recordsUri, (req, res, ctx) => {
+  // Handles a GET /api/v2.0/records request
+  rest.get(RecordsApiV2.baseUrl, (req, res, ctx) => {
+    const response: AlgaeRecordResponseV2 = {
+      object: "list",
+      data: mockBackend.records,
+      meta: {
+        result_count: mockBackend.records.length,
+        next_token: "",
+      },
+    };
+
     if (mockBackend.records.length > 0) {
-      return res(ctx.status(200), ctx.json(mockBackend.records));
+      return res(ctx.status(200), ctx.json(response));
     }
 
     return res(ctx.status(404));
   }),
 
   // Handles a POST /api/records/{recordId}/photo request
-  // TODO: will likely implement more here once downloadPhoto is supported
   rest.post(mockBackend.photosUri, (req, res, ctx) => res(ctx.status(200))),
 ];
 
-export { handlers, mockBackend };
+export { handlersV2 as handlers, mockBackend };

@@ -2,23 +2,14 @@ import "isomorphic-fetch";
 import { makeExamplePendingPhoto, makeExampleRecord } from "@livingsnow/record";
 
 import { server } from "../mock/server";
-import {
-  downloadRecords,
-  uploadRecord,
-  uploadPhoto,
-  recordsUriGet,
-} from "../src";
+import { RecordsApiV2 } from "../src";
 
-// Establish API mocking before all tests.
 beforeAll(() => server.listen());
 
-// Reset any request handlers that we may add during the tests,
-// so they don't affect other tests.
 afterEach(() => {
   server.reset();
 });
 
-// Clean up after the tests are finished.
 afterAll(() => server.close());
 
 describe("Network test suite", () => {
@@ -29,8 +20,9 @@ describe("Network test suite", () => {
 
   test("upload record succeeds", async () => {
     const expected = makeExampleRecord("Sample");
-    const received = await uploadRecord(expected);
-    if (typeof received === "object") {
+    const received = await RecordsApiV2.post(expected);
+
+    if (typeof received == "object") {
       expect(received.id).not.toEqual(expected.id);
       expect(received.type).toEqual(expected.type);
       expect(received.date).toEqual(expected.date);
@@ -43,7 +35,7 @@ describe("Network test suite", () => {
     const internalServerError = server.postRecordInternalServerError();
     const record = makeExampleRecord("Sample");
 
-    return uploadRecord(record)
+    return RecordsApiV2.post(record)
       .then(() => fail(uploadRecordsFailureMsg))
       .catch((error) => expect(error).toContain(internalServerError));
   });
@@ -52,16 +44,16 @@ describe("Network test suite", () => {
     const networkError = server.postRecordNetworkError();
     const record = makeExampleRecord("Sample");
 
-    return uploadRecord(record)
+    return RecordsApiV2.post(record)
       .then(() => fail(uploadRecordsFailureMsg))
       .catch((error) => expect(error).toContain(networkError));
   });
 
   test("download records succeeds", async () => {
     const expected = makeExampleRecord("Sample");
-    const received = await uploadRecord(expected);
+    const received = await RecordsApiV2.post(expected);
 
-    if (typeof received === "object") {
+    if (typeof received == "object") {
       // checking all the data fields is not important because server is mocked
       expect(received.id).not.toEqual(expected.id);
       expect(received.type).toEqual(expected.type);
@@ -70,15 +62,18 @@ describe("Network test suite", () => {
       fail("uploadRecord did not return Record");
     }
 
-    const downloaded = await downloadRecords();
+    const response = await RecordsApiV2.get();
 
-    expect(downloaded[0]).toEqual(received);
+    expect(response.object).toEqual("list");
+    expect(response.data[0]).toEqual(received);
+    expect(response.meta.result_count).toEqual(response.data.length);
+    expect(response.meta.next_token).toEqual("");
   });
 
   test("download record fails, service error", () => {
     const internalServerError = server.getRecordsInternalServerError();
 
-    return downloadRecords()
+    return RecordsApiV2.get()
       .then(() => fail(downloadRecordsFailureMsg))
       .catch((error) => expect(error).toContain(internalServerError));
   });
@@ -86,19 +81,19 @@ describe("Network test suite", () => {
   test("download record fails, network error", () => {
     const networkError = server.getRecordsNetworkError();
 
-    return downloadRecords()
+    return RecordsApiV2.get()
       .then(() => fail(downloadRecordsFailureMsg))
       .catch((error) => expect(error).toContain(networkError));
   });
 
   test("upload photo succeeds", async () => {
-    await uploadPhoto(examplePhoto);
+    await RecordsApiV2.postPhoto(examplePhoto);
   });
 
   test("upload photo fails, service error", () => {
     const internalServerError = server.postPhotoInternalServerError();
 
-    return uploadPhoto(examplePhoto)
+    return RecordsApiV2.postPhoto(examplePhoto)
       .then(() => fail(uploadPhotoFailureMsg))
       .catch((error) => expect(error).toContain(internalServerError));
   });
@@ -106,12 +101,8 @@ describe("Network test suite", () => {
   test("upload photo fails, network error", () => {
     const networkError = server.postPhotoNetworkError();
 
-    return uploadPhoto(examplePhoto)
+    return RecordsApiV2.postPhoto(examplePhoto)
       .then(() => fail(uploadPhotoFailureMsg))
       .catch((error) => expect(error).toContain(networkError));
-  });
-
-  test("recordsUriGet with before query parameter", () => {
-    expect(recordsUriGet(new Date("2022-3-9"))).toContain("2022-03-09");
   });
 });

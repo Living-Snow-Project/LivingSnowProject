@@ -59,7 +59,7 @@ export type AlgaeRecord = {
   latitude: number;
   longitude: number;
   size: AlgaeSize;
-  color: AlgaeColor;
+  color: AlgaeColor[];
   tubeId?: string;
   locationDescription?: string;
   notes?: string;
