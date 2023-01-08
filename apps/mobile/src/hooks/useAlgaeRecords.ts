@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useReducer } from "react";
 import * as TaskManager from "expo-task-manager";
 import * as BackgroundFetch from "expo-background-fetch";
 import Logger from "@livingsnow/logger";
-import { downloadRecords } from "@livingsnow/network";
+import { RecordsApiV2, AlgaeRecordResponseV2 } from "@livingsnow/network";
 import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
 import { AlgaeRecordsStates, IAlgaeRecords } from "../../types/AlgaeRecords";
 import {
@@ -68,17 +68,19 @@ type AlgaeRecordsActions =
       type: "END_DOWNLOADING";
       payload?: {
         downloadedRecords: AlgaeRecord[];
+        nextPageToken: string;
       };
     }
   | {
       type: "END_DOWNLOADING_NEXT";
-      payload: { downloadedRecords: AlgaeRecord[] };
+      payload: { downloadedRecords: AlgaeRecord[]; nextPageToken: string };
     }
   | {
       type: "END_FULL_SYNC";
       payload: {
         pendingRecords?: AlgaeRecord[];
         downloadedRecords?: AlgaeRecord[];
+        nextPageToken: string;
       };
     };
 
@@ -131,6 +133,7 @@ const algaeRecordsReducer = (
             ...currentState,
             state: defaultState,
             downloadedRecords: action.payload.downloadedRecords,
+            nextPageToken: action.payload.nextPageToken,
           }
         : {
             ...currentState,
@@ -138,14 +141,23 @@ const algaeRecordsReducer = (
           };
 
     case "END_DOWNLOADING_NEXT":
+      // "smart merge" - what if the record is duplicated?
+      // TODO: this is horribly inefficient
+      action.payload.downloadedRecords.forEach((item) => {
+        if (
+          !currentState.downloadedRecords.find(
+            (existing) => existing.id == item.id
+          )
+        ) {
+          currentState.downloadedRecords.push({ ...item });
+        }
+      });
+
       return {
         ...currentState,
         state: defaultState,
-        // TODO: smart merge - what if the record is duplicated? this can happen with onEndReached behavior
-        downloadedRecords: [
-          ...currentState.downloadedRecords,
-          ...action.payload.downloadedRecords,
-        ],
+        downloadedRecords: [...currentState.downloadedRecords],
+        nextPageToken: action.payload.nextPageToken,
       };
 
     case "END_FULL_SYNC":
@@ -155,6 +167,7 @@ const algaeRecordsReducer = (
           state: defaultState,
           downloadedRecords: action.payload.downloadedRecords,
           pendingRecords: action.payload.pendingRecords,
+          nextPageToken: action.payload.nextPageToken,
         };
       }
 
@@ -171,6 +184,7 @@ const algaeRecordsReducer = (
           ...currentState,
           state: defaultState,
           downloadedRecords: action.payload.downloadedRecords,
+          nextPageToken: action.payload.nextPageToken,
         };
       }
 
@@ -189,6 +203,7 @@ type AlgaeRecordState = {
   isSeeded: boolean;
   pendingRecords: AlgaeRecord[];
   downloadedRecords: AlgaeRecord[];
+  nextPageToken: string;
   // TODO:
   //  pendingPhotos: PendingPhoto[];
 };
@@ -198,6 +213,7 @@ const initialState: AlgaeRecordState = {
   isSeeded: false,
   pendingRecords: [],
   downloadedRecords: [],
+  nextPageToken: "",
 };
 
 function useAlgaeRecords(): [IAlgaeRecords] {
@@ -275,11 +291,14 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         dispatch({ type: "START_DOWNLOADING" });
 
         try {
-          const downloadedRecords = await downloadRecords();
-          await saveCachedRecords(downloadedRecords);
+          const downloadedRecords = await RecordsApiV2.get();
+          await saveCachedRecords(downloadedRecords.data);
           dispatch({
             type: "END_DOWNLOADING",
-            payload: { downloadedRecords },
+            payload: {
+              downloadedRecords: downloadedRecords.data,
+              nextPageToken: downloadedRecords.meta.next_token,
+            },
           });
         } catch (error) {
           dispatch({
@@ -288,15 +307,21 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         }
       },
 
-      downloadNextRecords: async (before: Date) => {
+      downloadNextRecords: async () => {
         dispatch({ type: "START_DOWNLOADING" });
 
         try {
-          const downloadedRecords = await downloadRecords(before);
+          const downloadedRecords = await RecordsApiV2.get(
+            algaeRecordState.nextPageToken
+          );
+
           // TODO: start downloading photos instead of waiting until the next render
           dispatch({
             type: "END_DOWNLOADING_NEXT",
-            payload: { downloadedRecords },
+            payload: {
+              downloadedRecords: downloadedRecords.data,
+              nextPageToken: downloadedRecords.meta.next_token,
+            },
           });
         } catch (error) {
           dispatch({
@@ -313,7 +338,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
 
       fullSync: async () => {
         let pendingRecords: AlgaeRecord[] | undefined;
-        let downloadedRecords: AlgaeRecord[] | undefined;
+        let downloadedRecords: AlgaeRecordResponseV2 | undefined;
 
         // avoids intermediate "Idle" state between upload and download
         try {
@@ -321,17 +346,29 @@ function useAlgaeRecords(): [IAlgaeRecords] {
           pendingRecords = await retryPendingRecords();
 
           dispatch({ type: "START_DOWNLOADING" });
-          downloadedRecords = await downloadRecords();
-          await saveCachedRecords(downloadedRecords);
+          downloadedRecords = await RecordsApiV2.get();
+          await saveCachedRecords(downloadedRecords.data);
 
           dispatch({
             type: "END_FULL_SYNC",
-            payload: { pendingRecords, downloadedRecords },
+            payload: {
+              pendingRecords,
+              downloadedRecords: downloadedRecords.data,
+              nextPageToken: downloadedRecords.meta.next_token,
+            },
           });
         } catch (error) {
           dispatch({
             type: "END_FULL_SYNC",
-            payload: { pendingRecords, downloadedRecords },
+            payload: {
+              pendingRecords,
+              downloadedRecords: downloadedRecords
+                ? downloadedRecords.data
+                : undefined,
+              nextPageToken: downloadedRecords
+                ? downloadedRecords.meta.next_token
+                : "",
+            },
           });
         }
       },
@@ -369,7 +406,7 @@ TaskManager.defineTask(BackgroundTasks.UploadData, async () => {
 
   if (pendingRecords.length === 0) {
     unregisterBackgroundFetchAsync(BackgroundTasks.UploadData);
-    await downloadRecords();
+    await RecordsApiV2.get();
     return BackgroundFetch.BackgroundFetchResult.NewData;
   }
 

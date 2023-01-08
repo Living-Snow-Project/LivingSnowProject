@@ -7,7 +7,7 @@ import {
 } from "expo-file-system";
 import { manipulateAsync } from "expo-image-manipulator";
 import NetInfo from "@react-native-community/netinfo";
-import { downloadPhotoUri } from "@livingsnow/network";
+import { PhotosApi } from "@livingsnow/network";
 
 export type CachedPhotoResult = {
   uri: string | number;
@@ -55,7 +55,7 @@ export async function getCachedPhoto({
     return { uri, state: "Loaded" };
   }
 
-  const remoteFileUri = downloadPhotoUri(uri);
+  const remoteFileUri = PhotosApi.getUrl(uri);
 
   // can't save photo to disk, force download
   if (documentDirectory == null) {

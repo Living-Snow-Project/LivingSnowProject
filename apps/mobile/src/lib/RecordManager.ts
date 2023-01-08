@@ -2,7 +2,7 @@ import * as TaskManager from "expo-task-manager";
 import * as BackgroundFetch from "expo-background-fetch";
 import { Alert, Platform } from "react-native";
 import Logger from "@livingsnow/logger";
-import * as Network from "@livingsnow/network";
+import { RecordsApiV2 } from "@livingsnow/network";
 import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
 import {
   loadPendingRecords,
@@ -26,7 +26,7 @@ async function uploadPhotos(photos: PendingPhoto[]): Promise<void> {
   await photos.reduce(
     (promise, photo) =>
       promise
-        .then(() => Network.uploadPhoto(photo))
+        .then(() => RecordsApiV2.postPhoto(photo))
         .catch(() => {
           failedPhotos.push(photo);
         }),
@@ -54,9 +54,9 @@ async function uploadRecord(
   let recordResponse: AlgaeRecord;
 
   try {
-    recordResponse = await Network.uploadRecord(record);
+    recordResponse = await RecordsApiV2.post(record);
   } catch (error) {
-    // Network.uploadRecord rejects with string
+    // post rejects with string
     Logger.Warn(`Netork.uploadRecord failed: ${error}`);
 
     // when record fails to upload, attach photos and save together
@@ -150,7 +150,6 @@ function retryPendingRecords(): Promise<AlgaeRecord[]> {
           promise
             .then(() => {
               const { photos } = record;
-              // @ts-ignore (currently photos will always be [] and never undefined)
               return uploadRecord(record, photos);
             })
             .catch((error) =>

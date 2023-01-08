@@ -29,6 +29,6 @@ export interface IAlgaeRecords {
   fullSync: () => Promise<void>; // retryPendingRecords followed by downloadRecords
   uploadRecord: (record: AlgaeRecord, photos: Photo[]) => Promise<void>;
   downloadRecords: () => Promise<void>; // app startup\pull to refresh
-  downloadNextRecords: (before: Date) => Promise<void>; // scrolling
+  downloadNextRecords: () => Promise<void>; // scrolling
   retryPendingRecords: () => Promise<void>;
 }

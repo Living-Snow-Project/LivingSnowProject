@@ -71,13 +71,8 @@ export function TimelineScreen({ navigation }: TimelineScreenProps) {
 
   const renderItem = ({ item }) => item;
 
-  // TODO: called repeatedly when "true-end" reached and results in appending duplicate records
   const onEndReached = () => {
-    // keep an eye on this (if list is "empty" and it gets called)
-    const downloadedRecords = algaeRecords.getDownloadedRecords();
-    algaeRecords.downloadNextRecords(
-      downloadedRecords[downloadedRecords.length - 1].date
-    );
+    algaeRecords.downloadNextRecords();
   };
 
   return (
