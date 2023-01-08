@@ -87,7 +87,7 @@ const defaultRecord: AlgaeRecordInput = {
   latitude: 0,
   longitude: 0,
   size: "Select a size",
-  color: "Select a color",
+  colors: ["Select colors"],
 };
 
 type SpaceProps = {
@@ -182,7 +182,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       return false;
     }
 
-    if (state.color == "Select a color") {
+    if (state.colors[0] == "Select colors") {
       // Alert.alert(Notifications.invalidAlgaeColor.title);
       return false;
     }
@@ -327,10 +327,13 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
           <Space />
           <AlgaeColorSelector
-          /* TODO: v2 API colors={state.color}
-            setColors={(color) => {
-              setState((prev) => ({ ...prev, color }));
-            }} */
+            colors={state.colors}
+            onChangeColors={(colors) => {
+              setState((prev) => ({
+                ...prev,
+                colors: [...colors],
+              }));
+            }}
           />
 
           <Space />

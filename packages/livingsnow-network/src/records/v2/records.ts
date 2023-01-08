@@ -14,7 +14,7 @@ function dumpRecord(record: AlgaeRecord): void {
       `\n  Latitude: ${record.latitude}` +
       `\n  Longitude: ${record.longitude}` +
       `\n  Size: ${record.size}` +
-      `\n  Colors: ${record.color.reduce<string>(
+      `\n  Colors: ${record.colors.reduce<string>(
         (prev, cur) => `${prev} ${cur}`,
         ""
       )}` +

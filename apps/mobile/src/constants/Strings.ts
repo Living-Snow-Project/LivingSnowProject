@@ -39,7 +39,7 @@ export const Labels = {
     Latitude: "Latitude",
     Longitude: "Longitude",
     Size: "Size",
-    Color: "Color",
+    Colors: "Colors",
     LocationDescription: "Location Description",
     Notes: "Notes",
     Photos: "Photos",

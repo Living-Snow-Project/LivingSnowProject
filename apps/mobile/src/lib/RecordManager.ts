@@ -16,7 +16,7 @@ import { Notifications } from "../constants/Strings";
 
 // rejects with PendingPhoto[] (any photo not uploaded)
 async function uploadPhotos(photos: PendingPhoto[]): Promise<void> {
-  if (photos.length === 0) {
+  if (photos.length == 0) {
     return Promise.resolve();
   }
 
@@ -33,7 +33,7 @@ async function uploadPhotos(photos: PendingPhoto[]): Promise<void> {
     Promise.resolve()
   );
 
-  return failedPhotos.length === 0
+  return failedPhotos.length == 0
     ? Promise.resolve()
     : Promise.reject(failedPhotos);
 }
@@ -57,7 +57,7 @@ async function uploadRecord(
     recordResponse = await RecordsApiV2.post(record);
   } catch (error) {
     // post rejects with string
-    Logger.Warn(`Netork.uploadRecord failed: ${error}`);
+    Logger.Warn(`RecordsApiV2.post failed: ${error}`);
 
     // when record fails to upload, attach photos and save together
     const pendingRecords = await savePendingRecord({

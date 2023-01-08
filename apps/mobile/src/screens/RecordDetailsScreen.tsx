@@ -30,7 +30,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
     latitude,
     longitude,
     size,
-    color,
+    colors,
     tubeId,
     notes,
     photos,
@@ -64,7 +64,12 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
         <Text>{`${Labels.RecordFields.GPSCoordinates}: ${latitude}, ${longitude}`}</Text>
         {!!tubeId && <Text>{`${Labels.RecordFields.TubeId}: ${tubeId}`}</Text>}
         {!!size && <Text>{`${Labels.RecordFields.Size}: ${size}`}</Text>}
-        {!!color && <Text>{`${Labels.RecordFields.Color}: ${color}`}</Text>}
+        {!!colors && (
+          <Text>{`${Labels.RecordFields.Colors}: ${colors.reduce<string>(
+            (prev, cur, index) => (index == 0 ? `${cur}` : `${prev}, ${cur}`),
+            ""
+          )}`}</Text>
+        )}
         {!!locationDescription && (
           <Text>{`${Labels.RecordFields.LocationDescription}: ${locationDescription}`}</Text>
         )}

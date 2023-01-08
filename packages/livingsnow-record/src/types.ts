@@ -34,7 +34,7 @@ const AlgaeSizeArray = [
 export type AlgaeSize = typeof AlgaeSizeArray[number];
 
 const AlgaeColorArray = [
-  "Select a color",
+  "Select colors",
   "Red",
   "Pink",
   "Grey",
@@ -59,7 +59,7 @@ export type AlgaeRecord = {
   latitude: number;
   longitude: number;
   size: AlgaeSize;
-  color: AlgaeColor[];
+  colors: AlgaeColor[];
   tubeId?: string;
   locationDescription?: string;
   notes?: string;

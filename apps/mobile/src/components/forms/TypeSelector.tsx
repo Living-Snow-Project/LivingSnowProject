@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Checkbox,
@@ -11,7 +11,7 @@ import {
   Text,
   useColorMode,
 } from "native-base";
-import { AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
+import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 import {
   getAllAlgaeColorSelectorItems,
   getAllAlgaeSizeSelectorItems,
@@ -79,14 +79,20 @@ function AlgaeSizeSelector({ size, setSize }: AlgaeSizeSelectorProps) {
   );
 }
 
-// TODO: change type for V2 API
-/* type AlgaeColorSelectorProps = {
-  colors: AlgaeColor;
-  setColors: (type: AlgaeColor) => void;
-}; */
+type AlgaeColorSelectorProps = {
+  colors: AlgaeColor[];
+  onChangeColors: (colors: AlgaeColor[]) => void;
+};
 
-function AlgaeColorSelector(/* { colors, setColors }: AlgaeColorSelectorProps */) {
+function AlgaeColorSelector({
+  colors,
+  onChangeColors,
+}: AlgaeColorSelectorProps) {
   const { colorMode } = useColorMode();
+
+  // TODO: remove when Checkbox.Group fixed
+  // this is needed to get latest [un]selected colors in stale closures (because React doesn't re-render each color's Box if one changes)
+  const [, setColorsInternal] = useState([...colors]);
 
   const renderColors = () =>
     getAllAlgaeColorSelectorItems().map((item) => {
@@ -103,12 +109,40 @@ function AlgaeColorSelector(/* { colors, setColors }: AlgaeColorSelectorProps */
         }
       }
 
+      const isChecked = colors.includes(item.value);
+
+      // TODO: replace when Checkbox.Group fixed
+      const onChange = (isSelected: boolean) => {
+        setColorsInternal((prev) => {
+          const temp = [...prev];
+          const selectIndex = temp.findIndex((cur) => cur == "Select colors");
+
+          if (selectIndex != -1) {
+            temp.splice(selectIndex, 1);
+          }
+
+          if (isSelected) {
+            temp.push(item.value);
+          } else {
+            temp.splice(
+              temp.findIndex((cur) => cur == item.value),
+              1
+            );
+          }
+
+          onChangeColors(temp);
+
+          return [...temp];
+        });
+      };
+
       return (
         <Box mr="2" mt="1" key={item.value}>
           <Checkbox
             value={item.value}
             colorScheme={scheme}
-            // onChange={(value: boolean) => goofy logic goes here because Checkbox.Group logs a warning during onChange)}
+            isChecked={isChecked}
+            onChange={onChange}
           >
             <Text color={color} fontWeight={color ? "medium" : "normal"}>
               {item.label}
