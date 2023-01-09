@@ -1,5 +1,5 @@
 import React, { forwardRef /* useRef */ } from "react";
-import { FormControl, Input } from "native-base";
+import { FormControl, Input, WarningOutlineIcon } from "native-base";
 /* import {
   NativeSyntheticEvent,
   TextInputContentSizeChangeEventData,
@@ -10,9 +10,11 @@ type CustomTextInputProps = {
   label: string;
   placeholder: string;
   value?: string | undefined;
+  validation?: string;
   maxLength?: number;
-  isRequired?: boolean;
   isDisabled?: boolean;
+  isInvalid?: boolean;
+  isRequired?: boolean;
   onChangeText?: (text: string) => void;
   onSubmitEditing?: () => void;
 };
@@ -20,11 +22,13 @@ type CustomTextInputProps = {
 export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
   (
     {
-      value,
       label,
       placeholder,
+      value,
+      validation,
       maxLength = 255,
       isDisabled = false,
+      isInvalid = false,
       isRequired = false,
       onChangeText = () => {},
       onSubmitEditing = () => {},
@@ -48,7 +52,7 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
       return event.nativeEvent.contentSize.height;
     }; */
 
-    <FormControl isRequired={isRequired}>
+    <FormControl isRequired={isRequired} isInvalid={isInvalid}>
       <FormControl.Label>{label}</FormControl.Label>
       <Input
         size="lg"
@@ -72,6 +76,9 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
         returnKeyType="done"
         variant="outline"
       />
+      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="sm" />}>
+        {validation}
+      </FormControl.ErrorMessage>
     </FormControl>
   )
 );

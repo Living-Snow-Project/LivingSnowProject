@@ -70,7 +70,7 @@ export const Labels = {
   },
 };
 
-// for Alert.alert calls
+// for Modal alerts
 export const Notifications = {
   uploadSuccess: {
     title: "Record Uploaded",
@@ -96,22 +96,18 @@ export const Notifications = {
     message:
       "This can happen when Internet connectivity is restored while updating the record.",
   },
-  invalidCoordinates: {
-    title: "Invalid GPS coordinates",
-    message:
-      'Coordinates must be in "lat, long" format. ie. 12.345678, -123.456789',
-  },
-  invalidAlgaeSize: {
-    title: "A size must be specified",
-  },
-  invalidAlgaeColor: {
-    title: "A color must be specified",
-  },
   backgroundTasksNotAllowed: {
     title: "Background Uploads Not Enabled",
     message:
       "Please enable Background App Refresh if you would like stored records to be uploaded in the background.",
   },
+};
+
+export const Validations = {
+  invalidCoordinates:
+    'Coordinates must be in "lat, long" format. eg. 12.34567, -123.45678',
+  invalidAlgaeSize: "A size must be specified",
+  invalidAlgaeColors: "At least 1 color must be specified",
 };
 
 export const Errors = {

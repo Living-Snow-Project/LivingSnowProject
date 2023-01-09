@@ -10,7 +10,7 @@ import Logger from "@livingsnow/logger";
 import { CustomTextInput } from "./CustomTextInput";
 import { Modal } from "../Modal";
 import { getAppSettings } from "../../../AppSettings";
-import { Labels, Placeholders, TestIds } from "../../constants";
+import { Labels, Placeholders, TestIds, Validations } from "../../constants";
 
 export type GpsCoordinates = {
   latitude: number | undefined;
@@ -105,6 +105,7 @@ const precision = 5;
 type GpsCoordinatesInputProps = {
   coordinates: GpsCoordinates;
   usingGps: boolean;
+  isInvalid: boolean;
   setCoordinates: (coordinates: GpsCoordinates) => void;
   onSubmitEditing: () => void;
 };
@@ -112,6 +113,7 @@ type GpsCoordinatesInputProps = {
 export function GpsCoordinatesInput({
   coordinates,
   usingGps,
+  isInvalid,
   setCoordinates,
   onSubmitEditing,
 }: GpsCoordinatesInputProps) {
@@ -228,11 +230,13 @@ export function GpsCoordinatesInput({
     >
       <View pointerEvents={state.usingManualEntry ? "auto" : "none"}>
         <CustomTextInput
+          label={Labels.RecordForm.Gps}
+          placeholder={state.placeholder}
           value={state.value}
           isRequired
-          label={Labels.RecordForm.Gps}
+          isInvalid={isInvalid}
+          validation={Validations.invalidCoordinates}
           maxLength={30}
-          placeholder={state.placeholder}
           onChangeText={onCoordinatesChanged}
           onSubmitEditing={onSubmitEditing}
           ref={coordinatesInputRef}

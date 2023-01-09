@@ -80,6 +80,8 @@ const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
   return newRecord;
 };
 
+const isNumber = (value: string | number) => !Number.isNaN(Number(value));
+
 const defaultRecord: AlgaeRecordInput = {
   id: -1,
   type: "Sighting",
@@ -108,6 +110,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
   // prevents multiple events from quick taps
   const inHandler = useRef(false);
+  const [didSubmit, setDidSubmit] = useState(false);
 
   const appSettings = getAppSettings();
   const editMode = route && route.params && route.params.record;
@@ -159,39 +162,26 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
   const dateString = recordDateFormat(state.date);
 
+  const isAlgaeSizeInvalid = () => state.size == defaultRecord.size;
+  const areAlgaeColorsInvalid = () =>
+    state.colors.length == 0 || state.colors[0] == defaultRecord.colors[0];
+
+  const areGpsCoordinatesInvalid = () =>
+    !state.latitude ||
+    !state.longitude ||
+    !isNumber(state.latitude) ||
+    !isNumber(state.longitude);
+
   // user input form validation
-  const validateUserInput = () => {
-    const isNumber = (value: string | number) => !Number.isNaN(Number(value));
-
-    if (
-      !state.latitude ||
-      !state.longitude ||
-      !isNumber(state.latitude) ||
-      !isNumber(state.longitude)
-    ) {
-      /* Alert.alert(
-        Notifications.invalidCoordinates.title,
-        Notifications.invalidCoordinates.message
-      ); */
-
-      return false;
-    }
-
-    if (state.size == "Select a size") {
-      // Alert.alert(Notifications.invalidAlgaeSize.title);
-      return false;
-    }
-
-    if (state.colors[0] == "Select colors") {
-      // Alert.alert(Notifications.invalidAlgaeColor.title);
-      return false;
-    }
-
-    return true;
-  };
+  const isUserInputInvalid = () =>
+    areGpsCoordinatesInvalid() ||
+    isAlgaeSizeInvalid() ||
+    areAlgaeColorsInvalid();
 
   const onUpdateHandler = () => {
-    if (status != "Idle" || inHandler.current || !validateUserInput()) {
+    setDidSubmit(true);
+
+    if (status != "Idle" || inHandler.current || isUserInputInvalid()) {
       return;
     }
 
@@ -222,7 +212,9 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   };
 
   const onUploadHandler = () => {
-    if (status != "Idle" || inHandler.current || !validateUserInput()) {
+    setDidSubmit(true);
+
+    if (status != "Idle" || inHandler.current || isUserInputInvalid()) {
       return;
     }
 
@@ -310,16 +302,18 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               latitude: state.latitude,
               longitude: state.longitude,
             }}
+            usingGps={!editMode}
+            isInvalid={didSubmit && areGpsCoordinatesInvalid()}
             setCoordinates={({ latitude, longitude }) =>
               setState((prev) => ({ ...prev, latitude, longitude }))
             }
             onSubmitEditing={() => locationDescriptionRef.current?.focus()}
-            usingGps={!editMode}
           />
 
           <Space />
           <AlgaeSizeSelector
             size={state.size}
+            isInvalid={didSubmit && isAlgaeSizeInvalid()}
             setSize={(size) => {
               setState((prev) => ({ ...prev, size }));
             }}
@@ -328,6 +322,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           <Space />
           <AlgaeColorSelector
             colors={state.colors}
+            isInvalid={didSubmit && areAlgaeColorsInvalid()}
             onChangeColors={(colors) => {
               setState((prev) => ({
                 ...prev,

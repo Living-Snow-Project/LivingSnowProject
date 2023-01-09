@@ -9,6 +9,7 @@ import {
   Radio,
   Select,
   Text,
+  WarningOutlineIcon,
   useColorMode,
 } from "native-base";
 import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
@@ -17,7 +18,7 @@ import {
   getAllAlgaeSizeSelectorItems,
   getAllRecordTypeSelectorItems,
 } from "../../record";
-import { Labels, Placeholders, TestIds } from "../../constants";
+import { Labels, Placeholders, TestIds, Validations } from "../../constants";
 
 type AlgaeRecordTypeSelectorProps = {
   type: AlgaeRecordType;
@@ -52,17 +53,22 @@ function AlgaeRecordTypeSelector({
 
 type AlgaeSizeSelectorProps = {
   size: AlgaeSize;
+  isInvalid: boolean;
   setSize: (type: AlgaeSize) => void;
 };
 
-function AlgaeSizeSelector({ size, setSize }: AlgaeSizeSelectorProps) {
+function AlgaeSizeSelector({
+  size,
+  isInvalid,
+  setSize,
+}: AlgaeSizeSelectorProps) {
   const renderSizes = () =>
     getAllAlgaeSizeSelectorItems().map((item) => (
       <Select.Item key={item.label} label={item.label} value={item.value} />
     ));
 
   return (
-    <FormControl isRequired>
+    <FormControl isRequired isInvalid={isInvalid}>
       <FormControl.Label>{Labels.RecordFields.Size}</FormControl.Label>
       <Select
         size="xl"
@@ -75,17 +81,22 @@ function AlgaeSizeSelector({ size, setSize }: AlgaeSizeSelectorProps) {
       >
         {renderSizes()}
       </Select>
+      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="sm" />}>
+        {Validations.invalidAlgaeSize}
+      </FormControl.ErrorMessage>
     </FormControl>
   );
 }
 
 type AlgaeColorSelectorProps = {
   colors: AlgaeColor[];
+  isInvalid: boolean;
   onChangeColors: (colors: AlgaeColor[]) => void;
 };
 
 function AlgaeColorSelector({
   colors,
+  isInvalid,
   onChangeColors,
 }: AlgaeColorSelectorProps) {
   const { colorMode } = useColorMode();
@@ -153,11 +164,14 @@ function AlgaeColorSelector({
     });
 
   return (
-    <FormControl isRequired>
+    <FormControl isRequired isInvalid={isInvalid}>
       <FormControl.Label>{Labels.RecordForm.Color}</FormControl.Label>
       <Flex mt="-1" flexDirection="row" wrap="wrap">
         {renderColors()}
       </Flex>
+      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="sm" />}>
+        {Validations.invalidAlgaeColors}
+      </FormControl.ErrorMessage>
     </FormControl>
   );
 }
