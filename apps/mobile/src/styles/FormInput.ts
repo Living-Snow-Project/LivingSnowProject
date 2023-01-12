@@ -23,8 +23,3 @@ export const formInputStyles = StyleSheet.create({
     paddingTop: 15,
   },
 });
-
-export const pickerSelectStyles = StyleSheet.create({
-  inputIOS: formInputStyles.optionInputText,
-  inputAndroid: formInputStyles.optionInputText,
-});

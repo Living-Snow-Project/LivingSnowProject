@@ -4,6 +4,7 @@ import {
   Dimensions,
   EmitterSubscription,
   Keyboard,
+  KeyboardEventListener,
   Platform,
   StyleSheet,
   TextInput,
@@ -33,8 +34,6 @@ export class KeyboardShift extends Component<IProps, IState> {
   isHiding: Animated.CompositeAnimation | null;
 
   previousGap: number;
-
-  keyboardHeight: number;
 
   keyboardDidShowSub: EmitterSubscription;
 
@@ -68,15 +67,11 @@ export class KeyboardShift extends Component<IProps, IState> {
     }
   }
 
-  handleKeyboardDidShow = (event) => {
+  handleKeyboardDidShow: KeyboardEventListener = (event) => {
     const { shift } = this.state;
     const { height: windowHeight } = Dimensions.get("window");
     // when the multiline TextInput grows, we want the keyboard to move with it
-    const keyboardHeight =
-      event?.endCoordinates?.height === undefined
-        ? this.keyboardHeight
-        : event.endCoordinates.height;
-    this.keyboardHeight = keyboardHeight;
+    const keyboardHeight = event.endCoordinates.height;
     const currentlyFocusedInput = TextInputState.currentlyFocusedInput();
 
     if (this.isHiding) {
@@ -89,7 +84,8 @@ export class KeyboardShift extends Component<IProps, IState> {
         (originX, originY, width, height, pageX, pageY) => {
           const fieldHeight = height;
           const fieldTop = pageY;
-          let gap = windowHeight - keyboardHeight - (fieldTop + fieldHeight);
+          let gap =
+            windowHeight - keyboardHeight - (fieldTop + fieldHeight + 10);
 
           if (!gap) {
             return;

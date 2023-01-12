@@ -29,6 +29,7 @@ export function UserIdentityInput() {
         ref={orgRef}
         value={organization}
         label={Labels.RecordFields.Organization}
+        blurOnSubmit
         placeholder={Placeholders.Settings.Organization}
         onChangeText={(value) => {
           setSettings((prev) => ({

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ScrollView } from "react-native";
-import { Box } from "native-base";
+import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import Logger from "@livingsnow/logger";
@@ -24,10 +23,13 @@ import {
   AlgaeSizeSelector,
   AlgaeColorSelector,
 } from "../components/forms/TypeSelector";
-import { DateSelector } from "../components/forms/DateSelector";
-import { CustomTextInput } from "../components/forms/CustomTextInput";
-import { GpsCoordinatesInput } from "../components/forms/GpsCoordinatesInput";
-import { PhotoSelector } from "../components/forms/PhotoSelector";
+import {
+  CustomTextInput,
+  DateSelector,
+  GpsCoordinatesInput,
+  PhotoSelector,
+  TextArea,
+} from "../components/forms";
 import { getAppSettings } from "../../AppSettings";
 import { Labels, Notifications, Placeholders, TestIds } from "../constants";
 import { useToast } from "../hooks";
@@ -90,6 +92,7 @@ const defaultRecord: AlgaeRecordInput = {
   longitude: 0,
   size: "Select a size",
   colors: ["Select colors"],
+  locationDescription: "",
 };
 
 type SpaceProps = {
@@ -278,7 +281,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   return (
     <KeyboardShift>
       {() => (
-        <ScrollView style={formInputStyles.container}>
+        <ScrollView
+          style={formInputStyles.container}
+          automaticallyAdjustKeyboardInsets
+        >
           <AlgaeRecordTypeSelector
             type={state.type}
             setType={(type) => setState((prev) => ({ ...prev, type }))}
@@ -347,24 +353,26 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           />
 
           <Space />
-          <CustomTextInput
+          <TextArea
+            blurOnSubmit={false}
             value={state?.locationDescription}
             label={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}
             placeholder={Placeholders.RecordScreen.LocationDescription}
+            ref={locationDescriptionRef}
             onChangeText={(locationDescription) =>
               setState((prev) => ({ ...prev, locationDescription }))
             }
             onSubmitEditing={() => notesRef.current?.focus()}
-            ref={locationDescriptionRef}
           />
 
           <Space />
-          <CustomTextInput
+          <TextArea
+            blurOnSubmit
             value={state?.notes}
             label={`${Labels.RecordFields.Notes} (limit 255 characters)`}
             placeholder={Placeholders.RecordScreen.Notes}
-            onChangeText={(notes) => setState((prev) => ({ ...prev, notes }))}
             ref={notesRef}
+            onChangeText={(notes) => setState((prev) => ({ ...prev, notes }))}
           />
 
           <Space />
