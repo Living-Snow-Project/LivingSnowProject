@@ -43,7 +43,6 @@ describe("ImagesPickerScreen test suite", () => {
     expect(toJSON()).toMatchSnapshot();
     fireEvent.press(getByTestId(TestIds.Icons.DoneSelectingPhotosIcon));
     await waitFor(() => expect(navigation.goBack).toBeCalled());
-    expect(route.params.onUpdatePhotos).toBeCalled();
   });
 
   test("renders android", async () => {
@@ -55,7 +54,6 @@ describe("ImagesPickerScreen test suite", () => {
 
     fireEvent.press(getByTestId(TestIds.Icons.DoneSelectingPhotosIcon));
     await waitFor(() => expect(navigation.goBack).toBeCalled());
-    expect(route.params.onUpdatePhotos).toBeCalled();
     Platform.OS = "ios";
   });
 });

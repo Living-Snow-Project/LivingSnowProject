@@ -8,6 +8,7 @@ const currentState = {
   isSeeded: false,
   pendingRecords: [],
   downloadedRecords: [],
+  nextPageToken: "",
   // TODO:
   //  pendingPhotos: PendingPhoto[];
 };
@@ -18,6 +19,7 @@ describe("useRecordReducer test suite", () => {
       pendingPhotos: [],
       pendingRecords: [],
       downloadedRecords: [],
+      nextPageToken: "",
     };
 
     test("start seeding", () => {

@@ -25,7 +25,7 @@ const productionExampleRecord = (): AlgaeRecord => ({
   latitude: 48.06727,
   longitude: -121.12165,
   size: "Fist",
-  color: "Red",
+  colors: ["Red", "Pink"],
   tubeId: "TUBE-1234",
   locationDescription: "White Chuck Glacier, Glacier Peak Wilderness, WA",
   notes: "Dark red algae in runnels",

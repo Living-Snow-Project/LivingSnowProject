@@ -50,6 +50,7 @@ describe("GpsCoordinatesInput tests", () => {
         <GpsCoordinatesInput
           coordinates={{ latitude: undefined, longitude: undefined }}
           usingGps
+          isInvalid={false}
           onSubmitEditing={onSubmitEditingMock}
           setCoordinates={setCoordinatesMock}
         />
@@ -98,6 +99,7 @@ describe("GpsCoordinatesInput tests", () => {
         <GpsCoordinatesInput
           coordinates={{ latitude: undefined, longitude: undefined }}
           usingGps
+          isInvalid={false}
           onSubmitEditing={onSubmitEditingMock}
           setCoordinates={setCoordinatesMock}
         />
@@ -125,6 +127,7 @@ describe("GpsCoordinatesInput tests", () => {
         <GpsCoordinatesInput
           coordinates={{ latitude: undefined, longitude: undefined }}
           usingGps
+          isInvalid={false}
           onSubmitEditing={onSubmitEditingMock}
           setCoordinates={setCoordinatesMock}
         />
@@ -152,6 +155,7 @@ describe("GpsCoordinatesInput tests", () => {
         <GpsCoordinatesInput
           coordinates={coordinates}
           usingGps={false}
+          isInvalid={false}
           onSubmitEditing={onSubmitEditingMock}
           setCoordinates={setCoordinatesMock}
         />

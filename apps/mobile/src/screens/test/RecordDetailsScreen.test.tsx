@@ -3,10 +3,12 @@ import { render, waitFor } from "@testing-library/react-native";
 import * as FileSystem from "expo-file-system";
 import NetInfo, { NetInfoState } from "@react-native-community/netinfo";
 import {
+  jsonToRecord,
   makeExamplePhoto,
   makeExampleRecord,
   recordDateFormat,
   Photo,
+  AlgaeRecord,
 } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../../navigation/Routes";
 import { RecordDetailsScreen } from "../RecordDetailsScreen";
@@ -42,11 +44,15 @@ function setPhotosHeight(photos: Photo[]) {
 }
 describe("RecordDetailsScreen test suite", () => {
   test("sample with remote photos", async () => {
+    const sampleRecord = makeExampleRecord("Sample");
+
+    if (sampleRecord.photos) {
+      setPhotosHeight(sampleRecord.photos);
+    }
+
     const route = {
       params: {
-        record: {
-          ...makeExampleRecord("Sample"),
-        },
+        record: JSON.stringify(sampleRecord),
       },
     } as RecordDetailsScreenRouteProp;
 
@@ -63,18 +69,15 @@ describe("RecordDetailsScreen test suite", () => {
         Promise.resolve({ status: 200 } as FileSystem.FileSystemDownloadResult)
       );
 
-    if (route.params.record.photos) {
-      setPhotosHeight(route.params.record.photos);
-    }
-
     const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
     await waitFor(() => getByText(Labels.RecordFields.Photos));
 
-    const { record } = route.params;
+    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     expect(toJSON()).toMatchSnapshot();
 
+    // TODO: was never upated for size/colors
     if (
       record.name &&
       record.organization &&
@@ -100,11 +103,15 @@ describe("RecordDetailsScreen test suite", () => {
   });
 
   test("sample with remote photos, photo download fails", async () => {
+    const sampleRecord = makeExampleRecord("Sample");
+
+    if (sampleRecord.photos) {
+      setPhotosHeight(sampleRecord.photos);
+    }
+
     const route = {
       params: {
-        record: {
-          ...makeExampleRecord("Sample"),
-        },
+        record: JSON.stringify(sampleRecord),
       },
     } as RecordDetailsScreenRouteProp;
 
@@ -120,15 +127,11 @@ describe("RecordDetailsScreen test suite", () => {
         Promise.resolve({ status: 404 } as FileSystem.FileSystemDownloadResult)
       );
 
-    if (route.params.record.photos) {
-      setPhotosHeight(route.params.record.photos);
-    }
-
     const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
     await waitFor(() => getByText(Labels.RecordFields.Photos));
 
-    const { record } = route.params;
+    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     expect(toJSON()).toMatchSnapshot();
 
@@ -159,12 +162,14 @@ describe("RecordDetailsScreen test suite", () => {
 
   test("sample with remote photos, no snapshot", async () => {
     // this test is a little silly but need to test makeExamplePhoto without a hard-coded uri that makeExampleRecord uses
+    const sampleRecord = {
+      ...makeExampleRecord("Sample"),
+      photos: [makeExamplePhoto()],
+    };
+
     const route = {
       params: {
-        record: {
-          ...makeExampleRecord("Sample"),
-          photos: [makeExamplePhoto()],
-        },
+        record: JSON.stringify(sampleRecord),
       },
     } as RecordDetailsScreenRouteProp;
 
@@ -172,7 +177,7 @@ describe("RecordDetailsScreen test suite", () => {
 
     await waitFor(() => getByText(Labels.RecordFields.Photos));
 
-    const { record } = route.params;
+    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     if (
       record.name &&
@@ -197,17 +202,17 @@ describe("RecordDetailsScreen test suite", () => {
   });
 
   test("example record with compiled photo", () => {
+    const sampleRecord = productionExampleRecord();
+
     const route = {
       params: {
-        record: {
-          ...productionExampleRecord(),
-        },
+        record: JSON.stringify(sampleRecord),
       },
     } as RecordDetailsScreenRouteProp;
 
     const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
-    const { record } = route.params;
+    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     expect(toJSON()).toMatchSnapshot();
 
@@ -234,20 +239,22 @@ describe("RecordDetailsScreen test suite", () => {
   });
 
   test("sighting without photos", () => {
+    const sightingRecord = {
+      ...makeExampleRecord("Sighting"),
+      photos: [],
+    };
+
     const route = {
       params: {
-        record: {
-          ...makeExampleRecord("Sighting"),
-          photos: [],
-        },
+        record: JSON.stringify(sightingRecord),
       },
-    } as unknown as RecordDetailsScreenRouteProp;
+    } as RecordDetailsScreenRouteProp;
 
     const { getByText, queryByText } = render(
       <RecordDetailsScreen route={route} />
     );
 
-    const { record } = route.params;
+    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     if (
       record.name &&
@@ -271,16 +278,18 @@ describe("RecordDetailsScreen test suite", () => {
   });
 
   test("sighting omit all optional fields", () => {
+    const sightingRecord = {
+      ...makeExampleRecord("Sighting"),
+      organization: undefined,
+      tubeId: undefined,
+      locationDescription: undefined,
+      notes: undefined,
+      photos: undefined,
+    };
+
     const route = {
       params: {
-        record: {
-          ...makeExampleRecord("Sighting"),
-          organization: undefined,
-          tubeId: undefined,
-          locationDescription: undefined,
-          notes: undefined,
-          photos: undefined,
-        },
+        record: JSON.stringify(sightingRecord),
       },
     } as RecordDetailsScreenRouteProp;
 
@@ -288,7 +297,7 @@ describe("RecordDetailsScreen test suite", () => {
       <RecordDetailsScreen route={route} />
     );
 
-    const { record } = route.params;
+    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     if (record.name) {
       expect(getByText(new RegExp(record.type))).toBeTruthy();
@@ -308,11 +317,15 @@ describe("RecordDetailsScreen test suite", () => {
 
   // "last test" because we are lazy with NetInfo.fetch mock
   test("sample with remote photos, offline mode", async () => {
+    const sampleRecord = makeExampleRecord("Sample");
+
+    if (sampleRecord.photos) {
+      setPhotosHeight(sampleRecord.photos);
+    }
+
     const route = {
       params: {
-        record: {
-          ...makeExampleRecord("Sample"),
-        },
+        record: JSON.stringify(sampleRecord),
       },
     } as RecordDetailsScreenRouteProp;
 
@@ -324,15 +337,11 @@ describe("RecordDetailsScreen test suite", () => {
       .spyOn(NetInfo, "fetch")
       .mockResolvedValue({ isConnected: false } as NetInfoState);
 
-    if (route.params.record.photos) {
-      setPhotosHeight(route.params.record.photos);
-    }
-
     const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
 
     await waitFor(() => getByText(Labels.RecordFields.Photos));
 
-    const { record } = route.params;
+    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     expect(toJSON()).toMatchSnapshot();
 

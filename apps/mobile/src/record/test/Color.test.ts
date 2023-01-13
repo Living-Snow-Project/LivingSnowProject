@@ -2,7 +2,7 @@ import { AlgaeColor } from "@livingsnow/record";
 import { getAllAlgaeColorSelectorItems } from "../Color";
 import { AlgaeColorDescription } from "../../constants/Strings";
 
-const getAlgaeColorPickerItem = (color: AlgaeColor) => {
+const getAlgaeColorSelectorItem = (color: AlgaeColor) => {
   const result = getAllAlgaeColorSelectorItems().find(
     (cur) => cur.value == color
   );
@@ -16,33 +16,33 @@ const getAlgaeColorPickerItem = (color: AlgaeColor) => {
 
 describe("Algae Color test suite", () => {
   test("getAlgaeColorPickerItem values", () => {
-    let cur = getAlgaeColorPickerItem("Select a color");
+    let cur = getAlgaeColorSelectorItem("Select colors");
     expect(cur.label).toEqual(AlgaeColorDescription.Select);
 
-    cur = getAlgaeColorPickerItem("Red");
+    cur = getAlgaeColorSelectorItem("Red");
     expect(cur.label).toEqual(AlgaeColorDescription.Red);
 
-    cur = getAlgaeColorPickerItem("Pink");
+    cur = getAlgaeColorSelectorItem("Pink");
     expect(cur.label).toEqual(AlgaeColorDescription.Pink);
 
-    cur = getAlgaeColorPickerItem("Grey");
+    cur = getAlgaeColorSelectorItem("Grey");
     expect(cur.label).toEqual(AlgaeColorDescription.Grey);
 
-    cur = getAlgaeColorPickerItem("Green");
+    cur = getAlgaeColorSelectorItem("Green");
     expect(cur.label).toEqual(AlgaeColorDescription.Green);
 
-    cur = getAlgaeColorPickerItem("Yellow");
+    cur = getAlgaeColorSelectorItem("Yellow");
     expect(cur.label).toEqual(AlgaeColorDescription.Yellow);
 
-    cur = getAlgaeColorPickerItem("Orange");
+    cur = getAlgaeColorSelectorItem("Orange");
     expect(cur.label).toEqual(AlgaeColorDescription.Orange);
 
-    cur = getAlgaeColorPickerItem("Other");
+    cur = getAlgaeColorSelectorItem("Other");
     expect(cur.label).toEqual(AlgaeColorDescription.Other);
   });
 
   test("getAlgaeColorPickerItem Select a color", () => {
-    expect(getAlgaeColorPickerItem("garbage" as AlgaeColor).label).toEqual(
+    expect(getAlgaeColorSelectorItem("garbage" as AlgaeColor).label).toEqual(
       AlgaeColorDescription.Other
     );
   });

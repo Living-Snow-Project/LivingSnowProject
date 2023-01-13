@@ -28,9 +28,9 @@ export type FirstRunScreenNavigationProp = NativeStackNavigationProp<
   "Welcome"
 >;
 
-export type TimelineScreenProps = NativeStackScreenProps<
-  RootStackParamList,
-  "Timeline"
+export type TimelineScreenProps = Omit<
+  NativeStackScreenProps<RootStackParamList, "Timeline">,
+  "route"
 >;
 export type TimelineScreenNavigationProp = TimelineScreenProps["navigation"];
 

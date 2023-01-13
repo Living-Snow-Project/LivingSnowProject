@@ -2,13 +2,13 @@ import React from "react";
 import { render } from "@testing-library/react-native";
 import { SelectedPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
-import { PhotoControl } from "../forms/PhotoSelector";
+import { PhotoSelector } from "../forms/PhotoSelector";
 
 const navigation: RootStackNavigationProp = {} as RootStackNavigationProp;
 navigation.goBack = () => {};
 navigation.navigate = () => {};
 
-describe("PhotoControl test suite", () => {
+describe("PhotoSelector test suite", () => {
   test("even number of photos", () => {
     const photos: SelectedPhoto[] = [
       { id: "0", uri: "", height: 16, width: 24 },
@@ -16,11 +16,7 @@ describe("PhotoControl test suite", () => {
     ];
 
     const { toJSON } = render(
-      <PhotoControl
-        navigation={navigation}
-        photos={photos}
-        onUpdatePhotos={() => {}}
-      />
+      <PhotoSelector navigation={navigation} photos={photos} />
     );
 
     expect(toJSON()).toMatchSnapshot();
@@ -32,11 +28,7 @@ describe("PhotoControl test suite", () => {
     ];
 
     const { toJSON } = render(
-      <PhotoControl
-        navigation={navigation}
-        photos={photos}
-        onUpdatePhotos={() => {}}
-      />
+      <PhotoSelector navigation={navigation} photos={photos} />
     );
 
     expect(toJSON()).toMatchSnapshot();
