@@ -16,20 +16,18 @@ import { uploadRecord } from "../lib/RecordManager";
 import { updatePendingRecord } from "../lib/Storage";
 import { RecordScreenProps } from "../navigation/Routes";
 import { KeyboardShift } from "../components/KeyboardShift";
-import { formInputStyles } from "../styles/FormInput";
 import { HeaderButton } from "../components/HeaderButton";
 import {
   AlgaeRecordTypeSelector,
   AlgaeSizeSelector,
   AlgaeColorSelector,
-} from "../components/forms/TypeSelector";
-import {
   CustomTextInput,
   DateSelector,
   GpsCoordinatesInput,
   PhotoSelector,
   TextArea,
 } from "../components/forms";
+import { ActivityIndicator } from "../components/feedback";
 import { getAppSettings } from "../../AppSettings";
 import { Labels, Notifications, Placeholders, TestIds } from "../constants";
 import { useToast } from "../hooks";
@@ -279,107 +277,113 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   }, [state, photos]);
 
   return (
-    <KeyboardShift>
-      {() => (
-        <ScrollView
-          style={formInputStyles.container}
-          automaticallyAdjustKeyboardInsets
-        >
-          <AlgaeRecordTypeSelector
-            type={state.type}
-            setType={(type) => setState((prev) => ({ ...prev, type }))}
-          />
+    <>
+      <ActivityIndicator isActive={status != "Idle"} caption={status} />
+      <KeyboardShift>
+        {() => (
+          <ScrollView automaticallyAdjustKeyboardInsets>
+            <Box px={2} _dark={{ bg: "dark.100" }}>
+              <AlgaeRecordTypeSelector
+                type={state.type}
+                setType={(type) => setState((prev) => ({ ...prev, type }))}
+              />
 
-          <Space />
-          <DateSelector
-            date={dateString}
-            maxDate={today}
-            setDate={(newDate) =>
-              setState((prev) => ({
-                ...prev,
-                date: dateWithOffset(new Date(newDate), "add"),
-              }))
-            }
-          />
+              <Space />
+              <DateSelector
+                date={dateString}
+                maxDate={today}
+                setDate={(newDate) =>
+                  setState((prev) => ({
+                    ...prev,
+                    date: dateWithOffset(new Date(newDate), "add"),
+                  }))
+                }
+              />
 
-          <Space />
-          <GpsCoordinatesInput
-            coordinates={{
-              latitude: state.latitude,
-              longitude: state.longitude,
-            }}
-            usingGps={!editMode}
-            isInvalid={didSubmit && areGpsCoordinatesInvalid()}
-            setCoordinates={({ latitude, longitude }) =>
-              setState((prev) => ({ ...prev, latitude, longitude }))
-            }
-            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
-          />
+              <Space />
+              <GpsCoordinatesInput
+                coordinates={{
+                  latitude: state.latitude,
+                  longitude: state.longitude,
+                }}
+                usingGps={!editMode}
+                isInvalid={didSubmit && areGpsCoordinatesInvalid()}
+                setCoordinates={({ latitude, longitude }) =>
+                  setState((prev) => ({ ...prev, latitude, longitude }))
+                }
+                onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+              />
 
-          <Space />
-          <AlgaeSizeSelector
-            size={state.size}
-            isInvalid={didSubmit && isAlgaeSizeInvalid()}
-            setSize={(size) => {
-              setState((prev) => ({ ...prev, size }));
-            }}
-          />
+              <Space />
+              <AlgaeSizeSelector
+                size={state.size}
+                isInvalid={didSubmit && isAlgaeSizeInvalid()}
+                setSize={(size) => {
+                  setState((prev) => ({ ...prev, size }));
+                }}
+              />
 
-          <Space />
-          <AlgaeColorSelector
-            colors={state.colors}
-            isInvalid={didSubmit && areAlgaeColorsInvalid()}
-            onChangeColors={(colors) => {
-              setState((prev) => ({
-                ...prev,
-                colors: [...colors],
-              }));
-            }}
-          />
+              <Space />
+              <AlgaeColorSelector
+                colors={state.colors}
+                isInvalid={didSubmit && areAlgaeColorsInvalid()}
+                onChangeColors={(colors) => {
+                  setState((prev) => ({
+                    ...prev,
+                    colors: [...colors],
+                  }));
+                }}
+              />
 
-          <Space />
-          <CustomTextInput
-            value={state?.tubeId}
-            label={Labels.RecordFields.TubeId}
-            placeholder={
-              isSample(state.type)
-                ? Placeholders.RecordScreen.TubeId
-                : Placeholders.RecordScreen.TubeIdDisabled
-            }
-            maxLength={20}
-            isDisabled={!isSample(state.type)}
-            onChangeText={(tubeId) => setState((prev) => ({ ...prev, tubeId }))}
-            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
-          />
+              <Space />
+              <CustomTextInput
+                value={state?.tubeId}
+                label={Labels.RecordFields.TubeId}
+                placeholder={
+                  isSample(state.type)
+                    ? Placeholders.RecordScreen.TubeId
+                    : Placeholders.RecordScreen.TubeIdDisabled
+                }
+                maxLength={20}
+                isDisabled={!isSample(state.type)}
+                onChangeText={(tubeId) =>
+                  setState((prev) => ({ ...prev, tubeId }))
+                }
+                onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+              />
 
-          <Space />
-          <TextArea
-            blurOnSubmit={false}
-            value={state?.locationDescription}
-            label={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}
-            placeholder={Placeholders.RecordScreen.LocationDescription}
-            ref={locationDescriptionRef}
-            onChangeText={(locationDescription) =>
-              setState((prev) => ({ ...prev, locationDescription }))
-            }
-            onSubmitEditing={() => notesRef.current?.focus()}
-          />
+              <Space />
+              <TextArea
+                blurOnSubmit={false}
+                value={state?.locationDescription}
+                label={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}
+                placeholder={Placeholders.RecordScreen.LocationDescription}
+                ref={locationDescriptionRef}
+                onChangeText={(locationDescription) =>
+                  setState((prev) => ({ ...prev, locationDescription }))
+                }
+                onSubmitEditing={() => notesRef.current?.focus()}
+              />
 
-          <Space />
-          <TextArea
-            blurOnSubmit
-            value={state?.notes}
-            label={`${Labels.RecordFields.Notes} (limit 255 characters)`}
-            placeholder={Placeholders.RecordScreen.Notes}
-            ref={notesRef}
-            onChangeText={(notes) => setState((prev) => ({ ...prev, notes }))}
-          />
+              <Space />
+              <TextArea
+                blurOnSubmit
+                value={state?.notes}
+                label={`${Labels.RecordFields.Notes} (limit 255 characters)`}
+                placeholder={Placeholders.RecordScreen.Notes}
+                ref={notesRef}
+                onChangeText={(notes) =>
+                  setState((prev) => ({ ...prev, notes }))
+                }
+              />
 
-          <Space />
-          <PhotoSelector navigation={navigation} photos={photos} />
-          <Space my="2" />
-        </ScrollView>
-      )}
-    </KeyboardShift>
+              <Space />
+              <PhotoSelector navigation={navigation} photos={photos} />
+              <Space my="2" />
+            </Box>
+          </ScrollView>
+        )}
+      </KeyboardShift>
+    </>
   );
 }
