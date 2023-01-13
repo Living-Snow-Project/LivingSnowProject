@@ -165,6 +165,8 @@ exports[`Navigation test suite renders first run screen 1`] = `
                   </Text>
                   <View
                     dataSet={Object {}}
+                    isInvalid={false}
+                    isRequired={false}
                     style={
                       Object {
                         "width": "100%",
@@ -173,16 +175,16 @@ exports[`Navigation test suite renders first run screen 1`] = `
                   >
                     <View
                       dataSet={Object {}}
-                      feedbackId="field-1-feedback"
-                      hasFeedbackText={false}
+                      feedbackId="field-3-feedback"
+                      hasFeedbackText={true}
                       hasHelpText={false}
-                      helpTextId="field-1-helptext"
+                      helpTextId="field-3-helptext"
                       isDisabled={false}
                       isInvalid={false}
                       isReadOnly={false}
                       isRequired={false}
-                      labelId="field-1-label"
-                      nativeID="field-1-label"
+                      labelId="field-3-label"
+                      nativeID="field-3-label"
                       setHasFeedbackText={[Function]}
                       setHasHelpText={[Function]}
                       style={
@@ -219,25 +221,24 @@ exports[`Navigation test suite renders first run screen 1`] = `
                       style={
                         Object {
                           "alignItems": "center",
-                          "borderBottomWidth": 1,
                           "borderColor": "#d4d4d4",
-                          "borderRadius": 0,
-                          "borderWidth": 0,
+                          "borderRadius": 4,
+                          "borderWidth": 1,
                           "flexDirection": "row",
                           "overflow": "hidden",
                         }
                       }
                     >
                       <TextInput
+                        accessibilityDescribedBy="field-3-feedback"
                         accessible={true}
-                        blurOnSubmit={true}
+                        blurOnSubmit={false}
                         dataSet={Object {}}
                         disabled={false}
                         editable={true}
                         isRequired={false}
                         maxLength={50}
-                        multiline={true}
-                        nativeID="field-1-input"
+                        nativeID="field-3-input"
                         onBlur={[Function]}
                         onChangeText={[Function]}
                         onFocus={[Function]}
@@ -260,7 +261,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
                             "fontWeight": "400",
                             "height": "100%",
                             "paddingBottom": 8,
-                            "paddingLeft": 0,
+                            "paddingLeft": 12,
                             "paddingRight": 12,
                             "paddingTop": 8,
                             "width": "100%",
@@ -271,6 +272,8 @@ exports[`Navigation test suite renders first run screen 1`] = `
                   </View>
                   <View
                     dataSet={Object {}}
+                    isInvalid={false}
+                    isRequired={false}
                     style={
                       Object {
                         "width": "100%",
@@ -279,16 +282,16 @@ exports[`Navigation test suite renders first run screen 1`] = `
                   >
                     <View
                       dataSet={Object {}}
-                      feedbackId="field-2-feedback"
-                      hasFeedbackText={false}
+                      feedbackId="field-4-feedback"
+                      hasFeedbackText={true}
                       hasHelpText={false}
-                      helpTextId="field-2-helptext"
+                      helpTextId="field-4-helptext"
                       isDisabled={false}
                       isInvalid={false}
                       isReadOnly={false}
                       isRequired={false}
-                      labelId="field-2-label"
-                      nativeID="field-2-label"
+                      labelId="field-4-label"
+                      nativeID="field-4-label"
                       setHasFeedbackText={[Function]}
                       setHasHelpText={[Function]}
                       style={
@@ -325,16 +328,16 @@ exports[`Navigation test suite renders first run screen 1`] = `
                       style={
                         Object {
                           "alignItems": "center",
-                          "borderBottomWidth": 1,
                           "borderColor": "#d4d4d4",
-                          "borderRadius": 0,
-                          "borderWidth": 0,
+                          "borderRadius": 4,
+                          "borderWidth": 1,
                           "flexDirection": "row",
                           "overflow": "hidden",
                         }
                       }
                     >
                       <TextInput
+                        accessibilityDescribedBy="field-4-feedback"
                         accessible={true}
                         blurOnSubmit={true}
                         dataSet={Object {}}
@@ -342,8 +345,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
                         editable={true}
                         isRequired={false}
                         maxLength={50}
-                        multiline={true}
-                        nativeID="field-2-input"
+                        nativeID="field-4-input"
                         onBlur={[Function]}
                         onChangeText={[Function]}
                         onFocus={[Function]}
@@ -366,7 +368,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
                             "fontWeight": "400",
                             "height": "100%",
                             "paddingBottom": 8,
-                            "paddingLeft": 0,
+                            "paddingLeft": 12,
                             "paddingRight": 12,
                             "paddingTop": 8,
                             "width": "100%",

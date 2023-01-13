@@ -14,6 +14,8 @@ exports[`CustomTextInput tests renders on android 1`] = `
 >
   <View
     dataSet={Object {}}
+    isInvalid={false}
+    isRequired={false}
     style={
       Object {
         "width": "100%",
@@ -22,16 +24,16 @@ exports[`CustomTextInput tests renders on android 1`] = `
   >
     <View
       dataSet={Object {}}
-      feedbackId="field-3-feedback"
-      hasFeedbackText={false}
+      feedbackId="field-8-feedback"
+      hasFeedbackText={true}
       hasHelpText={false}
-      helpTextId="field-3-helptext"
+      helpTextId="field-8-helptext"
       isDisabled={false}
       isInvalid={false}
       isReadOnly={false}
       isRequired={false}
-      labelId="field-3-label"
-      nativeID="field-3-label"
+      labelId="field-8-label"
+      nativeID="field-8-label"
       setHasFeedbackText={[Function]}
       setHasHelpText={[Function]}
       style={
@@ -68,27 +70,26 @@ exports[`CustomTextInput tests renders on android 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderBottomWidth": 1,
           "borderColor": "#d4d4d4",
-          "borderRadius": 0,
-          "borderWidth": 0,
+          "borderRadius": 4,
+          "borderWidth": 1,
           "flexDirection": "row",
           "overflow": "hidden",
         }
       }
     >
       <TextInput
+        accessibilityDescribedBy="field-8-feedback"
         accessible={true}
-        blurOnSubmit={true}
+        blurOnSubmit={false}
         dataSet={Object {}}
         disabled={false}
         editable={true}
         isRequired={false}
         maxLength={255}
-        multiline={true}
-        nativeID="field-3-input"
+        nativeID="field-8-input"
         onBlur={[Function]}
-        onChangeText={[Function]}
+        onChangeText={[MockFunction]}
         onFocus={[Function]}
         onKeyPress={[Function]}
         onSubmitEditing={[Function]}
@@ -109,7 +110,7 @@ exports[`CustomTextInput tests renders on android 1`] = `
             "fontWeight": "400",
             "height": "100%",
             "paddingBottom": 8,
-            "paddingLeft": 0,
+            "paddingLeft": 12,
             "paddingRight": 12,
             "paddingTop": 8,
             "width": "100%",
@@ -135,6 +136,8 @@ exports[`CustomTextInput tests renders on ios 1`] = `
 >
   <View
     dataSet={Object {}}
+    isInvalid={false}
+    isRequired={false}
     style={
       Object {
         "width": "100%",
@@ -143,16 +146,16 @@ exports[`CustomTextInput tests renders on ios 1`] = `
   >
     <View
       dataSet={Object {}}
-      feedbackId="field-1-feedback"
-      hasFeedbackText={false}
+      feedbackId="field-2-feedback"
+      hasFeedbackText={true}
       hasHelpText={false}
-      helpTextId="field-1-helptext"
+      helpTextId="field-2-helptext"
       isDisabled={false}
       isInvalid={false}
       isReadOnly={false}
       isRequired={false}
-      labelId="field-1-label"
-      nativeID="field-1-label"
+      labelId="field-2-label"
+      nativeID="field-2-label"
       setHasFeedbackText={[Function]}
       setHasHelpText={[Function]}
       style={
@@ -189,27 +192,26 @@ exports[`CustomTextInput tests renders on ios 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "borderBottomWidth": 1,
           "borderColor": "#d4d4d4",
-          "borderRadius": 0,
-          "borderWidth": 0,
+          "borderRadius": 4,
+          "borderWidth": 1,
           "flexDirection": "row",
           "overflow": "hidden",
         }
       }
     >
       <TextInput
+        accessibilityDescribedBy="field-2-feedback"
         accessible={true}
-        blurOnSubmit={true}
+        blurOnSubmit={false}
         dataSet={Object {}}
         disabled={false}
         editable={true}
         isRequired={false}
         maxLength={255}
-        multiline={true}
-        nativeID="field-1-input"
+        nativeID="field-2-input"
         onBlur={[Function]}
-        onChangeText={[Function]}
+        onChangeText={[MockFunction]}
         onFocus={[Function]}
         onKeyPress={[Function]}
         onSubmitEditing={[Function]}
@@ -230,7 +232,7 @@ exports[`CustomTextInput tests renders on ios 1`] = `
             "fontWeight": "400",
             "height": "100%",
             "paddingBottom": 8,
-            "paddingLeft": 0,
+            "paddingLeft": 12,
             "paddingRight": 12,
             "paddingTop": 8,
             "width": "100%",

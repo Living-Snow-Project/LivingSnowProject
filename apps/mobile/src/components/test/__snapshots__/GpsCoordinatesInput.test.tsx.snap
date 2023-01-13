@@ -36,6 +36,7 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
     >
       <View
         dataSet={Object {}}
+        isInvalid={false}
         isRequired={true}
         style={
           Object {
@@ -45,16 +46,16 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
       >
         <View
           dataSet={Object {}}
-          feedbackId="field-2-feedback"
-          hasFeedbackText={false}
+          feedbackId="field-4-feedback"
+          hasFeedbackText={true}
           hasHelpText={false}
-          helpTextId="field-2-helptext"
+          helpTextId="field-4-helptext"
           isDisabled={false}
           isInvalid={false}
           isReadOnly={false}
           isRequired={true}
-          labelId="field-2-label"
-          nativeID="field-2-label"
+          labelId="field-4-label"
+          nativeID="field-4-label"
           setHasFeedbackText={[Function]}
           setHasHelpText={[Function]}
           style={
@@ -118,16 +119,16 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
           }
         >
           <TextInput
+            accessibilityDescribedBy="field-4-feedback"
             accessibilityRequired={true}
             accessible={true}
-            blurOnSubmit={true}
+            blurOnSubmit={false}
             dataSet={Object {}}
             disabled={false}
             editable={true}
             isRequired={true}
             maxLength={30}
-            multiline={true}
-            nativeID="field-2-input"
+            nativeID="field-4-input"
             onBlur={[Function]}
             onChangeText={[Function]}
             onFocus={[Function]}

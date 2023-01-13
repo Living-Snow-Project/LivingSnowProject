@@ -18,251 +18,258 @@ exports[`SettingsScreen test suite renders 1`] = `
   >
     <View
       dataSet={Object {}}
-      style={
-        Object {
-          "marginLeft": 12,
-          "marginRight": 12,
-        }
-      }
+      style={Object {}}
     >
-      <Text
+      <View
         dataSet={Object {}}
         style={
           Object {
-            "backgroundColor": undefined,
-            "color": "#171717",
-            "fontFamily": undefined,
-            "fontSize": 16,
-            "fontStyle": "normal",
-            "fontWeight": "700",
-            "letterSpacing": 0,
-            "lineHeight": 20,
             "marginBottom": 4,
-            "marginTop": 12,
-            "textDecorationLine": undefined,
           }
         }
       >
-        Your Information
-      </Text>
-      <View
-        dataSet={Object {}}
-        style={Object {}}
-      />
-      <View
-        dataSet={Object {}}
-        style={Object {}}
-      >
         <View
           dataSet={Object {}}
           style={
             Object {
-              "width": "100%",
+              "paddingLeft": 8,
+              "paddingRight": 8,
             }
           }
         >
-          <View
+          <Text
             dataSet={Object {}}
-            feedbackId="field-1-feedback"
-            hasFeedbackText={false}
-            hasHelpText={false}
-            helpTextId="field-1-helptext"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-            isRequired={false}
-            labelId="field-1-label"
-            nativeID="field-1-label"
-            setHasFeedbackText={[Function]}
-            setHasHelpText={[Function]}
             style={
               Object {
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 16,
+                "fontStyle": "normal",
+                "fontWeight": "700",
+                "letterSpacing": 0,
+                "lineHeight": 20,
                 "marginBottom": 4,
                 "marginTop": 4,
+                "textDecorationLine": undefined,
               }
             }
           >
-            <Text
+            Profile
+          </Text>
+          <View
+            dataSet={Object {}}
+            isInvalid={false}
+            isRequired={false}
+            style={
+              Object {
+                "width": "100%",
+              }
+            }
+          >
+            <View
               dataSet={Object {}}
+              feedbackId="field-3-feedback"
+              hasFeedbackText={true}
+              hasHelpText={false}
+              helpTextId="field-3-helptext"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
+              isRequired={false}
+              labelId="field-3-label"
+              nativeID="field-3-label"
+              setHasFeedbackText={[Function]}
+              setHasHelpText={[Function]}
               style={
                 Object {
-                  "backgroundColor": undefined,
-                  "color": "#737373",
-                  "fontFamily": undefined,
-                  "fontSize": 14,
-                  "fontStyle": "normal",
-                  "fontWeight": "500",
-                  "letterSpacing": 0,
-                  "lineHeight": 21,
-                  "textDecorationLine": undefined,
+                  "flexDirection": "row",
+                  "justifyContent": "flex-start",
+                  "marginBottom": 4,
+                  "marginTop": 4,
                 }
               }
             >
-              Name
-            </Text>
-          </View>
-          <View
-            dataSet={Object {}}
-            isFocused={false}
-            style={
-              Object {
-                "alignItems": "center",
-                "borderBottomWidth": 1,
-                "borderColor": "#d4d4d4",
-                "borderRadius": 0,
-                "borderWidth": 0,
-                "flexDirection": "row",
-                "overflow": "hidden",
-              }
-            }
-          >
-            <TextInput
-              accessible={true}
-              blurOnSubmit={true}
-              dataSet={Object {}}
-              disabled={false}
-              editable={true}
-              isRequired={false}
-              maxLength={50}
-              multiline={true}
-              nativeID="field-1-input"
-              onBlur={[Function]}
-              onChangeText={[Function]}
-              onFocus={[Function]}
-              onKeyPress={[Function]}
-              onSubmitEditing={[Function]}
-              placeholder="Enter your name"
-              placeholderTextColor="#a3a3a3"
-              readOnly={false}
-              required={false}
-              returnKeyType="done"
-              secureTextEntry={false}
-              style={
-                Object {
-                  "backgroundColor": "transparent",
-                  "color": "#171717",
-                  "flex": 1,
-                  "fontFamily": undefined,
-                  "fontSize": 16,
-                  "fontStyle": "normal",
-                  "fontWeight": "400",
-                  "height": "100%",
-                  "paddingBottom": 8,
-                  "paddingLeft": 0,
-                  "paddingRight": 12,
-                  "paddingTop": 8,
-                  "width": "100%",
+              <Text
+                dataSet={Object {}}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                    "color": "#737373",
+                    "fontFamily": undefined,
+                    "fontSize": 14,
+                    "fontStyle": "normal",
+                    "fontWeight": "500",
+                    "letterSpacing": 0,
+                    "lineHeight": 21,
+                    "textDecorationLine": undefined,
+                  }
                 }
-              }
-            />
-          </View>
-        </View>
-        <View
-          dataSet={Object {}}
-          style={
-            Object {
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            dataSet={Object {}}
-            feedbackId="field-2-feedback"
-            hasFeedbackText={false}
-            hasHelpText={false}
-            helpTextId="field-2-helptext"
-            isDisabled={false}
-            isInvalid={false}
-            isReadOnly={false}
-            isRequired={false}
-            labelId="field-2-label"
-            nativeID="field-2-label"
-            setHasFeedbackText={[Function]}
-            setHasHelpText={[Function]}
-            style={
-              Object {
-                "flexDirection": "row",
-                "justifyContent": "flex-start",
-                "marginBottom": 4,
-                "marginTop": 4,
-              }
-            }
-          >
-            <Text
+              >
+                Name
+              </Text>
+            </View>
+            <View
               dataSet={Object {}}
+              isFocused={false}
               style={
                 Object {
-                  "backgroundColor": undefined,
-                  "color": "#737373",
-                  "fontFamily": undefined,
-                  "fontSize": 14,
-                  "fontStyle": "normal",
-                  "fontWeight": "500",
-                  "letterSpacing": 0,
-                  "lineHeight": 21,
-                  "textDecorationLine": undefined,
+                  "alignItems": "center",
+                  "borderColor": "#d4d4d4",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "flexDirection": "row",
+                  "overflow": "hidden",
                 }
               }
             >
-              Organization
-            </Text>
+              <TextInput
+                accessibilityDescribedBy="field-3-feedback"
+                accessible={true}
+                blurOnSubmit={false}
+                dataSet={Object {}}
+                disabled={false}
+                editable={true}
+                isRequired={false}
+                maxLength={50}
+                nativeID="field-3-input"
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onFocus={[Function]}
+                onKeyPress={[Function]}
+                onSubmitEditing={[Function]}
+                placeholder="Enter your name"
+                placeholderTextColor="#a3a3a3"
+                readOnly={false}
+                required={false}
+                returnKeyType="done"
+                secureTextEntry={false}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "#171717",
+                    "flex": 1,
+                    "fontFamily": undefined,
+                    "fontSize": 16,
+                    "fontStyle": "normal",
+                    "fontWeight": "400",
+                    "height": "100%",
+                    "paddingBottom": 8,
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "paddingTop": 8,
+                    "width": "100%",
+                  }
+                }
+              />
+            </View>
           </View>
           <View
             dataSet={Object {}}
-            isFocused={false}
+            isInvalid={false}
+            isRequired={false}
             style={
               Object {
-                "alignItems": "center",
-                "borderBottomWidth": 1,
-                "borderColor": "#d4d4d4",
-                "borderRadius": 0,
-                "borderWidth": 0,
-                "flexDirection": "row",
-                "overflow": "hidden",
+                "width": "100%",
               }
             }
           >
-            <TextInput
-              accessible={true}
-              blurOnSubmit={true}
+            <View
               dataSet={Object {}}
-              disabled={false}
-              editable={true}
+              feedbackId="field-4-feedback"
+              hasFeedbackText={true}
+              hasHelpText={false}
+              helpTextId="field-4-helptext"
+              isDisabled={false}
+              isInvalid={false}
+              isReadOnly={false}
               isRequired={false}
-              maxLength={50}
-              multiline={true}
-              nativeID="field-2-input"
-              onBlur={[Function]}
-              onChangeText={[Function]}
-              onFocus={[Function]}
-              onKeyPress={[Function]}
-              onSubmitEditing={[Function]}
-              placeholder="Enter organization you belong to (if any)"
-              placeholderTextColor="#a3a3a3"
-              readOnly={false}
-              required={false}
-              returnKeyType="done"
-              secureTextEntry={false}
+              labelId="field-4-label"
+              nativeID="field-4-label"
+              setHasFeedbackText={[Function]}
+              setHasHelpText={[Function]}
               style={
                 Object {
-                  "backgroundColor": "transparent",
-                  "color": "#171717",
-                  "flex": 1,
-                  "fontFamily": undefined,
-                  "fontSize": 16,
-                  "fontStyle": "normal",
-                  "fontWeight": "400",
-                  "height": "100%",
-                  "paddingBottom": 8,
-                  "paddingLeft": 0,
-                  "paddingRight": 12,
-                  "paddingTop": 8,
-                  "width": "100%",
+                  "flexDirection": "row",
+                  "justifyContent": "flex-start",
+                  "marginBottom": 4,
+                  "marginTop": 4,
                 }
               }
-            />
+            >
+              <Text
+                dataSet={Object {}}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                    "color": "#737373",
+                    "fontFamily": undefined,
+                    "fontSize": 14,
+                    "fontStyle": "normal",
+                    "fontWeight": "500",
+                    "letterSpacing": 0,
+                    "lineHeight": 21,
+                    "textDecorationLine": undefined,
+                  }
+                }
+              >
+                Organization
+              </Text>
+            </View>
+            <View
+              dataSet={Object {}}
+              isFocused={false}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "borderColor": "#d4d4d4",
+                  "borderRadius": 4,
+                  "borderWidth": 1,
+                  "flexDirection": "row",
+                  "overflow": "hidden",
+                }
+              }
+            >
+              <TextInput
+                accessibilityDescribedBy="field-4-feedback"
+                accessible={true}
+                blurOnSubmit={true}
+                dataSet={Object {}}
+                disabled={false}
+                editable={true}
+                isRequired={false}
+                maxLength={50}
+                nativeID="field-4-input"
+                onBlur={[Function]}
+                onChangeText={[Function]}
+                onFocus={[Function]}
+                onKeyPress={[Function]}
+                onSubmitEditing={[Function]}
+                placeholder="Enter organization you belong to (if any)"
+                placeholderTextColor="#a3a3a3"
+                readOnly={false}
+                required={false}
+                returnKeyType="done"
+                secureTextEntry={false}
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "#171717",
+                    "flex": 1,
+                    "fontFamily": undefined,
+                    "fontSize": 16,
+                    "fontStyle": "normal",
+                    "fontWeight": "400",
+                    "height": "100%",
+                    "paddingBottom": 8,
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "paddingTop": 8,
+                    "width": "100%",
+                  }
+                }
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -270,72 +277,78 @@ exports[`SettingsScreen test suite renders 1`] = `
         dataSet={Object {}}
         style={Object {}}
       />
-      <Text
+      <View
         dataSet={Object {}}
         style={
           Object {
-            "backgroundColor": undefined,
-            "color": "#171717",
-            "fontFamily": undefined,
-            "fontSize": 16,
-            "fontStyle": "normal",
-            "fontWeight": "700",
-            "letterSpacing": 0,
-            "lineHeight": 20,
-            "marginBottom": 4,
-            "marginTop": 12,
-            "textDecorationLine": undefined,
+            "backgroundColor": "#d6d3d1",
+            "height": 12,
+            "width": "100%",
           }
         }
-      >
-        Prompts
-      </Text>
+      />
       <View
         dataSet={Object {}}
         style={Object {}}
       />
       <View
         dataSet={Object {}}
-        style={Object {}}
+        style={
+          Object {
+            "paddingLeft": 8,
+            "paddingRight": 8,
+          }
+        }
       >
+        <Text
+          dataSet={Object {}}
+          style={
+            Object {
+              "backgroundColor": undefined,
+              "color": "#171717",
+              "fontFamily": undefined,
+              "fontSize": 16,
+              "fontStyle": "normal",
+              "fontWeight": "700",
+              "letterSpacing": 0,
+              "lineHeight": 20,
+              "marginBottom": 4,
+              "marginTop": 4,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Prompts
+        </Text>
         <View
           dataSet={Object {}}
           style={
             Object {
               "flexDirection": "row",
+              "height": 40,
               "justifyContent": "space-between",
             }
           }
         >
-          <View
+          <Text
             dataSet={Object {}}
             style={
               Object {
-                "alignItems": "center",
-                "display": "flex",
-                "justifyContent": "center",
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 16,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 24,
+                "marginTop": 12,
+                "textDecorationLine": undefined,
               }
             }
           >
-            <Text
-              dataSet={Object {}}
-              style={
-                Object {
-                  "backgroundColor": undefined,
-                  "color": "#171717",
-                  "fontFamily": undefined,
-                  "fontSize": 16,
-                  "fontStyle": "normal",
-                  "fontWeight": "400",
-                  "letterSpacing": 0,
-                  "lineHeight": 24,
-                  "textDecorationLine": undefined,
-                }
-              }
-            >
-              Manual Coordinates Warning
-            </Text>
-          </View>
+            Manual Coordinates Warning
+          </Text>
           <View
             dataSet={Object {}}
             style={Object {}}
@@ -370,44 +383,21 @@ exports[`SettingsScreen test suite renders 1`] = `
             value={true}
           />
         </View>
-        <View
-          aria-orientation="horizontal"
-          dataSet={Object {}}
-          style={
-            Object {
-              "backgroundColor": "#d4d4d4",
-              "height": 1,
-              "marginTop": 8,
-              "width": "100%",
-            }
-          }
-          thickness="1"
-        />
       </View>
       <View
         dataSet={Object {}}
         style={Object {}}
       />
-      <Text
+      <View
         dataSet={Object {}}
         style={
           Object {
-            "backgroundColor": undefined,
-            "color": "#171717",
-            "fontFamily": undefined,
-            "fontSize": 16,
-            "fontStyle": "normal",
-            "fontWeight": "700",
-            "letterSpacing": 0,
-            "lineHeight": 20,
-            "marginBottom": 4,
-            "marginTop": 12,
-            "textDecorationLine": undefined,
+            "backgroundColor": "#d6d3d1",
+            "height": 12,
+            "width": "100%",
           }
         }
-      >
-        Theme
-      </Text>
+      />
       <View
         dataSet={Object {}}
         style={Object {}}
@@ -416,18 +406,38 @@ exports[`SettingsScreen test suite renders 1`] = `
         dataSet={Object {}}
         style={
           Object {
-            "flexDirection": "row",
-            "justifyContent": "space-between",
+            "paddingLeft": 8,
+            "paddingRight": 8,
           }
         }
       >
+        <Text
+          dataSet={Object {}}
+          style={
+            Object {
+              "backgroundColor": undefined,
+              "color": "#171717",
+              "fontFamily": undefined,
+              "fontSize": 16,
+              "fontStyle": "normal",
+              "fontWeight": "700",
+              "letterSpacing": 0,
+              "lineHeight": 20,
+              "marginBottom": 4,
+              "marginTop": 4,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Theme
+        </Text>
         <View
           dataSet={Object {}}
           style={
             Object {
-              "alignItems": "center",
-              "display": "flex",
-              "justifyContent": "center",
+              "flexDirection": "row",
+              "height": 40,
+              "justifyContent": "space-between",
             }
           }
         >
@@ -443,46 +453,692 @@ exports[`SettingsScreen test suite renders 1`] = `
                 "fontWeight": "400",
                 "letterSpacing": 0,
                 "lineHeight": 24,
+                "marginTop": 12,
                 "textDecorationLine": undefined,
               }
             }
           >
             Dark
           </Text>
+          <View
+            dataSet={Object {}}
+            style={Object {}}
+          />
+          <RCTSwitch
+            accessibilityRole="switch"
+            activeThumbColor="#fafafa"
+            colorScheme="primary"
+            dataSet={Object {}}
+            onChange={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            onTintColor="#0891b2"
+            style={
+              Array [
+                Object {
+                  "height": 31,
+                  "width": 51,
+                },
+                Array [
+                  Object {},
+                  Object {
+                    "backgroundColor": "#d4d4d4",
+                    "borderRadius": 16,
+                  },
+                ],
+              ]
+            }
+            testID="Dark Mode"
+            thumbTintColor="#fafafa"
+            tintColor="#d4d4d4"
+            value={false}
+          />
         </View>
+      </View>
+      <View
+        dataSet={Object {}}
+        style={Object {}}
+      />
+      <View
+        dataSet={Object {}}
+        style={
+          Object {
+            "backgroundColor": "#d6d3d1",
+            "height": 12,
+            "width": "100%",
+          }
+        }
+      />
+      <View
+        dataSet={Object {}}
+        style={Object {}}
+      />
+      <View
+        dataSet={Object {}}
+        style={
+          Object {
+            "paddingLeft": 8,
+            "paddingRight": 8,
+          }
+        }
+      >
+        <Text
+          dataSet={Object {}}
+          style={
+            Object {
+              "backgroundColor": undefined,
+              "color": "#171717",
+              "fontFamily": undefined,
+              "fontSize": 16,
+              "fontStyle": "normal",
+              "fontWeight": "700",
+              "letterSpacing": 0,
+              "lineHeight": 20,
+              "marginBottom": 4,
+              "marginTop": 4,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Disk Usage
+        </Text>
         <View
           dataSet={Object {}}
-          style={Object {}}
-        />
-        <RCTSwitch
-          accessibilityRole="switch"
-          activeThumbColor="#fafafa"
-          colorScheme="primary"
-          dataSet={Object {}}
-          onChange={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          onTintColor="#0891b2"
           style={
-            Array [
+            Object {
+              "flexDirection": "row",
+              "height": 40,
+              "justifyContent": "space-between",
+            }
+          }
+        >
+          <Text
+            dataSet={Object {}}
+            style={
               Object {
-                "height": 31,
-                "width": 51,
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 16,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 24,
+                "marginTop": 12,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Calculating
+          </Text>
+          <View
+            dataSet={Object {}}
+            style={Object {}}
+          />
+          <View
+            dataSet={Object {}}
+            style={Object {}}
+          />
+          <View
+            accessibilityRole="button"
+            accessible={true}
+            collapsable={false}
+            colorScheme="primary"
+            dataSet={Object {}}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "backgroundColor": "#0891b2",
+                "borderRadius": 4,
+                "flexDirection": "row",
+                "height": 32,
+                "justifyContent": "center",
+                "paddingBottom": 4,
+                "paddingLeft": 12,
+                "paddingRight": 12,
+                "paddingTop": 4,
+              }
+            }
+          >
+            <View
+              dataSet={Object {}}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "flexDirection": "row",
+                }
+              }
+              test={true}
+            >
+              <View
+                dataSet={Object {}}
+                style={Object {}}
+              >
+                <Text
+                  dataSet={Object {}}
+                  style={
+                    Object {
+                      "backgroundColor": undefined,
+                      "color": "#fafafa",
+                      "fontFamily": undefined,
+                      "fontSize": 14,
+                      "fontStyle": "normal",
+                      "fontWeight": "400",
+                      "letterSpacing": 0,
+                      "lineHeight": 21,
+                      "textDecorationLine": undefined,
+                    }
+                  }
+                >
+                  Delete
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+  <View
+    collapsable={false}
+    pointerEvents="box-none"
+    style={
+      Array [
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "display": "none",
+        },
+      ]
+    }
+  >
+    <View
+      collapsable={false}
+      pointerEvents="none"
+      style={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateY": 0,
+            },
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "scale": 1,
+            },
+            Object {
+              "scaleX": 1,
+            },
+            Object {
+              "scaleY": 1,
+            },
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+        }
+      }
+    >
+      <View
+        accessible={false}
+        collapsable={false}
+        dataSet={Object {}}
+        focusable={true}
+        importantForAccessibility="no"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgb(0, 0, 0)",
+            "bottom": 0,
+            "left": 0,
+            "opacity": 0.3,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      />
+    </View>
+    <View
+      collapsable={false}
+      pointerEvents="none"
+      style={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateY": 0,
+            },
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "scale": 1,
+            },
+            Object {
+              "scaleX": 1,
+            },
+            Object {
+              "scaleY": 1,
+            },
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+        }
+      }
+    >
+      <View
+        closeOnOverlayClick={true}
+        dataSet={Object {}}
+        pointerEvents="box-none"
+        style={
+          Object {
+            "alignItems": "center",
+            "height": "100%",
+            "justifyContent": "center",
+            "width": "100%",
+          }
+        }
+        testID="disk-usage-delete-photos-modal"
+      >
+        <View
+          accessibilityViewIsModal={true}
+          aria-modal="true"
+          dataSet={Object {}}
+          onAccessibilityEscape={[Function]}
+          style={
+            Object {
+              "backgroundColor": "#fafafa",
+              "borderRadius": 8,
+              "elevation": 2,
+              "maxHeight": 1184,
+              "maxWidth": 320,
+              "overflow": "hidden",
+              "shadowColor": "#000000",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 0,
               },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 1.41,
+              "width": "65%",
+            }
+          }
+        >
+          <View
+            accessibilityRole="button"
+            accessible={true}
+            collapsable={false}
+            colorScheme="coolGray"
+            dataSet={Object {}}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "backgroundColor": "transparent",
+                "borderRadius": 4,
+                "paddingBottom": 8,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 8,
+                "position": "absolute",
+                "right": 12,
+                "top": 12,
+                "zIndex": 1,
+              }
+            }
+          >
+            <RNSVGSvgView
+              accessibilityRole="image"
+              align="xMidYMid"
+              bbHeight="16"
+              bbWidth="16"
+              dataSet={Object {}}
+              focusable={false}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              stroke=""
+              style={
+                Array [
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  Object {
+                    "color": "#737373",
+                    "height": 16,
+                    "width": 16,
+                  },
+                  Object {
+                    "flex": 0,
+                    "height": 16,
+                    "width": 16,
+                  },
+                ]
+              }
+              tintColor="#737373"
+              vbHeight={24}
+              vbWidth={24}
+            >
+              <RNSVGGroup
+                propList={
+                  Array [
+                    "stroke",
+                  ]
+                }
+                stroke={null}
+              >
+                <RNSVGGroup>
+                  <RNSVGPath
+                    d="M12 9.77778L4.22222 2L2 4.22222L9.77778 12L2 19.7778L4.22222 22L12 14.2222L19.7778 22L22 19.7778L14.2222 12L22 4.22222L19.7778 2L12 9.77778Z"
+                    fill={
+                      Object {
+                        "type": 2,
+                      }
+                    }
+                    propList={
+                      Array [
+                        "fill",
+                        "stroke",
+                      ]
+                    }
+                    stroke={null}
+                  />
+                </RNSVGGroup>
+              </RNSVGGroup>
+            </RNSVGSvgView>
+          </View>
+          <View
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": "#fafafa",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              }
+            }
+          >
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "600",
+                  "letterSpacing": 0,
+                  "lineHeight": 20,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Confirm Delete
+            </Text>
+          </View>
+          <RCTScrollView
+            contentContainerStyle={
               Array [
                 Object {},
                 Object {
-                  "backgroundColor": "#d4d4d4",
-                  "borderRadius": 16,
+                  "dataSet": Object {},
                 },
-              ],
-            ]
-          }
-          testID="Dark Mode"
-          thumbTintColor="#fafafa"
-          tintColor="#d4d4d4"
-          value={false}
-        />
+                Object {},
+              ]
+            }
+            dataSet={Object {}}
+            style={Object {}}
+          >
+            <View>
+              <View
+                dataSet={Object {}}
+                style={
+                  Object {
+                    "paddingBottom": 16,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 16,
+                  }
+                }
+              >
+                <Text
+                  dataSet={Object {}}
+                  style={
+                    Object {
+                      "backgroundColor": undefined,
+                      "color": "#171717",
+                      "fontFamily": undefined,
+                      "fontSize": 14,
+                      "fontStyle": "normal",
+                      "fontWeight": "400",
+                      "letterSpacing": 0,
+                      "lineHeight": 21,
+                      "textDecorationLine": undefined,
+                    }
+                  }
+                >
+                  Are you sure you want to delete saved photos?
+                </Text>
+              </View>
+            </View>
+          </RCTScrollView>
+          <View
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": "#fafafa",
+                "borderColor": "#d4d4d4",
+                "borderTopWidth": 1,
+                "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              }
+            }
+          >
+            <View
+              dataSet={Object {}}
+              style={
+                Object {
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View
+                accessibilityRole="button"
+                accessible={true}
+                collapsable={false}
+                colorScheme="blueGray"
+                dataSet={Object {}}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "borderRadius": 4,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": 10,
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "paddingTop": 10,
+                  }
+                }
+                testID="modal-no-button"
+              >
+                <View
+                  dataSet={Object {}}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                    }
+                  }
+                  test={true}
+                >
+                  <View
+                    dataSet={Object {}}
+                    style={Object {}}
+                  >
+                    <Text
+                      dataSet={Object {}}
+                      style={
+                        Object {
+                          "backgroundColor": undefined,
+                          "color": "#475569",
+                          "fontFamily": undefined,
+                          "fontSize": 14,
+                          "fontStyle": "normal",
+                          "fontWeight": "400",
+                          "letterSpacing": 0,
+                          "lineHeight": 21,
+                          "textDecorationLine": undefined,
+                        }
+                      }
+                    >
+                      Cancel
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View
+                dataSet={Object {}}
+                style={
+                  Object {
+                    "width": 8,
+                  }
+                }
+              />
+              <View
+                accessibilityRole="button"
+                accessible={true}
+                collapsable={false}
+                colorScheme="primary"
+                dataSet={Object {}}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "#0891b2",
+                    "borderRadius": 4,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": 10,
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "paddingTop": 10,
+                  }
+                }
+                testID="modal-confirm-button"
+              >
+                <View
+                  dataSet={Object {}}
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                    }
+                  }
+                  test={true}
+                >
+                  <View
+                    dataSet={Object {}}
+                    style={Object {}}
+                  >
+                    <Text
+                      dataSet={Object {}}
+                      style={
+                        Object {
+                          "backgroundColor": undefined,
+                          "color": "#fafafa",
+                          "fontFamily": undefined,
+                          "fontSize": 14,
+                          "fontStyle": "normal",
+                          "fontWeight": "400",
+                          "letterSpacing": 0,
+                          "lineHeight": 21,
+                          "textDecorationLine": undefined,
+                        }
+                      }
+                    >
+                      Confirm
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
       </View>
     </View>
   </View>
