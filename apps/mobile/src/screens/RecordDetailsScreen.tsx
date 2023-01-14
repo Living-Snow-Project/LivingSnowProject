@@ -53,7 +53,9 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
             backgroundColor: "lightblue",
           }}
         >
-          <Text style={{ textAlign: "center" }}>Data Sheet</Text>
+          <Text style={{ textAlign: "center" }}>
+            {Labels.RecordFields.DataSheet}
+          </Text>
         </View>
         <Text>{`${Labels.Date}: ${recordDateFormat(date)}`}</Text>
         <Text>{`${Labels.RecordFields.Type}: ${type}`}</Text>

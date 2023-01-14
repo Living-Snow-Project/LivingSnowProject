@@ -10,6 +10,7 @@ import {
   Photo,
   AlgaeRecord,
 } from "@livingsnow/record";
+import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import { RecordDetailsScreenRouteProp } from "../../navigation/Routes";
 import { RecordDetailsScreen } from "../RecordDetailsScreen";
 import { productionExampleRecord } from "../../record/Record";
@@ -69,9 +70,13 @@ describe("RecordDetailsScreen test suite", () => {
         Promise.resolve({ status: 200 } as FileSystem.FileSystemDownloadResult)
       );
 
-    const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
+    const { getByText, toJSON } = render(
+      <NativeBaseProviderForTesting>
+        <RecordDetailsScreen route={route} />
+      </NativeBaseProviderForTesting>
+    );
 
-    await waitFor(() => getByText(Labels.RecordFields.Photos));
+    await waitFor(() => getByText(Labels.RecordFields.DataSheet));
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
 
@@ -94,7 +99,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
     }
@@ -127,9 +131,13 @@ describe("RecordDetailsScreen test suite", () => {
         Promise.resolve({ status: 404 } as FileSystem.FileSystemDownloadResult)
       );
 
-    const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
+    const { getByText, toJSON } = render(
+      <NativeBaseProviderForTesting>
+        <RecordDetailsScreen route={route} />
+      </NativeBaseProviderForTesting>
+    );
 
-    await waitFor(() => getByText(Labels.RecordFields.Photos));
+    await waitFor(() => getByText(Labels.RecordFields.DataSheet));
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
 
@@ -151,7 +159,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
     }
@@ -173,9 +180,13 @@ describe("RecordDetailsScreen test suite", () => {
       },
     } as RecordDetailsScreenRouteProp;
 
-    const { getByText } = render(<RecordDetailsScreen route={route} />);
+    const { getByText } = render(
+      <NativeBaseProviderForTesting>
+        <RecordDetailsScreen route={route} />
+      </NativeBaseProviderForTesting>
+    );
 
-    await waitFor(() => getByText(Labels.RecordFields.Photos));
+    await waitFor(() => getByText(Labels.RecordFields.DataSheet));
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
 
@@ -195,7 +206,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
     }
@@ -210,7 +220,11 @@ describe("RecordDetailsScreen test suite", () => {
       },
     } as RecordDetailsScreenRouteProp;
 
-    const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
+    const { getByText, toJSON } = render(
+      <NativeBaseProviderForTesting>
+        <RecordDetailsScreen route={route} />
+      </NativeBaseProviderForTesting>
+    );
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
 
@@ -232,7 +246,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
     }
@@ -271,7 +284,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(queryByText(Labels.RecordFields.Photos)).toBeFalsy();
     } else {
       fail("one expected field was undefined");
     }
@@ -294,7 +306,9 @@ describe("RecordDetailsScreen test suite", () => {
     } as RecordDetailsScreenRouteProp;
 
     const { getByText, queryByText } = render(
-      <RecordDetailsScreen route={route} />
+      <NativeBaseProviderForTesting>
+        <RecordDetailsScreen route={route} />
+      </NativeBaseProviderForTesting>
     );
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
@@ -309,7 +323,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(queryByText(Labels.RecordFields.TubeId)).toBeFalsy();
       expect(queryByText(Labels.RecordFields.LocationDescription)).toBeFalsy();
       expect(queryByText(Labels.RecordFields.Notes)).toBeFalsy();
-      expect(queryByText(Labels.RecordFields.Photos)).toBeFalsy();
     } else {
       fail("name field was not found");
     }
@@ -337,9 +350,13 @@ describe("RecordDetailsScreen test suite", () => {
       .spyOn(NetInfo, "fetch")
       .mockResolvedValue({ isConnected: false } as NetInfoState);
 
-    const { getByText, toJSON } = render(<RecordDetailsScreen route={route} />);
+    const { getByText, toJSON } = render(
+      <NativeBaseProviderForTesting>
+        <RecordDetailsScreen route={route} />
+      </NativeBaseProviderForTesting>
+    );
 
-    await waitFor(() => getByText(Labels.RecordFields.Photos));
+    await waitFor(() => getByText(Labels.RecordFields.DataSheet));
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
 
@@ -361,7 +378,6 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
       expect(getByText(new RegExp(record.notes))).toBeTruthy();
-      expect(getByText(Labels.RecordFields.Photos)).toBeTruthy();
     } else {
       fail("one expected field was undefined");
     }

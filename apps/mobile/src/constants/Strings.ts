@@ -31,6 +31,7 @@ export const Labels = {
   },
   // TODO: rename to RecordDetailsFields
   RecordFields: {
+    DataSheet: "Data Sheet",
     Type: "Type",
     Name: "Name",
     Organization: "Organization",

@@ -1,611 +1,429 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RecordDetailsScreen test suite example record with compiled photo 1`] = `
-<RCTScrollView
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "backgroundColor": "#fff",
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
-  <View>
-    <View
-      style={
-        Object {
-          "borderColor": "black",
-          "borderRadius": 2,
-          "borderWidth": 1,
-          "margin": 2,
-        }
+  <RCTScrollView
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
       }
-    >
+    }
+  >
+    <View>
       <View
         style={
           Object {
-            "backgroundColor": "lightblue",
-            "borderBottomWidth": 1,
             "borderColor": "black",
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "textAlign": "center",
-            }
-          }
-        >
-          Data Sheet
-        </Text>
-      </View>
-      <Text>
-        Date: 2022-04-01
-      </Text>
-      <Text>
-        Type: Sample
-      </Text>
-      <Text>
-        Name: Helpful Individual
-      </Text>
-      <Text>
-        Organization: Community Scientist
-      </Text>
-      <Text>
-        Coordinates: 48.06727, -121.12165
-      </Text>
-      <Text>
-        Tube Id: TUBE-1234
-      </Text>
-      <Text>
-        Size: Fist
-      </Text>
-      <Text>
-        Color: Red
-      </Text>
-      <Text>
-        Location Description: White Chuck Glacier, Glacier Peak Wilderness, WA
-      </Text>
-      <Text>
-        Notes: Dark red algae in runnels
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "margin": 2,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "backgroundColor": "lightblue",
-            "borderColor": "black",
-            "borderTopLeftRadius": 2,
-            "borderTopRightRadius": 2,
+            "borderRadius": 2,
             "borderWidth": 1,
+            "margin": 2,
           }
         }
       >
-        <Text
+        <View
           style={
             Object {
-              "textAlign": "center",
+              "backgroundColor": "lightblue",
+              "borderBottomWidth": 1,
+              "borderColor": "black",
             }
           }
         >
-          Photos
+          <Text
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            Data Sheet
+          </Text>
+        </View>
+        <Text>
+          Date: 2022-04-01
+        </Text>
+        <Text>
+          Type: Sample
+        </Text>
+        <Text>
+          Name: Helpful Individual
+        </Text>
+        <Text>
+          Organization: Community Scientist
+        </Text>
+        <Text>
+          Coordinates: 48.06727, -121.12165
+        </Text>
+        <Text>
+          Tube Id: TUBE-1234
+        </Text>
+        <Text>
+          Size: Fist
+        </Text>
+        <Text>
+          Colors: Red, Pink
+        </Text>
+        <Text>
+          Location Description: White Chuck Glacier, Glacier Peak Wilderness, WA
+        </Text>
+        <Text>
+          Notes: Dark red algae in runnels
         </Text>
       </View>
-      <View
+      <Image
+        dataSet={Object {}}
+        onError={[Function]}
+        source={1}
         style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "justifyContent": "center",
-              "width": "100%",
-            },
-            Object {
-              "borderBottomWidth": 1,
-              "borderLeftWidth": 1,
-              "borderRightWidth": 1,
-              "flex": 1,
-            },
-            Object {
-              "height": 750,
-            },
-          ]
-        }
-      >
-        <Image
-          source={1}
-          style={
-            Object {
-              "height": "100%",
-              "width": "100%",
-            }
+          Object {
+            "maxWidth": "100%",
           }
-        />
-      </View>
+        }
+      />
     </View>
-  </View>
-</RCTScrollView>
+  </RCTScrollView>
+</RNCSafeAreaProvider>
 `;
 
 exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
-<RCTScrollView
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "backgroundColor": "#fff",
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
-  <View>
-    <View
-      style={
-        Object {
-          "borderColor": "black",
-          "borderRadius": 2,
-          "borderWidth": 1,
-          "margin": 2,
-        }
+  <RCTScrollView
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
       }
-    >
+    }
+  >
+    <View>
       <View
         style={
           Object {
-            "backgroundColor": "lightblue",
-            "borderBottomWidth": 1,
             "borderColor": "black",
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "textAlign": "center",
-            }
-          }
-        >
-          Data Sheet
-        </Text>
-      </View>
-      <Text>
-        Date: 2021-09-16
-      </Text>
-      <Text>
-        Type: Sample
-      </Text>
-      <Text>
-        Name: test name
-      </Text>
-      <Text>
-        Organization: test org
-      </Text>
-      <Text>
-        Coordinates: -123.456, 96.96
-      </Text>
-      <Text>
-        Tube Id: LAB-1337
-      </Text>
-      <Text>
-        Size: Fist
-      </Text>
-      <Text>
-        Color: Red
-      </Text>
-      <Text>
-        Location Description: test location
-      </Text>
-      <Text>
-        Notes: test notes
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "margin": 2,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "backgroundColor": "lightblue",
-            "borderColor": "black",
-            "borderTopLeftRadius": 2,
-            "borderTopRightRadius": 2,
+            "borderRadius": 2,
             "borderWidth": 1,
+            "margin": 2,
           }
         }
       >
-        <Text
+        <View
           style={
             Object {
-              "textAlign": "center",
+              "backgroundColor": "lightblue",
+              "borderBottomWidth": 1,
+              "borderColor": "black",
             }
           }
         >
-          Photos
+          <Text
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            Data Sheet
+          </Text>
+        </View>
+        <Text>
+          Date: 2021-09-16
+        </Text>
+        <Text>
+          Type: Sample
+        </Text>
+        <Text>
+          Name: test name
+        </Text>
+        <Text>
+          Organization: test org
+        </Text>
+        <Text>
+          Coordinates: -123.456, 96.96
+        </Text>
+        <Text>
+          Tube Id: LAB-1337
+        </Text>
+        <Text>
+          Size: Fist
+        </Text>
+        <Text>
+          Colors: Red, Green
+        </Text>
+        <Text>
+          Location Description: test location
+        </Text>
+        <Text>
+          Notes: test notes
         </Text>
       </View>
-      <View
+      <Text>
+        Loading
+      </Text>
+      <ActivityIndicator
+        color="lightgrey"
+        size="large"
         style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "justifyContent": "center",
-              "width": "100%",
-            },
-            Object {
-              "borderBottomWidth": 1,
-              "borderLeftWidth": 1,
-              "borderRightWidth": 1,
-              "flex": 1,
-            },
-            Object {
-              "height": 506,
-            },
-          ]
+          Object {
+            "paddingTop": 5,
+          }
         }
-      >
-        <Image
-          source={
-            Object {
-              "uri": "file:///test-directory/46.jpg",
-            }
+      />
+      <Image
+        accessibilityLabel="some alt text here"
+        alt="some alt text here"
+        dataSet={Object {}}
+        onError={[Function]}
+        source={
+          Object {
+            "uri": "data:image/jpg;base64,undefined",
           }
-          style={
-            Object {
-              "height": "100%",
-              "width": "100%",
-            }
-          }
-        />
-      </View>
-      <View
+        }
         style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "justifyContent": "center",
-              "width": "100%",
-            },
-            Object {
-              "borderColor": "black",
-              "borderWidth": 1,
-              "flex": 1,
-              "marginTop": 4,
-            },
-            Object {
-              "height": 1013,
-            },
-          ]
+          Object {
+            "height": 1013,
+            "maxWidth": "100%",
+            "width": 750,
+          }
         }
-      >
-        <Image
-          source={
-            Object {
-              "uri": "file:///test-directory/23.jpg",
-            }
-          }
-          style={
-            Object {
-              "height": "100%",
-              "width": "100%",
-            }
-          }
-        />
-      </View>
+      />
     </View>
-  </View>
-</RCTScrollView>
+  </RCTScrollView>
+</RNCSafeAreaProvider>
 `;
 
 exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 1`] = `
-<RCTScrollView
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "backgroundColor": "#fff",
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
-  <View>
-    <View
-      style={
-        Object {
-          "borderColor": "black",
-          "borderRadius": 2,
-          "borderWidth": 1,
-          "margin": 2,
-        }
+  <RCTScrollView
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
       }
-    >
+    }
+  >
+    <View>
       <View
         style={
           Object {
-            "backgroundColor": "lightblue",
-            "borderBottomWidth": 1,
             "borderColor": "black",
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "textAlign": "center",
-            }
-          }
-        >
-          Data Sheet
-        </Text>
-      </View>
-      <Text>
-        Date: 2021-09-16
-      </Text>
-      <Text>
-        Type: Sample
-      </Text>
-      <Text>
-        Name: test name
-      </Text>
-      <Text>
-        Organization: test org
-      </Text>
-      <Text>
-        Coordinates: -123.456, 96.96
-      </Text>
-      <Text>
-        Tube Id: LAB-1337
-      </Text>
-      <Text>
-        Size: Fist
-      </Text>
-      <Text>
-        Color: Red
-      </Text>
-      <Text>
-        Location Description: test location
-      </Text>
-      <Text>
-        Notes: test notes
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "margin": 2,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "backgroundColor": "lightblue",
-            "borderColor": "black",
-            "borderTopLeftRadius": 2,
-            "borderTopRightRadius": 2,
+            "borderRadius": 2,
             "borderWidth": 1,
+            "margin": 2,
           }
         }
       >
-        <Text
+        <View
           style={
             Object {
-              "textAlign": "center",
+              "backgroundColor": "lightblue",
+              "borderBottomWidth": 1,
+              "borderColor": "black",
             }
           }
         >
-          Photos
-        </Text>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "justifyContent": "center",
-              "width": "100%",
-            },
-            Object {
-              "borderBottomWidth": 1,
-              "borderLeftWidth": 1,
-              "borderRightWidth": 1,
-              "flex": 1,
-            },
-            Object {
-              "height": 506,
-            },
-          ]
-        }
-      >
+          <Text
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            Data Sheet
+          </Text>
+        </View>
         <Text>
-          Offline: cannot download photo
+          Date: 2021-09-16
         </Text>
-        <Text />
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "justifyContent": "center",
-              "width": "100%",
-            },
-            Object {
-              "borderColor": "black",
-              "borderWidth": 1,
-              "flex": 1,
-              "marginTop": 4,
-            },
-            Object {
-              "height": 1013,
-            },
-          ]
-        }
-      >
         <Text>
-          Offline: cannot download photo
+          Type: Sample
         </Text>
-        <Text />
+        <Text>
+          Name: test name
+        </Text>
+        <Text>
+          Organization: test org
+        </Text>
+        <Text>
+          Coordinates: -123.456, 96.96
+        </Text>
+        <Text>
+          Tube Id: LAB-1337
+        </Text>
+        <Text>
+          Size: Fist
+        </Text>
+        <Text>
+          Colors: Red, Green
+        </Text>
+        <Text>
+          Location Description: test location
+        </Text>
+        <Text>
+          Notes: test notes
+        </Text>
       </View>
+      <Text>
+        Offline
+      </Text>
+      <Text />
+      <Image
+        accessibilityLabel="some alt text here"
+        alt="some alt text here"
+        dataSet={Object {}}
+        onError={[Function]}
+        source={
+          Object {
+            "uri": "data:image/jpg;base64,undefined",
+          }
+        }
+        style={
+          Object {
+            "height": 1013,
+            "maxWidth": "100%",
+            "width": 750,
+          }
+        }
+      />
     </View>
-  </View>
-</RCTScrollView>
+  </RCTScrollView>
+</RNCSafeAreaProvider>
 `;
 
 exports[`RecordDetailsScreen test suite sample with remote photos, photo download fails 1`] = `
-<RCTScrollView
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "backgroundColor": "#fff",
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
 >
-  <View>
-    <View
-      style={
-        Object {
-          "borderColor": "black",
-          "borderRadius": 2,
-          "borderWidth": 1,
-          "margin": 2,
-        }
+  <RCTScrollView
+    style={
+      Object {
+        "backgroundColor": "#fff",
+        "flex": 1,
       }
-    >
+    }
+  >
+    <View>
       <View
         style={
           Object {
-            "backgroundColor": "lightblue",
-            "borderBottomWidth": 1,
             "borderColor": "black",
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "textAlign": "center",
-            }
-          }
-        >
-          Data Sheet
-        </Text>
-      </View>
-      <Text>
-        Date: 2021-09-16
-      </Text>
-      <Text>
-        Type: Sample
-      </Text>
-      <Text>
-        Name: test name
-      </Text>
-      <Text>
-        Organization: test org
-      </Text>
-      <Text>
-        Coordinates: -123.456, 96.96
-      </Text>
-      <Text>
-        Tube Id: LAB-1337
-      </Text>
-      <Text>
-        Size: Fist
-      </Text>
-      <Text>
-        Color: Red
-      </Text>
-      <Text>
-        Location Description: test location
-      </Text>
-      <Text>
-        Notes: test notes
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "margin": 2,
-        }
-      }
-    >
-      <View
-        style={
-          Object {
-            "backgroundColor": "lightblue",
-            "borderColor": "black",
-            "borderTopLeftRadius": 2,
-            "borderTopRightRadius": 2,
+            "borderRadius": 2,
             "borderWidth": 1,
+            "margin": 2,
           }
         }
       >
-        <Text
+        <View
           style={
             Object {
-              "textAlign": "center",
+              "backgroundColor": "lightblue",
+              "borderBottomWidth": 1,
+              "borderColor": "black",
             }
           }
         >
-          Photos
-        </Text>
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "justifyContent": "center",
-              "width": "100%",
-            },
-            Object {
-              "borderBottomWidth": 1,
-              "borderLeftWidth": 1,
-              "borderRightWidth": 1,
-              "flex": 1,
-            },
-            Object {
-              "height": 506,
-            },
-          ]
-        }
-      >
+          <Text
+            style={
+              Object {
+                "textAlign": "center",
+              }
+            }
+          >
+            Data Sheet
+          </Text>
+        </View>
         <Text>
-          There was an error downloading the file: 404
+          Date: 2021-09-16
         </Text>
-        <Text />
-      </View>
-      <View
-        style={
-          Array [
-            Object {
-              "alignItems": "center",
-              "justifyContent": "center",
-              "width": "100%",
-            },
-            Object {
-              "borderColor": "black",
-              "borderWidth": 1,
-              "flex": 1,
-              "marginTop": 4,
-            },
-            Object {
-              "height": 1013,
-            },
-          ]
-        }
-      >
         <Text>
-          There was an error downloading the file: 404
+          Type: Sample
         </Text>
-        <Text />
+        <Text>
+          Name: test name
+        </Text>
+        <Text>
+          Organization: test org
+        </Text>
+        <Text>
+          Coordinates: -123.456, 96.96
+        </Text>
+        <Text>
+          Tube Id: LAB-1337
+        </Text>
+        <Text>
+          Size: Fist
+        </Text>
+        <Text>
+          Colors: Red, Green
+        </Text>
+        <Text>
+          Location Description: test location
+        </Text>
+        <Text>
+          Notes: test notes
+        </Text>
       </View>
+      <Text>
+        Error
+      </Text>
+      <Text />
+      <Image
+        accessibilityLabel="some alt text here"
+        alt="some alt text here"
+        dataSet={Object {}}
+        onError={[Function]}
+        source={
+          Object {
+            "uri": "data:image/jpg;base64,undefined",
+          }
+        }
+        style={
+          Object {
+            "height": 1013,
+            "maxWidth": "100%",
+            "width": 750,
+          }
+        }
+      />
     </View>
-  </View>
-</RCTScrollView>
+  </RCTScrollView>
+</RNCSafeAreaProvider>
 `;
