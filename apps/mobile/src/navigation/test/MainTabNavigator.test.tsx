@@ -7,17 +7,13 @@ import { Labels } from "../../constants/Strings";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
 
-function WrappedNavigation() {
-  return (
-    <NativeBaseProviderForTesting>
-      <Navigation />
-    </NativeBaseProviderForTesting>
-  );
-}
-
 describe("Navigation test suite", () => {
   test("renders first run screen", () => {
-    const { toJSON } = render(<WrappedNavigation />);
+    const { toJSON } = render(
+      <NativeBaseProviderForTesting>
+        <Navigation />
+      </NativeBaseProviderForTesting>
+    );
 
     expect(toJSON()).toMatchSnapshot();
   });
@@ -29,9 +25,11 @@ describe("Navigation test suite", () => {
     });
 
     const { getByText, toJSON } = render(
-      <AlgaeRecordsContext.Provider value={algaeRecords}>
-        <Navigation />
-      </AlgaeRecordsContext.Provider>
+      <NativeBaseProviderForTesting>
+        <AlgaeRecordsContext.Provider value={algaeRecords}>
+          <Navigation />
+        </AlgaeRecordsContext.Provider>
+      </NativeBaseProviderForTesting>
     );
 
     await waitFor(() => getByText(Labels.TimelineScreen.ExampleRecords));

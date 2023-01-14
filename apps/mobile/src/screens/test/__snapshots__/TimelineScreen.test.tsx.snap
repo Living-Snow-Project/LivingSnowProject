@@ -1,45 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TimelineScreen test suite renders 1`] = `
-<View
-  onLayout={[Function]}
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
   style={
-    Object {
-      "flex": 1,
-    }
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
   }
-  testID="timeline-screen-record-list-view"
 >
   <View
     collapsable={false}
     style={
       Object {
-        "backgroundColor": "rgba(211, 211, 211, 1)",
-        "borderBottomWidth": 1,
+        "backgroundColor": "rgba(214, 211, 209, 1)",
       }
     }
   >
     <Text
+      dataSet={Object {}}
       style={
         Object {
-          "fontSize": 16,
+          "backgroundColor": undefined,
+          "color": "#171717",
+          "fontFamily": undefined,
+          "fontSize": 14,
+          "fontStyle": "normal",
+          "fontWeight": "400",
+          "letterSpacing": 0,
+          "lineHeight": 21,
           "textAlign": "center",
+          "textDecorationLine": undefined,
         }
       }
     >
-      Idle
+      No Internet Connection
     </Text>
   </View>
   <RCTScrollView
-    ItemSeparatorComponent={[Function]}
     ListEmptyComponent={[Function]}
+    contentContainerStyle={
+      Array [
+        Object {},
+        Object {
+          "dataSet": Object {},
+        },
+        Object {},
+      ]
+    }
     data={Array []}
+    dataSet={Object {}}
     getItem={[Function]}
     getItemCount={[Function]}
     keyExtractor={[Function]}
     onContentSizeChange={[Function]}
     onEndReached={[Function]}
-    onEndReachedThreshold={0.5}
+    onEndReachedThreshold={5}
     onLayout={[Function]}
     onMomentumScrollBegin={[Function]}
     onMomentumScrollEnd={[Function]}
@@ -58,23 +77,35 @@ exports[`TimelineScreen test suite renders 1`] = `
     renderItem={[Function]}
     scrollEventThrottle={50}
     stickyHeaderIndices={Array []}
+    style={Object {}}
     testID="timeline-screen-flatlist"
     viewabilityConfigCallbackPairs={Array []}
   >
     <RCTRefreshControl />
     <View>
       <View
+        dataSet={Object {}}
         style={
           Object {
-            "backgroundColor": "lightgrey",
+            "backgroundColor": "#a8a29e",
+            "width": "100%",
           }
         }
       >
         <Text
+          dataSet={Object {}}
           style={
             Object {
-              "fontSize": 16,
+              "backgroundColor": undefined,
+              "color": "#171717",
+              "fontFamily": undefined,
+              "fontSize": 14,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "letterSpacing": 0,
+              "lineHeight": 21,
               "textAlign": "center",
+              "textDecorationLine": undefined,
             }
           }
         >
@@ -82,103 +113,286 @@ exports[`TimelineScreen test suite renders 1`] = `
         </Text>
       </View>
       <View
-        style={
-          Object {
-            "backgroundColor": "white",
-            "paddingLeft": 2,
-            "paddingRight": 2,
-          }
-        }
+        accessible={true}
+        collapsable={false}
+        dataSet={Object {}}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={Object {}}
+        testID="1234"
       >
         <View
-          accessible={true}
-          collapsable={false}
-          focusable={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          testID="1234"
+          dataSet={Object {}}
+          style={
+            Object {
+              "paddingBottom": 4,
+              "paddingLeft": 8,
+              "paddingRight": 8,
+              "paddingTop": 4,
+            }
+          }
         >
           <View
-            style={
-              Object {
-                "flex": 1,
-                "flexDirection": "row",
-              }
-            }
+            dataSet={Object {}}
+            style={Object {}}
           >
             <View
+              dataSet={Object {}}
               style={
                 Object {
-                  "flex": 0.7,
-                  "marginLeft": 1,
+                  "flexDirection": "row",
                 }
               }
             >
-              <Text>
-                2022-04-01
-Helpful Individual (Community Scientist)
-Coordinates: 48.06727, -121.12165
-              </Text>
-            </View>
-            <View
-              style={
-                Object {
-                  "flex": 0.15,
-                  "marginLeft": 1,
-                }
-              }
-            >
-              <Text />
-            </View>
-            <View
-              style={
-                Object {
-                  "flex": 0.15,
-                  "marginLeft": 1,
-                }
-              }
-            >
-              <Text />
               <View
+                dataSet={Object {}}
                 style={
                   Object {
-                    "alignItems": "center",
-                    "alignSelf": "flex-end",
-                    "backgroundColor": "red",
-                    "borderRadius": 40,
-                    "position": "absolute",
-                    "right": 2,
-                    "top": 1,
-                    "width": "33%",
+                    "width": "15%",
                   }
                 }
               >
-                <Text
+                <View
+                  dataSet={Object {}}
                   style={
                     Object {
-                      "color": "white",
+                      "alignItems": "center",
+                      "backgroundColor": "#f0abfc",
+                      "borderColor": "#27272a",
+                      "borderRadius": 9999,
+                      "height": 48,
+                      "justifyContent": "center",
+                      "marginTop": 4,
+                      "position": "relative",
+                      "width": 48,
                     }
                   }
                 >
-                  1
-                </Text>
+                  <Text
+                    dataSet={Object {}}
+                    style={
+                      Object {
+                        "backgroundColor": undefined,
+                        "color": "#fafafa",
+                        "fontFamily": undefined,
+                        "fontSize": 16,
+                        "fontStyle": "normal",
+                        "fontWeight": "600",
+                        "letterSpacing": 0,
+                        "lineHeight": 24,
+                        "textDecorationLine": undefined,
+                      }
+                    }
+                  >
+                    HI
+                  </Text>
+                </View>
               </View>
+              <View
+                dataSet={Object {}}
+                style={Object {}}
+              />
+              <View
+                dataSet={Object {}}
+                style={
+                  Object {
+                    "paddingRight": 4,
+                    "width": "78%",
+                  }
+                }
+              >
+                <View
+                  dataSet={Object {}}
+                  style={
+                    Object {
+                      "marginLeft": 8,
+                    }
+                  }
+                >
+                  <Text
+                    dataSet={Object {}}
+                    style={
+                      Object {
+                        "backgroundColor": undefined,
+                        "color": "#171717",
+                        "fontFamily": undefined,
+                        "fontSize": 14,
+                        "fontStyle": "normal",
+                        "fontWeight": "600",
+                        "letterSpacing": 0,
+                        "lineHeight": 21,
+                        "textDecorationLine": undefined,
+                      }
+                    }
+                  >
+                    Helpful Individual
+                  </Text>
+                  <View
+                    dataSet={Object {}}
+                    style={Object {}}
+                  />
+                  <Text
+                    dataSet={Object {}}
+                    style={
+                      Object {
+                        "backgroundColor": undefined,
+                        "color": "#171717",
+                        "fontFamily": undefined,
+                        "fontSize": 14,
+                        "fontStyle": "normal",
+                        "fontWeight": "400",
+                        "letterSpacing": 0,
+                        "lineHeight": 21,
+                        "textDecorationLine": undefined,
+                      }
+                    }
+                  >
+                    Community Scientist
+                  </Text>
+                  <View
+                    dataSet={Object {}}
+                    style={Object {}}
+                  />
+                  <View
+                    dataSet={Object {}}
+                    style={
+                      Object {
+                        "flexDirection": "row",
+                      }
+                    }
+                  >
+                    <Text
+                      dataSet={Object {}}
+                      style={
+                        Object {
+                          "backgroundColor": undefined,
+                          "color": "#1d4ed8",
+                          "fontFamily": undefined,
+                          "fontSize": 14,
+                          "fontStyle": "normal",
+                          "fontWeight": "700",
+                          "letterSpacing": 0,
+                          "lineHeight": 21,
+                          "textDecorationLine": undefined,
+                        }
+                      }
+                    >
+                      Sample
+                    </Text>
+                    <View
+                      dataSet={Object {}}
+                      style={Object {}}
+                    />
+                    <Text
+                      dataSet={Object {}}
+                      style={
+                        Object {
+                          "backgroundColor": undefined,
+                          "color": "#1d4ed8",
+                          "fontFamily": undefined,
+                          "fontSize": 14,
+                          "fontStyle": "normal",
+                          "fontWeight": "400",
+                          "letterSpacing": 0,
+                          "lineHeight": 21,
+                          "textDecorationLine": undefined,
+                        }
+                      }
+                    >
+                       on 2022-04-01
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <View
+                dataSet={Object {}}
+                style={Object {}}
+              />
+              <View
+                dataSet={Object {}}
+                style={
+                  Object {
+                    "width": "7%",
+                  }
+                }
+              />
             </View>
+            <View
+              dataSet={Object {}}
+              style={Object {}}
+            />
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "500",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              White Chuck Glacier, Glacier Peak Wilderness, WA
+            </Text>
+            <View
+              dataSet={Object {}}
+              style={Object {}}
+            />
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Dark red algae in runnels
+            </Text>
           </View>
-          <Text>
-            Location Description: White Chuck Glacier, Glacier Peak Wilderness, WA
-Notes: Dark red algae in runnels
-          </Text>
         </View>
+        <Image
+          dataSet={Object {}}
+          onError={[Function]}
+          source={1}
+          style={
+            Object {
+              "maxWidth": "100%",
+            }
+          }
+        />
       </View>
+      <View
+        dataSet={Object {}}
+        style={
+          Object {
+            "backgroundColor": "#d6d3d1",
+            "height": 12,
+            "width": "100%",
+          }
+        }
+      />
     </View>
   </RCTScrollView>
-</View>
+</RNCSafeAreaProvider>
 `;
