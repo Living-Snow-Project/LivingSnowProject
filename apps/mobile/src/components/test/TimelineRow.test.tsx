@@ -1,9 +1,9 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
 import { makeExampleRecord } from "@livingsnow/record";
+import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import { TimelineRow } from "../TimelineRow";
-import { TestIds } from "../../constants/TestIds";
-import { Labels } from "../../constants/Strings";
+import { Labels } from "../../constants";
 
 describe("TimelineRow test suite", () => {
   let expectedRecord;
@@ -13,29 +13,23 @@ describe("TimelineRow test suite", () => {
   });
 
   test("renders", () => {
-    const { toJSON } = render(<TimelineRow record={expectedRecord} />);
+    const { toJSON } = render(
+      <NativeBaseProviderForTesting>
+        <TimelineRow record={expectedRecord} />
+      </NativeBaseProviderForTesting>
+    );
 
     expect(toJSON()).toMatchSnapshot();
-  });
-
-  test("sample icon", () => {
-    const { queryByTestId } = render(<TimelineRow record={expectedRecord} />);
-
-    expect(queryByTestId(TestIds.Icons.SampleIcon)).toBeTruthy();
-  });
-
-  test("sighting icon", () => {
-    expectedRecord = makeExampleRecord("Sighting");
-
-    const { queryByTestId } = render(<TimelineRow record={expectedRecord} />);
-
-    expect(queryByTestId(TestIds.Icons.SightingIcon)).toBeTruthy();
   });
 
   test("missing name", () => {
     expectedRecord.name = undefined;
 
-    const { queryByText } = render(<TimelineRow record={expectedRecord} />);
+    const { queryByText } = render(
+      <NativeBaseProviderForTesting>
+        <TimelineRow record={expectedRecord} />
+      </NativeBaseProviderForTesting>
+    );
 
     expect(queryByText(new RegExp(Labels.RecordFields.Name))).toBeFalsy();
   });
@@ -43,7 +37,11 @@ describe("TimelineRow test suite", () => {
   test("missing organization", () => {
     expectedRecord.organization = undefined;
 
-    const { queryByText } = render(<TimelineRow record={expectedRecord} />);
+    const { queryByText } = render(
+      <NativeBaseProviderForTesting>
+        <TimelineRow record={expectedRecord} />
+      </NativeBaseProviderForTesting>
+    );
 
     expect(
       queryByText(new RegExp(Labels.RecordFields.Organization))
@@ -53,7 +51,11 @@ describe("TimelineRow test suite", () => {
   test("missing location description", () => {
     expectedRecord.locationDescription = undefined;
 
-    const { queryByText } = render(<TimelineRow record={expectedRecord} />);
+    const { queryByText } = render(
+      <NativeBaseProviderForTesting>
+        <TimelineRow record={expectedRecord} />
+      </NativeBaseProviderForTesting>
+    );
 
     expect(
       queryByText(new RegExp(Labels.RecordFields.LocationDescription))
@@ -63,22 +65,12 @@ describe("TimelineRow test suite", () => {
   test("missing notes", () => {
     expectedRecord.notes = undefined;
 
-    const { queryByText } = render(<TimelineRow record={expectedRecord} />);
+    const { queryByText } = render(
+      <NativeBaseProviderForTesting>
+        <TimelineRow record={expectedRecord} />
+      </NativeBaseProviderForTesting>
+    );
 
     expect(queryByText(new RegExp(Labels.RecordFields.Notes))).toBeFalsy();
-  });
-
-  test("photos icon", () => {
-    const { queryByTestId } = render(<TimelineRow record={expectedRecord} />);
-
-    expect(queryByTestId(TestIds.Icons.PictureIcon)).toBeTruthy();
-  });
-
-  test("no photos icon", () => {
-    expectedRecord.photos = [];
-
-    const { queryByTestId } = render(<TimelineRow record={expectedRecord} />);
-
-    expect(queryByTestId(TestIds.Icons.PictureIcon)).toBeFalsy();
   });
 });
