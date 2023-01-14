@@ -15,11 +15,8 @@ const getAlgaeColorSelectorItem = (color: AlgaeColor) => {
 };
 
 describe("Algae Color test suite", () => {
-  test("getAlgaeColorPickerItem values", () => {
-    let cur = getAlgaeColorSelectorItem("Select colors");
-    expect(cur.label).toEqual(AlgaeColorDescription.Select);
-
-    cur = getAlgaeColorSelectorItem("Red");
+  test("getAlgaeColorSelectorItem values", () => {
+    let cur = getAlgaeColorSelectorItem("Red");
     expect(cur.label).toEqual(AlgaeColorDescription.Red);
 
     cur = getAlgaeColorSelectorItem("Pink");

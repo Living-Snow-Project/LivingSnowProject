@@ -71,7 +71,7 @@ export class KeyboardShift extends Component<IProps, IState> {
     const { shift } = this.state;
     const { height: windowHeight } = Dimensions.get("window");
     // when the multiline TextInput grows, we want the keyboard to move with it
-    const keyboardHeight = event.endCoordinates.height;
+    const keyboardHeight = event?.endCoordinates?.height;
     const currentlyFocusedInput = TextInputState.currentlyFocusedInput();
 
     if (this.isHiding) {
