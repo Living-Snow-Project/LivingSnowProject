@@ -1,0 +1,230 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PhotoSelector test suite even number of photos 1`] = `
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
+  style={
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    dataSet={Object {}}
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      dataSet={Object {}}
+      feedbackId="field-1-feedback"
+      hasFeedbackText={false}
+      hasHelpText={false}
+      helpTextId="field-1-helptext"
+      isDisabled={false}
+      isInvalid={false}
+      isReadOnly={false}
+      isRequired={false}
+      labelId="field-1-label"
+      nativeID="field-1-label"
+      setHasFeedbackText={[Function]}
+      setHasHelpText={[Function]}
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "flex-start",
+          "marginBottom": 4,
+          "marginTop": 4,
+        }
+      }
+    >
+      <Text
+        dataSet={Object {}}
+        style={
+          Object {
+            "backgroundColor": undefined,
+            "color": "#737373",
+            "fontFamily": undefined,
+            "fontSize": 14,
+            "fontStyle": "normal",
+            "fontWeight": "500",
+            "letterSpacing": 0,
+            "lineHeight": 21,
+            "textDecorationLine": undefined,
+          }
+        }
+      >
+        Select Photos (limit 4)
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      collapsable={false}
+      dataSet={Object {}}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={Object {}}
+      testID="photo-selector"
+    >
+      <View
+        dataSet={Object {}}
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text>
+          Loading
+        </Text>
+        <ActivityIndicator
+          color="lightgrey"
+          size="large"
+          style={
+            Object {
+              "paddingTop": 5,
+            }
+          }
+        />
+        <View
+          dataSet={Object {}}
+          style={Object {}}
+        />
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "paddingRight": 8,
+            }
+          }
+        />
+        <View
+          dataSet={Object {}}
+          style={Object {}}
+        />
+        <Text>
+          Loading
+        </Text>
+        <ActivityIndicator
+          color="lightgrey"
+          size="large"
+          style={
+            Object {
+              "paddingTop": 5,
+            }
+          }
+        />
+      </View>
+    </View>
+  </View>
+</RNCSafeAreaProvider>
+`;
+
+exports[`PhotoSelector test suite odd number of photos 1`] = `
+<RNCSafeAreaProvider
+  onInsetsChange={[Function]}
+  style={
+    Array [
+      Object {
+        "flex": 1,
+      },
+      undefined,
+    ]
+  }
+>
+  <View
+    dataSet={Object {}}
+    style={
+      Object {
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      dataSet={Object {}}
+      feedbackId="field-2-feedback"
+      hasFeedbackText={false}
+      hasHelpText={false}
+      helpTextId="field-2-helptext"
+      isDisabled={false}
+      isInvalid={false}
+      isReadOnly={false}
+      isRequired={false}
+      labelId="field-2-label"
+      nativeID="field-2-label"
+      setHasFeedbackText={[Function]}
+      setHasHelpText={[Function]}
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "flex-start",
+          "marginBottom": 4,
+          "marginTop": 4,
+        }
+      }
+    >
+      <Text
+        dataSet={Object {}}
+        style={
+          Object {
+            "backgroundColor": undefined,
+            "color": "#737373",
+            "fontFamily": undefined,
+            "fontSize": 14,
+            "fontStyle": "normal",
+            "fontWeight": "500",
+            "letterSpacing": 0,
+            "lineHeight": 21,
+            "textDecorationLine": undefined,
+          }
+        }
+      >
+        Select Photos (limit 4)
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      collapsable={false}
+      dataSet={Object {}}
+      focusable={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={Object {}}
+      testID="photo-selector"
+    >
+      <Text>
+        Loading
+      </Text>
+      <ActivityIndicator
+        color="lightgrey"
+        size="large"
+        style={
+          Object {
+            "paddingTop": 5,
+          }
+        }
+      />
+    </View>
+  </View>
+</RNCSafeAreaProvider>
+`;

@@ -1,6 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react-native";
 import { SelectedPhoto } from "@livingsnow/record";
+import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import { RootStackNavigationProp } from "../../navigation/Routes";
 import { PhotoSelector } from "../forms/PhotoSelector";
 
@@ -16,7 +17,9 @@ describe("PhotoSelector test suite", () => {
     ];
 
     const { toJSON } = render(
-      <PhotoSelector navigation={navigation} photos={photos} />
+      <NativeBaseProviderForTesting>
+        <PhotoSelector navigation={navigation} photos={photos} />
+      </NativeBaseProviderForTesting>
     );
 
     expect(toJSON()).toMatchSnapshot();
@@ -28,7 +31,9 @@ describe("PhotoSelector test suite", () => {
     ];
 
     const { toJSON } = render(
-      <PhotoSelector navigation={navigation} photos={photos} />
+      <NativeBaseProviderForTesting>
+        <PhotoSelector navigation={navigation} photos={photos} />
+      </NativeBaseProviderForTesting>
     );
 
     expect(toJSON()).toMatchSnapshot();
