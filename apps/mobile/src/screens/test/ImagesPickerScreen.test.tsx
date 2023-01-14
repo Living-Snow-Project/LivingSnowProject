@@ -1,6 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
 import { fireEvent, render, waitFor } from "@testing-library/react-native";
+import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import {
   ImagesPickerScreenNavigationProp,
   ImagesPickerScreenRouteProp,
@@ -13,7 +14,6 @@ let photoSelectedActionButton: () => JSX.Element;
 
 const navigation = {} as ImagesPickerScreenNavigationProp;
 navigation.navigate = jest.fn();
-navigation.goBack = jest.fn();
 navigation.setOptions = ({
   headerRight,
 }: {
@@ -35,25 +35,31 @@ describe("ImagesPickerScreen test suite", () => {
 
   test("renders ios", async () => {
     const { toJSON } = render(
-      <ImagesPickerScreen navigation={navigation} route={route} />
+      <NativeBaseProviderForTesting>
+        <ImagesPickerScreen navigation={navigation} route={route} />
+      </NativeBaseProviderForTesting>
     );
 
     const { getByTestId } = render(photoSelectedActionButton());
 
     expect(toJSON()).toMatchSnapshot();
     fireEvent.press(getByTestId(TestIds.Icons.DoneSelectingPhotosIcon));
-    await waitFor(() => expect(navigation.goBack).toBeCalled());
+    await waitFor(() => expect(navigation.navigate).toBeCalled());
   });
 
   test("renders android", async () => {
     Platform.OS = "android";
 
-    render(<ImagesPickerScreen navigation={navigation} route={route} />);
+    render(
+      <NativeBaseProviderForTesting>
+        <ImagesPickerScreen navigation={navigation} route={route} />
+      </NativeBaseProviderForTesting>
+    );
 
     const { getByTestId } = render(photoSelectedActionButton());
 
     fireEvent.press(getByTestId(TestIds.Icons.DoneSelectingPhotosIcon));
-    await waitFor(() => expect(navigation.goBack).toBeCalled());
+    await waitFor(() => expect(navigation.navigate).toBeCalled());
     Platform.OS = "ios";
   });
 });
