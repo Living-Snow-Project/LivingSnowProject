@@ -83,50 +83,60 @@ exports[`PhotoSelector test suite even number of photos 1`] = `
         dataSet={Object {}}
         style={
           Object {
-            "flexDirection": "row",
+            "marginLeft": -8,
+            "marginRight": -8,
           }
         }
       >
-        <Text>
-          Loading
-        </Text>
-        <ActivityIndicator
-          color="lightgrey"
-          size="large"
-          style={
-            Object {
-              "paddingTop": 5,
-            }
-          }
-        />
-        <View
-          dataSet={Object {}}
-          style={Object {}}
-        />
         <View
           dataSet={Object {}}
           style={
             Object {
-              "paddingRight": 8,
+              "flexDirection": "row",
             }
           }
-        />
-        <View
-          dataSet={Object {}}
-          style={Object {}}
-        />
-        <Text>
-          Loading
-        </Text>
-        <ActivityIndicator
-          color="lightgrey"
-          size="large"
-          style={
-            Object {
-              "paddingTop": 5,
+        >
+          <Text>
+            Loading
+          </Text>
+          <ActivityIndicator
+            color="lightgrey"
+            size="large"
+            style={
+              Object {
+                "paddingTop": 5,
+              }
             }
-          }
-        />
+          />
+          <View
+            dataSet={Object {}}
+            style={Object {}}
+          />
+          <View
+            dataSet={Object {}}
+            style={
+              Object {
+                "paddingRight": 8,
+              }
+            }
+          />
+          <View
+            dataSet={Object {}}
+            style={Object {}}
+          />
+          <Text>
+            Loading
+          </Text>
+          <ActivityIndicator
+            color="lightgrey"
+            size="large"
+            style={
+              Object {
+                "paddingTop": 5,
+              }
+            }
+          />
+        </View>
       </View>
     </View>
   </View>
@@ -212,18 +222,28 @@ exports[`PhotoSelector test suite odd number of photos 1`] = `
       style={Object {}}
       testID="photo-selector"
     >
-      <Text>
-        Loading
-      </Text>
-      <ActivityIndicator
-        color="lightgrey"
-        size="large"
+      <View
+        dataSet={Object {}}
         style={
           Object {
-            "paddingTop": 5,
+            "marginLeft": -8,
+            "marginRight": -8,
           }
         }
-      />
+      >
+        <Text>
+          Loading
+        </Text>
+        <ActivityIndicator
+          color="lightgrey"
+          size="large"
+          style={
+            Object {
+              "paddingTop": 5,
+            }
+          }
+        />
+      </View>
     </View>
   </View>
 </RNCSafeAreaProvider>

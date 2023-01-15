@@ -31,46 +31,6 @@ describe("TimelineRow test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    expect(queryByText(new RegExp(Labels.RecordFields.Name))).toBeFalsy();
-  });
-
-  test("missing organization", () => {
-    expectedRecord.organization = undefined;
-
-    const { queryByText } = render(
-      <NativeBaseProviderForTesting>
-        <TimelineRow record={expectedRecord} />
-      </NativeBaseProviderForTesting>
-    );
-
-    expect(
-      queryByText(new RegExp(Labels.RecordFields.Organization))
-    ).toBeFalsy();
-  });
-
-  test("missing location description", () => {
-    expectedRecord.locationDescription = undefined;
-
-    const { queryByText } = render(
-      <NativeBaseProviderForTesting>
-        <TimelineRow record={expectedRecord} />
-      </NativeBaseProviderForTesting>
-    );
-
-    expect(
-      queryByText(new RegExp(Labels.RecordFields.LocationDescription))
-    ).toBeFalsy();
-  });
-
-  test("missing notes", () => {
-    expectedRecord.notes = undefined;
-
-    const { queryByText } = render(
-      <NativeBaseProviderForTesting>
-        <TimelineRow record={expectedRecord} />
-      </NativeBaseProviderForTesting>
-    );
-
-    expect(queryByText(new RegExp(Labels.RecordFields.Notes))).toBeFalsy();
+    expect(queryByText(Labels.DefaultName)).toBeTruthy();
   });
 });

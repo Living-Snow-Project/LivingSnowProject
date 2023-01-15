@@ -1010,7 +1010,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   }
                 }
               >
-                Size
+                Select a size
               </Text>
               <Text
                 dataSet={Object {}}
@@ -1237,7 +1237,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   }
                 }
               >
-                Color (select all that apply)
+                Colors (select all that apply)
               </Text>
               <Text
                 dataSet={Object {}}
@@ -2739,62 +2739,72 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                 dataSet={Object {}}
                 style={
                   Object {
-                    "flexDirection": "row",
+                    "marginLeft": -8,
+                    "marginRight": -8,
                   }
                 }
               >
-                <Image
-                  accessibilityLabel="some alt text here"
-                  alt="some alt text here"
-                  dataSet={Object {}}
-                  onError={[Function]}
-                  source={
-                    Object {
-                      "uri": "https://snowalgaestorage.blob.core.windows.net/photos/23.jpg",
-                    }
-                  }
-                  style={
-                    Object {
-                      "height": 742,
-                      "maxWidth": "100%",
-                      "width": 371,
-                    }
-                  }
-                />
-                <View
-                  dataSet={Object {}}
-                  style={Object {}}
-                />
                 <View
                   dataSet={Object {}}
                   style={
                     Object {
-                      "paddingRight": 8,
+                      "flexDirection": "row",
                     }
                   }
-                />
-                <View
-                  dataSet={Object {}}
-                  style={Object {}}
-                />
-                <Image
-                  accessibilityLabel="some alt text here"
-                  alt="some alt text here"
-                  dataSet={Object {}}
-                  onError={[Function]}
-                  source={
-                    Object {
-                      "uri": "https://snowalgaestorage.blob.core.windows.net/photos/46.jpg",
+                >
+                  <Image
+                    accessibilityLabel="some alt text here"
+                    alt="some alt text here"
+                    dataSet={Object {}}
+                    onError={[Function]}
+                    source={
+                      Object {
+                        "uri": "https://snowalgaestorage.blob.core.windows.net/photos/23.jpg",
+                      }
                     }
-                  }
-                  style={
-                    Object {
-                      "height": 742,
-                      "maxWidth": "100%",
-                      "width": 371,
+                    style={
+                      Object {
+                        "height": 742,
+                        "maxWidth": "100%",
+                        "width": 371,
+                      }
                     }
-                  }
-                />
+                  />
+                  <View
+                    dataSet={Object {}}
+                    style={Object {}}
+                  />
+                  <View
+                    dataSet={Object {}}
+                    style={
+                      Object {
+                        "paddingRight": 8,
+                      }
+                    }
+                  />
+                  <View
+                    dataSet={Object {}}
+                    style={Object {}}
+                  />
+                  <Image
+                    accessibilityLabel="some alt text here"
+                    alt="some alt text here"
+                    dataSet={Object {}}
+                    onError={[Function]}
+                    source={
+                      Object {
+                        "uri": "https://snowalgaestorage.blob.core.windows.net/photos/46.jpg",
+                      }
+                    }
+                    style={
+                      Object {
+                        "height": 742,
+                        "maxWidth": "100%",
+                        "width": 371,
+                      }
+                    }
+                  />
+                </View>
               </View>
             </View>
           </View>
@@ -2802,8 +2812,8 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
             dataSet={Object {}}
             style={
               Object {
-                "marginBottom": 8,
-                "marginTop": 8,
+                "marginBottom": 4,
+                "marginTop": 4,
               }
             }
           />
@@ -5283,7 +5293,7 @@ exports[`RecordScreen test suite renders 1`] = `
                   }
                 }
               >
-                Size
+                Select a size
               </Text>
               <Text
                 dataSet={Object {}}
@@ -5510,7 +5520,7 @@ exports[`RecordScreen test suite renders 1`] = `
                   }
                 }
               >
-                Color (select all that apply)
+                Colors (select all that apply)
               </Text>
               <Text
                 dataSet={Object {}}
@@ -6983,8 +6993,8 @@ exports[`RecordScreen test suite renders 1`] = `
             dataSet={Object {}}
             style={
               Object {
-                "marginBottom": 8,
-                "marginTop": 8,
+                "marginBottom": 4,
+                "marginTop": 4,
               }
             }
           />

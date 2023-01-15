@@ -338,7 +338,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               <Space />
               <CustomTextInput
                 value={state?.tubeId}
-                label={Labels.RecordFields.TubeId}
+                label={Labels.TubeId}
                 placeholder={
                   isSample(state.type)
                     ? Placeholders.RecordScreen.TubeId
@@ -356,7 +356,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               <TextArea
                 blurOnSubmit={false}
                 value={state?.locationDescription}
-                label={`${Labels.RecordFields.LocationDescription} (limit 255 characters)`}
+                label={`${Labels.RecordScreen.LocationDescription}`}
                 placeholder={Placeholders.RecordScreen.LocationDescription}
                 ref={locationDescriptionRef}
                 onChangeText={(locationDescription) =>
@@ -369,7 +369,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               <TextArea
                 blurOnSubmit
                 value={state?.notes}
-                label={`${Labels.RecordFields.Notes} (limit 255 characters)`}
+                label={`${Labels.RecordScreen.Notes}`}
                 placeholder={Placeholders.RecordScreen.Notes}
                 ref={notesRef}
                 onChangeText={(notes) =>

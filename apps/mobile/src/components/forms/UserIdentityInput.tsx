@@ -14,7 +14,7 @@ export function UserIdentityInput() {
     <>
       <CustomTextInput
         value={name}
-        label={Labels.RecordFields.Name}
+        label={Labels.Name}
         placeholder={Placeholders.Settings.Username}
         onChangeText={(value) => {
           setSettings((prev) => ({
@@ -28,7 +28,7 @@ export function UserIdentityInput() {
       <CustomTextInput
         ref={orgRef}
         value={organization}
-        label={Labels.RecordFields.Organization}
+        label={Labels.Organization}
         blurOnSubmit
         placeholder={Placeholders.Settings.Organization}
         onChangeText={(value) => {

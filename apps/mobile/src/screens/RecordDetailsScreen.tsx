@@ -6,7 +6,7 @@ import {
   recordDateFormat,
 } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
-import { Labels } from "../constants/Strings";
+import { Labels } from "../constants";
 import { CachedPhotos } from "../components/CachedPhotos";
 
 const styles = StyleSheet.create({
@@ -54,28 +54,30 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
           }}
         >
           <Text style={{ textAlign: "center" }}>
-            {Labels.RecordFields.DataSheet}
+            {Labels.RecordDetailsScreen.DataSheet}
           </Text>
         </View>
         <Text>{`${Labels.Date}: ${recordDateFormat(date)}`}</Text>
-        <Text>{`${Labels.RecordFields.Type}: ${type}`}</Text>
-        <Text>{`${Labels.RecordFields.Name}: ${name}`}</Text>
+        <Text>{`${Labels.RecordType}: ${type}`}</Text>
+        <Text>{`${Labels.Name}: ${name}`}</Text>
         {!!organization && (
-          <Text>{`${Labels.RecordFields.Organization}: ${organization}`}</Text>
+          <Text>{`${Labels.Organization}: ${organization}`}</Text>
         )}
-        <Text>{`${Labels.RecordFields.GPSCoordinates}: ${latitude}, ${longitude}`}</Text>
-        {!!tubeId && <Text>{`${Labels.RecordFields.TubeId}: ${tubeId}`}</Text>}
-        {!!size && <Text>{`${Labels.RecordFields.Size}: ${size}`}</Text>}
+        <Text>{`${Labels.RecordDetailsScreen.Gps}: ${latitude}, ${longitude}`}</Text>
+        {!!tubeId && <Text>{`${Labels.TubeId}: ${tubeId}`}</Text>}
+        {!!size && <Text>{`${Labels.RecordDetailsScreen.Size}: ${size}`}</Text>}
         {!!colors && (
-          <Text>{`${Labels.RecordFields.Colors}: ${colors.reduce<string>(
+          <Text>{`${Labels.RecordDetailsScreen.Colors}: ${colors.reduce<string>(
             (prev, cur, index) => (index == 0 ? `${cur}` : `${prev}, ${cur}`),
             ""
           )}`}</Text>
         )}
         {!!locationDescription && (
-          <Text>{`${Labels.RecordFields.LocationDescription}: ${locationDescription}`}</Text>
+          <Text>{`${Labels.RecordDetailsScreen.LocationDescription}: ${locationDescription}`}</Text>
         )}
-        {!!notes && <Text>{`${Labels.RecordFields.Notes}: ${notes}`}</Text>}
+        {!!notes && (
+          <Text>{`${Labels.RecordDetailsScreen.Notes}: ${notes}`}</Text>
+        )}
       </View>
       <CachedPhotos photos={photos} />
     </ScrollView>

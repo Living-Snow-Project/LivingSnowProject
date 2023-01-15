@@ -230,7 +230,7 @@ export function GpsCoordinatesInput({
     >
       <View pointerEvents={state.usingManualEntry ? "auto" : "none"}>
         <CustomTextInput
-          label={Labels.RecordForm.Gps}
+          label={Labels.RecordScreen.Gps}
           placeholder={state.placeholder}
           value={state.value}
           isRequired

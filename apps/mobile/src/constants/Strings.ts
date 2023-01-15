@@ -20,35 +20,41 @@ export const Placeholders = {
   },
 };
 
+const locationDescription = "Location Description";
+const notes = "Notes";
+
 export const Labels = {
   Date: "Date",
+  DefaultName: "Community Scientist",
   Delete: "Delete",
-  RecordForm: {
-    Color: "Color (select all that apply)",
+  Name: "Name",
+  Organization: "Organization",
+  Photos: "Photos",
+  RecordType: "Type",
+  TubeId: "Tube Id",
+  RecordScreen: {
+    Colors: "Colors (select all that apply)",
     Gps: "GPS Coordinates (latitude, longitude)",
+    LocationDescription: `${locationDescription} (limit 255 characters)`,
+    Notes: `${notes} (limit 255 characters)`,
     Photos: "Select Photos (limit 4)",
-    Type: "Are you Reporting a Sighting or Taking a Sample?",
+    RecordType: "Are you Reporting a Sighting or Taking a Sample?",
+    Size: "Select a size",
   },
-  // TODO: rename to RecordDetailsFields
-  RecordFields: {
-    DataSheet: "Data Sheet",
-    Type: "Type",
-    Name: "Name",
-    Organization: "Organization",
-    TubeId: "Tube Id",
-    GPSCoordinates: "Coordinates",
-    Latitude: "Latitude",
-    Longitude: "Longitude",
-    Size: "Size",
+  RecordDetailsScreen: {
     Colors: "Colors",
-    LocationDescription: "Location Description",
-    Notes: "Notes",
-    Photos: "Photos",
+    DataSheet: "Data Sheet",
+    Gps: "Coordinates",
+    Latitude: "Latitude",
+    LocationDescription: `${locationDescription}`,
+    Longitude: "Longitude",
+    Notes: `${notes}`,
+    Size: "Size",
   },
   TimelineScreen: {
+    DownloadedRecords: "Downloaded",
     ExampleRecords: "Example Record",
     PendingRecords: "Pending",
-    DownloadedRecords: "Downloaded",
   },
   SettingsScreen: {
     DarkMode: "Dark",
@@ -61,12 +67,12 @@ export const Labels = {
     Cancel: "Cancel",
     Confirm: "Confirm",
     DiskUsage: {
-      header: "Confirm Delete",
       body: "Are you sure you want to delete saved photos?",
+      header: "Confirm Delete",
     },
     GpsManualEntry: {
-      header: "Enter coordinates manually?",
       body: `Some users enter coordinates manually if they cannot acquire GPS signal or when they return home.\n\nThis message can be disabled in Settings.`,
+      header: "Enter coordinates manually?",
     },
   },
 };

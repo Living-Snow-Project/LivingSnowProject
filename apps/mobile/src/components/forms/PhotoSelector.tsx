@@ -42,7 +42,7 @@ export function PhotoSelector({ navigation, photos }: PhotoSelectorProps) {
 
   return (
     <FormControl>
-      <FormControl.Label>{Labels.RecordForm.Photos}</FormControl.Label>
+      <FormControl.Label>{Labels.RecordScreen.Photos}</FormControl.Label>
       <Pressable testID={TestIds.Selectors.Photos} onPress={handleOnPress}>
         {renderPhotos()}
       </Pressable>

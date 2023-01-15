@@ -1,5 +1,6 @@
 import React from "react";
 import { Avatar, Text } from "native-base";
+import { Labels } from "../constants";
 
 const avatarColors = [
   "rose.300",
@@ -111,7 +112,7 @@ export function getUserStyle(
   name: string | undefined,
   org: string | undefined
 ): UserStyle {
-  const newName = name || "Community Scientist";
+  const newName = name || Labels.DefaultName;
 
   return {
     org: org ? <Text>{org}</Text> : null,

@@ -76,7 +76,7 @@ describe("RecordDetailsScreen test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    await waitFor(() => getByText(Labels.RecordFields.DataSheet));
+    await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
 
@@ -137,7 +137,7 @@ describe("RecordDetailsScreen test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    await waitFor(() => getByText(Labels.RecordFields.DataSheet));
+    await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
 
@@ -186,7 +186,7 @@ describe("RecordDetailsScreen test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    await waitFor(() => getByText(Labels.RecordFields.DataSheet));
+    await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
 
@@ -279,7 +279,7 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.name))).toBeTruthy();
       expect(getByText(new RegExp(record.organization))).toBeTruthy();
       expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
-      expect(queryByText(new RegExp(Labels.RecordFields.TubeId))).toBeFalsy();
+      expect(queryByText(new RegExp(Labels.TubeId))).toBeFalsy();
       expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.locationDescription))).toBeTruthy();
@@ -316,13 +316,15 @@ describe("RecordDetailsScreen test suite", () => {
     if (record.name) {
       expect(getByText(new RegExp(record.type))).toBeTruthy();
       expect(queryByText(new RegExp(record.name))).toBeTruthy();
-      expect(queryByText(Labels.RecordFields.Organization)).toBeFalsy();
+      expect(queryByText(Labels.Organization)).toBeFalsy();
       expect(getByText(new RegExp(recordDateFormat(record.date)))).toBeTruthy();
       expect(getByText(new RegExp(record.latitude.toString()))).toBeTruthy();
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
-      expect(queryByText(Labels.RecordFields.TubeId)).toBeFalsy();
-      expect(queryByText(Labels.RecordFields.LocationDescription)).toBeFalsy();
-      expect(queryByText(Labels.RecordFields.Notes)).toBeFalsy();
+      expect(queryByText(Labels.TubeId)).toBeFalsy();
+      expect(
+        queryByText(Labels.RecordDetailsScreen.LocationDescription)
+      ).toBeFalsy();
+      expect(queryByText(Labels.RecordDetailsScreen.Notes)).toBeFalsy();
     } else {
       fail("name field was not found");
     }
@@ -356,7 +358,7 @@ describe("RecordDetailsScreen test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    await waitFor(() => getByText(Labels.RecordFields.DataSheet));
+    await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);
 

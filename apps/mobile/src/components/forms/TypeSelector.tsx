@@ -31,7 +31,7 @@ function AlgaeRecordTypeSelector({
 }: AlgaeRecordTypeSelectorProps) {
   return (
     <FormControl isRequired>
-      <FormControl.Label>{Labels.RecordForm.Type}</FormControl.Label>
+      <FormControl.Label>{Labels.RecordScreen.RecordType}</FormControl.Label>
       <Radio.Group
         name="algae record type selector"
         accessibilityLabel="select type of record"
@@ -69,7 +69,7 @@ function AlgaeSizeSelector({
 
   return (
     <FormControl isRequired isInvalid={isInvalid}>
-      <FormControl.Label>{Labels.RecordFields.Size}</FormControl.Label>
+      <FormControl.Label>{Labels.RecordScreen.Size}</FormControl.Label>
       <Select
         size="xl"
         selectedValue={size}
@@ -165,7 +165,7 @@ function AlgaeColorSelector({
 
   return (
     <FormControl isRequired isInvalid={isInvalid}>
-      <FormControl.Label>{Labels.RecordForm.Color}</FormControl.Label>
+      <FormControl.Label>{Labels.RecordScreen.Colors}</FormControl.Label>
       <Flex mt="-1" flexDirection="row" wrap="wrap">
         {renderColors()}
       </Flex>
