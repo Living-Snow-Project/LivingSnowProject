@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-media-library";
+import { useColorModeValue } from "native-base";
 import {
   ImagesPickerScreenProps,
   ImagesPickerScreenNavigationProp,
@@ -15,7 +16,7 @@ import {
   CustomNavigator as CustomNavigatorType,
 } from "../../expo-images-picker/src/Types";
 import { HeaderButton } from "../components/HeaderButton";
-import { TestIds } from "../constants/TestIds";
+import { TestIds } from "../constants";
 
 type CustomNavigatorProps = {
   navigation: ImagesPickerScreenNavigationProp;
@@ -116,6 +117,9 @@ export function ImagesPickerScreen({
     }),
     [navigation]
   );
+
+  const bgColor = useColorModeValue("white", "black");
+  widgetStyles.bgColor = bgColor;
 
   return (
     <AssetsSelector
