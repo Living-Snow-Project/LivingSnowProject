@@ -379,7 +379,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
               <Space />
               <PhotoSelector navigation={navigation} photos={photos} />
-              <Space my="2" />
+
+              <Space />
             </Box>
           </ScrollView>
         )}

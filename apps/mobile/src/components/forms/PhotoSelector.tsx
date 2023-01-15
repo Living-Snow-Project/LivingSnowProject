@@ -26,11 +26,15 @@ export function PhotoSelector({ navigation, photos }: PhotoSelectorProps) {
 
   const renderPhotos = () => {
     if (photos.length) {
-      return <PhotosLayout photos={photos} />;
+      return (
+        <Box mx={-2} _dark={{ bg: "dark.100" }}>
+          <PhotosLayout photos={photos} />
+        </Box>
+      );
     }
 
     return (
-      <Box height="52" width="52">
+      <Box height="52" width="52" _dark={{ bg: "dark.100" }}>
         <AddIcon size="50" color="primary.600" />
       </Box>
     );
