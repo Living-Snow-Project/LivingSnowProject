@@ -264,7 +264,9 @@ describe("RecordDetailsScreen test suite", () => {
     } as RecordDetailsScreenRouteProp;
 
     const { getByText, queryByText } = render(
-      <RecordDetailsScreen route={route} />
+      <NativeBaseProviderForTesting>
+        <RecordDetailsScreen route={route} />
+      </NativeBaseProviderForTesting>
     );
 
     const record: AlgaeRecord = jsonToRecord(route.params.record);

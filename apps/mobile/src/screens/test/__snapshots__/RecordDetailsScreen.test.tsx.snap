@@ -13,73 +13,252 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
   }
 >
   <RCTScrollView
-    style={
-      Object {
-        "backgroundColor": "#fff",
-        "flex": 1,
-      }
+    contentContainerStyle={
+      Array [
+        Object {},
+        Object {
+          "dataSet": Object {},
+        },
+        Object {},
+      ]
     }
+    dataSet={Object {}}
+    style={Object {}}
   >
     <View>
       <View
+        dataSet={Object {}}
         style={
           Object {
-            "borderColor": "black",
-            "borderRadius": 2,
-            "borderWidth": 1,
-            "margin": 2,
+            "marginBottom": 4,
+            "paddingLeft": 4,
+            "paddingRight": 4,
           }
         }
       >
         <View
+          dataSet={Object {}}
           style={
             Object {
-              "backgroundColor": "lightblue",
-              "borderBottomWidth": 1,
-              "borderColor": "black",
+              "borderRadius": 2,
+              "borderWidth": 1,
+              "paddingLeft": 4,
+              "paddingRight": 4,
             }
           }
         >
-          <Text
+          <View
+            dataSet={Object {}}
             style={
               Object {
-                "textAlign": "center",
+                "backgroundColor": "#7dd3fc",
+                "borderBottomWidth": 1,
+                "marginLeft": -4,
+                "marginRight": -4,
               }
             }
           >
-            Data Sheet
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textAlign": "center",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Data Sheet
+            </Text>
+          </View>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Date: 2022-04-01
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Type: Sample
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Name: Helpful Individual
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Organization: Community Scientist
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Coordinates: 48.06727, -121.12165
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Tube Id: TUBE-1234
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Size: Fist
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Colors: Red, Pink
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Location Description: White Chuck Glacier, Glacier Peak Wilderness, WA
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Notes: Dark red algae in runnels
           </Text>
         </View>
-        <Text>
-          Date: 2022-04-01
-        </Text>
-        <Text>
-          Type: Sample
-        </Text>
-        <Text>
-          Name: Helpful Individual
-        </Text>
-        <Text>
-          Organization: Community Scientist
-        </Text>
-        <Text>
-          Coordinates: 48.06727, -121.12165
-        </Text>
-        <Text>
-          Tube Id: TUBE-1234
-        </Text>
-        <Text>
-          Size: Fist
-        </Text>
-        <Text>
-          Colors: Red, Pink
-        </Text>
-        <Text>
-          Location Description: White Chuck Glacier, Glacier Peak Wilderness, WA
-        </Text>
-        <Text>
-          Notes: Dark red algae in runnels
-        </Text>
       </View>
       <Image
         dataSet={Object {}}
@@ -109,73 +288,252 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
   }
 >
   <RCTScrollView
-    style={
-      Object {
-        "backgroundColor": "#fff",
-        "flex": 1,
-      }
+    contentContainerStyle={
+      Array [
+        Object {},
+        Object {
+          "dataSet": Object {},
+        },
+        Object {},
+      ]
     }
+    dataSet={Object {}}
+    style={Object {}}
   >
     <View>
       <View
+        dataSet={Object {}}
         style={
           Object {
-            "borderColor": "black",
-            "borderRadius": 2,
-            "borderWidth": 1,
-            "margin": 2,
+            "marginBottom": 4,
+            "paddingLeft": 4,
+            "paddingRight": 4,
           }
         }
       >
         <View
+          dataSet={Object {}}
           style={
             Object {
-              "backgroundColor": "lightblue",
-              "borderBottomWidth": 1,
-              "borderColor": "black",
+              "borderRadius": 2,
+              "borderWidth": 1,
+              "paddingLeft": 4,
+              "paddingRight": 4,
             }
           }
         >
-          <Text
+          <View
+            dataSet={Object {}}
             style={
               Object {
-                "textAlign": "center",
+                "backgroundColor": "#7dd3fc",
+                "borderBottomWidth": 1,
+                "marginLeft": -4,
+                "marginRight": -4,
               }
             }
           >
-            Data Sheet
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textAlign": "center",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Data Sheet
+            </Text>
+          </View>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Date: 2021-09-16
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Type: Sample
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Name: test name
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Organization: test org
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Coordinates: -123.456, 96.96
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Tube Id: LAB-1337
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Size: Fist
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Colors: Red, Green
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Location Description: test location
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Notes: test notes
           </Text>
         </View>
-        <Text>
-          Date: 2021-09-16
-        </Text>
-        <Text>
-          Type: Sample
-        </Text>
-        <Text>
-          Name: test name
-        </Text>
-        <Text>
-          Organization: test org
-        </Text>
-        <Text>
-          Coordinates: -123.456, 96.96
-        </Text>
-        <Text>
-          Tube Id: LAB-1337
-        </Text>
-        <Text>
-          Size: Fist
-        </Text>
-        <Text>
-          Colors: Red, Green
-        </Text>
-        <Text>
-          Location Description: test location
-        </Text>
-        <Text>
-          Notes: test notes
-        </Text>
       </View>
       <Text>
         Loading
@@ -225,73 +583,252 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
   }
 >
   <RCTScrollView
-    style={
-      Object {
-        "backgroundColor": "#fff",
-        "flex": 1,
-      }
+    contentContainerStyle={
+      Array [
+        Object {},
+        Object {
+          "dataSet": Object {},
+        },
+        Object {},
+      ]
     }
+    dataSet={Object {}}
+    style={Object {}}
   >
     <View>
       <View
+        dataSet={Object {}}
         style={
           Object {
-            "borderColor": "black",
-            "borderRadius": 2,
-            "borderWidth": 1,
-            "margin": 2,
+            "marginBottom": 4,
+            "paddingLeft": 4,
+            "paddingRight": 4,
           }
         }
       >
         <View
+          dataSet={Object {}}
           style={
             Object {
-              "backgroundColor": "lightblue",
-              "borderBottomWidth": 1,
-              "borderColor": "black",
+              "borderRadius": 2,
+              "borderWidth": 1,
+              "paddingLeft": 4,
+              "paddingRight": 4,
             }
           }
         >
-          <Text
+          <View
+            dataSet={Object {}}
             style={
               Object {
-                "textAlign": "center",
+                "backgroundColor": "#7dd3fc",
+                "borderBottomWidth": 1,
+                "marginLeft": -4,
+                "marginRight": -4,
               }
             }
           >
-            Data Sheet
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textAlign": "center",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Data Sheet
+            </Text>
+          </View>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Date: 2021-09-16
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Type: Sample
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Name: test name
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Organization: test org
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Coordinates: -123.456, 96.96
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Tube Id: LAB-1337
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Size: Fist
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Colors: Red, Green
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Location Description: test location
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Notes: test notes
           </Text>
         </View>
-        <Text>
-          Date: 2021-09-16
-        </Text>
-        <Text>
-          Type: Sample
-        </Text>
-        <Text>
-          Name: test name
-        </Text>
-        <Text>
-          Organization: test org
-        </Text>
-        <Text>
-          Coordinates: -123.456, 96.96
-        </Text>
-        <Text>
-          Tube Id: LAB-1337
-        </Text>
-        <Text>
-          Size: Fist
-        </Text>
-        <Text>
-          Colors: Red, Green
-        </Text>
-        <Text>
-          Location Description: test location
-        </Text>
-        <Text>
-          Notes: test notes
-        </Text>
       </View>
       <Text>
         Offline
@@ -333,73 +870,252 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
   }
 >
   <RCTScrollView
-    style={
-      Object {
-        "backgroundColor": "#fff",
-        "flex": 1,
-      }
+    contentContainerStyle={
+      Array [
+        Object {},
+        Object {
+          "dataSet": Object {},
+        },
+        Object {},
+      ]
     }
+    dataSet={Object {}}
+    style={Object {}}
   >
     <View>
       <View
+        dataSet={Object {}}
         style={
           Object {
-            "borderColor": "black",
-            "borderRadius": 2,
-            "borderWidth": 1,
-            "margin": 2,
+            "marginBottom": 4,
+            "paddingLeft": 4,
+            "paddingRight": 4,
           }
         }
       >
         <View
+          dataSet={Object {}}
           style={
             Object {
-              "backgroundColor": "lightblue",
-              "borderBottomWidth": 1,
-              "borderColor": "black",
+              "borderRadius": 2,
+              "borderWidth": 1,
+              "paddingLeft": 4,
+              "paddingRight": 4,
             }
           }
         >
-          <Text
+          <View
+            dataSet={Object {}}
             style={
               Object {
-                "textAlign": "center",
+                "backgroundColor": "#7dd3fc",
+                "borderBottomWidth": 1,
+                "marginLeft": -4,
+                "marginRight": -4,
               }
             }
           >
-            Data Sheet
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textAlign": "center",
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Data Sheet
+            </Text>
+          </View>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Date: 2021-09-16
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Type: Sample
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Name: test name
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Organization: test org
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Coordinates: -123.456, 96.96
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Tube Id: LAB-1337
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Size: Fist
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Colors: Red, Green
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Location Description: test location
+          </Text>
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Notes: test notes
           </Text>
         </View>
-        <Text>
-          Date: 2021-09-16
-        </Text>
-        <Text>
-          Type: Sample
-        </Text>
-        <Text>
-          Name: test name
-        </Text>
-        <Text>
-          Organization: test org
-        </Text>
-        <Text>
-          Coordinates: -123.456, 96.96
-        </Text>
-        <Text>
-          Tube Id: LAB-1337
-        </Text>
-        <Text>
-          Size: Fist
-        </Text>
-        <Text>
-          Colors: Red, Green
-        </Text>
-        <Text>
-          Location Description: test location
-        </Text>
-        <Text>
-          Notes: test notes
-        </Text>
       </View>
       <Text>
         Error
