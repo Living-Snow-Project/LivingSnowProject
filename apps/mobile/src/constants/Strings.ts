@@ -27,11 +27,18 @@ export const Labels = {
   Date: "Date",
   DefaultName: "Community Scientist",
   Delete: "Delete",
+  LivingSnowProject: "Living Snow Project",
   Name: "Name",
   Organization: "Organization",
   Photos: "Photos",
   RecordType: "Type",
+  Slogan: "See pink snow? Let us know!",
   TubeId: "Tube Id",
+  FirstRunScreen: {
+    StartReporting: "Start Reporting",
+    Usage:
+      "Let us know who you are or remain anonymous. You can update your profile at any time in the Settings tab.",
+  },
   RecordScreen: {
     Colors: "Colors (select all that apply)",
     Gps: "GPS Coordinates (latitude, longitude)",
