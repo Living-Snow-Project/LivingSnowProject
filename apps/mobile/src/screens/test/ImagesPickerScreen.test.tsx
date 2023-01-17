@@ -10,7 +10,7 @@ import { ImagesPickerScreen } from "../ImagesPickerScreen";
 import { TestIds } from "../../constants/TestIds";
 
 // record action button renders independently of the screen
-let photoSelectedActionButton: () => JSX.Element;
+let photoSelectedActionButton: JSX.Element;
 
 const navigation = {} as ImagesPickerScreenNavigationProp;
 navigation.navigate = jest.fn();
@@ -19,7 +19,9 @@ navigation.setOptions = ({
 }: {
   headerRight: () => JSX.Element;
 }) => {
-  photoSelectedActionButton = headerRight;
+  photoSelectedActionButton = (
+    <NativeBaseProviderForTesting>{headerRight()}</NativeBaseProviderForTesting>
+  );
 };
 
 const route = {
@@ -40,7 +42,7 @@ describe("ImagesPickerScreen test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    const { getByTestId } = render(photoSelectedActionButton());
+    const { getByTestId } = render(photoSelectedActionButton);
 
     expect(toJSON()).toMatchSnapshot();
     fireEvent.press(getByTestId(TestIds.Icons.DoneSelectingPhotosIcon));
@@ -56,7 +58,7 @@ describe("ImagesPickerScreen test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    const { getByTestId } = render(photoSelectedActionButton());
+    const { getByTestId } = render(photoSelectedActionButton);
 
     fireEvent.press(getByTestId(TestIds.Icons.DoneSelectingPhotosIcon));
     await waitFor(() => expect(navigation.navigate).toBeCalled());

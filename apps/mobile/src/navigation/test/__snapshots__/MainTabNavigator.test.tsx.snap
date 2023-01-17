@@ -64,7 +64,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
         <RNSScreenStackHeaderConfig
           backButtonInCustomView={false}
           backgroundColor="rgb(255, 255, 255)"
-          color="rgb(0, 122, 255)"
+          color="#0891b2"
           direction="ltr"
           disableBackButtonMenu={false}
           hidden={false}
@@ -477,13 +477,13 @@ exports[`Navigation test suite renders first run screen 1`] = `
                         style={
                           Object {
                             "backgroundColor": undefined,
-                            "color": "#171717",
+                            "color": "#fafafa",
                             "fontFamily": undefined,
-                            "fontSize": 18,
+                            "fontSize": 14,
                             "fontStyle": "normal",
                             "fontWeight": "400",
                             "letterSpacing": 0,
-                            "lineHeight": 27,
+                            "lineHeight": 21,
                             "textDecorationLine": undefined,
                           }
                         }
@@ -567,7 +567,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
         <RNSScreenStackHeaderConfig
           backButtonInCustomView={false}
           backgroundColor="rgb(255, 255, 255)"
-          color="rgb(0, 122, 255)"
+          color="#0891b2"
           direction="ltr"
           disableBackButtonMenu={false}
           hidden={false}
@@ -594,6 +594,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
             <View
               accessible={true}
               collapsable={false}
+              dataSet={Object {}}
               focusable={true}
               onBlur={[Function]}
               onClick={[Function]}
@@ -605,14 +606,9 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Array [
-                  Object {
-                    "left": 25,
-                  },
-                  Object {
-                    "opacity": 1,
-                  },
-                ]
+                Object {
+                  "marginLeft": 24,
+                }
               }
               testID="timeline-screen-settings-button"
             >
@@ -622,7 +618,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 style={
                   Array [
                     Object {
-                      "color": "#0077ff",
+                      "color": "#0891b2",
                       "fontSize": 32,
                     },
                     undefined,
@@ -656,6 +652,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
             <View
               accessible={true}
               collapsable={false}
+              dataSet={Object {}}
               focusable={true}
               onBlur={[Function]}
               onClick={[Function]}
@@ -667,14 +664,9 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Array [
-                  Object {
-                    "right": 25,
-                  },
-                  Object {
-                    "opacity": 1,
-                  },
-                ]
+                Object {
+                  "marginRight": 24,
+                }
               }
               testID="timeline-screen-record-button"
             >
@@ -684,7 +676,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 style={
                   Array [
                     Object {
-                      "color": "#0077ff",
+                      "color": "#0891b2",
                       "fontSize": 32,
                     },
                     undefined,

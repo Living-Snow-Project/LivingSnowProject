@@ -233,9 +233,13 @@ describe("TimelineScreen test suite", () => {
     navigationInner.navigate = jest.fn();
 
     const { getByTestId } = render(
-      <SettingsButton navigation={navigationInner} />
+      <NativeBaseProviderForTesting>
+        <SettingsButton navigation={navigationInner} />
+      </NativeBaseProviderForTesting>
     );
+
     fireEvent.press(getByTestId(TestIds.TimelineScreen.SettingsButton));
+
     expect(navigationInner.navigate).toBeCalledWith("Settings");
   });
 
@@ -244,9 +248,13 @@ describe("TimelineScreen test suite", () => {
     navigationInner.navigate = jest.fn();
 
     const { getByTestId } = render(
-      <NewRecordButton navigation={navigationInner} />
+      <NativeBaseProviderForTesting>
+        <NewRecordButton navigation={navigationInner} />
+      </NativeBaseProviderForTesting>
     );
+
     fireEvent.press(getByTestId(TestIds.TimelineScreen.NewRecordButton));
+
     expect(navigationInner.navigate).toBeCalledWith("Record");
   });
 

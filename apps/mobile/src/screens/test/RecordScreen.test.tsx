@@ -15,7 +15,7 @@ import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
 
 // record action button renders independently of the screen
-let recordActionButton: () => JSX.Element;
+let recordActionButton: JSX.Element;
 
 // mock navigation prop
 const navigation = {} as RecordScreenNavigationProp;
@@ -26,7 +26,9 @@ navigation.setOptions = ({
 }: {
   headerRight: () => JSX.Element;
 }) => {
-  recordActionButton = headerRight;
+  recordActionButton = (
+    <NativeBaseProviderForTesting>{headerRight()}</NativeBaseProviderForTesting>
+  );
 };
 
 const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
@@ -275,7 +277,7 @@ describe("RecordScreen test suite", () => {
     });
 
     test("upload record successfully", async () => {
-      const { getByTestId } = render(recordActionButton());
+      const { getByTestId } = render(recordActionButton);
 
       /* const uploadMock = jest
         .spyOn(RecordManager, "uploadRecord")
@@ -299,7 +301,7 @@ describe("RecordScreen test suite", () => {
     });
 
     test("upload sample successfully, empty fields are deleted", async () => {
-      const { getByTestId } = render(recordActionButton());
+      const { getByTestId } = render(recordActionButton);
 
       /* const uploadMock = jest
         .spyOn(RecordManager, "uploadRecord")
@@ -353,7 +355,7 @@ describe("RecordScreen test suite", () => {
     });
 
     test("upload record invalid gps user input", async () => {
-      const { getByTestId } = render(recordActionButton());
+      const { getByTestId } = render(recordActionButton);
 
       fireEvent.changeText(
         screenGetByDisplayValue(screenTestCoordinates),
@@ -372,7 +374,7 @@ describe("RecordScreen test suite", () => {
     });
 
     test("upload record invalid algae size user input", async () => {
-      const { getByTestId } = render(recordActionButton());
+      const { getByTestId } = render(recordActionButton);
 
       // TODO: figure out how to test native-base selector
       /* fireEvent(
@@ -390,7 +392,7 @@ describe("RecordScreen test suite", () => {
     });
 
     test("upload record invalid algae color user input", async () => {
-      const { getByTestId } = render(recordActionButton());
+      const { getByTestId } = render(recordActionButton);
 
       /* fireEvent(
         screenGetByTestId(TestIds.Selectors.AlgaeColor),
@@ -407,7 +409,7 @@ describe("RecordScreen test suite", () => {
     });
 
     test("upload record network failure", async () => {
-      const { getByTestId } = render(recordActionButton());
+      const { getByTestId } = render(recordActionButton);
       /* const uploadError = {
         title: Notifications.uploadRecordFailed.title,
         message: Notifications.uploadRecordFailed.message,
@@ -476,7 +478,7 @@ describe("RecordScreen test suite", () => {
     });
 
     test("update record successfully", async () => {
-      const { getByTestId } = render(recordActionButton());
+      const { getByTestId } = render(recordActionButton);
       const screenGetByTestId = recordScreen.getByTestId;
 
       fireEvent(
@@ -507,7 +509,7 @@ describe("RecordScreen test suite", () => {
     test("update record invalid user input", async () => {
       const screenGetByDisplayValue = recordScreen.getByDisplayValue;
 
-      const { getByTestId } = render(recordActionButton());
+      const { getByTestId } = render(recordActionButton);
 
       fireEvent.changeText(
         screenGetByDisplayValue(`${record.latitude}, ${record.longitude}`),
@@ -526,7 +528,7 @@ describe("RecordScreen test suite", () => {
     });
 
     test("update record fails", async () => {
-      const { getByTestId } = render(recordActionButton());
+      const { getByTestId } = render(recordActionButton);
 
       jest.spyOn(Storage, "updatePendingRecord").mockRejectedValueOnce("error");
 

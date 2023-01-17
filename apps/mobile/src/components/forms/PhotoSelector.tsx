@@ -1,7 +1,8 @@
 import React from "react";
-import { AddIcon, Box, FormControl, Pressable } from "native-base";
+import { Box, FormControl, Pressable } from "native-base";
 import { SelectedPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
+import { AddPhotosIcon } from "../Icons";
 import { Labels, TestIds } from "../../constants";
 import { PhotosLayout } from "../PhotosLayout";
 
@@ -35,7 +36,7 @@ export function PhotoSelector({ navigation, photos }: PhotoSelectorProps) {
 
     return (
       <Box height="52" width="52" _dark={{ bg: "dark.100" }}>
-        <AddIcon size="50" color="primary.600" />
+        <AddPhotosIcon />
       </Box>
     );
   };

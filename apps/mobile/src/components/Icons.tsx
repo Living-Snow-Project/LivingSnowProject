@@ -1,7 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Icon } from "native-base";
+import { AddIcon, Icon, useColorModeValue } from "native-base";
 import { Colors, TestIds } from "../constants";
 
 type StockIconProps = {
@@ -22,6 +22,13 @@ export function StockIcon({
 
 type IconNameType = keyof typeof Ionicons.glyphMap;
 
+export function AddPhotosIcon() {
+  const color = useColorModeValue("primary.600", "primary.400");
+
+  return (
+    <AddIcon color={color} size="50" testID={TestIds.Icons.AddPhotosIcon} />
+  );
+}
 export function PictureIcon() {
   return (
     <Icon

@@ -5,7 +5,7 @@ import {
   DarkTheme,
   DefaultTheme,
 } from "@react-navigation/native";
-import { useColorMode } from "native-base";
+import { useColorModeValue, useTheme } from "native-base";
 import {
   FirstRunScreen,
   ImagesPickerScreen,
@@ -86,14 +86,25 @@ function RootNavigator() {
 }
 
 export function Navigation() {
-  const { colorMode } = useColorMode();
-  const dark = colorMode == "light";
-  const theme = dark
-    ? {
-        ...DefaultTheme,
-        dark,
-      }
-    : { ...DarkTheme, dark };
+  const nbTheme = useTheme();
+  const theme = useColorModeValue(
+    {
+      ...DefaultTheme,
+      colors: {
+        ...DefaultTheme.colors,
+        primary: nbTheme.colors.primary[600],
+      },
+      light: true,
+    },
+    {
+      ...DarkTheme,
+      colors: {
+        ...DarkTheme.colors,
+        primary: nbTheme.colors.primary[400],
+      },
+      light: false,
+    }
+  );
 
   return (
     <NavigationContainer theme={theme}>
@@ -102,4 +113,5 @@ export function Navigation() {
   );
 }
 
+// for testing
 export { SettingsButton, NewRecordButton };

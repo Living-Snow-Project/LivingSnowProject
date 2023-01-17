@@ -6955,6 +6955,7 @@ exports[`RecordScreen test suite renders 1`] = `
                       },
                     ]
                   }
+                  testID="add-photos-icon"
                   tintColor="#0891b2"
                   vbHeight={24}
                   vbWidth={24}

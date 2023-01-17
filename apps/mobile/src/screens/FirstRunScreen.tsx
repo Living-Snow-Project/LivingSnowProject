@@ -39,7 +39,7 @@ export function FirstRunScreen({ navigation }: FirstRunScreenProps) {
             navigation.navigate("Timeline");
           }}
         >
-          <Text fontSize="lg">{Labels.FirstRunScreen.StartReporting}</Text>
+          {Labels.FirstRunScreen.StartReporting}
         </Button>
       </Box>
     </Box>

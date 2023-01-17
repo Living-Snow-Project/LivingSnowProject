@@ -24,6 +24,7 @@ export const TestIds = {
     ShowGpsWarning: "settings-screen-show-gps-warning",
   },
   Icons: {
+    AddPhotosIcon: "add-photos-icon",
     DeleteIcon: "delete-icon",
     DoneSelectingPhotosIcon: "done-selecting-photos-icon",
     EditIcon: "edit-icon",

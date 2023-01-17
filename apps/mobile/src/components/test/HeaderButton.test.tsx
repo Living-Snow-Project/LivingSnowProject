@@ -1,6 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
 import { fireEvent, render } from "@testing-library/react-native";
+import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import { HeaderButton } from "../HeaderButton";
 
 describe("HeaderButton test suite", () => {
@@ -9,12 +10,14 @@ describe("HeaderButton test suite", () => {
   test("renders left on ios", () => {
     const onPress = jest.fn();
     const { getByTestId, toJSON } = render(
-      <HeaderButton
-        testID={testID}
-        iconName="snow"
-        onPress={onPress}
-        placement="left"
-      />
+      <NativeBaseProviderForTesting>
+        <HeaderButton
+          testID={testID}
+          iconName="snow"
+          onPress={onPress}
+          placement="left"
+        />
+      </NativeBaseProviderForTesting>
     );
 
     fireEvent.press(getByTestId(testID));
@@ -26,12 +29,14 @@ describe("HeaderButton test suite", () => {
     Platform.OS = "android";
     const onPress = jest.fn();
     const { getByTestId, toJSON } = render(
-      <HeaderButton
-        testID={testID}
-        iconName="snow"
-        onPress={onPress}
-        placement="right"
-      />
+      <NativeBaseProviderForTesting>
+        <HeaderButton
+          testID={testID}
+          iconName="snow"
+          onPress={onPress}
+          placement="right"
+        />
+      </NativeBaseProviderForTesting>
     );
 
     Platform.OS = "ios";
