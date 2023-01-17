@@ -8,6 +8,8 @@ type PhotosLayoutProps = {
   photos?: Photo[] | SelectedPhoto[];
 };
 
+const gap = 1.5;
+
 export function PhotosLayout({
   photos,
 }: PhotosLayoutProps): JSX.Element | null {
@@ -19,8 +21,8 @@ export function PhotosLayout({
 
   const newPhotos: Photo[] = [];
   const { width: screenWidth } = Dimensions.get("screen");
-  const halfScreenWidth = Math.ceil((screenWidth - theme.sizes[2]) / 2); // theme.sizes[2] is the # pixels behind Box px={2}
-  const oneThirdScreenWidth = Math.ceil((screenWidth - theme.sizes[2]) / 3);
+  const halfScreenWidth = Math.ceil((screenWidth - theme.sizes[gap]) / 2);
+  const oneThirdScreenWidth = Math.ceil((screenWidth - theme.sizes[gap]) / 3);
   const twoThirdScreenWidth = oneThirdScreenWidth + oneThirdScreenWidth;
 
   let portraitCount = 0;
@@ -45,7 +47,7 @@ export function PhotosLayout({
     return (
       <HStack>
         <CachedPhoto uri={uri} width={halfScreenWidth} height={fixedHeight} />
-        <Box pr={2} />
+        <Box pr={gap} />
         <CachedPhoto
           uri={second.uri}
           width={halfScreenWidth}
@@ -58,8 +60,8 @@ export function PhotosLayout({
   const renderThreePortrait = (first: Photo, second: Photo, third: Photo) => {
     const { uri, width, height } = first;
     const controlHeight = Math.floor(twoThirdScreenWidth * (height / width));
-    // account for <Box pt={2}/>
-    const portraitHeight = Math.floor((controlHeight - theme.sizes[2]) / 2);
+    // account for <Box pt={gap}/>
+    const portraitHeight = Math.floor((controlHeight - theme.sizes[gap]) / 2);
 
     return (
       <HStack>
@@ -68,19 +70,19 @@ export function PhotosLayout({
           width={twoThirdScreenWidth}
           height={controlHeight}
         />
-        <Box pr={2} />
+        <Box pr={gap} />
         <VStack>
           <CachedPhoto
             uri={second.uri}
             width={oneThirdScreenWidth}
             height={portraitHeight}
           />
-          <Box pt={2} />
+          <Box pt={gap} />
           <CachedPhoto
             uri={third.uri}
             width={oneThirdScreenWidth}
             // account for floating point precision
-            height={controlHeight - portraitHeight - theme.sizes[2]}
+            height={controlHeight - portraitHeight - theme.sizes[gap]}
           />
         </VStack>
       </HStack>
@@ -117,7 +119,7 @@ export function PhotosLayout({
           width={oneThirdScreenWidth}
           height={fixedHeight}
         />
-        <Box pr={2} />
+        <Box pr={gap} />
         <CachedPhoto
           uri={newPhotos[1].uri}
           width={twoThirdScreenWidth}
@@ -137,7 +139,7 @@ export function PhotosLayout({
       return (
         <>
           {renderSideBySide(newPhotos[0], newPhotos[1])}
-          <Box pt={2} />
+          <Box pt={gap} />
           <CachedPhoto
             uri={newPhotos[2].uri}
             width={screenWidth}
@@ -152,8 +154,8 @@ export function PhotosLayout({
     if (portraitCount == 1 /* && landscapeCount == 2 */) {
       const { uri, width, height } = newPhotos[0];
       const controlHeight = Math.floor(halfScreenWidth * (height / width));
-      // account for <Box pt={2}/>
-      const portraitHeight = Math.floor((controlHeight - theme.sizes[2]) / 2);
+      // account for <Box pt={gap}/>
+      const portraitHeight = Math.floor((controlHeight - theme.sizes[gap]) / 2);
 
       return (
         <HStack>
@@ -162,19 +164,19 @@ export function PhotosLayout({
             width={halfScreenWidth}
             height={controlHeight}
           />
-          <Box pr={2} />
+          <Box pr={gap} />
           <VStack>
             <CachedPhoto
               uri={newPhotos[1].uri}
               width={halfScreenWidth}
               height={portraitHeight}
             />
-            <Box pt={2} />
+            <Box pt={gap} />
             <CachedPhoto
               uri={newPhotos[2].uri}
               width={halfScreenWidth}
               // account for floating point precision
-              height={controlHeight - portraitHeight - theme.sizes[2]}
+              height={controlHeight - portraitHeight - theme.sizes[gap]}
             />
           </VStack>
         </HStack>
@@ -191,7 +193,7 @@ export function PhotosLayout({
               screenWidth * (newPhotos[2].height / newPhotos[2].width)
             )}
           />
-          <Box pt={2} />
+          <Box pt={gap} />
           {renderSideBySide(newPhotos[0], newPhotos[1])}
         </>
       );
@@ -208,7 +210,7 @@ export function PhotosLayout({
       return (
         <>
           {renderSideBySide(newPhotos[0], newPhotos[1])}
-          <Box pt={2} />
+          <Box pt={gap} />
           {renderSideBySide(newPhotos[2], newPhotos[3])}
         </>
       );
@@ -217,9 +219,9 @@ export function PhotosLayout({
     if (portraitCount == 1 && landscapeCount == 3) {
       const { uri, width, height } = newPhotos[0];
       const controlHeight = Math.floor(halfScreenWidth * (height / width));
-      // account for 2x <Box pt={2}/>
+      // account for 2x <Box pt={gap}/>
       const landscapeHeight = Math.floor(
-        (controlHeight - 2 * theme.sizes[2]) / 3
+        (controlHeight - 2 * theme.sizes[gap]) / 3
       );
 
       return (
@@ -229,25 +231,25 @@ export function PhotosLayout({
             width={halfScreenWidth}
             height={controlHeight}
           />
-          <Box pr={2} />
+          <Box pr={gap} />
           <VStack>
             <CachedPhoto
               uri={newPhotos[1].uri}
               width={halfScreenWidth}
               height={landscapeHeight}
             />
-            <Box pt={2} />
+            <Box pt={gap} />
             <CachedPhoto
               uri={newPhotos[2].uri}
               width={halfScreenWidth}
               height={landscapeHeight}
             />
-            <Box pt={2} />
+            <Box pt={gap} />
             <CachedPhoto
               uri={newPhotos[3].uri}
               width={halfScreenWidth}
               // account for floating point precision
-              height={controlHeight - 2 * (landscapeHeight + theme.sizes[2])}
+              height={controlHeight - 2 * (landscapeHeight + theme.sizes[gap])}
             />
           </VStack>
         </HStack>
@@ -258,7 +260,7 @@ export function PhotosLayout({
     return (
       <>
         {renderThreePortrait(newPhotos[0], newPhotos[1], newPhotos[2])}
-        <Box pt={2}>
+        <Box pt={gap}>
           <CachedPhoto
             uri={newPhotos[3].uri}
             width={screenWidth}
