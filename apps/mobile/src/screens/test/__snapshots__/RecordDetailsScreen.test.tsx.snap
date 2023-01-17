@@ -30,9 +30,7 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
         dataSet={Object {}}
         style={
           Object {
-            "marginBottom": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
+            "paddingBottom": 4,
           }
         }
       >
@@ -40,44 +38,39 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
           dataSet={Object {}}
           style={
             Object {
-              "borderRadius": 2,
-              "borderWidth": 1,
-              "paddingLeft": 4,
-              "paddingRight": 4,
+              "backgroundColor": "#7dd3fc",
             }
           }
         >
-          <View
+          <Text
             dataSet={Object {}}
             style={
               Object {
-                "backgroundColor": "#7dd3fc",
-                "borderBottomWidth": 1,
-                "marginLeft": -4,
-                "marginRight": -4,
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textAlign": "center",
+                "textDecorationLine": undefined,
               }
             }
           >
-            <Text
-              dataSet={Object {}}
-              style={
-                Object {
-                  "backgroundColor": undefined,
-                  "color": "#171717",
-                  "fontFamily": undefined,
-                  "fontSize": 14,
-                  "fontStyle": "normal",
-                  "fontWeight": "400",
-                  "letterSpacing": 0,
-                  "lineHeight": 21,
-                  "textAlign": "center",
-                  "textDecorationLine": undefined,
-                }
-              }
-            >
-              Data Sheet
-            </Text>
-          </View>
+            Data Sheet
+          </Text>
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "paddingLeft": 8,
+              "paddingRight": 8,
+            }
+          }
+        >
           <Text
             dataSet={Object {}}
             style={
@@ -307,9 +300,7 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
         dataSet={Object {}}
         style={
           Object {
-            "marginBottom": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
+            "paddingBottom": 4,
           }
         }
       >
@@ -317,44 +308,39 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
           dataSet={Object {}}
           style={
             Object {
-              "borderRadius": 2,
-              "borderWidth": 1,
-              "paddingLeft": 4,
-              "paddingRight": 4,
+              "backgroundColor": "#7dd3fc",
             }
           }
         >
-          <View
+          <Text
             dataSet={Object {}}
             style={
               Object {
-                "backgroundColor": "#7dd3fc",
-                "borderBottomWidth": 1,
-                "marginLeft": -4,
-                "marginRight": -4,
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textAlign": "center",
+                "textDecorationLine": undefined,
               }
             }
           >
-            <Text
-              dataSet={Object {}}
-              style={
-                Object {
-                  "backgroundColor": undefined,
-                  "color": "#171717",
-                  "fontFamily": undefined,
-                  "fontSize": 14,
-                  "fontStyle": "normal",
-                  "fontWeight": "400",
-                  "letterSpacing": 0,
-                  "lineHeight": 21,
-                  "textAlign": "center",
-                  "textDecorationLine": undefined,
-                }
-              }
-            >
-              Data Sheet
-            </Text>
-          </View>
+            Data Sheet
+          </Text>
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "paddingLeft": 8,
+              "paddingRight": 8,
+            }
+          }
+        >
           <Text
             dataSet={Object {}}
             style={
@@ -602,9 +588,7 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
         dataSet={Object {}}
         style={
           Object {
-            "marginBottom": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
+            "paddingBottom": 4,
           }
         }
       >
@@ -612,44 +596,39 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
           dataSet={Object {}}
           style={
             Object {
-              "borderRadius": 2,
-              "borderWidth": 1,
-              "paddingLeft": 4,
-              "paddingRight": 4,
+              "backgroundColor": "#7dd3fc",
             }
           }
         >
-          <View
+          <Text
             dataSet={Object {}}
             style={
               Object {
-                "backgroundColor": "#7dd3fc",
-                "borderBottomWidth": 1,
-                "marginLeft": -4,
-                "marginRight": -4,
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textAlign": "center",
+                "textDecorationLine": undefined,
               }
             }
           >
-            <Text
-              dataSet={Object {}}
-              style={
-                Object {
-                  "backgroundColor": undefined,
-                  "color": "#171717",
-                  "fontFamily": undefined,
-                  "fontSize": 14,
-                  "fontStyle": "normal",
-                  "fontWeight": "400",
-                  "letterSpacing": 0,
-                  "lineHeight": 21,
-                  "textAlign": "center",
-                  "textDecorationLine": undefined,
-                }
-              }
-            >
-              Data Sheet
-            </Text>
-          </View>
+            Data Sheet
+          </Text>
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "paddingLeft": 8,
+              "paddingRight": 8,
+            }
+          }
+        >
           <Text
             dataSet={Object {}}
             style={
@@ -889,9 +868,7 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
         dataSet={Object {}}
         style={
           Object {
-            "marginBottom": 4,
-            "paddingLeft": 4,
-            "paddingRight": 4,
+            "paddingBottom": 4,
           }
         }
       >
@@ -899,44 +876,39 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
           dataSet={Object {}}
           style={
             Object {
-              "borderRadius": 2,
-              "borderWidth": 1,
-              "paddingLeft": 4,
-              "paddingRight": 4,
+              "backgroundColor": "#7dd3fc",
             }
           }
         >
-          <View
+          <Text
             dataSet={Object {}}
             style={
               Object {
-                "backgroundColor": "#7dd3fc",
-                "borderBottomWidth": 1,
-                "marginLeft": -4,
-                "marginRight": -4,
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textAlign": "center",
+                "textDecorationLine": undefined,
               }
             }
           >
-            <Text
-              dataSet={Object {}}
-              style={
-                Object {
-                  "backgroundColor": undefined,
-                  "color": "#171717",
-                  "fontFamily": undefined,
-                  "fontSize": 14,
-                  "fontStyle": "normal",
-                  "fontWeight": "400",
-                  "letterSpacing": 0,
-                  "lineHeight": 21,
-                  "textAlign": "center",
-                  "textDecorationLine": undefined,
-                }
-              }
-            >
-              Data Sheet
-            </Text>
-          </View>
+            Data Sheet
+          </Text>
+        </View>
+        <View
+          dataSet={Object {}}
+          style={
+            Object {
+              "paddingLeft": 8,
+              "paddingRight": 8,
+            }
+          }
+        >
           <Text
             dataSet={Object {}}
             style={

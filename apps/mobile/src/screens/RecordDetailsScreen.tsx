@@ -33,13 +33,11 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
 
   return (
     <ScrollView>
-      <Box px={1} mb={1} _dark={{ bg: "dark.100" }}>
-        <Box px={1} borderRadius={2} borderWidth={1}>
-          <Box mx={-1} borderBottomWidth={1} bgColor={headerColor}>
-            <Text textAlign="center">
-              {Labels.RecordDetailsScreen.DataSheet}
-            </Text>
-          </Box>
+      <Box pb={1} _dark={{ bg: "dark.100" }}>
+        <Box bgColor={headerColor}>
+          <Text textAlign="center">{Labels.RecordDetailsScreen.DataSheet}</Text>
+        </Box>
+        <Box px={2}>
           <Text>{`${Labels.Date}: ${recordDateFormat(date)}`}</Text>
           <Text>{`${Labels.RecordType}: ${type}`}</Text>
           <Text>{`${Labels.Name}: ${name}`}</Text>
