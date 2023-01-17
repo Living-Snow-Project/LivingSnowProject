@@ -630,7 +630,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                     Object {},
                   ]
                 }
-                testID="settings-outline"
+                testID="timeline-screen-settings-button-settings-outline"
               >
                 
               </Text>
@@ -688,7 +688,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                     Object {},
                   ]
                 }
-                testID="add-circle-outline"
+                testID="timeline-screen-record-button-add-circle-outline"
               >
                 
               </Text>

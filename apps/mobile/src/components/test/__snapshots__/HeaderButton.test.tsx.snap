@@ -89,7 +89,7 @@ exports[`HeaderButton test suite renders right on android 1`] = `
           Object {},
         ]
       }
-      testID="snow"
+      testID="test-button-snow"
     >
       
     </Text>

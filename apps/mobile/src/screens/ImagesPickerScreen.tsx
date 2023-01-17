@@ -2,7 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-media-library";
-import { useColorModeValue } from "native-base";
+import { useColorModeValue, useTheme } from "native-base";
 import {
   ImagesPickerScreenProps,
   ImagesPickerScreenNavigationProp,
@@ -68,7 +68,7 @@ const widgetStyles: StylesType = {
         ? "ios-checkmark-circle-outline"
         : "md-checkmark-circle-outline",
     color: "red",
-    bg: "#00000000",
+    bg: "#000000AA",
     size: 40,
   },
 };
@@ -118,8 +118,15 @@ export function ImagesPickerScreen({
     [navigation]
   );
 
-  const bgColor = useColorModeValue("white", "black");
-  widgetStyles.bgColor = bgColor;
+  const theme = useTheme();
+
+  widgetStyles.bgColor = useColorModeValue("white", theme.colors.dark[100]);
+  widgetStyles.spinnerColor = useColorModeValue(
+    theme.colors.primary[600],
+    theme.colors.primary[400]
+  );
+  /* eslint-disable prefer-destructuring */
+  widgetStyles.selectedIcon.color = theme.colors.secondary[600];
 
   return (
     <AssetsSelector
