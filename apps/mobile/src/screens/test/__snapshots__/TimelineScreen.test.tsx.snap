@@ -372,6 +372,8 @@ exports[`TimelineScreen test suite renders 1`] = `
           </View>
         </View>
         <Image
+          accessibilityLabel="static image"
+          alt="static image"
           dataSet={Object {}}
           onError={[Function]}
           source={1}

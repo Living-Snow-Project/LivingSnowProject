@@ -116,7 +116,7 @@ exports[`PhotoSelector test suite even number of photos 1`] = `
             dataSet={Object {}}
             style={
               Object {
-                "paddingRight": 8,
+                "paddingRight": 6,
               }
             }
           />

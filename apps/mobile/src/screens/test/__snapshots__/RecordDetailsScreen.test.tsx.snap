@@ -261,6 +261,8 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
         </View>
       </View>
       <Image
+        accessibilityLabel="static image"
+        alt="static image"
         dataSet={Object {}}
         onError={[Function]}
         source={1}

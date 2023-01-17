@@ -2764,9 +2764,9 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                     }
                     style={
                       Object {
-                        "height": 742,
+                        "height": 744,
                         "maxWidth": "100%",
-                        "width": 371,
+                        "width": 372,
                       }
                     }
                   />
@@ -2778,7 +2778,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                     dataSet={Object {}}
                     style={
                       Object {
-                        "paddingRight": 8,
+                        "paddingRight": 6,
                       }
                     }
                   />
@@ -2798,9 +2798,9 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                     }
                     style={
                       Object {
-                        "height": 742,
+                        "height": 744,
                         "maxWidth": "100%",
-                        "width": 371,
+                        "width": 372,
                       }
                     }
                   />

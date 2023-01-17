@@ -15,7 +15,6 @@ exports[`HeaderButton test suite renders left on ios 1`] = `
   <View
     accessible={true}
     collapsable={false}
-    dataSet={Object {}}
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -27,9 +26,14 @@ exports[`HeaderButton test suite renders left on ios 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "marginLeft": 24,
-      }
+      Array [
+        Object {
+          "marginLeft": 25,
+        },
+        Object {
+          "opacity": 1,
+        },
+      ]
     }
     testID="test-button"
   >
@@ -53,7 +57,6 @@ exports[`HeaderButton test suite renders right on android 1`] = `
   <View
     accessible={true}
     collapsable={false}
-    dataSet={Object {}}
     focusable={true}
     onBlur={[Function]}
     onClick={[Function]}
@@ -65,9 +68,14 @@ exports[`HeaderButton test suite renders right on android 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Object {
-        "marginRight": 24,
-      }
+      Array [
+        Object {
+          "marginRight": 25,
+        },
+        Object {
+          "opacity": 1,
+        },
+      ]
     }
     testID="test-button"
   >

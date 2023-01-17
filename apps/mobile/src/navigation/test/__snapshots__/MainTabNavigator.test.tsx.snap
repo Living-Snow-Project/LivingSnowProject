@@ -594,7 +594,6 @@ exports[`Navigation test suite renders timeline screen 1`] = `
             <View
               accessible={true}
               collapsable={false}
-              dataSet={Object {}}
               focusable={true}
               onBlur={[Function]}
               onClick={[Function]}
@@ -606,9 +605,14 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Object {
-                  "marginLeft": 24,
-                }
+                Array [
+                  Object {
+                    "marginLeft": 25,
+                  },
+                  Object {
+                    "opacity": 1,
+                  },
+                ]
               }
               testID="timeline-screen-settings-button"
             >
@@ -652,7 +656,6 @@ exports[`Navigation test suite renders timeline screen 1`] = `
             <View
               accessible={true}
               collapsable={false}
-              dataSet={Object {}}
               focusable={true}
               onBlur={[Function]}
               onClick={[Function]}
@@ -664,9 +667,14 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               onResponderTerminationRequest={[Function]}
               onStartShouldSetResponder={[Function]}
               style={
-                Object {
-                  "marginRight": 24,
-                }
+                Array [
+                  Object {
+                    "marginRight": 25,
+                  },
+                  Object {
+                    "opacity": 1,
+                  },
+                ]
               }
               testID="timeline-screen-record-button"
             >
@@ -1078,6 +1086,8 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                     </View>
                   </View>
                   <Image
+                    accessibilityLabel="static image"
+                    alt="static image"
                     dataSet={Object {}}
                     onError={[Function]}
                     source={1}

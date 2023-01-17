@@ -1,6 +1,7 @@
 import React from "react";
 import { Platform } from "react-native";
-import { Pressable, useColorModeValue, useTheme } from "native-base";
+import { useColorModeValue, useTheme } from "native-base";
+import { PressableOpacity } from "./PressableOpacity";
 import { StockIcon } from "./Icons";
 
 type IconNames =
@@ -27,10 +28,10 @@ export function HeaderButton({
   const style =
     placement == "left"
       ? {
-          ml: "6",
+          marginLeft: 25,
         }
       : {
-          mr: "6",
+          marginRight: 25,
         };
   const theme = useTheme();
   const color = useColorModeValue(
@@ -39,12 +40,12 @@ export function HeaderButton({
   );
 
   return (
-    <Pressable {...style} testID={testID} onPress={onPress}>
+    <PressableOpacity style={style} testID={testID} onPress={onPress}>
       <StockIcon
         name={Platform.OS == "ios" ? `ios-${iconName}` : `md-${iconName}`}
         testID={`${testID}-${iconName}`}
         color={color}
       />
-    </Pressable>
+    </PressableOpacity>
   );
 }
