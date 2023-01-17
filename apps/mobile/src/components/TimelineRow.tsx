@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Box, HStack, Pressable, Text, VStack } from "native-base";
-import { AlgaeRecord, recordDateFormat } from "@livingsnow/record";
+import { AlgaeRecord } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../navigation/Routes";
-import { getUserStyle } from "./UserStyle";
+import { UserStyle } from "./UserStyle";
 import { PhotosLayout } from "./PhotosLayout";
 import { Divider } from "./Divider";
 
@@ -27,20 +27,6 @@ function bottomText({
   return result.length > 0 ? result : null;
 }
 
-function getRecordInfo(record: AlgaeRecord) {
-  // TODO: useColorModeValue
-  return (
-    <HStack>
-      <Text fontWeight={700} color="blue.700">
-        {`${record.type}`}
-      </Text>
-      <Text fontWeight={400} color="blue.700">
-        {` on ${recordDateFormat(record.date)}`}
-      </Text>
-    </HStack>
-  );
-}
-
 type TimelineRowProps = {
   record: AlgaeRecord;
   actionsMenu?: JSX.Element;
@@ -48,7 +34,6 @@ type TimelineRowProps = {
 
 export function TimelineRow({ record, actionsMenu }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
-  const { org, name, avatar } = getUserStyle(record.name, record.organization);
 
   return (
     <>
@@ -61,14 +46,7 @@ export function TimelineRow({ record, actionsMenu }: TimelineRowProps) {
         <Box px={2} py={1} _dark={{ bg: "dark.100" }}>
           <VStack>
             <HStack>
-              <Box width="15%">{avatar}</Box>
-              <Box width="78%" pr="1">
-                <VStack ml={2}>
-                  {name}
-                  {org}
-                  {getRecordInfo(record)}
-                </VStack>
-              </Box>
+              <UserStyle record={record} />
               <Box width="7%">{actionsMenu}</Box>
             </HStack>
             {bottomText(record)}

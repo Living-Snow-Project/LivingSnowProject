@@ -1,5 +1,6 @@
 import React from "react";
-import { Avatar, Text } from "native-base";
+import { Avatar, Box, Text, VStack, useColorModeValue } from "native-base";
+import { AlgaeRecord, isSample, recordDateFormat } from "@livingsnow/record";
 import { Labels } from "../constants";
 
 const avatarColors = [
@@ -37,12 +38,6 @@ const avatarColors = [
   "green.600",
   "green.900",
 ];
-
-type UserStyle = {
-  org: JSX.Element | null;
-  name: JSX.Element;
-  avatar: JSX.Element;
-};
 
 function computeInitials(name: string): string {
   const splitName = name.split(" ");
@@ -108,10 +103,7 @@ function getAvatar(name: string) {
   );
 }
 
-export function getUserStyle(
-  name: string | undefined,
-  org: string | undefined
-): UserStyle {
+function getUserStyle(name: string | undefined, org: string | undefined) {
   const newName = name || Labels.DefaultName;
 
   return {
@@ -119,4 +111,38 @@ export function getUserStyle(
     name: <Text fontWeight={600}>{newName}</Text>,
     avatar: getAvatar(newName),
   };
+}
+
+function getRecordInfo(record: AlgaeRecord, color: string) {
+  return (
+    <Text fontWeight={700} color={color}>
+      {`${record.type}, ${recordDateFormat(record.date)}`}
+    </Text>
+  );
+}
+
+type UserStyleProps = {
+  record: AlgaeRecord;
+};
+
+export function UserStyle({ record }: UserStyleProps) {
+  const sample = useColorModeValue("secondary.600", "secondary.400");
+  const sighting = useColorModeValue("tertiary.600", "tertiary.400");
+
+  const color = isSample(record.type) ? sample : sighting;
+  const { avatar, name, org } = getUserStyle(record.name, record.organization);
+
+  // TODO: not ideal width % spread across 2 components, rename to TimelineHeader and include actionsMenu?
+  return (
+    <>
+      <Box width="15%">{avatar}</Box>
+      <Box width="78%" pr="1">
+        <VStack ml={2}>
+          {name}
+          {org}
+          {getRecordInfo(record, color)}
+        </VStack>
+      </Box>
+    </>
+  );
 }
