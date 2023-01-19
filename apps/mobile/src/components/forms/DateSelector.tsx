@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { View } from "react-native";
-import { FormControl, Input, Pressable, useColorModeValue } from "native-base";
-import { Calendar } from "react-native-calendars";
+import {
+  FormControl,
+  Input,
+  Pressable,
+  useColorModeValue,
+  useTheme,
+} from "native-base";
+import { Calendar, DateData } from "react-native-calendars";
 import { Labels } from "../../constants";
 
 type DateSelectorProps = {
@@ -10,16 +16,23 @@ type DateSelectorProps = {
   setDate: (date: string) => void;
 };
 
-const dark = "#44403c"; // NativeBase light.700
-const light = "#fafaf9"; // NativeBase light.50
-
 export function DateSelector({ date, maxDate, setDate }: DateSelectorProps) {
   const [calendarVisible, setCalendarVisible] = useState(false);
+
+  const theme = useTheme();
+  const dark = theme.colors.light[700];
+  const light = theme.colors.light[50];
+
   const bgColor = useColorModeValue(light, dark);
   const dayColor = useColorModeValue(dark, light);
   const selectedDayColor = bgColor;
   const monthColor = dayColor;
   const disabledColor = useColorModeValue(`${dark}55`, `${light}55`);
+
+  const onDayPress = (newDate: DateData) => {
+    setCalendarVisible(false);
+    setDate(newDate.dateString);
+  };
 
   const renderCalendar = () => {
     if (calendarVisible) {
@@ -27,10 +40,7 @@ export function DateSelector({ date, maxDate, setDate }: DateSelectorProps) {
         <Calendar
           testID="calendar"
           current={date}
-          onDayPress={(newDate) => {
-            setCalendarVisible(false);
-            setDate(newDate.dateString);
-          }}
+          onDayPress={onDayPress}
           maxDate={maxDate}
           markedDates={{ [date]: { selected: true } }}
           theme={{
