@@ -6,9 +6,8 @@ import {
   recordDateFormat,
 } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
-import { ThemedBox } from "../components/ThemedBox";
+import { CachedPhotos, ThemedBox } from "../components";
 import { Labels } from "../constants";
-import { CachedPhotos } from "../components/CachedPhotos";
 
 type RecordDetailsScreenProps = {
   route: RecordDetailsScreenRouteProp;

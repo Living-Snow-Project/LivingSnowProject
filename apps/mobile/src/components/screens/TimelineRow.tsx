@@ -2,11 +2,10 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Box, HStack, Pressable, Text, VStack } from "native-base";
 import { AlgaeRecord } from "@livingsnow/record";
-import { RootStackNavigationProp } from "../navigation/Routes";
-import { ThemedBox } from "./ThemedBox";
+import { RootStackNavigationProp } from "../../navigation/Routes";
+import { Divider, ThemedBox } from "../layout";
 import { UserStyle } from "./UserStyle";
-import { PhotosLayout } from "./PhotosLayout";
-import { Divider } from "./Divider";
+import { PhotosLayout } from "../media";
 
 function bottomText({
   locationDescription,

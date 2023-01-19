@@ -3,7 +3,7 @@ import React from "react";
 import { ActivityIndicator, Dimensions, Text } from "react-native";
 import { Image } from "native-base";
 import { Photo } from "@livingsnow/record";
-import { useCachedPhoto } from "../hooks/useCachedPhotos";
+import { useCachedPhoto } from "../../hooks/useCachedPhotos";
 import { PictureIcon } from "./Icons";
 
 type CachedPhotoProps = {

@@ -2,7 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { fireEvent, render } from "@testing-library/react-native";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
-import { HeaderButton } from "../HeaderButton";
+import { HeaderButton } from "../screens";
 
 describe("HeaderButton test suite", () => {
   const testID = "test-button";

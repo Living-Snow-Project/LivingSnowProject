@@ -2,7 +2,7 @@ import React from "react";
 import { Platform, TextInput } from "react-native";
 import RCTDeviceEventEmitter from "react-native/Libraries/EventEmitter/RCTDeviceEventEmitter";
 import { render } from "@testing-library/react-native";
-import { KeyboardShift } from "../KeyboardShift";
+import { KeyboardShift } from "../forms";
 
 const { State: TextInputState } = TextInput;
 

@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react-native";
 import { makeExampleRecord } from "@livingsnow/record";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
-import { TimelineRow } from "../TimelineRow";
+import { TimelineRow } from "../screens";
 import { Labels } from "../../constants";
 
 describe("TimelineRow test suite", () => {

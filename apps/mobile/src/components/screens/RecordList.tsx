@@ -3,14 +3,14 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Icon, Menu, Pressable } from "native-base";
 import { AlgaeRecord } from "@livingsnow/record";
-import { TimelineScreenNavigationProp } from "../navigation/Routes";
-import { Modal } from "./Modal";
-import { Divider } from "./Divider";
+import { TimelineScreenNavigationProp } from "../../navigation/Routes";
+import { Modal } from "../feedback";
+import { Divider } from "../layout";
 import { TimelineRow } from "./TimelineRow";
-import { Labels, TestIds } from "../constants";
-import { useAlgaeRecordsContext } from "../hooks/useAlgaeRecords";
-import { productionExampleRecord } from "../record/Record";
-import { IAlgaeRecords } from "../../types/AlgaeRecords";
+import { Labels, TestIds } from "../../constants";
+import { useAlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
+import { productionExampleRecord } from "../../record/Record";
+import { IAlgaeRecords } from "../../../types/AlgaeRecords";
 
 function ThreeDotsIcon() {
   return <Icon as={Ionicons} name="ellipsis-horizontal-outline" size="lg" />;

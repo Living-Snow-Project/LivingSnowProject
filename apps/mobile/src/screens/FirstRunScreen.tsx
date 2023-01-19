@@ -1,8 +1,7 @@
 import React from "react";
 import { Box, Button, HStack, VStack, Text } from "native-base";
-import { SnowIcon } from "../components/Icons";
+import { SnowIcon, UserIdentityInput } from "../components";
 import { setAppSettings } from "../../AppSettings";
-import { UserIdentityInput } from "../components/forms/UserIdentityInput";
 import { FirstRunScreenNavigationProp } from "../navigation/Routes";
 import { Labels } from "../constants";
 

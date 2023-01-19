@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { Animated } from "react-native";
 import { Text, useColorModeValue, useTheme } from "native-base";
-import { AlgaeRecordsStates } from "../../types/AlgaeRecords";
-import { Labels } from "../constants/Strings";
+import { AlgaeRecordsStates } from "../../../types/AlgaeRecords";
+import { Labels } from "../../constants/Strings";
 
 type StatusBarProps = {
   state: AlgaeRecordsStates;

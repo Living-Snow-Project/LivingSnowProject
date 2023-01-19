@@ -2,10 +2,9 @@ import React from "react";
 import { FormControl, Pressable } from "native-base";
 import { SelectedPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
-import { ThemedBox } from "../ThemedBox";
-import { AddPhotosIcon } from "../Icons";
+import { ThemedBox } from "../layout";
+import { AddPhotosIcon, PhotosLayout } from "../media";
 import { Labels, TestIds } from "../../constants";
-import { PhotosLayout } from "../PhotosLayout";
 
 type PhotoSelectorProps = {
   navigation: RootStackNavigationProp;

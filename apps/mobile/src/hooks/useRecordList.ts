@@ -1,7 +1,7 @@
 import {
   usePendingRecordList,
   useDownloadedRecordList,
-} from "../components/RecordList";
+} from "../components/screens";
 
 export const useRecordList = (): JSX.Element[] => {
   const pendingRecords = usePendingRecordList();

@@ -15,7 +15,7 @@ import {
   StylesType,
   CustomNavigator as CustomNavigatorType,
 } from "../../expo-images-picker/src/Types";
-import { HeaderButton } from "../components/HeaderButton";
+import { HeaderButton } from "../components/screens";
 import { TestIds } from "../constants";
 
 type CustomNavigatorProps = {

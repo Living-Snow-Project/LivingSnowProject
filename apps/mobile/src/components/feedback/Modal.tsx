@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Modal, Text } from "native-base";
-import { Labels, TestIds } from "../constants";
+import { Labels, TestIds } from "../../constants";
 
 type ModalProps = {
   body: string;

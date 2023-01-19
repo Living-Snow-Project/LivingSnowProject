@@ -2,7 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { AddIcon, Icon, useColorModeValue } from "native-base";
-import { Colors, TestIds } from "../constants";
+import { Colors, TestIds } from "../../constants";
 
 type StockIconProps = {
   name: IconNameType;

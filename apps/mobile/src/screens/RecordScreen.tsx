@@ -15,8 +15,7 @@ import { setOnFocusTimelineAction } from "./TimelineScreen";
 import { uploadRecord } from "../lib/RecordManager";
 import { updatePendingRecord } from "../lib/Storage";
 import { RecordScreenProps } from "../navigation/Routes";
-import { KeyboardShift } from "../components/KeyboardShift";
-import { HeaderButton } from "../components/HeaderButton";
+import { HeaderButton, ThemedBox } from "../components";
 import {
   AlgaeRecordTypeSelector,
   AlgaeSizeSelector,
@@ -24,15 +23,18 @@ import {
   CustomTextInput,
   DateSelector,
   GpsCoordinatesInput,
+  KeyboardShift,
   PhotoSelector,
   TextArea,
 } from "../components/forms";
-import { ThemedBox } from "../components/ThemedBox";
-import { ActivityIndicator } from "../components/feedback";
 import { getAppSettings } from "../../AppSettings";
 import { Labels, Notifications, Placeholders, TestIds } from "../constants";
 import { useToast } from "../hooks";
-import { ToastAlert, ToastAlertProps } from "../components/Toast";
+import {
+  ActivityIndicator,
+  ToastAlert,
+  ToastAlertProps,
+} from "../components/feedback";
 
 type OffsetOperation = "add" | "subtract";
 

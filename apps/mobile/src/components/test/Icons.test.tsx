@@ -2,7 +2,7 @@ import React from "react";
 import { Platform } from "react-native";
 import { render } from "@testing-library/react-native";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
-import { PictureIcon, SnowIcon } from "../Icons";
+import { PictureIcon, SnowIcon } from "../media";
 
 describe("Icons test suite", () => {
   describe("android", () => {

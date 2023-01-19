@@ -14,7 +14,7 @@ import {
   SettingsScreen,
   TimelineScreen,
 } from "../screens";
-import { HeaderButton } from "../components/HeaderButton";
+import { HeaderButton } from "../components/screens";
 import { RootStackParamList, RootStackNavigationProp } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
 import { TestIds } from "../constants/TestIds";

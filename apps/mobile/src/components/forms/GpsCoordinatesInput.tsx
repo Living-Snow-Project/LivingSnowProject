@@ -8,7 +8,7 @@ import {
 } from "expo-location";
 import Logger from "@livingsnow/logger";
 import { CustomTextInput } from "./CustomTextInput";
-import { Modal } from "../Modal";
+import { Modal } from "../feedback";
 import { getAppSettings } from "../../../AppSettings";
 import { Labels, Placeholders, TestIds, Validations } from "../../constants";
 

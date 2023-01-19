@@ -6,8 +6,8 @@ import {
   getInfoAsync,
   readDirectoryAsync,
 } from "expo-file-system";
-import { Modal } from "./Modal";
-import { Labels, TestIds } from "../constants";
+import { Modal } from "../feedback";
+import { Labels, TestIds } from "../../constants";
 
 type DiskUsageState = {
   state: "Calculating" | "Error Calculating" | "Completed" | "Error Deleting";

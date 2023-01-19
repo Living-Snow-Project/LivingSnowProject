@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Box, Text, VStack, useColorModeValue } from "native-base";
 import { AlgaeRecord, isSample, recordDateFormat } from "@livingsnow/record";
-import { Labels } from "../constants";
+import { Labels } from "../../constants";
 
 const avatarColors = [
   "rose.300",

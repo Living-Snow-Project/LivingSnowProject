@@ -8,14 +8,15 @@ import {
   VStack,
   useColorMode,
 } from "native-base";
-import { UserIdentityInput } from "../components/forms/UserIdentityInput";
-import { ThemedBox } from "../components/ThemedBox";
-import { DiskUsage } from "../components/DiskUsage";
-import { Divider } from "../components/Divider";
+import {
+  Divider,
+  DiskUsage,
+  ThemedBox,
+  UserIdentityInput,
+} from "../components";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
 import { colorModeManager } from "../providers";
-import { Headers, Labels } from "../constants/Strings";
-import { TestIds } from "../constants/TestIds";
+import { Headers, Labels, TestIds } from "../constants";
 
 type SettingsGroupProps = {
   label: string;
