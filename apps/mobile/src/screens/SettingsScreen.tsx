@@ -9,6 +9,7 @@ import {
   useColorMode,
 } from "native-base";
 import { UserIdentityInput } from "../components/forms/UserIdentityInput";
+import { ThemedBox } from "../components/ThemedBox";
 import { DiskUsage } from "../components/DiskUsage";
 import { Divider } from "../components/Divider";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
@@ -62,7 +63,7 @@ export function SettingsScreen() {
   };
 
   return (
-    <Box _dark={{ bg: "dark.100" }}>
+    <ThemedBox>
       <VStack>
         <Box mb="1">
           <SettingsGroup label={Headers.Profile}>
@@ -107,6 +108,6 @@ export function SettingsScreen() {
           <SettingsGroupItem label="Calculating" right={DiskUsage} />
         </SettingsGroup>
       </VStack>
-    </Box>
+    </ThemedBox>
   );
 }

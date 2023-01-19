@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, FormControl, Pressable } from "native-base";
+import { FormControl, Pressable } from "native-base";
 import { SelectedPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
+import { ThemedBox } from "../ThemedBox";
 import { AddPhotosIcon } from "../Icons";
 import { Labels, TestIds } from "../../constants";
 import { PhotosLayout } from "../PhotosLayout";
@@ -28,16 +29,16 @@ export function PhotoSelector({ navigation, photos }: PhotoSelectorProps) {
   const renderPhotos = () => {
     if (photos.length) {
       return (
-        <Box mx={-2} _dark={{ bg: "dark.100" }}>
+        <ThemedBox mx={-2}>
           <PhotosLayout photos={photos} />
-        </Box>
+        </ThemedBox>
       );
     }
 
     return (
-      <Box height="52" width="52" _dark={{ bg: "dark.100" }}>
+      <ThemedBox height="52" width="52">
         <AddPhotosIcon />
-      </Box>
+      </ThemedBox>
     );
   };
 

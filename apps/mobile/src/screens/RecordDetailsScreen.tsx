@@ -6,6 +6,7 @@ import {
   recordDateFormat,
 } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
+import { ThemedBox } from "../components/ThemedBox";
 import { Labels } from "../constants";
 import { CachedPhotos } from "../components/CachedPhotos";
 
@@ -33,7 +34,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
 
   return (
     <ScrollView>
-      <Box pb={1} _dark={{ bg: "dark.100" }}>
+      <ThemedBox pb={1}>
         <Box bgColor={headerColor}>
           <Text textAlign="center">{Labels.RecordDetailsScreen.DataSheet}</Text>
         </Box>
@@ -64,7 +65,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
             <Text>{`${Labels.RecordDetailsScreen.Notes}: ${notes}`}</Text>
           )}
         </Box>
-      </Box>
+      </ThemedBox>
       <CachedPhotos photos={photos} />
     </ScrollView>
   );

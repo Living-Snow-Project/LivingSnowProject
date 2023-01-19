@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import * as Icon from "@expo/vector-icons";
-import { Box, Icon as NBIcon, Menu, Pressable } from "native-base";
+import { Ionicons } from "@expo/vector-icons";
+import { Icon, Menu, Pressable } from "native-base";
 import { AlgaeRecord } from "@livingsnow/record";
 import { TimelineScreenNavigationProp } from "../navigation/Routes";
 import { Modal } from "./Modal";
@@ -13,9 +13,7 @@ import { productionExampleRecord } from "../record/Record";
 import { IAlgaeRecords } from "../../types/AlgaeRecords";
 
 function ThreeDotsIcon() {
-  return (
-    <NBIcon as={Icon.Ionicons} name="ellipsis-horizontal-outline" size="lg" />
-  );
+  return <Icon as={Ionicons} name="ellipsis-horizontal-outline" size="lg" />;
 }
 
 function ExampleRecordList() {
@@ -46,12 +44,10 @@ function useDownloadedRecordList() {
     // "Downloaded Divider" is only useful if there are pending records
     if (pendingLength > 0) {
       result.push(
-        <Box>
-          <Divider
-            key={Labels.TimelineScreen.DownloadedRecords}
-            text={Labels.TimelineScreen.DownloadedRecords}
-          />
-        </Box>
+        <Divider
+          key={Labels.TimelineScreen.DownloadedRecords}
+          text={Labels.TimelineScreen.DownloadedRecords}
+        />
       );
     }
 
@@ -122,12 +118,10 @@ function usePendingRecordList() {
     }
 
     result.push(
-      <Box>
-        <Divider
-          key={Labels.TimelineScreen.PendingRecords}
-          text={Labels.TimelineScreen.PendingRecords}
-        />
-      </Box>
+      <Divider
+        key={Labels.TimelineScreen.PendingRecords}
+        text={Labels.TimelineScreen.PendingRecords}
+      />
     );
 
     pendingRecords.forEach((record, index) => {

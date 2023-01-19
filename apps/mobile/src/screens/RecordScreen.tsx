@@ -27,6 +27,7 @@ import {
   PhotoSelector,
   TextArea,
 } from "../components/forms";
+import { ThemedBox } from "../components/ThemedBox";
 import { ActivityIndicator } from "../components/feedback";
 import { getAppSettings } from "../../AppSettings";
 import { Labels, Notifications, Placeholders, TestIds } from "../constants";
@@ -282,7 +283,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       <KeyboardShift>
         {() => (
           <ScrollView automaticallyAdjustKeyboardInsets>
-            <Box px={2} _dark={{ bg: "dark.100" }}>
+            <ThemedBox px={2}>
               <AlgaeRecordTypeSelector
                 type={state.type}
                 setType={(type) => setState((prev) => ({ ...prev, type }))}
@@ -381,7 +382,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               <PhotoSelector navigation={navigation} photos={photos} />
 
               <Space />
-            </Box>
+            </ThemedBox>
           </ScrollView>
         )}
       </KeyboardShift>
