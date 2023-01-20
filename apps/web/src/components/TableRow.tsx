@@ -1,5 +1,5 @@
 import { AlgaeRecord, Photo } from "@livingsnow/record";
-import { photosBlobStorageEndpoint } from "@livingsnow/network";
+import { PhotosApi } from "@livingsnow/network";
 
 function TableHeader() {
   return (
@@ -15,7 +15,7 @@ function TableHeader() {
         <td>Tube Id</td>
         <td>Coordinates</td>
         <td>Size</td>
-        <td>Color</td>
+        <td>Colors</td>
         <td>Description</td>
         <td>Notes</td>
         <td>Photos</td>
@@ -31,7 +31,7 @@ function FormatPhotos(photos: Photo[]) {
         <a
           target={"_blank"}
           rel="noopener noreferrer"
-          href={`${photosBlobStorageEndpoint}/${item.uri}.jpg`}
+          href={PhotosApi.getUrl(item.uri)}
         >
           {index + 1}
         </a>
@@ -50,6 +50,17 @@ function TableRow({ style, item }: TableRowProps) {
   name = name.concat(item.organization ? ` (${item.organization})` : ``);
   const photos = item.photos ? FormatPhotos(item.photos) : ``;
 
+  const renderColors = () => {
+    if (!item.colors) {
+      return "";
+    }
+
+    return item.colors.reduce(
+      (prev, cur, index) => (index ? `${prev} ${cur}` : cur),
+      ""
+    );
+  };
+
   return (
     <tr style={style}>
       <td>{item.date.toDateString()}</td>
@@ -58,7 +69,7 @@ function TableRow({ style, item }: TableRowProps) {
       <td>{item.tubeId || ``}</td>
       <td>{`${item.latitude}, ${item.longitude}`}</td>
       <td>{item.size || ``}</td>
-      <td>{item.color || ``}</td>
+      <td>{renderColors()}</td>
       <td>{item.locationDescription || ``}</td>
       <td>{item.notes || ``}</td>
       <td>{photos}</td>

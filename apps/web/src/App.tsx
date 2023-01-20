@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { downloadAllRecords } from "@livingsnow/network";
+import { RecordsApiV2 } from "@livingsnow/network";
 import { TableHeader, TableRow } from "./components/TableRow";
 
 import "./App.css";
@@ -10,9 +10,9 @@ function App() {
   useEffect(() => {
     let isMounted = true;
 
-    downloadAllRecords()
+    RecordsApiV2.getAll()
       .then((response) => {
-        const recs = response.map((item, index) => (
+        const recs = response.data.map((item, index) => (
           <TableRow
             style={{
               backgroundColor: index % 2 === 0 ? "lightgrey" : "lightblue",
