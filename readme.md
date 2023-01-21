@@ -1,4 +1,4 @@
-[![mobile](https://img.shields.io/github/workflow/status/Living-Snow-Project/LivingSnowProject/validate?logo=github&style=flat-square)](https://github.com/Living-Snow-Project/LivingSnowProject/actions?query=workflow%3Avalidate)
+[![mobile](https://img.shields.io/github/actions/workflow/status/Living-Snow-Project/LivingSnowProject/main.yml?branch=main)](https://github.com/Living-Snow-Project/LivingSnowProject/actions?query=workflow%3Avalidate-mobile)
 [![mobile](https://img.shields.io/codecov/c/gh/Living-Snow-Project/LivingSnowProject?style=flat-square)](https://codecov.io/gh/Living-Snow-Project/LivingSnowProject)
 
 Living Snow Project is a Community Scientist project that studies snow algae. That's right, algae grows on snow (and ice) too! These apps will assist the research team with data collection and exploration. Volunteer sign up and more info [here](https://wp.wwu.edu/livingsnowproject/).
@@ -11,10 +11,9 @@ The mobile app is written in React Native and Expo using their 'managed' workflo
 
 ## Getting started:
 
-1. git submodule update --init --recursive
-2. yarn install
-3. yarn build
-4. yarn precheck
+1. yarn install
+2. yarn build
+3. yarn precheck
 
 Check the README files in `app/web` and `app/mobile` for information on running the apps locally.
 
