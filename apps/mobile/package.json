@@ -34,6 +34,7 @@
     "expo-file-system": "~15.1.1",
     "expo-font": "~11.0.1",
     "expo-image-manipulator": "~11.0.0",
+    "expo-images-picker": "^2.5.1",
     "expo-location": "~15.0.1",
     "expo-media-library": "~15.0.0",
     "expo-modules-autolinking": "^1.0.0",

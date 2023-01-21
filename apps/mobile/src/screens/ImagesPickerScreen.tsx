@@ -3,18 +3,17 @@ import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-media-library";
 import { useColorModeValue, useTheme } from "native-base";
-import {
-  ImagesPickerScreenProps,
-  ImagesPickerScreenNavigationProp,
-} from "../navigation/Routes";
-/* eslint-disable import/no-relative-packages */
-import { AssetsSelector } from "../../expo-images-picker";
+import { AssetsSelector } from "expo-images-picker";
 import {
   ResizeType,
   SettingsType,
   StylesType,
   CustomNavigator as CustomNavigatorType,
-} from "../../expo-images-picker/src/Types";
+} from "expo-images-picker/src/Types";
+import {
+  ImagesPickerScreenProps,
+  ImagesPickerScreenNavigationProp,
+} from "../navigation/Routes";
 import { HeaderButton } from "../components/screens";
 import { TestIds } from "../constants";
 
