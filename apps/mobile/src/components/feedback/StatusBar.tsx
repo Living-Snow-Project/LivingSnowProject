@@ -11,11 +11,15 @@ type StatusBarProps = {
 
 export function StatusBar({ state, isConnected }: StatusBarProps) {
   const { colors } = useTheme();
-  const startColor = useColorModeValue(colors.light[300], colors.black);
+  const startColor = useColorModeValue(
+    colors.primary[400],
+    colors.primary[600]
+  );
+  const endColor = useColorModeValue(colors.primary[500], colors.primary[700]);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const color = fadeAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: [startColor, colors.light[500]],
+    outputRange: [startColor, endColor],
   });
 
   const animate = Animated.loop(
@@ -50,7 +54,7 @@ export function StatusBar({ state, isConnected }: StatusBarProps) {
         backgroundColor: color,
       }}
     >
-      <Text textAlign="center">
+      <Text textAlign="center" fontWeight="semibold">
         {isConnected ? state : Labels.StatusBar.NoConnection}
       </Text>
     </Animated.View>

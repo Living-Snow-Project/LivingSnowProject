@@ -7,12 +7,16 @@ type DividerProps = {
 
 export function Divider({ text }: DividerProps) {
   const bg = useColorModeValue("light.300", "black");
-  const infoBg = useColorModeValue("light.400", "dark.300");
+  const pending = useColorModeValue("yellow.300", "yellow.500");
+  const downloaded = useColorModeValue("tertiary.400", "tertiary.600");
+  const infoBg = text == "Pending" ? pending : downloaded;
 
   if (text) {
     return (
       <Box bgColor={infoBg} width="100%">
-        <Text textAlign="center">{text}</Text>
+        <Text textAlign="center" fontWeight="semibold">
+          {text}
+        </Text>
       </Box>
     );
   }
