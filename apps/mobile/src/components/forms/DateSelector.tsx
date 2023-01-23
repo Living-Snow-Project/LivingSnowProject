@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { View } from "react-native";
 import {
+  ArrowBackIcon,
+  ArrowForwardIcon,
   FormControl,
   Input,
   Pressable,
@@ -43,6 +45,9 @@ export function DateSelector({ date, maxDate, setDate }: DateSelectorProps) {
           onDayPress={onDayPress}
           maxDate={maxDate}
           markedDates={{ [date]: { selected: true } }}
+          renderArrow={(direction) =>
+            direction == "left" ? <ArrowBackIcon /> : <ArrowForwardIcon />
+          }
           theme={{
             calendarBackground: bgColor,
             dayTextColor: dayColor,
