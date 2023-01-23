@@ -96,18 +96,54 @@ exports[`PhotoSelector test suite even number of photos 1`] = `
             }
           }
         >
-          <Text>
-            Loading
-          </Text>
-          <ActivityIndicator
-            color="lightgrey"
-            size="large"
+          <View
+            dataSet={Object {}}
             style={
               Object {
-                "paddingTop": 5,
+                "alignItems": "center",
+                "height": 372,
+                "justifyContent": "center",
+                "width": 248,
               }
             }
-          />
+          >
+            <ActivityIndicator
+              accessibilityLabel="loading"
+              accessible={true}
+              color="#0891b2"
+              size="large"
+              style={
+                Array [
+                  Array [
+                    Object {},
+                    Object {
+                      "dataSet": Object {},
+                    },
+                    Object {},
+                  ],
+                  undefined,
+                ]
+              }
+            />
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Loading
+            </Text>
+          </View>
           <View
             dataSet={Object {}}
             style={Object {}}
@@ -124,18 +160,54 @@ exports[`PhotoSelector test suite even number of photos 1`] = `
             dataSet={Object {}}
             style={Object {}}
           />
-          <Text>
-            Loading
-          </Text>
-          <ActivityIndicator
-            color="lightgrey"
-            size="large"
+          <View
+            dataSet={Object {}}
             style={
               Object {
-                "paddingTop": 5,
+                "alignItems": "center",
+                "height": 372,
+                "justifyContent": "center",
+                "width": 496,
               }
             }
-          />
+          >
+            <ActivityIndicator
+              accessibilityLabel="loading"
+              accessible={true}
+              color="#0891b2"
+              size="large"
+              style={
+                Array [
+                  Array [
+                    Object {},
+                    Object {
+                      "dataSet": Object {},
+                    },
+                    Object {},
+                  ],
+                  undefined,
+                ]
+              }
+            />
+            <Text
+              dataSet={Object {}}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 14,
+                  "fontStyle": "normal",
+                  "fontWeight": "400",
+                  "letterSpacing": 0,
+                  "lineHeight": 21,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Loading
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -231,18 +303,54 @@ exports[`PhotoSelector test suite odd number of photos 1`] = `
           }
         }
       >
-        <Text>
-          Loading
-        </Text>
-        <ActivityIndicator
-          color="lightgrey"
-          size="large"
+        <View
+          dataSet={Object {}}
           style={
             Object {
-              "paddingTop": 5,
+              "alignItems": "center",
+              "height": 500,
+              "justifyContent": "center",
+              "width": 750,
             }
           }
-        />
+        >
+          <ActivityIndicator
+            accessibilityLabel="loading"
+            accessible={true}
+            color="#0891b2"
+            size="large"
+            style={
+              Array [
+                Array [
+                  Object {},
+                  Object {
+                    "dataSet": Object {},
+                  },
+                  Object {},
+                ],
+                undefined,
+              ]
+            }
+          />
+          <Text
+            dataSet={Object {}}
+            style={
+              Object {
+                "backgroundColor": undefined,
+                "color": "#171717",
+                "fontFamily": undefined,
+                "fontSize": 14,
+                "fontStyle": "normal",
+                "fontWeight": "400",
+                "letterSpacing": 0,
+                "lineHeight": 21,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+            Loading
+          </Text>
+        </View>
       </View>
     </View>
   </View>

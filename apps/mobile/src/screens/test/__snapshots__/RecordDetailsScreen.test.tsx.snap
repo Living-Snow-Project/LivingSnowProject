@@ -523,18 +523,54 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
           </Text>
         </View>
       </View>
-      <Text>
-        Loading
-      </Text>
-      <ActivityIndicator
-        color="lightgrey"
-        size="large"
+      <View
+        dataSet={Object {}}
         style={
           Object {
-            "paddingTop": 5,
+            "alignItems": "center",
+            "height": 506,
+            "justifyContent": "center",
+            "width": 750,
           }
         }
-      />
+      >
+        <ActivityIndicator
+          accessibilityLabel="loading"
+          accessible={true}
+          color="#0891b2"
+          size="large"
+          style={
+            Array [
+              Array [
+                Object {},
+                Object {
+                  "dataSet": Object {},
+                },
+                Object {},
+              ],
+              undefined,
+            ]
+          }
+        />
+        <Text
+          dataSet={Object {}}
+          style={
+            Object {
+              "backgroundColor": undefined,
+              "color": "#171717",
+              "fontFamily": undefined,
+              "fontSize": 14,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "letterSpacing": 0,
+              "lineHeight": 21,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Loading
+        </Text>
+      </View>
       <Image
         accessibilityLabel="some alt text here"
         alt="some alt text here"
@@ -811,10 +847,37 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
           </Text>
         </View>
       </View>
-      <Text>
-        Offline
-      </Text>
-      <Text />
+      <View
+        dataSet={Object {}}
+        style={
+          Object {
+            "alignItems": "center",
+            "height": 506,
+            "justifyContent": "center",
+            "width": 750,
+          }
+        }
+      >
+        <Text
+          dataSet={Object {}}
+          style={
+            Object {
+              "backgroundColor": undefined,
+              "color": "#171717",
+              "fontFamily": undefined,
+              "fontSize": 14,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "letterSpacing": 0,
+              "lineHeight": 21,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Offline
+        </Text>
+        <Text />
+      </View>
       <Image
         accessibilityLabel="some alt text here"
         alt="some alt text here"
@@ -1091,10 +1154,37 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
           </Text>
         </View>
       </View>
-      <Text>
-        Error
-      </Text>
-      <Text />
+      <View
+        dataSet={Object {}}
+        style={
+          Object {
+            "alignItems": "center",
+            "height": 506,
+            "justifyContent": "center",
+            "width": 750,
+          }
+        }
+      >
+        <Text
+          dataSet={Object {}}
+          style={
+            Object {
+              "backgroundColor": undefined,
+              "color": "#171717",
+              "fontFamily": undefined,
+              "fontSize": 14,
+              "fontStyle": "normal",
+              "fontWeight": "400",
+              "letterSpacing": 0,
+              "lineHeight": 21,
+              "textDecorationLine": undefined,
+            }
+          }
+        >
+          Error
+        </Text>
+        <Text />
+      </View>
       <Image
         accessibilityLabel="some alt text here"
         alt="some alt text here"
