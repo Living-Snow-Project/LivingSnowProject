@@ -249,9 +249,9 @@ exports[`TimelineRow test suite renders 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "height": 2925,
+            "height": 417,
             "justifyContent": "center",
-            "width": 372,
+            "width": 248,
           }
         }
       >
@@ -313,9 +313,9 @@ exports[`TimelineRow test suite renders 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "height": 2925,
+            "height": 417,
             "justifyContent": "center",
-            "width": 372,
+            "width": 496,
           }
         }
       >
