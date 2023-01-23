@@ -1,7 +1,6 @@
 import React from "react";
-// TODO: use NativeBase for all layouts
-import { ActivityIndicator, Dimensions, Text } from "react-native";
-import { Image } from "native-base";
+import { Dimensions } from "react-native";
+import { Box, Image, Spinner, Text } from "native-base";
 import { Photo } from "@livingsnow/record";
 import { useCachedPhoto } from "../../hooks/useCachedPhotos";
 import { PictureIcon } from "./Icons";
@@ -12,6 +11,7 @@ type CachedPhotoProps = {
   height: number;
 };
 
+// used by PhotosLayout and RecordDetailsScreen
 function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
   const cachedPhoto = useCachedPhoto({ uri, width, height });
 
@@ -23,23 +23,29 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
 
   if (cachedPhoto.state == "Loading" || cachedPhoto.state == "Downloading") {
     return (
-      <>
+      <Box
+        width={width}
+        height={height}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Spinner size="large" />
         <Text>{cachedPhoto.state}</Text>
-        <ActivityIndicator
-          style={{ paddingTop: 5 }}
-          size="large"
-          color="lightgrey"
-        />
-      </>
+      </Box>
     );
   }
 
   if (cachedPhoto.state == "Error" || cachedPhoto.state == "Offline") {
     return (
-      <>
+      <Box
+        width={width}
+        height={height}
+        alignItems="center"
+        justifyContent="center"
+      >
         <Text>{cachedPhoto.state}</Text>
         <PictureIcon />
-      </>
+      </Box>
     );
   }
 
@@ -57,6 +63,7 @@ type CachedPhotosProps = {
   photos?: Photo[];
 };
 
+// only used by RecordDetailsScreen
 function CachedPhotos({ photos }: CachedPhotosProps): JSX.Element | null {
   if (!photos || !photos.length) {
     return null;
