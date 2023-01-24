@@ -30,6 +30,7 @@ export function DateSelector({ date, maxDate, setDate }: DateSelectorProps) {
   const selectedDayColor = bgColor;
   const monthColor = dayColor;
   const disabledColor = useColorModeValue(`${dark}55`, `${light}55`);
+  const arrowColor = useColorModeValue("primary.600", "primary.400");
 
   const onDayPress = (newDate: DateData) => {
     setCalendarVisible(false);
@@ -46,7 +47,11 @@ export function DateSelector({ date, maxDate, setDate }: DateSelectorProps) {
           maxDate={maxDate}
           markedDates={{ [date]: { selected: true } }}
           renderArrow={(direction) =>
-            direction == "left" ? <ArrowBackIcon /> : <ArrowForwardIcon />
+            direction == "left" ? (
+              <ArrowBackIcon color={arrowColor} />
+            ) : (
+              <ArrowForwardIcon color={arrowColor} />
+            )
           }
           theme={{
             calendarBackground: bgColor,
