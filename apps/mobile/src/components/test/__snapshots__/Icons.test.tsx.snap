@@ -4,8 +4,8 @@ exports[`Icons test suite android picture icon 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -20,8 +20,8 @@ exports[`Icons test suite android snow icon 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -30,27 +30,27 @@ exports[`Icons test suite android snow icon 1`] = `
 >
   <Text
     allowFontScaling={false}
-    dataSet={Object {}}
+    dataSet={{}}
     selectable={false}
     style={
-      Array [
-        Object {
+      [
+        {
           "color": undefined,
           "fontSize": 12,
         },
-        Object {
+        {
           "color": "#ec4899",
           "fontSize": 28,
           "height": 28,
           "lineHeight": 28,
           "width": 28,
         },
-        Object {
+        {
           "fontFamily": "ionicons",
           "fontStyle": "normal",
           "fontWeight": "normal",
         },
-        Object {},
+        {},
       ]
     }
     testID="snow-icon"
@@ -64,8 +64,8 @@ exports[`Icons test suite ios picture icon 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -74,16 +74,16 @@ exports[`Icons test suite ios picture icon 1`] = `
 >
   <Text
     allowFontScaling={false}
-    dataSet={Object {}}
+    dataSet={{}}
     selectable={false}
     style={
-      Array [
-        Object {
+      [
+        {
           "color": undefined,
           "fontSize": 12,
         },
-        Object {
-          "color": Object {
+        {
+          "color": {
             "100": "#dcfce7",
             "200": "#bbf7d0",
             "300": "#86efac",
@@ -100,12 +100,12 @@ exports[`Icons test suite ios picture icon 1`] = `
           "lineHeight": 28,
           "width": 28,
         },
-        Object {
+        {
           "fontFamily": "ionicons",
           "fontStyle": "normal",
           "fontWeight": "normal",
         },
-        Object {},
+        {},
       ]
     }
     testID="picture-icon"
@@ -119,8 +119,8 @@ exports[`Icons test suite ios snow icon 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -129,27 +129,27 @@ exports[`Icons test suite ios snow icon 1`] = `
 >
   <Text
     allowFontScaling={false}
-    dataSet={Object {}}
+    dataSet={{}}
     selectable={false}
     style={
-      Array [
-        Object {
+      [
+        {
           "color": undefined,
           "fontSize": 12,
         },
-        Object {
+        {
           "color": "#ec4899",
           "fontSize": 28,
           "height": 28,
           "lineHeight": 28,
           "width": 28,
         },
-        Object {
+        {
           "fontFamily": "ionicons",
           "fontStyle": "normal",
           "fontWeight": "normal",
         },
-        Object {},
+        {},
       ]
     }
     testID="snow-icon"
