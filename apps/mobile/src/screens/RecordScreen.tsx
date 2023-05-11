@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Platform } from "react-native";
 import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
@@ -358,7 +357,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
               <Space />
               <TextArea
-                blurOnSubmit={Platform.OS == "android"}
+                blurOnSubmit
                 value={state?.locationDescription}
                 label={`${Labels.RecordScreen.LocationDescription}`}
                 placeholder={Placeholders.RecordScreen.LocationDescription}
