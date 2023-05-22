@@ -40,7 +40,8 @@ const recordsApi = () => {
         ? `${baseUrl}?limit=20&pagination_token=${page}`
         : `${baseUrl}?limit=20`;
     const postUrl = baseUrl;
-    const postPhotoUrl = (recordId) => `${baseUrl}/${recordId}/photo`;
+    // TODO: continue with v1 for now, still deciding on what v2 photo endpoint will look like
+    const postPhotoUrl = (recordId) => `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
     return {
         baseUrl,
         getUrl,
@@ -73,7 +74,7 @@ const recordsApi = () => {
                 ? response
                     .text()
                     .then((text) => {
-                    //console.log(text);
+                    // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
                     const respObj = jsonToRecord(text);
                     for (let x = 0; x < respObj.data.length; x++) {
                         respObj.data[x] = Object.assign(Object.assign({}, respObj.data[x]), { 
@@ -94,11 +95,14 @@ const recordsApi = () => {
                 ? response
                     .text()
                     .then((text) => {
-                    var _a;
-                    const record = jsonToRecord(text);
-                    return Object.assign(Object.assign({}, record), { 
-                        // @ts-ignore
-                        photos: [...(_a = record.data.photos) === null || _a === void 0 ? void 0 : _a.appPhotos] });
+                    // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
+                    const respObj = jsonToRecord(text);
+                    for (let x = 0; x < respObj.data.length; x++) {
+                        respObj.data[x] = Object.assign(Object.assign({}, respObj.data[x]), { 
+                            // @ts-ignore
+                            photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : [] });
+                    }
+                    return respObj;
                 })
                 : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
