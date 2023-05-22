@@ -44,7 +44,8 @@ const recordsApi = () => {
       ? `${baseUrl}?limit=20&pagination_token=${page}`
       : `${baseUrl}?limit=20`;
   const postUrl = baseUrl;
-  const postPhotoUrl = (recordId: number) => `${baseUrl}/${recordId}/photo`;
+  // TODO: continue with v1 for now, still deciding on what v2 photo endpoint will look like
+  const postPhotoUrl = (recordId: number) => `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
 
   return {
     baseUrl,
