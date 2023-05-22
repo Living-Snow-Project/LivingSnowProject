@@ -85,7 +85,20 @@ const recordsApi = () => {
           response.ok
             ? response
                 .text()
-                .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
+                .then((text) => {
+                  // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
+                  const respObj = jsonToRecord<AlgaeRecordResponseV2>(text);
+
+                  for (let x = 0; x < respObj.data.length; x++) {
+                    respObj.data[x] = {
+                      ...respObj.data[x],
+                      // @ts-ignore
+                      photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : []
+                    }
+                  }
+
+                  return respObj;
+                })
             : Promise.reject(response)
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
@@ -102,7 +115,20 @@ const recordsApi = () => {
           response.ok
             ? response
                 .text()
-                .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
+                .then((text) => {
+                  // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
+                  const respObj = jsonToRecord<AlgaeRecordResponseV2>(text);
+
+                  for (let x = 0; x < respObj.data.length; x++) {
+                    respObj.data[x] = {
+                      ...respObj.data[x],
+                      // @ts-ignore
+                      photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : []
+                    }
+                  }
+
+                  return respObj;
+                })
             : Promise.reject(response)
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
