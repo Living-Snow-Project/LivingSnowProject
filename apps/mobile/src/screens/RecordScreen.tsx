@@ -51,8 +51,6 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
   );
 };
 
-const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
-
 // latitude\longitude can be undefined if:
 //  1. location permission off
 //  2. can't acquire signal
@@ -164,6 +162,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     }
   }, [route?.params?.photos]);
 
+  const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
   const dateString = recordDateFormat(state.date);
 
   const isAlgaeSizeInvalid = () => state.size == defaultRecord.size;
