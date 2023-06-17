@@ -83,17 +83,6 @@ const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
 
 const isNumber = (value: string | number) => !Number.isNaN(Number(value));
 
-const defaultRecord: AlgaeRecordInput = {
-  id: -1,
-  type: "Sighting",
-  date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
-  latitude: 0,
-  longitude: 0,
-  size: "Select a size",
-  colors: ["Select colors"],
-  locationDescription: "",
-};
-
 type SpaceProps = {
   my?: string;
 };
@@ -103,6 +92,17 @@ function Space({ my = "1" }: SpaceProps) {
 }
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
+  const defaultRecord: AlgaeRecordInput = {
+    id: -1,
+    type: "Sighting",
+    date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
+    latitude: 0,
+    longitude: 0,
+    size: "Select a size",
+    colors: ["Select colors"],
+    locationDescription: "",
+  };
+
   // NativeBase typings not correct for refs
   const notesRef = useRef<any>(null);
   const locationDescriptionRef = useRef<any>(null);
