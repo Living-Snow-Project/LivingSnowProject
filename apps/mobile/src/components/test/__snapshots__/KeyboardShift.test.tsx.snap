@@ -4,13 +4,13 @@ exports[`KeyboardShift test suite renders on android 1`] = `
 <View
   collapsable={false}
   style={
-    Object {
+    {
       "height": "100%",
       "left": 0,
       "position": "absolute",
       "top": 0,
-      "transform": Array [
-        Object {
+      "transform": [
+        {
           "translateY": 0,
         },
       ],
@@ -26,13 +26,13 @@ exports[`KeyboardShift test suite renders on ios 1`] = `
 <View
   collapsable={false}
   style={
-    Object {
+    {
       "height": "100%",
       "left": 0,
       "position": "absolute",
       "top": 0,
-      "transform": Array [
-        Object {
+      "transform": [
+        {
           "translateY": 0,
         },
       ],

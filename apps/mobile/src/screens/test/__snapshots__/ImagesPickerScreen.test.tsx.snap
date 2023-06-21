@@ -4,8 +4,8 @@ exports[`ImagesPickerScreen test suite renders ios 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -15,14 +15,14 @@ exports[`ImagesPickerScreen test suite renders ios 1`] = `
   <View
     bgColor="white"
     style={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "white",
           "flexBasis": 0,
           "flexGrow": 1,
           "flexShrink": 1,
         },
-        Object {
+        {
           "borderRadius": 5,
           "overflow": "hidden",
         },
@@ -31,12 +31,12 @@ exports[`ImagesPickerScreen test suite renders ios 1`] = `
   >
     <View
       style={
-        Array [
-          Object {
+        [
+          {
             "flex": 1,
             "justifyContent": "center",
           },
-          Object {
+          {
             "flexDirection": "row",
             "justifyContent": "space-around",
             "padding": 10,

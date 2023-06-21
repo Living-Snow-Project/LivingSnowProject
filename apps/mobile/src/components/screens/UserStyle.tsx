@@ -43,11 +43,11 @@ function computeInitials(name: string): string {
   const splitName = name.split(" ");
 
   // ie. John Doe = JD
-  if (splitName.length > 1) {
+  if (splitName.length > 1 && splitName[1].length != 0) {
     return `${splitName[0][0]}${splitName[1][0]}`;
   }
 
-  // ie. John = JO
+  // ie. John = JO or "J "
   if (name.length > 1) {
     return `${name[0]}${name[1]}`;
   }

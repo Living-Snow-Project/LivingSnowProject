@@ -4,8 +4,8 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -14,38 +14,38 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
 >
   <RCTScrollView
     contentContainerStyle={
-      Array [
-        Object {},
-        Object {
-          "dataSet": Object {},
+      [
+        {},
+        {
+          "dataSet": {},
         },
-        Object {},
+        {},
       ]
     }
-    dataSet={Object {}}
-    style={Object {}}
+    dataSet={{}}
+    style={{}}
   >
     <View>
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "paddingBottom": 4,
           }
         }
       >
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": "#7dd3fc",
             }
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -63,18 +63,18 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
           </Text>
         </View>
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "paddingLeft": 8,
               "paddingRight": 8,
             }
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -90,9 +90,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
             Date: 2022-04-01
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -108,9 +108,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
             Type: Sample
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -126,9 +126,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
             Name: Helpful Individual
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -144,9 +144,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
             Organization: Community Scientist
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -162,9 +162,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
             Coordinates: 48.06727, -121.12165
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -180,9 +180,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
             Tube Id: TUBE-1234
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -198,9 +198,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
             Size: Fist
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -216,9 +216,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
             Colors: Red, Pink
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -234,9 +234,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
             Location Description: White Chuck Glacier, Glacier Peak Wilderness, WA
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -256,11 +256,11 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
       <Image
         accessibilityLabel="static image"
         alt="static image"
-        dataSet={Object {}}
+        dataSet={{}}
         onError={[Function]}
         source={1}
         style={
-          Object {
+          {
             "maxWidth": "100%",
           }
         }
@@ -274,8 +274,8 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -284,38 +284,38 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
 >
   <RCTScrollView
     contentContainerStyle={
-      Array [
-        Object {},
-        Object {
-          "dataSet": Object {},
+      [
+        {},
+        {
+          "dataSet": {},
         },
-        Object {},
+        {},
       ]
     }
-    dataSet={Object {}}
-    style={Object {}}
+    dataSet={{}}
+    style={{}}
   >
     <View>
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "paddingBottom": 4,
           }
         }
       >
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": "#7dd3fc",
             }
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -333,18 +333,18 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
           </Text>
         </View>
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "paddingLeft": 8,
               "paddingRight": 8,
             }
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -360,9 +360,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
             Date: 2021-09-16
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -378,9 +378,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
             Type: Sample
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -396,9 +396,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
             Name: test name
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -414,9 +414,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
             Organization: test org
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -432,9 +432,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
             Coordinates: -123.456, 96.96
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -450,9 +450,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
             Tube Id: LAB-1337
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -468,9 +468,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
             Size: Fist
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -486,9 +486,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
             Colors: Red, Green
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -504,9 +504,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
             Location Description: test location
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -524,9 +524,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
         </View>
       </View>
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "alignItems": "center",
             "height": 506,
             "justifyContent": "center",
@@ -540,22 +540,22 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
           color="#0891b2"
           size="large"
           style={
-            Array [
-              Array [
-                Object {},
-                Object {
-                  "dataSet": Object {},
+            [
+              [
+                {},
+                {
+                  "dataSet": {},
                 },
-                Object {},
+                {},
               ],
               undefined,
             ]
           }
         />
         <Text
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": undefined,
               "color": "#171717",
               "fontFamily": undefined,
@@ -574,15 +574,15 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
       <Image
         accessibilityLabel="some alt text here"
         alt="some alt text here"
-        dataSet={Object {}}
+        dataSet={{}}
         onError={[Function]}
         source={
-          Object {
+          {
             "uri": "data:image/jpg;base64,undefined",
           }
         }
         style={
-          Object {
+          {
             "height": 1013,
             "maxWidth": "100%",
             "width": 750,
@@ -598,8 +598,8 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -608,38 +608,38 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
 >
   <RCTScrollView
     contentContainerStyle={
-      Array [
-        Object {},
-        Object {
-          "dataSet": Object {},
+      [
+        {},
+        {
+          "dataSet": {},
         },
-        Object {},
+        {},
       ]
     }
-    dataSet={Object {}}
-    style={Object {}}
+    dataSet={{}}
+    style={{}}
   >
     <View>
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "paddingBottom": 4,
           }
         }
       >
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": "#7dd3fc",
             }
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -657,18 +657,18 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
           </Text>
         </View>
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "paddingLeft": 8,
               "paddingRight": 8,
             }
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -684,9 +684,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
             Date: 2021-09-16
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -702,9 +702,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
             Type: Sample
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -720,9 +720,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
             Name: test name
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -738,9 +738,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
             Organization: test org
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -756,9 +756,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
             Coordinates: -123.456, 96.96
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -774,9 +774,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
             Tube Id: LAB-1337
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -792,9 +792,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
             Size: Fist
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -810,9 +810,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
             Colors: Red, Green
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -828,9 +828,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
             Location Description: test location
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -848,9 +848,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
         </View>
       </View>
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "alignItems": "center",
             "height": 506,
             "justifyContent": "center",
@@ -859,9 +859,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
         }
       >
         <Text
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": undefined,
               "color": "#171717",
               "fontFamily": undefined,
@@ -881,15 +881,15 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
       <Image
         accessibilityLabel="some alt text here"
         alt="some alt text here"
-        dataSet={Object {}}
+        dataSet={{}}
         onError={[Function]}
         source={
-          Object {
+          {
             "uri": "data:image/jpg;base64,undefined",
           }
         }
         style={
-          Object {
+          {
             "height": 1013,
             "maxWidth": "100%",
             "width": 750,
@@ -905,8 +905,8 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -915,38 +915,38 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
 >
   <RCTScrollView
     contentContainerStyle={
-      Array [
-        Object {},
-        Object {
-          "dataSet": Object {},
+      [
+        {},
+        {
+          "dataSet": {},
         },
-        Object {},
+        {},
       ]
     }
-    dataSet={Object {}}
-    style={Object {}}
+    dataSet={{}}
+    style={{}}
   >
     <View>
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "paddingBottom": 4,
           }
         }
       >
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": "#7dd3fc",
             }
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -964,18 +964,18 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
           </Text>
         </View>
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "paddingLeft": 8,
               "paddingRight": 8,
             }
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -991,9 +991,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
             Date: 2021-09-16
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -1009,9 +1009,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
             Type: Sample
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -1027,9 +1027,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
             Name: test name
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -1045,9 +1045,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
             Organization: test org
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -1063,9 +1063,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
             Coordinates: -123.456, 96.96
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -1081,9 +1081,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
             Tube Id: LAB-1337
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -1099,9 +1099,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
             Size: Fist
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -1117,9 +1117,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
             Colors: Red, Green
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -1135,9 +1135,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
             Location Description: test location
           </Text>
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -1155,9 +1155,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
         </View>
       </View>
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "alignItems": "center",
             "height": 506,
             "justifyContent": "center",
@@ -1166,9 +1166,9 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
         }
       >
         <Text
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": undefined,
               "color": "#171717",
               "fontFamily": undefined,
@@ -1188,15 +1188,15 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
       <Image
         accessibilityLabel="some alt text here"
         alt="some alt text here"
-        dataSet={Object {}}
+        dataSet={{}}
         onError={[Function]}
         source={
-          Object {
+          {
             "uri": "data:image/jpg;base64,undefined",
           }
         }
         style={
-          Object {
+          {
             "height": 1013,
             "maxWidth": "100%",
             "width": 750,

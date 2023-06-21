@@ -149,7 +149,13 @@ function retryPendingRecords(): Promise<AlgaeRecord[]> {
         (promise, record) =>
           promise
             .then(() => {
-              const { photos } = record;
+              let photos: Photo[] | undefined;
+
+              if (record.photos) {
+                photos = [...record.photos];
+                delete record.photos;
+              }
+
               return uploadRecord(record, photos);
             })
             .catch((error) =>

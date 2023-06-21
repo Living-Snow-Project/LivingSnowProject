@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Platform } from "react-native";
 import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
@@ -52,8 +51,6 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
   );
 };
 
-const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
-
 // latitude\longitude can be undefined if:
 //  1. location permission off
 //  2. can't acquire signal
@@ -86,17 +83,6 @@ const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
 
 const isNumber = (value: string | number) => !Number.isNaN(Number(value));
 
-const defaultRecord: AlgaeRecordInput = {
-  id: -1,
-  type: "Sighting",
-  date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
-  latitude: 0,
-  longitude: 0,
-  size: "Select a size",
-  colors: ["Select colors"],
-  locationDescription: "",
-};
-
 type SpaceProps = {
   my?: string;
 };
@@ -106,6 +92,17 @@ function Space({ my = "1" }: SpaceProps) {
 }
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
+  const defaultRecord: AlgaeRecordInput = {
+    id: -1,
+    type: "Sighting",
+    date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
+    latitude: 0,
+    longitude: 0,
+    size: "Select a size",
+    colors: ["Select colors"],
+    locationDescription: "",
+  };
+
   // NativeBase typings not correct for refs
   const notesRef = useRef<any>(null);
   const locationDescriptionRef = useRef<any>(null);
@@ -165,6 +162,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     }
   }, [route?.params?.photos]);
 
+  const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
   const dateString = recordDateFormat(state.date);
 
   const isAlgaeSizeInvalid = () => state.size == defaultRecord.size;
@@ -358,7 +356,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
               <Space />
               <TextArea
-                blurOnSubmit={Platform.OS == "android"}
+                blurOnSubmit
                 value={state?.locationDescription}
                 label={`${Labels.RecordScreen.LocationDescription}`}
                 placeholder={Placeholders.RecordScreen.LocationDescription}

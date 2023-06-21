@@ -32,7 +32,11 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
     }: CustomTextInputProps,
     ref
   ) => (
-    <FormControl isRequired={isRequired} isInvalid={isInvalid}>
+    <FormControl
+      isRequired={isRequired}
+      isInvalid={isInvalid}
+      isReadOnly={isDisabled}
+    >
       <FormControl.Label>{label}</FormControl.Label>
       <Input
         size="lg"

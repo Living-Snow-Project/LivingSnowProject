@@ -4,8 +4,8 @@ exports[`TimelineScreen test suite renders 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -15,15 +15,15 @@ exports[`TimelineScreen test suite renders 1`] = `
   <View
     collapsable={false}
     style={
-      Object {
+      {
         "backgroundColor": "rgba(34, 211, 238, 1)",
       }
     }
   >
     <Text
-      dataSet={Object {}}
+      dataSet={{}}
       style={
-        Object {
+        {
           "backgroundColor": undefined,
           "color": "#171717",
           "fontFamily": undefined,
@@ -43,16 +43,16 @@ exports[`TimelineScreen test suite renders 1`] = `
   <RCTScrollView
     ListEmptyComponent={[Function]}
     contentContainerStyle={
-      Array [
-        Object {},
-        Object {
-          "dataSet": Object {},
+      [
+        {},
+        {
+          "dataSet": {},
         },
-        Object {},
+        {},
       ]
     }
-    data={Array []}
-    dataSet={Object {}}
+    data={[]}
+    dataSet={{}}
     getItem={[Function]}
     getItemCount={[Function]}
     keyExtractor={[Function]}
@@ -76,26 +76,26 @@ exports[`TimelineScreen test suite renders 1`] = `
     removeClippedSubviews={false}
     renderItem={[Function]}
     scrollEventThrottle={50}
-    stickyHeaderIndices={Array []}
-    style={Object {}}
+    stickyHeaderIndices={[]}
+    style={{}}
     testID="timeline-screen-flatlist"
-    viewabilityConfigCallbackPairs={Array []}
+    viewabilityConfigCallbackPairs={[]}
   >
     <RCTRefreshControl />
     <View>
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "backgroundColor": "#34d399",
             "width": "100%",
           }
         }
       >
         <Text
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": undefined,
               "color": "#171717",
               "fontFamily": undefined,
@@ -113,9 +113,26 @@ exports[`TimelineScreen test suite renders 1`] = `
         </Text>
       </View>
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={true}
         collapsable={false}
-        dataSet={Object {}}
+        dataSet={{}}
         focusable={true}
         onBlur={[Function]}
         onClick={[Function]}
@@ -126,13 +143,13 @@ exports[`TimelineScreen test suite renders 1`] = `
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        style={Object {}}
+        style={{}}
         testID="1234"
       >
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "paddingBottom": 4,
               "paddingLeft": 8,
               "paddingRight": 8,
@@ -141,29 +158,29 @@ exports[`TimelineScreen test suite renders 1`] = `
           }
         >
           <View
-            dataSet={Object {}}
-            style={Object {}}
+            dataSet={{}}
+            style={{}}
           >
             <View
-              dataSet={Object {}}
+              dataSet={{}}
               style={
-                Object {
+                {
                   "flexDirection": "row",
                 }
               }
             >
               <View
-                dataSet={Object {}}
+                dataSet={{}}
                 style={
-                  Object {
+                  {
                     "width": "15%",
                   }
                 }
               >
                 <View
-                  dataSet={Object {}}
+                  dataSet={{}}
                   style={
-                    Object {
+                    {
                       "alignItems": "center",
                       "backgroundColor": "#f0abfc",
                       "borderColor": "#27272a",
@@ -177,9 +194,9 @@ exports[`TimelineScreen test suite renders 1`] = `
                   }
                 >
                   <Text
-                    dataSet={Object {}}
+                    dataSet={{}}
                     style={
-                      Object {
+                      {
                         "backgroundColor": undefined,
                         "color": "#fafafa",
                         "fontFamily": undefined,
@@ -197,26 +214,26 @@ exports[`TimelineScreen test suite renders 1`] = `
                 </View>
               </View>
               <View
-                dataSet={Object {}}
+                dataSet={{}}
                 style={
-                  Object {
+                  {
                     "paddingRight": 4,
                     "width": "78%",
                   }
                 }
               >
                 <View
-                  dataSet={Object {}}
+                  dataSet={{}}
                   style={
-                    Object {
+                    {
                       "marginLeft": 8,
                     }
                   }
                 >
                   <Text
-                    dataSet={Object {}}
+                    dataSet={{}}
                     style={
-                      Object {
+                      {
                         "backgroundColor": undefined,
                         "color": "#171717",
                         "fontFamily": undefined,
@@ -232,13 +249,13 @@ exports[`TimelineScreen test suite renders 1`] = `
                     Helpful Individual
                   </Text>
                   <View
-                    dataSet={Object {}}
-                    style={Object {}}
+                    dataSet={{}}
+                    style={{}}
                   />
                   <Text
-                    dataSet={Object {}}
+                    dataSet={{}}
                     style={
-                      Object {
+                      {
                         "backgroundColor": undefined,
                         "color": "#171717",
                         "fontFamily": undefined,
@@ -254,13 +271,13 @@ exports[`TimelineScreen test suite renders 1`] = `
                     Community Scientist
                   </Text>
                   <View
-                    dataSet={Object {}}
-                    style={Object {}}
+                    dataSet={{}}
+                    style={{}}
                   />
                   <Text
-                    dataSet={Object {}}
+                    dataSet={{}}
                     style={
-                      Object {
+                      {
                         "backgroundColor": undefined,
                         "color": "#db2777",
                         "fontFamily": undefined,
@@ -278,26 +295,26 @@ exports[`TimelineScreen test suite renders 1`] = `
                 </View>
               </View>
               <View
-                dataSet={Object {}}
-                style={Object {}}
+                dataSet={{}}
+                style={{}}
               />
               <View
-                dataSet={Object {}}
+                dataSet={{}}
                 style={
-                  Object {
+                  {
                     "width": "7%",
                   }
                 }
               />
             </View>
             <View
-              dataSet={Object {}}
-              style={Object {}}
+              dataSet={{}}
+              style={{}}
             />
             <Text
-              dataSet={Object {}}
+              dataSet={{}}
               style={
-                Object {
+                {
                   "backgroundColor": undefined,
                   "color": "#171717",
                   "fontFamily": undefined,
@@ -313,13 +330,13 @@ exports[`TimelineScreen test suite renders 1`] = `
               White Chuck Glacier, Glacier Peak Wilderness, WA
             </Text>
             <View
-              dataSet={Object {}}
-              style={Object {}}
+              dataSet={{}}
+              style={{}}
             />
             <Text
-              dataSet={Object {}}
+              dataSet={{}}
               style={
-                Object {
+                {
                   "backgroundColor": undefined,
                   "color": "#171717",
                   "fontFamily": undefined,
@@ -339,20 +356,20 @@ exports[`TimelineScreen test suite renders 1`] = `
         <Image
           accessibilityLabel="static image"
           alt="static image"
-          dataSet={Object {}}
+          dataSet={{}}
           onError={[Function]}
           source={1}
           style={
-            Object {
+            {
               "maxWidth": "100%",
             }
           }
         />
       </View>
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "backgroundColor": "#d6d3d1",
             "height": 12,
             "width": "100%",

@@ -5,7 +5,7 @@
     "privacy": "unlisted",
     "primaryColor": "#000000",
     "platforms": ["ios", "android"],
-    "version": "2.2.0",
+    "version": "2.3.1",
     "orientation": "portrait",
     "icon": "./assets/images/lsp@2x.png",
     "splash": {
@@ -14,7 +14,8 @@
       "backgroundColor": "#ffffff"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/ef724170-99df-11e9-80a2-03e7acec1afa"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
@@ -30,7 +31,7 @@
     },
     "android": {
       "package": "com.kodnerlab.livingsnowproject",
-      "versionCode": 11,
+      "versionCode": 15,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
@@ -38,6 +39,14 @@
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
       ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ef724170-99df-11e9-80a2-03e7acec1afa"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }

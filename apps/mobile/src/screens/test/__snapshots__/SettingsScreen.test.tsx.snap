@@ -4,8 +4,8 @@ exports[`SettingsScreen test suite renders 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -13,34 +13,34 @@ exports[`SettingsScreen test suite renders 1`] = `
   }
 >
   <View
-    dataSet={Object {}}
-    style={Object {}}
+    dataSet={{}}
+    style={{}}
   >
     <View
-      dataSet={Object {}}
-      style={Object {}}
+      dataSet={{}}
+      style={{}}
     >
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "marginBottom": 4,
           }
         }
       >
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "paddingLeft": 8,
               "paddingRight": 8,
             }
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -58,17 +58,17 @@ exports[`SettingsScreen test suite renders 1`] = `
             Profile
           </Text>
           <View
-            dataSet={Object {}}
+            dataSet={{}}
             isInvalid={false}
             isRequired={false}
             style={
-              Object {
+              {
                 "width": "100%",
               }
             }
           >
             <View
-              dataSet={Object {}}
+              dataSet={{}}
               feedbackId="field-3-feedback"
               hasFeedbackText={true}
               hasHelpText={false}
@@ -82,7 +82,7 @@ exports[`SettingsScreen test suite renders 1`] = `
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
-                Object {
+                {
                   "flexDirection": "row",
                   "justifyContent": "flex-start",
                   "marginBottom": 4,
@@ -91,9 +91,9 @@ exports[`SettingsScreen test suite renders 1`] = `
               }
             >
               <Text
-                dataSet={Object {}}
+                dataSet={{}}
                 style={
-                  Object {
+                  {
                     "backgroundColor": undefined,
                     "color": "#737373",
                     "fontFamily": undefined,
@@ -110,10 +110,10 @@ exports[`SettingsScreen test suite renders 1`] = `
               </Text>
             </View>
             <View
-              dataSet={Object {}}
+              dataSet={{}}
               isFocused={false}
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "borderColor": "#d4d4d4",
                   "borderRadius": 4,
@@ -127,7 +127,7 @@ exports[`SettingsScreen test suite renders 1`] = `
                 accessibilityDescribedBy="field-3-feedback"
                 accessible={true}
                 blurOnSubmit={false}
-                dataSet={Object {}}
+                dataSet={{}}
                 disabled={false}
                 editable={true}
                 isRequired={false}
@@ -145,7 +145,7 @@ exports[`SettingsScreen test suite renders 1`] = `
                 returnKeyType="done"
                 secureTextEntry={false}
                 style={
-                  Object {
+                  {
                     "backgroundColor": "transparent",
                     "color": "#171717",
                     "flex": 1,
@@ -165,17 +165,17 @@ exports[`SettingsScreen test suite renders 1`] = `
             </View>
           </View>
           <View
-            dataSet={Object {}}
+            dataSet={{}}
             isInvalid={false}
             isRequired={false}
             style={
-              Object {
+              {
                 "width": "100%",
               }
             }
           >
             <View
-              dataSet={Object {}}
+              dataSet={{}}
               feedbackId="field-4-feedback"
               hasFeedbackText={true}
               hasHelpText={false}
@@ -189,7 +189,7 @@ exports[`SettingsScreen test suite renders 1`] = `
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
-                Object {
+                {
                   "flexDirection": "row",
                   "justifyContent": "flex-start",
                   "marginBottom": 4,
@@ -198,9 +198,9 @@ exports[`SettingsScreen test suite renders 1`] = `
               }
             >
               <Text
-                dataSet={Object {}}
+                dataSet={{}}
                 style={
-                  Object {
+                  {
                     "backgroundColor": undefined,
                     "color": "#737373",
                     "fontFamily": undefined,
@@ -217,10 +217,10 @@ exports[`SettingsScreen test suite renders 1`] = `
               </Text>
             </View>
             <View
-              dataSet={Object {}}
+              dataSet={{}}
               isFocused={false}
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "borderColor": "#d4d4d4",
                   "borderRadius": 4,
@@ -234,7 +234,7 @@ exports[`SettingsScreen test suite renders 1`] = `
                 accessibilityDescribedBy="field-4-feedback"
                 accessible={true}
                 blurOnSubmit={true}
-                dataSet={Object {}}
+                dataSet={{}}
                 disabled={false}
                 editable={true}
                 isRequired={false}
@@ -252,7 +252,7 @@ exports[`SettingsScreen test suite renders 1`] = `
                 returnKeyType="done"
                 secureTextEntry={false}
                 style={
-                  Object {
+                  {
                     "backgroundColor": "transparent",
                     "color": "#171717",
                     "flex": 1,
@@ -274,13 +274,13 @@ exports[`SettingsScreen test suite renders 1`] = `
         </View>
       </View>
       <View
-        dataSet={Object {}}
-        style={Object {}}
+        dataSet={{}}
+        style={{}}
       />
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "backgroundColor": "#d6d3d1",
             "height": 12,
             "width": "100%",
@@ -288,22 +288,22 @@ exports[`SettingsScreen test suite renders 1`] = `
         }
       />
       <View
-        dataSet={Object {}}
-        style={Object {}}
+        dataSet={{}}
+        style={{}}
       />
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "paddingLeft": 8,
             "paddingRight": 8,
           }
         }
       >
         <Text
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": undefined,
               "color": "#171717",
               "fontFamily": undefined,
@@ -321,9 +321,9 @@ exports[`SettingsScreen test suite renders 1`] = `
           Prompts
         </Text>
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "flexDirection": "row",
               "height": 40,
               "justifyContent": "space-between",
@@ -331,9 +331,9 @@ exports[`SettingsScreen test suite renders 1`] = `
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -350,27 +350,27 @@ exports[`SettingsScreen test suite renders 1`] = `
             Manual Coordinates Warning
           </Text>
           <View
-            dataSet={Object {}}
-            style={Object {}}
+            dataSet={{}}
+            style={{}}
           />
           <RCTSwitch
             accessibilityRole="switch"
             activeThumbColor="#fafafa"
             colorScheme="primary"
-            dataSet={Object {}}
+            dataSet={{}}
             onChange={[Function]}
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             onTintColor="#0891b2"
             style={
-              Array [
-                Object {
+              [
+                {
                   "height": 31,
                   "width": 51,
                 },
-                Array [
-                  Object {},
-                  Object {
+                [
+                  {},
+                  {
                     "backgroundColor": "#d4d4d4",
                     "borderRadius": 16,
                   },
@@ -385,13 +385,13 @@ exports[`SettingsScreen test suite renders 1`] = `
         </View>
       </View>
       <View
-        dataSet={Object {}}
-        style={Object {}}
+        dataSet={{}}
+        style={{}}
       />
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "backgroundColor": "#d6d3d1",
             "height": 12,
             "width": "100%",
@@ -399,22 +399,22 @@ exports[`SettingsScreen test suite renders 1`] = `
         }
       />
       <View
-        dataSet={Object {}}
-        style={Object {}}
+        dataSet={{}}
+        style={{}}
       />
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "paddingLeft": 8,
             "paddingRight": 8,
           }
         }
       >
         <Text
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": undefined,
               "color": "#171717",
               "fontFamily": undefined,
@@ -432,9 +432,9 @@ exports[`SettingsScreen test suite renders 1`] = `
           Theme
         </Text>
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "flexDirection": "row",
               "height": 40,
               "justifyContent": "space-between",
@@ -442,9 +442,9 @@ exports[`SettingsScreen test suite renders 1`] = `
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -461,27 +461,27 @@ exports[`SettingsScreen test suite renders 1`] = `
             Dark
           </Text>
           <View
-            dataSet={Object {}}
-            style={Object {}}
+            dataSet={{}}
+            style={{}}
           />
           <RCTSwitch
             accessibilityRole="switch"
             activeThumbColor="#fafafa"
             colorScheme="primary"
-            dataSet={Object {}}
+            dataSet={{}}
             onChange={[Function]}
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             onTintColor="#0891b2"
             style={
-              Array [
-                Object {
+              [
+                {
                   "height": 31,
                   "width": 51,
                 },
-                Array [
-                  Object {},
-                  Object {
+                [
+                  {},
+                  {
                     "backgroundColor": "#d4d4d4",
                     "borderRadius": 16,
                   },
@@ -496,13 +496,13 @@ exports[`SettingsScreen test suite renders 1`] = `
         </View>
       </View>
       <View
-        dataSet={Object {}}
-        style={Object {}}
+        dataSet={{}}
+        style={{}}
       />
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "backgroundColor": "#d6d3d1",
             "height": 12,
             "width": "100%",
@@ -510,22 +510,22 @@ exports[`SettingsScreen test suite renders 1`] = `
         }
       />
       <View
-        dataSet={Object {}}
-        style={Object {}}
+        dataSet={{}}
+        style={{}}
       />
       <View
-        dataSet={Object {}}
+        dataSet={{}}
         style={
-          Object {
+          {
             "paddingLeft": 8,
             "paddingRight": 8,
           }
         }
       >
         <Text
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "backgroundColor": undefined,
               "color": "#171717",
               "fontFamily": undefined,
@@ -543,9 +543,9 @@ exports[`SettingsScreen test suite renders 1`] = `
           Disk Usage
         </Text>
         <View
-          dataSet={Object {}}
+          dataSet={{}}
           style={
-            Object {
+            {
               "flexDirection": "row",
               "height": 40,
               "justifyContent": "space-between",
@@ -553,9 +553,9 @@ exports[`SettingsScreen test suite renders 1`] = `
           }
         >
           <Text
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": undefined,
                 "color": "#171717",
                 "fontFamily": undefined,
@@ -572,19 +572,36 @@ exports[`SettingsScreen test suite renders 1`] = `
             Calculating
           </Text>
           <View
-            dataSet={Object {}}
-            style={Object {}}
+            dataSet={{}}
+            style={{}}
           />
           <View
-            dataSet={Object {}}
-            style={Object {}}
+            dataSet={{}}
+            style={{}}
           />
           <View
             accessibilityRole="button"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
             accessible={true}
             collapsable={false}
             colorScheme="primary"
-            dataSet={Object {}}
+            dataSet={{}}
             focusable={true}
             onBlur={[Function]}
             onClick={[Function]}
@@ -596,7 +613,7 @@ exports[`SettingsScreen test suite renders 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "alignItems": "center",
                 "backgroundColor": "#0891b2",
                 "borderRadius": 4,
@@ -611,9 +628,9 @@ exports[`SettingsScreen test suite renders 1`] = `
             }
           >
             <View
-              dataSet={Object {}}
+              dataSet={{}}
               style={
-                Object {
+                {
                   "alignItems": "center",
                   "flexDirection": "row",
                 }
@@ -621,13 +638,13 @@ exports[`SettingsScreen test suite renders 1`] = `
               test={true}
             >
               <View
-                dataSet={Object {}}
-                style={Object {}}
+                dataSet={{}}
+                style={{}}
               >
                 <Text
-                  dataSet={Object {}}
+                  dataSet={{}}
                   style={
-                    Object {
+                    {
                       "backgroundColor": undefined,
                       "color": "#fafafa",
                       "fontFamily": undefined,
@@ -653,15 +670,15 @@ exports[`SettingsScreen test suite renders 1`] = `
     collapsable={false}
     pointerEvents="box-none"
     style={
-      Array [
-        Object {
+      [
+        {
           "bottom": 0,
           "left": 0,
           "position": "absolute",
           "right": 0,
           "top": 0,
         },
-        Object {
+        {
           "display": "none",
         },
       ]
@@ -671,30 +688,30 @@ exports[`SettingsScreen test suite renders 1`] = `
       collapsable={false}
       pointerEvents="none"
       style={
-        Object {
+        {
           "bottom": 0,
           "left": 0,
           "opacity": 0,
           "position": "absolute",
           "right": 0,
           "top": 0,
-          "transform": Array [
-            Object {
+          "transform": [
+            {
               "translateY": 0,
             },
-            Object {
+            {
               "translateX": 0,
             },
-            Object {
+            {
               "scale": 1,
             },
-            Object {
+            {
               "scaleX": 1,
             },
-            Object {
+            {
               "scaleY": 1,
             },
-            Object {
+            {
               "rotate": "0deg",
             },
           ],
@@ -702,9 +719,26 @@ exports[`SettingsScreen test suite renders 1`] = `
       }
     >
       <View
+        accessibilityState={
+          {
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
         accessible={false}
         collapsable={false}
-        dataSet={Object {}}
+        dataSet={{}}
         focusable={true}
         importantForAccessibility="no"
         onBlur={[Function]}
@@ -717,7 +751,7 @@ exports[`SettingsScreen test suite renders 1`] = `
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
         style={
-          Object {
+          {
             "backgroundColor": "rgb(0, 0, 0)",
             "bottom": 0,
             "left": 0,
@@ -733,30 +767,30 @@ exports[`SettingsScreen test suite renders 1`] = `
       collapsable={false}
       pointerEvents="none"
       style={
-        Object {
+        {
           "bottom": 0,
           "left": 0,
           "opacity": 0,
           "position": "absolute",
           "right": 0,
           "top": 0,
-          "transform": Array [
-            Object {
+          "transform": [
+            {
               "translateY": 0,
             },
-            Object {
+            {
               "translateX": 0,
             },
-            Object {
+            {
               "scale": 1,
             },
-            Object {
+            {
               "scaleX": 1,
             },
-            Object {
+            {
               "scaleY": 1,
             },
-            Object {
+            {
               "rotate": "0deg",
             },
           ],
@@ -765,10 +799,10 @@ exports[`SettingsScreen test suite renders 1`] = `
     >
       <View
         closeOnOverlayClick={true}
-        dataSet={Object {}}
+        dataSet={{}}
         pointerEvents="box-none"
         style={
-          Object {
+          {
             "alignItems": "center",
             "height": "100%",
             "justifyContent": "center",
@@ -780,10 +814,10 @@ exports[`SettingsScreen test suite renders 1`] = `
         <View
           accessibilityViewIsModal={true}
           aria-modal="true"
-          dataSet={Object {}}
+          dataSet={{}}
           onAccessibilityEscape={[Function]}
           style={
-            Object {
+            {
               "backgroundColor": "#fafafa",
               "borderRadius": 8,
               "elevation": 2,
@@ -791,7 +825,7 @@ exports[`SettingsScreen test suite renders 1`] = `
               "maxWidth": 320,
               "overflow": "hidden",
               "shadowColor": "#000000",
-              "shadowOffset": Object {
+              "shadowOffset": {
                 "height": 1,
                 "width": 0,
               },
@@ -803,10 +837,27 @@ exports[`SettingsScreen test suite renders 1`] = `
         >
           <View
             accessibilityRole="button"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
+              }
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
             accessible={true}
             collapsable={false}
             colorScheme="coolGray"
-            dataSet={Object {}}
+            dataSet={{}}
             focusable={true}
             onBlur={[Function]}
             onClick={[Function]}
@@ -818,7 +869,7 @@ exports[`SettingsScreen test suite renders 1`] = `
             onResponderTerminationRequest={[Function]}
             onStartShouldSetResponder={[Function]}
             style={
-              Object {
+              {
                 "backgroundColor": "transparent",
                 "borderRadius": 4,
                 "paddingBottom": 8,
@@ -837,24 +888,24 @@ exports[`SettingsScreen test suite renders 1`] = `
               align="xMidYMid"
               bbHeight="16"
               bbWidth="16"
-              dataSet={Object {}}
+              dataSet={{}}
               focusable={false}
               meetOrSlice={0}
               minX={0}
               minY={0}
               stroke=""
               style={
-                Array [
-                  Object {
+                [
+                  {
                     "backgroundColor": "transparent",
                     "borderWidth": 0,
                   },
-                  Object {
+                  {
                     "color": "#737373",
                     "height": 16,
                     "width": 16,
                   },
-                  Object {
+                  {
                     "flex": 0,
                     "height": 16,
                     "width": 16,
@@ -867,7 +918,7 @@ exports[`SettingsScreen test suite renders 1`] = `
             >
               <RNSVGGroup
                 propList={
-                  Array [
+                  [
                     "stroke",
                   ]
                 }
@@ -877,12 +928,12 @@ exports[`SettingsScreen test suite renders 1`] = `
                   <RNSVGPath
                     d="M12 9.77778L4.22222 2L2 4.22222L9.77778 12L2 19.7778L4.22222 22L12 14.2222L19.7778 22L22 19.7778L14.2222 12L22 4.22222L19.7778 2L12 9.77778Z"
                     fill={
-                      Object {
+                      {
                         "type": 2,
                       }
                     }
                     propList={
-                      Array [
+                      [
                         "fill",
                         "stroke",
                       ]
@@ -894,9 +945,9 @@ exports[`SettingsScreen test suite renders 1`] = `
             </RNSVGSvgView>
           </View>
           <View
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": "#fafafa",
                 "borderBottomWidth": 1,
                 "borderColor": "#d4d4d4",
@@ -908,9 +959,9 @@ exports[`SettingsScreen test suite renders 1`] = `
             }
           >
             <Text
-              dataSet={Object {}}
+              dataSet={{}}
               style={
-                Object {
+                {
                   "backgroundColor": undefined,
                   "color": "#171717",
                   "fontFamily": undefined,
@@ -928,22 +979,22 @@ exports[`SettingsScreen test suite renders 1`] = `
           </View>
           <RCTScrollView
             contentContainerStyle={
-              Array [
-                Object {},
-                Object {
-                  "dataSet": Object {},
+              [
+                {},
+                {
+                  "dataSet": {},
                 },
-                Object {},
+                {},
               ]
             }
-            dataSet={Object {}}
-            style={Object {}}
+            dataSet={{}}
+            style={{}}
           >
             <View>
               <View
-                dataSet={Object {}}
+                dataSet={{}}
                 style={
-                  Object {
+                  {
                     "paddingBottom": 16,
                     "paddingLeft": 16,
                     "paddingRight": 16,
@@ -952,9 +1003,9 @@ exports[`SettingsScreen test suite renders 1`] = `
                 }
               >
                 <Text
-                  dataSet={Object {}}
+                  dataSet={{}}
                   style={
-                    Object {
+                    {
                       "backgroundColor": undefined,
                       "color": "#171717",
                       "fontFamily": undefined,
@@ -973,9 +1024,9 @@ exports[`SettingsScreen test suite renders 1`] = `
             </View>
           </RCTScrollView>
           <View
-            dataSet={Object {}}
+            dataSet={{}}
             style={
-              Object {
+              {
                 "backgroundColor": "#fafafa",
                 "borderColor": "#d4d4d4",
                 "borderTopWidth": 1,
@@ -990,19 +1041,36 @@ exports[`SettingsScreen test suite renders 1`] = `
             }
           >
             <View
-              dataSet={Object {}}
+              dataSet={{}}
               style={
-                Object {
+                {
                   "flexDirection": "row",
                 }
               }
             >
               <View
                 accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
                 accessible={true}
                 collapsable={false}
                 colorScheme="blueGray"
-                dataSet={Object {}}
+                dataSet={{}}
                 focusable={true}
                 onBlur={[Function]}
                 onClick={[Function]}
@@ -1014,7 +1082,7 @@ exports[`SettingsScreen test suite renders 1`] = `
                 onResponderTerminationRequest={[Function]}
                 onStartShouldSetResponder={[Function]}
                 style={
-                  Object {
+                  {
                     "alignItems": "center",
                     "borderRadius": 4,
                     "flexDirection": "row",
@@ -1028,9 +1096,9 @@ exports[`SettingsScreen test suite renders 1`] = `
                 testID="modal-no-button"
               >
                 <View
-                  dataSet={Object {}}
+                  dataSet={{}}
                   style={
-                    Object {
+                    {
                       "alignItems": "center",
                       "flexDirection": "row",
                     }
@@ -1038,13 +1106,13 @@ exports[`SettingsScreen test suite renders 1`] = `
                   test={true}
                 >
                   <View
-                    dataSet={Object {}}
-                    style={Object {}}
+                    dataSet={{}}
+                    style={{}}
                   >
                     <Text
-                      dataSet={Object {}}
+                      dataSet={{}}
                       style={
-                        Object {
+                        {
                           "backgroundColor": undefined,
                           "color": "#475569",
                           "fontFamily": undefined,
@@ -1063,19 +1131,36 @@ exports[`SettingsScreen test suite renders 1`] = `
                 </View>
               </View>
               <View
-                dataSet={Object {}}
+                dataSet={{}}
                 style={
-                  Object {
+                  {
                     "width": 8,
                   }
                 }
               />
               <View
                 accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
                 accessible={true}
                 collapsable={false}
                 colorScheme="primary"
-                dataSet={Object {}}
+                dataSet={{}}
                 focusable={true}
                 onBlur={[Function]}
                 onClick={[Function]}
@@ -1087,7 +1172,7 @@ exports[`SettingsScreen test suite renders 1`] = `
                 onResponderTerminationRequest={[Function]}
                 onStartShouldSetResponder={[Function]}
                 style={
-                  Object {
+                  {
                     "alignItems": "center",
                     "backgroundColor": "#0891b2",
                     "borderRadius": 4,
@@ -1102,9 +1187,9 @@ exports[`SettingsScreen test suite renders 1`] = `
                 testID="modal-confirm-button"
               >
                 <View
-                  dataSet={Object {}}
+                  dataSet={{}}
                   style={
-                    Object {
+                    {
                       "alignItems": "center",
                       "flexDirection": "row",
                     }
@@ -1112,13 +1197,13 @@ exports[`SettingsScreen test suite renders 1`] = `
                   test={true}
                 >
                   <View
-                    dataSet={Object {}}
-                    style={Object {}}
+                    dataSet={{}}
+                    style={{}}
                   >
                     <Text
-                      dataSet={Object {}}
+                      dataSet={{}}
                       style={
-                        Object {
+                        {
                           "backgroundColor": undefined,
                           "color": "#fafafa",
                           "fontFamily": undefined,

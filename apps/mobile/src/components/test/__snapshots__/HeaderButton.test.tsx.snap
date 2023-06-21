@@ -4,8 +4,8 @@ exports[`HeaderButton test suite renders left on ios 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -13,6 +13,23 @@ exports[`HeaderButton test suite renders left on ios 1`] = `
   }
 >
   <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -26,11 +43,11 @@ exports[`HeaderButton test suite renders left on ios 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "marginLeft": 25,
         },
-        Object {
+        {
           "opacity": 1,
         },
       ]
@@ -46,8 +63,8 @@ exports[`HeaderButton test suite renders right on android 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
   style={
-    Array [
-      Object {
+    [
+      {
         "flex": 1,
       },
       undefined,
@@ -55,6 +72,23 @@ exports[`HeaderButton test suite renders right on android 1`] = `
   }
 >
   <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
     accessible={true}
     collapsable={false}
     focusable={true}
@@ -68,11 +102,11 @@ exports[`HeaderButton test suite renders right on android 1`] = `
     onResponderTerminationRequest={[Function]}
     onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
+      [
+        {
           "marginRight": 25,
         },
-        Object {
+        {
           "opacity": 1,
         },
       ]
@@ -83,18 +117,18 @@ exports[`HeaderButton test suite renders right on android 1`] = `
       allowFontScaling={false}
       selectable={false}
       style={
-        Array [
-          Object {
+        [
+          {
             "color": "#0891b2",
             "fontSize": 32,
           },
           undefined,
-          Object {
+          {
             "fontFamily": "ionicons",
             "fontStyle": "normal",
             "fontWeight": "normal",
           },
-          Object {},
+          {},
         ]
       }
       testID="test-button-snow"
