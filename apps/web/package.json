@@ -4,6 +4,8 @@
   "private": true,
   "homepage": "https://living-snow-project.github.io/LivingSnowProject/",
   "dependencies": {
+    "@azure/msal-browser": "^2.37.1",
+    "@azure/msal-react": "^1.5.8",
     "@livingsnow/network": "*",
     "react": "18.0.0",
     "react-dom": "18.0.0",

@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import { RecordsApiV2 } from "@livingsnow/network";
 import { TableHeader, TableRow } from "./components/TableRow";
+import {
+  useMsal,
+  useIsAuthenticated,
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+} from "@azure/msal-react";
 
 import "./App.css";
 
 function App() {
   const [records, setRecords] = useState<JSX.Element[]>([]);
+  const { accounts, instance } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
 
   useEffect(() => {
     let isMounted = true;
@@ -33,6 +41,13 @@ function App() {
 
   return (
     <div className="App">
+      <UnauthenticatedTemplate>
+        <button onClick={() => instance.loginPopup()}>login</button>
+      </UnauthenticatedTemplate>
+
+      <AuthenticatedTemplate>
+        <p>{isAuthenticated}</p>
+      </AuthenticatedTemplate>
       <p>
         This is (obviously) very crude and a work in progress. The goal is to
         build a web app alongside the mobile app for the research team to better
