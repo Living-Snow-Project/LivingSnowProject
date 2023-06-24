@@ -1,11 +1,23 @@
 const randomInteger = () => Math.floor(Math.random() * 1000000);
-export const makeExamplePhoto = ({ isLocal = false, uri = `${randomInteger()}`, size = randomInteger(), width = randomInteger(), height = randomInteger(), } = {}) => ({
+export const makeExamplePhoto = ({ isLocal = false, uri = `${randomInteger()}`, 
+//  size = randomInteger(),
+width = randomInteger(), height = randomInteger(), } = {}) => ({
     uri: isLocal ? `file://${uri}` : uri,
-    size,
+    //  size,
     width,
     height,
 });
-export const makeExamplePendingPhoto = ({ isLocal = false, id = randomInteger(), uri = `${randomInteger()}`, size = randomInteger(), width = randomInteger(), height = randomInteger(), } = {}) => (Object.assign({ id }, makeExamplePhoto({ isLocal, uri, size, width, height })));
+/* export const makeExamplePendingPhoto = ({
+  isLocal = false,
+  id = randomInteger(),
+  uri = `${randomInteger()}`,
+  size = randomInteger(),
+  width = randomInteger(),
+  height = randomInteger(),
+} = {}): PendingPhoto => ({
+  id,
+  ...makeExamplePhoto({ isLocal, uri, size, width, height }),
+}); */
 export const isSample = (type) => Array("Sample").includes(type);
 // consider randomizing more data; how that impacts snapshot testing and the above desired feature
 export const makeExampleRecord = (type) => ({
@@ -21,7 +33,7 @@ export const makeExampleRecord = (type) => ({
     tubeId: isSample(type) ? "LAB-1337" : "",
     locationDescription: "test location",
     notes: "test notes",
-    photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
+    // photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
 });
 // decodes AlgaeRecord or AlgaeRecord[] JSON
 export function jsonToRecord(json) {

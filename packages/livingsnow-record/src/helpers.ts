@@ -1,21 +1,21 @@
-import { AlgaeRecord, AlgaeRecordType, PendingPhoto, Photo } from "./types";
+import { AlgaeRecord, AlgaeRecordType, AppPhoto } from "./types";
 
 const randomInteger = (): number => Math.floor(Math.random() * 1000000);
 
 export const makeExamplePhoto = ({
   isLocal = false,
   uri = `${randomInteger()}`,
-  size = randomInteger(),
+  //  size = randomInteger(),
   width = randomInteger(),
   height = randomInteger(),
-} = {}): Photo => ({
+} = {}): AppPhoto => ({
   uri: isLocal ? `file://${uri}` : uri,
-  size,
+  //  size,
   width,
   height,
 });
 
-export const makeExamplePendingPhoto = ({
+/* export const makeExamplePendingPhoto = ({
   isLocal = false,
   id = randomInteger(),
   uri = `${randomInteger()}`,
@@ -25,7 +25,7 @@ export const makeExamplePendingPhoto = ({
 } = {}): PendingPhoto => ({
   id,
   ...makeExamplePhoto({ isLocal, uri, size, width, height }),
-});
+}); */
 
 export const isSample = (type: AlgaeRecordType): boolean =>
   Array<AlgaeRecordType>("Sample").includes(type);
@@ -44,7 +44,7 @@ export const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
   tubeId: isSample(type) ? "LAB-1337" : "",
   locationDescription: "test location",
   notes: "test notes",
-  photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
+  // photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
 });
 
 // decodes AlgaeRecord or AlgaeRecord[] JSON

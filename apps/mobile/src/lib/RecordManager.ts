@@ -139,6 +139,7 @@ function retryPhotos(): Promise<void> {
 function retryPendingRecords(): Promise<AlgaeRecord[]> {
   return loadPendingRecords()
     .then(async (records) => {
+      // BUGBUG: what if there are pending photos but no records? LOL
       if (records.length === 0) {
         return [];
       }

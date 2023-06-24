@@ -1,22 +1,8 @@
-// Represents a photo the service is tracking.
-export type Photo = {
-  uri: string; // name of the photo file in Blob Storage Container
+// App photos have various representation but these fields are common across them
+export type AppPhoto = {
+  uri: string;
   width: number;
   height: number;
-  size: number;
-};
-
-// Represents a photo saved to disk when its record was uploaded but the photo was not.
-// This scenario can happen when a user has intermittent cel signal in the wilderness.
-// TODO: export type PendingPhoto = Omit<Photo, "size"> & {
-export type PendingPhoto = Photo & {
-  id: number; // id of the uploaded record photo associated with
-};
-
-// Represents a photo that has been selected from expo-images-picker but it and parent
-// record have not been uploaded yet (offline scenario).
-export type SelectedPhoto = Omit<Photo, "size"> & {
-  id: string; // id returned from expo-images-picker
 };
 
 const AlgaeSizeArray = [
@@ -52,16 +38,16 @@ export type AlgaeRecordType = typeof AlgaeRecordTypeArray[number];
 
 export type AlgaeRecord = {
   id: number;
-  type: AlgaeRecordType;
-  name?: string;
-  organization?: string;
+  colors: AlgaeColor[];
   date: Date;
   latitude: number;
   longitude: number;
   size: AlgaeSize;
-  colors: AlgaeColor[];
-  tubeId?: string;
+  type: AlgaeRecordType;
+
   locationDescription?: string;
+  name?: string;
   notes?: string;
-  photos?: Photo[]; // TODO: | SelectedPhoto[]; Photo[] on download, SelectedPhoto[] before upload, PendingPhoto[] on upload
+  organization?: string;
+  tubeId?: string;
 };

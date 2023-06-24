@@ -60,7 +60,7 @@ type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
   longitude: number | undefined;
 };
 
-// TODO: move to @living-snow/records
+// TODO: move to @living-snow/network
 // unmodified records do not send these fields
 // so if the fields are empty during submission, do not send them
 const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
@@ -93,7 +93,7 @@ function Space({ my = "1" }: SpaceProps) {
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const defaultRecord: AlgaeRecordInput = {
-    id: -1,
+    id: uuidv4(),
     type: "Sighting",
     date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
     latitude: 0,
@@ -123,7 +123,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       ? { ...jsonToRecord<AlgaeRecordInput>(route.params.record) }
       : {
           ...defaultRecord,
-          id: uuidv4(),
           name: appSettings.name ?? "Anonymous",
           organization: appSettings.organization,
         }
