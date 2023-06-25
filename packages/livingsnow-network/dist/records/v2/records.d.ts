@@ -1,4 +1,4 @@
-import { AlgaeRecord, PendingPhoto } from "@livingsnow/record";
+import { AlgaeRecord, AppPhoto } from "@livingsnow/record";
 import { AlgaeRecordResponseV2 } from "./types";
 declare const RecordsApiV2: {
     baseUrl: string;
@@ -8,7 +8,7 @@ declare const RecordsApiV2: {
     post: (record: AlgaeRecord) => Promise<AlgaeRecord>;
     get: (page?: string) => Promise<AlgaeRecordResponseV2>;
     getAll: () => Promise<AlgaeRecordResponseV2>;
-    postPhoto: (photo: PendingPhoto) => Promise<void>;
+    postPhoto: (recordId: number, photo: AppPhoto) => Promise<void>;
 };
 export { RecordsApiV2 };
 //# sourceMappingURL=records.d.ts.map

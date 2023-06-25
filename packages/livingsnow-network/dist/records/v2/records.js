@@ -40,7 +40,7 @@ const recordsApi = () => {
         ? `${baseUrl}?limit=20&pagination_token=${page}`
         : `${baseUrl}?limit=20`;
     const postUrl = baseUrl;
-    // TODO: continue with v1 for now, still deciding on what v2 photo endpoint will look like
+    // TODO: continue with v1 with photos for now, still deciding on what v2 photo endpoint will look like
     const postPhotoUrl = (recordId) => `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
     return {
         baseUrl,
@@ -73,16 +73,7 @@ const recordsApi = () => {
                 .then((response) => response.ok
                 ? response
                     .text()
-                    .then((text) => {
-                    // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                    const respObj = jsonToRecord(text);
-                    for (let x = 0; x < respObj.data.length; x++) {
-                        respObj.data[x] = Object.assign(Object.assign({}, respObj.data[x]), { 
-                            // @ts-ignore
-                            photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : [] });
-                    }
-                    return respObj;
-                })
+                    .then((text) => jsonToRecord(text))
                 : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
@@ -94,24 +85,15 @@ const recordsApi = () => {
                 .then((response) => response.ok
                 ? response
                     .text()
-                    .then((text) => {
-                    // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                    const respObj = jsonToRecord(text);
-                    for (let x = 0; x < respObj.data.length; x++) {
-                        respObj.data[x] = Object.assign(Object.assign({}, respObj.data[x]), { 
-                            // @ts-ignore
-                            photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : [] });
-                    }
-                    return respObj;
-                })
+                    .then((text) => jsonToRecord(text))
                 : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
         // rejects with an error string or the response object
-        postPhoto: (photo) => __awaiter(void 0, void 0, void 0, function* () {
+        postPhoto: (recordId, photo) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "postPhoto";
             const uri = { uri: photo.uri };
-            return fetch(postPhotoUrl(photo.id), {
+            return fetch(postPhotoUrl(recordId), {
                 method: "POST",
                 headers: {
                     "Content-Type": "image/jpeg",

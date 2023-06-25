@@ -1,11 +1,10 @@
-import { AlgaeRecord } from "@livingsnow/record";
 import { rest } from "msw";
 
-import { RecordsApiV2, AlgaeRecordResponseV2 } from "../src";
+import { RecordsApiV2, AlgaeRecordResponseV2, DataResponseV2 } from "../src";
 
 type MockBackend = {
   curRecordId: number;
-  records: AlgaeRecord[];
+  records: DataResponseV2[];
   recordsUri: string;
   photosUri: string;
   resetBackend: () => void;
@@ -15,7 +14,8 @@ const mockBackend: MockBackend = {
   curRecordId: 0,
   records: [],
   recordsUri: RecordsApiV2.baseUrl,
-  photosUri: `${RecordsApiV2.baseUrl}/:recordId/photo`,
+  // TODO: using v1 while we figured out v2 post photo looks like
+  photosUri: `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/:recordId/photo`,
 
   resetBackend() {
     this.curRecordId = 0;
@@ -26,7 +26,7 @@ const mockBackend: MockBackend = {
 const handlersV2 = [
   // Handles a POST /api/v2.0/records request
   rest.post(RecordsApiV2.baseUrl, async (req, res, ctx) => {
-    const body: AlgaeRecord = await req.json();
+    const body: DataResponseV2 = await req.json();
 
     mockBackend.curRecordId += 1;
     body.id = mockBackend.curRecordId;
@@ -52,7 +52,8 @@ const handlersV2 = [
     return res(ctx.status(404));
   }),
 
-  // Handles a POST /api/records/{recordId}/photo request
+  // TODO: update comment when v2 post photo is determined
+  // Handles a POST /api/v1.0/records/{recordId}/photo request
   rest.post(mockBackend.photosUri, (req, res, ctx) => res(ctx.status(200))),
 ];
 

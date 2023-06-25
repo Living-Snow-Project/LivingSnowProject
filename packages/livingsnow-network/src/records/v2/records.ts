@@ -1,5 +1,5 @@
 import Logger from "@livingsnow/logger";
-import { AlgaeRecord, jsonToRecord, PendingPhoto } from "@livingsnow/record";
+import { AlgaeRecord, jsonToRecord, AppPhoto } from "@livingsnow/record";
 
 import { AlgaeRecordResponseV2 } from "./types";
 
@@ -44,7 +44,7 @@ const recordsApi = () => {
       ? `${baseUrl}?limit=20&pagination_token=${page}`
       : `${baseUrl}?limit=20`;
   const postUrl = baseUrl;
-  // TODO: continue with v1 for now, still deciding on what v2 photo endpoint will look like
+  // TODO: continue with v1 with photos for now, still deciding on what v2 photo endpoint will look like
   const postPhotoUrl = (recordId: number) =>
     `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
 
@@ -85,23 +85,9 @@ const recordsApi = () => {
       return fetch(getUrl(page))
         .then((response) =>
           response.ok
-            ? response.text().then((text) => {
-                // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                const respObj = jsonToRecord<AlgaeRecordResponseV2>(text);
-
-                for (let x = 0; x < respObj.data.length; x++) {
-                  respObj.data[x] = {
-                    ...respObj.data[x],
-                    // @ts-ignore
-                    photos: respObj.data[x].photos.appPhotos
-                      ? // @ts-ignore
-                        [...respObj.data[x].photos.appPhotos]
-                      : [],
-                  };
-                }
-
-                return respObj;
-              })
+            ? response
+                .text()
+                .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
             : Promise.reject(response)
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
@@ -116,35 +102,21 @@ const recordsApi = () => {
       return fetch(baseUrl)
         .then((response) =>
           response.ok
-            ? response.text().then((text) => {
-                // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                const respObj = jsonToRecord<AlgaeRecordResponseV2>(text);
-
-                for (let x = 0; x < respObj.data.length; x++) {
-                  respObj.data[x] = {
-                    ...respObj.data[x],
-                    // @ts-ignore
-                    photos: respObj.data[x].photos.appPhotos
-                      ? // @ts-ignore
-                        [...respObj.data[x].photos.appPhotos]
-                      : [],
-                  };
-                }
-
-                return respObj;
-              })
+            ? response
+                .text()
+                .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
             : Promise.reject(response)
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
 
     // rejects with an error string or the response object
-    postPhoto: async (photo: PendingPhoto): Promise<void> => {
+    postPhoto: async (recordId: number, photo: AppPhoto): Promise<void> => {
       const operation = "postPhoto";
 
       const uri = { uri: photo.uri };
 
-      return fetch(postPhotoUrl(photo.id), {
+      return fetch(postPhotoUrl(recordId), {
         method: "POST",
         headers: {
           "Content-Type": "image/jpeg",

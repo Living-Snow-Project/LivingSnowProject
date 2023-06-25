@@ -2,30 +2,16 @@ import { AlgaeRecord, AlgaeRecordType, AppPhoto } from "./types";
 
 const randomInteger = (): number => Math.floor(Math.random() * 1000000);
 
-export const makeExamplePhoto = ({
+export const makeExampleAppPhoto = ({
   isLocal = false,
   uri = `${randomInteger()}`,
-  //  size = randomInteger(),
   width = randomInteger(),
   height = randomInteger(),
 } = {}): AppPhoto => ({
   uri: isLocal ? `file://${uri}` : uri,
-  //  size,
   width,
   height,
 });
-
-/* export const makeExamplePendingPhoto = ({
-  isLocal = false,
-  id = randomInteger(),
-  uri = `${randomInteger()}`,
-  size = randomInteger(),
-  width = randomInteger(),
-  height = randomInteger(),
-} = {}): PendingPhoto => ({
-  id,
-  ...makeExamplePhoto({ isLocal, uri, size, width, height }),
-}); */
 
 export const isSample = (type: AlgaeRecordType): boolean =>
   Array<AlgaeRecordType>("Sample").includes(type);

@@ -1,5 +1,5 @@
 import "isomorphic-fetch";
-import { makeExamplePendingPhoto, makeExampleRecord } from "@livingsnow/record";
+import { makeExampleAppPhoto, makeExampleRecord } from "@livingsnow/record";
 
 import { server } from "../mock/server";
 import { RecordsApiV2 } from "../src";
@@ -16,7 +16,7 @@ describe("Network test suite", () => {
   const uploadRecordsFailureMsg = "uploadRecord was expected to fail";
   const downloadRecordsFailureMsg = "downloadRecords was expected to fail";
   const uploadPhotoFailureMsg = "uploadPhoto was expected to fail";
-  const examplePhoto = makeExamplePendingPhoto();
+  const examplePhoto = makeExampleAppPhoto();
 
   test("upload record succeeds", async () => {
     const expected = makeExampleRecord("Sample");
@@ -87,13 +87,13 @@ describe("Network test suite", () => {
   });
 
   test("upload photo succeeds", async () => {
-    await RecordsApiV2.postPhoto(examplePhoto);
+    await RecordsApiV2.postPhoto(1, examplePhoto);
   });
 
   test("upload photo fails, service error", () => {
     const internalServerError = server.postPhotoInternalServerError();
 
-    return RecordsApiV2.postPhoto(examplePhoto)
+    return RecordsApiV2.postPhoto(1, examplePhoto)
       .then(() => fail(uploadPhotoFailureMsg))
       .catch((error) => expect(error).toContain(internalServerError));
   });
@@ -101,7 +101,7 @@ describe("Network test suite", () => {
   test("upload photo fails, network error", () => {
     const networkError = server.postPhotoNetworkError();
 
-    return RecordsApiV2.postPhoto(examplePhoto)
+    return RecordsApiV2.postPhoto(1, examplePhoto)
       .then(() => fail(uploadPhotoFailureMsg))
       .catch((error) => expect(error).toContain(networkError));
   });
