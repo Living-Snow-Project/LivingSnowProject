@@ -119,11 +119,21 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
   // navigation.navigate from ImagesPickerScreen with selected photos
   useEffect(() => {
-    if (route?.params?.photos) {
-      // TODO: map Asset[] to PendingPhoto[]
-      setPhotos(route.params.photos);
-    }
-  }, [route?.params?.photos]);
+    // map Asset[] to PendingPhoto[]
+    setPhotos(() => {
+      if (route?.params?.photos == undefined) {
+        return [];
+      }
+
+      return route.params.photos.map((value) => ({
+        height: value.height,
+        recordId: `${record.id}`,
+        selectedId: value.id,
+        uri: value.uri,
+        width: value.width,
+      }));
+    });
+  }, [route?.params?.photos, record.id]);
 
   const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
   const dateString = recordDateFormat(record.date);
