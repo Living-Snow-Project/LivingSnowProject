@@ -5,12 +5,11 @@ import { v4 as uuidv4 } from "uuid";
 import Logger from "@livingsnow/logger";
 import {
   AlgaeRecord,
-  Photo,
-  SelectedPhoto,
   jsonToRecord,
   isSample,
   recordDateFormat,
 } from "@livingsnow/record";
+import { PendingPhoto } from "../lib/PhotoManager";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
 import { uploadRecord } from "../lib/RecordManager";
 import { updatePendingRecord } from "../lib/Storage";
@@ -55,6 +54,8 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
 //  1. location permission off
 //  2. can't acquire signal
 //  3. entering coordinates manually
+// TODO: there are some weird scenarios here, what if 1 & 2 is a thing, user is blocked from saving record, is that ok?
+// then if they enter bogus numbers to save, those numbers will upload later
 type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
   latitude: number | undefined;
   longitude: number | undefined;
@@ -118,7 +119,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const editMode = route && route.params && route.params.record;
 
   // data collected and sent to the service
-  const [state, setState] = useState<AlgaeRecordInput>(
+  const [record, setRecord] = useState<AlgaeRecordInput>(
     editMode
       ? { ...jsonToRecord<AlgaeRecordInput>(route.params.record) }
       : {
@@ -128,51 +129,35 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         }
   );
 
-  /* TODO: merge setState and setPhotos in to single useState
-	  1. change upload\update /lib to take pending photo (rename to [Client|Input]Photo)
-	  2. Typings for ServiceAlgaeRecord and [Client|Input]AlgaeRecord
-       a. typings are messy right now with all this mapping and omit nonsense
-
-  don't want to change AlgaeRecord type for editing a pending record while offline
-  but do want to preserve the SelectedPhotos experience */
-  const [photos, setPhotos] = useState<SelectedPhoto[]>(() => {
-    if (!editMode || !state.photos) {
+  const [photos, setPhotos] = useState<PendingPhoto[]>(() => {
+    if (!editMode) {
       return [];
     }
 
-    return state.photos.map((photo: Photo | SelectedPhoto) => {
-      if ("id" in photo) {
-        return { ...photo };
-      }
-
-      return {
-        id: "",
-        uri: photo.uri,
-        width: photo.width,
-        height: photo.height,
-      };
-    });
+    // TODO: reach out to the PhotoManager for PendingPhoto[]
+    return [];
   });
 
   // navigation.navigate from ImagesPickerScreen with selected photos
   useEffect(() => {
     if (route?.params?.photos) {
+      // TODO: map Asset[] to PendingPhoto[]
       setPhotos(route.params.photos);
     }
   }, [route?.params?.photos]);
 
   const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
-  const dateString = recordDateFormat(state.date);
+  const dateString = recordDateFormat(record.date);
 
-  const isAlgaeSizeInvalid = () => state.size == defaultRecord.size;
+  const isAlgaeSizeInvalid = () => record.size == defaultRecord.size;
   const areAlgaeColorsInvalid = () =>
-    state.colors.length == 0 || state.colors[0] == defaultRecord.colors[0];
+    record.colors.length == 0 || record.colors[0] == defaultRecord.colors[0];
 
   const areGpsCoordinatesInvalid = () =>
-    !state.latitude ||
-    !state.longitude ||
-    !isNumber(state.latitude) ||
-    !isNumber(state.longitude);
+    !record.latitude ||
+    !record.longitude ||
+    !isNumber(record.latitude) ||
+    !isNumber(record.longitude);
 
   // user input form validation
   const isUserInputInvalid = () =>
@@ -195,11 +180,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       title: Notifications.updateRecordSuccess.title,
     };
 
-    // TODO: change updatePendingRecord to take SelectedPhoto?
-    updatePendingRecord({
-      ...removeEmptyFields(state as AlgaeRecord),
-      photos: photos && photos.map((value) => ({ ...value, size: 0 })),
-    })
+    // TODO: change updatePendingRecord to take PendingPhoto
+    updatePendingRecord(record as AlgaeRecord, photos)
       .catch(() => {
         // TODO: this case is most likely error and not info
         toastProps.status = "info";
@@ -229,11 +211,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       message: Notifications.uploadSuccess.message,
     };
 
-    // TODO: change uploadRecord to take SelectedPhoto?
-    uploadRecord(
-      removeEmptyFields(state as AlgaeRecord),
-      photos && photos.map((value) => ({ ...value, size: 0 }))
-    )
+    // TODO: change uploadRecord to take PendingPhoto[]?
+    uploadRecord(record as AlgaeRecord, photos)
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
       .catch((error) => {
         Logger.Warn(
@@ -272,10 +251,11 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     navigation.setOptions({
       headerRight: () => RecordAction,
     });
+
     // event handlers need to refresh whenever state or photos update
     // this is safe because navigation header renders independently of screen
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state, photos]);
+  }, [record, photos]);
 
   return (
     <>
@@ -285,8 +265,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           <ScrollView automaticallyAdjustKeyboardInsets>
             <ThemedBox px={2}>
               <AlgaeRecordTypeSelector
-                type={state.type}
-                setType={(type) => setState((prev) => ({ ...prev, type }))}
+                type={record.type}
+                setType={(type) => setRecord((prev) => ({ ...prev, type }))}
               />
 
               <Space />
@@ -294,7 +274,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
                 date={dateString}
                 maxDate={today}
                 setDate={(newDate) =>
-                  setState((prev) => ({
+                  setRecord((prev) => ({
                     ...prev,
                     date: dateWithOffset(new Date(newDate), "add"),
                   }))
@@ -304,32 +284,32 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               <Space />
               <GpsCoordinatesInput
                 coordinates={{
-                  latitude: state.latitude,
-                  longitude: state.longitude,
+                  latitude: record.latitude,
+                  longitude: record.longitude,
                 }}
                 usingGps={!editMode}
                 isInvalid={didSubmit && areGpsCoordinatesInvalid()}
                 setCoordinates={({ latitude, longitude }) =>
-                  setState((prev) => ({ ...prev, latitude, longitude }))
+                  setRecord((prev) => ({ ...prev, latitude, longitude }))
                 }
                 onSubmitEditing={() => locationDescriptionRef.current?.focus()}
               />
 
               <Space />
               <AlgaeSizeSelector
-                size={state.size}
+                size={record.size}
                 isInvalid={didSubmit && isAlgaeSizeInvalid()}
                 setSize={(size) => {
-                  setState((prev) => ({ ...prev, size }));
+                  setRecord((prev) => ({ ...prev, size }));
                 }}
               />
 
               <Space />
               <AlgaeColorSelector
-                colors={state.colors}
+                colors={record.colors}
                 isInvalid={didSubmit && areAlgaeColorsInvalid()}
                 onChangeColors={(colors) => {
-                  setState((prev) => ({
+                  setRecord((prev) => ({
                     ...prev,
                     colors: [...colors],
                   }));
@@ -338,17 +318,17 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
               <Space />
               <CustomTextInput
-                value={state?.tubeId}
+                value={record?.tubeId}
                 label={Labels.TubeId}
                 placeholder={
-                  isSample(state.type)
+                  isSample(record.type)
                     ? Placeholders.RecordScreen.TubeId
                     : Placeholders.RecordScreen.TubeIdDisabled
                 }
                 maxLength={20}
-                isDisabled={!isSample(state.type)}
+                isDisabled={!isSample(record.type)}
                 onChangeText={(tubeId) =>
-                  setState((prev) => ({ ...prev, tubeId }))
+                  setRecord((prev) => ({ ...prev, tubeId }))
                 }
                 onSubmitEditing={() => locationDescriptionRef.current?.focus()}
               />
@@ -356,12 +336,12 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               <Space />
               <TextArea
                 blurOnSubmit
-                value={state?.locationDescription}
+                value={record?.locationDescription}
                 label={`${Labels.RecordScreen.LocationDescription}`}
                 placeholder={Placeholders.RecordScreen.LocationDescription}
                 ref={locationDescriptionRef}
                 onChangeText={(locationDescription) =>
-                  setState((prev) => ({ ...prev, locationDescription }))
+                  setRecord((prev) => ({ ...prev, locationDescription }))
                 }
                 onSubmitEditing={() => notesRef.current?.focus()}
               />
@@ -369,16 +349,17 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               <Space />
               <TextArea
                 blurOnSubmit
-                value={state?.notes}
+                value={record?.notes}
                 label={`${Labels.RecordScreen.Notes}`}
                 placeholder={Placeholders.RecordScreen.Notes}
                 ref={notesRef}
                 onChangeText={(notes) =>
-                  setState((prev) => ({ ...prev, notes }))
+                  setRecord((prev) => ({ ...prev, notes }))
                 }
               />
 
               <Space />
+              {/* TODO: why isn't TS complaining here */}
               <PhotoSelector navigation={navigation} photos={photos} />
 
               <Space />
