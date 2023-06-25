@@ -34,6 +34,21 @@ function failedFetch(operation, response) {
     Logger.Error(`${error}`);
     return error;
 }
+// unmodified records do not send these fields
+// so if the fields are empty during submission, do not send them
+const removeEmptyFields = (record) => {
+    const newRecord = Object.assign({}, record);
+    if (newRecord.type === "Sighting" || (newRecord === null || newRecord === void 0 ? void 0 : newRecord.tubeId) === "") {
+        delete newRecord.tubeId;
+    }
+    if ((newRecord === null || newRecord === void 0 ? void 0 : newRecord.locationDescription) === "") {
+        delete newRecord.locationDescription;
+    }
+    if ((newRecord === null || newRecord === void 0 ? void 0 : newRecord.notes) === "") {
+        delete newRecord.notes;
+    }
+    return newRecord;
+};
 const recordsApi = () => {
     const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records`;
     const getUrl = (page) => page
@@ -50,6 +65,8 @@ const recordsApi = () => {
         // rejects with an error string or the response object
         post: (record) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "post";
+            dumpRecord(record);
+            record = removeEmptyFields(record);
             dumpRecord(record);
             return fetch(postUrl, {
                 method: "POST",

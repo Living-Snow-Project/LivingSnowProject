@@ -61,27 +61,6 @@ type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
   longitude: number | undefined;
 };
 
-// TODO: move to @living-snow/network
-// unmodified records do not send these fields
-// so if the fields are empty during submission, do not send them
-const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
-  const newRecord = { ...record };
-
-  if (newRecord.type == "Sighting" || newRecord?.tubeId == "") {
-    delete newRecord.tubeId;
-  }
-
-  if (newRecord?.locationDescription == "") {
-    delete newRecord.locationDescription;
-  }
-
-  if (newRecord?.notes == "") {
-    delete newRecord.notes;
-  }
-
-  return newRecord;
-};
-
 const isNumber = (value: string | number) => !Number.isNaN(Number(value));
 
 type SpaceProps = {

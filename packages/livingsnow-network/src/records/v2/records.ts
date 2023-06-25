@@ -37,6 +37,26 @@ function failedFetch(operation: string, response: Response): string {
   return error;
 }
 
+// unmodified records do not send these fields
+// so if the fields are empty during submission, do not send them
+const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
+  const newRecord = { ...record };
+
+  if (newRecord.type === "Sighting" || newRecord?.tubeId === "") {
+    delete newRecord.tubeId;
+  }
+
+  if (newRecord?.locationDescription === "") {
+    delete newRecord.locationDescription;
+  }
+
+  if (newRecord?.notes === "") {
+    delete newRecord.notes;
+  }
+
+  return newRecord;
+};
+
 const recordsApi = () => {
   const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records`;
   const getUrl = (page?: string) =>
@@ -57,6 +77,8 @@ const recordsApi = () => {
     // rejects with an error string or the response object
     post: async (record: AlgaeRecord): Promise<AlgaeRecord> => {
       const operation = "post";
+      dumpRecord(record);
+      record = removeEmptyFields(record);
       dumpRecord(record);
 
       return fetch(postUrl, {
