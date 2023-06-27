@@ -39,6 +39,7 @@ function App() {
     };
   }, []);
 
+  // TODO: play with [login|logout]Redirect and other APIs
   return (
     <div className="App">
       <UnauthenticatedTemplate>
@@ -46,7 +47,8 @@ function App() {
       </UnauthenticatedTemplate>
 
       <AuthenticatedTemplate>
-        <p>{isAuthenticated}</p>
+        <p>{isAuthenticated && `Hello, ${accounts[0].username}`}</p>
+        <button onClick={() => instance.logoutPopup()}>logout</button>
       </AuthenticatedTemplate>
       <p>
         This is (obviously) very crude and a work in progress. The goal is to
