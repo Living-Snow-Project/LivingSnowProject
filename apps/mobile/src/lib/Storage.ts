@@ -1,14 +1,15 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Logger from "@livingsnow/logger";
-import { AlgaeRecord, jsonToRecord, PendingPhoto } from "@livingsnow/record";
+import { AlgaeRecord, jsonToRecord } from "@livingsnow/record";
+import { PendingPhoto } from "./PhotoManager";
 import { AppSettings } from "../../types/AppSettings";
 import { Errors } from "../constants/Strings";
 
 const StorageKeys = {
-  photos: "photos",
   appConfig: "appConfig",
   cachedRecords: "cachedRecords",
   pendingRecords: "pendingRecords",
+  photos: "photos",
 } as const;
 
 // TODO: don't hide errors and make the app handle them

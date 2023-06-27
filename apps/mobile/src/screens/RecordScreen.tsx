@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { Asset } from "expo-media-library";
 import Logger from "@livingsnow/logger";
 import {
   AlgaeRecord,
@@ -71,6 +72,23 @@ function Space({ my = "1" }: SpaceProps) {
   return <Box my={my} />;
 }
 
+function mapSelectedPhotosToPendingPhotos(
+  recordId: string,
+  selected: Asset[]
+): PendingPhoto[] {
+  if (selected == undefined) {
+    return [];
+  }
+
+  return selected.map((value) => ({
+    height: value.height,
+    recordId,
+    selectedId: value.id,
+    uri: value.uri,
+    width: value.width,
+  }));
+}
+
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const defaultRecord: AlgaeRecordInput = {
     id: uuidv4(),
@@ -108,32 +126,27 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         }
   );
 
-  const [photos, setPhotos] = useState<PendingPhoto[]>(() => {
+  const [selectedPhotos, setSelectedPhotos] = useState<Asset[]>(() => {
     if (!editMode) {
       return [];
     }
 
     // TODO: reach out to the PhotoManager for PendingPhoto[]
+    // ie. return PhotoManager.getSelectedPhotos(record.id).map(PendingPhoto[] -> Asset[]);
     return [];
   });
 
   // navigation.navigate from ImagesPickerScreen with selected photos
   useEffect(() => {
     // map Asset[] to PendingPhoto[]
-    setPhotos(() => {
+    setSelectedPhotos(() => {
       if (route?.params?.photos == undefined) {
         return [];
       }
 
-      return route.params.photos.map((value) => ({
-        height: value.height,
-        recordId: `${record.id}`,
-        selectedId: value.id,
-        uri: value.uri,
-        width: value.width,
-      }));
+      return route.params.photos;
     });
-  }, [route?.params?.photos, record.id]);
+  }, [route?.params?.photos]);
 
   const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
   const dateString = recordDateFormat(record.date);
@@ -170,7 +183,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     };
 
     // TODO: change updatePendingRecord to take PendingPhoto
-    updatePendingRecord(record as AlgaeRecord, photos)
+    updatePendingRecord(
+      record as AlgaeRecord,
+      mapSelectedPhotosToPendingPhotos(`${record.id}`, selectedPhotos)
+    )
       .catch(() => {
         // TODO: this case is most likely error and not info
         toastProps.status = "info";
@@ -201,7 +217,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     };
 
     // TODO: change uploadRecord to take PendingPhoto[]?
-    uploadRecord(record as AlgaeRecord, photos)
+    uploadRecord(
+      record as AlgaeRecord,
+      mapSelectedPhotosToPendingPhotos(`${record.id}`, selectedPhotos)
+    )
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
       .catch((error) => {
         Logger.Warn(
@@ -244,7 +263,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     // event handlers need to refresh whenever state or photos update
     // this is safe because navigation header renders independently of screen
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [record, photos]);
+  }, [record, selectedPhotos]);
 
   return (
     <>
@@ -349,7 +368,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
               <Space />
               {/* TODO: why isn't TS complaining here */}
-              <PhotoSelector navigation={navigation} photos={photos} />
+              <PhotoSelector navigation={navigation} photos={selectedPhotos} />
 
               <Space />
             </ThemedBox>
