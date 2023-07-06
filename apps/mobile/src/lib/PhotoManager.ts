@@ -1,68 +1,68 @@
-import { AppPhoto } from "@livingsnow/record";
+import { RecordsApiV2 } from "@livingsnow/network";
+import { PendingPhoto, SelectedPhoto } from "../../types";
+import {
+  loadPendingPhotos,
+  loadSelectedPhotos,
+  savePendingPhotos,
+  saveSelectedPhotos,
+} from "./Storage";
 
-// Represents a photo that has been selected from expo-images-picker but it and parent
-// record have not been uploaded yet (offline scenario).
-export type PendingPhoto = AppPhoto & {
-  recordId: string; // uuidv4 of record still in the app
-  selectedId: string; // id returned from expo-images-picker
-};
-
-// Photo saved to disk but its parent record was uploaded
-// recordId = uploaded record id
-// This scenario can happen when a user has intermittent cel signal in the wilderness.
-export type OrphanedPhoto = Omit<PendingPhoto, "selectedId">;
-
-type PendingPhotoStorage = {
-  recordId: string;
-  photos: PendingPhoto[];
-};
-
-// recordId, selected photos[]
-// read Map from disk
-const pendingPhotosMap = new Map<string, PendingPhoto[]>();
-
-export function addPendingPhotos(
+export async function addSelectedPhotos(
   recordId: string,
-  pendingPhotos: PendingPhoto[]
+  selectedPhotos: SelectedPhoto[]
 ) {
-  // const pendingPhotosMap = loadPendingPhotos();
-
-  pendingPhotosMap.set(recordId, pendingPhotos);
-
-  // savePendingPhotos(pendingPhotosMap);
+  await loadSelectedPhotos()
+    .then((photos) => photos.set(recordId, selectedPhotos))
+    .then((photos) => saveSelectedPhotos(photos));
 }
 
-export function getPendingPhotos(recordId: string): PendingPhoto[] | undefined {
-  // const pendingPhotosMap = loadPendingPhotos();
-  return pendingPhotosMap.get(recordId);
+export async function getSelectedPhotos(
+  recordId: string
+): Promise<SelectedPhoto[] | undefined> {
+  const sendingPhotos = await loadSelectedPhotos();
+  return sendingPhotos.get(recordId);
 }
 
-// once the record is uploaded, the photo is orphaned
-export function uploadPendingPhotos(
-  existingRecordId: string,
-  newRecordId: string
-): void {
-  // const pendingPhotosMap = loadPendingPhotos();
-  // const orphanedPhotos = loadOrphanedPhotos();
+// once the record is uploaded, the photo is "orphaned"
+// only call this after the record is uploaded
+// TODO: what if record is uploaded but response isn't received? (another case for clientRecordId)
+export async function uploadSelectedPhotos(
+  localRecordId: string,
+  cloudRecordId: string
+): Promise<void> {
+  const allSelectedPhotos = await loadSelectedPhotos();
+  const selectedPhotos = await allSelectedPhotos.get(localRecordId);
 
-  // code below is wrong, move pending to orphaned after remap, and delete from pending
-  const photos = pendingPhotosMap.get(existingRecordId);
-
-  if (!photos) {
+  if (!selectedPhotos || selectedPhotos.length == 0) {
     return;
   }
 
-  const newPhotos: PendingPhotoStorage = {} as PendingPhotoStorage;
-  newPhotos.recordId = newRecordId;
+  // assign cloud record id
+  const pendingPhotos: PendingPhoto[] = selectedPhotos.map((value) => ({
+    ...value,
+    recordId: cloudRecordId,
+  }));
 
-  photos.forEach((value) => newPhotos.photos.push({ ...value }));
+  // promote selected to pending
+  allSelectedPhotos.delete(localRecordId);
+  await saveSelectedPhotos(allSelectedPhotos);
 
-  // pendingPhotosMap.set(newPhotos.recordId, newPhotos.photos);
-  pendingPhotosMap.delete(existingRecordId);
+  const failedPhotoUploads: PendingPhoto[] = [];
 
-  // savePendingPhotos(pendingPhotosMap);
+  // TODO: 99% sure this needs to be reduce
+  pendingPhotos.forEach(async (photo) => {
+    try {
+      await RecordsApiV2.postPhoto(photo.recordId, photo.uri);
+    } catch (error) {
+      failedPhotoUploads.push(photo);
+    }
+  });
 
-  // do uploads here, save to Ophaned Photos is fail
+  if (failedPhotoUploads.length > 0) {
+    const savedPendingPhotos = await loadPendingPhotos();
 
-  // saveOrphanedPhotos(...)
+    savedPendingPhotos.set(cloudRecordId, failedPhotoUploads);
+
+    await savePendingPhotos(savedPendingPhotos);
+  }
 }

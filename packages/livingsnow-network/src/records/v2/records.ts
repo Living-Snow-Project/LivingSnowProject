@@ -1,5 +1,5 @@
 import Logger from "@livingsnow/logger";
-import { AlgaeRecord, jsonToRecord, AppPhoto } from "@livingsnow/record";
+import { AlgaeRecord, jsonToRecord } from "@livingsnow/record";
 
 import { AlgaeRecordResponseV2 } from "./types";
 
@@ -65,7 +65,7 @@ const recordsApi = () => {
       : `${baseUrl}?limit=20`;
   const postUrl = baseUrl;
   // TODO: continue with v1 with photos for now, still deciding on what v2 photo endpoint will look like
-  const postPhotoUrl = (recordId: number) =>
+  const postPhotoUrl = (recordId: string) =>
     `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
 
   return {
@@ -133,10 +133,10 @@ const recordsApi = () => {
     },
 
     // rejects with an error string or the response object
-    postPhoto: async (recordId: number, photo: AppPhoto): Promise<void> => {
+    postPhoto: async (recordId: string, photoUri: string): Promise<void> => {
       const operation = "postPhoto";
 
-      const uri = { uri: photo.uri };
+      const uri = { uri: photoUri };
 
       return fetch(postPhotoUrl(recordId), {
         method: "POST",

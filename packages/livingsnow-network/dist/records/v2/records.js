@@ -107,9 +107,9 @@ const recordsApi = () => {
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
         // rejects with an error string or the response object
-        postPhoto: (recordId, photo) => __awaiter(void 0, void 0, void 0, function* () {
+        postPhoto: (recordId, photoUri) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "postPhoto";
-            const uri = { uri: photo.uri };
+            const uri = { uri: photoUri };
             return fetch(postPhotoUrl(recordId), {
                 method: "POST",
                 headers: {
