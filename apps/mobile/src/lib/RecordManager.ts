@@ -153,6 +153,7 @@ function retryPendingRecords(): Promise<AlgaeRecord[]> {
 
               if (record.photos) {
                 photos = [...record.photos];
+                /* eslint-disable no-param-reassign */
                 delete record.photos;
               }
 
@@ -166,7 +167,8 @@ function retryPendingRecords(): Promise<AlgaeRecord[]> {
         Promise.resolve()
       );
     })
-    .then(() => retryPhotos().then(() => loadPendingRecords()));
+    .then(() => retryPhotos())
+    .then(() => loadPendingRecords());
 }
 
 // in iOS background app refresh can be disbaled per app by the user
