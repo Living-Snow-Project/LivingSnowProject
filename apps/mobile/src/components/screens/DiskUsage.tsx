@@ -56,7 +56,9 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
           .reduce(
             (prev, current) =>
               getInfoAsync(`${documentDirectory}/${current}`).then((info) => {
+                // @ts-ignore apparently FileInfo lost some typings
                 if (info.uri.includes(".jpg") && info.size) {
+                  // @ts-ignore
                   bytes += info.size;
                 }
               }),
