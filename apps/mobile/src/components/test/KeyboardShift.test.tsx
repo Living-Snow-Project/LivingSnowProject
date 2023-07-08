@@ -1,6 +1,6 @@
 import React from "react";
 import { Platform, TextInput } from "react-native";
-import RCTDeviceEventEmitter from "react-native/Libraries/EventEmitter/RCTDeviceEventEmitter";
+import { DeviceEventEmitter } from "react-native/Libraries/EventEmitter/RCTDeviceEventEmitter";
 import { render } from "@testing-library/react-native";
 import { KeyboardShift } from "../forms";
 
@@ -38,7 +38,7 @@ describe("KeyboardShift test suite", () => {
     render(<KeyboardShift>{() => <TextInput />}</KeyboardShift>);
 
     // the best we can do is execute the code and make sure it doesn't crash
-    RCTDeviceEventEmitter.emit("keyboardDidShow", {});
+    DeviceEventEmitter.emit("keyboardDidShow", {});
 
     jest
       .spyOn(TextInputState, "currentlyFocusedInput")
@@ -50,16 +50,16 @@ describe("KeyboardShift test suite", () => {
       }));
 
     // gap = NaN
-    RCTDeviceEventEmitter.emit("keyboardDidShow", {});
+    DeviceEventEmitter.emit("keyboardDidShow", {});
 
     // gap >= 0
-    RCTDeviceEventEmitter.emit("keyboardDidShow", event);
-    RCTDeviceEventEmitter.emit("keyboardDidHide", {});
+    DeviceEventEmitter.emit("keyboardDidShow", event);
+    DeviceEventEmitter.emit("keyboardDidHide", {});
 
     event.endCoordinates.height = 5000;
     // gap < 0
-    RCTDeviceEventEmitter.emit("keyboardDidShow", event);
-    RCTDeviceEventEmitter.emit("keyboardDidHide", {});
+    DeviceEventEmitter.emit("keyboardDidShow", event);
+    DeviceEventEmitter.emit("keyboardDidHide", {});
 
     // wait for the keyboard hiding animation to finish
     await new Promise((r) => {

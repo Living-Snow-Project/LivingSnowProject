@@ -71,15 +71,16 @@ const recordsApi = () => {
             Logger.Info(`Handling GET Request: ${getUrl(page)}`);
             return fetch(getUrl(page))
                 .then((response) => response.ok
-                ? response
-                    .text()
-                    .then((text) => {
+                ? response.text().then((text) => {
                     // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
                     const respObj = jsonToRecord(text);
                     for (let x = 0; x < respObj.data.length; x++) {
                         respObj.data[x] = Object.assign(Object.assign({}, respObj.data[x]), { 
                             // @ts-ignore
-                            photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : [] });
+                            photos: respObj.data[x].photos.appPhotos
+                                ? // @ts-ignore
+                                    [...respObj.data[x].photos.appPhotos]
+                                : [] });
                     }
                     return respObj;
                 })
@@ -92,15 +93,16 @@ const recordsApi = () => {
             Logger.Info(`Handling GET All Records Request: ${baseUrl}`);
             return fetch(baseUrl)
                 .then((response) => response.ok
-                ? response
-                    .text()
-                    .then((text) => {
+                ? response.text().then((text) => {
                     // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
                     const respObj = jsonToRecord(text);
                     for (let x = 0; x < respObj.data.length; x++) {
                         respObj.data[x] = Object.assign(Object.assign({}, respObj.data[x]), { 
                             // @ts-ignore
-                            photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : [] });
+                            photos: respObj.data[x].photos.appPhotos
+                                ? // @ts-ignore
+                                    [...respObj.data[x].photos.appPhotos]
+                                : [] });
                     }
                     return respObj;
                 })
