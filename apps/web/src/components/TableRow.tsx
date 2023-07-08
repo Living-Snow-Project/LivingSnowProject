@@ -1,4 +1,5 @@
-import { AlgaeRecord, Photo } from "@livingsnow/record";
+import { AlgaeRecord } from "@livingsnow/record";
+import { PhotosResponseV2 } from "@livingsnow/network";
 import { PhotosApi } from "@livingsnow/network";
 
 function TableHeader() {
@@ -24,8 +25,12 @@ function TableHeader() {
   );
 }
 
-function FormatPhotos(photos: Photo[]) {
-  return photos.map((item, index) => {
+function FormatPhotos(photos: PhotosResponseV2) {
+  if (!photos.appPhotos) {
+    return "";
+  }
+
+  return photos.appPhotos.map((item, index) => {
     return (
       <div key={index}>
         <a
@@ -43,12 +48,12 @@ function FormatPhotos(photos: Photo[]) {
 type TableRowProps = {
   style: React.CSSProperties;
   item: AlgaeRecord;
+  photos: PhotosResponseV2;
 };
 
-function TableRow({ style, item }: TableRowProps) {
+function TableRow({ style, item, photos }: TableRowProps) {
   let name = item.name || `Anonymous`;
   name = name.concat(item.organization ? ` (${item.organization})` : ``);
-  const photos = item.photos ? FormatPhotos(item.photos) : ``;
 
   const renderColors = () => {
     if (!item.colors) {
@@ -72,7 +77,7 @@ function TableRow({ style, item }: TableRowProps) {
       <td>{renderColors()}</td>
       <td>{item.locationDescription || ``}</td>
       <td>{item.notes || ``}</td>
-      <td>{photos}</td>
+      <td>{FormatPhotos(photos)}</td>
     </tr>
   );
 }
