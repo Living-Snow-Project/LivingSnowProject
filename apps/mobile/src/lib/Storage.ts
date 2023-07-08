@@ -6,15 +6,15 @@ import { Errors } from "../constants/Strings";
 
 const StorageKeys = {
   appConfig: "appConfig",
-  cachedRecords: "cachedRecords",
-  pendingRecords: "pendingRecords",
-  pendingPhotos: "pendingPhotos",
-  selectedPhotos: "selectedPhotos",
+  cachedRecords: "cachedRecords", // downloaded from cloud
+  pendingRecords: "pendingRecords", // not yet uploaded to cloud
+  pendingPhotos: "pendingPhotos", // record upload, photos not yet uploaded
+  selectedPhotos: "selectedPhotos", // record and photos not yet uploaded
 } as const;
 
 // TODO: don't hide errors and make the app handle them
 
-// AppConfig Storage APIs
+// AppConfig
 export async function loadAppConfig(): Promise<AppSettings | null> {
   return AsyncStorage.getItem(StorageKeys.appConfig)
     .then((value) => (value ? JSON.parse(value) : null))
@@ -38,7 +38,7 @@ export async function saveAppConfig(appSettings: AppSettings): Promise<void> {
   });
 }
 
-// Pending Records Storage APIs
+// Pending Records (not yet uploaded to cloud)
 export async function loadPendingRecords(): Promise<AlgaeRecord[]> {
   return AsyncStorage.getItem(StorageKeys.pendingRecords)
     .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
@@ -96,7 +96,7 @@ export async function updatePendingRecord(
     (current) => current.id === record.id
   );
 
-  if (pendingRecordIndex === -1) {
+  if (pendingRecordIndex == -1) {
     return Promise.reject(Errors.recordNotFound);
   }
 
@@ -117,7 +117,7 @@ export async function deletePendingRecord(
 
   const index = records.findIndex((current) => current.id === record.id);
 
-  if (index !== -1) {
+  if (index != -1) {
     records.splice(index, 1);
     await savePendingRecords(records);
     return records;
@@ -126,7 +126,7 @@ export async function deletePendingRecord(
   return records;
 }
 
-// Cached Records Storage APIs
+// Cached Records (downloaded from cloud)
 export async function loadCachedRecords(): Promise<AlgaeRecord[]> {
   return AsyncStorage.getItem(StorageKeys.cachedRecords)
     .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
@@ -156,9 +156,9 @@ export async function saveCachedRecords(
     });
 }
 
-// Selected Photos
-export async function loadSelectedPhotos(): Promise<SelectedPhotos> {
-  return AsyncStorage.getItem(StorageKeys.selectedPhotos)
+// Photos Templates
+async function loadPhotos<T>(key: string): Promise<T> {
+  return AsyncStorage.getItem(key)
     .then((value) => (value ? JSON.parse(value) : []))
     .catch((error) => {
       Logger.Error(`${error}`);
@@ -166,19 +166,14 @@ export async function loadSelectedPhotos(): Promise<SelectedPhotos> {
     });
 }
 
-export async function saveSelectedPhotos(
-  photos: SelectedPhotos
-): Promise<SelectedPhotos> {
-  const existing = await loadSelectedPhotos();
+async function savePhotos<T>(key: string, photos: T): Promise<T> {
+  const existing: T = await loadPhotos(key);
 
   if (!photos) {
     return existing;
   }
 
-  return AsyncStorage.setItem(
-    StorageKeys.selectedPhotos,
-    JSON.stringify(photos)
-  )
+  return AsyncStorage.setItem(key, JSON.stringify(photos))
     .then(() => photos)
     .catch((error) => {
       Logger.Error(`${error}`);
@@ -186,6 +181,40 @@ export async function saveSelectedPhotos(
     });
 }
 
+async function clearPhotos(key: string): Promise<void> {
+  return AsyncStorage.removeItem(key).catch((error) => {
+    Logger.Error(`${error}`);
+    return error;
+  });
+}
+
+// Selected Photos
+export async function loadSelectedPhotos(): Promise<SelectedPhotos> {
+  return loadPhotos(StorageKeys.selectedPhotos);
+}
+
+export async function saveSelectedPhotos(
+  photos: SelectedPhotos
+): Promise<SelectedPhotos> {
+  return savePhotos(StorageKeys.selectedPhotos, photos);
+}
+
+export async function clearSelectedPhotos(): Promise<void> {
+  return clearPhotos(StorageKeys.selectedPhotos);
+}
+
+// Pending Photos
+export async function loadPendingPhotos(): Promise<PendingPhotos> {
+  return loadPhotos(StorageKeys.pendingPhotos);
+}
+
+export async function savePendingPhotos(
+  photos: PendingPhotos
+): Promise<PendingPhotos> {
+  return savePhotos(StorageKeys.pendingPhotos, photos);
+}
+
+// TODO: delete? probably don't need support for a single photo anymore
 /* async function savePendingPhoto(
   photo: PendingPhoto
 ): Promise<SavedPendingPhoto> {
@@ -201,43 +230,6 @@ export async function saveSelectedPhotos(
   return savePendingPhotos(photos);
 } */
 
-export async function clearSelectedPhotos(): Promise<void> {
-  return AsyncStorage.removeItem(StorageKeys.selectedPhotos).catch((error) => {
-    Logger.Error(`${error}`);
-    return error;
-  });
-}
-
-// Pending Photos
-export async function loadPendingPhotos(): Promise<PendingPhotos> {
-  return AsyncStorage.getItem(StorageKeys.pendingPhotos)
-    .then((value) => (value ? JSON.parse(value) : []))
-    .catch((error) => {
-      Logger.Error(`${error}`);
-      return [];
-    });
-}
-
-export async function savePendingPhotos(
-  photos: PendingPhotos
-): Promise<PendingPhotos> {
-  const existing = await loadPendingPhotos();
-
-  if (!photos) {
-    return existing;
-  }
-
-  return AsyncStorage.setItem(StorageKeys.pendingPhotos, JSON.stringify(photos))
-    .then(() => photos)
-    .catch((error) => {
-      Logger.Error(`${error}`);
-      return error;
-    });
-}
-
 export async function clearPendingPhotos(): Promise<void> {
-  return AsyncStorage.removeItem(StorageKeys.pendingPhotos).catch((error) => {
-    Logger.Error(`${error}`);
-    return error;
-  });
+  return clearPhotos(StorageKeys.pendingPhotos);
 }

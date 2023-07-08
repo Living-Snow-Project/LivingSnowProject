@@ -23,15 +23,15 @@ export async function getSelectedPhotos(
   return sendingPhotos.get(recordId);
 }
 
-// once the record is uploaded, the photo is "orphaned"
 // only call this after the record is uploaded
+// once the record is uploaded, the photo is promoted from Selected to Pending
 // TODO: what if record is uploaded but response isn't received? (another case for clientRecordId)
 export async function uploadSelectedPhotos(
   localRecordId: string,
   cloudRecordId: string
 ): Promise<void> {
   const allSelectedPhotos = await loadSelectedPhotos();
-  const selectedPhotos = await allSelectedPhotos.get(localRecordId);
+  const selectedPhotos = allSelectedPhotos.get(localRecordId);
 
   if (!selectedPhotos || selectedPhotos.length == 0) {
     return;
@@ -49,15 +49,19 @@ export async function uploadSelectedPhotos(
 
   const failedPhotoUploads: PendingPhoto[] = [];
 
-  // TODO: 99% sure this needs to be reduce
-  pendingPhotos.forEach(async (photo) => {
+  // need to upload sequentially because of undocumented "uri" feature in fetch (files arrive corrupted otherwise)
+  await pendingPhotos.reduce(async (promise, photo) => {
     try {
-      await RecordsApiV2.postPhoto(photo.recordId, photo.uri);
+      await promise;
+      return await RecordsApiV2.postPhoto(photo.recordId, photo.uri);
     } catch (error) {
       failedPhotoUploads.push(photo);
+      // continue with reducer, otherwise failed photos are lost
+      return Promise.resolve();
     }
-  });
+  }, Promise.resolve());
 
+  // save photos that failed to upload
   if (failedPhotoUploads.length > 0) {
     const savedPendingPhotos = await loadPendingPhotos();
 
