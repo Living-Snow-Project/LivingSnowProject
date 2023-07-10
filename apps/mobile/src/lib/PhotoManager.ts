@@ -70,3 +70,48 @@ export async function uploadSelectedPhotos(
     await savePendingPhotos(savedPendingPhotos);
   }
 }
+
+type PendingPhotoArrayElement = { id: string; photos: PendingPhoto[] };
+
+export async function retryAllPendingPhotos(): Promise<void> {
+  const allPendingPhotos = await loadPendingPhotos();
+
+  if (!allPendingPhotos || allPendingPhotos.size == 0) {
+    return;
+  }
+
+  const allPendingPhotosArray: PendingPhotoArrayElement[] = [];
+
+  // this sucks but necessary since the photos need to be uploaded sequentially
+  // (convert map to array)
+  allPendingPhotos.forEach((value, key) =>
+    allPendingPhotosArray.push({ id: key, photos: value })
+  );
+
+  // clear the map, and insert any failures for saving at end
+  allPendingPhotos.clear();
+
+  await allPendingPhotosArray.reduce(async (promise, currentPending) => {
+    const failedPendingPhotos: PendingPhoto[] = [];
+
+    await promise;
+    await currentPending.photos.reduce(async (promise2, pending) => {
+      try {
+        await promise2;
+        return await RecordsApiV2.postPhoto(currentPending.id, pending.uri);
+      } catch (e) {
+        failedPendingPhotos.push(pending);
+        // continue reducer to avoid data loss
+        return Promise.resolve();
+      }
+    }, Promise.resolve());
+
+    if (failedPendingPhotos.length > 0) {
+      allPendingPhotos.set(currentPending.id, failedPendingPhotos);
+    }
+
+    return Promise.resolve();
+  }, Promise.resolve());
+
+  await savePendingPhotos(allPendingPhotos);
+}

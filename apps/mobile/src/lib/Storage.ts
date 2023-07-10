@@ -157,34 +157,40 @@ export async function saveCachedRecords(
 }
 
 // Photos Templates
-async function loadPhotos<T>(key: string): Promise<T> {
+async function loadPhotos<K, T>(key: string): Promise<Map<K, T[]>> {
   return AsyncStorage.getItem(key)
-    .then((value) => (value ? JSON.parse(value) : []))
+    .then((value) =>
+      value ? new Map<K, T[]>(JSON.parse(value)) : new Map<K, T[]>()
+    )
     .catch((error) => {
-      Logger.Error(`${error}`);
-      return [];
+      Logger.Error(`loadPhotos: ${error}`);
+      return Promise.reject(error);
     });
 }
 
-async function savePhotos<T>(key: string, photos: T): Promise<T> {
-  const existing: T = await loadPhotos(key);
+async function savePhotos<K, T>(
+  key: string,
+  photos: Map<K, T[]>
+): Promise<Map<K, T[]>> {
+  const existing = await loadPhotos<K, T>(key);
 
   if (!photos) {
     return existing;
   }
 
-  return AsyncStorage.setItem(key, JSON.stringify(photos))
+  return AsyncStorage.setItem(key, JSON.stringify([...photos]))
     .then(() => photos)
     .catch((error) => {
-      Logger.Error(`${error}`);
-      return error;
+      Logger.Error(`savePhotos: ${error}`);
+      return Promise.reject(error);
     });
 }
 
+// TODO: is this needed?
 async function clearPhotos(key: string): Promise<void> {
   return AsyncStorage.removeItem(key).catch((error) => {
     Logger.Error(`${error}`);
-    return error;
+    return Promise.reject(error);
   });
 }
 
@@ -199,6 +205,7 @@ export async function saveSelectedPhotos(
   return savePhotos(StorageKeys.selectedPhotos, photos);
 }
 
+// TODO: is this needed?
 export async function clearSelectedPhotos(): Promise<void> {
   return clearPhotos(StorageKeys.selectedPhotos);
 }
@@ -229,7 +236,3 @@ export async function savePendingPhotos(
   photos.push(photo);
   return savePendingPhotos(photos);
 } */
-
-export async function clearPendingPhotos(): Promise<void> {
-  return clearPhotos(StorageKeys.pendingPhotos);
-}
