@@ -37,7 +37,7 @@ const AlgaeRecordTypeArray = ["Sample", "Sighting", "Undefined"] as const;
 export type AlgaeRecordType = typeof AlgaeRecordTypeArray[number];
 
 export type AlgaeRecord = {
-  id: number;
+  id: string;
   colors: AlgaeColor[];
   date: Date;
   latitude: number;

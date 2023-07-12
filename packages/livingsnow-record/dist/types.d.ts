@@ -10,7 +10,7 @@ export declare type AlgaeColor = typeof AlgaeColorArray[number];
 declare const AlgaeRecordTypeArray: readonly ["Sample", "Sighting", "Undefined"];
 export declare type AlgaeRecordType = typeof AlgaeRecordTypeArray[number];
 export declare type AlgaeRecord = {
-    id: number;
+    id: string;
     colors: AlgaeColor[];
     date: Date;
     latitude: number;

@@ -11,6 +11,11 @@ export async function addSelectedPhotos(
   recordId: string,
   selectedPhotos: SelectedPhoto[]
 ) {
+  // TODO: how will a saved record -> edit -> remove all photos
+  if (selectedPhotos.length == 0) {
+    return;
+  }
+
   await loadSelectedPhotos()
     .then((photos) => photos.set(recordId, selectedPhotos))
     .then((photos) => saveSelectedPhotos(photos));
@@ -88,7 +93,7 @@ export async function retryAllPendingPhotos(): Promise<void> {
     allPendingPhotosArray.push({ id: key, photos: value })
   );
 
-  // clear the map, and insert any failures for saving at end
+  // clear the map, insert any failures to re-save at end
   allPendingPhotos.clear();
 
   await allPendingPhotosArray.reduce(async (promise, currentPending) => {

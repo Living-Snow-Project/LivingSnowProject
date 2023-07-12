@@ -7,7 +7,7 @@ export const makeExampleAppPhoto = ({ isLocal = false, uri = `${randomInteger()}
 export const isSample = (type) => Array("Sample").includes(type);
 // consider randomizing more data; how that impacts snapshot testing and the above desired feature
 export const makeExampleRecord = (type) => ({
-    id: 1234,
+    id: "1234",
     type,
     name: "test name",
     date: new Date("2021-09-16T00:00:00"),
