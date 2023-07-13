@@ -4,12 +4,7 @@ import { Alert, Platform } from "react-native";
 import Logger from "@livingsnow/logger";
 import { RecordsApiV2 } from "@livingsnow/network";
 import { AlgaeRecord } from "@livingsnow/record";
-import { SelectedPhoto } from "../../types";
-import {
-  addSelectedPhotos,
-  retryAllPendingPhotos,
-  uploadSelectedPhotos,
-} from "./PhotoManager";
+import { retryAllPendingPhotos, uploadSelectedPhotos } from "./PhotoManager";
 import {
   loadPendingRecords,
   savePendingRecord,
@@ -26,19 +21,8 @@ type UploadError = {
 
 // returns the AlgaeRecord server responds with
 // rejects with UploadError
-export async function uploadRecord(
-  record: AlgaeRecord,
-  selectedPhotos: SelectedPhoto[] = []
-): Promise<AlgaeRecord> {
+export async function uploadRecord(record: AlgaeRecord): Promise<AlgaeRecord> {
   let recordResponse: AlgaeRecord;
-
-  try {
-    await addSelectedPhotos(record.id, selectedPhotos);
-  } catch (error) {
-    Logger.Warn(
-      `saving selected photos failed, continue and try to save record: ${error}`
-    );
-  }
 
   try {
     recordResponse = await RecordsApiV2.post(record);

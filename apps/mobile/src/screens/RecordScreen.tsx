@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
-import { Asset } from "expo-media-library";
 import Logger from "@livingsnow/logger";
 import {
   AlgaeRecord,
@@ -10,9 +9,10 @@ import {
   isSample,
   recordDateFormat,
 } from "@livingsnow/record";
-import { PendingPhoto } from "../lib/PhotoManager";
+import { SelectedPhoto } from "../../types";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
 import { uploadRecord } from "../lib/RecordManager";
+import { addSelectedPhotos, getSelectedPhotos } from "../lib/PhotoManager";
 import { updatePendingRecord } from "../lib/Storage";
 import { RecordScreenProps } from "../navigation/Routes";
 import { HeaderButton, ThemedBox } from "../components";
@@ -72,23 +72,6 @@ function Space({ my = "1" }: SpaceProps) {
   return <Box my={my} />;
 }
 
-function mapSelectedPhotosToPendingPhotos(
-  recordId: string,
-  selected: Asset[]
-): PendingPhoto[] {
-  if (selected == undefined) {
-    return [];
-  }
-
-  return selected.map((value) => ({
-    height: value.height,
-    recordId,
-    selectedId: value.id,
-    uri: value.uri,
-    width: value.width,
-  }));
-}
-
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const defaultRecord: AlgaeRecordInput = {
     id: uuidv4(),
@@ -126,27 +109,27 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         }
   );
 
-  const [selectedPhotos, setSelectedPhotos] = useState<Asset[]>(() => {
-    if (!editMode) {
-      return [];
+  const [selectedPhotos, setSelectedPhotos] = useState<SelectedPhoto[]>([]);
+
+  // navigation.navigate(...) from ImagesPickerScreen with selected photos
+  useEffect(() => {
+    // coming back from ImagePickerScreen
+    if (route?.params?.photos) {
+      setSelectedPhotos(route.params.photos);
+      addSelectedPhotos(record.id, route.params.photos);
+
+      return;
     }
 
-    // TODO: reach out to the PhotoManager for PendingPhoto[]
-    // ie. return PhotoManager.getSelectedPhotos(record.id).map(PendingPhoto[] -> Asset[]);
-    return [];
-  });
-
-  // navigation.navigate from ImagesPickerScreen with selected photos
-  useEffect(() => {
-    // map Asset[] to PendingPhoto[]
-    setSelectedPhotos(() => {
-      if (route?.params?.photos == undefined) {
-        return [];
-      }
-
-      return route.params.photos;
-    });
-  }, [route?.params?.photos]);
+    // modifying existing record
+    if (editMode) {
+      getSelectedPhotos(record.id).then((photos) => {
+        if (photos) {
+          setSelectedPhotos(photos);
+        }
+      });
+    }
+  }, [route?.params?.photos, editMode, record.id]);
 
   const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
   const dateString = recordDateFormat(record.date);
@@ -182,11 +165,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       title: Notifications.updateRecordSuccess.title,
     };
 
-    // TODO: change updatePendingRecord to take PendingPhoto
-    updatePendingRecord(
-      record as AlgaeRecord,
-      mapSelectedPhotosToPendingPhotos(`${record.id}`, selectedPhotos)
-    )
+    updatePendingRecord(record as AlgaeRecord)
       .catch(() => {
         // TODO: this case is most likely error and not info
         toastProps.status = "info";
@@ -216,11 +195,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       message: Notifications.uploadSuccess.message,
     };
 
-    // TODO: change uploadRecord to take PendingPhoto[]?
-    uploadRecord(
-      record as AlgaeRecord,
-      mapSelectedPhotosToPendingPhotos(`${record.id}`, selectedPhotos)
-    )
+    uploadRecord(record as AlgaeRecord)
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
       .catch((error) => {
         Logger.Warn(
@@ -367,7 +342,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               />
 
               <Space />
-              {/* TODO: why isn't TS complaining here */}
               <PhotoSelector navigation={navigation} photos={selectedPhotos} />
 
               <Space />

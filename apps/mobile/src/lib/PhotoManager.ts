@@ -24,8 +24,8 @@ export async function addSelectedPhotos(
 export async function getSelectedPhotos(
   recordId: string
 ): Promise<SelectedPhoto[] | undefined> {
-  const sendingPhotos = await loadSelectedPhotos();
-  return sendingPhotos.get(recordId);
+  const selectedPhotos = await loadSelectedPhotos();
+  return selectedPhotos.get(recordId);
 }
 
 // only call this after the record is uploaded
