@@ -1,11 +1,12 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import { Box, HStack, VStack, useTheme } from "native-base";
-import { Photo, SelectedPhoto } from "@livingsnow/record";
+import { AppPhoto } from "@livingsnow/record";
+import { SelectedPhoto } from "../../../types";
 import { CachedPhoto } from "./CachedPhotos";
 
 type PhotosLayoutProps = {
-  photos?: Photo[] | SelectedPhoto[];
+  photos?: AppPhoto[] | SelectedPhoto[];
 };
 
 const gap = 1.5;
@@ -19,7 +20,7 @@ export function PhotosLayout({
     return null;
   }
 
-  const newPhotos: Photo[] = [];
+  const newPhotos: AppPhoto[] = [];
   const { width: screenWidth } = Dimensions.get("screen");
   const halfScreenWidth = Math.ceil((screenWidth - theme.sizes[gap]) / 2);
   const oneThirdScreenWidth = Math.ceil((screenWidth - theme.sizes[gap]) / 3);
@@ -29,7 +30,7 @@ export function PhotosLayout({
   let landscapeCount = 0;
 
   // sort portrait to landscape and count number of each
-  photos.forEach((current: Photo | SelectedPhoto) => {
+  photos.forEach((current: AppPhoto | SelectedPhoto) => {
     if (current.height > current.width) {
       newPhotos.unshift({ ...current, size: 0 });
       portraitCount += 1;
@@ -40,7 +41,7 @@ export function PhotosLayout({
   });
 
   // assumes given 2 portrait or 2 landscape
-  const renderSideBySide = (first: Photo, second: Photo) => {
+  const renderSideBySide = (first: AppPhoto, second: AppPhoto) => {
     const { uri, width, height } = first;
     const fixedHeight = Math.floor(halfScreenWidth * (height / width));
 
@@ -57,7 +58,11 @@ export function PhotosLayout({
     );
   };
 
-  const renderThreePortrait = (first: Photo, second: Photo, third: Photo) => {
+  const renderThreePortrait = (
+    first: AppPhoto,
+    second: AppPhoto,
+    third: AppPhoto
+  ) => {
     const { uri, width, height } = first;
     const controlHeight = Math.floor(twoThirdScreenWidth * (height / width));
     // account for <Box pt={gap}/>

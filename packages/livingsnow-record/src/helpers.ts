@@ -5,10 +5,12 @@ const randomInteger = (): number => Math.floor(Math.random() * 1000000);
 export const makeExampleAppPhoto = ({
   isLocal = false,
   uri = `${randomInteger()}`,
+  size = randomInteger(),
   width = randomInteger(),
   height = randomInteger(),
 } = {}): AppPhoto => ({
   uri: isLocal ? `file://${uri}` : uri,
+  size,
   width,
   height,
 });

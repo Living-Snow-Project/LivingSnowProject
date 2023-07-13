@@ -22,7 +22,7 @@ export type SelectedPhotos = Map<string, SelectedPhoto[]>;
 // Photo saved to disk and parent record uploaded
 // recordId = uploaded record id
 // This scenario can happen when a user has intermittent cel signal in the wilderness.
-export type PendingPhoto = AppPhoto & {
+export type PendingPhoto = Omit<AppPhoto, "size"> & {
   recordId: string; // uuidv4 of record still in the app
 };
 

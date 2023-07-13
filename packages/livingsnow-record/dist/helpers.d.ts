@@ -1,7 +1,8 @@
 import { AlgaeRecord, AlgaeRecordType, AppPhoto } from "./types";
-export declare const makeExampleAppPhoto: ({ isLocal, uri, width, height, }?: {
+export declare const makeExampleAppPhoto: ({ isLocal, uri, size, width, height, }?: {
     isLocal?: boolean | undefined;
     uri?: string | undefined;
+    size?: number | undefined;
     width?: number | undefined;
     height?: number | undefined;
 }) => AppPhoto;
