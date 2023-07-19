@@ -1,64 +1,51 @@
 import { RecordsApiV2 } from "@livingsnow/network";
 import { PendingPhoto, SelectedPhoto } from "../../types";
-import {
-  loadPendingPhotos,
-  loadSelectedPhotos,
-  savePendingPhotos,
-  saveSelectedPhotos,
-} from "./Storage";
+import * as Storage from "./Storage";
 
-export async function addSelectedPhotos(
-  recordId: string,
-  selectedPhotos: SelectedPhoto[]
-) {
+// TODO: setSelected
+async function addSelected(recordId: string, selectedPhotos: SelectedPhoto[]) {
   // TODO: how will a saved record -> edit -> remove all photos
   if (selectedPhotos.length == 0) {
     return;
   }
 
-  await loadSelectedPhotos()
+  await Storage.loadSelectedPhotos()
     .then((photos) => photos.set(recordId, selectedPhotos))
-    .then((photos) => saveSelectedPhotos(photos));
+    .then((photos) => Storage.saveSelectedPhotos(photos));
 }
 
-export async function getSelectedPhotos(
+async function getSelected(
   recordId: string
 ): Promise<SelectedPhoto[] | undefined> {
-  const selectedPhotos = await loadSelectedPhotos();
+  const selectedPhotos = await Storage.loadSelectedPhotos();
   return selectedPhotos.get(recordId);
 }
 
 // only call this after the record is uploaded
 // once the record is uploaded, the photo is promoted from Selected to Pending
 // TODO: what if record is uploaded but response isn't received? (another case for clientRecordId)
-export async function uploadSelectedPhotos(
+async function uploadSelected(
   localRecordId: string,
   cloudRecordId: string
 ): Promise<void> {
-  const allSelectedPhotos = await loadSelectedPhotos();
+  const allSelectedPhotos = await Storage.loadSelectedPhotos();
   const selectedPhotos = allSelectedPhotos.get(localRecordId);
 
   if (!selectedPhotos || selectedPhotos.length == 0) {
     return;
   }
 
-  // assign cloud record id
-  const pendingPhotos: PendingPhoto[] = selectedPhotos.map((value) => ({
-    ...value,
-    recordId: cloudRecordId,
-  }));
-
   // promote selected to pending
   allSelectedPhotos.delete(localRecordId);
-  await saveSelectedPhotos(allSelectedPhotos);
+  await Storage.saveSelectedPhotos(allSelectedPhotos);
 
   const failedPhotoUploads: PendingPhoto[] = [];
 
   // need to upload sequentially because of undocumented "uri" feature in fetch (files arrive corrupted otherwise)
-  await pendingPhotos.reduce(async (promise, photo) => {
+  await selectedPhotos.reduce(async (promise, photo) => {
     try {
       await promise;
-      return await RecordsApiV2.postPhoto(photo.recordId, photo.uri);
+      return await RecordsApiV2.postPhoto(cloudRecordId, photo.uri);
     } catch (error) {
       failedPhotoUploads.push(photo);
       // continue with reducer, otherwise failed photos are lost
@@ -68,18 +55,18 @@ export async function uploadSelectedPhotos(
 
   // save photos that failed to upload
   if (failedPhotoUploads.length > 0) {
-    const savedPendingPhotos = await loadPendingPhotos();
+    const savedPendingPhotos = await Storage.loadPendingPhotos();
 
     savedPendingPhotos.set(cloudRecordId, failedPhotoUploads);
 
-    await savePendingPhotos(savedPendingPhotos);
+    await Storage.savePendingPhotos(savedPendingPhotos);
   }
 }
 
 type PendingPhotoArrayElement = { id: string; photos: PendingPhoto[] };
 
-export async function retryAllPendingPhotos(): Promise<void> {
-  const allPendingPhotos = await loadPendingPhotos();
+async function retryPending(): Promise<void> {
+  const allPendingPhotos = await Storage.loadPendingPhotos();
 
   if (!allPendingPhotos || allPendingPhotos.size == 0) {
     return;
@@ -118,5 +105,16 @@ export async function retryAllPendingPhotos(): Promise<void> {
     return Promise.resolve();
   }, Promise.resolve());
 
-  await savePendingPhotos(allPendingPhotos);
+  await Storage.savePendingPhotos(allPendingPhotos);
 }
+
+function createPhotoManager() {
+  return {
+    addSelected,
+    getSelected,
+    uploadSelected,
+    retryPending,
+  };
+}
+
+export const PhotoManager = createPhotoManager();

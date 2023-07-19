@@ -35,8 +35,8 @@ function ExampleRecordList() {
 
 function useDownloadedRecordList() {
   const algaeRecords = useAlgaeRecordsContext();
-  const records = algaeRecords.getDownloadedRecords();
-  const pendingLength = algaeRecords.getPendingRecords().length;
+  const records = algaeRecords.getDownloaded();
+  const pendingLength = algaeRecords.getPending().length;
 
   const renderRecords = useMemo(() => {
     const result: JSX.Element[] = [];
@@ -75,7 +75,7 @@ function PendingTimelineRow({ record, algaeRecords }: PendingTimelineRowProps) {
   const navigation = useNavigation<TimelineScreenNavigationProp>();
 
   const onPressDelete = () => setIsOpen(true);
-  const onConfirmDelete = () => algaeRecords.delete(record);
+  const onConfirmDelete = () => algaeRecords.delete(record.id);
 
   const onEdit = () =>
     navigation.navigate("Record", { record: JSON.stringify(record) });
@@ -108,7 +108,7 @@ function PendingTimelineRow({ record, algaeRecords }: PendingTimelineRowProps) {
 
 function usePendingRecordList() {
   const algaeRecords = useAlgaeRecordsContext();
-  const pendingRecords = algaeRecords.getPendingRecords();
+  const pendingRecords = algaeRecords.getPending();
 
   const renderRecords = useMemo(() => {
     const result: JSX.Element[] = [];

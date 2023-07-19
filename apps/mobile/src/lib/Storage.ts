@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Logger from "@livingsnow/logger";
 import { AlgaeRecord, jsonToRecord } from "@livingsnow/record";
+import { DataResponseV2 } from "@livingsnow/network";
 import { AppSettings, PendingPhotos, SelectedPhotos } from "../../types";
 import { Errors } from "../constants/Strings";
 
@@ -107,15 +108,15 @@ export async function updatePendingRecord(
 
 // returns the new list of pending records
 export async function deletePendingRecord(
-  record: AlgaeRecord
+  recordId: string
 ): Promise<AlgaeRecord[]> {
   const records = await loadPendingRecords();
 
-  if (!record) {
+  if (!recordId) {
     return records;
   }
 
-  const index = records.findIndex((current) => current.id === record.id);
+  const index = records.findIndex((current) => current.id == recordId);
 
   if (index != -1) {
     records.splice(index, 1);
@@ -127,9 +128,9 @@ export async function deletePendingRecord(
 }
 
 // Cached Records (downloaded from cloud)
-export async function loadCachedRecords(): Promise<AlgaeRecord[]> {
+export async function loadCachedRecords(): Promise<DataResponseV2[]> {
   return AsyncStorage.getItem(StorageKeys.cachedRecords)
-    .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
+    .then((value) => (value ? jsonToRecord<DataResponseV2[]>(value) : []))
     .catch((error) => {
       Logger.Error(`loadCachedRecords: ${error}`);
       return [];
@@ -137,8 +138,8 @@ export async function loadCachedRecords(): Promise<AlgaeRecord[]> {
 }
 
 export async function saveCachedRecords(
-  records: AlgaeRecord[]
-): Promise<AlgaeRecord[]> {
+  records: DataResponseV2[]
+): Promise<DataResponseV2[]> {
   const existing = await loadCachedRecords();
 
   if (!records) {

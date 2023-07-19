@@ -1,4 +1,5 @@
 import { AlgaeRecord, AppPhoto } from "@livingsnow/record";
+import { DataResponseV2 } from "@livingsnow/network";
 import { Asset } from "expo-media-library";
 
 const AlgaeRecordsStatesArray = [
@@ -16,37 +17,39 @@ export type AlgaeRecordsStates = typeof AlgaeRecordsStatesArray[number];
 // parent record has not been uploaded yet (offline scenario).
 export type SelectedPhoto = Asset;
 
-// key = record still on user's device (local record id)
+// key = local algae record id
 export type SelectedPhotos = Map<string, SelectedPhoto[]>;
 
 // Photo saved to disk and parent record uploaded
-// recordId = uploaded record id
 // This scenario can happen when a user has intermittent cel signal in the wilderness.
-export type PendingPhoto = Omit<AppPhoto, "size"> & {
-  recordId: string; // uuidv4 of record still in the app
-};
+export type PendingPhoto = Omit<AppPhoto, "size">;
 
-// key = record uploaded (cloud record id)
+// key = cloud algae record id
 export type PendingPhotos = Map<string, PendingPhoto[]>;
+
+// TODO: better semantics, ie.
+// CloudAlgaeRecord
+// CloudPhoto
+
+export type LocalAlgaeRecord = {
+  record: AlgaeRecord;
+  photos: SelectedPhoto[] | undefined;
+};
 
 export interface IAlgaeRecords {
   // info
-  getDownloadedRecords: () => AlgaeRecord[];
   getCurrentState: () => AlgaeRecordsStates;
-  getPendingRecords: () => AlgaeRecord[];
+  getDownloaded: () => DataResponseV2[];
+  getPending: () => LocalAlgaeRecord[];
   isSeeded: () => boolean;
-  // getPendingPhotos: () => PendingPhoto[];
 
   // storage actions
-  seed: () => Promise<void>;
-  save: (record: AlgaeRecord) => Promise<void>;
-  delete: (record: AlgaeRecord) => Promise<void>;
-  updatePendingRecord: (record: AlgaeRecord) => Promise<void>;
+  seed: () => Promise<void>; // cached records
+  delete: (recordId: string) => Promise<void>; // pending records
 
   // network actions
-  fullSync: () => Promise<void>; // retryPendingRecords followed by downloadRecords
-  uploadRecord: (record: AlgaeRecord, photos: AppPhoto[]) => Promise<void>;
-  downloadRecords: () => Promise<void>; // app startup\pull to refresh
-  downloadNextRecords: () => Promise<void>; // scrolling
-  retryPendingRecords: () => Promise<void>;
+  fullSync: () => Promise<void>; // retryPending followed by download
+  download: () => Promise<void>; // app startup / pull to refresh
+  downloadNext: () => Promise<void>; // "infinite" scrolling
+  retryPending: () => Promise<void>;
 }

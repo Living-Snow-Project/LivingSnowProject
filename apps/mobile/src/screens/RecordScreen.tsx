@@ -11,8 +11,8 @@ import {
 } from "@livingsnow/record";
 import { SelectedPhoto } from "../../types";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
-import { uploadRecord } from "../lib/RecordManager";
-import { addSelectedPhotos, getSelectedPhotos } from "../lib/PhotoManager";
+import { RecordManager } from "../lib/RecordManager";
+import { PhotoManager } from "../lib/PhotoManager";
 import { updatePendingRecord } from "../lib/Storage";
 import { RecordScreenProps } from "../navigation/Routes";
 import { HeaderButton, ThemedBox } from "../components";
@@ -114,16 +114,17 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   // navigation.navigate(...) from ImagesPickerScreen with selected photos
   useEffect(() => {
     // coming back from ImagePickerScreen
+    // TODO: be sure to test unselecting all
     if (route?.params?.photos) {
       setSelectedPhotos(route.params.photos);
-      addSelectedPhotos(record.id, route.params.photos);
+      PhotoManager.addSelected(record.id, route.params.photos);
 
       return;
     }
 
-    // modifying existing record
+    // initialization; modifying existing record
     if (editMode) {
-      getSelectedPhotos(record.id).then((photos) => {
+      PhotoManager.getSelected(record.id).then((photos) => {
         if (photos) {
           setSelectedPhotos(photos);
         }
@@ -195,7 +196,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       message: Notifications.uploadSuccess.message,
     };
 
-    uploadRecord(record as AlgaeRecord)
+    RecordManager.upload(record as AlgaeRecord)
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
       .catch((error) => {
         Logger.Warn(
