@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Box, HStack, Pressable, Text, VStack } from "native-base";
-import { AlgaeRecord } from "@livingsnow/record";
+import { Asset } from "expo-media-library";
+import { AlgaeRecord, AppPhoto } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
 import { Divider, ThemedBox } from "../layout";
 import { UserStyle } from "./UserStyle";
@@ -29,10 +30,11 @@ function bottomText({
 
 type TimelineRowProps = {
   record: AlgaeRecord;
+  photos?: AppPhoto[] | Asset[];
   actionsMenu?: JSX.Element;
 };
 
-export function TimelineRow({ record, actionsMenu }: TimelineRowProps) {
+export function TimelineRow({ record, photos, actionsMenu }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
 
   return (
@@ -52,7 +54,7 @@ export function TimelineRow({ record, actionsMenu }: TimelineRowProps) {
             {bottomText(record)}
           </VStack>
         </ThemedBox>
-        <PhotosLayout photos={record.photos} />
+        <PhotosLayout photos={photos} />
       </Pressable>
       <Divider />
     </>

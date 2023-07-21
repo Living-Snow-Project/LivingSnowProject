@@ -1,7 +1,7 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import { Box, Image, Spinner, Text } from "native-base";
-import { AppPhoto } from "@livingsnow/record";
+import { Asset } from "expo-media-library";
 import { useCachedPhoto } from "../../hooks/useCachedPhotos";
 import { PictureIcon } from "./Icons";
 
@@ -60,7 +60,7 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
 }
 
 type CachedPhotosProps = {
-  photos?: AppPhoto[];
+  photos?: Asset[];
 };
 
 // only used by RecordDetailsScreen

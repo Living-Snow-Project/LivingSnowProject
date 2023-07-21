@@ -2,7 +2,6 @@ import React, { useMemo, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { Icon, Menu, Pressable } from "native-base";
-import { AlgaeRecord } from "@livingsnow/record";
 import { TimelineScreenNavigationProp } from "../../navigation/Routes";
 import { Modal } from "../feedback";
 import { Divider } from "../layout";
@@ -10,19 +9,20 @@ import { TimelineRow } from "./TimelineRow";
 import { Labels, TestIds } from "../../constants";
 import { useAlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { productionExampleRecord } from "../../record/Record";
-import { IAlgaeRecords } from "../../../types/AlgaeRecords";
+import { IAlgaeRecords, LocalAlgaeRecord } from "../../../types/AlgaeRecords";
 
 function ThreeDotsIcon() {
   return <Icon as={Ionicons} name="ellipsis-horizontal-outline" size="lg" />;
 }
 
 function ExampleRecordList() {
+  const { record, photos } = productionExampleRecord();
   const records = [
     <Divider
       key={Labels.TimelineScreen.ExampleRecords}
       text={Labels.TimelineScreen.ExampleRecords}
     />,
-    <TimelineRow key="single_example" record={productionExampleRecord()} />,
+    <TimelineRow key="single_example" record={record} photos={photos} />,
   ];
 
   return (
@@ -66,19 +66,24 @@ function useDownloadedRecordList() {
 }
 
 type PendingTimelineRowProps = {
-  record: AlgaeRecord;
+  localRecord: LocalAlgaeRecord;
   algaeRecords: IAlgaeRecords;
 };
 
-function PendingTimelineRow({ record, algaeRecords }: PendingTimelineRowProps) {
+function PendingTimelineRow({
+  localRecord,
+  algaeRecords,
+}: PendingTimelineRowProps) {
   const [isOpen, setIsOpen] = useState(false);
   const navigation = useNavigation<TimelineScreenNavigationProp>();
 
   const onPressDelete = () => setIsOpen(true);
-  const onConfirmDelete = () => algaeRecords.delete(record.id);
+  const onConfirmDelete = () => algaeRecords.delete(localRecord.record.id);
 
   const onEdit = () =>
-    navigation.navigate("Record", { record: JSON.stringify(record) });
+    navigation.navigate("Record", {
+      record: JSON.stringify(localRecord.record),
+    });
 
   const menuTrigger = (props: any) => (
     <Pressable {...props}>
@@ -103,7 +108,13 @@ function PendingTimelineRow({ record, algaeRecords }: PendingTimelineRowProps) {
     </>
   );
 
-  return <TimelineRow record={record} actionsMenu={actionsMenu} />;
+  return (
+    <TimelineRow
+      record={localRecord.record}
+      photos={localRecord.photos}
+      actionsMenu={actionsMenu}
+    />
+  );
 }
 
 function usePendingRecordList() {
@@ -129,7 +140,7 @@ function usePendingRecordList() {
       result.push(
         <PendingTimelineRow
           key={`pending-${index}`}
-          record={record}
+          localRecord={record}
           algaeRecords={algaeRecords}
         />
       );
