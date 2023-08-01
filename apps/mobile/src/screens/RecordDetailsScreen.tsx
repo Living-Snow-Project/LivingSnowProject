@@ -4,14 +4,14 @@ import { jsonToRecord, recordDateFormat } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
 import { CachedPhotos, ThemedBox } from "../components";
 import { Labels } from "../constants";
-import { LocalAlgaeRecord } from "../../types";
+import { MinimalAlgaeRecord } from "../../types";
 
 type RecordDetailsScreenProps = {
   route: RecordDetailsScreenRouteProp;
 };
 
 export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
-  const { record, photos } = jsonToRecord<LocalAlgaeRecord>(
+  const { record, photos } = jsonToRecord<MinimalAlgaeRecord>(
     route.params.record
   );
 

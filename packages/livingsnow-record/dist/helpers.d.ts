@@ -1,11 +1,10 @@
-import { AlgaeRecord, AlgaeRecordType, AppPhoto } from "./types";
-export declare const makeExampleAppPhoto: ({ isLocal, uri, size, width, height, }?: {
+import { AlgaeRecord, AlgaeRecordType, Photo } from "./types";
+export declare const makeExampleAppPhoto: ({ isLocal, uri, width, height, }?: {
     isLocal?: boolean | undefined;
     uri?: string | undefined;
-    size?: number | undefined;
     width?: number | undefined;
     height?: number | undefined;
-}) => AppPhoto;
+}) => Photo;
 export declare const isSample: (type: AlgaeRecordType) => boolean;
 export declare const makeExampleRecord: (type: AlgaeRecordType) => AlgaeRecord;
 export declare function jsonToRecord<T>(json: string): T;

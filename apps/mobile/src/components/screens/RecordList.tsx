@@ -9,7 +9,7 @@ import { TimelineRow } from "./TimelineRow";
 import { Labels, TestIds } from "../../constants";
 import { useAlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { productionExampleRecord } from "../../record/Record";
-import { IAlgaeRecords, LocalAlgaeRecord } from "../../../types/AlgaeRecords";
+import { IAlgaeRecords, MinimalAlgaeRecord } from "../../../types/AlgaeRecords";
 
 function ThreeDotsIcon() {
   return <Icon as={Ionicons} name="ellipsis-horizontal-outline" size="lg" />;
@@ -52,7 +52,13 @@ function useDownloadedRecordList() {
     }
 
     records.forEach((record) =>
-      result.push(<TimelineRow key={record.id} record={record} />)
+      result.push(
+        <TimelineRow
+          key={record.id}
+          record={record}
+          photos={record.photos.appPhotos}
+        />
+      )
     );
 
     return result;
@@ -66,7 +72,7 @@ function useDownloadedRecordList() {
 }
 
 type PendingTimelineRowProps = {
-  localRecord: LocalAlgaeRecord;
+  localRecord: MinimalAlgaeRecord;
   algaeRecords: IAlgaeRecords;
 };
 

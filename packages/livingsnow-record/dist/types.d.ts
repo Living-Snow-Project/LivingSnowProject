@@ -1,6 +1,5 @@
-export declare type AppPhoto = {
+export declare type Photo = {
     uri: string;
-    size: number;
     width: number;
     height: number;
 };

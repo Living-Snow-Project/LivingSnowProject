@@ -1,7 +1,6 @@
-// App photos have various representation but these fields are common across them
-export type AppPhoto = {
+// photos have various states but these fields are common across them
+export type Photo = {
   uri: string;
-  size: number;
   width: number;
   height: number;
 };

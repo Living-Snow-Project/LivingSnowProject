@@ -1,12 +1,11 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import { Box, HStack, VStack, useTheme } from "native-base";
-import { AppPhoto } from "@livingsnow/record";
-import { SelectedPhoto } from "../../../types";
+import { Photo } from "@livingsnow/record";
 import { CachedPhoto } from "./CachedPhotos";
 
 type PhotosLayoutProps = {
-  photos?: AppPhoto[] | SelectedPhoto[];
+  photos?: Photo[];
 };
 
 const gap = 1.5;
@@ -20,7 +19,7 @@ export function PhotosLayout({
     return null;
   }
 
-  const newPhotos: AppPhoto[] = [];
+  const newPhotos: Photo[] = [];
   const { width: screenWidth } = Dimensions.get("screen");
   const halfScreenWidth = Math.ceil((screenWidth - theme.sizes[gap]) / 2);
   const oneThirdScreenWidth = Math.ceil((screenWidth - theme.sizes[gap]) / 3);
@@ -30,18 +29,18 @@ export function PhotosLayout({
   let landscapeCount = 0;
 
   // sort portrait to landscape and count number of each
-  photos.forEach((current: AppPhoto | SelectedPhoto) => {
+  photos.forEach((current: Photo) => {
     if (current.height > current.width) {
-      newPhotos.unshift({ ...current, size: 0 });
+      newPhotos.unshift({ ...current });
       portraitCount += 1;
     } else {
-      newPhotos.push({ ...current, size: 0 });
+      newPhotos.push({ ...current });
       landscapeCount += 1;
     }
   });
 
   // assumes given 2 portrait or 2 landscape
-  const renderSideBySide = (first: AppPhoto, second: AppPhoto) => {
+  const renderSideBySide = (first: Photo, second: Photo) => {
     const { uri, width, height } = first;
     const fixedHeight = Math.floor(halfScreenWidth * (height / width));
 
@@ -58,11 +57,7 @@ export function PhotosLayout({
     );
   };
 
-  const renderThreePortrait = (
-    first: AppPhoto,
-    second: AppPhoto,
-    third: AppPhoto
-  ) => {
+  const renderThreePortrait = (first: Photo, second: Photo, third: Photo) => {
     const { uri, width, height } = first;
     const controlHeight = Math.floor(twoThirdScreenWidth * (height / width));
     // account for <Box pt={gap}/>

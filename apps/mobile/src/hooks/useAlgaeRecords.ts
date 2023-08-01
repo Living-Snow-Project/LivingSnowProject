@@ -339,7 +339,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
 
 const AlgaeRecordsContext = React.createContext<IAlgaeRecords | null>(null);
 
-const useAlgaeRecordsContext = () => {
+const useAlgaeRecordsContext = (): IAlgaeRecords => {
   const context = useContext(AlgaeRecordsContext);
 
   if (!context) {

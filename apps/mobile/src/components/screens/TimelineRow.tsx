@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Box, HStack, Pressable, Text, VStack } from "native-base";
-import { Asset } from "expo-media-library";
-import { AlgaeRecord, AppPhoto } from "@livingsnow/record";
+import { AlgaeRecord, Photo } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
 import { Divider, ThemedBox } from "../layout";
 import { UserStyle } from "./UserStyle";
 import { PhotosLayout } from "../media";
+import { MinimalAlgaeRecord } from "../../../types";
 
 function bottomText({
   locationDescription,
@@ -30,19 +30,23 @@ function bottomText({
 
 type TimelineRowProps = {
   record: AlgaeRecord;
-  photos?: AppPhoto[] | Asset[];
+  photos?: Photo[];
   actionsMenu?: JSX.Element;
 };
 
 export function TimelineRow({ record, photos, actionsMenu }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
+  const recordDetail: MinimalAlgaeRecord = {
+    record,
+    photos,
+  };
 
   return (
     <>
       <Pressable
         testID={record.id.toString()}
         onPress={() =>
-          navigate("RecordDetails", { record: JSON.stringify(record) })
+          navigate("RecordDetails", { record: JSON.stringify(recordDetail) })
         }
       >
         <ThemedBox px={2} py={1}>
