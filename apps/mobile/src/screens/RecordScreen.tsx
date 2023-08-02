@@ -11,7 +11,7 @@ import {
 } from "@livingsnow/record";
 import { SelectedPhoto } from "../../types";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
-import { RecordManager } from "../lib/RecordManager";
+import { RecordManager, UploadError } from "../lib/RecordManager";
 import { PhotoManager } from "../lib/PhotoManager";
 import { updatePendingRecord } from "../lib/Storage";
 import { RecordScreenProps } from "../navigation/Routes";
@@ -198,7 +198,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
     RecordManager.upload(record as AlgaeRecord)
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
-      .catch((error) => {
+      .catch((error: UploadError) => {
         Logger.Warn(
           `Failed to upload complete record: ${error.title}: ${error.message}`
         );

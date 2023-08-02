@@ -9,11 +9,9 @@ import { PhotoManager } from "./PhotoManager";
 import * as Storage from "./Storage";
 import { BackgroundTasks, Notifications } from "../constants/Strings";
 
-type UploadError = {
+export type UploadError = {
   title: string;
   message: string;
-  // pendingPhotos: PendingPhoto[];
-  // pendingRecords: AlgaeRecord[];
 };
 
 // in iOS background app refresh can be disabled per app by the user
@@ -71,8 +69,6 @@ async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
     const uploadError: UploadError = {
       title: Notifications.uploadRecordFailed.title,
       message: Notifications.uploadRecordFailed.message,
-      // pendingRecords,
-      // pendingPhotos,
     };
 
     return Promise.reject(uploadError);
@@ -86,11 +82,8 @@ async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
     const uploadError: UploadError = {
       title: Notifications.uploadPhotosFailed.title,
       message: Notifications.uploadPhotosFailed.message,
-      // pendingPhotos,
-      // pendingRecords,
     };
 
-    // propagate photo uploadError to uploadRecord.catch handler
     return Promise.reject(uploadError);
   }
 
@@ -136,7 +129,6 @@ async function retryPending(): Promise<LocalAlgaeRecord[]> {
   );
 
   // Step 2. photos
-
   await PhotoManager.retryPending();
 
   // Step 3. return records and photos still on disk
