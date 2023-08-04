@@ -29,7 +29,7 @@ const handlersV2 = [
     const body: DataResponseV2 = await req.json();
 
     mockBackend.curRecordId += 1;
-    body.id = mockBackend.curRecordId;
+    body.id = `${mockBackend.curRecordId}`;
     mockBackend.records.push(body);
     return res(ctx.status(200), ctx.json(body));
   }),

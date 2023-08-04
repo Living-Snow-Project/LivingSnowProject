@@ -15,6 +15,7 @@ import { RecordDetailsScreenRouteProp } from "../../navigation/Routes";
 import { RecordDetailsScreen } from "../RecordDetailsScreen";
 import { productionExampleRecord } from "../../record/Record";
 import { Labels } from "../../constants/Strings";
+import { MinimalAlgaeRecord } from "../../../types";
 
 jest.mock("expo-file-system", () => ({
   downloadAsync: jest.fn(() => Promise.resolve({ md5: "md5", uri: "uri" })),
@@ -43,17 +44,25 @@ function setPhotosHeight(photos: Photo[]) {
   photos[1].width = 758;
   photos[1].height = 1024;
 }
+
 describe("RecordDetailsScreen test suite", () => {
   test("sample with remote photos", async () => {
-    const sampleRecord = makeExampleRecord("Sample");
+    const record = makeExampleRecord("Sample");
+    const photos = [
+      makeExamplePhoto({ isLocal: false }),
+      makeExamplePhoto({ isLocal: false }),
+    ];
 
-    if (sampleRecord.photos) {
-      setPhotosHeight(sampleRecord.photos);
-    }
+    setPhotosHeight(photos);
+
+    const minimalRecord: MinimalAlgaeRecord = {
+      record,
+      photos,
+    };
 
     const route = {
       params: {
-        record: JSON.stringify(sampleRecord),
+        record: JSON.stringify(minimalRecord),
       },
     } as RecordDetailsScreenRouteProp;
 
@@ -77,8 +86,6 @@ describe("RecordDetailsScreen test suite", () => {
     );
 
     await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
-
-    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     expect(toJSON()).toMatchSnapshot();
 
@@ -107,15 +114,22 @@ describe("RecordDetailsScreen test suite", () => {
   });
 
   test("sample with remote photos, photo download fails", async () => {
-    const sampleRecord = makeExampleRecord("Sample");
+    const record = makeExampleRecord("Sample");
+    const photos = [
+      makeExamplePhoto({ isLocal: false }),
+      makeExamplePhoto({ isLocal: false }),
+    ];
 
-    if (sampleRecord.photos) {
-      setPhotosHeight(sampleRecord.photos);
-    }
+    setPhotosHeight(photos);
+
+    const minimalRecord: MinimalAlgaeRecord = {
+      record,
+      photos,
+    };
 
     const route = {
       params: {
-        record: JSON.stringify(sampleRecord),
+        record: JSON.stringify(minimalRecord),
       },
     } as RecordDetailsScreenRouteProp;
 
@@ -138,8 +152,6 @@ describe("RecordDetailsScreen test suite", () => {
     );
 
     await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
-
-    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     expect(toJSON()).toMatchSnapshot();
 
@@ -169,8 +181,8 @@ describe("RecordDetailsScreen test suite", () => {
 
   test("sample with remote photos, no snapshot", async () => {
     // this test is a little silly but need to test makeExamplePhoto without a hard-coded uri that makeExampleRecord uses
-    const sampleRecord = {
-      ...makeExampleRecord("Sample"),
+    const sampleRecord: MinimalAlgaeRecord = {
+      record: { ...makeExampleRecord("Sample") },
       photos: [makeExamplePhoto()],
     };
 
@@ -188,7 +200,7 @@ describe("RecordDetailsScreen test suite", () => {
 
     await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
 
-    const record: AlgaeRecord = jsonToRecord(route.params.record);
+    const record = jsonToRecord<AlgaeRecord>(route.params.record);
 
     if (
       record.name &&
@@ -226,7 +238,7 @@ describe("RecordDetailsScreen test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    const record: AlgaeRecord = jsonToRecord(route.params.record);
+    const record = jsonToRecord<AlgaeRecord>(route.params.record);
 
     expect(toJSON()).toMatchSnapshot();
 
@@ -252,9 +264,8 @@ describe("RecordDetailsScreen test suite", () => {
   });
 
   test("sighting without photos", () => {
-    const sightingRecord = {
-      ...makeExampleRecord("Sighting"),
-      photos: [],
+    const sightingRecord: MinimalAlgaeRecord = {
+      record: { ...makeExampleRecord("Sighting") },
     };
 
     const route = {
@@ -269,7 +280,7 @@ describe("RecordDetailsScreen test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    const record: AlgaeRecord = jsonToRecord(route.params.record);
+    const record = jsonToRecord<AlgaeRecord>(route.params.record);
 
     if (
       record.name &&
@@ -292,13 +303,14 @@ describe("RecordDetailsScreen test suite", () => {
   });
 
   test("sighting omit all optional fields", () => {
-    const sightingRecord = {
-      ...makeExampleRecord("Sighting"),
-      organization: undefined,
-      tubeId: undefined,
-      locationDescription: undefined,
-      notes: undefined,
-      photos: undefined,
+    const sightingRecord: MinimalAlgaeRecord = {
+      record: {
+        ...makeExampleRecord("Sighting"),
+        organization: undefined,
+        tubeId: undefined,
+        locationDescription: undefined,
+        notes: undefined,
+      },
     };
 
     const route = {
@@ -313,7 +325,7 @@ describe("RecordDetailsScreen test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    const record: AlgaeRecord = jsonToRecord(route.params.record);
+    const record = jsonToRecord<AlgaeRecord>(route.params.record);
 
     if (record.name) {
       expect(getByText(new RegExp(record.type))).toBeTruthy();
@@ -334,15 +346,22 @@ describe("RecordDetailsScreen test suite", () => {
 
   // "last test" because we are lazy with NetInfo.fetch mock
   test("sample with remote photos, offline mode", async () => {
-    const sampleRecord = makeExampleRecord("Sample");
+    const record = makeExampleRecord("Sample");
+    const photos = [
+      makeExamplePhoto({ isLocal: false }),
+      makeExamplePhoto({ isLocal: false }),
+    ];
 
-    if (sampleRecord.photos) {
-      setPhotosHeight(sampleRecord.photos);
-    }
+    setPhotosHeight(photos);
+
+    const minimalRecord: MinimalAlgaeRecord = {
+      record,
+      photos,
+    };
 
     const route = {
       params: {
-        record: JSON.stringify(sampleRecord),
+        record: JSON.stringify(minimalRecord),
       },
     } as RecordDetailsScreenRouteProp;
 
@@ -361,8 +380,6 @@ describe("RecordDetailsScreen test suite", () => {
     );
 
     await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
-
-    const record: AlgaeRecord = jsonToRecord(route.params.record);
 
     expect(toJSON()).toMatchSnapshot();
 
