@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`GpsCoordinatesInput tests permission denied 1`] = `null`;
+
 exports[`GpsCoordinatesInput tests renders 1`] = `
 <RNCSafeAreaProvider
   onInsetsChange={[Function]}
