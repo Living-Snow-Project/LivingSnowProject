@@ -30,7 +30,7 @@ export type PendingPhotos = Map<string, PendingPhoto[]>;
 // for rendering TimelineRow
 export type MinimalAlgaeRecord = {
   record: AlgaeRecord;
-  photos?: Photo[]; // could be local or cloud
+  photos?: Photo[]; // could be SelectedPhoto or Photo
 };
 
 // for PendingRecords
