@@ -187,7 +187,6 @@ async function savePhotos<K, T>(
     });
 }
 
-// TODO: is this needed?
 async function clearPhotos(key: string): Promise<void> {
   return AsyncStorage.removeItem(key).catch((error) => {
     Logger.Error(`${error}`);
@@ -206,7 +205,6 @@ export async function saveSelectedPhotos(
   return savePhotos(StorageKeys.selectedPhotos, photos);
 }
 
-// TODO: is this needed?
 export async function clearSelectedPhotos(): Promise<void> {
   return clearPhotos(StorageKeys.selectedPhotos);
 }
@@ -222,18 +220,6 @@ export async function savePendingPhotos(
   return savePhotos(StorageKeys.pendingPhotos, photos);
 }
 
-// TODO: delete? probably don't need support for a single photo anymore
-/* async function savePendingPhoto(
-  photo: PendingPhoto
-): Promise<SavedPendingPhoto> {
-  const existing = await loadPendingPhotos();
-
-  if (!photo) {
-    return existing;
-  }
-
-  // check for other pending photos
-  const photos = await loadPendingPhotos();
-  photos.push(photo);
-  return savePendingPhotos(photos);
-} */
+export async function clearPendingPhotos(): Promise<void> {
+  return clearPhotos(StorageKeys.pendingPhotos);
+}
