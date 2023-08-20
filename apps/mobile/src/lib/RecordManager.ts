@@ -5,20 +5,17 @@ import Logger from "@livingsnow/logger";
 import { RecordsApiV2 } from "@livingsnow/network";
 import { AlgaeRecord } from "@livingsnow/record";
 import { LocalAlgaeRecord } from "../../types";
-import { PhotoManager } from "./PhotoManager";
+import { PhotoManager, UploadError } from "./PhotoManager";
 import * as Storage from "./Storage";
 import { BackgroundTasks, Notifications } from "../constants/Strings";
 
-export type UploadError = {
-  title: string;
-  message: string;
-};
+export { UploadError };
 
 // in iOS background app refresh can be disabled per app by the user
 // TODO: cache that the user has seen this message so they don't see it every time if they choose not to allow background refresh
 const checkAndPromptForBackgroundFetchPermission = async () => {
-  const isBackgroundFetchAllowed: BackgroundFetch.BackgroundFetchStatus | null =
-    await BackgroundFetch.getStatusAsync();
+  const isBackgroundFetchAllowed = await BackgroundFetch.getStatusAsync();
+
   if (
     isBackgroundFetchAllowed == BackgroundFetch.BackgroundFetchStatus.Denied &&
     Platform.OS == "ios"
@@ -28,6 +25,8 @@ const checkAndPromptForBackgroundFetchPermission = async () => {
       Notifications.backgroundTasksNotAllowed.message
     );
   }
+
+  return Promise.resolve(isBackgroundFetchAllowed);
 };
 
 // Register a task to be performed in the background.
@@ -36,15 +35,22 @@ export async function registerBackgroundFetchAsync(
   taskName: string,
   config: BackgroundFetch.BackgroundFetchOptions | undefined
 ): Promise<void> {
-  await checkAndPromptForBackgroundFetchPermission();
+  const isBackgroundFetchAllowed =
+    await checkAndPromptForBackgroundFetchPermission();
 
-  const isTaskRegistered: boolean = await TaskManager.isTaskRegisteredAsync(
-    taskName
-  );
+  if (!isBackgroundFetchAllowed) {
+    return;
+  }
 
-  if (!isTaskRegistered) {
-    Logger.Info(`Registering background task "${taskName}"`);
-    BackgroundFetch.registerTaskAsync(taskName, config);
+  try {
+    const isTaskRegistered = await TaskManager.isTaskRegisteredAsync(taskName);
+
+    if (!isTaskRegistered) {
+      Logger.Info(`Registering background task "${taskName}"`);
+      BackgroundFetch.registerTaskAsync(taskName, config);
+    }
+  } catch (error) {
+    Logger.Warn(`isTaskRegisteredAsync threw: ${taskName}: ${error}`);
   }
 }
 
@@ -66,25 +72,19 @@ async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
       startOnBoot: true, // android only
     });
 
-    const uploadError: UploadError = {
+    throw new UploadError({
+      id: record.id,
       title: Notifications.uploadRecordFailed.title,
       message: Notifications.uploadRecordFailed.message,
-    };
-
-    return Promise.reject(uploadError);
+    });
   }
 
   try {
     await PhotoManager.uploadSelected(record.id, recordResponse.id);
   } catch (error) {
-    Logger.Warn(`PhotoManager.uploadSelectedPhotos failed: ${error}`);
+    Logger.Warn(`PhotoManager.uploadSelected failed: ${error}`);
 
-    const uploadError: UploadError = {
-      title: Notifications.uploadPhotosFailed.title,
-      message: Notifications.uploadPhotosFailed.message,
-    };
-
-    return Promise.reject(uploadError);
+    throw error;
   }
 
   return recordResponse;

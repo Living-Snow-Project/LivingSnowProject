@@ -20,6 +20,7 @@ export const isSample = (type: AlgaeRecordType): boolean =>
 
 // consider randomizing more data; how that impacts snapshot testing and the above desired feature
 export const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
+  // BUG: this needs to come in as an optional argument because of how PhotoManager works now
   id: "1234",
   type,
   name: "test name",
@@ -29,7 +30,7 @@ export const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
   longitude: 96.96,
   size: "Fist",
   colors: ["Red", "Green"],
-  tubeId: isSample(type) ? "LAB-1337" : "",
+  tubeId: isSample(type) ? "LAB-1337" : undefined,
   locationDescription: "test location",
   notes: "test notes",
 });

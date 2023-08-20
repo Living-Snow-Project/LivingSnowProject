@@ -1,6 +1,23 @@
 import { RecordsApiV2 } from "@livingsnow/network";
 import { PendingPhoto, SelectedPhoto } from "../../types";
 import * as Storage from "./Storage";
+import { Notifications } from "../constants";
+
+type UploadErrorInfo = {
+  id: string;
+  title: string;
+  message: string;
+};
+
+export class UploadError extends Error {
+  errorInfo: UploadErrorInfo;
+
+  constructor(info: UploadErrorInfo) {
+    super();
+
+    this.errorInfo = { ...info };
+  }
+}
 
 // TODO: setSelected
 async function addSelected(recordId: string, selectedPhotos: SelectedPhoto[]) {
@@ -60,6 +77,22 @@ async function uploadSelected(
     savedPendingPhotos.set(cloudRecordId, failedPhotoUploads);
 
     await Storage.savePendingPhotos(savedPendingPhotos);
+
+    // singular error message
+    if (failedPhotoUploads.length == 1) {
+      throw new UploadError({
+        id: cloudRecordId,
+        title: Notifications.uploadPhotoFailed.title,
+        message: Notifications.uploadPhotoFailed.message,
+      });
+    }
+
+    // plural error message
+    throw new UploadError({
+      id: cloudRecordId,
+      title: Notifications.uploadPhotosFailed.title,
+      message: Notifications.uploadPhotosFailed.message,
+    });
   }
 }
 

@@ -17,7 +17,7 @@ export const makeExampleRecord = (type) => ({
     longitude: 96.96,
     size: "Fist",
     colors: ["Red", "Green"],
-    tubeId: isSample(type) ? "LAB-1337" : "",
+    tubeId: isSample(type) ? "LAB-1337" : undefined,
     locationDescription: "test location",
     notes: "test notes",
 });
