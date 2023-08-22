@@ -13,15 +13,15 @@ export const makeExamplePhoto = ({
   height,
 });
 
-// photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
-
-export const isSample = (type: AlgaeRecordType): boolean =>
+export const isSample = (type: AlgaeRecordType) =>
   Array<AlgaeRecordType>("Sample").includes(type);
 
 // consider randomizing more data; how that impacts snapshot testing and the above desired feature
-export const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
-  // BUG: this needs to come in as an optional argument because of how PhotoManager works now
-  id: "1234",
+export const makeExampleRecord = (
+  type: AlgaeRecordType,
+  id: string = "1234"
+): AlgaeRecord => ({
+  id,
   type,
   name: "test name",
   date: new Date("2021-09-16T00:00:00"),

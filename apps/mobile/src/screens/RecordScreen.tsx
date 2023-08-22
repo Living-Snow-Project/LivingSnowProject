@@ -200,14 +200,14 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
       .catch((error: UploadError) => {
         Logger.Warn(
-          `Failed to upload complete record: ${error.title}: ${error.message}`
+          `Failed to upload complete record: ${error.errorInfo.title}: ${error.errorInfo.message}`
         );
 
         setOnFocusTimelineAction("Update Pending");
         // TODO: this could be info (record saved) or it could be error (record failed to save)
         toastProps.status = "info";
-        toastProps.title = error.title;
-        toastProps.message = error.message;
+        toastProps.title = error.errorInfo.title;
+        toastProps.message = error.errorInfo.message;
       })
       .finally(() => {
         navigation.goBack();

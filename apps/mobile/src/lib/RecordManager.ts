@@ -82,7 +82,8 @@ async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
   try {
     await PhotoManager.uploadSelected(record.id, recordResponse.id);
   } catch (error) {
-    Logger.Warn(`PhotoManager.uploadSelected failed: ${error}`);
+    // uploadSelected rejects with UploadError
+    Logger.Warn(`PhotoManager.uploadSelected failed: ${error.errorInfo}`);
 
     throw error;
   }
@@ -117,8 +118,9 @@ async function retryPending(): Promise<LocalAlgaeRecord[]> {
         await promise;
         return await upload(record);
       } catch (error) {
+        // upload rejects with UploadError
         Logger.Warn(
-          `uploadRecord rejected: continue records reducer to prevent data loss: ${error}`
+          `uploadRecord rejected: continue records reducer to prevent data loss: ${error.errorInfo}`
         );
 
         return Promise.resolve();

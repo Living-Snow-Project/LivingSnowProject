@@ -6,7 +6,7 @@ export declare const makeExamplePhoto: ({ isLocal, uri, width, height, }?: {
     height?: number | undefined;
 }) => Photo;
 export declare const isSample: (type: AlgaeRecordType) => boolean;
-export declare const makeExampleRecord: (type: AlgaeRecordType) => AlgaeRecord;
+export declare const makeExampleRecord: (type: AlgaeRecordType, id?: string) => AlgaeRecord;
 export declare function jsonToRecord<T>(json: string): T;
 export declare function recordDateFormat(date: Date): string;
 //# sourceMappingURL=helpers.d.ts.map

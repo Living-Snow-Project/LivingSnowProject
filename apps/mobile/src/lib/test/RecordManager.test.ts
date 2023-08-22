@@ -1,9 +1,5 @@
 import "isomorphic-fetch";
-import {
-  AlgaeRecord,
-  makeExamplePhoto,
-  makeExampleRecord,
-} from "@livingsnow/record";
+import { makeExamplePhoto, makeExampleRecord } from "@livingsnow/record";
 import { server } from "@livingsnow/network/mock/server";
 import { SelectedPhoto } from "../../../types";
 import * as Storage from "../Storage";
@@ -25,10 +21,10 @@ afterEach(async () => {
 // Clean up after the tests are finished.
 afterAll(() => server.close());
 
-// BUGBUG: all the tests that create 2 records with photos aren't correct because they share same record id
-
 describe("RecordManager test suite", () => {
-  const examplePhoto = [makeExamplePhoto({ isLocal: true })];
+  const examplePhotos: SelectedPhoto[] = [
+    makeExamplePhoto({ isLocal: true }),
+  ] as SelectedPhoto[];
 
   test("upload succeeds", () => {
     const expected = makeExampleRecord("Sample");
@@ -39,9 +35,9 @@ describe("RecordManager test suite", () => {
     });
   });
 
-  test("upload with photos succeeds", () => {
+  test("upload with photos succeeds", async () => {
     const expected = makeExampleRecord("Sample");
-    PhotoManager.addSelected(expected.id, examplePhoto as SelectedPhoto[]);
+    await PhotoManager.addSelected(expected.id, examplePhotos);
 
     return RecordManager.upload(expected).then((received) => {
       expect(received.id).not.toEqual(expected.id);
@@ -56,7 +52,7 @@ describe("RecordManager test suite", () => {
 
     return RecordManager.upload(expected)
       .then(() => {
-        throw new Error("upload was expected to fail");
+        throw new Error("RecordManager.upload was expected to fail");
       })
       .catch(() =>
         Storage.loadPendingRecords().then((received) => {
@@ -66,19 +62,16 @@ describe("RecordManager test suite", () => {
       );
   });
 
-  test("upload with photos, uploading record succeeds but uploading photos fails, photos are saved", () => {
+  test("upload with photos, uploading record succeeds but uploading photos fails, photos are saved", async () => {
     const expectedRecord = makeExampleRecord("Sample");
-    const expectedPhoto = examplePhoto;
-    PhotoManager.addSelected(
-      expectedRecord.id,
-      examplePhoto as SelectedPhoto[]
-    );
+    const expectedPhotos = examplePhotos;
+    await PhotoManager.addSelected(expectedRecord.id, examplePhotos);
 
     server.postPhotoInternalServerError();
 
     return RecordManager.upload(expectedRecord)
       .then(() => {
-        throw new Error("upload was expected to fail");
+        throw new Error("RecordManager.upload was expected to fail");
       })
       .catch((error: UploadError) => {
         expect(error.errorInfo).toEqual({
@@ -94,24 +87,24 @@ describe("RecordManager test suite", () => {
             throw new Error("Pending Photos were not saved");
           }
 
-          expect(pendingPhotos[0].uri).toEqual(expectedPhoto[0].uri);
+          expect(pendingPhotos[0].uri).toEqual(expectedPhotos[0].uri);
         });
       });
   });
 
-  test("upload with photos, first photo uploads, remaining photos fails, photos are saved", () => {
+  test("upload with photos, first photo uploads, remaining photos fails, photos are saved", async () => {
     const expectedRecord = makeExampleRecord("Sample");
-    const expectedPhotos = [examplePhoto[0], examplePhoto[0], examplePhoto[0]];
-    PhotoManager.addSelected(
-      expectedRecord.id,
-      expectedPhotos as SelectedPhoto[]
-    );
+    await PhotoManager.addSelected(expectedRecord.id, [
+      examplePhotos[0],
+      examplePhotos[0],
+      examplePhotos[0],
+    ]);
 
     server.postPhotoSuccessThenFailure();
 
     return RecordManager.upload(expectedRecord)
       .then(() => {
-        throw new Error("upload was expected to fail");
+        throw new Error("RecordManager.upload was expected to fail");
       })
       .catch((error: UploadError) => {
         expect(error.errorInfo).toEqual({
@@ -119,12 +112,22 @@ describe("RecordManager test suite", () => {
           title: Notifications.uploadPhotosFailed.title,
           message: Notifications.uploadPhotosFailed.message,
         });
+
+        return Storage.loadPendingPhotos().then((allPending) => {
+          const pending = allPending.get(error.errorInfo.id);
+
+          if (!pending) {
+            throw new Error("2 photos are expected to be pending");
+          }
+
+          expect(pending.length).toEqual(2);
+        });
       });
   });
 
   test("multiple uploads succeed", async () => {
-    const expectedOne = makeExampleRecord("Sample");
-    const expectedTwo = makeExampleRecord("Sighting");
+    const expectedOne = makeExampleRecord("Sample", "123");
+    const expectedTwo = makeExampleRecord("Sighting", "789");
 
     const receivedOne = await RecordManager.upload(expectedOne);
     const receivedTwo = await RecordManager.upload(expectedTwo);
@@ -132,17 +135,20 @@ describe("RecordManager test suite", () => {
     expect(receivedOne).toEqual({ ...expectedOne, id: "1" });
     expect(receivedTwo).toEqual({ ...expectedTwo, id: "2" });
 
-    return Storage.loadPendingRecords().then((received: AlgaeRecord[]) => {
+    return Storage.loadPendingRecords().then((received) => {
       expect(received.length).toEqual(0);
     });
   });
 
   test("multiple uploads succeed with photos", async () => {
-    const expectedOne = makeExampleRecord("Sample");
-    PhotoManager.addSelected(expectedOne.id, examplePhoto as SelectedPhoto[]);
+    const expectedOne = makeExampleRecord("Sample", "123");
+    await PhotoManager.addSelected(expectedOne.id, [
+      examplePhotos[0],
+      examplePhotos[0],
+    ]);
 
-    const expectedTwo = makeExampleRecord("Sighting");
-    PhotoManager.addSelected(expectedTwo.id, examplePhoto as SelectedPhoto[]);
+    const expectedTwo = makeExampleRecord("Sighting", "789");
+    await PhotoManager.addSelected(expectedTwo.id, examplePhotos);
 
     const receivedOne = await RecordManager.upload(expectedOne);
     const receivedTwo = await RecordManager.upload(expectedTwo);
@@ -162,8 +168,8 @@ describe("RecordManager test suite", () => {
   test("multiple uploads fail, retryPending does not delete saved records", async () => {
     server.postRecordInternalServerError();
 
-    const expectedOne = makeExampleRecord("Sample");
-    const expectedTwo = makeExampleRecord("Sighting");
+    const expectedOne = makeExampleRecord("Sample", "123");
+    const expectedTwo = makeExampleRecord("Sighting", "987");
 
     try {
       await RecordManager.upload(expectedOne);
@@ -194,12 +200,11 @@ describe("RecordManager test suite", () => {
   test("multiple uploads with photos fail, retryPending does not delete saved records with photos", async () => {
     server.postRecordInternalServerError();
 
-    const expectedOne = makeExampleRecord("Sample");
-    PhotoManager.addSelected(expectedOne.id, examplePhoto as SelectedPhoto[]);
+    const expectedOne = makeExampleRecord("Sample", "123");
+    await PhotoManager.addSelected(expectedOne.id, examplePhotos);
 
-    // BUG: same record id
-    const expectedTwo = makeExampleRecord("Sighting");
-    PhotoManager.addSelected(expectedTwo.id, examplePhoto as SelectedPhoto[]);
+    const expectedTwo = makeExampleRecord("Sighting", "987");
+    await PhotoManager.addSelected(expectedTwo.id, examplePhotos);
 
     try {
       await RecordManager.upload(expectedOne);
@@ -225,11 +230,11 @@ describe("RecordManager test suite", () => {
       expect(received.length).toEqual(2);
       expect(received[0]).toEqual({
         record: { ...expectedOne },
-        photos: examplePhoto,
+        photos: examplePhotos,
       });
       expect(received[1]).toEqual({
         record: { ...expectedTwo },
-        photos: examplePhoto,
+        photos: examplePhotos,
       });
     });
   });
@@ -237,22 +242,15 @@ describe("RecordManager test suite", () => {
   test("multiple uploads succeed, uploadPhotos fails, retryPending does not delete saved photos", async () => {
     server.postPhotoInternalServerError();
 
-    const expectedOne = makeExampleRecord("Sample");
-    await PhotoManager.addSelected(
-      expectedOne.id,
-      examplePhoto as SelectedPhoto[]
-    );
+    const expectedOne = makeExampleRecord("Sample", "123");
+    await PhotoManager.addSelected(expectedOne.id, examplePhotos);
 
-    const expectedTwo = makeExampleRecord("Sighting");
-    expectedTwo.id = "12";
-    await PhotoManager.addSelected(
-      expectedTwo.id,
-      examplePhoto as SelectedPhoto[]
-    );
+    const expectedTwo = makeExampleRecord("Sighting", "987");
+    await PhotoManager.addSelected(expectedTwo.id, examplePhotos);
 
     try {
       await RecordManager.upload(expectedOne);
-      throw new Error("upload first record was expected to fail");
+      throw new Error("upload first record's photos was expected to fail");
     } catch (error) {
       expect(error.errorInfo).toEqual({
         id: error.errorInfo.id,
@@ -263,7 +261,7 @@ describe("RecordManager test suite", () => {
 
     return RecordManager.upload(expectedTwo)
       .then(() => {
-        throw new Error("upload second record was expected to fail");
+        throw new Error("upload second record's photos was expected to fail");
       })
       .catch(async (error) => {
         expect(error.errorInfo).toEqual({
