@@ -37,14 +37,14 @@ type TimelineRowProps = {
 export function TimelineRow({ record, photos, actionsMenu }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
   const recordDetail: MinimalAlgaeRecord = {
-    record,
-    photos,
+    record: { ...record },
+    photos: photos ? [...photos] : undefined,
   };
 
   return (
     <>
       <Pressable
-        testID={record.id.toString()}
+        testID={record.id}
         onPress={() =>
           navigate("RecordDetails", { record: JSON.stringify(recordDetail) })
         }

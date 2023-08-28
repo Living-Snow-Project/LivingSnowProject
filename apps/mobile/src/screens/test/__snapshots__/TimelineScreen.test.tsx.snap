@@ -12,34 +12,25 @@ exports[`TimelineScreen test suite renders 1`] = `
     ]
   }
 >
-  <View
-    collapsable={false}
+  <Text
+    dataSet={{}}
     style={
       {
-        "backgroundColor": "rgba(34, 211, 238, 1)",
+        "backgroundColor": undefined,
+        "color": "#171717",
+        "fontFamily": undefined,
+        "fontSize": 14,
+        "fontStyle": "normal",
+        "fontWeight": "600",
+        "letterSpacing": 0,
+        "lineHeight": 21,
+        "textAlign": "center",
+        "textDecorationLine": undefined,
       }
     }
   >
-    <Text
-      dataSet={{}}
-      style={
-        {
-          "backgroundColor": undefined,
-          "color": "#171717",
-          "fontFamily": undefined,
-          "fontSize": 14,
-          "fontStyle": "normal",
-          "fontWeight": "600",
-          "letterSpacing": 0,
-          "lineHeight": 21,
-          "textAlign": "center",
-          "textDecorationLine": undefined,
-        }
-      }
-    >
-      No Internet Connection
-    </Text>
-  </View>
+    Idle
+  </Text>
   <RCTScrollView
     ListEmptyComponent={[Function]}
     contentContainerStyle={

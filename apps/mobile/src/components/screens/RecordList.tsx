@@ -92,7 +92,7 @@ function PendingTimelineRow({
     });
 
   const menuTrigger = (props: any) => (
-    <Pressable {...props}>
+    <Pressable {...props} testID={TestIds.RecordList.MenuTrigger}>
       <ThreeDotsIcon />
     </Pressable>
   );
@@ -108,8 +108,18 @@ function PendingTimelineRow({
         onConfirm={onConfirmDelete}
       />
       <Menu trigger={menuTrigger}>
-        <Menu.Item onPress={onEdit}>Edit</Menu.Item>
-        <Menu.Item onPress={onPressDelete}>Delete</Menu.Item>
+        <Menu.Item
+          onPress={onEdit}
+          testID={TestIds.RecordList.EditRecordAction}
+        >
+          Edit
+        </Menu.Item>
+        <Menu.Item
+          onPress={onPressDelete}
+          testID={TestIds.RecordList.DeleteRecordAction}
+        >
+          Delete
+        </Menu.Item>
       </Menu>
     </>
   );
