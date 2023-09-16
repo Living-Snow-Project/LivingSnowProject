@@ -9,7 +9,7 @@ import {
 import { RecordScreen } from "../RecordScreen";
 import { setAppSettings } from "../../../AppSettings";
 import { Labels, Placeholders, TestIds } from "../../constants";
-import * as RecordManager from "../../lib/RecordManager";
+import { RecordManager } from "../../lib/RecordManager";
 import * as Storage from "../../lib/Storage";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
@@ -31,15 +31,21 @@ navigation.setOptions = ({
   );
 };
 
+jest.mock("expo-location", () => ({
+  ...jest.requireActual("expo-location"),
+  requestForegroundPermissionsAsync: () =>
+    Promise.resolve({ status: "granted" }),
+}));
+
 const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
 
 const customRender = (route: RecordScreenRouteProp = defaultRouteProp) => {
   /* eslint-disable react/jsx-no-constructed-context-values */
   const algaeRecords = {
     ...makeAlgaeRecordsMock(),
-    uploadRecord: (record: AlgaeRecord, photos: Photo[]): Promise<void> =>
-      RecordManager.uploadRecord(record, photos).then(() => Promise.resolve()),
-    updatePendingRecord: (record: AlgaeRecord): Promise<void> =>
+    upload: (record: AlgaeRecord): Promise<void> =>
+      RecordManager.upload(record).then(() => Promise.resolve()),
+    updatePending: (record: AlgaeRecord): Promise<void> =>
       Storage.updatePendingRecord(record).then(() => Promise.resolve()),
   };
 
