@@ -11,8 +11,6 @@ import { setAppSettings } from "../../../AppSettings";
 import { Labels, Placeholders, TestIds } from "../../constants";
 import { RecordManager } from "../../lib/RecordManager";
 import * as Storage from "../../lib/Storage";
-import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
-import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
 
 // record action button renders independently of the screen
 let recordActionButton: JSX.Element;
@@ -39,24 +37,12 @@ jest.mock("expo-location", () => ({
 
 const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
 
-const customRender = (route: RecordScreenRouteProp = defaultRouteProp) => {
-  /* eslint-disable react/jsx-no-constructed-context-values */
-  const algaeRecords = {
-    ...makeAlgaeRecordsMock(),
-    upload: (record: AlgaeRecord): Promise<void> =>
-      RecordManager.upload(record).then(() => Promise.resolve()),
-    updatePending: (record: AlgaeRecord): Promise<void> =>
-      Storage.updatePendingRecord(record).then(() => Promise.resolve()),
-  };
-
-  return render(
+const customRender = (route: RecordScreenRouteProp = defaultRouteProp) =>
+  render(
     <NativeBaseProviderForTesting>
-      <AlgaeRecordsContext.Provider value={algaeRecords}>
-        <RecordScreen navigation={navigation} route={route} />
-      </AlgaeRecordsContext.Provider>
+      <RecordScreen navigation={navigation} route={route} />
     </NativeBaseProviderForTesting>
   );
-};
 
 const renderWithGpsWarningOff = () => {
   const testCoordinates = "123.456, -98.765";
@@ -193,47 +179,68 @@ describe("RecordScreen test suite", () => {
   });
 
   describe("TextInput tests", () => {
-    test("TubeId", () => {
-      const { getByPlaceholderText, getByDisplayValue, getByTestId } =
-        customRender();
-      const tubeId = getByPlaceholderText(
-        Placeholders.RecordScreen.TubeIdDisabled
+    test("TubeId", async () => {
+      const {
+        getByPlaceholderText,
+        getByDisplayValue,
+        getByTestId,
+        queryByPlaceholderText,
+      } = customRender();
+
+      await waitFor(() =>
+        queryByPlaceholderText(Placeholders.RecordScreen.TubeIdDisabled)
       );
-      const expected = "123-456";
 
       fireEvent(
         getByTestId(TestIds.Selectors.RecordType),
         "onChange",
         "Sample"
       );
-      fireEvent.changeText(tubeId, expected);
+
+      const expected = "123-456";
+
+      fireEvent.changeText(
+        getByPlaceholderText(Placeholders.RecordScreen.TubeId),
+        expected
+      );
 
       expect(getByDisplayValue(expected)).not.toBeNull();
-      fireEvent(tubeId, "onSubmitEditing");
+      fireEvent(
+        getByPlaceholderText(Placeholders.RecordScreen.TubeId),
+        "onSubmitEditing"
+      );
     });
 
     test("Location Description", () => {
       const { getByPlaceholderText, getByDisplayValue } = customRender();
-      const location = getByPlaceholderText(
-        Placeholders.RecordScreen.LocationDescription
-      );
       const expected = "Excelsior Pass on High Divide Trail";
 
-      fireEvent.changeText(location, expected);
+      fireEvent.changeText(
+        getByPlaceholderText(Placeholders.RecordScreen.LocationDescription),
+        expected
+      );
 
       expect(getByDisplayValue(expected)).not.toBeNull();
-      fireEvent(location, "onSubmitEditing");
+      fireEvent(
+        getByPlaceholderText(Placeholders.RecordScreen.LocationDescription),
+        "onSubmitEditing"
+      );
     });
 
     test("Notes", () => {
       const { getByPlaceholderText, getByDisplayValue } = customRender();
-      const notes = getByPlaceholderText(Placeholders.RecordScreen.Notes);
       const expected = "Frozen lake in a cold place with runnels of red snow";
 
-      fireEvent.changeText(notes, expected);
+      fireEvent.changeText(
+        getByPlaceholderText(Placeholders.RecordScreen.Notes),
+        expected
+      );
 
       expect(getByDisplayValue(expected)).not.toBeNull();
-      fireEvent(notes, "onSubmitEditing");
+      fireEvent(
+        getByPlaceholderText(Placeholders.RecordScreen.Notes),
+        "onSubmitEditing"
+      );
     });
   });
 
