@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
-import { AlgaeRecord, Photo, makeExampleRecord } from "@livingsnow/record";
+import { Asset } from "expo-media-library";
+import { AlgaeRecord, makeExampleRecord } from "@livingsnow/record";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import {
   RecordScreenNavigationProp,
@@ -8,8 +9,8 @@ import {
 } from "../../navigation/Routes";
 import { RecordScreen } from "../RecordScreen";
 import { setAppSettings } from "../../../AppSettings";
-import { Labels, Placeholders, TestIds } from "../../constants";
-import { RecordManager } from "../../lib/RecordManager";
+import { Labels, Notifications, Placeholders, TestIds } from "../../constants";
+import { PhotoManager } from "../../lib/PhotoManager";
 import * as Storage from "../../lib/Storage";
 
 // record action button renders independently of the screen
@@ -34,6 +35,8 @@ jest.mock("expo-location", () => ({
   requestForegroundPermissionsAsync: () =>
     Promise.resolve({ status: "granted" }),
 }));
+
+jest.useFakeTimers();
 
 const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
 
@@ -454,28 +457,24 @@ describe("RecordScreen test suite", () => {
   });
 
   describe("Edit mode tests", () => {
+    const recordPhotos = [
+      {
+        width: 100,
+        height: 200,
+        uri: "46",
+      },
+      {
+        width: 100,
+        height: 200,
+        uri: "23",
+      },
+    ] as Asset[];
     let record: AlgaeRecord;
     let recordScreen;
 
     beforeEach(() => {
       record = makeExampleRecord("Sample");
-      // internally, RecordScreen maps Photo to SelectedPhoto, so we have to modify our expected results
-      record.photos = [
-        {
-          id: "",
-          width: 100,
-          height: 200,
-          size: 0,
-          uri: "46",
-        } as unknown as Photo,
-        {
-          id: "",
-          width: 100,
-          height: 200,
-          size: 0,
-          uri: "23",
-        } as unknown as Photo,
-      ];
+      PhotoManager.addSelected(record.id, recordPhotos);
 
       recordScreen = customRender({
         params: { record: JSON.stringify(record) },
@@ -491,33 +490,42 @@ describe("RecordScreen test suite", () => {
     });
 
     test("update record successfully", async () => {
-      const { getByTestId } = render(recordActionButton);
+      const screenFindByText = recordScreen.findByText;
       const screenGetByTestId = recordScreen.getByTestId;
 
       fireEvent(
         screenGetByTestId(TestIds.Selectors.RecordType),
-        "onValueChange",
+        "onChange",
         "Sighting"
       );
 
+      // render the update button after Sample changed to Sighting
+      const { getByTestId } = render(recordActionButton);
       fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
 
       record.type = "Sighting";
-      delete record.tubeId;
 
-      // TODO: waitFor(queryByText(toast?))
-      /* return waitFor(() =>
-        expect(alertMock).toBeCalledWith(
-          Notifications.updateRecordSuccess.title
-        )
-      ).then(() => {
-        expect(navigation.goBack).toBeCalled();
+      // assert toast notification
+      await screenFindByText(Notifications.updateRecordSuccess.title);
 
-        return Storage.loadPendingRecords().then((received) => {
-          expect(received[0]).toEqual(record);
-        });
-      }); */
-    });
+      // assert navigating back to Timeline
+      await waitFor(() => expect(navigation.goBack).toBeCalled());
+
+      // assert the record was updated
+      const received = await Storage.loadPendingRecords();
+      expect(received[0]).toEqual(record);
+
+      // assert selected photots associated with record
+      const selectedPhotos = await Storage.loadSelectedPhotos();
+      const photos = selectedPhotos.get(record.id);
+
+      if (photos != undefined) {
+        expect(photos[0]).toEqual(recordPhotos[0]);
+        expect(photos[1]).toEqual(recordPhotos[1]);
+      } else {
+        throw new Error("selected photos not found");
+      }
+    }, 10000);
 
     test("update record invalid user input", async () => {
       const screenGetByDisplayValue = recordScreen.getByDisplayValue;
