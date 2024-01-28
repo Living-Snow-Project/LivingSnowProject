@@ -1,41 +1,54 @@
 import React from "react";
-import { render } from "@testing-library/react-native";
+import { render, waitFor } from "@testing-library/react-native";
 import {
-  AlgaeRecord,
   makeExampleRecord,
   makeExamplePhoto,
+  AlgaeRecord,
 } from "@livingsnow/record";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import { TimelineRow } from "../screens";
 import { Labels } from "../../constants";
+import { MinimalAlgaeRecord } from "../../../types";
 
 describe("TimelineRow test suite", () => {
-  let expectedRecord: AlgaeRecord;
+  const expectedRecord: MinimalAlgaeRecord = {
+    record: {} as AlgaeRecord,
+    photos: undefined,
+  };
 
   beforeEach(() => {
-    expectedRecord = makeExampleRecord("Sample");
+    expectedRecord.record = makeExampleRecord("Sample");
     expectedRecord.photos = [makeExamplePhoto({ width: 720, height: 480 })];
   });
 
   test("renders", () => {
-    const { toJSON } = render(
+    const { getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
-        <TimelineRow record={expectedRecord} />
+        <TimelineRow
+          record={expectedRecord.record}
+          photos={expectedRecord.photos}
+        />
       </NativeBaseProviderForTesting>
     );
+
+    // name = "test name"
+    waitFor(() => getByText("TN"));
 
     expect(toJSON()).toMatchSnapshot();
   });
 
   test("missing name", () => {
-    expectedRecord.name = undefined;
+    expectedRecord.record.name = undefined;
 
-    const { queryByText } = render(
+    const { getByText } = render(
       <NativeBaseProviderForTesting>
-        <TimelineRow record={expectedRecord} />
+        <TimelineRow
+          record={expectedRecord.record}
+          photos={expectedRecord.photos}
+        />
       </NativeBaseProviderForTesting>
     );
 
-    expect(queryByText(Labels.DefaultName)).toBeTruthy();
+    waitFor(() => getByText(Labels.DefaultName));
   });
 });

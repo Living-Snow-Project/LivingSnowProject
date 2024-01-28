@@ -121,6 +121,7 @@ exports[`validates Welcome Screen navigation 1`] = `
     <View
       dataSet={{}}
       isInvalid={false}
+      isReadOnly={false}
       isRequired={false}
       style={
         {
@@ -228,6 +229,7 @@ exports[`validates Welcome Screen navigation 1`] = `
     <View
       dataSet={{}}
       isInvalid={false}
+      isReadOnly={false}
       isRequired={false}
       style={
         {

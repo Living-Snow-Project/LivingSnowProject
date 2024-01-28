@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
-import { AlgaeRecord, Photo, makeExampleRecord } from "@livingsnow/record";
+import { Asset } from "expo-media-library";
+import { AlgaeRecord, makeExampleRecord } from "@livingsnow/record";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import {
   RecordScreenNavigationProp,
@@ -8,11 +9,15 @@ import {
 } from "../../navigation/Routes";
 import { RecordScreen } from "../RecordScreen";
 import { setAppSettings } from "../../../AppSettings";
-import { Labels, Placeholders, TestIds } from "../../constants";
-import * as RecordManager from "../../lib/RecordManager";
+import {
+  Labels,
+  Notifications,
+  Placeholders,
+  TestIds,
+  Validations,
+} from "../../constants";
+import { PhotoManager } from "../../lib/PhotoManager";
 import * as Storage from "../../lib/Storage";
-import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
-import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
 
 // record action button renders independently of the screen
 let recordActionButton: JSX.Element;
@@ -31,26 +36,22 @@ navigation.setOptions = ({
   );
 };
 
+jest.mock("expo-location", () => ({
+  ...jest.requireActual("expo-location"),
+  requestForegroundPermissionsAsync: () =>
+    Promise.resolve({ status: "granted" }),
+}));
+
+jest.useFakeTimers();
+
 const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
 
-const customRender = (route: RecordScreenRouteProp = defaultRouteProp) => {
-  /* eslint-disable react/jsx-no-constructed-context-values */
-  const algaeRecords = {
-    ...makeAlgaeRecordsMock(),
-    uploadRecord: (record: AlgaeRecord, photos: Photo[]): Promise<void> =>
-      RecordManager.uploadRecord(record, photos).then(() => Promise.resolve()),
-    updatePendingRecord: (record: AlgaeRecord): Promise<void> =>
-      Storage.updatePendingRecord(record).then(() => Promise.resolve()),
-  };
-
-  return render(
+const customRender = (route: RecordScreenRouteProp = defaultRouteProp) =>
+  render(
     <NativeBaseProviderForTesting>
-      <AlgaeRecordsContext.Provider value={algaeRecords}>
-        <RecordScreen navigation={navigation} route={route} />
-      </AlgaeRecordsContext.Provider>
+      <RecordScreen navigation={navigation} route={route} />
     </NativeBaseProviderForTesting>
   );
-};
 
 const renderWithGpsWarningOff = () => {
   const testCoordinates = "123.456, -98.765";
@@ -187,47 +188,68 @@ describe("RecordScreen test suite", () => {
   });
 
   describe("TextInput tests", () => {
-    test("TubeId", () => {
-      const { getByPlaceholderText, getByDisplayValue, getByTestId } =
-        customRender();
-      const tubeId = getByPlaceholderText(
-        Placeholders.RecordScreen.TubeIdDisabled
+    test("TubeId", async () => {
+      const {
+        getByPlaceholderText,
+        getByDisplayValue,
+        getByTestId,
+        queryByPlaceholderText,
+      } = customRender();
+
+      await waitFor(() =>
+        queryByPlaceholderText(Placeholders.RecordScreen.TubeIdDisabled)
       );
-      const expected = "123-456";
 
       fireEvent(
         getByTestId(TestIds.Selectors.RecordType),
         "onChange",
         "Sample"
       );
-      fireEvent.changeText(tubeId, expected);
+
+      const expected = "123-456";
+
+      fireEvent.changeText(
+        getByPlaceholderText(Placeholders.RecordScreen.TubeId),
+        expected
+      );
 
       expect(getByDisplayValue(expected)).not.toBeNull();
-      fireEvent(tubeId, "onSubmitEditing");
+      fireEvent(
+        getByPlaceholderText(Placeholders.RecordScreen.TubeId),
+        "onSubmitEditing"
+      );
     });
 
     test("Location Description", () => {
       const { getByPlaceholderText, getByDisplayValue } = customRender();
-      const location = getByPlaceholderText(
-        Placeholders.RecordScreen.LocationDescription
-      );
       const expected = "Excelsior Pass on High Divide Trail";
 
-      fireEvent.changeText(location, expected);
+      fireEvent.changeText(
+        getByPlaceholderText(Placeholders.RecordScreen.LocationDescription),
+        expected
+      );
 
       expect(getByDisplayValue(expected)).not.toBeNull();
-      fireEvent(location, "onSubmitEditing");
+      fireEvent(
+        getByPlaceholderText(Placeholders.RecordScreen.LocationDescription),
+        "onSubmitEditing"
+      );
     });
 
     test("Notes", () => {
       const { getByPlaceholderText, getByDisplayValue } = customRender();
-      const notes = getByPlaceholderText(Placeholders.RecordScreen.Notes);
       const expected = "Frozen lake in a cold place with runnels of red snow";
 
-      fireEvent.changeText(notes, expected);
+      fireEvent.changeText(
+        getByPlaceholderText(Placeholders.RecordScreen.Notes),
+        expected
+      );
 
       expect(getByDisplayValue(expected)).not.toBeNull();
-      fireEvent(notes, "onSubmitEditing");
+      fireEvent(
+        getByPlaceholderText(Placeholders.RecordScreen.Notes),
+        "onSubmitEditing"
+      );
     });
   });
 
@@ -441,35 +463,46 @@ describe("RecordScreen test suite", () => {
   });
 
   describe("Edit mode tests", () => {
+    const recordPhotos = [
+      {
+        width: 100,
+        height: 200,
+        uri: "46",
+      },
+      {
+        width: 100,
+        height: 200,
+        uri: "23",
+      },
+    ] as Asset[];
     let record: AlgaeRecord;
     let recordScreen;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       record = makeExampleRecord("Sample");
-      // internally, RecordScreen maps Photo to SelectedPhoto, so we have to modify our expected results
-      record.photos = [
-        {
-          id: "",
-          width: 100,
-          height: 200,
-          size: 0,
-          uri: "46",
-        } as unknown as Photo,
-        {
-          id: "",
-          width: 100,
-          height: 200,
-          size: 0,
-          uri: "23",
-        } as unknown as Photo,
-      ];
+      await PhotoManager.addSelected(record.id, recordPhotos);
 
+      // render the Record Screen in Edit Mode
       recordScreen = customRender({
         params: { record: JSON.stringify(record) },
       } as RecordScreenRouteProp);
 
+      // photo is loading
+      await waitFor(() => recordScreen.findAllByText("Loading"), {
+        timeout: 5000,
+      });
+
+      // verify the photo was "Loaded" by checking "Loading" no longer exists
+      // API for "*ByAltText" doesn't exist in React Native
+      await waitFor(() => {
+        if (recordScreen.queryByText("Loading") != null) {
+          throw new Error("image not loaded yet");
+        }
+      });
+
+      // now the Record Screen has been initialized
       return Storage.savePendingRecord(record);
-    });
+    }, 10000);
 
     test("renders", () => {
       const { toJSON } = recordScreen;
@@ -478,69 +511,69 @@ describe("RecordScreen test suite", () => {
     });
 
     test("update record successfully", async () => {
-      const { getByTestId } = render(recordActionButton);
+      const screenFindByText = recordScreen.findByText;
       const screenGetByTestId = recordScreen.getByTestId;
 
       fireEvent(
         screenGetByTestId(TestIds.Selectors.RecordType),
-        "onValueChange",
+        "onChange",
         "Sighting"
       );
 
+      // render the update button after Sample changed to Sighting
+      const { getByTestId } = render(recordActionButton);
       fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
 
       record.type = "Sighting";
-      delete record.tubeId;
 
-      // TODO: waitFor(queryByText(toast?))
-      /* return waitFor(() =>
-        expect(alertMock).toBeCalledWith(
-          Notifications.updateRecordSuccess.title
-        )
-      ).then(() => {
-        expect(navigation.goBack).toBeCalled();
+      // assert toast notification
+      await screenFindByText(Notifications.updateRecordSuccess.title);
 
-        return Storage.loadPendingRecords().then((received) => {
-          expect(received[0]).toEqual(record);
-        });
-      }); */
-    });
+      // assert navigating back to Timeline
+      await waitFor(() => expect(navigation.goBack).toBeCalled());
+
+      // assert the record was updated
+      const received = await Storage.loadPendingRecords();
+      expect(received[0]).toEqual(record);
+
+      // assert selected photots associated with record
+      const selectedPhotos = await Storage.loadSelectedPhotos();
+      const photos = selectedPhotos.get(record.id);
+
+      if (photos != undefined) {
+        expect(photos[0]).toEqual(recordPhotos[0]);
+        expect(photos[1]).toEqual(recordPhotos[1]);
+      } else {
+        throw new Error("selected photos not found");
+      }
+    }, 10000);
 
     test("update record invalid user input", async () => {
+      const screenFindByText = recordScreen.findByText;
       const screenGetByDisplayValue = recordScreen.getByDisplayValue;
-
-      const { getByTestId } = render(recordActionButton);
 
       fireEvent.changeText(
         screenGetByDisplayValue(`${record.latitude}, ${record.longitude}`),
         "garbage, coordinates"
       );
 
+      // render the update button after coordinates changed
+      const { getByTestId } = render(recordActionButton);
+
       fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
 
-      // TODO: queryByText
-      /* return waitFor(() =>
-        expect(alertMock).toBeCalledWith(
-          Notifications.invalidCoordinates.title,
-          Notifications.invalidCoordinates.message
-        )
-      ); */
+      await screenFindByText(Validations.invalidCoordinates);
     });
 
     test("update record fails", async () => {
+      const screenFindByText = recordScreen.findByText;
       const { getByTestId } = render(recordActionButton);
 
       jest.spyOn(Storage, "updatePendingRecord").mockRejectedValueOnce("error");
 
       fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
 
-      // TODO: waitFor(queryByText(toast?))
-      /* return waitFor(() =>
-        expect(alertMock).toBeCalledWith(
-          Notifications.updateRecordFailed.title,
-          Notifications.updateRecordFailed.message
-        )
-      ); */
-    });
+      await screenFindByText(Notifications.updateRecordFailed.message);
+    }, 10000);
   });
 });

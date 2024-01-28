@@ -1,20 +1,22 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Logger from "@livingsnow/logger";
-import { AlgaeRecord, jsonToRecord, PendingPhoto } from "@livingsnow/record";
-import { AppSettings } from "../../types/AppSettings";
+import { AlgaeRecord, jsonToRecord } from "@livingsnow/record";
+import { DataResponseV2 } from "@livingsnow/network";
+import { AppSettings, PendingPhotos, SelectedPhotos } from "../../types";
 import { Errors } from "../constants/Strings";
 
 const StorageKeys = {
-  photos: "photos",
   appConfig: "appConfig",
-  cachedRecords: "cachedRecords",
-  pendingRecords: "pendingRecords",
+  cachedRecords: "cachedRecords", // downloaded from cloud
+  pendingRecords: "pendingRecords", // not yet uploaded to cloud
+  pendingPhotos: "pendingPhotos", // record upload, photos not yet uploaded
+  selectedPhotos: "selectedPhotos", // record and photos not yet uploaded
 } as const;
 
 // TODO: don't hide errors and make the app handle them
 
-// AppConfig Storage APIs
-async function loadAppConfig(): Promise<AppSettings | null> {
+// AppConfig
+export async function loadAppConfig(): Promise<AppSettings | null> {
   return AsyncStorage.getItem(StorageKeys.appConfig)
     .then((value) => (value ? JSON.parse(value) : null))
     .catch((error) => {
@@ -23,7 +25,7 @@ async function loadAppConfig(): Promise<AppSettings | null> {
     });
 }
 
-async function saveAppConfig(appSettings: AppSettings): Promise<void> {
+export async function saveAppConfig(appSettings: AppSettings): Promise<void> {
   if (!appSettings) {
     return Promise.resolve();
   }
@@ -37,8 +39,8 @@ async function saveAppConfig(appSettings: AppSettings): Promise<void> {
   });
 }
 
-// Pending Records Storage APIs
-async function loadPendingRecords(): Promise<AlgaeRecord[]> {
+// Pending Records (not yet uploaded to cloud)
+export async function loadPendingRecords(): Promise<AlgaeRecord[]> {
   return AsyncStorage.getItem(StorageKeys.pendingRecords)
     .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
     .catch((error) => {
@@ -47,7 +49,7 @@ async function loadPendingRecords(): Promise<AlgaeRecord[]> {
     });
 }
 
-async function savePendingRecords(
+export async function savePendingRecords(
   records: AlgaeRecord[]
 ): Promise<AlgaeRecord[]> {
   const existing = await loadPendingRecords();
@@ -67,14 +69,16 @@ async function savePendingRecords(
     });
 }
 
-async function clearPendingRecords(): Promise<void> {
+export async function clearPendingRecords(): Promise<void> {
   return AsyncStorage.removeItem(StorageKeys.pendingRecords).catch((error) => {
     Logger.Error(`clearPendingRecords: ${error}`);
     return error;
   });
 }
 
-async function savePendingRecord(record: AlgaeRecord): Promise<AlgaeRecord[]> {
+export async function savePendingRecord(
+  record: AlgaeRecord
+): Promise<AlgaeRecord[]> {
   const records = await loadPendingRecords();
 
   if (!record) {
@@ -85,7 +89,7 @@ async function savePendingRecord(record: AlgaeRecord): Promise<AlgaeRecord[]> {
   return savePendingRecords(records);
 }
 
-async function updatePendingRecord(
+export async function updatePendingRecord(
   record: AlgaeRecord
 ): Promise<AlgaeRecord[]> {
   const pendingRecords = await loadPendingRecords();
@@ -93,7 +97,7 @@ async function updatePendingRecord(
     (current) => current.id === record.id
   );
 
-  if (pendingRecordIndex === -1) {
+  if (pendingRecordIndex == -1) {
     return Promise.reject(Errors.recordNotFound);
   }
 
@@ -103,18 +107,18 @@ async function updatePendingRecord(
 }
 
 // returns the new list of pending records
-async function deletePendingRecord(
-  record: AlgaeRecord
+export async function deletePendingRecord(
+  recordId: string
 ): Promise<AlgaeRecord[]> {
   const records = await loadPendingRecords();
 
-  if (!record) {
+  if (!recordId) {
     return records;
   }
 
-  const index = records.findIndex((current) => current.id === record.id);
+  const index = records.findIndex((current) => current.id == recordId);
 
-  if (index !== -1) {
+  if (index != -1) {
     records.splice(index, 1);
     await savePendingRecords(records);
     return records;
@@ -123,19 +127,19 @@ async function deletePendingRecord(
   return records;
 }
 
-// Cached Records Storage APIs
-async function loadCachedRecords(): Promise<AlgaeRecord[]> {
+// Cached Records (downloaded from cloud)
+export async function loadCachedRecords(): Promise<DataResponseV2[]> {
   return AsyncStorage.getItem(StorageKeys.cachedRecords)
-    .then((value) => (value ? jsonToRecord<AlgaeRecord[]>(value) : []))
+    .then((value) => (value ? jsonToRecord<DataResponseV2[]>(value) : []))
     .catch((error) => {
       Logger.Error(`loadCachedRecords: ${error}`);
       return [];
     });
 }
 
-async function saveCachedRecords(
-  records: AlgaeRecord[]
-): Promise<AlgaeRecord[]> {
+export async function saveCachedRecords(
+  records: DataResponseV2[]
+): Promise<DataResponseV2[]> {
   const existing = await loadCachedRecords();
 
   if (!records) {
@@ -153,66 +157,69 @@ async function saveCachedRecords(
     });
 }
 
-// Pending Photo Storage APIs
-async function loadPendingPhotos(): Promise<PendingPhoto[]> {
-  return AsyncStorage.getItem(StorageKeys.photos)
-    .then((value) => (value ? JSON.parse(value) : []))
+// Photos Templates
+async function loadPhotos<K, T>(key: string): Promise<Map<K, T[]>> {
+  return AsyncStorage.getItem(key)
+    .then((value) =>
+      value ? new Map<K, T[]>(JSON.parse(value)) : new Map<K, T[]>()
+    )
     .catch((error) => {
-      Logger.Error(`${error}`);
-      return [];
+      Logger.Error(`loadPhotos: ${error}`);
+      return Promise.reject(error);
     });
 }
 
-async function savePendingPhotos(
-  photos: PendingPhoto[]
-): Promise<PendingPhoto[]> {
-  const existing = await loadPendingPhotos();
+async function savePhotos<K, T>(
+  key: string,
+  photos: Map<K, T[]>
+): Promise<Map<K, T[]>> {
+  const existing = await loadPhotos<K, T>(key);
 
   if (!photos) {
     return existing;
   }
 
-  return AsyncStorage.setItem(StorageKeys.photos, JSON.stringify(photos))
+  return AsyncStorage.setItem(key, JSON.stringify([...photos]))
     .then(() => photos)
     .catch((error) => {
-      Logger.Error(`${error}`);
-      return error;
+      Logger.Error(`savePhotos: ${error}`);
+      return Promise.reject(error);
     });
 }
 
-async function clearPendingPhotos(): Promise<void> {
-  return AsyncStorage.removeItem(StorageKeys.photos).catch((error) => {
+async function clearPhotos(key: string): Promise<void> {
+  return AsyncStorage.removeItem(key).catch((error) => {
     Logger.Error(`${error}`);
-    return error;
+    return Promise.reject(error);
   });
 }
 
-async function savePendingPhoto(photo: PendingPhoto): Promise<PendingPhoto[]> {
-  const existing = await loadPendingPhotos();
-
-  if (!photo) {
-    return existing;
-  }
-
-  // check for other pending photos
-  const photos = await loadPendingPhotos();
-  photos.push(photo);
-  return savePendingPhotos(photos);
+// Selected Photos
+export async function loadSelectedPhotos(): Promise<SelectedPhotos> {
+  return loadPhotos(StorageKeys.selectedPhotos);
 }
 
-export {
-  loadAppConfig,
-  saveAppConfig,
-  loadPendingRecords,
-  savePendingRecords,
-  savePendingRecord,
-  updatePendingRecord,
-  deletePendingRecord,
-  clearPendingRecords,
-  loadCachedRecords,
-  saveCachedRecords,
-  loadPendingPhotos,
-  savePendingPhotos,
-  clearPendingPhotos,
-  savePendingPhoto,
-};
+export async function saveSelectedPhotos(
+  photos: SelectedPhotos
+): Promise<SelectedPhotos> {
+  return savePhotos(StorageKeys.selectedPhotos, photos);
+}
+
+export async function clearSelectedPhotos(): Promise<void> {
+  return clearPhotos(StorageKeys.selectedPhotos);
+}
+
+// Pending Photos
+export async function loadPendingPhotos(): Promise<PendingPhotos> {
+  return loadPhotos(StorageKeys.pendingPhotos);
+}
+
+export async function savePendingPhotos(
+  photos: PendingPhotos
+): Promise<PendingPhotos> {
+  return savePhotos(StorageKeys.pendingPhotos, photos);
+}
+
+export async function clearPendingPhotos(): Promise<void> {
+  return clearPhotos(StorageKeys.pendingPhotos);
+}

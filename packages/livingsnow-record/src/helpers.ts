@@ -1,38 +1,27 @@
-import { AlgaeRecord, AlgaeRecordType, PendingPhoto, Photo } from "./types";
+import { AlgaeRecord, AlgaeRecordType, Photo } from "./types";
 
 const randomInteger = (): number => Math.floor(Math.random() * 1000000);
 
 export const makeExamplePhoto = ({
   isLocal = false,
   uri = `${randomInteger()}`,
-  size = randomInteger(),
   width = randomInteger(),
   height = randomInteger(),
 } = {}): Photo => ({
   uri: isLocal ? `file://${uri}` : uri,
-  size,
   width,
   height,
 });
 
-export const makeExamplePendingPhoto = ({
-  isLocal = false,
-  id = randomInteger(),
-  uri = `${randomInteger()}`,
-  size = randomInteger(),
-  width = randomInteger(),
-  height = randomInteger(),
-} = {}): PendingPhoto => ({
-  id,
-  ...makeExamplePhoto({ isLocal, uri, size, width, height }),
-});
-
-export const isSample = (type: AlgaeRecordType): boolean =>
+export const isSample = (type: AlgaeRecordType) =>
   Array<AlgaeRecordType>("Sample").includes(type);
 
 // consider randomizing more data; how that impacts snapshot testing and the above desired feature
-export const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
-  id: 1234,
+export const makeExampleRecord = (
+  type: AlgaeRecordType,
+  id: string = "1234"
+): AlgaeRecord => ({
+  id,
   type,
   name: "test name",
   date: new Date("2021-09-16T00:00:00"),
@@ -41,13 +30,11 @@ export const makeExampleRecord = (type: AlgaeRecordType): AlgaeRecord => ({
   longitude: 96.96,
   size: "Fist",
   colors: ["Red", "Green"],
-  tubeId: isSample(type) ? "LAB-1337" : "",
+  tubeId: isSample(type) ? "LAB-1337" : undefined,
   locationDescription: "test location",
   notes: "test notes",
-  photos: [makeExamplePhoto({ uri: "46" }), makeExamplePhoto({ uri: "23" })],
 });
 
-// decodes AlgaeRecord or AlgaeRecord[] JSON
 export function jsonToRecord<T>(json: string): T {
   const recordReviver = (key: string, value: any): any => {
     if (key === "date") {

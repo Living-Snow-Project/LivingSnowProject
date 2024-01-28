@@ -1,6 +1,6 @@
 import React from "react";
 import { FormControl, Pressable } from "native-base";
-import { SelectedPhoto } from "@livingsnow/record";
+import { SelectedPhoto } from "../../../types";
 import { RootStackNavigationProp } from "../../navigation/Routes";
 import { ThemedBox } from "../layout";
 import { AddPhotosIcon, PhotosLayout } from "../media";

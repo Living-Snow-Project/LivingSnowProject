@@ -1,6 +1,5 @@
 import React from "react";
-import { Platform, TextInput } from "react-native";
-import { DeviceEventEmitter } from "react-native/Libraries/EventEmitter/RCTDeviceEventEmitter";
+import { DeviceEventEmitter, Platform, TextInput } from "react-native";
 import { render } from "@testing-library/react-native";
 import { KeyboardShift } from "../forms";
 

@@ -36,6 +36,7 @@ export const TestIds = {
     SnowIcon: "snow-icon",
   },
   RecordList: {
+    MenuTrigger: "pending-record-menu-trigger",
     EditRecordAction: "edit-record-action",
     DeleteRecordAction: "delete-record-action",
   },

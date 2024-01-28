@@ -15,6 +15,7 @@ exports[`CustomTextInput tests renders on android 1`] = `
   <View
     dataSet={{}}
     isInvalid={false}
+    isReadOnly={false}
     isRequired={false}
     style={
       {
@@ -137,6 +138,7 @@ exports[`CustomTextInput tests renders on ios 1`] = `
   <View
     dataSet={{}}
     isInvalid={false}
+    isReadOnly={false}
     isRequired={false}
     style={
       {
