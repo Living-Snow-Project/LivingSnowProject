@@ -54,7 +54,7 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
       width={width}
       height={height}
       source={{ uri: cachedPhoto.uri }}
-      alt="some alt text here"
+      alt={cachedPhoto.state}
     />
   );
 }

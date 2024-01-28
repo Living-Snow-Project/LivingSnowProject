@@ -9,7 +9,13 @@ import {
 } from "../../navigation/Routes";
 import { RecordScreen } from "../RecordScreen";
 import { setAppSettings } from "../../../AppSettings";
-import { Labels, Notifications, Placeholders, TestIds } from "../../constants";
+import {
+  Labels,
+  Notifications,
+  Placeholders,
+  TestIds,
+  Validations,
+} from "../../constants";
 import { PhotoManager } from "../../lib/PhotoManager";
 import * as Storage from "../../lib/Storage";
 
@@ -472,16 +478,31 @@ describe("RecordScreen test suite", () => {
     let record: AlgaeRecord;
     let recordScreen;
 
-    beforeEach(() => {
+    beforeEach(async () => {
       record = makeExampleRecord("Sample");
-      PhotoManager.addSelected(record.id, recordPhotos);
+      await PhotoManager.addSelected(record.id, recordPhotos);
 
+      // render the Record Screen in Edit Mode
       recordScreen = customRender({
         params: { record: JSON.stringify(record) },
       } as RecordScreenRouteProp);
 
+      // photo is loading
+      await waitFor(() => recordScreen.findAllByText("Loading"), {
+        timeout: 5000,
+      });
+
+      // verify the photo was "Loaded" by checking "Loading" no longer exists
+      // API for "*ByAltText" doesn't exist in React Native
+      await waitFor(() => {
+        if (recordScreen.queryByText("Loading") != null) {
+          throw new Error("image not loaded yet");
+        }
+      });
+
+      // now the Record Screen has been initialized
       return Storage.savePendingRecord(record);
-    });
+    }, 10000);
 
     test("renders", () => {
       const { toJSON } = recordScreen;
@@ -528,40 +549,31 @@ describe("RecordScreen test suite", () => {
     }, 10000);
 
     test("update record invalid user input", async () => {
+      const screenFindByText = recordScreen.findByText;
       const screenGetByDisplayValue = recordScreen.getByDisplayValue;
-
-      const { getByTestId } = render(recordActionButton);
 
       fireEvent.changeText(
         screenGetByDisplayValue(`${record.latitude}, ${record.longitude}`),
         "garbage, coordinates"
       );
 
+      // render the update button after coordinates changed
+      const { getByTestId } = render(recordActionButton);
+
       fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
 
-      // TODO: queryByText
-      /* return waitFor(() =>
-        expect(alertMock).toBeCalledWith(
-          Notifications.invalidCoordinates.title,
-          Notifications.invalidCoordinates.message
-        )
-      ); */
+      await screenFindByText(Validations.invalidCoordinates);
     });
 
     test("update record fails", async () => {
+      const screenFindByText = recordScreen.findByText;
       const { getByTestId } = render(recordActionButton);
 
       jest.spyOn(Storage, "updatePendingRecord").mockRejectedValueOnce("error");
 
       fireEvent.press(getByTestId(TestIds.RecordScreen.UpdateButton));
 
-      // TODO: waitFor(queryByText(toast?))
-      /* return waitFor(() =>
-        expect(alertMock).toBeCalledWith(
-          Notifications.updateRecordFailed.title,
-          Notifications.updateRecordFailed.message
-        )
-      ); */
-    });
+      await screenFindByText(Notifications.updateRecordFailed.message);
+    }, 10000);
   });
 });

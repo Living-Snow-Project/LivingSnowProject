@@ -47,16 +47,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
         >
           <View
             dataSet={{}}
-            feedbackId="field-1-feedback"
+            feedbackId="field-18-feedback"
             hasFeedbackText={false}
             hasHelpText={false}
-            helpTextId="field-1-helptext"
+            helpTextId="field-18-helptext"
             isDisabled={false}
             isInvalid={false}
             isReadOnly={false}
             isRequired={true}
-            labelId="field-1-label"
-            nativeID="field-1-label"
+            labelId="field-18-label"
+            nativeID="field-18-label"
             setHasFeedbackText={[Function]}
             setHasHelpText={[Function]}
             style={
@@ -163,32 +163,32 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   checked={false}
                   collapsable={false}
                   dataSet={{}}
-                  feedbackId="field-1-feedback"
+                  feedbackId="field-18-feedback"
                   focusable={true}
                   formControlContext={
                     {
-                      "feedbackId": "field-1-feedback",
+                      "feedbackId": "field-18-feedback",
                       "hasFeedbackText": false,
                       "hasHelpText": false,
-                      "helpTextId": "field-1-helptext",
+                      "helpTextId": "field-18-helptext",
                       "isDisabled": false,
                       "isInvalid": false,
                       "isReadOnly": false,
                       "isRequired": true,
-                      "labelId": "field-1-label",
-                      "nativeID": "field-1",
+                      "labelId": "field-18-label",
+                      "nativeID": "field-18",
                       "setHasFeedbackText": [Function],
                       "setHasHelpText": [Function],
                     }
                   }
                   hasFeedbackText={false}
                   hasHelpText={false}
-                  helpTextId="field-1-helptext"
+                  helpTextId="field-18-helptext"
                   isInvalid={false}
                   isReadOnly={false}
                   isRequired={true}
-                  labelId="field-1-label"
-                  nativeID="field-1"
+                  labelId="field-18-label"
+                  nativeID="field-18"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -239,32 +239,32 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                         colorScheme="primary"
                         dataSet={{}}
                         defaultIsChecked={false}
-                        feedbackId="field-1-feedback"
+                        feedbackId="field-18-feedback"
                         formControlContext={
                           {
-                            "feedbackId": "field-1-feedback",
+                            "feedbackId": "field-18-feedback",
                             "hasFeedbackText": false,
                             "hasHelpText": false,
-                            "helpTextId": "field-1-helptext",
+                            "helpTextId": "field-18-helptext",
                             "isDisabled": false,
                             "isInvalid": false,
                             "isReadOnly": false,
                             "isRequired": true,
-                            "labelId": "field-1-label",
-                            "nativeID": "field-1",
+                            "labelId": "field-18-label",
+                            "nativeID": "field-18",
                             "setHasFeedbackText": [Function],
                             "setHasHelpText": [Function],
                           }
                         }
                         hasFeedbackText={false}
                         hasHelpText={false}
-                        helpTextId="field-1-helptext"
+                        helpTextId="field-18-helptext"
                         isDisabled={false}
                         isInvalid={false}
                         isReadOnly={false}
                         isRequired={true}
-                        labelId="field-1-label"
-                        nativeID="field-1"
+                        labelId="field-18-label"
+                        nativeID="field-18"
                         setHasFeedbackText={[Function]}
                         setHasHelpText={[Function]}
                         state={
@@ -434,32 +434,32 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   checked={true}
                   collapsable={false}
                   dataSet={{}}
-                  feedbackId="field-1-feedback"
+                  feedbackId="field-18-feedback"
                   focusable={true}
                   formControlContext={
                     {
-                      "feedbackId": "field-1-feedback",
+                      "feedbackId": "field-18-feedback",
                       "hasFeedbackText": false,
                       "hasHelpText": false,
-                      "helpTextId": "field-1-helptext",
+                      "helpTextId": "field-18-helptext",
                       "isDisabled": false,
                       "isInvalid": false,
                       "isReadOnly": false,
                       "isRequired": true,
-                      "labelId": "field-1-label",
-                      "nativeID": "field-1",
+                      "labelId": "field-18-label",
+                      "nativeID": "field-18",
                       "setHasFeedbackText": [Function],
                       "setHasHelpText": [Function],
                     }
                   }
                   hasFeedbackText={false}
                   hasHelpText={false}
-                  helpTextId="field-1-helptext"
+                  helpTextId="field-18-helptext"
                   isInvalid={false}
                   isReadOnly={false}
                   isRequired={true}
-                  labelId="field-1-label"
-                  nativeID="field-1"
+                  labelId="field-18-label"
+                  nativeID="field-18"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -510,32 +510,32 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                         colorScheme="primary"
                         dataSet={{}}
                         defaultIsChecked={false}
-                        feedbackId="field-1-feedback"
+                        feedbackId="field-18-feedback"
                         formControlContext={
                           {
-                            "feedbackId": "field-1-feedback",
+                            "feedbackId": "field-18-feedback",
                             "hasFeedbackText": false,
                             "hasHelpText": false,
-                            "helpTextId": "field-1-helptext",
+                            "helpTextId": "field-18-helptext",
                             "isDisabled": false,
                             "isInvalid": false,
                             "isReadOnly": false,
                             "isRequired": true,
-                            "labelId": "field-1-label",
-                            "nativeID": "field-1",
+                            "labelId": "field-18-label",
+                            "nativeID": "field-18",
                             "setHasFeedbackText": [Function],
                             "setHasHelpText": [Function],
                           }
                         }
                         hasFeedbackText={false}
                         hasHelpText={false}
-                        helpTextId="field-1-helptext"
+                        helpTextId="field-18-helptext"
                         isDisabled={false}
                         isInvalid={false}
                         isReadOnly={false}
                         isRequired={true}
-                        labelId="field-1-label"
-                        nativeID="field-1"
+                        labelId="field-18-label"
+                        nativeID="field-18"
                         setHasFeedbackText={[Function]}
                         setHasHelpText={[Function]}
                         state={
@@ -693,16 +693,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
         >
           <View
             dataSet={{}}
-            feedbackId="field-2-feedback"
+            feedbackId="field-19-feedback"
             hasFeedbackText={false}
             hasHelpText={false}
-            helpTextId="field-2-helptext"
+            helpTextId="field-19-helptext"
             isDisabled={false}
             isInvalid={false}
             isReadOnly={false}
             isRequired={true}
-            labelId="field-2-label"
-            nativeID="field-2-label"
+            labelId="field-19-label"
+            nativeID="field-19-label"
             setHasFeedbackText={[Function]}
             setHasHelpText={[Function]}
             style={
@@ -809,7 +809,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   disabled={false}
                   editable={true}
                   isRequired={true}
-                  nativeID="field-2-input"
+                  nativeID="field-19-input"
                   onBlur={[Function]}
                   onFocus={[Function]}
                   onKeyPress={[Function]}
@@ -901,16 +901,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
             >
               <View
                 dataSet={{}}
-                feedbackId="field-10-feedback"
+                feedbackId="field-27-feedback"
                 hasFeedbackText={true}
                 hasHelpText={false}
-                helpTextId="field-10-helptext"
+                helpTextId="field-27-helptext"
                 isDisabled={false}
                 isInvalid={false}
                 isReadOnly={false}
                 isRequired={true}
-                labelId="field-10-label"
-                nativeID="field-10-label"
+                labelId="field-27-label"
+                nativeID="field-27-label"
                 setHasFeedbackText={[Function]}
                 setHasHelpText={[Function]}
                 style={
@@ -974,7 +974,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                 }
               >
                 <TextInput
-                  accessibilityDescribedBy="field-10-feedback"
+                  accessibilityDescribedBy="field-27-feedback"
                   accessibilityRequired={true}
                   accessible={true}
                   blurOnSubmit={false}
@@ -983,7 +983,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   editable={true}
                   isRequired={true}
                   maxLength={30}
-                  nativeID="field-10-input"
+                  nativeID="field-27-input"
                   onBlur={[Function]}
                   onChangeText={[Function]}
                   onFocus={[Function]}
@@ -1039,16 +1039,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
         >
           <View
             dataSet={{}}
-            feedbackId="field-11-feedback"
+            feedbackId="field-28-feedback"
             hasFeedbackText={true}
             hasHelpText={false}
-            helpTextId="field-11-helptext"
+            helpTextId="field-28-helptext"
             isDisabled={false}
             isInvalid={false}
             isReadOnly={false}
             isRequired={true}
-            labelId="field-11-label"
-            nativeID="field-11-label"
+            labelId="field-28-label"
+            nativeID="field-28-label"
             setHasFeedbackText={[Function]}
             setHasHelpText={[Function]}
             style={
@@ -1146,7 +1146,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
               }
             >
               <TextInput
-                accessibilityDescribedBy="field-11-feedback"
+                accessibilityDescribedBy="field-28-feedback"
                 accessibilityRequired={true}
                 accessible={true}
                 aria-hidden={true}
@@ -1156,7 +1156,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                 focusable={false}
                 importantForAccessibility="no"
                 isRequired={true}
-                nativeID="field-11-input"
+                nativeID="field-28-input"
                 onBlur={[Function]}
                 onFocus={[Function]}
                 onKeyPress={[Function]}
@@ -1296,16 +1296,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
         >
           <View
             dataSet={{}}
-            feedbackId="field-12-feedback"
+            feedbackId="field-29-feedback"
             hasFeedbackText={true}
             hasHelpText={false}
-            helpTextId="field-12-helptext"
+            helpTextId="field-29-helptext"
             isDisabled={false}
             isInvalid={false}
             isReadOnly={false}
             isRequired={true}
-            labelId="field-12-label"
-            nativeID="field-12-label"
+            labelId="field-29-label"
+            nativeID="field-29-label"
             setHasFeedbackText={[Function]}
             setHasHelpText={[Function]}
             style={
@@ -1438,15 +1438,15 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                       dataSet={{}}
                       defaultIsChecked={false}
                       disabled={false}
-                      feedbackId="field-5-feedback"
+                      feedbackId="field-22-feedback"
                       hasFeedbackText={false}
                       hasHelpText={false}
-                      helpTextId="field-5-helptext"
+                      helpTextId="field-22-helptext"
                       isChecked={true}
                       isDisabled={false}
                       isRequired={true}
-                      labelId="field-5-label"
-                      nativeID="field-5"
+                      labelId="field-22-label"
+                      nativeID="field-22"
                       onChange={[Function]}
                       required={true}
                       setHasFeedbackText={[Function]}
@@ -1646,15 +1646,15 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                       dataSet={{}}
                       defaultIsChecked={false}
                       disabled={false}
-                      feedbackId="field-5-feedback"
+                      feedbackId="field-22-feedback"
                       hasFeedbackText={false}
                       hasHelpText={false}
-                      helpTextId="field-5-helptext"
+                      helpTextId="field-22-helptext"
                       isChecked={false}
                       isDisabled={false}
                       isRequired={true}
-                      labelId="field-5-label"
-                      nativeID="field-5"
+                      labelId="field-22-label"
+                      nativeID="field-22"
                       onChange={[Function]}
                       required={true}
                       setHasFeedbackText={[Function]}
@@ -1791,15 +1791,15 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                       dataSet={{}}
                       defaultIsChecked={false}
                       disabled={false}
-                      feedbackId="field-5-feedback"
+                      feedbackId="field-22-feedback"
                       hasFeedbackText={false}
                       hasHelpText={false}
-                      helpTextId="field-5-helptext"
+                      helpTextId="field-22-helptext"
                       isChecked={true}
                       isDisabled={false}
                       isRequired={true}
-                      labelId="field-5-label"
-                      nativeID="field-5"
+                      labelId="field-22-label"
+                      nativeID="field-22"
                       onChange={[Function]}
                       required={true}
                       setHasFeedbackText={[Function]}
@@ -1999,15 +1999,15 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                       dataSet={{}}
                       defaultIsChecked={false}
                       disabled={false}
-                      feedbackId="field-5-feedback"
+                      feedbackId="field-22-feedback"
                       hasFeedbackText={false}
                       hasHelpText={false}
-                      helpTextId="field-5-helptext"
+                      helpTextId="field-22-helptext"
                       isChecked={false}
                       isDisabled={false}
                       isRequired={true}
-                      labelId="field-5-label"
-                      nativeID="field-5"
+                      labelId="field-22-label"
+                      nativeID="field-22"
                       onChange={[Function]}
                       required={true}
                       setHasFeedbackText={[Function]}
@@ -2144,15 +2144,15 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                       dataSet={{}}
                       defaultIsChecked={false}
                       disabled={false}
-                      feedbackId="field-5-feedback"
+                      feedbackId="field-22-feedback"
                       hasFeedbackText={false}
                       hasHelpText={false}
-                      helpTextId="field-5-helptext"
+                      helpTextId="field-22-helptext"
                       isChecked={false}
                       isDisabled={false}
                       isRequired={true}
-                      labelId="field-5-label"
-                      nativeID="field-5"
+                      labelId="field-22-label"
+                      nativeID="field-22"
                       onChange={[Function]}
                       required={true}
                       setHasFeedbackText={[Function]}
@@ -2289,15 +2289,15 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                       dataSet={{}}
                       defaultIsChecked={false}
                       disabled={false}
-                      feedbackId="field-5-feedback"
+                      feedbackId="field-22-feedback"
                       hasFeedbackText={false}
                       hasHelpText={false}
-                      helpTextId="field-5-helptext"
+                      helpTextId="field-22-helptext"
                       isChecked={false}
                       isDisabled={false}
                       isRequired={true}
-                      labelId="field-5-label"
-                      nativeID="field-5"
+                      labelId="field-22-label"
+                      nativeID="field-22"
                       onChange={[Function]}
                       required={true}
                       setHasFeedbackText={[Function]}
@@ -2434,15 +2434,15 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                       dataSet={{}}
                       defaultIsChecked={false}
                       disabled={false}
-                      feedbackId="field-5-feedback"
+                      feedbackId="field-22-feedback"
                       hasFeedbackText={false}
                       hasHelpText={false}
-                      helpTextId="field-5-helptext"
+                      helpTextId="field-22-helptext"
                       isChecked={false}
                       isDisabled={false}
                       isRequired={true}
-                      labelId="field-5-label"
-                      nativeID="field-5"
+                      labelId="field-22-label"
+                      nativeID="field-22"
                       onChange={[Function]}
                       required={true}
                       setHasFeedbackText={[Function]}
@@ -2530,16 +2530,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
         >
           <View
             dataSet={{}}
-            feedbackId="field-13-feedback"
+            feedbackId="field-30-feedback"
             hasFeedbackText={true}
             hasHelpText={false}
-            helpTextId="field-13-helptext"
+            helpTextId="field-30-helptext"
             isDisabled={false}
             isInvalid={false}
             isReadOnly={false}
             isRequired={false}
-            labelId="field-13-label"
-            nativeID="field-13-label"
+            labelId="field-30-label"
+            nativeID="field-30-label"
             setHasFeedbackText={[Function]}
             setHasHelpText={[Function]}
             style={
@@ -2585,7 +2585,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
             }
           >
             <TextInput
-              accessibilityDescribedBy="field-13-feedback"
+              accessibilityDescribedBy="field-30-feedback"
               accessible={true}
               blurOnSubmit={false}
               dataSet={{}}
@@ -2593,7 +2593,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
               editable={true}
               isRequired={false}
               maxLength={20}
-              nativeID="field-13-input"
+              nativeID="field-30-input"
               onBlur={[Function]}
               onChangeText={[Function]}
               onFocus={[Function]}
@@ -2645,16 +2645,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
         >
           <View
             dataSet={{}}
-            feedbackId="field-7-feedback"
+            feedbackId="field-24-feedback"
             hasFeedbackText={false}
             hasHelpText={false}
-            helpTextId="field-7-helptext"
+            helpTextId="field-24-helptext"
             isDisabled={false}
             isInvalid={false}
             isReadOnly={false}
             isRequired={false}
-            labelId="field-7-label"
-            nativeID="field-7-label"
+            labelId="field-24-label"
+            nativeID="field-24-label"
             setHasFeedbackText={[Function]}
             setHasHelpText={[Function]}
             style={
@@ -2709,7 +2709,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
               isRequired={false}
               maxLength={255}
               multiline={true}
-              nativeID="field-7-input"
+              nativeID="field-24-input"
               onBlur={[Function]}
               onChangeText={[Function]}
               onFocus={[Function]}
@@ -2762,16 +2762,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
         >
           <View
             dataSet={{}}
-            feedbackId="field-8-feedback"
+            feedbackId="field-25-feedback"
             hasFeedbackText={false}
             hasHelpText={false}
-            helpTextId="field-8-helptext"
+            helpTextId="field-25-helptext"
             isDisabled={false}
             isInvalid={false}
             isReadOnly={false}
             isRequired={false}
-            labelId="field-8-label"
-            nativeID="field-8-label"
+            labelId="field-25-label"
+            nativeID="field-25-label"
             setHasFeedbackText={[Function]}
             setHasHelpText={[Function]}
             style={
@@ -2826,7 +2826,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
               isRequired={false}
               maxLength={255}
               multiline={true}
-              nativeID="field-8-input"
+              nativeID="field-25-input"
               onBlur={[Function]}
               onChangeText={[Function]}
               onFocus={[Function]}
@@ -2878,16 +2878,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
         >
           <View
             dataSet={{}}
-            feedbackId="field-9-feedback"
+            feedbackId="field-26-feedback"
             hasFeedbackText={false}
             hasHelpText={false}
-            helpTextId="field-9-helptext"
+            helpTextId="field-26-helptext"
             isDisabled={false}
             isInvalid={false}
             isReadOnly={false}
             isRequired={false}
-            labelId="field-9-label"
-            nativeID="field-9-label"
+            labelId="field-26-label"
+            nativeID="field-26-label"
             setHasFeedbackText={[Function]}
             setHasHelpText={[Function]}
             style={
@@ -2956,85 +2956,72 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
               dataSet={{}}
               style={
                 {
-                  "height": 52,
-                  "width": 52,
+                  "marginLeft": -8,
+                  "marginRight": -8,
                 }
               }
             >
-              <RNSVGSvgView
-                accessibilityRole="image"
-                align="xMidYMid"
-                bbHeight="50"
-                bbWidth="50"
+              <View
                 dataSet={{}}
-                focusable={false}
-                meetOrSlice={0}
-                minX={0}
-                minY={0}
-                stroke=""
                 style={
-                  [
-                    {
-                      "backgroundColor": "transparent",
-                      "borderWidth": 0,
-                    },
-                    {
-                      "color": "#0891b2",
-                      "height": 50,
-                      "width": 50,
-                    },
-                    {
-                      "flex": 0,
-                      "height": 50,
-                      "width": 50,
-                    },
-                  ]
+                  {
+                    "flexDirection": "row",
+                  }
                 }
-                testID="add-photos-icon"
-                tintColor="#0891b2"
-                vbHeight={24}
-                vbWidth={24}
               >
-                <RNSVGGroup
-                  fill={
+                <Image
+                  accessibilityLabel="Loaded"
+                  alt="Loaded"
+                  dataSet={{}}
+                  onError={[Function]}
+                  source={
                     {
-                      "payload": 4278190080,
-                      "type": 0,
+                      "uri": "https://snowalgaestorage.blob.core.windows.net/photos/23.jpg",
                     }
                   }
-                  propList={
-                    [
-                      "stroke",
-                    ]
-                  }
-                  stroke={null}
-                >
-                  <RNSVGGroup
-                    fill={
-                      {
-                        "payload": 4278190080,
-                        "type": 0,
-                      }
+                  style={
+                    {
+                      "height": 744,
+                      "maxWidth": "100%",
+                      "width": 372,
                     }
-                  >
-                    <RNSVGPath
-                      d="M13.25 10.75V2H10.75V10.75H2V13.25H10.75V22H13.25V13.25H22V10.75H13.25Z"
-                      fill={
-                        {
-                          "type": 2,
-                        }
-                      }
-                      propList={
-                        [
-                          "fill",
-                          "stroke",
-                        ]
-                      }
-                      stroke={null}
-                    />
-                  </RNSVGGroup>
-                </RNSVGGroup>
-              </RNSVGSvgView>
+                  }
+                />
+                <View
+                  dataSet={{}}
+                  style={{}}
+                />
+                <View
+                  dataSet={{}}
+                  style={
+                    {
+                      "paddingRight": 6,
+                    }
+                  }
+                />
+                <View
+                  dataSet={{}}
+                  style={{}}
+                />
+                <Image
+                  accessibilityLabel="Loaded"
+                  alt="Loaded"
+                  dataSet={{}}
+                  onError={[Function]}
+                  source={
+                    {
+                      "uri": "https://snowalgaestorage.blob.core.windows.net/photos/46.jpg",
+                    }
+                  }
+                  style={
+                    {
+                      "height": 744,
+                      "maxWidth": "100%",
+                      "width": 372,
+                    }
+                  }
+                />
+              </View>
             </View>
           </View>
         </View>
