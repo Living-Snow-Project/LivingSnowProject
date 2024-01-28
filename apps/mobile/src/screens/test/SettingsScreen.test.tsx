@@ -52,11 +52,7 @@ describe("SettingsScreen test suite", () => {
     const { getByTestId } = render(<WrappedSettingsScreen />);
     const { showGpsWarning } = getAppSettings();
 
-    fireEvent(
-      getByTestId(TestIds.SettingsScreen.ShowGpsWarning),
-      "onValueChange",
-      !showGpsWarning
-    );
+    fireEvent(getByTestId(TestIds.SettingsScreen.ShowGpsWarning), "onToggle");
 
     expect(getAppSettings().showGpsWarning).toEqual(!showGpsWarning);
   });
