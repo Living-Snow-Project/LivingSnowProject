@@ -524,8 +524,8 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
         </View>
       </View>
       <Image
-        accessibilityLabel="some alt text here"
-        alt="some alt text here"
+        accessibilityLabel="Loaded"
+        alt="Loaded"
         dataSet={{}}
         onError={[Function]}
         source={
@@ -542,8 +542,8 @@ exports[`RecordDetailsScreen test suite sample with remote photos 1`] = `
         }
       />
       <Image
-        accessibilityLabel="some alt text here"
-        alt="some alt text here"
+        accessibilityLabel="Loaded"
+        alt="Loaded"
         dataSet={{}}
         onError={[Function]}
         source={
