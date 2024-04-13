@@ -4,7 +4,10 @@
     "slug": "LivingSnowProject",
     "privacy": "unlisted",
     "primaryColor": "#000000",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "version": "2.3.1",
     "orientation": "portrait",
     "icon": "./assets/images/lsp@2x.png",
@@ -17,7 +20,9 @@
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/ef724170-99df-11e9-80a2-03e7acec1afa"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.kodnerlab.livingsnowproject",
@@ -30,8 +35,8 @@
       }
     },
     "android": {
-      "package": "com.kodnerlab.livingsnowproject",
-      "versionCode": 15,
+      "package": "com.livingsnowproject.livingsnowproject",
+      "versionCode": 1,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
@@ -40,13 +45,13 @@
         "WRITE_EXTERNAL_STORAGE"
       ]
     },
-    "extra": {
-      "eas": {
-        "projectId": "ef724170-99df-11e9-80a2-03e7acec1afa"
-      }
-    },
     "runtimeVersion": {
       "policy": "sdkVersion"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "e9398179-0d31-4623-8b30-84ca256f8a71"
+      }
     }
   }
 }
