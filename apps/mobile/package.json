@@ -28,7 +28,6 @@
     "@react-native-picker/picker": "2.4.10",
     "@react-navigation/native": "^6.0.14",
     "@react-navigation/native-stack": "^6.9.2",
-    "@types/react": "~18.0.27",
     "expo": "~49.0.6",
     "expo-background-fetch": "~11.3.0",
     "expo-file-system": "~15.4.5",
