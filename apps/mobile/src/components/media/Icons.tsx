@@ -34,7 +34,7 @@ export function PictureIcon() {
     <Icon
       as={Ionicons}
       color="green"
-      name={Platform.OS == "ios" ? "ios-image" : "md-image"}
+      name={"image"}
       size="xl"
       testID={TestIds.Icons.PictureIcon}
     />
@@ -46,7 +46,7 @@ export function SnowIcon() {
     <Icon
       as={Ionicons}
       color="pink.500"
-      name={Platform.OS == "ios" ? "ios-snow" : "md-snow"}
+      name={"snow"}
       size="xl"
       testID={TestIds.Icons.SnowIcon}
     />

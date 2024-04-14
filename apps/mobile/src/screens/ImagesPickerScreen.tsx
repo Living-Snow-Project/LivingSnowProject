@@ -56,16 +56,13 @@ const widgetStyles: StylesType = {
   },
   videoIcon: {
     Component: Ionicons,
-    iconName: Platform.OS == "ios" ? "ios-videocam" : "md-videocam",
+    iconName: "videocam",
     color: "white",
     size: 20,
   },
   selectedIcon: {
     Component: Ionicons,
-    iconName:
-      Platform.OS == "ios"
-        ? "ios-checkmark-circle-outline"
-        : "md-checkmark-circle-outline",
+    iconName: "checkmark-circle-outline",
     color: "red",
     bg: "#000000AA",
     size: 40,

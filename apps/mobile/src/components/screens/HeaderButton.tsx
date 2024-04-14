@@ -42,7 +42,7 @@ export function HeaderButton({
   return (
     <PressableOpacity style={style} testID={testID} onPress={onPress}>
       <StockIcon
-        name={Platform.OS == "ios" ? `ios-${iconName}` : `md-${iconName}`}
+        name={iconName}
         testID={`${testID}-${iconName}`}
         color={color}
       />
