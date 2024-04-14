@@ -1,5 +1,4 @@
 import React from "react";
-import { Platform } from "react-native";
 import { useColorModeValue, useTheme } from "native-base";
 import { PressableOpacity } from "../PressableOpacity";
 import { StockIcon } from "../media";

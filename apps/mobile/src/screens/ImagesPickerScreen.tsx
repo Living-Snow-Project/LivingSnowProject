@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from "react";
-import { Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Asset } from "expo-media-library";
 import { useColorModeValue, useTheme } from "native-base";
