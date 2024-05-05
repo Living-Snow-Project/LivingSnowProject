@@ -113,28 +113,7 @@ exports[`HeaderButton test suite renders right on android 1`] = `
     }
     testID="test-button"
   >
-    <Text
-      allowFontScaling={false}
-      selectable={false}
-      style={
-        [
-          {
-            "color": "#0891b2",
-            "fontSize": 32,
-          },
-          undefined,
-          {
-            "fontFamily": "ionicons",
-            "fontStyle": "normal",
-            "fontWeight": "normal",
-          },
-          {},
-        ]
-      }
-      testID="test-button-snow"
-    >
-      
-    </Text>
+    <Text />
   </View>
 </RNCSafeAreaProvider>
 `;

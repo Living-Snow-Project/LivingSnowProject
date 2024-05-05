@@ -200,181 +200,236 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
     }
   >
     <View
-      accessibilityState={
-        {
-          "busy": undefined,
-          "checked": undefined,
-          "disabled": undefined,
-          "expanded": undefined,
-          "selected": undefined,
-        }
-      }
-      accessibilityValue={
-        {
-          "max": undefined,
-          "min": undefined,
-          "now": undefined,
-          "text": undefined,
-        }
-      }
-      accessible={false}
       collapsable={false}
-      dataSet={{}}
-      focusable={true}
-      importantForAccessibility="no"
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
+      pointerEvents="none"
       style={
         {
-          "backgroundColor": "rgb(0, 0, 0)",
           "bottom": 0,
           "left": 0,
-          "opacity": 0.3,
+          "opacity": 0,
           "position": "absolute",
           "right": 0,
           "top": 0,
+          "transform": [
+            {
+              "translateY": 0,
+            },
+            {
+              "translateX": 0,
+            },
+            {
+              "scale": 1,
+            },
+            {
+              "scaleX": 1,
+            },
+            {
+              "scaleY": 1,
+            },
+            {
+              "rotate": "0deg",
+            },
+          ],
         }
       }
-    />
-    <View
-      closeOnOverlayClick={true}
-      dataSet={{}}
-      pointerEvents="box-none"
-      style={
-        {
-          "alignItems": "center",
-          "height": "100%",
-          "justifyContent": "center",
-          "width": "100%",
-        }
-      }
-      testID="gps-enable-manual-coordinates-modal"
     >
       <View
-        accessibilityViewIsModal={true}
-        aria-modal="true"
-        dataSet={{}}
-        onAccessibilityEscape={[Function]}
-        style={
+        accessibilityState={
           {
-            "backgroundColor": "#fafafa",
-            "borderRadius": 8,
-            "elevation": 2,
-            "maxHeight": 1184,
-            "maxWidth": 320,
-            "overflow": "hidden",
-            "shadowColor": "#000000",
-            "shadowOffset": {
-              "height": 1,
-              "width": 0,
-            },
-            "shadowOpacity": 0.2,
-            "shadowRadius": 1.41,
-            "width": "65%",
+            "busy": undefined,
+            "checked": undefined,
+            "disabled": undefined,
+            "expanded": undefined,
+            "selected": undefined,
           }
         }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={false}
+        collapsable={false}
+        dataSet={{}}
+        focusable={true}
+        importantForAccessibility="no"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          {
+            "backgroundColor": "rgb(0, 0, 0)",
+            "bottom": 0,
+            "left": 0,
+            "opacity": 0.3,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      />
+    </View>
+    <View
+      collapsable={false}
+      pointerEvents="none"
+      style={
+        {
+          "bottom": 0,
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "transform": [
+            {
+              "translateY": 0,
+            },
+            {
+              "translateX": 0,
+            },
+            {
+              "scale": 1,
+            },
+            {
+              "scaleX": 1,
+            },
+            {
+              "scaleY": 1,
+            },
+            {
+              "rotate": "0deg",
+            },
+          ],
+        }
+      }
+    >
+      <View
+        closeOnOverlayClick={true}
+        dataSet={{}}
+        pointerEvents="box-none"
+        style={
+          {
+            "alignItems": "center",
+            "height": "100%",
+            "justifyContent": "center",
+            "width": "100%",
+          }
+        }
+        testID="gps-enable-manual-coordinates-modal"
       >
         <View
-          accessibilityRole="button"
-          accessibilityState={
-            {
-              "busy": undefined,
-              "checked": undefined,
-              "disabled": undefined,
-              "expanded": undefined,
-              "selected": undefined,
-            }
-          }
-          accessibilityValue={
-            {
-              "max": undefined,
-              "min": undefined,
-              "now": undefined,
-              "text": undefined,
-            }
-          }
-          accessible={true}
-          collapsable={false}
-          colorScheme="coolGray"
+          accessibilityViewIsModal={true}
+          aria-modal="true"
           dataSet={{}}
-          focusable={true}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+          onAccessibilityEscape={[Function]}
           style={
             {
-              "backgroundColor": "transparent",
-              "borderRadius": 4,
-              "paddingBottom": 8,
-              "paddingLeft": 8,
-              "paddingRight": 8,
-              "paddingTop": 8,
-              "position": "absolute",
-              "right": 12,
-              "top": 12,
-              "zIndex": 1,
+              "backgroundColor": "#fafafa",
+              "borderRadius": 8,
+              "elevation": 2,
+              "maxHeight": 1184,
+              "maxWidth": 320,
+              "overflow": "hidden",
+              "shadowColor": "#000000",
+              "shadowOffset": {
+                "height": 1,
+                "width": 0,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 1.41,
+              "width": "65%",
             }
           }
         >
-          <RNSVGSvgView
-            accessibilityRole="image"
-            align="xMidYMid"
-            bbHeight="16"
-            bbWidth="16"
-            dataSet={{}}
-            focusable={false}
-            meetOrSlice={0}
-            minX={0}
-            minY={0}
-            stroke=""
-            style={
-              [
-                {
-                  "backgroundColor": "transparent",
-                  "borderWidth": 0,
-                },
-                {
-                  "color": "#737373",
-                  "height": 16,
-                  "width": 16,
-                },
-                {
-                  "flex": 0,
-                  "height": 16,
-                  "width": 16,
-                },
-              ]
-            }
-            tintColor="#737373"
-            vbHeight={24}
-            vbWidth={24}
-          >
-            <RNSVGGroup
-              fill={
-                {
-                  "payload": 4278190080,
-                  "type": 0,
-                }
+          <View
+            accessibilityRole="button"
+            accessibilityState={
+              {
+                "busy": undefined,
+                "checked": undefined,
+                "disabled": undefined,
+                "expanded": undefined,
+                "selected": undefined,
               }
-              propList={
+            }
+            accessibilityValue={
+              {
+                "max": undefined,
+                "min": undefined,
+                "now": undefined,
+                "text": undefined,
+              }
+            }
+            accessible={true}
+            collapsable={false}
+            colorScheme="coolGray"
+            dataSet={{}}
+            focusable={true}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              {
+                "backgroundColor": "transparent",
+                "borderRadius": 4,
+                "paddingBottom": 8,
+                "paddingLeft": 8,
+                "paddingRight": 8,
+                "paddingTop": 8,
+                "position": "absolute",
+                "right": 12,
+                "top": 12,
+                "zIndex": 1,
+              }
+            }
+          >
+            <RNSVGSvgView
+              accessibilityRole="image"
+              align="xMidYMid"
+              bbHeight="16"
+              bbWidth="16"
+              dataSet={{}}
+              focusable={false}
+              meetOrSlice={0}
+              minX={0}
+              minY={0}
+              stroke=""
+              style={
                 [
-                  "stroke",
+                  {
+                    "backgroundColor": "transparent",
+                    "borderWidth": 0,
+                  },
+                  {
+                    "color": "#737373",
+                    "height": 16,
+                    "width": 16,
+                  },
+                  {
+                    "flex": 0,
+                    "height": 16,
+                    "width": 16,
+                  },
                 ]
               }
-              stroke={null}
+              tintColor="#737373"
+              vbHeight={24}
+              vbWidth={24}
             >
               <RNSVGGroup
                 fill={
@@ -383,302 +438,317 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
                     "type": 0,
                   }
                 }
+                propList={
+                  [
+                    "stroke",
+                  ]
+                }
+                stroke={null}
               >
-                <RNSVGPath
-                  d="M12 9.77778L4.22222 2L2 4.22222L9.77778 12L2 19.7778L4.22222 22L12 14.2222L19.7778 22L22 19.7778L14.2222 12L22 4.22222L19.7778 2L12 9.77778Z"
+                <RNSVGGroup
                   fill={
                     {
-                      "type": 2,
+                      "payload": 4278190080,
+                      "type": 0,
                     }
                   }
-                  propList={
-                    [
-                      "fill",
-                      "stroke",
-                    ]
-                  }
-                  stroke={null}
-                />
+                >
+                  <RNSVGPath
+                    d="M12 9.77778L4.22222 2L2 4.22222L9.77778 12L2 19.7778L4.22222 22L12 14.2222L19.7778 22L22 19.7778L14.2222 12L22 4.22222L19.7778 2L12 9.77778Z"
+                    fill={
+                      {
+                        "type": 2,
+                      }
+                    }
+                    propList={
+                      [
+                        "fill",
+                        "stroke",
+                      ]
+                    }
+                    stroke={null}
+                  />
+                </RNSVGGroup>
               </RNSVGGroup>
-            </RNSVGGroup>
-          </RNSVGSvgView>
-        </View>
-        <View
-          dataSet={{}}
-          style={
-            {
-              "backgroundColor": "#fafafa",
-              "borderBottomWidth": 1,
-              "borderColor": "#d4d4d4",
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            }
-          }
-        >
-          <Text
-            dataSet={{}}
-            style={
-              {
-                "backgroundColor": undefined,
-                "color": "#171717",
-                "fontFamily": undefined,
-                "fontSize": 16,
-                "fontStyle": "normal",
-                "fontWeight": "600",
-                "letterSpacing": 0,
-                "lineHeight": 20,
-                "textDecorationLine": undefined,
-              }
-            }
-          >
-            Enter coordinates manually?
-          </Text>
-        </View>
-        <RCTScrollView
-          contentContainerStyle={
-            [
-              {},
-              {
-                "dataSet": {},
-              },
-              {},
-            ]
-          }
-          dataSet={{}}
-          style={{}}
-        >
-          <View>
-            <View
-              dataSet={{}}
-              style={
-                {
-                  "paddingBottom": 16,
-                  "paddingLeft": 16,
-                  "paddingRight": 16,
-                  "paddingTop": 16,
-                }
-              }
-            >
-              <Text
-                dataSet={{}}
-                style={
-                  {
-                    "backgroundColor": undefined,
-                    "color": "#171717",
-                    "fontFamily": undefined,
-                    "fontSize": 14,
-                    "fontStyle": "normal",
-                    "fontWeight": "400",
-                    "letterSpacing": 0,
-                    "lineHeight": 21,
-                    "textDecorationLine": undefined,
-                  }
-                }
-              >
-                Some users enter coordinates manually if they cannot acquire GPS signal or when they return home.
-
-This message can be disabled in Settings.
-              </Text>
-            </View>
+            </RNSVGSvgView>
           </View>
-        </RCTScrollView>
-        <View
-          dataSet={{}}
-          style={
-            {
-              "backgroundColor": "#fafafa",
-              "borderColor": "#d4d4d4",
-              "borderTopWidth": 1,
-              "flexDirection": "row",
-              "flexWrap": "wrap",
-              "justifyContent": "flex-end",
-              "paddingBottom": 16,
-              "paddingLeft": 16,
-              "paddingRight": 16,
-              "paddingTop": 16,
-            }
-          }
-        >
           <View
             dataSet={{}}
             style={
               {
+                "backgroundColor": "#fafafa",
+                "borderBottomWidth": 1,
+                "borderColor": "#d4d4d4",
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
+              }
+            }
+          >
+            <Text
+              dataSet={{}}
+              style={
+                {
+                  "backgroundColor": undefined,
+                  "color": "#171717",
+                  "fontFamily": undefined,
+                  "fontSize": 16,
+                  "fontStyle": "normal",
+                  "fontWeight": "600",
+                  "letterSpacing": 0,
+                  "lineHeight": 20,
+                  "textDecorationLine": undefined,
+                }
+              }
+            >
+              Enter coordinates manually?
+            </Text>
+          </View>
+          <RCTScrollView
+            contentContainerStyle={
+              [
+                {},
+                {
+                  "dataSet": {},
+                },
+                {},
+              ]
+            }
+            dataSet={{}}
+            style={{}}
+          >
+            <View>
+              <View
+                dataSet={{}}
+                style={
+                  {
+                    "paddingBottom": 16,
+                    "paddingLeft": 16,
+                    "paddingRight": 16,
+                    "paddingTop": 16,
+                  }
+                }
+              >
+                <Text
+                  dataSet={{}}
+                  style={
+                    {
+                      "backgroundColor": undefined,
+                      "color": "#171717",
+                      "fontFamily": undefined,
+                      "fontSize": 14,
+                      "fontStyle": "normal",
+                      "fontWeight": "400",
+                      "letterSpacing": 0,
+                      "lineHeight": 21,
+                      "textDecorationLine": undefined,
+                    }
+                  }
+                >
+                  Some users enter coordinates manually if they cannot acquire GPS signal or when they return home.
+
+This message can be disabled in Settings.
+                </Text>
+              </View>
+            </View>
+          </RCTScrollView>
+          <View
+            dataSet={{}}
+            style={
+              {
+                "backgroundColor": "#fafafa",
+                "borderColor": "#d4d4d4",
+                "borderTopWidth": 1,
                 "flexDirection": "row",
+                "flexWrap": "wrap",
+                "justifyContent": "flex-end",
+                "paddingBottom": 16,
+                "paddingLeft": 16,
+                "paddingRight": 16,
+                "paddingTop": 16,
               }
             }
           >
             <View
-              accessibilityRole="button"
-              accessibilityState={
-                {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                }
-              }
-              accessibilityValue={
-                {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                }
-              }
-              accessible={true}
-              collapsable={false}
-              colorScheme="blueGray"
               dataSet={{}}
-              focusable={true}
-              onBlur={[Function]}
-              onClick={[Function]}
-              onFocus={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
               style={
                 {
-                  "alignItems": "center",
-                  "borderRadius": 4,
                   "flexDirection": "row",
-                  "justifyContent": "center",
-                  "paddingBottom": 10,
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
-                  "paddingTop": 10,
                 }
               }
-              testID="modal-no-button"
             >
               <View
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                colorScheme="blueGray"
                 dataSet={{}}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   {
                     "alignItems": "center",
+                    "borderRadius": 4,
                     "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": 10,
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "paddingTop": 10,
                   }
                 }
-                test={true}
+                testID="modal-no-button"
               >
                 <View
                   dataSet={{}}
-                  style={{}}
-                >
-                  <Text
-                    dataSet={{}}
-                    style={
-                      {
-                        "backgroundColor": undefined,
-                        "color": "#475569",
-                        "fontFamily": undefined,
-                        "fontSize": 14,
-                        "fontStyle": "normal",
-                        "fontWeight": "400",
-                        "letterSpacing": 0,
-                        "lineHeight": 21,
-                        "textDecorationLine": undefined,
-                      }
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
                     }
+                  }
+                  test={true}
+                >
+                  <View
+                    dataSet={{}}
+                    style={{}}
                   >
-                    Cancel
-                  </Text>
+                    <Text
+                      dataSet={{}}
+                      style={
+                        {
+                          "backgroundColor": undefined,
+                          "color": "#475569",
+                          "fontFamily": undefined,
+                          "fontSize": 14,
+                          "fontStyle": "normal",
+                          "fontWeight": "400",
+                          "letterSpacing": 0,
+                          "lineHeight": 21,
+                          "textDecorationLine": undefined,
+                        }
+                      }
+                    >
+                      Cancel
+                    </Text>
+                  </View>
                 </View>
               </View>
-            </View>
-            <View
-              dataSet={{}}
-              style={
-                {
-                  "width": 8,
-                }
-              }
-            />
-            <View
-              accessibilityRole="button"
-              accessibilityState={
-                {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                }
-              }
-              accessibilityValue={
-                {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                }
-              }
-              accessible={true}
-              collapsable={false}
-              colorScheme="primary"
-              dataSet={{}}
-              focusable={true}
-              onBlur={[Function]}
-              onClick={[Function]}
-              onFocus={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                {
-                  "alignItems": "center",
-                  "backgroundColor": "#0891b2",
-                  "borderRadius": 4,
-                  "flexDirection": "row",
-                  "justifyContent": "center",
-                  "paddingBottom": 10,
-                  "paddingLeft": 12,
-                  "paddingRight": 12,
-                  "paddingTop": 10,
-                }
-              }
-              testID="modal-confirm-button"
-            >
               <View
                 dataSet={{}}
                 style={
                   {
-                    "alignItems": "center",
-                    "flexDirection": "row",
+                    "width": 8,
                   }
                 }
-                test={true}
+              />
+              <View
+                accessibilityRole="button"
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                colorScheme="primary"
+                dataSet={{}}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  {
+                    "alignItems": "center",
+                    "backgroundColor": "#0891b2",
+                    "borderRadius": 4,
+                    "flexDirection": "row",
+                    "justifyContent": "center",
+                    "paddingBottom": 10,
+                    "paddingLeft": 12,
+                    "paddingRight": 12,
+                    "paddingTop": 10,
+                  }
+                }
+                testID="modal-confirm-button"
               >
                 <View
                   dataSet={{}}
-                  style={{}}
-                >
-                  <Text
-                    dataSet={{}}
-                    style={
-                      {
-                        "backgroundColor": undefined,
-                        "color": "#fafafa",
-                        "fontFamily": undefined,
-                        "fontSize": 14,
-                        "fontStyle": "normal",
-                        "fontWeight": "400",
-                        "letterSpacing": 0,
-                        "lineHeight": 21,
-                        "textDecorationLine": undefined,
-                      }
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
                     }
+                  }
+                  test={true}
+                >
+                  <View
+                    dataSet={{}}
+                    style={{}}
                   >
-                    Confirm
-                  </Text>
+                    <Text
+                      dataSet={{}}
+                      style={
+                        {
+                          "backgroundColor": undefined,
+                          "color": "#fafafa",
+                          "fontFamily": undefined,
+                          "fontSize": 14,
+                          "fontStyle": "normal",
+                          "fontWeight": "400",
+                          "letterSpacing": 0,
+                          "lineHeight": 21,
+                          "textDecorationLine": undefined,
+                        }
+                      }
+                    >
+                      Confirm
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>

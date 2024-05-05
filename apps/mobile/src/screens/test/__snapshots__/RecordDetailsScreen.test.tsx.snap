@@ -884,7 +884,7 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
           }
           testID="picture-icon"
         >
-          
+          
         </Text>
       </View>
       <View
@@ -954,7 +954,7 @@ exports[`RecordDetailsScreen test suite sample with remote photos, offline mode 
           }
           testID="picture-icon"
         >
-          
+          
         </Text>
       </View>
     </View>
@@ -1282,7 +1282,7 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
           }
           testID="picture-icon"
         >
-          
+          
         </Text>
       </View>
       <View
@@ -1352,7 +1352,7 @@ exports[`RecordDetailsScreen test suite sample with remote photos, photo downloa
           }
           testID="picture-icon"
         >
-          
+          
         </Text>
       </View>
     </View>

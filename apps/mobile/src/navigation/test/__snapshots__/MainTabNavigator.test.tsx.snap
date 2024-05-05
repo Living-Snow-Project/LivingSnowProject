@@ -43,11 +43,17 @@ exports[`Navigation test suite renders first run screen 1`] = `
         onAppear={[Function]}
         onDisappear={[Function]}
         onDismissed={[Function]}
+        onGestureCancel={[Function]}
         onHeaderBackButtonClicked={[Function]}
         onNativeDismissCancelled={[Function]}
         onTransitionProgress={[Function]}
         onWillDisappear={[Function]}
         replaceAnimation="push"
+        sheetAllowedDetents="large"
+        sheetCornerRadius={-1}
+        sheetExpandsWhenScrolledToEdge={true}
+        sheetGrabberVisible={false}
+        sheetLargestUndimmedDetent="all"
         stackPresentation="push"
         style={
           {
@@ -564,11 +570,17 @@ exports[`Navigation test suite renders timeline screen 1`] = `
         onAppear={[Function]}
         onDisappear={[Function]}
         onDismissed={[Function]}
+        onGestureCancel={[Function]}
         onHeaderBackButtonClicked={[Function]}
         onNativeDismissCancelled={[Function]}
         onTransitionProgress={[Function]}
         onWillDisappear={[Function]}
         replaceAnimation="push"
+        sheetAllowedDetents="large"
+        sheetCornerRadius={-1}
+        sheetExpandsWhenScrolledToEdge={true}
+        sheetGrabberVisible={false}
+        sheetLargestUndimmedDetent="all"
         stackPresentation="push"
         style={
           {
@@ -650,28 +662,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               }
               testID="timeline-screen-settings-button"
             >
-              <Text
-                allowFontScaling={false}
-                selectable={false}
-                style={
-                  [
-                    {
-                      "color": "#0891b2",
-                      "fontSize": 32,
-                    },
-                    undefined,
-                    {
-                      "fontFamily": "ionicons",
-                      "fontStyle": "normal",
-                      "fontWeight": "normal",
-                    },
-                    {},
-                  ]
-                }
-                testID="timeline-screen-settings-button-settings-outline"
-              >
-                
-              </Text>
+              <Text />
             </View>
           </RNSScreenStackHeaderSubview>
           <RNSScreenStackHeaderSubview
@@ -729,28 +720,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               }
               testID="timeline-screen-record-button"
             >
-              <Text
-                allowFontScaling={false}
-                selectable={false}
-                style={
-                  [
-                    {
-                      "color": "#0891b2",
-                      "fontSize": 32,
-                    },
-                    undefined,
-                    {
-                      "fontFamily": "ionicons",
-                      "fontStyle": "normal",
-                      "fontWeight": "normal",
-                    },
-                    {},
-                  ]
-                }
-                testID="timeline-screen-record-button-add-circle-outline"
-              >
-                
-              </Text>
+              <Text />
             </View>
           </RNSScreenStackHeaderSubview>
         </RNSScreenStackHeaderConfig>
@@ -777,25 +747,34 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               ]
             }
           >
-            <Text
-              dataSet={{}}
+            <View
+              collapsable={false}
               style={
                 {
-                  "backgroundColor": undefined,
-                  "color": "#171717",
-                  "fontFamily": undefined,
-                  "fontSize": 14,
-                  "fontStyle": "normal",
-                  "fontWeight": "600",
-                  "letterSpacing": 0,
-                  "lineHeight": 21,
-                  "textAlign": "center",
-                  "textDecorationLine": undefined,
+                  "backgroundColor": "rgba(34, 211, 238, 1)",
                 }
               }
             >
-              No Internet Connection
-            </Text>
+              <Text
+                dataSet={{}}
+                style={
+                  {
+                    "backgroundColor": undefined,
+                    "color": "#171717",
+                    "fontFamily": undefined,
+                    "fontSize": 14,
+                    "fontStyle": "normal",
+                    "fontWeight": "600",
+                    "letterSpacing": 0,
+                    "lineHeight": 21,
+                    "textAlign": "center",
+                    "textDecorationLine": undefined,
+                  }
+                }
+              >
+                No Internet Connection
+              </Text>
+            </View>
             <RCTScrollView
               ListEmptyComponent={[Function]}
               contentContainerStyle={
@@ -831,7 +810,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               refreshing={false}
               removeClippedSubviews={false}
               renderItem={[Function]}
-              scrollEventThrottle={50}
+              scrollEventThrottle={0.0001}
               stickyHeaderIndices={[]}
               style={{}}
               testID="timeline-screen-flatlist"
