@@ -1,5 +1,4 @@
 import React from "react";
-import { Platform } from "react-native";
 import { useColorModeValue, useTheme } from "native-base";
 import { PressableOpacity } from "../PressableOpacity";
 import { StockIcon } from "../media";
@@ -42,7 +41,7 @@ export function HeaderButton({
   return (
     <PressableOpacity style={style} testID={testID} onPress={onPress}>
       <StockIcon
-        name={Platform.OS == "ios" ? `ios-${iconName}` : `md-${iconName}`}
+        name={iconName}
         testID={`${testID}-${iconName}`}
         color={color}
       />

@@ -3,7 +3,7 @@
 
 Living Snow Project is a Community Scientist project that studies snow algae. That's right, algae grows on snow (and ice) too! These apps will assist the research team with data collection and exploration. Volunteer sign up and more info [here](https://wp.wwu.edu/livingsnowproject/).
 
-## This is a monorepo using [Classic Yarn (v1.22.19)](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) workspaces
+## This is a monorepo using [Classic Yarn (v1.22.19)](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) workspaces and Node 18.20.2
 
 Code shared in the web and mobile apps goes under the packages/\* folder.
 

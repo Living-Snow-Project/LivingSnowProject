@@ -18,21 +18,20 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       # Sets up node
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 20
       # Expo CLI
-      - uses: expo/expo-github-action@v7
+      - uses: expo/expo-github-action@v8
         with:
           expo-version: latest
           expo-cache: true
-      - run: git submodule update --init --recursive
       - run: yarn install
       - run: yarn build
       - run: yarn prettier
       - run: yarn lint
       - run: yarn test
       # upload coverage to codecov
-      - uses: codecov/codecov-action@v3
+      - uses: codecov/codecov-action@v4
