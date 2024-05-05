@@ -662,7 +662,28 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               }
               testID="timeline-screen-settings-button"
             >
-              <Text />
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "#0891b2",
+                      "fontSize": 32,
+                    },
+                    undefined,
+                    {
+                      "fontFamily": "ionicons",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+                testID="timeline-screen-settings-button-settings-outline"
+              >
+                
+              </Text>
             </View>
           </RNSScreenStackHeaderSubview>
           <RNSScreenStackHeaderSubview
@@ -720,7 +741,28 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               }
               testID="timeline-screen-record-button"
             >
-              <Text />
+              <Text
+                allowFontScaling={false}
+                selectable={false}
+                style={
+                  [
+                    {
+                      "color": "#0891b2",
+                      "fontSize": 32,
+                    },
+                    undefined,
+                    {
+                      "fontFamily": "ionicons",
+                      "fontStyle": "normal",
+                      "fontWeight": "normal",
+                    },
+                    {},
+                  ]
+                }
+                testID="timeline-screen-record-button-add-circle-outline"
+              >
+                
+              </Text>
             </View>
           </RNSScreenStackHeaderSubview>
         </RNSScreenStackHeaderConfig>

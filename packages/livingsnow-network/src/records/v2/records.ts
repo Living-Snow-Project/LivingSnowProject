@@ -80,6 +80,7 @@ const recordsApi = () => {
       dumpRecord(record);
       record = removeEmptyFields(record);
       dumpRecord(record);
+      console.log("was i called?");
 
       return fetch(postUrl, {
         method: "POST",
@@ -137,6 +138,8 @@ const recordsApi = () => {
       const operation = "postPhoto";
 
       const uri = { uri: photoUri };
+
+      console.log("god forbid");
 
       return fetch(postPhotoUrl(recordId), {
         method: "POST",

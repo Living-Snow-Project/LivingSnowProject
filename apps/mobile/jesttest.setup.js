@@ -13,16 +13,6 @@ jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
 
 jest.mock("expo-font");
 
-jest.mock("react-native", () => {
-  const rn = jest.requireActual("react-native");
-  console.log(rn);
-  jest
-    .spyOn(rn.Animated, "View", "get")
-    .mockImplementation(() => jest.fn(({ children }) => children));
-
-  return rn;
-});
-
 // TimelineRow calls useNavigation
 const mockedNavigate = jest.fn();
 
