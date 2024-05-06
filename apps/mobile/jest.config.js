@@ -16,6 +16,7 @@ module.exports = {
     "!**/@types/AppSettings.ts",
     "!**/babel.config.js",
     "!**/jest.config.js",
+    "!**/jest.polyfills.js",
     "!**/jesttest.setup.js",
     "!**/metro.config.js",
     "!**/src/lib/Logger.ts",
