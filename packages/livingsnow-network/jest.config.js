@@ -6,4 +6,5 @@
 module.exports = {
   clearMocks: true,
   verbose: true,
+  setupFiles: ["./jest.polyfills.js"],
 };

@@ -1,4 +1,3 @@
-import "isomorphic-fetch";
 import { makeExamplePhoto, makeExampleRecord } from "@livingsnow/record";
 
 import { server } from "../mock/server";
