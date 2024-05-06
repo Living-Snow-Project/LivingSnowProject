@@ -1,4 +1,3 @@
-import "isomorphic-fetch";
 import { makeExamplePhoto, makeExampleRecord } from "@livingsnow/record";
 import { server } from "@livingsnow/network/mock/server";
 import { SelectedPhoto } from "../../../types";
