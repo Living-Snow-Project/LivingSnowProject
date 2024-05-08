@@ -31,7 +31,7 @@ const checkAndPromptForBackgroundFetchPermission = async () => {
 
 // Register a task to be performed in the background.
 // Must have been added to the TaskManager globally using the same name.
-export async function registerBackgroundFetchAsync(
+async function registerBackgroundFetchAsync(
   taskName: string,
   config: BackgroundFetch.BackgroundFetchOptions | undefined
 ): Promise<void> {
@@ -85,6 +85,11 @@ async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
     // uploadSelected rejects with UploadError
     Logger.Warn(`PhotoManager.uploadSelected failed: ${error.errorInfo}`);
 
+    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
+      stopOnTerminate: false, // android only,
+      startOnBoot: true, // android only
+    });
+
     throw error;
   }
 
@@ -95,7 +100,7 @@ async function loadPending(): Promise<LocalAlgaeRecord[]> {
   const pendingRecords = await Storage.loadPendingRecords();
   const selectedPhotos = await Storage.loadSelectedPhotos();
 
-  // this is a custeousy for RecordList component
+  // this is a curteousy for RecordList component
   const result: LocalAlgaeRecord[] = [];
 
   pendingRecords.forEach((value) =>
@@ -148,9 +153,7 @@ async function deletePending(recordId: string): Promise<LocalAlgaeRecord[]> {
 }
 
 // Unregister (cancel) future tasks by specifying the task name
-export async function unregisterBackgroundFetchAsync(
-  taskName: string
-): Promise<void> {
+async function unregisterBackgroundFetchAsync(taskName: string): Promise<void> {
   Logger.Info(`Unregistering background task ${taskName}`);
   BackgroundFetch.unregisterTaskAsync(taskName);
 }

@@ -7,7 +7,6 @@ import {
   AlgaeRecordResponseV2,
   DataResponseV2,
 } from "@livingsnow/network";
-import { AlgaeRecord } from "@livingsnow/record";
 import {
   AlgaeRecordsStates,
   IAlgaeRecords,
@@ -354,11 +353,11 @@ const useAlgaeRecordsContext = (): IAlgaeRecords => {
 TaskManager.defineTask(BackgroundTasks.UploadData, async () => {
   Logger.Info("Executing background data upload attempt...");
   await RecordManager.retryPending();
-  const pendingRecords: AlgaeRecord[] = await Storage.loadPendingRecords();
+  const pendingRecords = await Storage.loadPendingRecords();
+  const pendingPhotos = await Storage.loadPendingPhotos();
 
-  if (pendingRecords.length == 0) {
+  if (pendingRecords.length == 0 && pendingPhotos.size == 0) {
     RecordManager.unregisterBackgroundFetchAsync(BackgroundTasks.UploadData);
-    await RecordsApiV2.get();
     return BackgroundFetch.BackgroundFetchResult.NewData;
   }
 
