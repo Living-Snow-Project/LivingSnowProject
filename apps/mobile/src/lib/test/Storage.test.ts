@@ -1,9 +1,7 @@
 import mockAsyncStorage from "@react-native-async-storage/async-storage/jest/async-storage-mock";
-import {
-  makeExampleRecord,
-  makeExamplePendingPhoto,
-  PendingPhoto,
-} from "@livingsnow/record";
+import { makeExamplePhoto, makeExampleRecord } from "@livingsnow/record";
+import { DataResponseV2 } from "@livingsnow/network";
+import { PendingPhoto, PendingPhotos } from "../../../types";
 import * as Storage from "../Storage";
 import { AppSettings } from "../../../types/AppSettings";
 import { Errors } from "../../constants/Strings";
@@ -16,16 +14,13 @@ const makeTestAppConfig = (): AppSettings => ({
   colorMode: "light",
 });
 
-const makeExamplePhoto = (): PendingPhoto =>
-  makeExamplePendingPhoto({ isLocal: true });
+const makePendingPhoto = () => makeExamplePhoto({ isLocal: true });
 
 const mockOneAsyncStorageFailure = (
   method: keyof typeof mockAsyncStorage
 ): Error => {
-  const error = Error(`mocked ${method} error`);
-  jest
-    .spyOn(mockAsyncStorage, method)
-    .mockImplementationOnce(() => Promise.reject<void>(error));
+  const error = new Error(`mocked ${method} error`);
+  jest.spyOn(mockAsyncStorage, method).mockRejectedValueOnce(error);
 
   return error;
 };
@@ -137,27 +132,27 @@ describe("Storage test suite", () => {
 
     test("deletePendingRecord removes record", async () => {
       const expected = [
-        { ...makeExampleRecord("Sample"), id: 1 },
-        { ...makeExampleRecord("Sighting"), id: 2 },
-        { ...makeExampleRecord("Sample"), id: 3 },
+        { ...makeExampleRecord("Sample"), id: "1" },
+        { ...makeExampleRecord("Sighting"), id: "2" },
+        { ...makeExampleRecord("Sample"), id: "3" },
       ];
 
       await Storage.savePendingRecords(expected);
-      const received = await Storage.deletePendingRecord(expected[1]);
+      const received = await Storage.deletePendingRecord(expected[1].id);
       const newExpected = [expected[0], expected[2]];
       expect(received).toEqual(newExpected);
     });
 
     test("deletePendingRecord with record that does not exist", async () => {
       const expected = [
-        { ...makeExampleRecord("Sample"), id: 1 },
-        { ...makeExampleRecord("Sighting"), id: 2 },
-        { ...makeExampleRecord("Sample"), id: 3 },
+        { ...makeExampleRecord("Sample"), id: "1" },
+        { ...makeExampleRecord("Sighting"), id: "2" },
+        { ...makeExampleRecord("Sample"), id: "3" },
       ];
 
       await Storage.savePendingRecords(expected);
       const received = await Storage.deletePendingRecord(
-        makeExampleRecord("Sample")
+        makeExampleRecord("Sample").id
       );
 
       expect(received).toEqual(expected);
@@ -165,9 +160,9 @@ describe("Storage test suite", () => {
 
     test("deleteRecord empty record", async () => {
       const expected = [
-        { ...makeExampleRecord("Sample"), id: 1 },
-        { ...makeExampleRecord("Sighting"), id: 2 },
-        { ...makeExampleRecord("Sample"), id: 3 },
+        { ...makeExampleRecord("Sample"), id: "1" },
+        { ...makeExampleRecord("Sighting"), id: "2" },
+        { ...makeExampleRecord("Sample"), id: "3" },
       ];
 
       await Storage.savePendingRecords(expected);
@@ -292,7 +287,10 @@ describe("Storage test suite", () => {
         makeExampleRecord("Sighting"),
       ];
 
-      const received = await Storage.saveCachedRecords(expected);
+      const received = await Storage.saveCachedRecords(
+        expected as DataResponseV2[]
+      );
+
       expect(received).toEqual(expected);
 
       const pending = await Storage.loadCachedRecords();
@@ -305,7 +303,9 @@ describe("Storage test suite", () => {
         makeExampleRecord("Sighting"),
       ];
 
-      let received = await Storage.saveCachedRecords(expected);
+      let received = await Storage.saveCachedRecords(
+        expected as DataResponseV2[]
+      );
       expect(received).toEqual(expected);
 
       // @ts-ignore
@@ -320,112 +320,102 @@ describe("Storage test suite", () => {
       const expected = [makeExampleRecord("Sighting")];
       const expectedError = mockOneAsyncStorageFailure("setItem");
 
-      const received = await Storage.saveCachedRecords(expected);
+      const received = await Storage.saveCachedRecords(
+        expected as DataResponseV2[]
+      );
       expect(received).toEqual(expectedError);
     });
   });
 
   describe("pending photos tests", () => {
-    test("loadPhotos succeeds with no photos", async () => {
+    test("load succeeds with no photos", async () => {
       const received = await Storage.loadPendingPhotos();
-      expect(received).toEqual([]);
+      expect(received).toEqual(new Map());
     });
 
-    test("loadPhotos fails", async () => {
-      mockOneAsyncStorageFailure("getItem");
-      const received = await Storage.loadPendingPhotos();
-      expect(received).toEqual([]);
+    test("load fails", async () => {
+      const expectedError = mockOneAsyncStorageFailure("getItem");
+
+      try {
+        await Storage.loadPendingPhotos();
+        throw new Error("loadPendingPhotos was expected to reject");
+      } catch (error) {
+        expect(error).toEqual(expectedError);
+      }
     });
 
-    test("savePhotos succeeds", async () => {
-      const expected = [makeExamplePhoto()];
+    test("save succeeds", async () => {
+      const expected: PendingPhotos = new Map<string, PendingPhoto[]>();
+      expected.set("1", [makePendingPhoto()]);
 
-      const received = await Storage.savePendingPhotos(expected);
-      expect(received).toEqual(expected);
+      const saved = await Storage.savePendingPhotos(expected);
+      expect(saved).toEqual(expected);
 
-      const pending = await Storage.loadPendingPhotos();
-      expect(pending).toEqual(received);
+      const loaded = await Storage.loadPendingPhotos();
+      expect(loaded).toEqual(expected);
     });
 
-    test("savePhotos with empty photos doesn't overwrite existing photos", async () => {
-      const expected = [makeExamplePhoto()];
+    test("save with empty photos doesn't overwrite existing photos", async () => {
+      const expected: PendingPhotos = new Map<string, PendingPhoto[]>();
+      expected.set("1", [makePendingPhoto()]);
 
-      let received = await Storage.savePendingPhotos(expected);
-      expect(received).toEqual(expected);
+      let saved = await Storage.savePendingPhotos(expected);
+      expect(saved).toEqual(expected);
 
       // @ts-ignore
-      received = await Storage.savePendingPhotos(null);
-      expect(received).toEqual(expected);
+      saved = await Storage.savePendingPhotos(undefined);
+      expect(saved).toEqual(expected);
 
-      const pending = await Storage.loadPendingPhotos();
-      expect(pending).toEqual(received);
+      const loaded = await Storage.loadPendingPhotos();
+      expect(loaded).toEqual(expected);
     });
 
-    test("savePhotos fails", async () => {
-      const expected = [makeExamplePhoto()];
+    test("save fails", async () => {
+      const expected: PendingPhotos = new Map<string, PendingPhoto[]>();
+      expected.set("1", [makePendingPhoto()]);
+
       const expectedError = mockOneAsyncStorageFailure("setItem");
 
-      const received = await Storage.savePendingPhotos(expected);
-      expect(received).toEqual(expectedError);
+      try {
+        await Storage.savePendingPhotos(expected);
+        throw new Error("Storage.savePendingPhotos was supposed to reject");
+      } catch (error) {
+        expect(error).toEqual(expectedError);
+      }
     });
 
-    test("clearPhotos succeeds", async () => {
-      const expected = [makeExamplePhoto()];
+    test("clear succeeds", async () => {
+      const expected: PendingPhotos = new Map<string, PendingPhoto[]>();
+      expected.set("1", [makePendingPhoto()]);
 
-      let received = await Storage.savePendingPhotos(expected);
-      expect(received).toEqual(expected);
+      const saved = await Storage.savePendingPhotos(expected);
+      expect(saved).toEqual(expected);
 
       await Storage.clearPendingPhotos();
-      received = await Storage.loadPendingPhotos();
-      expect(received).toEqual([]);
+      const received = await Storage.loadPendingPhotos();
+      expect(received).toEqual(new Map());
     });
 
-    test("clearPhotos fails", async () => {
-      const expected = [makeExamplePhoto()];
+    test("clear fails", async () => {
+      const expected: PendingPhotos = new Map<string, PendingPhoto[]>();
+      expected.set("1", [makePendingPhoto()]);
 
       await Storage.savePendingPhotos(expected);
-      let received = await Storage.loadPendingPhotos();
-      expect(received).toEqual(expected);
+      let loaded = await Storage.loadPendingPhotos();
+      expect(loaded).toEqual(expected);
 
       const expectedError = mockOneAsyncStorageFailure("removeItem");
-      const receievedError = await Storage.clearPendingPhotos();
-      expect(receievedError).toEqual(expectedError);
+
+      try {
+        await Storage.clearPendingPhotos();
+        throw new Error("clearPendingPhotos was expected to fail");
+      } catch (error) {
+        expect(error).toEqual(expectedError);
+      }
 
       await Storage.clearPendingPhotos();
-      received = await Storage.loadPendingPhotos();
-      expect(received).toEqual([]);
-    });
-
-    test("savePhoto succeeds", async () => {
-      const expected = makeExamplePhoto();
-
-      const received = await Storage.savePendingPhoto(expected);
-      expect(received[0]).toEqual(expected);
-
-      const pending = await Storage.loadPendingPhotos();
-      expect(pending).toEqual(received);
-    });
-
-    test("savePhoto with empty photos doesn't change existing photos", async () => {
-      const expected = makeExamplePhoto();
-
-      let received = await Storage.savePendingPhoto(expected);
-      expect(received[0]).toEqual(expected);
-
-      // @ts-ignore
-      received = await Storage.savePendingPhoto(null);
-      expect(received[0]).toEqual(expected);
-
-      const pending = await Storage.loadPendingPhotos();
-      expect(pending).toEqual(received);
-    });
-
-    test("savePhoto fails", async () => {
-      const expected = makeExamplePhoto();
-      const expectedError = mockOneAsyncStorageFailure("setItem");
-
-      const received = await Storage.savePendingPhoto(expected);
-      expect(received).toEqual(expectedError);
+      loaded = await Storage.loadPendingPhotos();
+      expect(loaded).toEqual(new Map());
     });
   });
 });

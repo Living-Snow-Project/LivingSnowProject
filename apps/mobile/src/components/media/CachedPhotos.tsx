@@ -18,7 +18,14 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
   // require(...) scenario returns number
   // alternative is to write the file to disk on load but that duplicates data and needs a "resource manager"
   if (typeof cachedPhoto.uri == "number") {
-    return <Image source={cachedPhoto.uri} alt="static image" />;
+    return (
+      <Image
+        width={width}
+        height={height}
+        source={cachedPhoto.uri}
+        alt="static image"
+      />
+    );
   }
 
   if (cachedPhoto.state == "Loading" || cachedPhoto.state == "Downloading") {
@@ -54,7 +61,7 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
       width={width}
       height={height}
       source={{ uri: cachedPhoto.uri }}
-      alt="some alt text here"
+      alt={cachedPhoto.state}
     />
   );
 }

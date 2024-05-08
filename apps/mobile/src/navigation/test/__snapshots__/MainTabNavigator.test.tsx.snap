@@ -31,7 +31,6 @@ exports[`Navigation test suite renders first run screen 1`] = `
     >
       <RNSScreen
         collapsable={false}
-        forwardedRef={[Function]}
         gestureResponseDistance={
           {
             "bottom": -1,
@@ -44,11 +43,17 @@ exports[`Navigation test suite renders first run screen 1`] = `
         onAppear={[Function]}
         onDisappear={[Function]}
         onDismissed={[Function]}
+        onGestureCancel={[Function]}
         onHeaderBackButtonClicked={[Function]}
         onNativeDismissCancelled={[Function]}
         onTransitionProgress={[Function]}
         onWillDisappear={[Function]}
         replaceAnimation="push"
+        sheetAllowedDetents="large"
+        sheetCornerRadius={-1}
+        sheetExpandsWhenScrolledToEdge={true}
+        sheetGrabberVisible={false}
+        sheetLargestUndimmedDetent="all"
         stackPresentation="push"
         style={
           {
@@ -207,6 +212,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
               <View
                 dataSet={{}}
                 isInvalid={false}
+                isReadOnly={false}
                 isRequired={false}
                 style={
                   {
@@ -314,6 +320,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
               <View
                 dataSet={{}}
                 isInvalid={false}
+                isReadOnly={false}
                 isRequired={false}
                 style={
                   {
@@ -551,7 +558,6 @@ exports[`Navigation test suite renders timeline screen 1`] = `
     >
       <RNSScreen
         collapsable={false}
-        forwardedRef={[Function]}
         gestureResponseDistance={
           {
             "bottom": -1,
@@ -564,11 +570,17 @@ exports[`Navigation test suite renders timeline screen 1`] = `
         onAppear={[Function]}
         onDisappear={[Function]}
         onDismissed={[Function]}
+        onGestureCancel={[Function]}
         onHeaderBackButtonClicked={[Function]}
         onNativeDismissCancelled={[Function]}
         onTransitionProgress={[Function]}
         onWillDisappear={[Function]}
         replaceAnimation="push"
+        sheetAllowedDetents="large"
+        sheetCornerRadius={-1}
+        sheetExpandsWhenScrolledToEdge={true}
+        sheetGrabberVisible={false}
+        sheetLargestUndimmedDetent="all"
         stackPresentation="push"
         style={
           {
@@ -670,7 +682,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 }
                 testID="timeline-screen-settings-button-settings-outline"
               >
-                
+                
               </Text>
             </View>
           </RNSScreenStackHeaderSubview>
@@ -749,7 +761,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 }
                 testID="timeline-screen-record-button-add-circle-outline"
               >
-                
+                
               </Text>
             </View>
           </RNSScreenStackHeaderSubview>
@@ -840,7 +852,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               refreshing={false}
               removeClippedSubviews={false}
               renderItem={[Function]}
-              scrollEventThrottle={50}
+              scrollEventThrottle={0.0001}
               stickyHeaderIndices={[]}
               style={{}}
               testID="timeline-screen-flatlist"
@@ -1126,7 +1138,9 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                     source={1}
                     style={
                       {
+                        "height": 750,
                         "maxWidth": "100%",
+                        "width": 750,
                       }
                     }
                   />

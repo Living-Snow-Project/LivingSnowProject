@@ -1,10 +1,9 @@
-import { rest } from "msw";
+import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
 
 import { handlers, mockBackend } from "./handlers";
 
 const mswServer = setupServer(...handlers);
-const networkError = "totally crazy random error";
 const internalServerError = "500: Internal Server Error";
 let postPhotoCount: number = 0;
 
@@ -16,17 +15,21 @@ const reset = () => {
 
 const postRecordNetworkError = (): string => {
   mswServer.use(
-    rest.post(mockBackend.recordsUri, (req, res) =>
-      res.networkError(networkError)
+    http.post(
+      mockBackend.recordsUri,
+      () => new HttpResponse(null, { status: 500 })
     )
   );
 
-  return networkError;
+  return internalServerError;
 };
 
 const postRecordInternalServerError = (): string => {
   mswServer.use(
-    rest.post(mockBackend.recordsUri, (req, res, ctx) => res(ctx.status(500)))
+    http.post(
+      mockBackend.recordsUri,
+      () => new HttpResponse(null, { status: 500 })
+    )
   );
 
   return internalServerError;
@@ -34,17 +37,21 @@ const postRecordInternalServerError = (): string => {
 
 const getRecordsNetworkError = (): string => {
   mswServer.use(
-    rest.get(mockBackend.recordsUri, (req, res) =>
-      res.networkError(networkError)
+    http.get(
+      mockBackend.recordsUri,
+      () => new HttpResponse(null, { status: 500 })
     )
   );
 
-  return networkError;
+  return internalServerError;
 };
 
 const getRecordsInternalServerError = (): string => {
   mswServer.use(
-    rest.get(mockBackend.recordsUri, (req, res, ctx) => res(ctx.status(500)))
+    http.get(
+      mockBackend.recordsUri,
+      () => new HttpResponse(null, { status: 500 })
+    )
   );
 
   return internalServerError;
@@ -52,17 +59,21 @@ const getRecordsInternalServerError = (): string => {
 
 const postPhotoNetworkError = (): string => {
   mswServer.use(
-    rest.post(mockBackend.photosUri, (req, res) =>
-      res.networkError(networkError)
+    http.post(
+      mockBackend.photosUri,
+      () => new HttpResponse(null, { status: 500 })
     )
   );
 
-  return networkError;
+  return internalServerError;
 };
 
 const postPhotoInternalServerError = (): string => {
   mswServer.use(
-    rest.post(mockBackend.photosUri, (req, res, ctx) => res(ctx.status(500)))
+    http.post(
+      mockBackend.photosUri,
+      () => new HttpResponse(null, { status: 500 })
+    )
   );
 
   return internalServerError;
@@ -70,18 +81,18 @@ const postPhotoInternalServerError = (): string => {
 
 const postPhotoSuccessThenFailure = (): string => {
   mswServer.use(
-    rest.post(mockBackend.photosUri, (req, res, ctx) => {
+    http.post(mockBackend.photosUri, () => {
       postPhotoCount += 1;
 
       if (postPhotoCount > 1) {
-        return res.networkError(networkError);
+        return new HttpResponse(null, { status: 500 });
       }
 
-      return res(ctx.status(200));
+      return new HttpResponse(null, { status: 200 });
     })
   );
 
-  return networkError;
+  return internalServerError;
 };
 
 const server = {

@@ -54,6 +54,7 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
       <View
         dataSet={{}}
         isInvalid={false}
+        isReadOnly={false}
         isRequired={true}
         style={
           {
@@ -431,6 +432,12 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
               vbWidth={24}
             >
               <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 propList={
                   [
                     "stroke",
@@ -438,7 +445,14 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
                 }
                 stroke={null}
               >
-                <RNSVGGroup>
+                <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
+                >
                   <RNSVGPath
                     d="M12 9.77778L4.22222 2L2 4.22222L9.77778 12L2 19.7778L4.22222 22L12 14.2222L19.7778 22L22 19.7778L14.2222 12L22 4.22222L19.7778 2L12 9.77778Z"
                     fill={

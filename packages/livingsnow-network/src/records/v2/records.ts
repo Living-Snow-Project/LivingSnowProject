@@ -1,5 +1,5 @@
 import Logger from "@livingsnow/logger";
-import { AlgaeRecord, jsonToRecord, PendingPhoto } from "@livingsnow/record";
+import { AlgaeRecord, jsonToRecord } from "@livingsnow/record";
 
 import { AlgaeRecordResponseV2 } from "./types";
 
@@ -37,6 +37,26 @@ function failedFetch(operation: string, response: Response): string {
   return error;
 }
 
+// unmodified records do not send these fields
+// so if the fields are empty during submission, do not send them
+const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
+  const newRecord = { ...record };
+
+  if (newRecord.type === "Sighting" || newRecord?.tubeId === "") {
+    delete newRecord.tubeId;
+  }
+
+  if (newRecord?.locationDescription === "") {
+    delete newRecord.locationDescription;
+  }
+
+  if (newRecord?.notes === "") {
+    delete newRecord.notes;
+  }
+
+  return newRecord;
+};
+
 const recordsApi = () => {
   const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records`;
   const getUrl = (page?: string) =>
@@ -44,8 +64,8 @@ const recordsApi = () => {
       ? `${baseUrl}?limit=20&pagination_token=${page}`
       : `${baseUrl}?limit=20`;
   const postUrl = baseUrl;
-  // TODO: continue with v1 for now, still deciding on what v2 photo endpoint will look like
-  const postPhotoUrl = (recordId: number) =>
+  // TODO: continue with v1 with photos for now, still deciding on what v2 photo endpoint will look like
+  const postPhotoUrl = (recordId: string) =>
     `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
 
   return {
@@ -57,6 +77,8 @@ const recordsApi = () => {
     // rejects with an error string or the response object
     post: async (record: AlgaeRecord): Promise<AlgaeRecord> => {
       const operation = "post";
+      dumpRecord(record);
+      record = removeEmptyFields(record);
       dumpRecord(record);
 
       return fetch(postUrl, {
@@ -85,23 +107,9 @@ const recordsApi = () => {
       return fetch(getUrl(page))
         .then((response) =>
           response.ok
-            ? response.text().then((text) => {
-                // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                const respObj = jsonToRecord<AlgaeRecordResponseV2>(text);
-
-                for (let x = 0; x < respObj.data.length; x++) {
-                  respObj.data[x] = {
-                    ...respObj.data[x],
-                    // @ts-ignore
-                    photos: respObj.data[x].photos.appPhotos
-                      ? // @ts-ignore
-                        [...respObj.data[x].photos.appPhotos]
-                      : [],
-                  };
-                }
-
-                return respObj;
-              })
+            ? response
+                .text()
+                .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
             : Promise.reject(response)
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
@@ -116,35 +124,21 @@ const recordsApi = () => {
       return fetch(baseUrl)
         .then((response) =>
           response.ok
-            ? response.text().then((text) => {
-                // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                const respObj = jsonToRecord<AlgaeRecordResponseV2>(text);
-
-                for (let x = 0; x < respObj.data.length; x++) {
-                  respObj.data[x] = {
-                    ...respObj.data[x],
-                    // @ts-ignore
-                    photos: respObj.data[x].photos.appPhotos
-                      ? // @ts-ignore
-                        [...respObj.data[x].photos.appPhotos]
-                      : [],
-                  };
-                }
-
-                return respObj;
-              })
+            ? response
+                .text()
+                .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
             : Promise.reject(response)
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
 
     // rejects with an error string or the response object
-    postPhoto: async (photo: PendingPhoto): Promise<void> => {
+    postPhoto: async (recordId: string, photoUri: string): Promise<void> => {
       const operation = "postPhoto";
 
-      const uri = { uri: photo.uri };
+      const uri = { uri: photoUri };
 
-      return fetch(postPhotoUrl(photo.id), {
+      return fetch(postPhotoUrl(recordId), {
         method: "POST",
         headers: {
           "Content-Type": "image/jpeg",

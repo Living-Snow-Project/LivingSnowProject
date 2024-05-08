@@ -17,7 +17,7 @@ export type RootStackParamList = {
   ImageSelection: {
     existingSelection?: string[];
   };
-  RecordDetails: { record: string }; // JSON.stringify'd AlgaeRecord
+  RecordDetails: { record: string }; // JSON.stringify'd MinimalAlgaeRecord
 };
 
 export type RootStackNavigationProp =

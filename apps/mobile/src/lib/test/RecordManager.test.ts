@@ -1,19 +1,9 @@
-import "isomorphic-fetch";
-import {
-  AlgaeRecord,
-  PendingPhoto,
-  Photo,
-  makeExamplePhoto,
-  makeExampleRecord,
-} from "@livingsnow/record";
+import { makeExamplePhoto, makeExampleRecord } from "@livingsnow/record";
 import { server } from "@livingsnow/network/mock/server";
-import {
-  clearPendingRecords,
-  clearPendingPhotos,
-  loadPendingRecords,
-  loadPendingPhotos,
-} from "../Storage";
-import { retryPendingRecords, uploadRecord } from "../RecordManager";
+import { SelectedPhoto } from "../../../types";
+import * as Storage from "../Storage";
+import { RecordManager } from "../RecordManager";
+import { PhotoManager, UploadError } from "../PhotoManager";
 import { Notifications } from "../../constants/Strings";
 
 // Establish API mocking before all tests.
@@ -23,241 +13,271 @@ beforeAll(() => server.listen());
 // so they don't affect other tests.
 afterEach(async () => {
   server.reset();
-  await clearPendingRecords();
-  await clearPendingPhotos();
+  await Storage.clearPendingRecords();
+  await Storage.clearPendingPhotos();
 });
 
 // Clean up after the tests are finished.
 afterAll(() => server.close());
 
 describe("RecordManager test suite", () => {
-  // TODO: function wrapper
-  const examplePhoto = makeExamplePhoto({ isLocal: true });
+  const examplePhotos: SelectedPhoto[] = [
+    makeExamplePhoto({ isLocal: true }),
+  ] as SelectedPhoto[];
 
-  test("uploadRecord succeeds", () => {
+  test("upload succeeds", () => {
     const expected = makeExampleRecord("Sample");
 
-    return uploadRecord(expected).then((received: AlgaeRecord) => {
+    return RecordManager.upload(expected).then((received) => {
       expect(received.id).not.toEqual(expected.id);
       expect(received.type).toEqual(expected.type);
     });
   });
 
-  test("uploadRecord with photos succeeds", () => {
+  test("upload with photos succeeds", async () => {
     const expected = makeExampleRecord("Sample");
+    await PhotoManager.addSelected(expected.id, examplePhotos);
 
-    return uploadRecord(expected, [examplePhoto]).then(
-      (received: AlgaeRecord) => {
-        expect(received.id).not.toEqual(expected.id);
-        expect(received.type).toEqual(expected.type);
-      }
-    );
+    return RecordManager.upload(expected).then((received) => {
+      expect(received.id).not.toEqual(expected.id);
+      expect(received.type).toEqual(expected.type);
+    });
   });
 
-  test("uploadRecord fails, record is saved", () => {
+  test("upload fails, record is saved", () => {
     server.postRecordInternalServerError();
 
     const expected = makeExampleRecord("Sample");
 
-    return uploadRecord(expected)
-      .then(() => fail("uploadRecord was expected to succeed"))
-      .catch((uploadError) =>
-        loadPendingRecords().then((received: AlgaeRecord[]) => {
-          expect(received[0]).toEqual(uploadError.pendingRecords[0]);
+    return RecordManager.upload(expected)
+      .then(() => {
+        throw new Error("RecordManager.upload was expected to fail");
+      })
+      .catch(() =>
+        Storage.loadPendingRecords().then((received) => {
+          expect(received[0]).toEqual(expected);
           expect(received[0].type).toEqual(expected.type);
         })
       );
   });
 
-  test("uploadRecord with photos, uploadRecord succeeds and uploadPhotos fails, photos are saved", () => {
+  test("upload with photos, uploading record succeeds but uploading photos fails, photos are saved", async () => {
     const expectedRecord = makeExampleRecord("Sample");
-    const expectedPhoto = examplePhoto;
+    const expectedPhotos = examplePhotos;
+    await PhotoManager.addSelected(expectedRecord.id, examplePhotos);
 
     server.postPhotoInternalServerError();
 
-    return uploadRecord(expectedRecord, [expectedPhoto])
+    return RecordManager.upload(expectedRecord)
       .then(() => {
-        fail("uploadRecord was expected to fail");
+        throw new Error("RecordManager.upload was expected to fail");
       })
-      .catch((received) => {
-        expect(received).toEqual({
+      .catch((error: UploadError) => {
+        expect(error.errorInfo).toEqual({
+          id: error.errorInfo.id,
           title: Notifications.uploadPhotoFailed.title,
           message: Notifications.uploadPhotoFailed.message,
-          pendingRecords: [],
-          pendingPhotos: [{ ...examplePhoto, id: 1 }],
         });
 
-        return loadPendingPhotos().then((receivedPhotos) => {
-          expect(receivedPhotos[0].uri).toEqual(expectedPhoto.uri);
+        return Storage.loadPendingPhotos().then((receivedPhotos) => {
+          const pendingPhotos = receivedPhotos.get(error.errorInfo.id);
+
+          if (!pendingPhotos) {
+            throw new Error("Pending Photos were not saved");
+          }
+
+          expect(pendingPhotos[0].uri).toEqual(expectedPhotos[0].uri);
         });
       });
   });
 
-  test("uploadRecord with photos, first photo uploads, remaining photos fails, photos are saved", () => {
+  test("upload with photos, first photo uploads, remaining photos fails, photos are saved", async () => {
     const expectedRecord = makeExampleRecord("Sample");
-    const expectedPhotos = [examplePhoto, examplePhoto, examplePhoto];
+    await PhotoManager.addSelected(expectedRecord.id, [
+      examplePhotos[0],
+      examplePhotos[0],
+      examplePhotos[0],
+    ]);
 
     server.postPhotoSuccessThenFailure();
 
-    return uploadRecord(expectedRecord, expectedPhotos)
+    return RecordManager.upload(expectedRecord)
       .then(() => {
-        fail("uploadRecord was expected to fail");
+        throw new Error("RecordManager.upload was expected to fail");
       })
-      .catch((received) => {
-        const expectedExamplePhoto = { ...examplePhoto, id: 1 };
-        expect(received).toEqual({
+      .catch((error: UploadError) => {
+        expect(error.errorInfo).toEqual({
+          id: error.errorInfo.id,
           title: Notifications.uploadPhotosFailed.title,
           message: Notifications.uploadPhotosFailed.message,
-          pendingPhotos: [expectedExamplePhoto, expectedExamplePhoto],
-          pendingRecords: [],
+        });
+
+        return Storage.loadPendingPhotos().then((allPending) => {
+          const pending = allPending.get(error.errorInfo.id);
+
+          if (!pending) {
+            throw new Error("2 photos are expected to be pending");
+          }
+
+          expect(pending.length).toEqual(2);
         });
       });
   });
 
-  test("multiple uploadRecord succeeds", async () => {
-    const expectedOne = makeExampleRecord("Sample");
-    const expectedTwo = makeExampleRecord("Sighting");
+  test("multiple uploads succeed", async () => {
+    const expectedOne = makeExampleRecord("Sample", "123");
+    const expectedTwo = makeExampleRecord("Sighting", "789");
 
-    const receivedOne = await uploadRecord(expectedOne);
-    const receivedTwo = await uploadRecord(expectedTwo);
+    const receivedOne = await RecordManager.upload(expectedOne);
+    const receivedTwo = await RecordManager.upload(expectedTwo);
 
-    expect(receivedOne).toEqual({ ...expectedOne, id: 1 });
-    expect(receivedTwo).toEqual({ ...expectedTwo, id: 2 });
+    expect(receivedOne).toEqual({ ...expectedOne, id: "1" });
+    expect(receivedTwo).toEqual({ ...expectedTwo, id: "2" });
 
-    return loadPendingRecords().then((received: AlgaeRecord[]) => {
+    return Storage.loadPendingRecords().then((received) => {
       expect(received.length).toEqual(0);
     });
   });
 
-  test("multiple uploadRecord succeeds with photos", async () => {
-    const expectedOne = makeExampleRecord("Sample");
-    const expectedTwo = makeExampleRecord("Sighting");
+  test("multiple uploads succeed with photos", async () => {
+    const expectedOne = makeExampleRecord("Sample", "123");
+    await PhotoManager.addSelected(expectedOne.id, [
+      examplePhotos[0],
+      examplePhotos[0],
+    ]);
 
-    const receivedOne = await uploadRecord(expectedOne, [examplePhoto]);
-    const receivedTwo = await uploadRecord(expectedTwo, [examplePhoto]);
+    const expectedTwo = makeExampleRecord("Sighting", "789");
+    await PhotoManager.addSelected(expectedTwo.id, examplePhotos);
 
-    expect(receivedOne).toEqual({ ...expectedOne, id: 1 });
-    expect(receivedTwo).toEqual({ ...expectedTwo, id: 2 });
+    const receivedOne = await RecordManager.upload(expectedOne);
+    const receivedTwo = await RecordManager.upload(expectedTwo);
 
-    return loadPendingRecords().then((received: AlgaeRecord[]) => {
+    expect(receivedOne).toEqual({ ...expectedOne, id: "1" });
+    expect(receivedTwo).toEqual({ ...expectedTwo, id: "2" });
+
+    return Storage.loadPendingRecords().then((received) => {
       expect(received.length).toEqual(0);
 
-      return loadPendingPhotos().then((receivedPhotos: Photo[]) => {
-        expect(receivedPhotos.length).toEqual(0);
+      return Storage.loadPendingPhotos().then((receivedPhotos) => {
+        expect(receivedPhotos.size).toEqual(0);
       });
     });
   });
 
-  test("multiple uploadRecord fails, retryPendingRecords does not delete saved records", async () => {
+  test("multiple uploads fail, retryPending does not delete saved records", async () => {
     server.postRecordInternalServerError();
 
-    const expectedOne = makeExampleRecord("Sample");
-    expectedOne.photos = [];
-    const expectedTwo = makeExampleRecord("Sighting");
-    expectedTwo.photos = [];
+    const expectedOne = makeExampleRecord("Sample", "123");
+    const expectedTwo = makeExampleRecord("Sighting", "987");
 
     try {
-      await uploadRecord(expectedOne);
-    } catch (receivedError) {
-      expect(receivedError).toEqual({
+      await RecordManager.upload(expectedOne);
+    } catch (error) {
+      expect(error.errorInfo).toEqual({
+        id: error.errorInfo.id,
         title: Notifications.uploadRecordFailed.title,
         message: Notifications.uploadRecordFailed.message,
-        pendingRecords: [expectedOne],
-        pendingPhotos: [],
       });
     }
 
     try {
-      await uploadRecord(expectedTwo);
-    } catch (receivedError) {
-      expect(receivedError).toEqual({
+      await RecordManager.upload(expectedTwo);
+    } catch (error) {
+      expect(error.errorInfo).toEqual({
+        id: error.errorInfo.id,
         title: Notifications.uploadRecordFailed.title,
         message: Notifications.uploadRecordFailed.message,
-        pendingRecords: [expectedOne, expectedTwo],
-        pendingPhotos: [],
       });
     }
 
-    return retryPendingRecords().then((received: AlgaeRecord[]) => {
-      expect(received[0]).toEqual(expectedOne);
-      expect(received[1]).toEqual(expectedTwo);
+    return RecordManager.retryPending().then((received) => {
+      expect(received[0]).toEqual({ record: { ...expectedOne } });
+      expect(received[1]).toEqual({ record: { ...expectedTwo } });
     });
   });
 
-  test("multiple uploadRecord with photos fails, retryPendingRecords does not delete saved records with photos", async () => {
+  test("multiple uploads with photos fail, retryPending does not delete saved records with photos", async () => {
     server.postRecordInternalServerError();
 
-    const expectedOne = makeExampleRecord("Sample");
-    const expectedTwo = makeExampleRecord("Sighting");
+    const expectedOne = makeExampleRecord("Sample", "123");
+    await PhotoManager.addSelected(expectedOne.id, examplePhotos);
+
+    const expectedTwo = makeExampleRecord("Sighting", "987");
+    await PhotoManager.addSelected(expectedTwo.id, examplePhotos);
 
     try {
-      await uploadRecord(expectedOne, [examplePhoto]);
-    } catch (receivedError) {
-      expect(receivedError).toEqual({
+      await RecordManager.upload(expectedOne);
+    } catch (error) {
+      expect(error.errorInfo).toEqual({
+        id: error.errorInfo.id,
         title: Notifications.uploadRecordFailed.title,
         message: Notifications.uploadRecordFailed.message,
-        pendingRecords: [{ ...expectedOne, photos: [examplePhoto] }],
-        pendingPhotos: [],
       });
     }
 
     try {
-      await uploadRecord(expectedTwo, [examplePhoto]);
-    } catch (receivedError) {
-      expect(receivedError).toEqual({
+      await RecordManager.upload(expectedTwo);
+    } catch (error) {
+      expect(error.errorInfo).toEqual({
+        id: error.errorInfo.id,
         title: Notifications.uploadRecordFailed.title,
         message: Notifications.uploadRecordFailed.message,
-        pendingRecords: [
-          { ...expectedOne, photos: [examplePhoto] },
-          { ...expectedTwo, photos: [examplePhoto] },
-        ],
-        pendingPhotos: [],
       });
     }
 
-    return retryPendingRecords().then((received: AlgaeRecord[]) => {
+    return RecordManager.retryPending().then((received) => {
       expect(received.length).toEqual(2);
-      expect(received[0]).toEqual({ ...expectedOne, photos: [examplePhoto] });
-      expect(received[1]).toEqual({ ...expectedTwo, photos: [examplePhoto] });
+      expect(received[0]).toEqual({
+        record: { ...expectedOne },
+        photos: examplePhotos,
+      });
+      expect(received[1]).toEqual({
+        record: { ...expectedTwo },
+        photos: examplePhotos,
+      });
     });
   });
 
-  test("multiple uploadRecord succeeds, uploadPhotos fails, retryPendingRecords does not delete saved photos", async () => {
+  test("multiple uploads succeed, uploadPhotos fails, retryPending does not delete saved photos", async () => {
     server.postPhotoInternalServerError();
 
-    const expectedOne = makeExampleRecord("Sample");
-    const expectedTwo = makeExampleRecord("Sighting");
+    const expectedOne = makeExampleRecord("Sample", "123");
+    await PhotoManager.addSelected(expectedOne.id, examplePhotos);
+
+    const expectedTwo = makeExampleRecord("Sighting", "987");
+    await PhotoManager.addSelected(expectedTwo.id, examplePhotos);
 
     try {
-      await uploadRecord(expectedOne, [examplePhoto]);
-    } catch (receivedError) {
-      expect(receivedError).toEqual({
+      await RecordManager.upload(expectedOne);
+      throw new Error("upload first record's photos was expected to fail");
+    } catch (error) {
+      expect(error.errorInfo).toEqual({
+        id: error.errorInfo.id,
         title: Notifications.uploadPhotoFailed.title,
         message: Notifications.uploadPhotoFailed.message,
-        pendingRecords: [],
-        pendingPhotos: [{ ...examplePhoto, id: 1 }],
       });
     }
 
-    try {
-      await uploadRecord(expectedTwo, [examplePhoto]);
-    } catch (receivedError) {
-      expect(receivedError).toEqual({
-        title: Notifications.uploadPhotoFailed.title,
-        message: Notifications.uploadPhotoFailed.message,
-        pendingRecords: [],
-        pendingPhotos: [
-          { ...examplePhoto, id: 1 },
-          { ...examplePhoto, id: 2 },
-        ],
+    return RecordManager.upload(expectedTwo)
+      .then(() => {
+        throw new Error("upload second record's photos was expected to fail");
+      })
+      .catch(async (error) => {
+        expect(error.errorInfo).toEqual({
+          id: error.errorInfo.id,
+          title: Notifications.uploadPhotoFailed.title,
+          message: Notifications.uploadPhotoFailed.message,
+        });
+
+        await RecordManager.retryPending();
+
+        return Storage.loadPendingPhotos().then((pendingPhotos) => {
+          expect(pendingPhotos.size).toEqual(2);
+
+          pendingPhotos.forEach((photos) => {
+            expect(photos.length).toEqual(1);
+          });
+        });
       });
-    }
-
-    await retryPendingRecords();
-
-    return loadPendingPhotos().then((received: PendingPhoto[]) => {
-      expect(received[0]).toEqual({ ...examplePhoto, id: 1 });
-      expect(received[1]).toEqual({ ...examplePhoto, id: 2 });
-    });
   });
 });

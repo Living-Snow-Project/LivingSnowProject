@@ -1,19 +1,20 @@
 import React from "react";
 import { Box, ScrollView, Text, useColorModeValue } from "native-base";
-import {
-  AlgaeRecord,
-  jsonToRecord,
-  recordDateFormat,
-} from "@livingsnow/record";
+import { jsonToRecord, recordDateFormat } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
 import { CachedPhotos, ThemedBox } from "../components";
 import { Labels } from "../constants";
+import { MinimalAlgaeRecord } from "../../types";
 
 type RecordDetailsScreenProps = {
   route: RecordDetailsScreenRouteProp;
 };
 
 export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
+  const { record, photos } = jsonToRecord<MinimalAlgaeRecord>(
+    route.params.record
+  );
+
   const {
     date,
     type,
@@ -26,8 +27,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
     colors,
     tubeId,
     notes,
-    photos,
-  }: AlgaeRecord = jsonToRecord(route.params.record);
+  } = record;
 
   const headerColor = useColorModeValue("lightBlue.300", "lightBlue.700");
 

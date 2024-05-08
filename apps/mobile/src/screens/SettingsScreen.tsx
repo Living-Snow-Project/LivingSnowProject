@@ -79,9 +79,12 @@ export function SettingsScreen() {
             right={
               <Switch
                 testID={TestIds.SettingsScreen.ShowGpsWarning}
-                onValueChange={(value) => {
+                onToggle={() => {
                   setSettings((prev) => ({
-                    ...setAppSettings({ ...prev, showGpsWarning: value }),
+                    ...setAppSettings({
+                      ...prev,
+                      showGpsWarning: !prev.showGpsWarning,
+                    }),
                   }));
                 }}
                 isChecked={showGpsWarning}
@@ -97,7 +100,7 @@ export function SettingsScreen() {
             right={
               <Switch
                 testID="Dark Mode"
-                onValueChange={toggleColorModeAndPersist}
+                onToggle={toggleColorModeAndPersist}
                 isChecked={colorMode == "dark"}
               />
             }

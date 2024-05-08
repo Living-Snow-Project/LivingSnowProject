@@ -1,12 +1,17 @@
 import "@testing-library/jest-native/extend-expect";
 import mockAsyncStorage from "@react-native-async-storage/async-storage/jest/async-storage-mock";
 import { NativeBaseProvider } from "native-base";
+import mockRNCNetInfo from "@react-native-community/netinfo/jest/netinfo-mock.js";
+
+jest.mock("@react-native-community/netinfo", () => mockRNCNetInfo);
 
 jest.mock("@react-native-async-storage/async-storage", () => mockAsyncStorage);
 
 // useNativeDriver for animations doesn't exist in test environment
 // https://github.com/ptomasroos/react-native-scrollable-tab-view/issues/642
 jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
+
+jest.mock("expo-font");
 
 // TimelineRow calls useNavigation
 const mockedNavigate = jest.fn();

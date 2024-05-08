@@ -64,16 +64,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
           >
             <View
               dataSet={{}}
-              feedbackId="field-608-feedback"
+              feedbackId="field-625-feedback"
               hasFeedbackText={false}
               hasHelpText={false}
-              helpTextId="field-608-helptext"
+              helpTextId="field-625-helptext"
               isDisabled={false}
               isInvalid={false}
               isReadOnly={false}
               isRequired={true}
-              labelId="field-608-label"
-              nativeID="field-608-label"
+              labelId="field-625-label"
+              nativeID="field-625-label"
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
@@ -256,32 +256,32 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                           colorScheme="primary"
                           dataSet={{}}
                           defaultIsChecked={false}
-                          feedbackId="field-608-feedback"
+                          feedbackId="field-625-feedback"
                           formControlContext={
                             {
-                              "feedbackId": "field-608-feedback",
+                              "feedbackId": "field-625-feedback",
                               "hasFeedbackText": false,
                               "hasHelpText": false,
-                              "helpTextId": "field-608-helptext",
+                              "helpTextId": "field-625-helptext",
                               "isDisabled": false,
                               "isInvalid": false,
                               "isReadOnly": false,
                               "isRequired": true,
-                              "labelId": "field-608-label",
-                              "nativeID": "field-608",
+                              "labelId": "field-625-label",
+                              "nativeID": "field-625",
                               "setHasFeedbackText": [Function],
                               "setHasHelpText": [Function],
                             }
                           }
                           hasFeedbackText={false}
                           hasHelpText={false}
-                          helpTextId="field-608-helptext"
+                          helpTextId="field-625-helptext"
                           isDisabled={false}
                           isInvalid={false}
                           isReadOnly={false}
                           isRequired={true}
-                          labelId="field-608-label"
-                          nativeID="field-608"
+                          labelId="field-625-label"
+                          nativeID="field-625"
                           setHasFeedbackText={[Function]}
                           setHasHelpText={[Function]}
                           state={
@@ -345,6 +345,12 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                             vbWidth={24}
                           >
                             <RNSVGGroup
+                              fill={
+                                {
+                                  "payload": 4278190080,
+                                  "type": 0,
+                                }
+                              }
                               opacity={0}
                               propList={
                                 [
@@ -353,7 +359,14 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                               }
                               stroke={null}
                             >
-                              <RNSVGGroup>
+                              <RNSVGGroup
+                                fill={
+                                  {
+                                    "payload": 4278190080,
+                                    "type": 0,
+                                  }
+                                }
+                              >
                                 <RNSVGPath
                                   d="M0 12C-2.34822e-08 13.5759 0.310389 15.1363 0.913445 16.5922C1.5165 18.0481 2.40042 19.371 3.51472 20.4853C4.62902 21.5996 5.95189 22.4835 7.4078 23.0866C8.86371 23.6896 10.4241 24 12 24C13.5759 24 15.1363 23.6896 16.5922 23.0866C18.0481 22.4835 19.371 21.5996 20.4853 20.4853C21.5996 19.371 22.4835 18.0481 23.0866 16.5922C23.6896 15.1363 24 13.5759 24 12C24 10.4241 23.6896 8.86371 23.0866 7.4078C22.4835 5.95189 21.5996 4.62902 20.4853 3.51472C19.371 2.40042 18.0481 1.5165 16.5922 0.913446C15.1363 0.310389 13.5759 0 12 0C10.4241 0 8.86371 0.310389 7.4078 0.913446C5.95189 1.5165 4.62902 2.40042 3.51472 3.51472C2.40042 4.62902 1.5165 5.95189 0.913445 7.4078C0.310389 8.86371 -2.34822e-08 10.4241 0 12Z"
                                   fill={
@@ -514,32 +527,32 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                           colorScheme="primary"
                           dataSet={{}}
                           defaultIsChecked={false}
-                          feedbackId="field-608-feedback"
+                          feedbackId="field-625-feedback"
                           formControlContext={
                             {
-                              "feedbackId": "field-608-feedback",
+                              "feedbackId": "field-625-feedback",
                               "hasFeedbackText": false,
                               "hasHelpText": false,
-                              "helpTextId": "field-608-helptext",
+                              "helpTextId": "field-625-helptext",
                               "isDisabled": false,
                               "isInvalid": false,
                               "isReadOnly": false,
                               "isRequired": true,
-                              "labelId": "field-608-label",
-                              "nativeID": "field-608",
+                              "labelId": "field-625-label",
+                              "nativeID": "field-625",
                               "setHasFeedbackText": [Function],
                               "setHasHelpText": [Function],
                             }
                           }
                           hasFeedbackText={false}
                           hasHelpText={false}
-                          helpTextId="field-608-helptext"
+                          helpTextId="field-625-helptext"
                           isDisabled={false}
                           isInvalid={false}
                           isReadOnly={false}
                           isRequired={true}
-                          labelId="field-608-label"
-                          nativeID="field-608"
+                          labelId="field-625-label"
+                          nativeID="field-625"
                           setHasFeedbackText={[Function]}
                           setHasHelpText={[Function]}
                           state={
@@ -603,6 +616,12 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                             vbWidth={24}
                           >
                             <RNSVGGroup
+                              fill={
+                                {
+                                  "payload": 4278190080,
+                                  "type": 0,
+                                }
+                              }
                               opacity={1}
                               propList={
                                 [
@@ -611,7 +630,14 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                               }
                               stroke={null}
                             >
-                              <RNSVGGroup>
+                              <RNSVGGroup
+                                fill={
+                                  {
+                                    "payload": 4278190080,
+                                    "type": 0,
+                                  }
+                                }
+                              >
                                 <RNSVGPath
                                   d="M0 12C-2.34822e-08 13.5759 0.310389 15.1363 0.913445 16.5922C1.5165 18.0481 2.40042 19.371 3.51472 20.4853C4.62902 21.5996 5.95189 22.4835 7.4078 23.0866C8.86371 23.6896 10.4241 24 12 24C13.5759 24 15.1363 23.6896 16.5922 23.0866C18.0481 22.4835 19.371 21.5996 20.4853 20.4853C21.5996 19.371 22.4835 18.0481 23.0866 16.5922C23.6896 15.1363 24 13.5759 24 12C24 10.4241 23.6896 8.86371 23.0866 7.4078C22.4835 5.95189 21.5996 4.62902 20.4853 3.51472C19.371 2.40042 18.0481 1.5165 16.5922 0.913446C15.1363 0.310389 13.5759 0 12 0C10.4241 0 8.86371 0.310389 7.4078 0.913446C5.95189 1.5165 4.62902 2.40042 3.51472 3.51472C2.40042 4.62902 1.5165 5.95189 0.913445 7.4078C0.310389 8.86371 -2.34822e-08 10.4241 0 12Z"
                                   fill={
@@ -684,16 +710,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
           >
             <View
               dataSet={{}}
-              feedbackId="field-609-feedback"
+              feedbackId="field-626-feedback"
               hasFeedbackText={false}
               hasHelpText={false}
-              helpTextId="field-609-helptext"
+              helpTextId="field-626-helptext"
               isDisabled={false}
               isInvalid={false}
               isReadOnly={false}
               isRequired={true}
-              labelId="field-609-label"
-              nativeID="field-609-label"
+              labelId="field-626-label"
+              nativeID="field-626-label"
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
@@ -800,7 +826,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                     disabled={false}
                     editable={true}
                     isRequired={true}
-                    nativeID="field-609-input"
+                    nativeID="field-626-input"
                     onBlur={[Function]}
                     onFocus={[Function]}
                     onKeyPress={[Function]}
@@ -882,6 +908,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
               <View
                 dataSet={{}}
                 isInvalid={false}
+                isReadOnly={false}
                 isRequired={true}
                 style={
                   {
@@ -891,16 +918,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
               >
                 <View
                   dataSet={{}}
-                  feedbackId="field-617-feedback"
+                  feedbackId="field-627-feedback"
                   hasFeedbackText={true}
                   hasHelpText={false}
-                  helpTextId="field-617-helptext"
+                  helpTextId="field-627-helptext"
                   isDisabled={false}
                   isInvalid={false}
                   isReadOnly={false}
                   isRequired={true}
-                  labelId="field-617-label"
-                  nativeID="field-617-label"
+                  labelId="field-627-label"
+                  nativeID="field-627-label"
                   setHasFeedbackText={[Function]}
                   setHasHelpText={[Function]}
                   style={
@@ -964,7 +991,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   }
                 >
                   <TextInput
-                    accessibilityDescribedBy="field-617-feedback"
+                    accessibilityDescribedBy="field-627-feedback"
                     accessibilityRequired={true}
                     accessible={true}
                     blurOnSubmit={false}
@@ -973,7 +1000,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                     editable={true}
                     isRequired={true}
                     maxLength={30}
-                    nativeID="field-617-input"
+                    nativeID="field-627-input"
                     onBlur={[Function]}
                     onChangeText={[Function]}
                     onFocus={[Function]}
@@ -1029,16 +1056,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
           >
             <View
               dataSet={{}}
-              feedbackId="field-618-feedback"
+              feedbackId="field-628-feedback"
               hasFeedbackText={true}
               hasHelpText={false}
-              helpTextId="field-618-helptext"
+              helpTextId="field-628-helptext"
               isDisabled={false}
               isInvalid={false}
               isReadOnly={false}
               isRequired={true}
-              labelId="field-618-label"
-              nativeID="field-618-label"
+              labelId="field-628-label"
+              nativeID="field-628-label"
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
@@ -1136,7 +1163,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                 }
               >
                 <TextInput
-                  accessibilityDescribedBy="field-618-feedback"
+                  accessibilityDescribedBy="field-628-feedback"
                   accessibilityRequired={true}
                   accessible={true}
                   aria-hidden={true}
@@ -1146,7 +1173,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   focusable={false}
                   importantForAccessibility="no"
                   isRequired={true}
-                  nativeID="field-618-input"
+                  nativeID="field-628-input"
                   onBlur={[Function]}
                   onFocus={[Function]}
                   onKeyPress={[Function]}
@@ -1223,6 +1250,12 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   vbWidth={24}
                 >
                   <RNSVGGroup
+                    fill={
+                      {
+                        "payload": 4278190080,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "stroke",
@@ -1230,7 +1263,14 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                     }
                     stroke={null}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGPath
                         d="M20.2286 6L11.9973 14.3785L3.76862 6.00268L2 7.80293L12 18L22 7.80293L20.2286 6Z"
                         fill={
@@ -1273,16 +1313,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
           >
             <View
               dataSet={{}}
-              feedbackId="field-619-feedback"
+              feedbackId="field-629-feedback"
               hasFeedbackText={true}
               hasHelpText={false}
-              helpTextId="field-619-helptext"
+              helpTextId="field-629-helptext"
               isDisabled={false}
               isInvalid={false}
               isReadOnly={false}
               isRequired={true}
-              labelId="field-619-label"
-              nativeID="field-619-label"
+              labelId="field-629-label"
+              nativeID="field-629-label"
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
@@ -1480,6 +1520,12 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                           vbWidth={24}
                         >
                           <RNSVGGroup
+                            fill={
+                              {
+                                "payload": 4278190080,
+                                "type": 0,
+                              }
+                            }
                             propList={
                               [
                                 "stroke",
@@ -1487,7 +1533,14 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                             }
                             stroke={null}
                           >
-                            <RNSVGGroup>
+                            <RNSVGGroup
+                              fill={
+                                {
+                                  "payload": 4278190080,
+                                  "type": 0,
+                                }
+                              }
+                            >
                               <RNSVGPath
                                 d="M8.53115 15.1856L3.96198 10.744L2 12.6512L8.53115 19L22 5.9072L20.038 4L8.53115 15.1856Z"
                                 fill={
@@ -1820,6 +1873,12 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                           vbWidth={24}
                         >
                           <RNSVGGroup
+                            fill={
+                              {
+                                "payload": 4278190080,
+                                "type": 0,
+                              }
+                            }
                             propList={
                               [
                                 "stroke",
@@ -1827,7 +1886,14 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                             }
                             stroke={null}
                           >
-                            <RNSVGGroup>
+                            <RNSVGGroup
+                              fill={
+                                {
+                                  "payload": 4278190080,
+                                  "type": 0,
+                                }
+                              }
+                            >
                               <RNSVGPath
                                 d="M8.53115 15.1856L3.96198 10.744L2 12.6512L8.53115 19L22 5.9072L20.038 4L8.53115 15.1856Z"
                                 fill={
@@ -2471,6 +2537,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
           <View
             dataSet={{}}
             isInvalid={false}
+            isReadOnly={false}
             isRequired={false}
             style={
               {
@@ -2480,16 +2547,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
           >
             <View
               dataSet={{}}
-              feedbackId="field-620-feedback"
+              feedbackId="field-630-feedback"
               hasFeedbackText={true}
               hasHelpText={false}
-              helpTextId="field-620-helptext"
+              helpTextId="field-630-helptext"
               isDisabled={false}
               isInvalid={false}
               isReadOnly={false}
               isRequired={false}
-              labelId="field-620-label"
-              nativeID="field-620-label"
+              labelId="field-630-label"
+              nativeID="field-630-label"
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
@@ -2535,7 +2602,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
               }
             >
               <TextInput
-                accessibilityDescribedBy="field-620-feedback"
+                accessibilityDescribedBy="field-630-feedback"
                 accessible={true}
                 blurOnSubmit={false}
                 dataSet={{}}
@@ -2543,7 +2610,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                 editable={true}
                 isRequired={false}
                 maxLength={20}
-                nativeID="field-620-input"
+                nativeID="field-630-input"
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
@@ -2595,16 +2662,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
           >
             <View
               dataSet={{}}
-              feedbackId="field-614-feedback"
+              feedbackId="field-631-feedback"
               hasFeedbackText={false}
               hasHelpText={false}
-              helpTextId="field-614-helptext"
+              helpTextId="field-631-helptext"
               isDisabled={false}
               isInvalid={false}
               isReadOnly={false}
               isRequired={false}
-              labelId="field-614-label"
-              nativeID="field-614-label"
+              labelId="field-631-label"
+              nativeID="field-631-label"
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
@@ -2652,14 +2719,14 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
             >
               <TextInput
                 accessible={true}
-                blurOnSubmit={false}
+                blurOnSubmit={true}
                 dataSet={{}}
                 disabled={false}
                 editable={true}
                 isRequired={false}
                 maxLength={255}
                 multiline={true}
-                nativeID="field-614-input"
+                nativeID="field-631-input"
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
@@ -2712,16 +2779,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
           >
             <View
               dataSet={{}}
-              feedbackId="field-615-feedback"
+              feedbackId="field-632-feedback"
               hasFeedbackText={false}
               hasHelpText={false}
-              helpTextId="field-615-helptext"
+              helpTextId="field-632-helptext"
               isDisabled={false}
               isInvalid={false}
               isReadOnly={false}
               isRequired={false}
-              labelId="field-615-label"
-              nativeID="field-615-label"
+              labelId="field-632-label"
+              nativeID="field-632-label"
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
@@ -2776,7 +2843,7 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                 isRequired={false}
                 maxLength={255}
                 multiline={true}
-                nativeID="field-615-input"
+                nativeID="field-632-input"
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
@@ -2828,16 +2895,16 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
           >
             <View
               dataSet={{}}
-              feedbackId="field-616-feedback"
+              feedbackId="field-633-feedback"
               hasFeedbackText={false}
               hasHelpText={false}
-              helpTextId="field-616-helptext"
+              helpTextId="field-633-helptext"
               isDisabled={false}
               isInvalid={false}
               isReadOnly={false}
               isRequired={false}
-              labelId="field-616-label"
-              nativeID="field-616-label"
+              labelId="field-633-label"
+              nativeID="field-633-label"
               setHasFeedbackText={[Function]}
               setHasHelpText={[Function]}
               style={
@@ -2920,8 +2987,8 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                   }
                 >
                   <Image
-                    accessibilityLabel="some alt text here"
-                    alt="some alt text here"
+                    accessibilityLabel="Loaded"
+                    alt="Loaded"
                     dataSet={{}}
                     onError={[Function]}
                     source={
@@ -2954,8 +3021,8 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                     style={{}}
                   />
                   <Image
-                    accessibilityLabel="some alt text here"
-                    alt="some alt text here"
+                    accessibilityLabel="Loaded"
+                    alt="Loaded"
                     dataSet={{}}
                     onError={[Function]}
                     source={
@@ -3239,6 +3306,12 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
               vbWidth={24}
             >
               <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 propList={
                   [
                     "stroke",
@@ -3246,7 +3319,14 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                 }
                 stroke={null}
               >
-                <RNSVGGroup>
+                <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
+                >
                   <RNSVGPath
                     d="M12 9.77778L4.22222 2L2 4.22222L9.77778 12L2 19.7778L4.22222 22L12 14.2222L19.7778 22L22 19.7778L14.2222 12L22 4.22222L19.7778 2L12 9.77778Z"
                     fill={
@@ -3870,7 +3950,7 @@ This message can be disabled in Settings.
                 onScrollEndDrag={[Function]}
                 removeClippedSubviews={false}
                 renderItem={[Function]}
-                scrollEventThrottle={50}
+                scrollEventThrottle={0.0001}
                 stickyHeaderIndices={[]}
                 style={
                   {
@@ -4004,6 +4084,12 @@ This message can be disabled in Settings.
                           vbWidth={24}
                         >
                           <RNSVGGroup
+                            fill={
+                              {
+                                "payload": 4278190080,
+                                "type": 0,
+                              }
+                            }
                             propList={
                               [
                                 "stroke",
@@ -4011,7 +4097,14 @@ This message can be disabled in Settings.
                             }
                             stroke={null}
                           >
-                            <RNSVGGroup>
+                            <RNSVGGroup
+                              fill={
+                                {
+                                  "payload": 4278190080,
+                                  "type": 0,
+                                }
+                              }
+                            >
                               <RNSVGPath
                                 d="M8.53115 15.1856L3.96198 10.744L2 12.6512L8.53115 19L22 5.9072L20.038 4L8.53115 15.1856Z"
                                 fill={
@@ -4984,6 +5077,12 @@ exports[`RecordScreen test suite renders 1`] = `
                             vbWidth={24}
                           >
                             <RNSVGGroup
+                              fill={
+                                {
+                                  "payload": 4278190080,
+                                  "type": 0,
+                                }
+                              }
                               opacity={1}
                               propList={
                                 [
@@ -4992,7 +5091,14 @@ exports[`RecordScreen test suite renders 1`] = `
                               }
                               stroke={null}
                             >
-                              <RNSVGGroup>
+                              <RNSVGGroup
+                                fill={
+                                  {
+                                    "payload": 4278190080,
+                                    "type": 0,
+                                  }
+                                }
+                              >
                                 <RNSVGPath
                                   d="M0 12C-2.34822e-08 13.5759 0.310389 15.1363 0.913445 16.5922C1.5165 18.0481 2.40042 19.371 3.51472 20.4853C4.62902 21.5996 5.95189 22.4835 7.4078 23.0866C8.86371 23.6896 10.4241 24 12 24C13.5759 24 15.1363 23.6896 16.5922 23.0866C18.0481 22.4835 19.371 21.5996 20.4853 20.4853C21.5996 19.371 22.4835 18.0481 23.0866 16.5922C23.6896 15.1363 24 13.5759 24 12C24 10.4241 23.6896 8.86371 23.0866 7.4078C22.4835 5.95189 21.5996 4.62902 20.4853 3.51472C19.371 2.40042 18.0481 1.5165 16.5922 0.913446C15.1363 0.310389 13.5759 0 12 0C10.4241 0 8.86371 0.310389 7.4078 0.913446C5.95189 1.5165 4.62902 2.40042 3.51472 3.51472C2.40042 4.62902 1.5165 5.95189 0.913445 7.4078C0.310389 8.86371 -2.34822e-08 10.4241 0 12Z"
                                   fill={
@@ -5242,6 +5348,12 @@ exports[`RecordScreen test suite renders 1`] = `
                             vbWidth={24}
                           >
                             <RNSVGGroup
+                              fill={
+                                {
+                                  "payload": 4278190080,
+                                  "type": 0,
+                                }
+                              }
                               opacity={0}
                               propList={
                                 [
@@ -5250,7 +5362,14 @@ exports[`RecordScreen test suite renders 1`] = `
                               }
                               stroke={null}
                             >
-                              <RNSVGGroup>
+                              <RNSVGGroup
+                                fill={
+                                  {
+                                    "payload": 4278190080,
+                                    "type": 0,
+                                  }
+                                }
+                              >
                                 <RNSVGPath
                                   d="M0 12C-2.34822e-08 13.5759 0.310389 15.1363 0.913445 16.5922C1.5165 18.0481 2.40042 19.371 3.51472 20.4853C4.62902 21.5996 5.95189 22.4835 7.4078 23.0866C8.86371 23.6896 10.4241 24 12 24C13.5759 24 15.1363 23.6896 16.5922 23.0866C18.0481 22.4835 19.371 21.5996 20.4853 20.4853C21.5996 19.371 22.4835 18.0481 23.0866 16.5922C23.6896 15.1363 24 13.5759 24 12C24 10.4241 23.6896 8.86371 23.0866 7.4078C22.4835 5.95189 21.5996 4.62902 20.4853 3.51472C19.371 2.40042 18.0481 1.5165 16.5922 0.913446C15.1363 0.310389 13.5759 0 12 0C10.4241 0 8.86371 0.310389 7.4078 0.913446C5.95189 1.5165 4.62902 2.40042 3.51472 3.51472C2.40042 4.62902 1.5165 5.95189 0.913445 7.4078C0.310389 8.86371 -2.34822e-08 10.4241 0 12Z"
                                   fill={
@@ -5521,6 +5640,7 @@ exports[`RecordScreen test suite renders 1`] = `
               <View
                 dataSet={{}}
                 isInvalid={false}
+                isReadOnly={false}
                 isRequired={true}
                 style={
                   {
@@ -5862,6 +5982,12 @@ exports[`RecordScreen test suite renders 1`] = `
                   vbWidth={24}
                 >
                   <RNSVGGroup
+                    fill={
+                      {
+                        "payload": 4278190080,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "stroke",
@@ -5869,7 +5995,14 @@ exports[`RecordScreen test suite renders 1`] = `
                     }
                     stroke={null}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGPath
                         d="M20.2286 6L11.9973 14.3785L3.76862 6.00268L2 7.80293L12 18L22 7.80293L20.2286 6Z"
                         fill={
@@ -7010,6 +7143,7 @@ exports[`RecordScreen test suite renders 1`] = `
           <View
             dataSet={{}}
             isInvalid={false}
+            isReadOnly={true}
             isRequired={false}
             style={
               {
@@ -7025,7 +7159,7 @@ exports[`RecordScreen test suite renders 1`] = `
               helpTextId="field-24-helptext"
               isDisabled={false}
               isInvalid={false}
-              isReadOnly={false}
+              isReadOnly={true}
               isRequired={false}
               labelId="field-24-label"
               nativeID="field-24-label"
@@ -7076,6 +7210,7 @@ exports[`RecordScreen test suite renders 1`] = `
             >
               <TextInput
                 accessibilityDescribedBy="field-24-feedback"
+                accessibilityReadOnly={true}
                 accessible={true}
                 blurOnSubmit={false}
                 dataSet={{}}
@@ -7091,7 +7226,7 @@ exports[`RecordScreen test suite renders 1`] = `
                 onSubmitEditing={[Function]}
                 placeholder="Disabled - only used for Samples"
                 placeholderTextColor="#a3a3a3"
-                readOnly={false}
+                readOnly={true}
                 required={false}
                 returnKeyType="done"
                 secureTextEntry={false}
@@ -7191,7 +7326,7 @@ exports[`RecordScreen test suite renders 1`] = `
             >
               <TextInput
                 accessible={true}
-                blurOnSubmit={false}
+                blurOnSubmit={true}
                 dataSet={{}}
                 disabled={false}
                 editable={true}
@@ -7484,6 +7619,12 @@ exports[`RecordScreen test suite renders 1`] = `
                   vbWidth={24}
                 >
                   <RNSVGGroup
+                    fill={
+                      {
+                        "payload": 4278190080,
+                        "type": 0,
+                      }
+                    }
                     propList={
                       [
                         "stroke",
@@ -7491,7 +7632,14 @@ exports[`RecordScreen test suite renders 1`] = `
                     }
                     stroke={null}
                   >
-                    <RNSVGGroup>
+                    <RNSVGGroup
+                      fill={
+                        {
+                          "payload": 4278190080,
+                          "type": 0,
+                        }
+                      }
+                    >
                       <RNSVGPath
                         d="M13.25 10.75V2H10.75V10.75H2V13.25H10.75V22H13.25V13.25H22V10.75H13.25Z"
                         fill={
@@ -7777,6 +7925,12 @@ exports[`RecordScreen test suite renders 1`] = `
               vbWidth={24}
             >
               <RNSVGGroup
+                fill={
+                  {
+                    "payload": 4278190080,
+                    "type": 0,
+                  }
+                }
                 propList={
                   [
                     "stroke",
@@ -7784,7 +7938,14 @@ exports[`RecordScreen test suite renders 1`] = `
                 }
                 stroke={null}
               >
-                <RNSVGGroup>
+                <RNSVGGroup
+                  fill={
+                    {
+                      "payload": 4278190080,
+                      "type": 0,
+                    }
+                  }
+                >
                   <RNSVGPath
                     d="M12 9.77778L4.22222 2L2 4.22222L9.77778 12L2 19.7778L4.22222 22L12 14.2222L19.7778 22L22 19.7778L14.2222 12L22 4.22222L19.7778 2L12 9.77778Z"
                     fill={
@@ -8408,7 +8569,7 @@ This message can be disabled in Settings.
                 onScrollEndDrag={[Function]}
                 removeClippedSubviews={false}
                 renderItem={[Function]}
-                scrollEventThrottle={50}
+                scrollEventThrottle={0.0001}
                 stickyHeaderIndices={[]}
                 style={
                   {

@@ -19,6 +19,7 @@ function App() {
             }}
             key={index}
             item={item}
+            photos={item.photos}
           />
         ));
 

@@ -1,11 +1,14 @@
 import React from "react";
-import { render, waitFor } from "@testing-library/react-native";
+import { render } from "@testing-library/react-native";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import { Navigation } from "../MainTabNavigator";
 import { setAppSettings } from "../../../AppSettings";
 import { Labels } from "../../constants/Strings";
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
+
+// for Downloading / Saving / Idle animation
+jest.useFakeTimers();
 
 describe("Navigation test suite", () => {
   test("renders first run screen", () => {
@@ -24,7 +27,7 @@ describe("Navigation test suite", () => {
       isEmpty: true,
     });
 
-    const { getByText, toJSON } = render(
+    const { findByText, toJSON } = render(
       <NativeBaseProviderForTesting>
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <Navigation />
@@ -32,7 +35,7 @@ describe("Navigation test suite", () => {
       </NativeBaseProviderForTesting>
     );
 
-    await waitFor(() => getByText(Labels.TimelineScreen.ExampleRecords));
+    await findByText(Labels.TimelineScreen.ExampleRecords);
     expect(toJSON()).toMatchSnapshot();
   });
 });
