@@ -100,7 +100,7 @@ export function SettingsScreen() {
             right={
               <Switch
                 testID="Dark Mode"
-                onValueChange={toggleColorModeAndPersist}
+                onToggle={toggleColorModeAndPersist}
                 isChecked={colorMode == "dark"}
               />
             }
