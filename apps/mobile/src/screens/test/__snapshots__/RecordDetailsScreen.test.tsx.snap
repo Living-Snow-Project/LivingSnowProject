@@ -261,7 +261,9 @@ exports[`RecordDetailsScreen test suite example record with compiled photo 1`] =
         source={1}
         style={
           {
+            "height": 750,
             "maxWidth": "100%",
+            "width": 750,
           }
         }
       />

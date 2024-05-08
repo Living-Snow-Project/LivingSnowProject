@@ -361,7 +361,9 @@ exports[`TimelineScreen test suite renders 1`] = `
           source={1}
           style={
             {
+              "height": 750,
               "maxWidth": "100%",
+              "width": 750,
             }
           }
         />
