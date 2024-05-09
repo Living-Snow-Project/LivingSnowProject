@@ -30,6 +30,7 @@
     "@react-navigation/native-stack": "^6.9.2",
     "expo": "~50.0.17",
     "expo-background-fetch": "~11.8.1",
+    "expo-dev-client": "~3.3.11",
     "expo-file-system": "~16.0.9",
     "expo-font": "~11.10.3",
     "expo-image-manipulator": "~11.8.0",
