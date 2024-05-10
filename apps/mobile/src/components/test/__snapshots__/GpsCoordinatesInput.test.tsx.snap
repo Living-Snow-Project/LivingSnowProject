@@ -401,8 +401,8 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
             <RNSVGSvgView
               accessibilityRole="image"
               align="xMidYMid"
-              bbHeight="16"
-              bbWidth="16"
+              bbHeight={16}
+              bbWidth={16}
               dataSet={{}}
               focusable={false}
               meetOrSlice={0}

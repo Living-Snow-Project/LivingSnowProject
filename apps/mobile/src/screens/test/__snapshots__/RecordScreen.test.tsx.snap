@@ -313,8 +313,8 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                           <RNSVGSvgView
                             accessibilityRole="image"
                             align="xMidYMid"
-                            bbHeight="12"
-                            bbWidth="12"
+                            bbHeight={12}
+                            bbWidth={12}
                             dataSet={{}}
                             focusable={false}
                             meetOrSlice={0}
@@ -584,8 +584,8 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                           <RNSVGSvgView
                             accessibilityRole="image"
                             align="xMidYMid"
-                            bbHeight="12"
-                            bbWidth="12"
+                            bbHeight={12}
+                            bbWidth={12}
                             dataSet={{}}
                             focusable={false}
                             meetOrSlice={0}
@@ -1214,8 +1214,8 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                 <RNSVGSvgView
                   accessibilityRole="image"
                   align="xMidYMid"
-                  bbHeight="24"
-                  bbWidth="24"
+                  bbHeight={24}
+                  bbWidth={24}
                   dataSet={{}}
                   focusable={false}
                   meetOrSlice={0}
@@ -1489,8 +1489,8 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                         <RNSVGSvgView
                           accessibilityRole="image"
                           align="xMidYMid"
-                          bbHeight="12"
-                          bbWidth="12"
+                          bbHeight={12}
+                          bbWidth={12}
                           dataSet={{}}
                           focusable={false}
                           meetOrSlice={0}
@@ -1842,8 +1842,8 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
                         <RNSVGSvgView
                           accessibilityRole="image"
                           align="xMidYMid"
-                          bbHeight="12"
-                          bbWidth="12"
+                          bbHeight={12}
+                          bbWidth={12}
                           dataSet={{}}
                           focusable={false}
                           meetOrSlice={0}
@@ -3275,8 +3275,8 @@ exports[`RecordScreen test suite Edit mode tests renders 1`] = `
             <RNSVGSvgView
               accessibilityRole="image"
               align="xMidYMid"
-              bbHeight="16"
-              bbWidth="16"
+              bbHeight={16}
+              bbWidth={16}
               dataSet={{}}
               focusable={false}
               meetOrSlice={0}
@@ -4053,8 +4053,8 @@ This message can be disabled in Settings.
                         <RNSVGSvgView
                           accessibilityRole="image"
                           align="xMidYMid"
-                          bbHeight="20"
-                          bbWidth="20"
+                          bbHeight={20}
+                          bbWidth={20}
                           dataSet={{}}
                           focusable={false}
                           meetOrSlice={0}
@@ -5045,8 +5045,8 @@ exports[`RecordScreen test suite renders 1`] = `
                           <RNSVGSvgView
                             accessibilityRole="image"
                             align="xMidYMid"
-                            bbHeight="12"
-                            bbWidth="12"
+                            bbHeight={12}
+                            bbWidth={12}
                             dataSet={{}}
                             focusable={false}
                             meetOrSlice={0}
@@ -5316,8 +5316,8 @@ exports[`RecordScreen test suite renders 1`] = `
                           <RNSVGSvgView
                             accessibilityRole="image"
                             align="xMidYMid"
-                            bbHeight="12"
-                            bbWidth="12"
+                            bbHeight={12}
+                            bbWidth={12}
                             dataSet={{}}
                             focusable={false}
                             meetOrSlice={0}
@@ -5946,8 +5946,8 @@ exports[`RecordScreen test suite renders 1`] = `
                 <RNSVGSvgView
                   accessibilityRole="image"
                   align="xMidYMid"
-                  bbHeight="24"
-                  bbWidth="24"
+                  bbHeight={24}
+                  bbWidth={24}
                   dataSet={{}}
                   focusable={false}
                   meetOrSlice={0}
@@ -7587,8 +7587,8 @@ exports[`RecordScreen test suite renders 1`] = `
                 <RNSVGSvgView
                   accessibilityRole="image"
                   align="xMidYMid"
-                  bbHeight="50"
-                  bbWidth="50"
+                  bbHeight={50}
+                  bbWidth={50}
                   dataSet={{}}
                   focusable={false}
                   meetOrSlice={0}
@@ -7894,8 +7894,8 @@ exports[`RecordScreen test suite renders 1`] = `
             <RNSVGSvgView
               accessibilityRole="image"
               align="xMidYMid"
-              bbHeight="16"
-              bbWidth="16"
+              bbHeight={16}
+              bbWidth={16}
               dataSet={{}}
               focusable={false}
               meetOrSlice={0}
