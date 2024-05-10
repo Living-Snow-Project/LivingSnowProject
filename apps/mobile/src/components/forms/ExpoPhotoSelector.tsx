@@ -9,7 +9,7 @@ import { AddPhotosIcon, PhotosLayout } from "../media";
 import { PhotoManager } from "../../lib/PhotoManager";
 import { Labels, TestIds } from "../../constants";
 import { useToast } from "../../hooks";
-import { ToastAlert, ToastAlertProps } from "../feedback";
+import { ToastAlert } from "../feedback";
 
 type ExpoPhotoSelectorProps = {
   recordId: string;
