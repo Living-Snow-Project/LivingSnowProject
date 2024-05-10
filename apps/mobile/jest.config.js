@@ -8,6 +8,7 @@ module.exports = {
   collectCoverageFrom: [
     "**/*.{js,jsx,ts,tsx}",
     "!index.js",
+    "!**/.expo/**",
     "!**/coverage/**",
     "!**/expo-images-picker/**",
     "!**/node_modules/**",

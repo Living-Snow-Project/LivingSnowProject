@@ -15,11 +15,11 @@ type PressableOpacityProps = {
 };
 
 export function PressableOpacity({
-  testID,
+  testID = "",
   onPress,
-  style,
+  style = {},
   children,
-  testOnly_pressed,
+  testOnly_pressed = false,
 }: PressableOpacityProps) {
   return (
     <Pressable
@@ -37,9 +37,3 @@ export function PressableOpacity({
     </Pressable>
   );
 }
-
-PressableOpacity.defaultProps = {
-  testID: "",
-  style: {},
-  testOnly_pressed: false,
-};
