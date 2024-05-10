@@ -22,9 +22,10 @@ import {
   AlgaeColorSelector,
   CustomTextInput,
   DateSelector,
+  ExpoPhotoSelector,
   GpsCoordinatesInput,
   KeyboardShift,
-  PhotoSelector,
+  // PhotoSelector,
   TextArea,
 } from "../components/forms";
 import { getAppSettings } from "../../AppSettings";
@@ -343,7 +344,12 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               />
 
               <Space />
-              <PhotoSelector navigation={navigation} photos={selectedPhotos} />
+              {/* <PhotoSelector navigation={navigation} photos={selectedPhotos} /> */}
+              <ExpoPhotoSelector
+                recordId={record.id}
+                photos={selectedPhotos}
+                setSelectedPhotos={setSelectedPhotos}
+              />
 
               <Space />
             </ThemedBox>

@@ -8875,6 +8875,13 @@ expo-image-manipulator@~11.8.0:
   dependencies:
     expo-image-loader "~4.6.0"
 
+expo-image-picker@~14.7.1:
+  version "14.7.1"
+  resolved "https://registry.yarnpkg.com/expo-image-picker/-/expo-image-picker-14.7.1.tgz#c51faff3a3fbffc6ae93d7155370beb1a2d2baea"
+  integrity sha512-ILQVOJgI3aEzrDmCFGDPtpAepYkn8mot8G7vfQ51BfFdQbzL6N3Wm1fS/ofdWlAZJl/qT2DwaIh5xYmf3SyGZA==
+  dependencies:
+    expo-image-loader "~4.6.0"
+
 expo-images-picker@^2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/expo-images-picker/-/expo-images-picker-2.5.1.tgz#2e310b9e12a725585119e50b312f43aa208c5253"

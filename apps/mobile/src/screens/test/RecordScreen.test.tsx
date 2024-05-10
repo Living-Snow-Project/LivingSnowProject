@@ -42,6 +42,16 @@ jest.mock("expo-location", () => ({
     Promise.resolve({ status: "granted" }),
 }));
 
+jest.mock("expo-media-library", () => ({
+  ...jest.requireActual("expo-media-library"),
+  getPermissionsAsync: async () => Promise.resolve({ granted: true }),
+}));
+
+jest.mock("expo-image-picker", () => ({
+  ...jest.requireActual("expo-image-picker"),
+  launchImageLibraryAsync: async () => Promise.resolve({ canceled: true }),
+}));
+
 jest.useFakeTimers();
 
 const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
@@ -256,6 +266,7 @@ describe("RecordScreen test suite", () => {
   describe("Photo tests", () => {
     test("navigate to camera roll selection screen", () => {
       const { getByTestId } = customRender();
+
       navigation.navigate = jest
         .fn()
         .mockImplementationOnce((screen: string) => {
@@ -264,7 +275,8 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.press(getByTestId(TestIds.Selectors.Photos));
 
-      expect(navigation.navigate).toBeCalledTimes(1);
+      // commented out because we use ExpoPhotoSelector now and not 3rd party package
+      // expect(navigation.navigate).toBeCalledTimes(1);
     });
   });
 
