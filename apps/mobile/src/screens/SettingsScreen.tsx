@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Appearance } from "react-native";
 import {
   Box,
   Heading,
@@ -60,6 +61,7 @@ export function SettingsScreen() {
 
   const toggleColorModeAndPersist = () => {
     colorModeManager.set(colorMode == "light" ? "dark" : "light");
+    Appearance.setColorScheme(colorMode == "light" ? "dark" : "light");
     toggleColorMode();
   };
 

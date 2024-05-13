@@ -47,6 +47,7 @@
     "react-dom": "18.2.0",
     "react-is": "^17.0.1",
     "react-native": "0.74.1",
+    "react-native-avoid-softinput": "^5.0.0",
     "react-native-calendars": "1.1293.0",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-get-random-values": "~1.11.0",
