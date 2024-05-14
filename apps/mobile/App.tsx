@@ -1,4 +1,5 @@
 import React from "react";
+import { Appearance } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
 import { NativeBaseProvider } from "./src/providers";
@@ -8,6 +9,7 @@ import {
   useAlgaeRecords,
   AlgaeRecordsContext,
 } from "./src/hooks/useAlgaeRecords";
+import { getAppSettings } from "./AppSettings";
 
 export function App() {
   const [algaeRecords] = useAlgaeRecords();
@@ -23,6 +25,8 @@ export function App() {
   if (!isLoadingComplete || !algaeRecords.isSeeded()) {
     return null;
   }
+
+  Appearance.setColorScheme(getAppSettings().colorMode);
 
   return (
     <AlgaeRecordsContext.Provider value={algaeRecords}>
