@@ -113,12 +113,11 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
   const onFocusEffect = React.useCallback(() => {
     // This should be run when screen gains focus - enable the module where it's needed
-    AvoidSoftInput.setShouldMimicIOSBehavior(true);
     AvoidSoftInput.setEnabled(true);
+    AvoidSoftInput.setAdjustPan();
     return () => {
       // This should be run when screen loses focus - disable the module where it's not needed, to make a cleanup
       AvoidSoftInput.setEnabled(false);
-      AvoidSoftInput.setShouldMimicIOSBehavior(false);
     };
   }, []);
 
