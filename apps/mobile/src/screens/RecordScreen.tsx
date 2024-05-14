@@ -91,7 +91,9 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const locationDescriptionRef = useRef<any>(null);
   const toast = useToast();
 
-  const [status, setStatus] = useState<"Idle" | "Uploading" | "Saving">("Idle");
+  const [status, setStatus] = useState<
+    "Idle" | "Uploading" | "Saving" | "Loading"
+  >("Idle");
 
   // prevents multiple events from quick taps
   const inHandler = useRef(false);
@@ -358,6 +360,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             recordId={record.id}
             photos={selectedPhotos}
             setSelectedPhotos={setSelectedPhotos}
+            setStatus={setStatus}
           />
 
           <Space />
