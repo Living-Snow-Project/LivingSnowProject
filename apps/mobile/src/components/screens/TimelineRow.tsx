@@ -44,7 +44,7 @@ export function TimelineRow({ record, photos, actionsMenu }: TimelineRowProps) {
   return (
     <>
       <Pressable
-        testID={record.id}
+        testID={`${record.id}`}
         onPress={() =>
           navigate("RecordDetails", { record: JSON.stringify(recordDetail) })
         }

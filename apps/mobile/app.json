@@ -30,6 +30,7 @@
       }
     },
     "android": {
+      "softwareKeyboardLayoutMode": "resize",
       "package": "com.livingsnowproject.livingsnowproject",
       "versionCode": 1,
       "permissions": [

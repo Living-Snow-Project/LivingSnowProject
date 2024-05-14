@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { Asset } from "expo-media-library";
+import { NavigationContainer } from "@react-navigation/native";
 import { AlgaeRecord, makeExampleRecord } from "@livingsnow/record";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import {
@@ -59,7 +60,9 @@ const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
 const customRender = (route: RecordScreenRouteProp = defaultRouteProp) =>
   render(
     <NativeBaseProviderForTesting>
-      <RecordScreen navigation={navigation} route={route} />
+      <NavigationContainer>
+        <RecordScreen navigation={navigation} route={route} />
+      </NavigationContainer>
     </NativeBaseProviderForTesting>
   );
 
