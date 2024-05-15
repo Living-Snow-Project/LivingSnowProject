@@ -266,7 +266,8 @@ describe("RecordScreen test suite", () => {
     });
   });
 
-  describe("Photo tests", () => {
+  // commented out because we use ExpoPhotoSelector now and not 3rd party package
+  /* describe("Photo tests", () => {
     test("navigate to camera roll selection screen", () => {
       const { getByTestId } = customRender();
 
@@ -276,12 +277,13 @@ describe("RecordScreen test suite", () => {
           expect(screen).toEqual("ImageSelection");
         });
 
-      fireEvent.press(getByTestId(TestIds.Selectors.Photos));
+      // fireEvent.press(getByTestId(TestIds.Selectors.Photos));
 
-      // commented out because we use ExpoPhotoSelector now and not 3rd party package
+      // TODO: fire cancel event?
+
       // expect(navigation.navigate).toBeCalledTimes(1);
     });
-  });
+  }); */
 
   // navigation header component is independent of RecordScreen component
   describe("Upload tests", () => {
