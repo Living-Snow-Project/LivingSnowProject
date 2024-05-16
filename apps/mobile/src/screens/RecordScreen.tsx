@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
@@ -257,6 +257,12 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [record, selectedPhotos]);
 
+  const setCoordinates = useCallback(
+    ({ latitude, longitude }) =>
+      setRecord((prev) => ({ ...prev, latitude, longitude })),
+    [setRecord]
+  );
+
   return (
     <>
       <ActivityIndicator isActive={status != "Idle"} caption={status} />
@@ -287,9 +293,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             }}
             usingGps={!editMode}
             isInvalid={didSubmit && areGpsCoordinatesInvalid()}
-            setCoordinates={({ latitude, longitude }) =>
-              setRecord((prev) => ({ ...prev, latitude, longitude }))
-            }
+            setCoordinates={setCoordinates}
             onSubmitEditing={() => locationDescriptionRef.current?.focus()}
           />
 
