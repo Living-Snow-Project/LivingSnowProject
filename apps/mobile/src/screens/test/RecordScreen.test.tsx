@@ -1,7 +1,13 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react-native";
 import { Asset } from "expo-media-library";
-import { AlgaeRecord, makeExampleRecord } from "@livingsnow/record";
+import * as Location from "expo-location";
+import { NavigationContainer } from "@react-navigation/native";
+import {
+  AlgaeRecord,
+  jsonToRecord,
+  makeExampleRecord,
+} from "@livingsnow/record";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import {
   RecordScreenNavigationProp,
@@ -40,6 +46,22 @@ jest.mock("expo-location", () => ({
   ...jest.requireActual("expo-location"),
   requestForegroundPermissionsAsync: () =>
     Promise.resolve({ status: "granted" }),
+  watchPositionAsync: (options, callback) => {
+    const location = {
+      coords: {
+        latitude: 123.456,
+        longitude: -98.765,
+      },
+    };
+
+    callback(location as Location.LocationObject);
+
+    const unsub: Location.LocationSubscription = {
+      remove() {},
+    };
+
+    return Promise.resolve<Location.LocationSubscription>(unsub);
+  },
 }));
 
 jest.mock("expo-media-library", () => ({
@@ -56,14 +78,34 @@ jest.useFakeTimers();
 
 const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
 
-const customRender = (route: RecordScreenRouteProp = defaultRouteProp) =>
-  render(
+const customRender = async (
+  route: RecordScreenRouteProp = defaultRouteProp
+) => {
+  const result = render(
     <NativeBaseProviderForTesting>
-      <RecordScreen navigation={navigation} route={route} />
+      <NavigationContainer>
+        <RecordScreen navigation={navigation} route={route} />
+      </NavigationContainer>
     </NativeBaseProviderForTesting>
   );
 
-const renderWithGpsWarningOff = () => {
+  let coordinates = "123.456, -98.765";
+
+  if (route && route.params && route.params.record) {
+    const recordFromRoute = {
+      ...jsonToRecord<AlgaeRecord>(route.params.record),
+    };
+
+    coordinates = `${recordFromRoute.latitude}, ${recordFromRoute.longitude}`;
+  }
+
+  // waitFor coordinates to render; the test finishes before watch location subscription set up
+  await waitFor(() => result.findByDisplayValue(coordinates));
+
+  return result;
+};
+
+const renderWithGpsWarningOff = async () => {
   const testCoordinates = "123.456, -98.765";
 
   setAppSettings((prev) => ({
@@ -74,7 +116,7 @@ const renderWithGpsWarningOff = () => {
   }));
 
   const { getByDisplayValue, getByPlaceholderText, getByTestId } =
-    customRender();
+    await customRender();
 
   fireEvent.press(getByTestId(TestIds.GPS.GpsManualEntryPressable));
   // TODO: I have no way of testing if Modal is visible or not
@@ -96,8 +138,8 @@ describe("RecordScreen test suite", () => {
     jest.clearAllMocks();
   });
 
-  test("renders", () => {
-    const { getByTestId, toJSON } = customRender();
+  test("renders", async () => {
+    const { getByTestId, toJSON } = await customRender();
 
     fireEvent.press(getByTestId("calendar-pressable"));
     fireEvent(getByTestId("calendar"), "onDayPress", {
@@ -108,8 +150,8 @@ describe("RecordScreen test suite", () => {
   });
 
   describe("Record type selector tests", () => {
-    test("Sample selected", () => {
-      const { getByTestId, queryByPlaceholderText } = customRender();
+    test("Sample selected", async () => {
+      const { getByTestId, queryByPlaceholderText } = await customRender();
 
       fireEvent(
         getByTestId(TestIds.Selectors.RecordType),
@@ -122,8 +164,8 @@ describe("RecordScreen test suite", () => {
       ).toBeTruthy();
     });
 
-    test("Sighting selected", () => {
-      const { getByTestId, queryByPlaceholderText } = customRender();
+    test("Sighting selected", async () => {
+      const { getByTestId, queryByPlaceholderText } = await customRender();
 
       fireEvent(
         getByTestId(TestIds.Selectors.RecordType),
@@ -138,8 +180,8 @@ describe("RecordScreen test suite", () => {
   });
 
   describe("GPS coordinate tests", () => {
-    test("with Expo.Location", () => {
-      const { getByTestId, queryByText } = customRender();
+    test("with Expo.Location", async () => {
+      const { getByTestId, queryByText } = await customRender();
 
       fireEvent.press(getByTestId(TestIds.GPS.GpsManualEntryPressable));
 
@@ -149,7 +191,7 @@ describe("RecordScreen test suite", () => {
       expect(queryByText(Labels.Modal.Confirm)).toBeTruthy();
     });
 
-    test("manual with confirmation", () => {
+    test("manual with confirmation", async () => {
       const {
         getByDisplayValue,
         queryByDisplayValue,
@@ -158,7 +200,7 @@ describe("RecordScreen test suite", () => {
         getByTestId,
         getByText,
         queryByTestId,
-      } = customRender();
+      } = await customRender();
       const testCoordinates = "123.456, -98.765";
 
       fireEvent.press(getByTestId(TestIds.GPS.GpsManualEntryPressable));
@@ -189,9 +231,9 @@ describe("RecordScreen test suite", () => {
       });
     });
 
-    test("manual without confirmation", () => {
+    test("manual without confirmation", async () => {
       const { expectedCoordinates, getByDisplayValue } =
-        renderWithGpsWarningOff();
+        await renderWithGpsWarningOff();
 
       expect(getByDisplayValue(expectedCoordinates)).toBeTruthy();
     });
@@ -204,7 +246,7 @@ describe("RecordScreen test suite", () => {
         getByDisplayValue,
         getByTestId,
         queryByPlaceholderText,
-      } = customRender();
+      } = await customRender();
 
       await waitFor(() =>
         queryByPlaceholderText(Placeholders.RecordScreen.TubeIdDisabled)
@@ -230,8 +272,8 @@ describe("RecordScreen test suite", () => {
       );
     });
 
-    test("Location Description", () => {
-      const { getByPlaceholderText, getByDisplayValue } = customRender();
+    test("Location Description", async () => {
+      const { getByPlaceholderText, getByDisplayValue } = await customRender();
       const expected = "Excelsior Pass on High Divide Trail";
 
       fireEvent.changeText(
@@ -246,8 +288,8 @@ describe("RecordScreen test suite", () => {
       );
     });
 
-    test("Notes", () => {
-      const { getByPlaceholderText, getByDisplayValue } = customRender();
+    test("Notes", async () => {
+      const { getByPlaceholderText, getByDisplayValue } = await customRender();
       const expected = "Frozen lake in a cold place with runnels of red snow";
 
       fireEvent.changeText(
@@ -263,7 +305,8 @@ describe("RecordScreen test suite", () => {
     });
   });
 
-  describe("Photo tests", () => {
+  // commented out because we use ExpoPhotoSelector now and not 3rd party package
+  /* describe("Photo tests", () => {
     test("navigate to camera roll selection screen", () => {
       const { getByTestId } = customRender();
 
@@ -273,12 +316,13 @@ describe("RecordScreen test suite", () => {
           expect(screen).toEqual("ImageSelection");
         });
 
-      fireEvent.press(getByTestId(TestIds.Selectors.Photos));
+      // fireEvent.press(getByTestId(TestIds.Selectors.Photos));
 
-      // commented out because we use ExpoPhotoSelector now and not 3rd party package
+      // TODO: fire cancel event?
+
       // expect(navigation.navigate).toBeCalledTimes(1);
     });
-  });
+  }); */
 
   // navigation header component is independent of RecordScreen component
   describe("Upload tests", () => {
@@ -287,8 +331,8 @@ describe("RecordScreen test suite", () => {
     let screenGetByDisplayValue;
     let screenGetByPlaceholderText;
 
-    beforeEach(() => {
-      const recordScreen = renderWithGpsWarningOff();
+    beforeEach(async () => {
+      const recordScreen = await renderWithGpsWarningOff();
 
       screenGetByTestId = recordScreen.getByTestId;
 
@@ -495,14 +539,9 @@ describe("RecordScreen test suite", () => {
       await PhotoManager.addSelected(record.id, recordPhotos);
 
       // render the Record Screen in Edit Mode
-      recordScreen = customRender({
+      recordScreen = await customRender({
         params: { record: JSON.stringify(record) },
       } as RecordScreenRouteProp);
-
-      // photo is loading
-      await waitFor(() => recordScreen.findAllByText("Loading"), {
-        timeout: 5000,
-      });
 
       // verify the photo was "Loaded" by checking "Loading" no longer exists
       // API for "*ByAltText" doesn't exist in React Native

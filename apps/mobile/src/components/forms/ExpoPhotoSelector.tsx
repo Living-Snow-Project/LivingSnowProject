@@ -15,15 +15,20 @@ type ExpoPhotoSelectorProps = {
   recordId: string;
   photos: SelectedPhoto[];
   setSelectedPhotos: (selectedPhotos: SelectedPhoto[]) => void;
+  setStatus: (status: "Idle" | "Loading") => void;
 };
 
 export function ExpoPhotoSelector({
   recordId,
   photos,
   setSelectedPhotos,
+  setStatus,
 }: ExpoPhotoSelectorProps) {
   const toast = useToast();
+
   const handleOnPress = async () => {
+    setStatus("Loading");
+
     try {
       const permission = await MediaLibrary.getPermissionsAsync();
 
@@ -44,7 +49,6 @@ export function ExpoPhotoSelector({
 
       // TODO: should "cancel" unselect all? there is no way to go back to 0 selected after first selection
       if (!result.canceled) {
-        // TODO: start an ActivityIndicator
         const assets: MediaLibrary.Asset[] = [];
 
         await result.assets.reduce(async (promise, current) => {
@@ -87,6 +91,8 @@ export function ExpoPhotoSelector({
           message="We ran into an error preparing photos for upload."
         />
       );
+    } finally {
+      setStatus("Idle");
     }
   };
 

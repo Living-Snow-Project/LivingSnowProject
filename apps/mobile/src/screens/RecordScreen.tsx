@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { AvoidSoftInput } from "react-native-avoid-softinput";
+import { useFocusEffect } from "@react-navigation/native";
 import Logger from "@livingsnow/logger";
 import {
   AlgaeRecord,
@@ -24,7 +26,6 @@ import {
   DateSelector,
   ExpoPhotoSelector,
   GpsCoordinatesInput,
-  KeyboardShift,
   // PhotoSelector,
   TextArea,
 } from "../components/forms";
@@ -90,7 +91,9 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const locationDescriptionRef = useRef<any>(null);
   const toast = useToast();
 
-  const [status, setStatus] = useState<"Idle" | "Uploading" | "Saving">("Idle");
+  const [status, setStatus] = useState<
+    "Idle" | "Uploading" | "Saving" | "Loading"
+  >("Idle");
 
   // prevents multiple events from quick taps
   const inHandler = useRef(false);
@@ -109,6 +112,18 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           organization: appSettings.organization,
         }
   );
+
+  const onFocusEffect = React.useCallback(() => {
+    // This should be run when screen gains focus - enable the module where it's needed
+    AvoidSoftInput.setEnabled(true);
+    AvoidSoftInput.setAdjustPan();
+    return () => {
+      // This should be run when screen loses focus - disable the module where it's not needed, to make a cleanup
+      AvoidSoftInput.setEnabled(false);
+    };
+  }, []);
+
+  useFocusEffect(onFocusEffect); // register callback to focus events
 
   const [selectedPhotos, setSelectedPhotos] = useState<SelectedPhoto[]>([]);
 
@@ -242,120 +257,119 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [record, selectedPhotos]);
 
+  const setCoordinates = useCallback(
+    ({ latitude, longitude }) =>
+      setRecord((prev) => ({ ...prev, latitude, longitude })),
+    [setRecord]
+  );
+
   return (
     <>
       <ActivityIndicator isActive={status != "Idle"} caption={status} />
-      <KeyboardShift>
-        {() => (
-          <ScrollView automaticallyAdjustKeyboardInsets>
-            <ThemedBox px={2}>
-              <AlgaeRecordTypeSelector
-                type={record.type}
-                setType={(type) => setRecord((prev) => ({ ...prev, type }))}
-              />
+      <ScrollView automaticallyAdjustKeyboardInsets>
+        <ThemedBox px={2}>
+          <AlgaeRecordTypeSelector
+            type={record.type}
+            setType={(type) => setRecord((prev) => ({ ...prev, type }))}
+          />
 
-              <Space />
-              <DateSelector
-                date={dateString}
-                maxDate={today}
-                setDate={(newDate) =>
-                  setRecord((prev) => ({
-                    ...prev,
-                    date: dateWithOffset(new Date(newDate), "add"),
-                  }))
-                }
-              />
+          <Space />
+          <DateSelector
+            date={dateString}
+            maxDate={today}
+            setDate={(newDate) =>
+              setRecord((prev) => ({
+                ...prev,
+                date: dateWithOffset(new Date(newDate), "add"),
+              }))
+            }
+          />
 
-              <Space />
-              <GpsCoordinatesInput
-                coordinates={{
-                  latitude: record.latitude,
-                  longitude: record.longitude,
-                }}
-                usingGps={!editMode}
-                isInvalid={didSubmit && areGpsCoordinatesInvalid()}
-                setCoordinates={({ latitude, longitude }) =>
-                  setRecord((prev) => ({ ...prev, latitude, longitude }))
-                }
-                onSubmitEditing={() => locationDescriptionRef.current?.focus()}
-              />
+          <Space />
+          <GpsCoordinatesInput
+            coordinates={{
+              latitude: record.latitude,
+              longitude: record.longitude,
+            }}
+            usingGps={!editMode}
+            isInvalid={didSubmit && areGpsCoordinatesInvalid()}
+            setCoordinates={setCoordinates}
+            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+          />
 
-              <Space />
-              <AlgaeSizeSelector
-                size={record.size}
-                isInvalid={didSubmit && isAlgaeSizeInvalid()}
-                setSize={(size) => {
-                  setRecord((prev) => ({ ...prev, size }));
-                }}
-              />
+          <Space />
+          <AlgaeSizeSelector
+            size={record.size}
+            isInvalid={didSubmit && isAlgaeSizeInvalid()}
+            setSize={(size) => {
+              setRecord((prev) => ({ ...prev, size }));
+            }}
+          />
 
-              <Space />
-              <AlgaeColorSelector
-                colors={record.colors}
-                isInvalid={didSubmit && areAlgaeColorsInvalid()}
-                onChangeColors={(colors) => {
-                  setRecord((prev) => ({
-                    ...prev,
-                    colors: [...colors],
-                  }));
-                }}
-              />
+          <Space />
+          <AlgaeColorSelector
+            colors={record.colors}
+            isInvalid={didSubmit && areAlgaeColorsInvalid()}
+            onChangeColors={(colors) => {
+              setRecord((prev) => ({
+                ...prev,
+                colors: [...colors],
+              }));
+            }}
+          />
 
-              <Space />
-              <CustomTextInput
-                value={record?.tubeId}
-                label={Labels.TubeId}
-                placeholder={
-                  isSample(record.type)
-                    ? Placeholders.RecordScreen.TubeId
-                    : Placeholders.RecordScreen.TubeIdDisabled
-                }
-                maxLength={20}
-                isDisabled={!isSample(record.type)}
-                onChangeText={(tubeId) =>
-                  setRecord((prev) => ({ ...prev, tubeId }))
-                }
-                onSubmitEditing={() => locationDescriptionRef.current?.focus()}
-              />
+          <Space />
+          <CustomTextInput
+            value={record?.tubeId}
+            label={Labels.TubeId}
+            placeholder={
+              isSample(record.type)
+                ? Placeholders.RecordScreen.TubeId
+                : Placeholders.RecordScreen.TubeIdDisabled
+            }
+            maxLength={20}
+            isDisabled={!isSample(record.type)}
+            onChangeText={(tubeId) =>
+              setRecord((prev) => ({ ...prev, tubeId }))
+            }
+            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+          />
 
-              <Space />
-              <TextArea
-                blurOnSubmit
-                value={record?.locationDescription}
-                label={`${Labels.RecordScreen.LocationDescription}`}
-                placeholder={Placeholders.RecordScreen.LocationDescription}
-                ref={locationDescriptionRef}
-                onChangeText={(locationDescription) =>
-                  setRecord((prev) => ({ ...prev, locationDescription }))
-                }
-                onSubmitEditing={() => notesRef.current?.focus()}
-              />
+          <Space />
+          <TextArea
+            blurOnSubmit
+            value={record?.locationDescription}
+            label={`${Labels.RecordScreen.LocationDescription}`}
+            placeholder={Placeholders.RecordScreen.LocationDescription}
+            ref={locationDescriptionRef}
+            onChangeText={(locationDescription) =>
+              setRecord((prev) => ({ ...prev, locationDescription }))
+            }
+            onSubmitEditing={() => notesRef.current?.focus()}
+          />
 
-              <Space />
-              <TextArea
-                blurOnSubmit
-                value={record?.notes}
-                label={`${Labels.RecordScreen.Notes}`}
-                placeholder={Placeholders.RecordScreen.Notes}
-                ref={notesRef}
-                onChangeText={(notes) =>
-                  setRecord((prev) => ({ ...prev, notes }))
-                }
-              />
+          <Space />
+          <TextArea
+            blurOnSubmit
+            value={record?.notes}
+            label={`${Labels.RecordScreen.Notes}`}
+            placeholder={Placeholders.RecordScreen.Notes}
+            ref={notesRef}
+            onChangeText={(notes) => setRecord((prev) => ({ ...prev, notes }))}
+          />
 
-              <Space />
-              {/* <PhotoSelector navigation={navigation} photos={selectedPhotos} /> */}
-              <ExpoPhotoSelector
-                recordId={record.id}
-                photos={selectedPhotos}
-                setSelectedPhotos={setSelectedPhotos}
-              />
+          <Space />
+          {/* <PhotoSelector navigation={navigation} photos={selectedPhotos} /> */}
+          <ExpoPhotoSelector
+            recordId={record.id}
+            photos={selectedPhotos}
+            setSelectedPhotos={setSelectedPhotos}
+            setStatus={setStatus}
+          />
 
-              <Space />
-            </ThemedBox>
-          </ScrollView>
-        )}
-      </KeyboardShift>
+          <Space />
+        </ThemedBox>
+      </ScrollView>
     </>
   );
 }

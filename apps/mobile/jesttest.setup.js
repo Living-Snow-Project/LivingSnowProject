@@ -7,6 +7,18 @@ jest.mock("@react-native-community/netinfo", () => mockRNCNetInfo);
 
 jest.mock("@react-native-async-storage/async-storage", () => mockAsyncStorage);
 
+jest.mock("react-native-avoid-softinput", () => {
+  const mock = require("react-native-avoid-softinput/jest/mock");
+
+  /**
+   * If needed, override mock like so:
+   *
+   * return Object.assign(mock, { useSoftInputState: jest.fn(() => ({ isSoftInputShown: true, softInputHeight: 300 })) });
+   */
+
+  return mock;
+});
+
 // useNativeDriver for animations doesn't exist in test environment
 // https://github.com/ptomasroos/react-native-scrollable-tab-view/issues/642
 jest.mock("react-native/Libraries/Animated/NativeAnimatedHelper");
