@@ -17,7 +17,7 @@ const makeTestAppConfig = (): AppSettings => ({
 const makePendingPhoto = () => makeExamplePhoto({ isLocal: true });
 
 const mockOneAsyncStorageFailure = (
-  method: keyof typeof mockAsyncStorage
+  method: keyof typeof mockAsyncStorage,
 ): Error => {
   const error = new Error(`mocked ${method} error`);
   jest.spyOn(mockAsyncStorage, method).mockRejectedValueOnce(error);
@@ -152,7 +152,7 @@ describe("Storage test suite", () => {
 
       await Storage.savePendingRecords(expected);
       const received = await Storage.deletePendingRecord(
-        makeExampleRecord("Sample").id
+        makeExampleRecord("Sample").id,
       );
 
       expect(received).toEqual(expected);
@@ -288,7 +288,7 @@ describe("Storage test suite", () => {
       ];
 
       const received = await Storage.saveCachedRecords(
-        expected as DataResponseV2[]
+        expected as DataResponseV2[],
       );
 
       expect(received).toEqual(expected);
@@ -304,7 +304,7 @@ describe("Storage test suite", () => {
       ];
 
       let received = await Storage.saveCachedRecords(
-        expected as DataResponseV2[]
+        expected as DataResponseV2[],
       );
       expect(received).toEqual(expected);
 
@@ -321,7 +321,7 @@ describe("Storage test suite", () => {
       const expectedError = mockOneAsyncStorageFailure("setItem");
 
       const received = await Storage.saveCachedRecords(
-        expected as DataResponseV2[]
+        expected as DataResponseV2[],
       );
       expect(received).toEqual(expectedError);
     });

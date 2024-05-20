@@ -4,7 +4,7 @@ import { AlgaeColorDescription } from "../../constants/Strings";
 
 const getAlgaeColorSelectorItem = (color: AlgaeColor) => {
   const result = getAllAlgaeColorSelectorItems().find(
-    (cur) => cur.value == color
+    (cur) => cur.value == color,
   );
 
   if (result == undefined) {
@@ -40,7 +40,7 @@ describe("Algae Color test suite", () => {
 
   test("getAlgaeColorPickerItem Select a color", () => {
     expect(getAlgaeColorSelectorItem("garbage" as AlgaeColor).label).toEqual(
-      AlgaeColorDescription.Other
+      AlgaeColorDescription.Other,
     );
   });
 });

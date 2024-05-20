@@ -87,7 +87,7 @@ const defaultState: AlgaeRecordsStates = "Idle";
 
 const algaeRecordsReducer = (
   currentState: AlgaeRecordState,
-  action: AlgaeRecordsActions
+  action: AlgaeRecordsActions,
 ): AlgaeRecordState => {
   const { type } = action;
 
@@ -144,7 +144,7 @@ const algaeRecordsReducer = (
       action.payload.downloadedRecords.forEach((item) => {
         if (
           !currentState.downloadedRecords.find(
-            (existing) => existing.id == item.id
+            (existing) => existing.id == item.id,
           )
         ) {
           currentState.downloadedRecords.push({ ...item });
@@ -215,7 +215,7 @@ const initialState: AlgaeRecordState = {
 function useAlgaeRecords(): [IAlgaeRecords] {
   const [algaeRecordState, dispatch] = useReducer(
     algaeRecordsReducer,
-    initialState
+    initialState,
   );
 
   const algaeRecords = useMemo<IAlgaeRecords>(
@@ -269,7 +269,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
 
         try {
           const downloadedRecords = await RecordsApiV2.get(
-            algaeRecordState.nextPageToken
+            algaeRecordState.nextPageToken,
           );
 
           // TODO: start downloading photos instead of waiting until the next render
@@ -330,7 +330,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         }
       },
     }),
-    [algaeRecordState]
+    [algaeRecordState],
   );
 
   return [algaeRecords];

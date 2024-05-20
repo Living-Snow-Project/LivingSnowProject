@@ -84,7 +84,7 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText("Idle"));
@@ -100,7 +100,7 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByTestId(downloadedRecord.id));
@@ -117,7 +117,7 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.TimelineScreen.ExampleRecords));
@@ -131,7 +131,7 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={makeAlgaeRecordsMock()}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.StatusBar.NoConnection));
@@ -154,7 +154,7 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={makeAlgaeRecordsMock()}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.StatusBar.NoConnection));
@@ -172,16 +172,16 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() =>
-      getByTestId(algaeRecords.getDownloaded()[0].id.toString())
+      getByTestId(algaeRecords.getDownloaded()[0].id.toString()),
     );
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
     await act(async () =>
-      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh()
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh(),
     );
 
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
@@ -197,11 +197,11 @@ describe("TimelineScreen test suite", () => {
         >
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await act(async () =>
-      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh()
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh(),
     );
 
     expect(getByText(Labels.TimelineScreen.ExampleRecords)).toBeTruthy();
@@ -218,18 +218,18 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText("No Internet Connection"));
 
     await waitFor(() =>
-      getByTestId(algaeRecords.getDownloaded()[0].id.toString())
+      getByTestId(algaeRecords.getDownloaded()[0].id.toString()),
     );
 
     await act(async () => {
       const { props } = await waitFor(() =>
-        getByTestId(TestIds.TimelineScreen.FlatList)
+        getByTestId(TestIds.TimelineScreen.FlatList),
       );
 
       await props.onEndReached();
@@ -246,7 +246,7 @@ describe("TimelineScreen test suite", () => {
     const { getByTestId } = render(
       <NativeBaseProviderForTesting>
         <SettingsButton navigation={navigationInner} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     fireEvent.press(getByTestId(TestIds.TimelineScreen.SettingsButton));
@@ -261,7 +261,7 @@ describe("TimelineScreen test suite", () => {
     const { getByTestId } = render(
       <NativeBaseProviderForTesting>
         <NewRecordButton navigation={navigationInner} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     fireEvent.press(getByTestId(TestIds.TimelineScreen.NewRecordButton));
@@ -277,7 +277,7 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByTestId(downloadedRecord.id));
@@ -307,7 +307,7 @@ describe("TimelineScreen test suite", () => {
           <AlgaeRecordsContext.Provider value={algaeRecords}>
             <TimelineScreen navigation={navigation} />
           </AlgaeRecordsContext.Provider>
-        </NativeBaseProviderForTesting>
+        </NativeBaseProviderForTesting>,
       );
 
       return renderResult;
@@ -325,7 +325,7 @@ describe("TimelineScreen test suite", () => {
           <AlgaeRecordsContext.Provider value={algaeRecordsInner}>
             <TimelineScreen navigation={navigation} />
           </AlgaeRecordsContext.Provider>
-        </NativeBaseProviderForTesting>
+        </NativeBaseProviderForTesting>,
       );
 
       // visible

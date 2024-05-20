@@ -89,7 +89,7 @@ export function ExpoPhotoSelector({
           status="info"
           title="Upload photo error"
           message="We ran into an error preparing photos for upload."
-        />
+        />,
       );
     } finally {
       setStatus("Idle");

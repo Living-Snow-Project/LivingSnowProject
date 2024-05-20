@@ -57,7 +57,7 @@ describe("RecordManager test suite", () => {
         Storage.loadPendingRecords().then((received) => {
           expect(received[0]).toEqual(expected);
           expect(received[0].type).toEqual(expected.type);
-        })
+        }),
       );
   });
 

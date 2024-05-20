@@ -79,14 +79,14 @@ jest.useFakeTimers();
 const defaultRouteProp = undefined as unknown as RecordScreenRouteProp;
 
 const customRender = async (
-  route: RecordScreenRouteProp = defaultRouteProp
+  route: RecordScreenRouteProp = defaultRouteProp,
 ) => {
   const result = render(
     <NativeBaseProviderForTesting>
       <NavigationContainer>
         <RecordScreen navigation={navigation} route={route} />
       </NavigationContainer>
-    </NativeBaseProviderForTesting>
+    </NativeBaseProviderForTesting>,
   );
 
   let coordinates = "123.456, -98.765";
@@ -122,7 +122,7 @@ const renderWithGpsWarningOff = async () => {
   // TODO: I have no way of testing if Modal is visible or not
   fireEvent.changeText(
     getByPlaceholderText(Placeholders.GPS.EnterCoordinates),
-    testCoordinates
+    testCoordinates,
   );
 
   return {
@@ -156,11 +156,11 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Selectors.RecordType),
         "onChange",
-        "Sample"
+        "Sample",
       );
 
       expect(
-        queryByPlaceholderText(Placeholders.RecordScreen.TubeId)
+        queryByPlaceholderText(Placeholders.RecordScreen.TubeId),
       ).toBeTruthy();
     });
 
@@ -170,11 +170,11 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         getByTestId(TestIds.Selectors.RecordType),
         "onChange",
-        "Sighting"
+        "Sighting",
       );
 
       expect(
-        queryByPlaceholderText(Placeholders.RecordScreen.TubeIdDisabled)
+        queryByPlaceholderText(Placeholders.RecordScreen.TubeIdDisabled),
       ).toBeTruthy();
     });
   });
@@ -208,23 +208,23 @@ describe("RecordScreen test suite", () => {
 
       return waitFor(() =>
         expect(
-          queryByPlaceholderText(Placeholders.GPS.EnterCoordinates)
-        ).toBeTruthy()
+          queryByPlaceholderText(Placeholders.GPS.EnterCoordinates),
+        ).toBeTruthy(),
       ).then(() => {
         fireEvent.changeText(
           getByPlaceholderText(Placeholders.GPS.EnterCoordinates),
-          testCoordinates
+          testCoordinates,
         );
 
         return waitFor(() =>
-          expect(queryByDisplayValue(testCoordinates)).toBeTruthy()
+          expect(queryByDisplayValue(testCoordinates)).toBeTruthy(),
         ).then(() => {
           // manual coordinates modal shouldn't prompt again or reset coordinates
           // TODO: no way to test if modal is visible or not
           fireEvent.press(getByDisplayValue(testCoordinates));
 
           expect(
-            queryByTestId(TestIds.GPS.GpsManualEntryPressable)
+            queryByTestId(TestIds.GPS.GpsManualEntryPressable),
           ).toBeTruthy();
           expect(getByDisplayValue(testCoordinates)).toBeTruthy();
         });
@@ -249,26 +249,26 @@ describe("RecordScreen test suite", () => {
       } = await customRender();
 
       await waitFor(() =>
-        queryByPlaceholderText(Placeholders.RecordScreen.TubeIdDisabled)
+        queryByPlaceholderText(Placeholders.RecordScreen.TubeIdDisabled),
       );
 
       fireEvent(
         getByTestId(TestIds.Selectors.RecordType),
         "onChange",
-        "Sample"
+        "Sample",
       );
 
       const expected = "123-456";
 
       fireEvent.changeText(
         getByPlaceholderText(Placeholders.RecordScreen.TubeId),
-        expected
+        expected,
       );
 
       expect(getByDisplayValue(expected)).not.toBeNull();
       fireEvent(
         getByPlaceholderText(Placeholders.RecordScreen.TubeId),
-        "onSubmitEditing"
+        "onSubmitEditing",
       );
     });
 
@@ -278,13 +278,13 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.changeText(
         getByPlaceholderText(Placeholders.RecordScreen.LocationDescription),
-        expected
+        expected,
       );
 
       expect(getByDisplayValue(expected)).not.toBeNull();
       fireEvent(
         getByPlaceholderText(Placeholders.RecordScreen.LocationDescription),
-        "onSubmitEditing"
+        "onSubmitEditing",
       );
     });
 
@@ -294,13 +294,13 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.changeText(
         getByPlaceholderText(Placeholders.RecordScreen.Notes),
-        expected
+        expected,
       );
 
       expect(getByDisplayValue(expected)).not.toBeNull();
       fireEvent(
         getByPlaceholderText(Placeholders.RecordScreen.Notes),
-        "onSubmitEditing"
+        "onSubmitEditing",
       );
     });
   });
@@ -396,20 +396,20 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.changeText(
         screenGetByPlaceholderText(Placeholders.RecordScreen.Notes),
-        ""
+        "",
       );
 
       fireEvent.changeText(
         screenGetByPlaceholderText(
-          Placeholders.RecordScreen.LocationDescription
+          Placeholders.RecordScreen.LocationDescription,
         ),
-        ""
+        "",
       );
 
       fireEvent(
         screenGetByTestId(TestIds.Selectors.RecordType),
         "onValueChange",
-        "Sample"
+        "Sample",
       );
 
       // upload record
@@ -437,7 +437,7 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.changeText(
         screenGetByDisplayValue(screenTestCoordinates),
-        "garbage, coordinates"
+        "garbage, coordinates",
       );
 
       fireEvent.press(getByTestId(TestIds.RecordScreen.UploadButton));
@@ -568,7 +568,7 @@ describe("RecordScreen test suite", () => {
       fireEvent(
         screenGetByTestId(TestIds.Selectors.RecordType),
         "onChange",
-        "Sighting"
+        "Sighting",
       );
 
       // render the update button after Sample changed to Sighting
@@ -605,7 +605,7 @@ describe("RecordScreen test suite", () => {
 
       fireEvent.changeText(
         screenGetByDisplayValue(`${record.latitude}, ${record.longitude}`),
-        "garbage, coordinates"
+        "garbage, coordinates",
       );
 
       // render the update button after coordinates changed

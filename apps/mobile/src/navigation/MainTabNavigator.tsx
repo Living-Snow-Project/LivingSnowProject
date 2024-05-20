@@ -103,7 +103,7 @@ export function Navigation() {
         primary: nbTheme.colors.primary[400],
       },
       light: false,
-    }
+    },
   );
 
   return (

@@ -38,7 +38,7 @@ export async function getCachedPhoto({
     const resized = await manipulateAsync(
       localFileUri,
       [{ resize: { width, height } }],
-      { base64: true }
+      { base64: true },
     );
 
     // save resized photo to disk

@@ -122,7 +122,7 @@ export function GpsCoordinatesInput({
   const [state, dispatch] = useReducer(
     gpsCoordinatesReducer,
     { coordinates, usingGps },
-    createInitialGpsState
+    createInitialGpsState,
   );
 
   const showGpsWarning = usingGps && getAppSettings().showGpsWarning;
@@ -139,7 +139,7 @@ export function GpsCoordinatesInput({
       dispatch({ type: "UPDATE", displayValue: `${lat}, ${long}` });
       setCoordinates({ latitude: lat, longitude: long });
     },
-    [dispatch, setCoordinates]
+    [dispatch, setCoordinates],
   );
 
   // typed user input
@@ -188,7 +188,7 @@ export function GpsCoordinatesInput({
             onCoordinatesWatch({
               latitude: coords.latitude,
               longitude: coords.longitude,
-            })
+            }),
         );
       } catch (error) {
         dispatch({ type: "ERROR_WATCHING_LOCATION" });

@@ -11,7 +11,7 @@ const AlgaeRecordsStatesArray = [
   "Downloading",
 ] as const;
 
-export type AlgaeRecordsStates = typeof AlgaeRecordsStatesArray[number];
+export type AlgaeRecordsStates = (typeof AlgaeRecordsStatesArray)[number];
 
 // Represents a photo that has been selected from local album.
 // parent record has not been uploaded yet (offline scenario).

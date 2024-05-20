@@ -17,8 +17,8 @@ const postRecordNetworkError = (): string => {
   mswServer.use(
     http.post(
       mockBackend.recordsUri,
-      () => new HttpResponse(null, { status: 500 })
-    )
+      () => new HttpResponse(null, { status: 500 }),
+    ),
   );
 
   return internalServerError;
@@ -28,8 +28,8 @@ const postRecordInternalServerError = (): string => {
   mswServer.use(
     http.post(
       mockBackend.recordsUri,
-      () => new HttpResponse(null, { status: 500 })
-    )
+      () => new HttpResponse(null, { status: 500 }),
+    ),
   );
 
   return internalServerError;
@@ -39,8 +39,8 @@ const getRecordsNetworkError = (): string => {
   mswServer.use(
     http.get(
       mockBackend.recordsUri,
-      () => new HttpResponse(null, { status: 500 })
-    )
+      () => new HttpResponse(null, { status: 500 }),
+    ),
   );
 
   return internalServerError;
@@ -50,8 +50,8 @@ const getRecordsInternalServerError = (): string => {
   mswServer.use(
     http.get(
       mockBackend.recordsUri,
-      () => new HttpResponse(null, { status: 500 })
-    )
+      () => new HttpResponse(null, { status: 500 }),
+    ),
   );
 
   return internalServerError;
@@ -61,8 +61,8 @@ const postPhotoNetworkError = (): string => {
   mswServer.use(
     http.post(
       mockBackend.photosUri,
-      () => new HttpResponse(null, { status: 500 })
-    )
+      () => new HttpResponse(null, { status: 500 }),
+    ),
   );
 
   return internalServerError;
@@ -72,8 +72,8 @@ const postPhotoInternalServerError = (): string => {
   mswServer.use(
     http.post(
       mockBackend.photosUri,
-      () => new HttpResponse(null, { status: 500 })
-    )
+      () => new HttpResponse(null, { status: 500 }),
+    ),
   );
 
   return internalServerError;
@@ -89,7 +89,7 @@ const postPhotoSuccessThenFailure = (): string => {
       }
 
       return new HttpResponse(null, { status: 200 });
-    })
+    }),
   );
 
   return internalServerError;

@@ -40,7 +40,7 @@ export function TimelineScreen({ navigation }: TimelineScreenProps) {
 
         onFocusTimelineAction = "Idle";
       }),
-    [navigation, algaeRecords]
+    [navigation, algaeRecords],
   );
 
   useEffect(() => {

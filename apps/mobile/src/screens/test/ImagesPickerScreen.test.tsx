@@ -39,7 +39,7 @@ describe("ImagesPickerScreen test suite", () => {
     const { toJSON } = render(
       <NativeBaseProviderForTesting>
         <ImagesPickerScreen navigation={navigation} route={route} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     const { getByTestId } = render(photoSelectedActionButton);
@@ -55,7 +55,7 @@ describe("ImagesPickerScreen test suite", () => {
     render(
       <NativeBaseProviderForTesting>
         <ImagesPickerScreen navigation={navigation} route={route} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     const { getByTestId } = render(photoSelectedActionButton);

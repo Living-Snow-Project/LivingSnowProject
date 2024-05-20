@@ -17,7 +17,7 @@ const AlgaeSizeArray = [
   "Other",
 ] as const;
 
-export type AlgaeSize = typeof AlgaeSizeArray[number];
+export type AlgaeSize = (typeof AlgaeSizeArray)[number];
 
 const AlgaeColorArray = [
   "Select colors",
@@ -30,11 +30,11 @@ const AlgaeColorArray = [
   "Other",
 ] as const;
 
-export type AlgaeColor = typeof AlgaeColorArray[number];
+export type AlgaeColor = (typeof AlgaeColorArray)[number];
 
 const AlgaeRecordTypeArray = ["Sample", "Sighting", "Undefined"] as const;
 
-export type AlgaeRecordType = typeof AlgaeRecordTypeArray[number];
+export type AlgaeRecordType = (typeof AlgaeRecordTypeArray)[number];
 
 export type AlgaeRecord = {
   id: string;

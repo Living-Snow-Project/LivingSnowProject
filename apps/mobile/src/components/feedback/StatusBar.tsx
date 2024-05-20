@@ -13,7 +13,7 @@ export function StatusBar({ state, isConnected }: StatusBarProps) {
   const { colors } = useTheme();
   const startColor = useColorModeValue(
     colors.primary[400],
-    colors.primary[600]
+    colors.primary[600],
   );
   const endColor = useColorModeValue(colors.primary[500], colors.primary[700]);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -34,7 +34,7 @@ export function StatusBar({ state, isConnected }: StatusBarProps) {
         duration: 1000,
         useNativeDriver: false,
       }),
-    ])
+    ]),
   );
 
   if (state == "Idle") {

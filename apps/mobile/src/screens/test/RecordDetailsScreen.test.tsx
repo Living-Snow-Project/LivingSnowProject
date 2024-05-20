@@ -21,10 +21,10 @@ jest.mock("expo-font");
 
 jest.mock("expo-file-system", () => ({
   downloadAsync: jest.fn(() =>
-    Promise.resolve({ status: 200, md5: "md5", uri: "uri" })
+    Promise.resolve({ status: 200, md5: "md5", uri: "uri" }),
   ),
   getInfoAsync: jest.fn(() =>
-    Promise.resolve({ exists: true, md5: "md5", uri: "uri" })
+    Promise.resolve({ exists: true, md5: "md5", uri: "uri" }),
   ),
   readAsStringAsync: jest.fn(() => Promise.resolve()),
   writeAsStringAsync: jest.fn(() => Promise.resolve()),
@@ -83,7 +83,7 @@ describe("RecordDetailsScreen test suite", () => {
     const { getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
         <RecordDetailsScreen route={route} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
@@ -151,7 +151,7 @@ describe("RecordDetailsScreen test suite", () => {
     const { getAllByText, getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
         <RecordDetailsScreen route={route} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getAllByText("Error"));
@@ -191,7 +191,7 @@ describe("RecordDetailsScreen test suite", () => {
     const { getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
         <RecordDetailsScreen route={route} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
@@ -235,7 +235,7 @@ describe("RecordDetailsScreen test suite", () => {
     const { getByText, queryByText } = render(
       <NativeBaseProviderForTesting>
         <RecordDetailsScreen route={route} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
@@ -282,7 +282,7 @@ describe("RecordDetailsScreen test suite", () => {
     const { getByText, queryByText } = render(
       <NativeBaseProviderForTesting>
         <RecordDetailsScreen route={route} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
@@ -298,7 +298,7 @@ describe("RecordDetailsScreen test suite", () => {
       expect(getByText(new RegExp(record.longitude.toString()))).toBeTruthy();
       expect(queryByText(Labels.TubeId)).toBeFalsy();
       expect(
-        queryByText(Labels.RecordDetailsScreen.LocationDescription)
+        queryByText(Labels.RecordDetailsScreen.LocationDescription),
       ).toBeFalsy();
       expect(queryByText(Labels.RecordDetailsScreen.Notes)).toBeFalsy();
     } else {
@@ -342,7 +342,7 @@ describe("RecordDetailsScreen test suite", () => {
     const { getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
         <RecordDetailsScreen route={route} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.RecordDetailsScreen.DataSheet));
