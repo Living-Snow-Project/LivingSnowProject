@@ -54,28 +54,31 @@ export function ExpoPhotoSelector({
         await result.assets.reduce(async (promise, current) => {
           await promise;
 
-          if (current.assetId) {
-            // returned ImagePickerAsset is missing various fields in Asset that are "needed" (for TypeScript)
-            const asset = await MediaLibrary.getAssetInfoAsync(current.assetId);
+          const dims: ActionResize = { resize: {} };
 
-            // resize to 1024 along major axis
-            const dims: ActionResize = { resize: {} };
-
-            if (asset.height > asset.width) {
-              dims.resize.height = 1024;
-            } else {
-              dims.resize.width = 1024;
-            }
-
-            const resizedImage = await manipulateAsync(current.uri, [dims]);
-
-            assets.push({
-              ...asset,
-              height: resizedImage.height,
-              uri: resizedImage.uri,
-              width: resizedImage.width,
-            });
+          if (current.height > current.width) {
+            dims.resize.height = 1024;
+          } else {
+            dims.resize.width = 1024;
           }
+
+          const resizedImage = await manipulateAsync(current.uri, [dims]);
+
+          // current.assetId is coming back null on Android and
+          // we don't need the extra fields from MediaLibrary.getAssetInfoAsync
+          // but have to make TypeScript happy
+
+          assets.push({
+            height: resizedImage.height,
+            uri: resizedImage.uri,
+            width: resizedImage.width,
+            id: current.assetId || "",
+            filename: current.fileName || "",
+            mediaType: "photo",
+            creationTime: 0,
+            modificationTime: 0,
+            duration: current.duration || 0,
+          });
 
           return Promise.resolve();
         }, Promise.resolve());
