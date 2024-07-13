@@ -1,23 +1,23 @@
 function TestLogger() {
-    return {
-        Info() { },
-        Warn() { },
-        Error() { },
-    };
+  return {
+    Info() {},
+    Warn() {},
+    Error() {},
+  };
 }
 // DevelopmentLogger is strictly used for debugging
 function DevelopmentLogger() {
-    return {
-        Info(message) {
-            console.log(message);
-        },
-        Warn(message) {
-            console.log(message);
-        },
-        Error(message) {
-            console.log(message);
-        },
-    };
+  return {
+    Info(message) {
+      console.log(message);
+    },
+    Warn(message) {
+      console.log(message);
+    },
+    Error(message) {
+      console.log(message);
+    },
+  };
 }
 // ProductionLogger will pipe to a cloud reporting service
 /* function ProductionLogger(): ILogger {
@@ -33,5 +33,6 @@ function DevelopmentLogger() {
   };
 } */
 // TODO: figure out what ProductionLogger should do
-const Logger = process.env.JEST_WORKER_ID !== undefined ? TestLogger() : DevelopmentLogger();
+const Logger =
+  process.env.JEST_WORKER_ID !== undefined ? TestLogger() : DevelopmentLogger();
 export default Logger;

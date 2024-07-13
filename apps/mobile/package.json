@@ -6,7 +6,7 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "prettier": "prettier --ignore-path ../../.eslintignore --check .",
+    "prettier": "prettier --ignore-path ../../.gitignore --check .",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --ignore-path ../../.eslintignore",
     "precheck": "yarn prettier && yarn lint && echo Lint complete! && yarn run tsc && echo TypeScript check complete! && yarn test",
     "eject": "expo eject",
