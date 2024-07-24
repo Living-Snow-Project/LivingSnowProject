@@ -16,6 +16,7 @@ const recordTypeSelectorItems: RecordTypeSelectorItem[] = [
 const getAllRecordTypeSelectorItems = (): RecordTypeSelectorItem[] =>
   recordTypeSelectorItems;
 
+/* eslint-disable @typescript-eslint/no-var-requires */
 const examplePhoto = require("../../assets/images/splash.png");
 
 const productionExampleRecord = (): LocalAlgaeRecord => ({

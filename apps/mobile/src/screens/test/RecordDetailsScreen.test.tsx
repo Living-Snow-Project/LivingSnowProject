@@ -41,7 +41,6 @@ jest
   .spyOn(NetInfo, "fetch")
   .mockResolvedValue({ isConnected: true } as NetInfoState);
 
-/* eslint-disable no-param-reassign */
 function setPhotosHeight(photos: Photo[]) {
   photos[0].width = 758;
   photos[0].height = 512;

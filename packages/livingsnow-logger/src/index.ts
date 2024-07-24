@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 interface ILogger {
   Info(message: string): void;
   Warn(message: string): void;

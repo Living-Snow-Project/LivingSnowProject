@@ -152,7 +152,6 @@ function usePendingRecordList() {
     );
 
     pendingRecords.forEach((record, index) => {
-      /* eslint-disable react/no-array-index-key */
       result.push(
         <PendingTimelineRow
           key={`pending-${index}`}

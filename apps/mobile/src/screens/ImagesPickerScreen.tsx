@@ -32,7 +32,6 @@ function CustomNavigator({ navigation, onSuccess }: CustomNavigatorProps) {
       />
     );
 
-    /* eslint-disable react/no-unstable-nested-components */
     navigation.setOptions({
       headerRight: () => DoneAction,
     });
@@ -120,7 +119,6 @@ export function ImagesPickerScreen({
     theme.colors.primary[600],
     theme.colors.primary[400],
   );
-  /* eslint-disable prefer-destructuring */
   widgetStyles.selectedIcon.color = theme.colors.secondary[600];
 
   return (
