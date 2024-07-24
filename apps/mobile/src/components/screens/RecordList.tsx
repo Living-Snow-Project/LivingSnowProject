@@ -47,7 +47,7 @@ function useDownloadedRecordList() {
         <Divider
           key={Labels.TimelineScreen.DownloadedRecords}
           text={Labels.TimelineScreen.DownloadedRecords}
-        />
+        />,
       );
     }
 
@@ -57,8 +57,8 @@ function useDownloadedRecordList() {
           key={record.id}
           record={record}
           photos={record.photos.appPhotos}
-        />
-      )
+        />,
+      ),
     );
 
     return result;
@@ -148,17 +148,16 @@ function usePendingRecordList() {
       <Divider
         key={Labels.TimelineScreen.PendingRecords}
         text={Labels.TimelineScreen.PendingRecords}
-      />
+      />,
     );
 
     pendingRecords.forEach((record, index) => {
-      /* eslint-disable react/no-array-index-key */
       result.push(
         <PendingTimelineRow
           key={`pending-${index}`}
           localRecord={record}
           algaeRecords={algaeRecords}
-        />
+        />,
       );
     });
 

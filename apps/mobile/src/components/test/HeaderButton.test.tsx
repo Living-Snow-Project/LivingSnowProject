@@ -17,7 +17,7 @@ describe("HeaderButton test suite", () => {
           onPress={onPress}
           placement="left"
         />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     fireEvent.press(getByTestId(testID));
@@ -36,7 +36,7 @@ describe("HeaderButton test suite", () => {
           onPress={onPress}
           placement="right"
         />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     Platform.OS = "ios";

@@ -32,7 +32,6 @@ function CustomNavigator({ navigation, onSuccess }: CustomNavigatorProps) {
       />
     );
 
-    /* eslint-disable react/no-unstable-nested-components */
     navigation.setOptions({
       headerRight: () => DoneAction,
     });
@@ -93,7 +92,7 @@ export function ImagesPickerScreen({
       portraitCols: 4,
       landscapeCols: 5,
     }),
-    [route]
+    [route],
   );
 
   const customNavigatorWidget: CustomNavigatorType = useMemo(
@@ -110,7 +109,7 @@ export function ImagesPickerScreen({
         },
       },
     }),
-    [navigation]
+    [navigation],
   );
 
   const theme = useTheme();
@@ -118,9 +117,8 @@ export function ImagesPickerScreen({
   widgetStyles.bgColor = useColorModeValue("white", theme.colors.dark[100]);
   widgetStyles.spinnerColor = useColorModeValue(
     theme.colors.primary[600],
-    theme.colors.primary[400]
+    theme.colors.primary[400],
   );
-  /* eslint-disable prefer-destructuring */
   widgetStyles.selectedIcon.color = theme.colors.secondary[600];
 
   return (

@@ -22,7 +22,7 @@ const checkAndPromptForBackgroundFetchPermission = async () => {
   ) {
     Alert.alert(
       Notifications.backgroundTasksNotAllowed.title,
-      Notifications.backgroundTasksNotAllowed.message
+      Notifications.backgroundTasksNotAllowed.message,
     );
   }
 
@@ -33,7 +33,7 @@ const checkAndPromptForBackgroundFetchPermission = async () => {
 // Must have been added to the TaskManager globally using the same name.
 async function registerBackgroundFetchAsync(
   taskName: string,
-  config: BackgroundFetch.BackgroundFetchOptions | undefined
+  config: BackgroundFetch.BackgroundFetchOptions | undefined,
 ): Promise<void> {
   const isBackgroundFetchAllowed =
     await checkAndPromptForBackgroundFetchPermission();
@@ -104,7 +104,7 @@ async function loadPending(): Promise<LocalAlgaeRecord[]> {
   const result: LocalAlgaeRecord[] = [];
 
   pendingRecords.forEach((value) =>
-    result.push({ record: value, photos: selectedPhotos.get(value.id) })
+    result.push({ record: value, photos: selectedPhotos.get(value.id) }),
   );
 
   return Promise.resolve(result);
@@ -125,14 +125,14 @@ async function retryPending(): Promise<LocalAlgaeRecord[]> {
       } catch (error) {
         // upload rejects with UploadError
         Logger.Warn(
-          `uploadRecord rejected: continue records reducer to prevent data loss: ${error.errorInfo}`
+          `uploadRecord rejected: continue records reducer to prevent data loss: ${error.errorInfo}`,
         );
 
         return Promise.resolve();
       }
     },
 
-    Promise.resolve()
+    Promise.resolve(),
   );
 
   // Step 2. photos

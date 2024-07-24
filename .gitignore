@@ -1,4 +1,5 @@
 **/.expo/*
 **/living-snow-project-d82e119904bd.json
-coverage
-node_modules
+**/coverage/*
+**/node_modules/*
+**/web/build/*

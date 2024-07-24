@@ -19,7 +19,7 @@ describe("PhotoSelector test suite", () => {
     const { getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
         <PhotoSelector navigation={navigation} photos={photos} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     waitFor(() => getByText("Select Photos (limit 4)"));
@@ -35,7 +35,7 @@ describe("PhotoSelector test suite", () => {
     const { getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
         <PhotoSelector navigation={navigation} photos={photos} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     waitFor(() => getByText("Select Photos (limit 4)"));

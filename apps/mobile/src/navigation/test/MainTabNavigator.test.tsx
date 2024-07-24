@@ -15,7 +15,7 @@ describe("Navigation test suite", () => {
     const { toJSON } = render(
       <NativeBaseProviderForTesting>
         <Navigation />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     expect(toJSON()).toMatchSnapshot();
@@ -32,7 +32,7 @@ describe("Navigation test suite", () => {
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <Navigation />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await findByText(Labels.TimelineScreen.ExampleRecords);

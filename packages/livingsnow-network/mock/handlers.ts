@@ -56,7 +56,7 @@ const handlersV2 = [
   // Handles a POST /api/v1.0/records/{recordId}/photo request
   http.post(
     mockBackend.photosUri,
-    () => new HttpResponse(null, { status: 200 })
+    () => new HttpResponse(null, { status: 200 }),
   ),
 ];
 

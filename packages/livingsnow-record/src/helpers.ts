@@ -19,7 +19,7 @@ export const isSample = (type: AlgaeRecordType) =>
 // consider randomizing more data; how that impacts snapshot testing and the above desired feature
 export const makeExampleRecord = (
   type: AlgaeRecordType,
-  id: string = "1234"
+  id: string = "1234",
 ): AlgaeRecord => ({
   id,
   type,

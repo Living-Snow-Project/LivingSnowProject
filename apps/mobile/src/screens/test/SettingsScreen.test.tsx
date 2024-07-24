@@ -22,7 +22,7 @@ describe("SettingsScreen test suite", () => {
 
   test("user name", async () => {
     const { getByDisplayValue, getByPlaceholderText } = render(
-      <WrappedSettingsScreen />
+      <WrappedSettingsScreen />,
     );
     const username = getByPlaceholderText(Placeholders.Settings.Username);
     const expected = "Test User Name";
@@ -35,10 +35,10 @@ describe("SettingsScreen test suite", () => {
 
   test("user organization", () => {
     const { getByDisplayValue, getByPlaceholderText } = render(
-      <WrappedSettingsScreen />
+      <WrappedSettingsScreen />,
     );
     const organization = getByPlaceholderText(
-      Placeholders.Settings.Organization
+      Placeholders.Settings.Organization,
     );
     const expected = "Test Organization";
 

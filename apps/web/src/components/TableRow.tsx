@@ -62,7 +62,7 @@ function TableRow({ style, item, photos }: TableRowProps) {
 
     return item.colors.reduce(
       (prev, cur, index) => (index ? `${prev} ${cur}` : cur),
-      ""
+      "",
     );
   };
 

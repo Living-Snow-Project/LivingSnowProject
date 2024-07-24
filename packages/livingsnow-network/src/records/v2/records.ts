@@ -16,11 +16,11 @@ function dumpRecord(record: AlgaeRecord): void {
       `\n  Size: ${record.size}` +
       `\n  Colors: ${record.colors.reduce<string>(
         (prev, cur) => `${prev} ${cur}`,
-        ""
+        "",
       )}` +
       `\n  Description: ${record.locationDescription}` +
       `\n  Notes: ${record.notes}` +
-      `\n JSON Body:\n${JSON.stringify(record)}`
+      `\n JSON Body:\n${JSON.stringify(record)}`,
   );
 }
 
@@ -93,7 +93,7 @@ const recordsApi = () => {
         .then((response) =>
           response.ok
             ? response.text().then((text) => jsonToRecord<AlgaeRecord>(text))
-            : Promise.reject(response)
+            : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
@@ -110,7 +110,7 @@ const recordsApi = () => {
             ? response
                 .text()
                 .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
-            : Promise.reject(response)
+            : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
@@ -127,7 +127,7 @@ const recordsApi = () => {
             ? response
                 .text()
                 .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
-            : Promise.reject(response)
+            : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
@@ -146,7 +146,7 @@ const recordsApi = () => {
         body: uri as any,
       })
         .then((response) =>
-          response.ok ? Promise.resolve() : Promise.reject(response)
+          response.ok ? Promise.resolve() : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },

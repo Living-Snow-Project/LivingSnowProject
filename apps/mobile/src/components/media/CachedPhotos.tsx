@@ -81,7 +81,6 @@ function CachedPhotos({ photos }: CachedPhotosProps): JSX.Element | null {
   return (
     <>
       {photos.map((photo, index) => (
-        /* eslint-disable react/no-array-index-key */
         <CachedPhoto
           key={index}
           uri={photo.uri}

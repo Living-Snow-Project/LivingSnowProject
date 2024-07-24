@@ -62,15 +62,19 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
                   bytes += info.size;
                 }
               }),
-            Promise.resolve(0)
+            Promise.resolve(0),
           )
           .then(() =>
             // subtract 1 to account for AppSettings
-            computeLabel({ state: "Completed", files: files.length - 1, bytes })
+            computeLabel({
+              state: "Completed",
+              files: files.length - 1,
+              bytes,
+            }),
           );
       })
       .catch(() =>
-        computeLabel({ state: "Error Calculating", files: 0, bytes: 0 })
+        computeLabel({ state: "Error Calculating", files: 0, bytes: 0 }),
       );
     // hook only runs on mount with local computeLabel and no unstable deps
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -94,7 +98,7 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
           .then(() => computeLabel({ state: "Completed", files: 0, bytes: 0 }));
       })
       .catch(() =>
-        computeLabel({ state: "Error Deleting", files: 0, bytes: 0 })
+        computeLabel({ state: "Error Deleting", files: 0, bytes: 0 }),
       );
   };
 

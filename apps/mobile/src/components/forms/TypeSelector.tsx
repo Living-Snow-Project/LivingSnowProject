@@ -137,7 +137,7 @@ function AlgaeColorSelector({
           } else {
             temp.splice(
               temp.findIndex((cur) => cur == item.value),
-              1
+              1,
             );
           }
 

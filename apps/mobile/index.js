@@ -1,6 +1,4 @@
 import { registerRootComponent } from "expo";
-
-/* eslint-disable import/extensions, import/no-unresolved */
 import { App } from "./App";
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);

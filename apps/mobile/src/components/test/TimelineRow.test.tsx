@@ -28,7 +28,7 @@ describe("TimelineRow test suite", () => {
           record={expectedRecord.record}
           photos={expectedRecord.photos}
         />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     // name = "test name"
@@ -46,7 +46,7 @@ describe("TimelineRow test suite", () => {
           record={expectedRecord.record}
           photos={expectedRecord.photos}
         />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     waitFor(() => getByText(Labels.DefaultName));

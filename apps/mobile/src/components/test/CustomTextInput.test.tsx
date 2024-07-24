@@ -84,7 +84,7 @@ describe("CustomTextInput tests", () => {
           onChangeText={() => {}}
           onSubmitEditing={onSubmitEditing}
         />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     fireEvent(getByPlaceholderText(props.placeholder), "onSubmitEditing");

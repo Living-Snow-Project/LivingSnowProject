@@ -32,7 +32,7 @@ async function addSelected(recordId: string, selectedPhotos: SelectedPhoto[]) {
 }
 
 async function getSelected(
-  recordId: string
+  recordId: string,
 ): Promise<SelectedPhoto[] | undefined> {
   const selectedPhotos = await Storage.loadSelectedPhotos();
   return selectedPhotos.get(recordId);
@@ -43,7 +43,7 @@ async function getSelected(
 // TODO: what if record is uploaded but response isn't received? (another case for clientRecordId)
 async function uploadSelected(
   localRecordId: string,
-  cloudRecordId: string
+  cloudRecordId: string,
 ): Promise<void> {
   const allSelectedPhotos = await Storage.loadSelectedPhotos();
   const selectedPhotos = allSelectedPhotos.get(localRecordId);
@@ -110,7 +110,7 @@ async function retryPending(): Promise<void> {
   // this sucks but necessary since the photos need to be uploaded sequentially
   // (convert map to array)
   allPendingPhotos.forEach((value, key) =>
-    allPendingPhotosArray.push({ id: key, photos: value })
+    allPendingPhotosArray.push({ id: key, photos: value }),
   );
 
   // clear the map, insert any failures to re-save at end

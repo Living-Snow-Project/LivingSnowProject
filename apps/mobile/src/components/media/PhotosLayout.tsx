@@ -144,7 +144,7 @@ export function PhotosLayout({
             uri={newPhotos[2].uri}
             width={screenWidth}
             height={Math.floor(
-              screenWidth * (newPhotos[2].height / newPhotos[2].width)
+              screenWidth * (newPhotos[2].height / newPhotos[2].width),
             )}
           />
         </>
@@ -190,7 +190,7 @@ export function PhotosLayout({
             uri={newPhotos[2].uri}
             width={screenWidth}
             height={Math.floor(
-              screenWidth * (newPhotos[2].height / newPhotos[2].width)
+              screenWidth * (newPhotos[2].height / newPhotos[2].width),
             )}
           />
           <Box pt={gap} />
@@ -221,7 +221,7 @@ export function PhotosLayout({
       const controlHeight = Math.floor(halfScreenWidth * (height / width));
       // account for 2x <Box pt={gap}/>
       const landscapeHeight = Math.floor(
-        (controlHeight - 2 * theme.sizes[gap]) / 3
+        (controlHeight - 2 * theme.sizes[gap]) / 3,
       );
 
       return (
@@ -265,7 +265,7 @@ export function PhotosLayout({
             uri={newPhotos[3].uri}
             width={screenWidth}
             height={Math.floor(
-              screenWidth * (newPhotos[3].height / newPhotos[3].width)
+              screenWidth * (newPhotos[3].height / newPhotos[3].width),
             )}
           />
         </Box>

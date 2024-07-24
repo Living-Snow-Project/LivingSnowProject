@@ -4,7 +4,7 @@ import { AlgaeSizeDescription } from "../../constants/Strings";
 
 const getAlgaeSizeSelectorItem = (size: AlgaeSize) => {
   const result = getAllAlgaeSizeSelectorItems().find(
-    (cur) => cur.value == size
+    (cur) => cur.value == size,
   );
 
   if (result == undefined) {
@@ -43,7 +43,7 @@ describe("Algae Size test suite", () => {
 
   test("getAlgaeSizeSelectorItem bad value", () => {
     expect(getAlgaeSizeSelectorItem("garbage" as AlgaeSize).label).toEqual(
-      AlgaeSizeDescription.Other
+      AlgaeSizeDescription.Other,
     );
   });
 });

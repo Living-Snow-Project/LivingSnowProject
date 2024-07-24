@@ -15,7 +15,7 @@ describe("GpsCoordinatesInput tests", () => {
       .mockImplementation(() =>
         Promise.resolve({
           status: result,
-        } as Location.LocationPermissionResponse)
+        } as Location.LocationPermissionResponse),
       );
 
   const requestForegroundPermissionsAsyncSuccessMock = () =>
@@ -54,7 +54,7 @@ describe("GpsCoordinatesInput tests", () => {
           onSubmitEditing={onSubmitEditingMock}
           setCoordinates={setCoordinatesMock}
         />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
   afterEach(() => {
@@ -103,14 +103,14 @@ describe("GpsCoordinatesInput tests", () => {
           onSubmitEditing={onSubmitEditingMock}
           setCoordinates={setCoordinatesMock}
         />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByPlaceholderText(Placeholders.GPS.NoPermissions));
 
     fireEvent.changeText(
       getByPlaceholderText(Placeholders.GPS.NoPermissions),
-      "(56.789  , 454.76)   "
+      "(56.789  , 454.76)   ",
     );
 
     expect(setCoordinatesMock).toBeCalledWith({
@@ -131,13 +131,13 @@ describe("GpsCoordinatesInput tests", () => {
           onSubmitEditing={onSubmitEditingMock}
           setCoordinates={setCoordinatesMock}
         />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByPlaceholderText(Placeholders.GPS.NoPermissions));
     fireEvent(
       getByPlaceholderText(Placeholders.GPS.NoPermissions),
-      "onSubmitEditing"
+      "onSubmitEditing",
     );
     expect(onSubmitEditingMock).toHaveBeenCalled();
   });
@@ -159,11 +159,11 @@ describe("GpsCoordinatesInput tests", () => {
           onSubmitEditing={onSubmitEditingMock}
           setCoordinates={setCoordinatesMock}
         />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() =>
-      getByDisplayValue(`${coordinates.latitude}, ${coordinates.longitude}`)
+      getByDisplayValue(`${coordinates.latitude}, ${coordinates.longitude}`),
     );
 
     expect(foregroundPermissionMock).not.toBeCalled();

@@ -35,7 +35,7 @@ export function HeaderButton({
   const theme = useTheme();
   const color = useColorModeValue(
     theme.colors.primary[600],
-    theme.colors.primary[400]
+    theme.colors.primary[400],
   );
 
   return (

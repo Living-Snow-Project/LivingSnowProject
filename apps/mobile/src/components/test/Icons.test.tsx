@@ -18,7 +18,7 @@ describe("Icons test suite", () => {
       const { toJSON } = render(
         <NativeBaseProviderForTesting>
           <PictureIcon />
-        </NativeBaseProviderForTesting>
+        </NativeBaseProviderForTesting>,
       );
       expect(toJSON()).toMatchSnapshot();
     });
@@ -27,7 +27,7 @@ describe("Icons test suite", () => {
       const { toJSON } = render(
         <NativeBaseProviderForTesting>
           <SnowIcon />
-        </NativeBaseProviderForTesting>
+        </NativeBaseProviderForTesting>,
       );
       expect(toJSON()).toMatchSnapshot();
     });
@@ -38,7 +38,7 @@ describe("Icons test suite", () => {
       const { toJSON } = render(
         <NativeBaseProviderForTesting>
           <PictureIcon />
-        </NativeBaseProviderForTesting>
+        </NativeBaseProviderForTesting>,
       );
       expect(toJSON()).toMatchSnapshot();
     });
@@ -47,7 +47,7 @@ describe("Icons test suite", () => {
       const { toJSON } = render(
         <NativeBaseProviderForTesting>
           <SnowIcon />
-        </NativeBaseProviderForTesting>
+        </NativeBaseProviderForTesting>,
       );
       expect(toJSON()).toMatchSnapshot();
     });

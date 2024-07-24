@@ -6,7 +6,7 @@ type ActionMockProps = {
 };
 
 export const makeAlgaeRecordsMock = (
-  { isEmpty }: ActionMockProps = { isEmpty: false }
+  { isEmpty }: ActionMockProps = { isEmpty: false },
 ): IAlgaeRecords => {
   const pendingRecord: LocalAlgaeRecord = {
     record: makeExampleRecord("Sighting"),

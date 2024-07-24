@@ -30,7 +30,7 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
       onChangeText = () => {},
       onSubmitEditing = () => {},
     }: CustomTextInputProps,
-    ref
+    ref,
   ) => (
     <FormControl
       isRequired={isRequired}
@@ -56,7 +56,7 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
         {validation}
       </FormControl.ErrorMessage>
     </FormControl>
-  )
+  ),
 );
 
 // this is needed because of forwardRef
