@@ -1,0 +1,53 @@
+{
+  "name": "living-snow-project.github.io",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://living-snow-project.github.io/LivingSnowProject/",
+  "dependencies": {
+    "@livingsnow/network": "*",
+    "react": "18.0.0",
+    "react-dom": "18.0.0",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.1",
+    "@types/node": "^16.11.36",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.5",
+    "gh-pages": "^4.0.0",
+    "react-scripts": "^5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "echo todo, don't enter watchmode",
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
+    "clean": "yarn run clean:win",
+    "clean:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist build rd /s /q build",
+    "nuke": "yarn run clean:win && yarn run nuke:win",
+    "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
