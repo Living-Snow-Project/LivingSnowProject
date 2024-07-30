@@ -8,7 +8,6 @@ import {
 import { useColorModeValue, useTheme } from "native-base";
 import {
   FirstRunScreen,
-  ImagesPickerScreen,
   RecordDetailsScreen,
   RecordScreen,
   SettingsScreen,
@@ -71,11 +70,6 @@ function RootNavigator() {
       />
       <Stack.Screen name="Record" component={RecordScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
-      <Stack.Screen
-        name="ImageSelection"
-        component={ImagesPickerScreen}
-        options={{ title: "Camera Roll" }}
-      />
       <Stack.Screen
         name="RecordDetails"
         component={RecordDetailsScreen}
