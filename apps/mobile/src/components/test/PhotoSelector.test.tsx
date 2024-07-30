@@ -3,7 +3,7 @@ import { render, waitFor } from "@testing-library/react-native";
 import { NativeBaseProviderForTesting } from "../../../jesttest.setup";
 import { SelectedPhoto } from "../../../types";
 import { RootStackNavigationProp } from "../../navigation/Routes";
-import { PhotoSelector } from "../forms/PhotoSelector";
+import { ExpoPhotoSelector } from "../forms/ExpoPhotoSelector";
 
 const navigation: RootStackNavigationProp = {} as RootStackNavigationProp;
 navigation.goBack = () => {};
@@ -18,7 +18,12 @@ describe("PhotoSelector test suite", () => {
 
     const { getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
-        <PhotoSelector navigation={navigation} photos={photos} />
+        <ExpoPhotoSelector
+          recordId="123"
+          photos={photos}
+          setSelectedPhotos={() => {}}
+          setStatus={() => {}}
+        />
       </NativeBaseProviderForTesting>,
     );
 
@@ -34,7 +39,12 @@ describe("PhotoSelector test suite", () => {
 
     const { getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
-        <PhotoSelector navigation={navigation} photos={photos} />
+        <ExpoPhotoSelector
+          recordId="123"
+          photos={photos}
+          setSelectedPhotos={() => {}}
+          setStatus={() => {}}
+        />
       </NativeBaseProviderForTesting>,
     );
 
