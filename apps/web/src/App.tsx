@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RecordsApiV2 } from "@livingsnow/network";
 import { TableHeader, TableRow } from "./components/TableRow";
 

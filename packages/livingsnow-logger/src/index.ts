@@ -44,7 +44,6 @@ function DevelopmentLogger(): ILogger {
 } */
 
 // TODO: figure out what ProductionLogger should do
-const Logger =
-  process.env.JEST_WORKER_ID !== undefined ? TestLogger() : DevelopmentLogger();
+const Logger = DevelopmentLogger();
 
 export default Logger;

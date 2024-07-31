@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 const path = require("path");
@@ -13,7 +15,7 @@ module.exports = {
   },
   target: "web",
   output: {
-    filename: "bundle.[hash].js",
+    filename: "bundle.[fullhash].js",
     path: path.resolve(__dirname, "dist"),
   },
   plugins: [
