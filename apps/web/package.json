@@ -7,6 +7,7 @@
     "start": "webpack serve --mode development",
     "build": "webpack --mode production & copy public\\favicon.ico dist\\. & copy public\\manifest.json dist\\.",
     "deploy": "gh-pages -d dist",
+    "test": "echo todo: no tests written against web app yet",
     "clean": "yarn run clean:win",
     "clean:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist build rd /s /q build",
     "nuke": "yarn run clean:win && yarn run nuke:win",

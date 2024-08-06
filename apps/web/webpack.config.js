@@ -21,6 +21,9 @@ module.exports = {
       template: "./public/index.html",
     }),
     isDevelopment && new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      process: {},
+    }),
   ],
   resolve: {
     modules: [__dirname, "src", "node_modules"],
