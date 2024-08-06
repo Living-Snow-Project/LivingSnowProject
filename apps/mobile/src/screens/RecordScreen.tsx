@@ -26,7 +26,6 @@ import {
   DateSelector,
   ExpoPhotoSelector,
   GpsCoordinatesInput,
-  // PhotoSelector,
   TextArea,
 } from "../components/forms";
 import { getAppSettings } from "../../AppSettings";
@@ -127,18 +126,8 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
   const [selectedPhotos, setSelectedPhotos] = useState<SelectedPhoto[]>([]);
 
-  // navigation.navigate(...) from ImagesPickerScreen with selected photos
+  // initialization; modifying existing record
   useEffect(() => {
-    // coming back from ImagePickerScreen
-    // TODO: be sure to test unselecting all
-    if (route?.params?.photos) {
-      setSelectedPhotos(route.params.photos);
-      PhotoManager.addSelected(record.id, route.params.photos);
-
-      return;
-    }
-
-    // initialization; modifying existing record
     if (editMode) {
       PhotoManager.getSelected(record.id).then((photos) => {
         if (photos) {
@@ -146,7 +135,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         }
       });
     }
-  }, [route?.params?.photos, editMode, record.id]);
+  }, [editMode, record.id]);
 
   const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
   const dateString = recordDateFormat(record.date);
@@ -252,10 +241,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       headerRight: () => RecordAction,
     });
 
-    // event handlers need to refresh whenever state or photos update
+    // event handlers need to refresh whenever state, status, or photos update
     // this is safe because navigation header renders independently of screen
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [record, selectedPhotos]);
+  }, [record, status, selectedPhotos]);
 
   const setCoordinates = useCallback(
     ({ latitude, longitude }) =>
@@ -359,7 +348,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           />
 
           <Space />
-          {/* <PhotoSelector navigation={navigation} photos={selectedPhotos} /> */}
           <ExpoPhotoSelector
             recordId={record.id}
             photos={selectedPhotos}
