@@ -1,3 +1,4 @@
+import React from "react";
 import { AlgaeRecord } from "@livingsnow/record";
 import { PhotosResponseV2 } from "@livingsnow/network";
 import { PhotosApi } from "@livingsnow/network";

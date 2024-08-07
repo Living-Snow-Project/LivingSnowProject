@@ -1,3 +1,4 @@
+var _a;
 function TestLogger() {
     return {
         Info() { },
@@ -33,5 +34,7 @@ function DevelopmentLogger() {
   };
 } */
 // TODO: figure out what ProductionLogger should do
-const Logger = process.env.JEST_WORKER_ID !== undefined ? TestLogger() : DevelopmentLogger();
+const Logger = ((_a = process === null || process === void 0 ? void 0 : process.env) === null || _a === void 0 ? void 0 : _a.JEST_WORKER_ID) !== undefined
+    ? TestLogger()
+    : DevelopmentLogger();
 export default Logger;
