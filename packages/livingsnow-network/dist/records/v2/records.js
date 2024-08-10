@@ -57,6 +57,7 @@ const recordsApi = () => {
     const postUrl = baseUrl;
     // TODO: continue with v1 with photos for now, still deciding on what v2 photo endpoint will look like
     const postPhotoUrl = (recordId) => `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
+    const postMicrographUrl = (recordId, filename) => `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records/${recordId}/micrograph?filename=${filename}`;
     return {
         baseUrl,
         getUrl,
@@ -111,6 +112,25 @@ const recordsApi = () => {
             const operation = "postPhoto";
             const uri = { uri: photoUri };
             return fetch(postPhotoUrl(recordId), {
+                method: "POST",
+                headers: {
+                    "Content-Type": "image/jpeg",
+                },
+                body: uri,
+            })
+                .then((response) => response.ok ? Promise.resolve() : Promise.reject(response))
+                .catch((error) => Promise.reject(failedFetch(operation, error)));
+        }),
+        // rejects with an error string or the response object
+        postMicrograph: (recordId, micrographUri) => __awaiter(void 0, void 0, void 0, function* () {
+            const operation = "postMicrograph";
+            // Split the path by both forward and backward slashes
+            const filename = micrographUri.split(/[/\\]/).pop();
+            if (!filename) {
+                return Promise.reject("FileName was not found in specified path.");
+            }
+            const uri = { uri: micrographUri };
+            return fetch(postMicrographUrl(recordId, filename), {
                 method: "POST",
                 headers: {
                     "Content-Type": "image/jpeg",

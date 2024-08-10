@@ -57,6 +57,7 @@ const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
   return newRecord;
 };
 
+// TODO: should this be split out into versions?
 const recordsApi = () => {
   const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records`;
   const getUrl = (page?: string) =>
@@ -67,6 +68,8 @@ const recordsApi = () => {
   // TODO: continue with v1 with photos for now, still deciding on what v2 photo endpoint will look like
   const postPhotoUrl = (recordId: string) =>
     `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
+  const postMicrographUrl = (recordId: string, filename: string) =>
+    `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records/${recordId}/micrograph?filename=${filename}`;
 
   return {
     baseUrl,
@@ -139,6 +142,36 @@ const recordsApi = () => {
       const uri = { uri: photoUri };
 
       return fetch(postPhotoUrl(recordId), {
+        method: "POST",
+        headers: {
+          "Content-Type": "image/jpeg",
+        },
+        body: uri as any,
+      })
+        .then((response) =>
+          response.ok ? Promise.resolve() : Promise.reject(response),
+        )
+        .catch((error) => Promise.reject(failedFetch(operation, error)));
+    },
+
+    // rejects with an error string or the response object
+    // micrographUri is assumed to be the full path to the file on disk
+    postMicrograph: async (
+      recordId: string,
+      micrographUri: string,
+    ): Promise<void> => {
+      const operation = "postMicrograph";
+
+      // Split the path by both forward and backward slashes
+      const filename = micrographUri.split(/[/\\]/).pop();
+
+      if (!filename) {
+        return Promise.reject("FileName was not found in specified path.");
+      }
+
+      const uri = { uri: micrographUri };
+
+      return fetch(postMicrographUrl(recordId, filename), {
         method: "POST",
         headers: {
           "Content-Type": "image/jpeg",

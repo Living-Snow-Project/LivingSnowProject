@@ -1,9 +1,14 @@
 const photosApi = () => {
-    const baseUrl = "https://snowalgaestorage.blob.core.windows.net/photos";
-    const getUrl = (id) => `${baseUrl}/${id}.jpg`;
+    const blobUrl = "https://snowalgaestorage.blob.core.windows.net";
+    const appPhotosUrl = `${blobUrl}/photos`;
+    const getAppPhotoUrl = (id) => `${appPhotosUrl}/${id}.jpg`;
+    const micrographsUrl = `${blobUrl}/micrographs`;
+    const getMicrographUrl = (name) => `${micrographsUrl}/${name}.jpg`;
     return {
-        baseUrl,
-        getUrl,
+        appPhotosUrl,
+        getAppPhotoUrl,
+        micrographsUrl,
+        getMicrographUrl,
     };
 };
 const PhotosApi = photosApi();

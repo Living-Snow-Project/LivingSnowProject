@@ -1,10 +1,10 @@
 import { AlgaeRecord } from "@livingsnow/record/src/types";
 
-import { AppPhotoResponse } from "../../photos/types";
+import { AppPhotoResponse, MicrographResponse } from "../../photos/types";
 
 export type PhotosResponseV2 = {
   appPhotos?: AppPhotoResponse[];
-  micrographs?: any[]; // TODO: what are the actual fields
+  micrographs?: MicrographResponse[];
   dnaSequences?: any[]; // TODO: what are the actual fields
 };
 

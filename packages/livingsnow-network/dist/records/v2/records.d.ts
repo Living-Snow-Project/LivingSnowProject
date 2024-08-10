@@ -9,6 +9,7 @@ declare const RecordsApiV2: {
     get: (page?: string) => Promise<AlgaeRecordResponseV2>;
     getAll: () => Promise<AlgaeRecordResponseV2>;
     postPhoto: (recordId: string, photoUri: string) => Promise<void>;
+    postMicrograph: (recordId: string, micrographUri: string) => Promise<void>;
 };
 export { RecordsApiV2 };
 //# sourceMappingURL=records.d.ts.map

@@ -1,6 +1,8 @@
 declare const PhotosApi: {
-    baseUrl: string;
-    getUrl: (id: string) => string;
+    appPhotosUrl: string;
+    getAppPhotoUrl: (id: string) => string;
+    micrographsUrl: string;
+    getMicrographUrl: (name: string) => string;
 };
 export { PhotosApi };
 //# sourceMappingURL=photos.d.ts.map
