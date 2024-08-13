@@ -1,10 +1,13 @@
 const photosApi = () => {
   const blobUrl = "https://snowalgaestorage.blob.core.windows.net";
   const appPhotosUrl = `${blobUrl}/photos`;
+  // id = Photo.uri => filename without .jpg extension
   const getAppPhotoUrl = (id: string) => `${appPhotosUrl}/${id}.jpg`;
-  // though micrographs are JPG and same as AppPhotos, they are stored in a separate blob container
+  // though micrographs are JPG, they are stored in their own blob container
   const micrographsUrl = `${blobUrl}/micrographs`;
-  const getMicrographUrl = (name: string) => `${micrographsUrl}/${name}.jpg`;
+  // filename = Micrograph.uri => with .jpg extension
+  const getMicrographUrl = (filename: string) =>
+    `${micrographsUrl}/${filename}`;
 
   return {
     appPhotosUrl,

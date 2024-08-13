@@ -49,6 +49,7 @@ const removeEmptyFields = (record) => {
     }
     return newRecord;
 };
+// TODO: should this be split out into versions?
 const recordsApi = () => {
     const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records`;
     const getUrl = (page) => page
@@ -122,6 +123,7 @@ const recordsApi = () => {
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
         // rejects with an error string or the response object
+        // micrographUri is assumed to be the full path to the file on disk
         postMicrograph: (recordId, micrographUri) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "postMicrograph";
             // Split the path by both forward and backward slashes

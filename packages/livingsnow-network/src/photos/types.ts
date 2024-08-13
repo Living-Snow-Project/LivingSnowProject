@@ -8,4 +8,6 @@ export type AppPhotoResponse = Photo & {
 
 // Micrographs are JPG and the same as AppPhotos in this regard.
 // but they will be uploaded by the lab and not via mobile app
-export type MicrographResponse = AppPhotoResponse;
+export type MicrographResponse = AppPhotoResponse & {
+  micrographId: number; // needed for DELETE API
+};
