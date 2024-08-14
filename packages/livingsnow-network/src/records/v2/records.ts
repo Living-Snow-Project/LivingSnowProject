@@ -155,28 +155,21 @@ const recordsApi = () => {
     },
 
     // rejects with an error string or the response object
-    // micrographUri is assumed to be the full path to the file on disk
+    // micrographFile is the result of selecting the file from <input>
     postMicrograph: async (
       recordId: string,
-      micrographUri: string,
+      micrographFile: File,
     ): Promise<void> => {
       const operation = "postMicrograph";
 
-      // Split the path by both forward and backward slashes
-      const filename = micrographUri.split(/[/\\]/).pop();
+      const buffer = await micrographFile.arrayBuffer();
 
-      if (!filename) {
-        return Promise.reject("FileName was not found in specified path.");
-      }
-
-      const uri = { uri: micrographUri };
-
-      return fetch(postMicrographUrl(recordId, filename), {
+      return fetch(postMicrographUrl(recordId, micrographFile.name), {
         method: "POST",
         headers: {
           "Content-Type": "image/jpeg",
         },
-        body: uri as any,
+        body: buffer,
       })
         .then((response) =>
           response.ok ? Promise.resolve() : Promise.reject(response),
