@@ -7,9 +7,7 @@ import "./App.css";
 function App() {
   const [records, setRecords] = useState<JSX.Element[]>([]);
 
-  useEffect(() => {
-    let isMounted = true;
-
+  const fetchRecords = () => {
     RecordsApiV2.getAll()
       .then((response) => {
         const recs = response.data.map((item, index) => (
@@ -20,16 +18,16 @@ function App() {
             key={index}
             item={item}
             photos={item.photos}
+            onUploadSuccess={fetchRecords}
           />
         ));
-
-        isMounted && setRecords(recs);
+        setRecords(recs);
       })
       .catch((error) => console.log(error));
+  };
 
-    return () => {
-      isMounted = false;
-    };
+  useEffect(() => {
+    fetchRecords();
   }, []);
 
   return (

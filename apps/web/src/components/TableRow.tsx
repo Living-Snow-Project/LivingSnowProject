@@ -88,9 +88,10 @@ type TableRowProps = {
   item: AlgaeRecord;
   photos: PhotosResponseV2;
   dnaSequence?: string;
+  onUploadSuccess: () => void;
 };
 
-function TableRow({ style, item, photos, dnaSequence }: TableRowProps) {
+function TableRow({ style, item, photos, dnaSequence, onUploadSuccess }: TableRowProps) {
   const [file, setFile] = useState<File | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,10 +102,10 @@ function TableRow({ style, item, photos, dnaSequence }: TableRowProps) {
 
   const handleUpload = () => {
     if (file) {
-      console.log(file.name)
-      RecordsApiV2.postMicrograph(item.id, file.name)
+      RecordsApiV2.postMicrograph(item.id, file)
         .then(() => {
           console.log("Micrograph uploaded successfully");
+          onUploadSuccess(); 
         })
         .catch((error) => {
           console.error("Error uploading micrograph:", error);

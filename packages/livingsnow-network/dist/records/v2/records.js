@@ -123,13 +123,8 @@ const recordsApi = () => {
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
         // rejects with an error string or the response object
-<<<<<<< HEAD
-        // micrographUri is assumed to be the full path to the file on disk
-        postMicrograph: (recordId, micrographUri) => __awaiter(void 0, void 0, void 0, function* () {
-=======
         // micrographFile is the result of selecting the file from <input>
         postMicrograph: (recordId, micrographFile) => __awaiter(void 0, void 0, void 0, function* () {
->>>>>>> ec434b603b552a78f61af0942bb07363fd906605
             const operation = "postMicrograph";
             const buffer = yield micrographFile.arrayBuffer();
             return fetch(postMicrographUrl(recordId, micrographFile.name), {
