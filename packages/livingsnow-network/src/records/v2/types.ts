@@ -20,3 +20,5 @@ export type AlgaeRecordResponseV2 = {
     next_token: string;
   };
 };
+
+export type { MicrographResponse }
