@@ -16,5 +16,5 @@ export type AlgaeRecordResponseV2 = {
         next_token: string;
     };
 };
-export type { MicrographResponse };
+export { MicrographResponse };
 //# sourceMappingURL=types.d.ts.map

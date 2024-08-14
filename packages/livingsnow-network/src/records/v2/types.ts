@@ -21,4 +21,4 @@ export type AlgaeRecordResponseV2 = {
   };
 };
 
-export type { MicrographResponse }
+export { MicrographResponse };
