@@ -52,7 +52,7 @@ function FormatMicrographs(
   handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
   handleUpload: () => void,
   file: File | null,
-  fileInputRef: React.RefObject<HTMLInputElement>
+  fileInputRef: React.RefObject<HTMLInputElement>,
 ) {
   return (
     <div>
@@ -93,7 +93,13 @@ type TableRowProps = {
   onUploadSuccess: () => void;
 };
 
-function TableRow({ style, item, photos, dnaSequence, onUploadSuccess }: TableRowProps) {
+function TableRow({
+  style,
+  item,
+  photos,
+  dnaSequence,
+  onUploadSuccess,
+}: TableRowProps) {
   const [file, setFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -153,7 +159,7 @@ function TableRow({ style, item, photos, dnaSequence, onUploadSuccess }: TableRo
           handleFileChange,
           handleUpload,
           file,
-          fileInputRef
+          fileInputRef,
         )}
       </td>
     </tr>
