@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { AlgaeRecord } from "@livingsnow/record";
 import { PhotosResponseV2 } from "@livingsnow/network";
 import { PhotosApi, RecordsApiV2 } from "@livingsnow/network";
@@ -51,7 +51,8 @@ function FormatMicrographs(
   micrographs: MicrographResponse[] | undefined,
   handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
   handleUpload: () => void,
-  file: File | null
+  file: File | null,
+  fileInputRef: React.RefObject<HTMLInputElement>
 ) {
   return (
     <div>
@@ -74,6 +75,7 @@ function FormatMicrographs(
         type="file"
         accept="image/jpeg"
         onChange={handleFileChange}
+        ref={fileInputRef}
         style={{ marginTop: "10px" }}
       />
       <button onClick={handleUpload} disabled={!file}>
@@ -93,6 +95,7 @@ type TableRowProps = {
 
 function TableRow({ style, item, photos, dnaSequence, onUploadSuccess }: TableRowProps) {
   const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -105,7 +108,11 @@ function TableRow({ style, item, photos, dnaSequence, onUploadSuccess }: TableRo
       RecordsApiV2.postMicrograph(item.id, file)
         .then(() => {
           console.log("Micrograph uploaded successfully");
-          onUploadSuccess(); 
+          onUploadSuccess();
+          setFile(null);
+          if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+          }
         })
         .catch((error) => {
           console.error("Error uploading micrograph:", error);
@@ -145,7 +152,8 @@ function TableRow({ style, item, photos, dnaSequence, onUploadSuccess }: TableRo
           photos.micrographs,
           handleFileChange,
           handleUpload,
-          file
+          file,
+          fileInputRef
         )}
       </td>
     </tr>
