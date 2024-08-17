@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RecordsApiV2 } from "@livingsnow/network";
 import { TableHeader, TableRow } from "./components/TableRow";
 
@@ -7,7 +7,7 @@ import "./App.css";
 function App() {
   const [records, setRecords] = useState<JSX.Element[]>([]);
 
-  const fetchRecords = () => {
+  const fetchRecords = useCallback(() => {
     RecordsApiV2.getAll()
       .then((response) => {
         const recs = response.data.map((item, index) => (
@@ -24,11 +24,11 @@ function App() {
         setRecords(recs);
       })
       .catch((error) => console.log(error));
-  };
+  }, []);
 
   useEffect(() => {
     fetchRecords();
-  }, []);
+  }, [fetchRecords]);
 
   return (
     <div className="App">

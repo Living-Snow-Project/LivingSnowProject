@@ -126,9 +126,6 @@ function TableRow({
     }
   };
 
-  let name = item.name || `Anonymous`;
-  name = name.concat(item.organization ? ` (${item.organization})` : ``);
-
   const renderColors = () => {
     if (!item.colors) {
       return "";
