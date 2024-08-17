@@ -49,6 +49,7 @@ const removeEmptyFields = (record) => {
     }
     return newRecord;
 };
+// TODO: should this be split out into versions?
 const recordsApi = () => {
     const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records`;
     const getUrl = (page) => page
@@ -57,6 +58,7 @@ const recordsApi = () => {
     const postUrl = baseUrl;
     // TODO: continue with v1 with photos for now, still deciding on what v2 photo endpoint will look like
     const postPhotoUrl = (recordId) => `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
+    const postMicrographUrl = (recordId, filename) => `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records/${recordId}/micrograph?filename=${filename}`;
     return {
         baseUrl,
         getUrl,
@@ -116,6 +118,21 @@ const recordsApi = () => {
                     "Content-Type": "image/jpeg",
                 },
                 body: uri,
+            })
+                .then((response) => response.ok ? Promise.resolve() : Promise.reject(response))
+                .catch((error) => Promise.reject(failedFetch(operation, error)));
+        }),
+        // rejects with an error string or the response object
+        // micrographFile is the result of selecting the file from <input>
+        postMicrograph: (recordId, micrographFile) => __awaiter(void 0, void 0, void 0, function* () {
+            const operation = "postMicrograph";
+            const buffer = yield micrographFile.arrayBuffer();
+            return fetch(postMicrographUrl(recordId, micrographFile.name), {
+                method: "POST",
+                headers: {
+                    "Content-Type": "image/jpeg",
+                },
+                body: buffer,
             })
                 .then((response) => response.ok ? Promise.resolve() : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));

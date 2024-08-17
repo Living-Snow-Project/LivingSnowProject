@@ -1,8 +1,8 @@
 import { AlgaeRecord } from "@livingsnow/record/src/types";
-import { AppPhotoResponse } from "../../photos/types";
+import { AppPhotoResponse, MicrographResponse } from "../../photos/types";
 export type PhotosResponseV2 = {
     appPhotos?: AppPhotoResponse[];
-    micrographs?: any[];
+    micrographs?: MicrographResponse[];
     dnaSequences?: any[];
 };
 export type DataResponseV2 = AlgaeRecord & {
@@ -16,4 +16,5 @@ export type AlgaeRecordResponseV2 = {
         next_token: string;
     };
 };
+export { MicrographResponse };
 //# sourceMappingURL=types.d.ts.map

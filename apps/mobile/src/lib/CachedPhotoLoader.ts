@@ -55,7 +55,7 @@ export async function getCachedPhoto({
     return { uri, state: "Loaded" };
   }
 
-  const remoteFileUri = PhotosApi.getUrl(uri);
+  const remoteFileUri = PhotosApi.getAppPhotoUrl(uri);
 
   // can't save photo to disk, force download
   if (documentDirectory == null) {
