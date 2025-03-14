@@ -51,3 +51,44 @@ export type AlgaeRecord = {
   organization?: string;
   tubeId?: string;
 };
+
+// Record v3 types
+
+// required: user selects one of the following options
+const WhatIsUnderSnowpackArray = [
+  "Vegetation",
+  "Rocks",
+  "Soil",
+  "Pond or tarn",
+  "Lake",
+  "Stream",
+  "Mixed",
+  "I don't know"
+] as const;
+
+export type WhatIsUnderSnowpack = (typeof WhatIsUnderSnowpackArray)[number];
+
+// optional?: user can select more than one of the following options
+const SurfaceImpurityArray = [
+  "Select impurities",
+  "Orange Dust",
+  "Soot",
+  "Soil",
+  "Vegetation",
+  "Pollen",
+  "Evidence of Animals",
+  "Other",
+] as const;
+
+export type SurfaceImpurity = (typeof SurfaceImpurityArray)[number];
+
+export type AlgaeRecordV3 = AlgaeRecord & {
+  isOnGlacier: boolean;
+  // if 'isOnGlacier' is true (yes), this is either Yes or No (string)
+  // if 'isOnGlacier' is false (no), this is a description of what is underneath (WhatIsUnderSnowpack)
+  seeExposedIceOrWhatIsUnderSnowpack: string | WhatIsUnderSnowpack;
+  snowpackDepth: string; // < 10cm, 10cm – 30cm, 31cm - 1m, > 1m, exact measurement, I don’t know
+  bloomDepth: string; // surface, 2cm, 5cm, 10cm, > 10cm, exact measurement
+
+  impurities?: SurfaceImpurity[];
+};
