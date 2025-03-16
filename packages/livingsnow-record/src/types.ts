@@ -83,12 +83,11 @@ const SurfaceImpurityArray = [
 export type SurfaceImpurity = (typeof SurfaceImpurityArray)[number];
 
 export type AlgaeRecordV3 = AlgaeRecord & {
-  isOnGlacier: boolean;
+  isOnGlacier?: boolean;
   // if 'isOnGlacier' is true (yes), this is either Yes or No (string)
   // if 'isOnGlacier' is false (no), this is a description of what is underneath (WhatIsUnderSnowpack)
-  seeExposedIceOrWhatIsUnderSnowpack: string | WhatIsUnderSnowpack;
-  snowpackDepth: string; // < 10cm, 10cm – 30cm, 31cm - 1m, > 1m, exact measurement, I don’t know
-  bloomDepth: string; // surface, 2cm, 5cm, 10cm, > 10cm, exact measurement
-
+  seeExposedIceOrWhatIsUnderSnowpack?: string | WhatIsUnderSnowpack;
+  snowpackDepth?: string; // < 10cm, 10cm – 30cm, 31cm - 1m, > 1m, exact measurement, I don’t know
+  bloomDepth?: string; // surface, 2cm, 5cm, 10cm, > 10cm, exact measurement
   impurities?: SurfaceImpurity[];
 };
