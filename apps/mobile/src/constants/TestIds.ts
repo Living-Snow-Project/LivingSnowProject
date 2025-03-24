@@ -6,6 +6,7 @@ export const TestIds = {
   Selectors: {
     AlgaeColor: "algae-color-selector",
     AlgaeSize: "algae-size-selector",
+    OnOffGlacier: "on-off-glacier-selector",
     Photos: "photo-selector",
     RecordType: "record-type-selector",
   },

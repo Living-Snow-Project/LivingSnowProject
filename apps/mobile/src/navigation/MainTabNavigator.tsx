@@ -17,6 +17,7 @@ import { HeaderButton } from "../components/screens";
 import { RootStackParamList, RootStackNavigationProp } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
 import { TestIds } from "../constants/TestIds";
+import i18n from "../i18n/index"
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -57,23 +58,35 @@ function RootNavigator() {
     <Stack.Navigator
       screenOptions={{ headerShown: true, headerTitleAlign: "center" }}
     >
-      {showFirstRun && (
-        <Stack.Screen name="Welcome" component={FirstRunScreen} />
-      )}
+      <Stack.Screen
+        name="Welcome"
+        component={FirstRunScreen}
+        options={{
+          // The title in the header
+          title: i18n.t('welcomeHeading'),
+        }}
+      />
       <Stack.Screen
         name="Timeline"
         component={TimelineScreen}
         options={({ navigation }: { navigation: RootStackNavigationProp }) => ({
           headerLeft: () => SettingsButton({ navigation }),
           headerRight: () => NewRecordButton({ navigation }),
+          title: i18n.t('timelineHeading'),
         })}
       />
-      <Stack.Screen name="Record" component={RecordScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen
+        name="Record" component={RecordScreen}
+        options={{ title: i18n.t('recordHeading') }}
+      />
+      <Stack.Screen
+        name="Settings" component={SettingsScreen}
+        options={{ title: i18n.t('settingsHeading') }}
+      />
       <Stack.Screen
         name="RecordDetails"
         component={RecordDetailsScreen}
-        options={{ title: "Details" }}
+        options={{ title: i18n.t('detailsHeading') }}
       />
     </Stack.Navigator>
   );

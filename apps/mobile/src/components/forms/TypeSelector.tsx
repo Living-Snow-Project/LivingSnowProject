@@ -11,14 +11,17 @@ import {
   Text,
   WarningOutlineIcon,
   useColorMode,
+  VStack,
 } from "native-base";
-import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
+import { AlgaeColor, AlgaeRecordType, AlgaeSize, BloomDepthThicknessSelection, ExposedIceSelection, OnOffGlacierSelection, SnowpackThicknessSelection, UnderSnowpackSelection } from "@livingsnow/record";
 import {
   getAllAlgaeColorSelectorItems,
   getAllAlgaeSizeSelectorItems,
   getAllRecordTypeSelectorItems,
 } from "../../record";
-import { Labels, Placeholders, TestIds, Validations } from "../../constants";
+import { TextArea } from "../forms/TextArea";
+import { BloomDepthDescription, ExposedIceDescription, Labels, OnOffGlacierDescription, Placeholders, SnowpackThicknessDescription, TestIds, UnderSnowpackDescription, Validations } from "../../constants";
+import { G } from "react-native-svg";
 
 type AlgaeRecordTypeSelectorProps = {
   type: AlgaeRecordType;
@@ -176,4 +179,197 @@ function AlgaeColorSelector({
   );
 }
 
-export { AlgaeRecordTypeSelector, AlgaeSizeSelector, AlgaeColorSelector };
+type GlacierOrNotSelectorProps = {
+  onOrOffGlacier: OnOffGlacierSelection;
+  setOnOrOffGlacier: (val: OnOffGlacierSelection) => void;
+  exposedIce: ExposedIceSelection;
+  setExposedIce: (val: ExposedIceSelection) => void;
+  underSnow: UnderSnowpackSelection;
+  setUnderSnow: (val: UnderSnowpackSelection) => void;
+};
+
+function GlacierOrNotSelector({
+  onOrOffGlacier,
+  setOnOrOffGlacier,
+  exposedIce,
+  setExposedIce,
+  underSnow,
+  setUnderSnow,
+}: GlacierOrNotSelectorProps) {
+  // Logic to show/hide second question
+  const isOnGlacier = onOrOffGlacier === "Yes";
+  const isOffGlacier = onOrOffGlacier === "No";
+
+  return (
+    <>
+      {/* 1) Are you on glacier? */}
+      <FormControl isRequired>
+        <FormControl.Label>{Labels.RecordScreen.OnGlacier}</FormControl.Label>
+        <Radio.Group
+          name="onGlacier"
+          accessibilityLabel="select if on glacier"
+          value={onOrOffGlacier}
+          onChange={(val) => setOnOrOffGlacier(val as OnOffGlacierSelection)}
+        >
+          <HStack>
+            <Box mr="3">
+              <Radio value={OnOffGlacierSelection.YES}>{OnOffGlacierDescription.Yes}</Radio>
+            </Box>
+            <Box>
+              <Radio value={OnOffGlacierSelection.NO}>{OnOffGlacierDescription.No}</Radio>
+            </Box>
+          </HStack>
+        </Radio.Group>
+      </FormControl>
+
+      {/* 2) If On => see exposed ice? */}
+      {isOnGlacier && (
+        <FormControl isRequired mt="3">
+          <FormControl.Label>
+            {Labels.RecordScreen.ExposedIce}
+          </FormControl.Label>
+          <Radio.Group
+            name="exposedIce"
+            accessibilityLabel="exposed ice question"
+            defaultValue={exposedIce}
+            onChange={setExposedIce}
+          >
+            <HStack>
+              <Box mr="3">
+                <Radio value={ExposedIceSelection.YES}>{ExposedIceDescription.Yes}</Radio>
+              </Box>
+              <Box>
+                <Radio value={ExposedIceSelection.NO}>{ExposedIceDescription.No}</Radio>
+              </Box>
+            </HStack>
+          </Radio.Group>
+        </FormControl>
+      )}
+
+      {/* 2) If Off => what is under the snowpack? */}
+      {isOffGlacier && (
+        <FormControl isRequired mt="3">
+          <FormControl.Label>
+            {Labels.RecordScreen.UnderSnowpack}
+          </FormControl.Label>
+          <Select
+            size="xl"
+            placeholder={UnderSnowpackDescription.Select}
+            selectedValue={underSnow}
+            onValueChange={val => setUnderSnow(val as UnderSnowpackSelection)}
+            _selectedItem={{ endIcon: <CheckIcon size="5" /> }}
+          >
+            <Select.Item label={UnderSnowpackDescription.Vegetation} value={UnderSnowpackSelection.VEGETATION} />
+            <Select.Item label={UnderSnowpackDescription.Rocks} value={UnderSnowpackSelection.ROCKS} />
+            <Select.Item label={UnderSnowpackDescription.Soil} value={UnderSnowpackSelection.SOIL} />
+            <Select.Item label={UnderSnowpackDescription.Lake} value={UnderSnowpackSelection.LAKE} />
+            <Select.Item label={UnderSnowpackDescription.Stream} value={UnderSnowpackSelection.STREAM} />
+            <Select.Item label={UnderSnowpackDescription.Mixed} value={UnderSnowpackSelection.MIXED} />
+            <Select.Item label={UnderSnowpackDescription.IdontKnow} value={UnderSnowpackSelection.I_DONT_KNOW} />
+          </Select>
+        </FormControl>
+      )}
+    </>
+  );
+}
+
+type SnowpackThicknessSelectorProps = {
+  thickness: SnowpackThicknessSelection;
+  setThickness: (val: SnowpackThicknessSelection) => void;
+};
+
+function SnowpackThicknessSelector({
+  thickness,
+  setThickness,
+}: SnowpackThicknessSelectorProps) {
+  return (
+    <FormControl isRequired mt="3">
+      <FormControl.Label>{Labels.RecordScreen.SnowpackThickness}</FormControl.Label>
+      <Radio.Group
+        name="snowpackThickness"
+        accessibilityLabel="select snowpack thickness"
+        value={thickness}
+        onChange={val => setThickness(val as SnowpackThicknessSelection)}
+      >
+        <VStack>
+          <HStack>
+            <Box mr="3" mt="1">
+              <Radio value={SnowpackThicknessSelection.LESS_THAN_10_CM}>{SnowpackThicknessDescription.LessThan10Cm}</Radio>
+            </Box>
+            <Box mr="3" mt="1">
+              <Radio value={SnowpackThicknessSelection.BETWEEN_10_CM_30_CM}>{SnowpackThicknessDescription.Between10Cm30Cm}</Radio>
+            </Box>
+          </HStack>
+          <HStack>
+            <Box mr="3" mt="1">
+              <Radio value={SnowpackThicknessSelection.THIRTY_CM_TO_1_M}>{SnowpackThicknessDescription.ThirtyCm1M}</Radio>
+            </Box>
+            <Box mr="3" mt="1">
+              <Radio value={SnowpackThicknessSelection.GREATER_THAN_1_M}>{SnowpackThicknessDescription.GreaterThan1M}</Radio>
+            </Box>
+          </HStack>
+          <Box mr="3" mt="1">
+            <Radio value={SnowpackThicknessSelection.I_DONT_KNOW}>{SnowpackThicknessDescription.IdontKnow}</Radio>
+          </Box>
+        </VStack>
+      </Radio.Group>
+    </FormControl>
+  );
+}
+
+type BloomDepthSelectorProps = {
+  bloomDepth: BloomDepthThicknessSelection;
+  setBloomDepth: (val: BloomDepthThicknessSelection) => void;
+  // otherDescription: string;
+  // setOtherDescription: (val: string) => void;
+};
+
+function BloomDepthSelector({
+  bloomDepth,
+  setBloomDepth,
+  // otherDescription: string;
+  // setOtherDescription: (val: string) => void;
+}: BloomDepthSelectorProps) {
+  // if user picks "other", show a text input
+  const handleBloomDepthChange = (val: string) => {
+    setBloomDepth(val as BloomDepthThicknessSelection);
+    // if (val !== "other") {
+    //   setOtherDescription("");
+    // }
+  };
+
+  return (
+    <FormControl isRequired mt="3">
+      <FormControl.Label>{Labels.RecordScreen.BloomDepth}</FormControl.Label>
+      <Select
+        size="xl"
+        placeholder={BloomDepthDescription.Select}
+        selectedValue={bloomDepth}
+        onValueChange={handleBloomDepthChange}
+        _selectedItem={{ endIcon: <CheckIcon size="5" /> }}
+      >
+        <Select.Item label={BloomDepthDescription.Surface} value={BloomDepthThicknessSelection.SURFACE} />
+        <Select.Item label={BloomDepthDescription.TwoCm} value={BloomDepthThicknessSelection.TWO_CM} />
+        <Select.Item label={BloomDepthDescription.FiveCm} value={BloomDepthThicknessSelection.FIVE_CM} />
+        <Select.Item label={BloomDepthDescription.TenCm} value={BloomDepthThicknessSelection.TEN_CM} />
+        <Select.Item label={BloomDepthDescription.GreaterThan10Cm} value={BloomDepthThicknessSelection.GREATER_THAN_TEN_CM} />
+        <Select.Item label={BloomDepthDescription.Other} value={BloomDepthThicknessSelection.OTHER} />
+      </Select>
+      {/* 
+      {bloomDepth === "other" && (
+        <FormControl mt="3" isRequired>
+          <FormControl.Label>Please describe:</FormControl.Label>
+          <TextArea
+            blurOnSubmit
+            label="Other"
+            placeholder="Describe approximate bloom depth"
+            value={otherDescription}
+            onChangeText={setOtherDescription}
+          />
+        </FormControl>
+      )} */}
+    </FormControl>
+  );
+}
+
+export { AlgaeRecordTypeSelector, AlgaeSizeSelector, AlgaeColorSelector, GlacierOrNotSelector, SnowpackThicknessSelector, BloomDepthSelector };

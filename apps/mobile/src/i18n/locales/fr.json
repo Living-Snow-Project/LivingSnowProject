@@ -1,0 +1,201 @@
+{
+  "welcomeHeading": "Bienvenue",
+  "timelineHeading": "Chronologie",
+  "recordHeading": "Enregistrement",
+  "settingsHeading": "Paramètres",
+  "detailsHeading": "Détails",
+  "placeholders": {
+    "gps": {
+      "acquiringLocation": "Recherche du signal GPS",
+      "enterCoordinates": "ex. 12.34567, -123.45678",
+      "noPermissions": "Vérifiez les autorisations de localisation dans les Paramètres. Entrez les coordonnées manuellement.",
+      "noLocation": "Impossible de déterminer l'emplacement. Entrez les coordonnées manuellement."
+    },
+    "settings": {
+      "username": "Entrez votre nom",
+      "organization": "Entrez le nom de votre organisation (si applicable)"
+    },
+    "recordScreen": {
+      "locationDescription": "ex. Lac Bleu, North Cascades, WA",
+      "notes": "ex. algues rouges foncés sur glace glace",
+      "other": "(zone pour décrire)",
+      "size": "Choisissez une taille",
+      "tubeId": "Laissez vide si le tube n’a pas d’identifiant",
+      "tubeIdDisabled": "Désactivé - utilisé uniquement pour les échantillons"
+    }
+  },
+  "labels": {
+    "date": "Date",
+    "defaultName": "Scientifique Communautaire",
+    "delete": "Supprimer",
+    "livingSnowProject": "Living Snow Project",
+    "name": "Nom",
+    "organization": "Organisation",
+    "photos": "Photos",
+    "recordType": "Type",
+    "slogan": "Vous voyez de la neige red? Partagez votre observation!",
+    "tubeId": "ID du tube",
+
+    "firstRunScreen": {
+      "startReporting": "Commencer à observer",
+      "usage": "Saisissez votre nom ou restez anonyme. Vous pouvez mettre à jour votre profil à tout moment dans l'onglet Paramètres."
+    },
+
+    "recordScreen": {
+      "bloomDepth": "Quelle est la profondeur du bloom (estimation la plus proche)?",
+      "colors": "Couleurs (sélectionnez toutes celles qui s'appliquent)",
+      "exposedIce": "Pouvez-vous voir de la glace (surface du glacier) exposée près de vous?",
+      "gps": "Coordonnées GPS (latitude, longitude)",
+      "locationDescription": "Description du lieu (limite de 255 caractères)",
+      "onGlacier": "Êtes-vous sur un glacier?",
+      "notes": "Notes (limite de 255 caractères)",
+      "photos": "Sélectionnez des photos (limite de 4)",
+      "recordType": "Déclarez-vous une observation ou effectuez-vous un prélèvement ?",
+      "size": "Estimation de la taille du bloom",
+      "snowpackThickness": "Quelle est l’épaisseur du manteau neigeux?",
+      "underSnowpack": "Qu’y a-t-il sous le manteau neigeux?"
+    },
+
+    "recordDetailsScreen": {
+      "colors": "Couleurs",
+      "dataSheet": "Fiche de données",
+      "gps": "Coordonnées",
+      "latitude": "Latitude",
+      "locationDescription": "Description du lieu",
+      "longitude": "Longitude",
+      "notes": "Notes",
+      "size": "Taille"
+    },
+    "timelineScreen": {
+      "downloadedRecords": "Téléchargés",
+      "exampleRecords": "Exemple d’enregistrement",
+      "pendingRecords": "En attente"
+    },
+    "settingsScreen": {
+      "darkMode": "Sombre",
+      "manualCoordinates": "Avertissement pour coordonnées manuelles"
+    },
+    "statusBar": {
+      "noConnection": "Pas de connexion Internet"
+    },
+    "modal": {
+      "cancel": "Annuler",
+      "confirm": "Confirmer",
+      "diskUsage": {
+        "header": "Confirmer la suppression",
+        "body": "Voulez-vous vraiment supprimer les photos enregistrées ?"
+      },
+      "gpsManualEntry": {
+        "header": "Saisir manuellement les coordonnées ?",
+        "body": "Certains utilisateurs saisissent manuellement les coordonnées s’ils ne peuvent pas obtenir de signal GPS ou après être rentrés chez eux.\n\nCe message peut être désactivé dans les Paramètres."
+      }
+    }
+  },
+  "notifications": {
+    "uploadSuccess": {
+      "title": "Enregistrement envoyé",
+      "message": "Merci pour votre envoi."
+    },
+    "uploadRecordFailed": {
+      "title": "Enregistrement sauvegardé",
+      "message": "Nous le téléchargerons plus tard."
+    },
+    "uploadPhotoFailed": {
+      "title": "Photo sauvegardée",
+      "message": "Nous la téléchargerons plus tard."
+    },
+    "uploadPhotosFailed": {
+      "title": "Photos sauvegardées",
+      "message": "Nous les téléchargerons plus tard."
+    },
+    "updateRecordSuccess": {
+      "title": "Enregistrement mis à jour"
+    },
+    "updateRecordFailed": {
+      "title": "Échec de la mise à jour",
+      "message": "Cela peut se produire lorsque la connectivité Internet est rétablie pendant la mise à jour de l’enregistrement."
+    },
+    "backgroundTasksNotAllowed": {
+      "title": "Téléversement en arrière-plan non activé",
+      "message": "Veuillez activer l’actualisation en arrière-plan si vous souhaitez que les enregistrements stockés soient téléversés en arrière-plan."
+    }
+  },
+  "validations": {
+    "invalidCoordinates": "Les coordonnées doivent être au format \"lat, long\". ex. 12.34567, -123.45678",
+    "invalidAlgaeSize": "Une taille doit être spécifiée",
+    "invalidAlgaeColors": "Au moins une couleur doit être spécifiée"
+  },
+  "errors": {
+    "recordNotFound": "Enregistrement à mettre à jour introuvable"
+  },
+  "recordDescription": {
+    "sample": "Échantillonnage",
+    "sighting": "Observation",
+    "undefined": "Indéfini"
+  },
+  "algaeSizeDescription": {
+    "select": "Choisissez une taille",
+    "fist": "Poing",
+    "dinnerPlate": "Assiette",
+    "door": "Porte",
+    "car": "Voiture",
+    "bus": "Bus",
+    "playground": "Aire de jeux",
+    "sportsField": "Terrain de sport",
+    "other": "Autre (décrivez dans les notes)"
+  },
+  "algaeColorDescription": {
+    "select": "Choisissez une couleur",
+    "red": "Rouge",
+    "pink": "Rose",
+    "grey": "Gris",
+    "green": "Vert",
+    "orange": "Orange",
+    "yellow": "Jaune",
+    "other": "Autre (décrivez dans les notes)"
+  },
+  "bloomDepthDescription": {
+    "select": "Sélectionnez une profondeur",
+    "surface": "seulement superficielle",
+    "twoCm": "2 cm",
+    "fiveCm": "5 cm",
+    "tenCm": "10 cm",
+    "greaterThan10Cm": "plus de 10 cm",
+    "other": "Autre (décrivez dans les notes)"
+  },
+  "exposedIceDescription": {
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "onOffGlacierDescription": {
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "snowpackThicknessDescription": {
+    "select": "Sélectionnez une épaisseur",
+    "lessThan10Cm": "Moins de 10 cm",
+    "between10Cm30Cm": "Entre 10 cm et 30 cm",
+    "thirtyCm1M": "Entre 30 cm et 1 m",
+    "greaterThan1M": "Plus de 1 m",
+    "iDontKnow": "Je ne sais pas"
+  },
+  "underSnowpackDescription": {
+    "select": "Sélectionnez une description",
+    "vegetation": "Végétation",
+    "rocks": "Roches",
+    "soil": "Sol",
+    "lake": "Lac",
+    "stream": "Ruisseau",
+    "mixed": "Mixte",
+    "iDontKnow": "Je ne sais pas"
+  },
+  "backgroundTasks": {
+    "uploadData": "tâche-de-téléversement-en-arrière-plan"
+  },
+  "headers": {
+    "diskUsage": "Utilisation du disque",
+    "profile": "Profil",
+    "prompts": "Invites",
+    "theme": "Thème"
+  }
+}

@@ -1,3 +1,4 @@
+import { AlgaeSize, BloomDepthThicknessSelection, ExposedIceSelection, OnOffGlacierSelection, SnowpackThicknessSelection, UnderSnowpackSelection } from "./types";
 const randomInteger = () => Math.floor(Math.random() * 1000000);
 export const makeExamplePhoto = ({ isLocal = false, uri = `${randomInteger()}`, width = randomInteger(), height = randomInteger(), } = {}) => ({
     uri: isLocal ? `file://${uri}` : uri,
@@ -10,15 +11,20 @@ export const makeExampleRecord = (type, id = "1234") => ({
     id,
     type,
     name: "test name",
+    bloomDepth: BloomDepthThicknessSelection.OTHER,
     date: new Date("2021-09-16T00:00:00"),
     organization: "test org",
     latitude: -123.456,
     longitude: 96.96,
-    size: "Fist",
+    size: AlgaeSize.FIST,
     colors: ["Red", "Green"],
     tubeId: isSample(type) ? "LAB-1337" : undefined,
     locationDescription: "test location",
     notes: "test notes",
+    onOffGlacier: OnOffGlacierSelection.YES,
+    snowpackThickness: SnowpackThicknessSelection.LESS_THAN_10_CM,
+    underSnowpack: UnderSnowpackSelection.SELECT_AN_OPTION,
+    exposedIce: ExposedIceSelection.YES
 });
 export function jsonToRecord(json) {
     const recordReviver = (key, value) => {

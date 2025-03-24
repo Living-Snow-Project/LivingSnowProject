@@ -7,14 +7,14 @@ type AlgaeSizeSelectorItem = {
 };
 
 const algaeSizeSelectorItems: AlgaeSizeSelectorItem[] = [
-  { value: "Fist", label: AlgaeSizeDescription.Fist },
-  { value: "Shoe Box", label: AlgaeSizeDescription.ShoeBox },
-  { value: "Coffee Table", label: AlgaeSizeDescription.CoffeeTable },
-  { value: "Car", label: AlgaeSizeDescription.Car },
-  { value: "Bus", label: AlgaeSizeDescription.Bus },
-  { value: "Playground", label: AlgaeSizeDescription.Playground },
-  { value: "Sports Field", label: AlgaeSizeDescription.SportsField },
-  { value: "Other", label: AlgaeSizeDescription.Other },
+  { value: AlgaeSize.FIST, label: AlgaeSizeDescription.Fist },
+  { value: AlgaeSize.DINNER_PLATE, label: AlgaeSizeDescription.ShoeBox },
+  { value: AlgaeSize.DOOR, label: AlgaeSizeDescription.CoffeeTable },
+  { value: AlgaeSize.CAR, label: AlgaeSizeDescription.Car },
+  { value: AlgaeSize.BUS, label: AlgaeSizeDescription.Bus },
+  { value: AlgaeSize.PLAYGROUND, label: AlgaeSizeDescription.Playground },
+  { value: AlgaeSize.SPORTS_FIELD, label: AlgaeSizeDescription.SportsField },
+  { value: AlgaeSize.OTHER, label: AlgaeSizeDescription.Other },
 ];
 
 const getAllAlgaeSizeSelectorItems = (): AlgaeSizeSelectorItem[] =>
