@@ -17,7 +17,7 @@
     },
     "recordScreen": {
       "locationDescription": "ex. Lac Bleu, North Cascades, WA",
-      "notes": "ex. algues rouges foncés sur glace glace",
+      "notes": "ex. algues rouges foncés sur glace",
       "other": "(zone pour décrire)",
       "size": "Choisissez une taille",
       "tubeId": "Laissez vide si le tube n’a pas d’identifiant",
@@ -27,13 +27,13 @@
   "labels": {
     "date": "Date",
     "defaultName": "Scientifique Communautaire",
-    "delete": "Supprimer",
+    "empty": "Vide",
     "livingSnowProject": "Living Snow Project",
     "name": "Nom",
     "organization": "Organisation",
     "photos": "Photos",
     "recordType": "Type",
-    "slogan": "Vous voyez de la neige red? Partagez votre observation!",
+    "slogan": "Vous voyez de la neige rouge? Partagez votre observation!",
     "tubeId": "ID du tube",
 
     "firstRunScreen": {
@@ -137,10 +137,10 @@
     "select": "Choisissez une taille",
     "fist": "Poing",
     "dinnerPlate": "Assiette",
-    "door": "Porte",
+    "bicycle": "Vélo",
     "car": "Voiture",
     "bus": "Bus",
-    "playground": "Aire de jeux",
+    "house": "Petite ou moyenne maison",
     "sportsField": "Terrain de sport",
     "other": "Autre (décrivez dans les notes)"
   },

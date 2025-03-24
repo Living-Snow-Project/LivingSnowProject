@@ -9,10 +9,10 @@ export enum AlgaeSize {
   SELECT_A_SIZE = "Select a size",
   FIST = "Fist",
   DINNER_PLATE = "Dinner Plate",
-  DOOR = "Door",
+  BICYCLE = "Bicycle",
   CAR = "Car",
   BUS = "Bus",
-  PLAYGROUND = "Playground",
+  HOUSE = "Small or Medium-Sized House",
   SPORTS_FIELD = "Sports Field",
   OTHER = "Other",
 }

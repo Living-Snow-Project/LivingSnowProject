@@ -27,7 +27,7 @@
   "labels": {
     "date": "Data",
     "defaultName": "Scienziato Comunitario",
-    "delete": "Elimina",
+    "empty": "Vuoto",
     "livingSnowProject": "Progetto Neve Viva",
     "name": "Nome",
     "organization": "Organizzazione",
@@ -137,10 +137,10 @@
     "select": "Seleziona una dimensione",
     "fist": "Pugno",
     "dinnerPlate": "Piatto da cena",
-    "door": "Porta",
+    "bicycle": "Bicicletta",
     "car": "Auto",
     "bus": "Autobus",
-    "playground": "Area giochi",
+    "house": "Casa piccola o media",
     "sportsField": "Campo sportivo",
     "other": "Altro (descrivere nelle note)"
   },

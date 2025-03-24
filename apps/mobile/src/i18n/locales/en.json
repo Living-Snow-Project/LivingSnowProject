@@ -27,7 +27,7 @@
   "labels": {
     "date": "Date",
     "defaultName": "Community Scientist",
-    "delete": "Delete",
+    "empty": "Empty",
     "livingSnowProject": "Living Snow Project",
     "name": "Name",
     "organization": "Organization",
@@ -137,10 +137,10 @@
     "select": "Select a size",
     "fist": "Fist",
     "dinnerPlate": "Dinner Plate",
-    "door": "Door",
+    "bicycle": "Bicycle",
     "car": "Car",
     "bus": "Bus",
-    "playground": "Playground",
+    "house": "Small or medium-sized house",
     "sportsField": "Sports Field",
     "other": "Other (describe in notes)"
   },
@@ -193,7 +193,7 @@
     "uploadData": "background-upload-task"
   },
   "headers": {
-    "diskUsage": "Disk Usage",
+    "diskUsage": "App Storage",
     "profile": "Profile",
     "prompts": "Prompts",
     "theme": "Theme"

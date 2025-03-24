@@ -27,7 +27,7 @@
   "labels": {
     "date": "Dato",
     "defaultName": "Frivillig forsker",
-    "delete": "Slett",
+    "empty": "Tom",
     "livingSnowProject": "Prosjektet Levende Snø",
     "name": "Navn",
     "organization": "Organisasjon",
@@ -137,10 +137,10 @@
     "select": "Velg en størrelse",
     "fist": "Knyttneve",
     "dinnerPlate": "Desserttallerken",
-    "door": "Dør",
+    "bicycle": "Sykkel",
     "car": "Bil",
     "bus": "Buss",
-    "playground": "Lekeplass",
+    "house": "Liten eller mellomstor bolig",
     "sportsField": "Idrettsbane",
     "other": "Annet (beskriv i notater)"
   },

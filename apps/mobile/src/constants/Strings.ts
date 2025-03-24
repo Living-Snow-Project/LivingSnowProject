@@ -52,8 +52,8 @@ export const Labels = {
   get DefaultName(): string {
     return i18n.t("labels.defaultName");
   },
-  get Delete(): string {
-    return i18n.t("labels.delete");
+  get Empty(): string {
+    return i18n.t("labels.empty");
   },
   get LivingSnowProject(): string {
     return i18n.t("labels.livingSnowProject");
@@ -297,8 +297,8 @@ export const AlgaeSizeDescription = {
   get DinnerPlate(): string {
     return i18n.t("algaeSizeDescription.dinnerPlate");
   },
-  get Door(): string {
-    return i18n.t("algaeSizeDescription.door");
+  get Bicycle(): string {
+    return i18n.t("algaeSizeDescription.bicycle");
   },
   get Car(): string {
     return i18n.t("algaeSizeDescription.car");
@@ -306,8 +306,8 @@ export const AlgaeSizeDescription = {
   get Bus(): string {
     return i18n.t("algaeSizeDescription.bus");
   },
-  get Playground(): string {
-    return i18n.t("algaeSizeDescription.playground");
+  get House(): string {
+    return i18n.t("algaeSizeDescription.house");
   },
   get SportsField(): string {
     return i18n.t("algaeSizeDescription.sportsField");

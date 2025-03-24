@@ -27,7 +27,7 @@
   "labels": {
     "date": "日付",
     "defaultName": "個人",
-    "delete": "消去",
+    "empty": "空",
     "livingSnowProject": "リビングスノープロジェクト",
     "name": "名前",
     "organization": "所属",
@@ -137,10 +137,10 @@
     "select": "色づいた雪の範囲に近いものを選んでください",
     "fist": "手のこぶし",
     "dinnerPlate": "ディナープレート",
-    "door": "ドア",
+    "bicycle": "自転車",
     "car": "車",
     "bus": "バス",
-    "playground": "遊び場",
+    "house": "小さなまたは中くらいの家",
     "sportsField": "スポーツフィールド",
     "other": "他のサイズ(追記に記載してください)"
   },

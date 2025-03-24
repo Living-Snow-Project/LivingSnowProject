@@ -113,7 +113,7 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
         onConfirm={deletePhotos}
       />
       <Button height="8" py="1" onPress={() => setIsOpen(true)}>
-        {Labels.Delete}
+        {Labels.Empty}
       </Button>
     </>
   );

@@ -27,7 +27,7 @@
     "labels": {
       "date": "Datum",
       "defaultName": "Freiwilliger Wissenschaftler",
-      "delete": "Löschen",
+      "empty": "Leer",
       "livingSnowProject": "Projekt Lebender Schnee",
       "name": "Name",
       "organization": "Organisation",
@@ -137,10 +137,10 @@
       "select": "Wählen Sie eine Größe",
       "fist": "Faust",
       "dinnerPlate": "Essteller",
-      "door": "Tür",
+      "bicycle": "Fahrrad",
       "car": "Auto",
       "bus": "Bus",
-      "playground": "Spielplatz",
+      "house": "Kleines oder mittelgroßes Haus",
       "sportsField": "Sportplatz",
       "other": "Andere (beschreiben Sie dies in den Notizen)"
     },
