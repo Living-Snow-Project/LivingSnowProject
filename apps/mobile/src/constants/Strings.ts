@@ -377,6 +377,30 @@ export const ExposedIceDescription = {
   },
 };
 
+export const ImpuritiesDescription = {
+  get OrangeDust(): string {
+    return i18n.t("impuritiesDescription.orangeDust");
+  },
+  get Soot(): string {
+    return i18n.t("impuritiesDescription.soot");
+  },
+  get Soil(): string {
+    return i18n.t("impuritiesDescription.soil");
+  },
+  get Vegetation(): string {
+    return i18n.t("impuritiesDescription.vegetation");
+  },
+  get Pollen(): string {
+    return i18n.t("impuritiesDescription.pollen");
+  },
+  get EvidenceOfAnimals(): string {
+    return i18n.t("impuritiesDescription.evidenceOfAnimals");
+  },
+  get Other(): string {
+    return i18n.t("impuritiesDescription.other");
+  },
+};
+
 export const OnOffGlacierDescription = {
   get Yes(): string {
     return i18n.t("onOffGlacierDescription.yes");

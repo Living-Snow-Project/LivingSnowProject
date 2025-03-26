@@ -13,6 +13,7 @@ export const makeExampleRecord = (type, id = "1234") => ({
     name: "test name",
     bloomDepth: BloomDepthThicknessSelection.OTHER,
     date: new Date("2021-09-16T00:00:00"),
+    impurities: [],
     organization: "test org",
     latitude: -123.456,
     longitude: 96.96,

@@ -167,6 +167,15 @@
     "yes": "Yes",
     "no": "No"
   },
+  "impuritiesDescription": {
+    "orangeDust": "Orange Dust",
+    "soot": "Soot",
+    "soil": "Soil",
+    "vegetation": "Vegetation",
+    "pollen": "Pollen",
+    "evidenceOfAnimals": "Evidence of Animals",
+    "other": "Other (describe in notes)"
+  },
   "onOffGlacierDescription": {
     "yes": "Yes",
     "no": "No"

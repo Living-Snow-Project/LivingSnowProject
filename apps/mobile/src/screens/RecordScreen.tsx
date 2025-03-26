@@ -15,6 +15,8 @@ import {
   SnowpackThicknessSelection,
   UnderSnowpackSelection,
   ExposedIceSelection,
+  AlgaeSize,
+  ImpuritiesSelection,
 } from "@livingsnow/record";
 import { SelectedPhoto } from "../../types";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
@@ -35,6 +37,7 @@ import {
   GlacierOrNotSelector,
   SnowpackThicknessSelector,
   BloomDepthSelector,
+  ImpuritiesSelector,
 } from "../components/forms";
 import { getAppSettings } from "../../AppSettings";
 import { Labels, Notifications, Placeholders, TestIds } from "../constants";
@@ -88,12 +91,13 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     bloomDepth: BloomDepthThicknessSelection.SELECT_A_DEPTH,
     date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
     exposedIce: ExposedIceSelection.NO,
+    impurities: [ImpuritiesSelection.ORANGE_DUST],
     latitude: 0,
     longitude: 0,
     onOffGlacier: OnOffGlacierSelection.NO,
     snowpackThickness: SnowpackThicknessSelection.SELECT_A_THICKNESS,
     underSnowpack: UnderSnowpackSelection.SELECT_AN_OPTION,
-    size: "Select a size",
+    size: AlgaeSize.SELECT_A_SIZE,
     colors: ["Select colors"],
     locationDescription: "",
   };
@@ -331,6 +335,14 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             // setOtherDescription={(newDescription) => {
             //   setRecord((prev) => ({ ...prev, bloomDepth: "Other", bloomDepthDescription: newDescription }));
             // }}
+          />
+
+          <Space />
+          <ImpuritiesSelector
+            impuritiesSelected={record.impurities}
+            onChangeImpurities={(impurities) =>
+              setRecord((prev) => ({ ...prev, impurities }))
+            }
           />
 
           <Space />

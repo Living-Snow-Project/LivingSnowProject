@@ -13,14 +13,14 @@ import {
   useColorMode,
   VStack,
 } from "native-base";
-import { AlgaeColor, AlgaeRecordType, AlgaeSize, BloomDepthThicknessSelection, ExposedIceSelection, OnOffGlacierSelection, SnowpackThicknessSelection, UnderSnowpackSelection } from "@livingsnow/record";
+import { AlgaeColor, AlgaeRecordType, AlgaeSize, BloomDepthThicknessSelection, ExposedIceSelection, ImpuritiesSelection, OnOffGlacierSelection, SnowpackThicknessSelection, UnderSnowpackSelection } from "@livingsnow/record";
 import {
   getAllAlgaeColorSelectorItems,
   getAllAlgaeSizeSelectorItems,
   getAllRecordTypeSelectorItems,
 } from "../../record";
 import { TextArea } from "../forms/TextArea";
-import { BloomDepthDescription, ExposedIceDescription, Labels, OnOffGlacierDescription, Placeholders, SnowpackThicknessDescription, TestIds, UnderSnowpackDescription, Validations } from "../../constants";
+import { BloomDepthDescription, ExposedIceDescription, ImpuritiesDescription, Labels, OnOffGlacierDescription, Placeholders, SnowpackThicknessDescription, TestIds, UnderSnowpackDescription, Validations } from "../../constants";
 import { G } from "react-native-svg";
 
 type AlgaeRecordTypeSelectorProps = {
@@ -270,6 +270,115 @@ function GlacierOrNotSelector({
         </FormControl>
       )}
     </>
+  );
+}
+
+export function getAllImpuritiesSelectorItems(): { value: ImpuritiesSelection; label: string }[] {
+  return [
+    {
+      value: ImpuritiesSelection.ORANGE_DUST,
+      label: ImpuritiesDescription.OrangeDust,
+    },
+    {
+      value: ImpuritiesSelection.SOOT,
+      label: ImpuritiesDescription.Soot,
+    },
+    {
+      value: ImpuritiesSelection.SOIL,
+      label: ImpuritiesDescription.Soil,
+    },
+    {
+      value: ImpuritiesSelection.VEGETATION,
+      label: ImpuritiesDescription.Vegetation,
+    },
+    {
+      value: ImpuritiesSelection.POLLEN,
+      label: ImpuritiesDescription.Pollen,
+    },
+    {
+      value: ImpuritiesSelection.EVIDENCE_OF_ANIMALS,
+      label: ImpuritiesDescription.EvidenceOfAnimals,
+    },
+    {
+      value: ImpuritiesSelection.OTHER,
+      label: ImpuritiesDescription.Other,
+    },
+  ];
+}
+
+
+type ImpuritiesSelectorProps = {
+  /** Currently selected impurities. */
+  impuritiesSelected: ImpuritiesSelection[];
+  /** Callback when user toggles a checkbox. We return the updated array of selected values. */
+  onChangeImpurities: (impuritiesSelected: ImpuritiesSelection[]) => void;
+};
+
+export function ImpuritiesSelector({
+  impuritiesSelected,
+  onChangeImpurities,
+}: ImpuritiesSelectorProps) {
+  const { colorMode } = useColorMode();
+
+  // local state to force re-renders on each check/uncheck
+  const [, setImpuritiesInternal] = useState<ImpuritiesSelection[]>([
+    ...impuritiesSelected,
+  ]);
+
+  /** Renders each checkbox item. */
+  const renderImpurities = () =>
+    getAllImpuritiesSelectorItems().map((item) => {
+      const isChecked = impuritiesSelected.includes(item.value);
+
+      // On change of a single checkbox
+      const onChange = (checked: boolean) => {
+        setImpuritiesInternal((prev) => {
+          const updated = [...prev];
+          // optionally remove any placeholder if needed
+          // e.g., const placeholderIndex = updated.indexOf("Select impurities");
+
+          if (checked) {
+            // add if not already
+            if (!updated.includes(item.value)) {
+              updated.push(item.value);
+            }
+          } else {
+            // remove if present
+            const idx = updated.indexOf(item.value);
+            if (idx !== -1) {
+              updated.splice(idx, 1);
+            }
+          }
+
+          onChangeImpurities(updated);
+          return updated;
+        });
+      };
+
+      return (
+        <Box key={item.value} mr="2" mt="1">
+          <Checkbox
+            value={item.value}
+            isChecked={isChecked}
+            onChange={onChange}
+          >
+            <Text fontWeight="normal">{item.label}</Text>
+          </Checkbox>
+        </Box>
+      );
+    });
+
+  return (
+    <FormControl isRequired >
+      <FormControl.Label>Impurities (check all that apply)</FormControl.Label>
+      <Flex mt="-1" flexDirection="row" wrap="wrap">
+        {renderImpurities()}
+      </Flex>
+      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="sm" />}>
+        {/* Replace with your own validation message if needed */}
+        Please select at least one impurity if relevant.
+      </FormControl.ErrorMessage>
+    </FormControl>
   );
 }
 

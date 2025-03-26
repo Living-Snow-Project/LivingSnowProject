@@ -30,6 +30,16 @@ export var BloomDepthThicknessSelection;
     BloomDepthThicknessSelection["GREATER_THAN_TEN_CM"] = "Greater than 10 cm";
     BloomDepthThicknessSelection["OTHER"] = "Other";
 })(BloomDepthThicknessSelection || (BloomDepthThicknessSelection = {}));
+export var ImpuritiesSelection;
+(function (ImpuritiesSelection) {
+    ImpuritiesSelection["ORANGE_DUST"] = "Orange Dust";
+    ImpuritiesSelection["SOOT"] = "Soot";
+    ImpuritiesSelection["SOIL"] = "Soil";
+    ImpuritiesSelection["VEGETATION"] = "Vegetation";
+    ImpuritiesSelection["POLLEN"] = "Pollen";
+    ImpuritiesSelection["EVIDENCE_OF_ANIMALS"] = "Evidence of Animals";
+    ImpuritiesSelection["OTHER"] = "Other (describe in notes)";
+})(ImpuritiesSelection || (ImpuritiesSelection = {}));
 export var SnowpackThicknessSelection;
 (function (SnowpackThicknessSelection) {
     SnowpackThicknessSelection["SELECT_A_THICKNESS"] = "Select a thickness";

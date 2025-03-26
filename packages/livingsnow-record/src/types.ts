@@ -38,6 +38,16 @@ export enum BloomDepthThicknessSelection {
   OTHER = "Other",
 }
 
+export enum ImpuritiesSelection {
+  ORANGE_DUST = "Orange Dust",
+  SOOT = "Soot",
+  SOIL = "Soil",
+  VEGETATION = "Vegetation",
+  POLLEN = "Pollen",
+  EVIDENCE_OF_ANIMALS = "Evidence of Animals",
+  OTHER = "Other (describe in notes)",
+}
+
 export enum SnowpackThicknessSelection {
   SELECT_A_THICKNESS = "Select a thickness",
   LESS_THAN_10_CM = "Less than 10 cm",
@@ -79,6 +89,7 @@ export type AlgaeRecord = {
   bloomDepth: BloomDepthThicknessSelection;
   colors: AlgaeColor[];
   date: Date;
+  impurities: ImpuritiesSelection[];
   latitude: number;
   longitude: number;
   size: AlgaeSize;
