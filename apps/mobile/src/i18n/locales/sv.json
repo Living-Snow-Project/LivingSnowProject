@@ -140,7 +140,7 @@
     "bicycle": "Cykel",
     "car": "Bil",
     "bus": "Buss",
-    "house": "Litet eller medelstort hus",
+    "house": "Hus",
     "sportsField": "Idrottsfält",
     "other": "Annat (beskriv i anteckningar)"
   },
@@ -166,6 +166,15 @@
   "exposedIceDescription": {
     "yes": "Ja",
     "no": "Nej"
+  },
+  "impuritiesDescription": {
+    "orangeDust": "Oranget damm",
+    "soot": "Sot",
+    "soil": "Jord",
+    "vegetation": "Vegetation",
+    "pollen": "Pollen",
+    "evidenceOfAnimals": "Spår av djur",
+    "other": "Annat (beskriv i anteckningarna)"
   },
   "onOffGlacierDescription": {
     "yes": "Ja",

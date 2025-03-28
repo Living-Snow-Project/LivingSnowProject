@@ -141,7 +141,7 @@
     "bicycle": "Хүртэлх хөвөг",
     "car": "Машин",
     "bus": "Автобус",
-    "house": "Байшин",
+    "house": "Гэр",
     "sportsField": "Спортын талбай",
     "other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
   },
@@ -156,7 +156,7 @@
     "other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
   },
   "bloomDepthDescription": {
-    "select":   "Хэмжээг сонгоно уу",
+    "select": "Хэмжээг сонгоно уу",
     "surface": "Дэлгэц",
     "twoCm": "2 см",
     "fiveCm": "5 см",
@@ -167,7 +167,16 @@
   "exposedIceDescription": {
     "yes": "Тийм",
     "no": "Үгүй"
-  },  
+  },
+  "impuritiesDescription": {
+    "orangeDust": "Улбар шар тоосонцор",
+    "soot": "Тортог",
+    "soil": "Хөрс",
+    "vegetation": "Ургамал",
+    "pollen": "Цэцгийн тоосонцор",
+    "evidenceOfAnimals": "Амьтны ул мөр",
+    "other": "Бусад (тэмдэглэлд тодорхойлно уу)"
+  },
   "onOffGlacierDescription": {
     "yes": "Тийм",
     "no": "Үгүй"

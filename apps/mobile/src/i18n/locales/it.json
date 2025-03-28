@@ -140,7 +140,7 @@
     "bicycle": "Bicicletta",
     "car": "Auto",
     "bus": "Autobus",
-    "house": "Casa piccola o media",
+    "house": "Casa",
     "sportsField": "Campo sportivo",
     "other": "Altro (descrivere nelle note)"
   },
@@ -166,6 +166,15 @@
   "exposedIceDescription": {
     "yes": "Oui",
     "no": "Non"
+  },
+  "impuritiesDescription": {
+    "orangeDust": "Polvere arancione",
+    "soot": "Fuliggine",
+    "soil": "Terreno",
+    "vegetation": "Vegetazione",
+    "pollen": "Polline",
+    "evidenceOfAnimals": "Tracce di animali",
+    "other": "Altro (descrivere nelle note)"
   },
   "onOffGlacierDescription": {
     "yes": "Oui",

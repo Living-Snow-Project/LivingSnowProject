@@ -40,7 +40,7 @@
       "startReporting": "Rapportér en observasjon",
       "usage": "Skriv inn navnet ditt eller forbli anonym. Du kan oppdatere profilen din når som helst i Innstillinger."
     },
-    
+
     "recordScreen": {
       "bloomDepth": "Hvor dyp er blomsten (nærmeste anslag)?",
       "colors": "Farger (velg alle som gjelder)",
@@ -140,7 +140,7 @@
     "bicycle": "Sykkel",
     "car": "Bil",
     "bus": "Buss",
-    "house": "Liten eller mellomstor bolig",
+    "house": "hus",
     "sportsField": "Idrettsbane",
     "other": "Annet (beskriv i notater)"
   },
@@ -166,6 +166,15 @@
   "exposedIceDescription": {
     "yes": "Ja",
     "no": "Nei"
+  },
+  "impuritiesDescription": {
+    "orangeDust": "Oransje støv",
+    "soot": "Sot",
+    "soil": "Jord",
+    "vegetation": "Vegetasjon",
+    "pollen": "Pollen",
+    "evidenceOfAnimals": "Spor av dyr",
+    "other": "Annet (beskriv i notatene)"
   },
   "onOffGlacierDescription": {
     "yes": "Ja",

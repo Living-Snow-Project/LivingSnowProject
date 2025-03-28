@@ -140,7 +140,7 @@
     "bicycle": "自転車",
     "car": "車",
     "bus": "バス",
-    "house": "小さなまたは中くらいの家",
+    "house": "家",
     "sportsField": "スポーツフィールド",
     "other": "他のサイズ(追記に記載してください)"
   },
@@ -167,6 +167,15 @@
     "yes": "はい",
     "no": "いいえ"
   },
+  "impuritiesDescription": {
+    "orangeDust": "オレンジ色の粉塵",
+    "soot": "すす",
+    "soil": "土壌",
+    "vegetation": "植生",
+    "pollen": "花粉",
+    "evidenceOfAnimals": "動物の痕跡",
+    "other": "その他（メモに詳述）"
+  },
   "onOffGlacierDescription": {
     "yes": "はい",
     "no": "いいえ"
@@ -175,7 +184,7 @@
     "select": "厚さを選択してください",
     "lessThan10Cm": "10 cm 未満",
     "between10Cm30Cm": "10 cm - 30 cm",
-    "thirtyCm1M": "30 cm - 1 m",  
+    "thirtyCm1M": "30 cm - 1 m",
     "greaterThan1M": "1 m より厚い",
     "iDontKnow": "わかりません"
   },
