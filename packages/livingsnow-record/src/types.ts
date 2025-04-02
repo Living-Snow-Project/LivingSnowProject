@@ -8,11 +8,11 @@ export type Photo = {
 const AlgaeSizeArray = [
   "Select a size",
   "Fist",
-  "Shoe Box",
-  "Coffee Table",
+  "Dinner Plate",
+  "Bicycle",
   "Car",
   "Bus",
-  "Playground",
+  "House",
   "Sports Field",
   "Other",
 ] as const;
@@ -52,10 +52,13 @@ export type AlgaeRecord = {
   tubeId?: string;
 };
 
-// Record v3 types
+// Record v3 types (all optional)
+const SeeExposedIceArray = ["Yes", "No"] as const;
 
-// required: user selects one of the following options
+export type SeeExposedIce = (typeof SeeExposedIceArray)[number];
+
 const WhatIsUnderSnowpackArray = [
+  "Select what is under snowpack",
   "Vegetation",
   "Rocks",
   "Soil",
@@ -63,12 +66,35 @@ const WhatIsUnderSnowpackArray = [
   "Lake",
   "Stream",
   "Mixed",
-  "I don't know"
+  "I Don't Know",
 ] as const;
 
 export type WhatIsUnderSnowpack = (typeof WhatIsUnderSnowpackArray)[number];
 
-// optional?: user can select more than one of the following options
+const SnowpackDepthArray = [
+  "Select snowpack depth",
+  "< 10cm",
+  "10cm - 30cm",
+  "30cm - 1m",
+  "> 1m",
+  "Other", // describe in Notes
+] as const;
+
+export type SnowpackDepth = (typeof SnowpackDepthArray)[number];
+
+const BloomDepthArray = [
+  "Select bloom depth",
+  "Surface",
+  "2cm",
+  "5cm",
+  "10cm",
+  "> 10cm",
+  "Other", // describe in Notes
+] as const;
+
+export type BloomDepth = (typeof BloomDepthArray)[number];
+
+// more than one can be selected
 const SurfaceImpurityArray = [
   "Select impurities",
   "Orange Dust",
@@ -77,17 +103,17 @@ const SurfaceImpurityArray = [
   "Vegetation",
   "Pollen",
   "Evidence of Animals",
-  "Other",
+  "Other", //describe in Notes
 ] as const;
 
 export type SurfaceImpurity = (typeof SurfaceImpurityArray)[number];
 
 export type AlgaeRecordV3 = AlgaeRecord & {
   isOnGlacier?: boolean;
-  // if 'isOnGlacier' is true (yes), this is either Yes or No (string)
-  // if 'isOnGlacier' is false (no), this is a description of what is underneath (WhatIsUnderSnowpack)
-  seeExposedIceOrWhatIsUnderSnowpack?: string | WhatIsUnderSnowpack;
-  snowpackDepth?: string; // < 10cm, 10cm – 30cm, 31cm - 1m, > 1m, exact measurement, I don’t know
-  bloomDepth?: string; // surface, 2cm, 5cm, 10cm, > 10cm, exact measurement
+  // if 'isOnGlacier' is true (yes), this is either "Yes" or "No"
+  // if 'isOnGlacier' is false (no), this is a description of what is underneath snowpack
+  seeExposedIceOrWhatIsUnderSnowpack?: SeeExposedIce | WhatIsUnderSnowpack;
+  snowpackDepth?: SnowpackDepth;
+  bloomDepth?: BloomDepth;
   impurities?: SurfaceImpurity[];
 };
