@@ -1,0 +1,210 @@
+{
+  "welcomeHeading": "ようこそ",
+  "timelineHeading": "タイムライン",
+  "recordHeading": "記録",
+  "settingsHeading": "設定",
+  "detailsHeading": "詳細",
+  "placeholders": {
+    "gps": {
+      "acquiringLocation": "GPS信号を探しています",
+      "enterCoordinates": "（例）12.34567, -123.45678",
+      "noPermissions": "設定でアプリの位置情報利用許可を確認してください。座標を手動で入力してください。",
+      "noLocation": "場所を特定できませんでした。座標を手動で入力してください。"
+    },
+    "settings": {
+      "username": "あなたの名前を入力してください",
+      "organization": "所属を入力してください(該当する場合)"
+    },
+    "recordScreen": {
+      "locationDescription": "（例）富山県立山，雷鳥沢の残雪",
+      "notes": "（例）雪渓の表面の暗赤色の雪",
+      "other": "（記述欄）",
+      "size": "色づいた雪の範囲に近いものを選んでください",
+      "tubeId": "サンプル容器番号がない場合は空白のままにしてください",
+      "tubeIdDisabled": "無効 - サンプル採取時のみ使用"
+    }
+  },
+  "labels": {
+    "date": "日付",
+    "defaultName": "個人",
+    "empty": "空",
+    "livingSnowProject": "リビングスノープロジェクト",
+    "name": "名前",
+    "organization": "所属",
+    "photos": "写真",
+    "recordType": "記録のタイプ",
+    "slogan": "色づいた雪を見つけましたか？目撃情報をシェアしてください！",
+    "tubeId": "サンプル容器番号",
+
+    "firstRunScreen": {
+      "startReporting": "観察を報告する",
+      "usage": "名前を入力するか、匿名のままにしてください。プロフィールはいつでも設定タブで更新できます."
+    },
+
+    "recordScreen": {
+      "bloomDepth": "色づいた雪の深さ (最も近い推定値)",
+      "colors": "色 (該当するものをすべて選んでください)",
+      "exposedIce": "近くに露出した氷が見えますか?",
+      "onGlacier": "氷河上にいますか?",
+      "gps": "GPS 座標 (緯度、経度)",
+      "locationDescription": "場所の説明 (全角85文字，半角255文字以内)",
+      "notes": "追記 (全角85文字，半角255文字以内)",
+      "photos": "写真を選択 (4枚まで)",
+      "recordType": "目撃情報の報告ですか、サンプル採取の報告ですか?",
+      "size": "色づいた雪の範囲に近いものを選んでください",
+      "snowpackThickness": "雪の厚さは?",
+      "underSnowpack": "雪の下には何がありますか?"
+    },
+
+    "recordDetailsScreen": {
+      "colors": "色",
+      "dataSheet": "データシート",
+      "gps": "GPS 座標",
+      "latitude": "緯度",
+      "locationDescription": "場所の説明",
+      "longitude": "経度",
+      "notes": "追記",
+      "size": "色づいた雪の範囲"
+    },
+    "timelineScreen": {
+      "downloadedRecords": "ダウンロード済み",
+      "exampleRecords": "記録例",
+      "pendingRecords": "保留中"
+    },
+    "settingsScreen": {
+      "darkMode": "ダークモード",
+      "manualCoordinates": "手動入力した座標"
+    },
+    "statusBar": {
+      "noConnection": "インターネット接続なし"
+    },
+    "modal": {
+      "cancel": "キャンセル",
+      "confirm": "確認する",
+      "diskUsage": {
+        "header": "削除の確認",
+        "body": "保存した写真を削除してもよろしいですか?"
+      },
+      "gpsManualEntry": {
+        "header": "座標を手動で入力しますか?",
+        "body": "GPS 信号を取得できない場合やあとで手動で入力することもできます。このメッセージは設定で無効にできます."
+      }
+    }
+  },
+  "notifications": {
+    "uploadSuccess": {
+      "title": "アップロードされた記録",
+      "message": "報告をありがとうございました."
+    },
+    "uploadRecordFailed": {
+      "title": "記録が保存されました",
+      "message": "後ほどアップロードさせていただきます."
+    },
+    "uploadPhotoFailed": {
+      "title": "写真を保存しました",
+      "message": "後ほどアップロードさせていただきます."
+    },
+    "uploadPhotosFailed": {
+      "title": "保存された写真",
+      "message": "後ほどアップロードさせていただきます."
+    },
+    "updateRecordSuccess": {
+      "title": "記録が更新されました"
+    },
+    "updateRecordFailed": {
+      "title": "更新に失敗しました",
+      "message": "これは、記録の更新中にインターネット接続が回復したことが原因の可能性があります."
+    },
+    "backgroundTasksNotAllowed": {
+      "title": "バックグラウンドアップロードが有効になっていません",
+      "message": "保存された記録をバックグラウンドでアップロードしたい場合は、バックグラウンド アプリ更新を有効にしてください."
+    }
+  },
+  "validations": {
+    "invalidCoordinates": "座標は小数表記の「緯度, 経度」でなければなりません。（例）12.34567, -123.45678",
+    "invalidAlgaeSize": "色づいた雪の範囲を指定する必要があります",
+    "invalidAlgaeColors": "少なくとも 1 つの色を指定する必要があります"
+  },
+  "errors": {
+    "recordNotFound": "更新する記録が見つかりません"
+  },
+  "recordDescription": {
+    "sample": "サンプル採取",
+    "sighting": "目撃情報",
+    "undefined": "未定義"
+  },
+  "algaeSizeDescription": {
+    "select": "色づいた雪の範囲に近いものを選んでください",
+    "fist": "手のこぶし",
+    "dinnerPlate": "ディナープレート",
+    "bicycle": "自転車",
+    "car": "車",
+    "bus": "バス",
+    "house": "家",
+    "sportsField": "スポーツフィールド",
+    "other": "他のサイズ(追記に記載してください)"
+  },
+  "algaeColorDescription": {
+    "select": "色を選択してください",
+    "red": "赤",
+    "pink": "ピンク",
+    "grey": "グレー",
+    "green": "緑",
+    "orange": "オレンジ",
+    "yellow": "黄色",
+    "other": "他の色(追記に記載してください)"
+  },
+  "bloomDepthDescription": {
+    "select": "深さを選択してください",
+    "surface": "表面",
+    "twoCm": "2 cm",
+    "fiveCm": "5 cm",
+    "tenCm": "10 cm",
+    "greaterThan10Cm": "10 cm より深い",
+    "other": "他の深さ(追記に記載してください)"
+  },
+  "exposedIceDescription": {
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "impuritiesDescription": {
+    "orangeDust": "オレンジ色の粉塵",
+    "soot": "すす",
+    "soil": "土壌",
+    "vegetation": "植生",
+    "pollen": "花粉",
+    "evidenceOfAnimals": "動物の痕跡",
+    "other": "その他（メモに詳述）"
+  },
+  "onOffGlacierDescription": {
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "snowpackThicknessDescription": {
+    "select": "厚さを選択してください",
+    "lessThan10Cm": "10 cm 未満",
+    "between10Cm30Cm": "10 cm - 30 cm",
+    "thirtyCm1M": "30 cm - 1 m",
+    "greaterThan1M": "1 m より厚い",
+    "iDontKnow": "わかりません"
+  },
+  "underSnowpackDescription": {
+    "select": "下にあるものを選択してください",
+    "vegetation": "植生",
+    "rocks": "岩",
+    "soil": "土",
+    "lake": "湖",
+    "stream": "小川",
+    "mixed": "混合",
+    "iDontKnow": "わかりません"
+  },
+  "backgroundTasks": {
+    "uploadData": "バックグラウンドでアップロード中"
+  },
+  "headers": {
+    "diskUsage": "ディスク使用量",
+    "profile": "プロフィール",
+    "prompts": "設定項目",
+    "theme": "画面のテーマ"
+  }
+}

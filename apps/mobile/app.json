@@ -2,13 +2,11 @@
   "expo": {
     "name": "Living Snow Project",
     "slug": "LivingSnowProject",
+    "owner": "livingsnowproject",
     "privacy": "unlisted",
     "primaryColor": "#000000",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "2.3.4",
+    "platforms": ["ios", "android"],
+    "version": "2.3.5",
     "orientation": "portrait",
     "icon": "./assets/images/lsp@2x.png",
     "splash": {
@@ -51,9 +49,6 @@
         "projectId": "e9398179-0d31-4623-8b30-84ca256f8a71"
       }
     },
-    "plugins": [
-      "expo-font"
-    ],
-    "owner": "livingsnowproject"
+    "plugins": ["expo-font", "expo-localization"]
   }
 }

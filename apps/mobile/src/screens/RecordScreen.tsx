@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Box, ScrollView } from "native-base";
+import { Box, ScrollView, Spacer } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { AvoidSoftInput } from "react-native-avoid-softinput";
@@ -10,6 +10,13 @@ import {
   jsonToRecord,
   isSample,
   recordDateFormat,
+  BloomDepthThicknessSelection,
+  OnOffGlacierSelection,
+  SnowpackThicknessSelection,
+  UnderSnowpackSelection,
+  ExposedIceSelection,
+  AlgaeSize,
+  ImpuritiesSelection,
 } from "@livingsnow/record";
 import { SelectedPhoto } from "../../types";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
@@ -27,6 +34,10 @@ import {
   ExpoPhotoSelector,
   GpsCoordinatesInput,
   TextArea,
+  GlacierOrNotSelector,
+  SnowpackThicknessSelector,
+  BloomDepthSelector,
+  ImpuritiesSelector,
 } from "../components/forms";
 import { getAppSettings } from "../../AppSettings";
 import { Labels, Notifications, Placeholders, TestIds } from "../constants";
@@ -77,10 +88,16 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const defaultRecord: AlgaeRecordInput = {
     id: uuidv4(),
     type: "Sighting",
+    bloomDepth: BloomDepthThicknessSelection.SELECT_A_DEPTH,
     date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
+    exposedIce: ExposedIceSelection.NO,
+    impurities: [ImpuritiesSelection.ORANGE_DUST],
     latitude: 0,
     longitude: 0,
-    size: "Select a size",
+    onOffGlacier: OnOffGlacierSelection.NO,
+    snowpackThickness: SnowpackThicknessSelection.SELECT_A_THICKNESS,
+    underSnowpack: UnderSnowpackSelection.SELECT_AN_OPTION,
+    size: AlgaeSize.SELECT_A_SIZE,
     colors: ["Select colors"],
     locationDescription: "",
   };
@@ -106,10 +123,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     editMode
       ? { ...jsonToRecord<AlgaeRecordInput>(route.params.record) }
       : {
-          ...defaultRecord,
-          name: appSettings.name ?? "Anonymous",
-          organization: appSettings.organization,
-        },
+        ...defaultRecord,
+        name: appSettings.name ?? "Anonymous",
+        organization: appSettings.organization,
+      },
   );
 
   const onFocusEffect = React.useCallback(() => {
@@ -284,6 +301,48 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             isInvalid={didSubmit && areGpsCoordinatesInvalid()}
             setCoordinates={setCoordinates}
             onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+          />
+
+          <Space />
+          <GlacierOrNotSelector
+            onOrOffGlacier={record.onOffGlacier}
+            setOnOrOffGlacier={(newVal) =>
+              setRecord((prev) => ({ ...prev, onOffGlacier: newVal }))
+            }
+            exposedIce={record.exposedIce}
+            setExposedIce={(newVal) =>
+              setRecord((prev) => ({ ...prev, exposedIce: newVal }))
+            }
+            underSnow={record.underSnowpack}
+            setUnderSnow={(newVal) =>
+              setRecord((prev) => ({ ...prev, underSnowpack: newVal }))
+            }
+          />
+
+          <Space />
+          <SnowpackThicknessSelector
+            thickness={record.snowpackThickness}
+            setThickness={(thickness) =>
+              setRecord((prev) => ({ ...prev, snowpackThickness: thickness }))
+            }
+          />
+
+          <Space />
+          <BloomDepthSelector
+            bloomDepth={record.bloomDepth}
+            setBloomDepth={(depth) => setRecord((prev) => ({ ...prev, bloomDepth: depth }))}
+            // otherDescription={""}
+            // setOtherDescription={(newDescription) => {
+            //   setRecord((prev) => ({ ...prev, bloomDepth: "Other", bloomDepthDescription: newDescription }));
+            // }}
+          />
+
+          <Space />
+          <ImpuritiesSelector
+            impuritiesSelected={record.impurities}
+            onChangeImpurities={(impurities) =>
+              setRecord((prev) => ({ ...prev, impurities }))
+            }
           />
 
           <Space />

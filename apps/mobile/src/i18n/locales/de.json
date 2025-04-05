@@ -1,0 +1,210 @@
+{
+  "welcomeHeading": "Willkommen",
+  "timelineHeading": "Zeitleiste",
+  "recordHeading": "Eintrag",
+  "settingsHeading": "Einstellungen",
+  "detailsHeading": "Details",
+  "placeholders": {
+    "gps": {
+      "acquiringLocation": "GPS-Signal wird gesucht",
+      "enterCoordinates": "z.B. 12.34567, -123.45678",
+      "noPermissions": "Überprüfen Sie die Standortberechtigungen in den Einstellungen. Geben Sie die Koordinaten manuell ein.",
+      "noLocation": "Standort konnte nicht ermittelt werden. Geben Sie die Koordinaten manuell ein."
+    },
+    "settings": {
+      "username": "Geben Sie Ihren Namen ein",
+      "organization": "Geben Sie Ihre Organisation an (falls vorhanden)"
+    },
+    "recordScreen": {
+      "locationDescription": "z.B.: Blue Lake, North Cascades, WA",
+      "notes": "z.B. dunkelrote Algen auf Gletschereis",
+      "other": "(Feld zur Beschreibung)",
+      "size": "Wählen Sie eine Größe",
+      "tubeId": "Leer lassen, wenn das Röhrchen keine ID hat",
+      "tubeIdDisabled": "Deaktiviert – nur für Proben verwendet"
+    }
+  },
+  "labels": {
+    "date": "Datum",
+    "defaultName": "Freiwilliger Wissenschaftler",
+    "empty": "Leer",
+    "livingSnowProject": "Projekt Lebender Schnee",
+    "name": "Name",
+    "organization": "Organisation",
+    "photos": "Fotos",
+    "recordType": "Typ",
+    "slogan": "Sie sehen rosa Schnee? Teilen Sie Ihre Beobachtung!",
+    "tubeId": "Röhrchen-ID",
+
+    "firstRunScreen": {
+      "startReporting": "Eine Beobachtung melden",
+      "usage": "Geben Sie Ihren Namen ein oder bleiben Sie anonym. Sie können Ihr Profil jederzeit in den Einstellungen aktualisieren."
+    },
+
+    "recordScreen": {
+      "bloomDepth": "Wie tief ist der Bloom (nächste Schätzung)?",
+      "colors": "Farben (wählen Sie alle zutreffenden aus)",
+      "exposedIce": "Können Sie in Ihrer Nähe freiliegendes Gletschereis sehen?",
+      "onGlacier": "Befinden Sie sich auf einem Gletscher?",
+      "gps": "GPS-Koordinaten (Breitengrad, Längengrad)",
+      "locationDescription": "Ortsbeschreibung (max. 255 Zeichen)",
+      "notes": "Notizen (max. 255 Zeichen)",
+      "photos": "Wählen Sie Fotos (max. 4)",
+      "recordType": "Melden Sie eine Beobachtung oder nehmen Sie eine Probe?",
+      "size": "Wählen Sie eine Größe",
+      "snowpackThickness": "Wie dick ist die Schneedecke?",
+      "underSnowpack": "Was befindet sich unter dem Schneedeck?"
+    },
+
+    "recordDetailsScreen": {
+      "colors": "Farben",
+      "dataSheet": "Datenblatt",
+      "gps": "Koordinaten",
+      "latitude": "Breitengrad",
+      "locationDescription": "Ortsbeschreibung",
+      "longitude": "Längengrad",
+      "notes": "Notizen",
+      "size": "Größe"
+    },
+    "timelineScreen": {
+      "downloadedRecords": "Heruntergeladen",
+      "exampleRecords": "Beispieldatensatz",
+      "pendingRecords": "Ausstehend"
+    },
+    "settingsScreen": {
+      "darkMode": "Dunkelmodus",
+      "manualCoordinates": "Warnung: manuelle Koordinaten"
+    },
+    "statusBar": {
+      "noConnection": "Keine Internetverbindung"
+    },
+    "modal": {
+      "cancel": "Abbrechen",
+      "confirm": "Bestätigen",
+      "diskUsage": {
+        "header": "Löschung bestätigen",
+        "body": "Möchten Sie die gespeicherten Fotos wirklich löschen?"
+      },
+      "gpsManualEntry": {
+        "header": "Koordinaten manuell eingeben?",
+        "body": "Einige Benutzer geben Koordinaten manuell ein, wenn sie kein GPS-Signal erhalten oder erst zu Hause sind. Diese Meldung kann in den Einstellungen deaktiviert werden."
+      }
+    }
+  },
+  "notifications": {
+    "uploadSuccess": {
+      "title": "Eintrag hochgeladen",
+      "message": "Vielen Dank für Ihre Einreichung."
+    },
+    "uploadRecordFailed": {
+      "title": "Eintrag gespeichert",
+      "message": "Wir werden ihn später hochladen."
+    },
+    "uploadPhotoFailed": {
+      "title": "Foto gespeichert",
+      "message": "Wir laden es später hoch."
+    },
+    "uploadPhotosFailed": {
+      "title": "Fotos gespeichert",
+      "message": "Wir werden sie später hochladen."
+    },
+    "updateRecordSuccess": {
+      "title": "Eintrag aktualisiert"
+    },
+    "updateRecordFailed": {
+      "title": "Aktualisierung fehlgeschlagen",
+      "message": "Dies kann passieren, wenn die Internetverbindung wiederhergestellt wird, während der Eintrag aktualisiert wird."
+    },
+    "backgroundTasksNotAllowed": {
+      "title": "Hintergrund-Uploads nicht aktiviert",
+      "message": "Bitte aktivieren Sie Hintergrundaktualisierungen, wenn Sie möchten, dass gespeicherte Einträge im Hintergrund hochgeladen werden."
+    }
+  },
+  "validations": {
+    "invalidCoordinates": "Koordinaten müssen im \"lat, long\"-Format sein, z.B. 12.34567, -123.45678",
+    "invalidAlgaeSize": "Sie müssen eine Größe angeben",
+    "invalidAlgaeColors": "Sie müssen mindestens eine Farbe angeben"
+  },
+  "errors": {
+    "recordNotFound": "Eintrag zum Aktualisieren wurde nicht gefunden"
+  },
+  "recordDescription": {
+    "sample": "Probe",
+    "sighting": "Beobachtung",
+    "undefined": "Undefiniert"
+  },
+  "algaeSizeDescription": {
+    "select": "Wählen Sie eine Größe",
+    "fist": "Faust",
+    "dinnerPlate": "Essteller",
+    "bicycle": "Fahrrad",
+    "car": "Auto",
+    "bus": "Bus",
+    "house": "Hause",
+    "sportsField": "Sportplatz",
+    "other": "Andere (beschreiben Sie dies in den Notizen)"
+  },
+  "algaeColorDescription": {
+    "select": "Wählen Sie eine Farbe",
+    "red": "Rot",
+    "pink": "Rosa",
+    "grey": "Grau",
+    "green": "Grün",
+    "orange": "Orange",
+    "yellow": "Gelb",
+    "other": "Andere (beschreiben Sie dies in den Notizen)"
+  },
+  "bloomDepthDescription": {
+    "select": "Wählen Sie eine Tiefe",
+    "surface": "Oberfläche",
+    "twoCm": "2 cm",
+    "fiveCm": "5 cm",
+    "tenCm": "10 cm",
+    "greaterThan10Cm": "Mehr als 10 cm",
+    "other": "Andere (beschreiben Sie dies in den Notizen)"
+  },
+  "exposedIceDescription": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "impuritiesDescription": {
+    "orangeDust": "Oranger Staub",
+    "soot": "Ruß",
+    "soil": "Boden",
+    "vegetation": "Vegetation",
+    "pollen": "Pollen",
+    "evidenceOfAnimals": "Tierspuren",
+    "other": "Andere (in den Notizen beschreiben)"
+  },
+  "onOffGlacierDescription": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "snowpackThicknessDescription": {
+    "select": "Wählen Sie eine Dicke",
+    "lessThan10Cm": "Weniger als",
+    "between10Cm30Cm": "Zwischen 10 cm und 30 cm",
+    "thirtyCm1M": "30 cm - 1 m",
+    "greaterThan1M": "Mehr als 1 m",
+    "iDontKnow": "Ich weiß es nicht"
+  },
+  "underSnowpackDescription": {
+    "select": "Wählen Sie eine Option",
+    "vegetation": "Vegetation",
+    "rocks": "Felsen",
+    "soil": "Boden",
+    "lake": "See",
+    "stream": "Fluss",
+    "mixed": "Gemischt",
+    "iDontKnow": "Ich weiß es nicht"
+  },
+  "backgroundTasks": {
+    "uploadData": "hintergrund-upload-aufgabe"
+  },
+  "headers": {
+    "diskUsage": "Speicherplatz",
+    "profile": "Profil",
+    "prompts": "Eingabeaufforderungen",
+    "theme": "Thema"
+  }
+}

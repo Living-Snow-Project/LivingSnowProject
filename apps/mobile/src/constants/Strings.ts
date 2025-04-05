@@ -1,170 +1,480 @@
-// for TextInput placeholder prop
+import i18n from "../i18n";
+
 export const Placeholders = {
   GPS: {
-    AcquiringLocation: "Looking for GPS signal",
-    EnterCoordinates: "ie. 12.34567, -123.45678",
-    NoPermissions:
-      "Check location permissions in Settings. Enter coordinates manually.",
-    NoLocation: "Could not determine location. Enter coordinates manually.",
+    get AcquiringLocation(): string {
+      return i18n.t("placeholders.gps.acquiringLocation");
+    },
+    get EnterCoordinates(): string {
+      return i18n.t("placeholders.gps.enterCoordinates");
+    },
+    get NoPermissions(): string {
+      return i18n.t("placeholders.gps.noPermissions");
+    },
+    get NoLocation(): string {
+      return i18n.t("placeholders.gps.noLocation");
+    },
   },
   Settings: {
-    Username: "Enter your name",
-    Organization: "Enter organization you belong to (if any)",
+    get Username(): string {
+      return i18n.t("placeholders.settings.username");
+    },
+    get Organization(): string {
+      return i18n.t("placeholders.settings.organization");
+    },
   },
   RecordScreen: {
-    LocationDescription: "ie: Blue Lake, North Cascades, WA",
-    Notes: "ie. dark red algae on glacial ice",
-    Size: "Select a size",
-    TubeId: "Leave blank if tube does not have an id",
-    TubeIdDisabled: "Disabled - only used for Samples",
+    get LocationDescription(): string {
+      return i18n.t("placeholders.recordScreen.locationDescription");
+    },
+    get Notes(): string {
+      return i18n.t("placeholders.recordScreen.notes");
+    },
+    get Size(): string {
+      return i18n.t("placeholders.recordScreen.size");
+    },
+    get Other(): string {
+      return i18n.t("placeholders.recordScreen.other");
+    },
+    get TubeId(): string {
+      return i18n.t("placeholders.recordScreen.tubeId");
+    },
+    get TubeIdDisabled(): string {
+      return i18n.t("placeholders.recordScreen.tubeIdDisabled");
+    },
   },
 };
-
-const locationDescription = "Location Description";
-const notes = "Notes";
 
 export const Labels = {
-  Date: "Date",
-  DefaultName: "Community Scientist",
-  Delete: "Delete",
-  LivingSnowProject: "Living Snow Project",
-  Name: "Name",
-  Organization: "Organization",
-  Photos: "Photos",
-  RecordType: "Type",
-  Slogan: "See pink snow? Let us know!",
-  TubeId: "Tube Id",
+  get Date(): string {
+    return i18n.t("labels.date");
+  },
+  get DefaultName(): string {
+    return i18n.t("labels.defaultName");
+  },
+  get Empty(): string {
+    return i18n.t("labels.empty");
+  },
+  get LivingSnowProject(): string {
+    return i18n.t("labels.livingSnowProject");
+  },
+  get Name(): string {
+    return i18n.t("labels.name");
+  },
+  get Organization(): string {
+    return i18n.t("labels.organization");
+  },
+  get Photos(): string {
+    return i18n.t("labels.photos");
+  },
+  get RecordType(): string {
+    return i18n.t("labels.recordType");
+  },
+  get Slogan(): string {
+    return i18n.t("labels.slogan");
+  },
+  get TubeId(): string {
+    return i18n.t("labels.tubeId");
+  },
   FirstRunScreen: {
-    StartReporting: "Start Reporting",
-    Usage:
-      "Let us know who you are or remain anonymous. You can update your profile at any time in the Settings tab.",
+    get StartReporting(): string {
+      return i18n.t("labels.firstRunScreen.startReporting");
+    },
+    get Usage(): string {
+      return i18n.t("labels.firstRunScreen.usage");
+    },
   },
   RecordScreen: {
-    Colors: "Colors (select all that apply)",
-    Gps: "GPS Coordinates (latitude, longitude)",
-    LocationDescription: `${locationDescription} (limit 255 characters)`,
-    Notes: `${notes} (limit 255 characters)`,
-    Photos: "Select Photos (limit 4)",
-    RecordType: "Are you Reporting a Sighting or Taking a Sample?",
-    Size: "Select a size",
+    get Colors(): string {
+      return i18n.t("labels.recordScreen.colors");
+    },
+    get BloomDepth(): string {
+      return i18n.t("labels.recordScreen.bloomDepth");
+    },
+    get ExposedIce(): string {
+      return i18n.t("labels.recordScreen.exposedIce");
+    },
+    get Gps(): string {
+      return i18n.t("labels.recordScreen.gps");
+    },
+    get LocationDescription(): string {
+      return i18n.t("labels.recordScreen.locationDescription");
+    },
+    get Notes(): string {
+      return i18n.t("labels.recordScreen.notes");
+    },
+    get Photos(): string {
+      return i18n.t("labels.recordScreen.photos");
+    },
+    get RecordType(): string {
+      return i18n.t("labels.recordScreen.recordType");
+    },
+    get OnGlacier(): string {
+      return i18n.t("labels.recordScreen.onGlacier");
+    },
+    get UnderSnowpack(): string {
+      return i18n.t("labels.recordScreen.underSnowpack");
+    },
+    get Size(): string {
+      return i18n.t("labels.recordScreen.size");
+    },
+    get SnowpackThickness(): string {
+      return i18n.t("labels.recordScreen.snowpackThickness");
+    },
+    get Other(): string {
+      return i18n.t("labels.recordScreen.other");
+    },
   },
   RecordDetailsScreen: {
-    Colors: "Colors",
-    DataSheet: "Data Sheet",
-    Gps: "Coordinates",
-    Latitude: "Latitude",
-    LocationDescription: `${locationDescription}`,
-    Longitude: "Longitude",
-    Notes: `${notes}`,
-    Size: "Size",
+    get Colors(): string {
+      return i18n.t("labels.recordDetailsScreen.colors");
+    },
+    get DataSheet(): string {
+      return i18n.t("labels.recordDetailsScreen.dataSheet");
+    },
+    get Gps(): string {
+      return i18n.t("labels.recordDetailsScreen.gps");
+    },
+    get Latitude(): string {
+      return i18n.t("labels.recordDetailsScreen.latitude");
+    },
+    get LocationDescription(): string {
+      return i18n.t("labels.recordDetailsScreen.locationDescription");
+    },
+    get Longitude(): string {
+      return i18n.t("labels.recordDetailsScreen.longitude");
+    },
+    get Notes(): string {
+      return i18n.t("labels.recordDetailsScreen.notes");
+    },
+    get Size(): string {
+      return i18n.t("labels.recordDetailsScreen.size");
+    },
   },
   TimelineScreen: {
-    DownloadedRecords: "Downloaded",
-    ExampleRecords: "Example Record",
-    PendingRecords: "Pending",
+    get DownloadedRecords(): string {
+      return i18n.t("labels.timelineScreen.downloadedRecords");
+    },
+    get ExampleRecords(): string {
+      return i18n.t("labels.timelineScreen.exampleRecords");
+    },
+    get PendingRecords(): string {
+      return i18n.t("labels.timelineScreen.pendingRecords");
+    },
   },
   SettingsScreen: {
-    DarkMode: "Dark",
-    ManualCoordinates: "Manual Coordinates Warning",
+    get DarkMode(): string {
+      return i18n.t("labels.settingsScreen.darkMode");
+    },
+    get ManualCoordinates(): string {
+      return i18n.t("labels.settingsScreen.manualCoordinates");
+    },
   },
   StatusBar: {
-    NoConnection: "No Internet Connection",
+    get NoConnection(): string {
+      return i18n.t("labels.statusBar.noConnection");
+    },
   },
   Modal: {
-    Cancel: "Cancel",
-    Confirm: "Confirm",
+    get Cancel(): string {
+      return i18n.t("labels.modal.cancel");
+    },
+    get Confirm(): string {
+      return i18n.t("labels.modal.confirm");
+    },
     DiskUsage: {
-      body: "Are you sure you want to delete saved photos?",
-      header: "Confirm Delete",
+      get header(): string {
+        return i18n.t("labels.modal.diskUsage.header");
+      },
+      get body(): string {
+        return i18n.t("labels.modal.diskUsage.body");
+      },
     },
     GpsManualEntry: {
-      body: `Some users enter coordinates manually if they cannot acquire GPS signal or when they return home.\n\nThis message can be disabled in Settings.`,
-      header: "Enter coordinates manually?",
+      get header(): string {
+        return i18n.t("labels.modal.gpsManualEntry.header");
+      },
+      get body(): string {
+        return i18n.t("labels.modal.gpsManualEntry.body");
+      },
     },
   },
 };
 
-// for Modal alerts
 export const Notifications = {
   uploadSuccess: {
-    title: "Record Uploaded",
-    message: "Thanks for your submission.",
+    get title(): string {
+      return i18n.t("notifications.uploadSuccess.title");
+    },
+    get message(): string {
+      return i18n.t("notifications.uploadSuccess.message");
+    },
   },
   uploadRecordFailed: {
-    title: "Record Saved",
-    message: "We will upload it later.",
+    get title(): string {
+      return i18n.t("notifications.uploadRecordFailed.title");
+    },
+    get message(): string {
+      return i18n.t("notifications.uploadRecordFailed.message");
+    },
   },
   uploadPhotoFailed: {
-    title: "Photo Saved",
-    message: "We will upload it later.",
+    get title(): string {
+      return i18n.t("notifications.uploadPhotoFailed.title");
+    },
+    get message(): string {
+      return i18n.t("notifications.uploadPhotoFailed.message");
+    },
   },
   uploadPhotosFailed: {
-    title: "Photos Saved",
-    message: "We will upload them later.",
+    get title(): string {
+      return i18n.t("notifications.uploadPhotosFailed.title");
+    },
+    get message(): string {
+      return i18n.t("notifications.uploadPhotosFailed.message");
+    },
   },
   updateRecordSuccess: {
-    title: "Record Updated",
+    get title(): string {
+      return i18n.t("notifications.updateRecordSuccess.title");
+    },
   },
   updateRecordFailed: {
-    title: "Update Failed",
-    message:
-      "This can happen when Internet connectivity is restored while updating the record.",
+    get title(): string {
+      return i18n.t("notifications.updateRecordFailed.title");
+    },
+    get message(): string {
+      return i18n.t("notifications.updateRecordFailed.message");
+    },
   },
   backgroundTasksNotAllowed: {
-    title: "Background Uploads Not Enabled",
-    message:
-      "Please enable Background App Refresh if you would like stored records to be uploaded in the background.",
+    get title(): string {
+      return i18n.t("notifications.backgroundTasksNotAllowed.title");
+    },
+    get message(): string {
+      return i18n.t("notifications.backgroundTasksNotAllowed.message");
+    },
   },
 };
 
 export const Validations = {
-  invalidCoordinates:
-    'Coordinates must be in "lat, long" format. eg. 12.34567, -123.45678',
-  invalidAlgaeSize: "A size must be specified",
-  invalidAlgaeColors: "At least 1 color must be specified",
+  get invalidCoordinates(): string {
+    return i18n.t("validations.invalidCoordinates");
+  },
+  get invalidAlgaeSize(): string {
+    return i18n.t("validations.invalidAlgaeSize");
+  },
+  get invalidAlgaeColors(): string {
+    return i18n.t("validations.invalidAlgaeColors");
+  },
 };
 
 export const Errors = {
-  recordNotFound: "Record to update not found",
+  get recordNotFound(): string {
+    return i18n.t("errors.recordNotFound");
+  },
 };
 
 export const RecordDescription = {
-  Sample: `Sample`,
-  Sighting: `Sighting`,
-  Undefined: "Undefined",
+  get Sample(): string {
+    return i18n.t("recordDescription.sample");
+  },
+  get Sighting(): string {
+    return i18n.t("recordDescription.sighting");
+  },
+  get Undefined(): string {
+    return i18n.t("recordDescription.undefined");
+  },
 };
 
 export const AlgaeSizeDescription = {
-  Select: "Select a size",
-  Fist: "Fist",
-  ShoeBox: "Shoe Box",
-  CoffeeTable: "Coffee Table",
-  Car: "Car",
-  Bus: "Bus",
-  Playground: "Playground",
-  SportsField: "Sports Field",
-  Other: "Other (describe in notes)",
+  get Select(): string {
+    return i18n.t("algaeSizeDescription.select");
+  },
+  get Fist(): string {
+    return i18n.t("algaeSizeDescription.fist");
+  },
+  get DinnerPlate(): string {
+    return i18n.t("algaeSizeDescription.dinnerPlate");
+  },
+  get Bicycle(): string {
+    return i18n.t("algaeSizeDescription.bicycle");
+  },
+  get Car(): string {
+    return i18n.t("algaeSizeDescription.car");
+  },
+  get Bus(): string {
+    return i18n.t("algaeSizeDescription.bus");
+  },
+  get House(): string {
+    return i18n.t("algaeSizeDescription.house");
+  },
+  get SportsField(): string {
+    return i18n.t("algaeSizeDescription.sportsField");
+  },
+  get Other(): string {
+    return i18n.t("algaeSizeDescription.other");
+  },
 };
 
 export const AlgaeColorDescription = {
-  Select: "Select a color",
-  Red: "Red",
-  Pink: "Pink",
-  Grey: "Grey",
-  Green: "Green",
-  Orange: "Orange",
-  Yellow: "Yellow",
-  Other: "Other (describe in notes)",
+  get Select(): string {
+    return i18n.t("algaeColorDescription.select");
+  },
+  get Red(): string {
+    return i18n.t("algaeColorDescription.red");
+  },
+  get Pink(): string {
+    return i18n.t("algaeColorDescription.pink");
+  },
+  get Grey(): string {
+    return i18n.t("algaeColorDescription.grey");
+  },
+  get Green(): string {
+    return i18n.t("algaeColorDescription.green");
+  },
+  get Orange(): string {
+    return i18n.t("algaeColorDescription.orange");
+  },
+  get Yellow(): string {
+    return i18n.t("algaeColorDescription.yellow");
+  },
+  get Other(): string {
+    return i18n.t("algaeColorDescription.other");
+  },
+};
+
+export const BloomDepthDescription = {
+  get Select(): string {
+    return i18n.t("bloomDepthDescription.select");
+  },
+  get Surface(): string {
+    return i18n.t("bloomDepthDescription.surface");
+  },
+  get TwoCm(): string {
+    return i18n.t("bloomDepthDescription.twoCm");
+  },
+  get FiveCm(): string {
+    return i18n.t("bloomDepthDescription.fiveCm");
+  },
+  get TenCm(): string {
+    return i18n.t("bloomDepthDescription.tenCm");
+  },
+  get GreaterThan10Cm(): string {
+    return i18n.t("bloomDepthDescription.greaterThan10Cm");
+  },
+  get Other(): string {
+    return i18n.t("bloomDepthDescription.other");
+  },
+};
+
+export const ExposedIceDescription = {
+  get Yes(): string {
+    return i18n.t("exposedIceDescription.yes");
+  },
+  get No(): string {
+    return i18n.t("exposedIceDescription.no");
+  },
+};
+
+export const ImpuritiesDescription = {
+  get OrangeDust(): string {
+    return i18n.t("impuritiesDescription.orangeDust");
+  },
+  get Soot(): string {
+    return i18n.t("impuritiesDescription.soot");
+  },
+  get Soil(): string {
+    return i18n.t("impuritiesDescription.soil");
+  },
+  get Vegetation(): string {
+    return i18n.t("impuritiesDescription.vegetation");
+  },
+  get Pollen(): string {
+    return i18n.t("impuritiesDescription.pollen");
+  },
+  get EvidenceOfAnimals(): string {
+    return i18n.t("impuritiesDescription.evidenceOfAnimals");
+  },
+  get Other(): string {
+    return i18n.t("impuritiesDescription.other");
+  },
+};
+
+export const OnOffGlacierDescription = {
+  get Yes(): string {
+    return i18n.t("onOffGlacierDescription.yes");
+  },
+  get No(): string {
+    return i18n.t("onOffGlacierDescription.no");
+  },
+};
+
+export const SnowpackThicknessDescription = {
+  get Select(): string {
+    return i18n.t("snowpackThicknessDescription.select");
+  },
+  get LessThan10Cm(): string {
+    return i18n.t("snowpackThicknessDescription.lessThan10Cm");
+  },
+  get Between10Cm30Cm(): string {
+    return i18n.t("snowpackThicknessDescription.between10Cm30Cm");
+  },
+  get ThirtyCm1M(): string {
+    return i18n.t("snowpackThicknessDescription.thirtyCm1M");
+  },
+  get GreaterThan1M(): string {
+    return i18n.t("snowpackThicknessDescription.greaterThan1M");
+  },
+  get IdontKnow(): string { 
+    return i18n.t("snowpackThicknessDescription.iDontKnow");
+  }
+}
+
+export const UnderSnowpackDescription = {
+  get Select(): string {
+    return i18n.t("underSnowpackDescription.select");
+  },
+  get Vegetation(): string {
+    return i18n.t("underSnowpackDescription.vegetation");
+  },
+  get Rocks(): string {
+    return i18n.t("underSnowpackDescription.rocks");
+  },
+  get Soil(): string {
+    return i18n.t("underSnowpackDescription.soil");
+  },
+  get Lake(): string {
+    return i18n.t("underSnowpackDescription.lake");
+  },
+  get Stream(): string {
+    return i18n.t("underSnowpackDescription.stream");
+  },
+  get Mixed(): string {
+    return i18n.t("underSnowpackDescription.mixed");
+  },
+  get IdontKnow(): string {
+    return i18n.t("underSnowpackDescription.iDontKnow");
+  },
 };
 
 export const BackgroundTasks = {
-  UploadData: "background-upload-task",
+  get UploadData(): string {
+    return i18n.t("backgroundTasks.uploadData");
+  },
 };
 
-// TODO: move this to Labels
 export const Headers = {
-  DiskUsage: "Disk Usage",
-  Profile: "Profile",
-  Prompts: "Prompts",
-  Theme: "Theme",
+  get DiskUsage(): string {
+    return i18n.t("headers.diskUsage");
+  },
+  get Profile(): string {
+    return i18n.t("headers.profile");
+  },
+  get Prompts(): string {
+    return i18n.t("headers.prompts");
+  },
+  get Theme(): string {
+    return i18n.t("headers.theme");
+  },
 };

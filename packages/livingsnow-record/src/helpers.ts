@@ -1,4 +1,4 @@
-import { AlgaeRecord, AlgaeRecordType, Photo } from "./types";
+import { AlgaeRecord, AlgaeRecordType, AlgaeSize, BloomDepthThicknessSelection, ExposedIceSelection, OnOffGlacierSelection, Photo, SnowpackThicknessSelection, UnderSnowpackSelection } from "./types";
 
 const randomInteger = (): number => Math.floor(Math.random() * 1000000);
 
@@ -24,15 +24,21 @@ export const makeExampleRecord = (
   id,
   type,
   name: "test name",
+  bloomDepth: BloomDepthThicknessSelection.OTHER,
   date: new Date("2021-09-16T00:00:00"),
+  impurities: [],
   organization: "test org",
   latitude: -123.456,
   longitude: 96.96,
-  size: "Fist",
+  size: AlgaeSize.FIST,
   colors: ["Red", "Green"],
   tubeId: isSample(type) ? "LAB-1337" : undefined,
   locationDescription: "test location",
   notes: "test notes",
+  onOffGlacier: OnOffGlacierSelection.YES,
+  snowpackThickness: SnowpackThicknessSelection.LESS_THAN_10_CM,
+  underSnowpack: UnderSnowpackSelection.SELECT_AN_OPTION,
+  exposedIce: ExposedIceSelection.YES
 });
 
 export function jsonToRecord<T>(json: string): T {
