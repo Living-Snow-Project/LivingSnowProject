@@ -1,24 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
-import MapView, { Marker, Polygon } from "react-native-maps";
+import MapView, { Marker, Polygon, Polyline } from "react-native-maps";
 
 export default function AlgaeProbabilityMap() {
   const [loading, setLoading] = useState(true);
   const [features, setFeatures] = useState<any[]>([]);
 
   useEffect(() => {
-    // 1) Fetch the GeoJSON from the API
+    // Step 1) Start fetch from the API
     fetch("https://snowalgaeproductionapp.azurewebsites.net/api/v3/records?data_format=geojson")
       .then((res) => res.json())
-      .then((geojson) => {
-        // 2) If your service returns the nested format:
-        //    { object: "featureCollection", data: { type: "FeatureCollection", features: [...] } }
-        const loadedFeatures = geojson?.data?.features || [];
-        setFeatures(loadedFeatures);
+      .then((remoteGeojson) => {
+        // Step 2) Extract remote features
+        const remoteFeatures = remoteGeojson?.data?.features || [];
+
+        // Step 3) Load the local file
+        const localGeojson = require("./red_algae_in_alpine_snow.json");
+        const localFeatures = localGeojson.features || [];
+
+        // Step 4) Combine
+        const combined = [...remoteFeatures, ...localFeatures];
+
+        // Step 5) Save to state
+        setFeatures(combined);
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching geojson:", error);
+
+        // If the fetch fails, we can fallback to just local
+        const localGeojson = require("./red_algae_in_alpine_snow.json");
+        const localFeatures = localGeojson.features || [];
+
+        setFeatures(localFeatures);
         setLoading(false);
       });
   }, []);
@@ -55,11 +69,41 @@ export default function AlgaeProbabilityMap() {
               <Polygon
                 key={`${index}-${ringIndex}`}
                 coordinates={coords}
-                fillColor="rgba(255, 0, 0, 0.4)"
-                strokeColor="#fff"
+                fillColor="rgba(0, 0, 0, 0.0)"
+                strokeColor="#C00000"
                 strokeWidth={1}
               />
             ));
+          }
+
+          if (type === "LineString") {
+            const coords = coordinates.map(([lng, lat]) => ({
+              latitude: lat,
+              longitude: lng,
+            }));
+            return (
+              <Polyline
+                key={index}
+                coordinates={coords}
+                strokeWidth={3}
+                strokeColor="blue"
+              />
+            );
+          } else if (type === "MultiLineString") {
+            return coordinates.map((line, lineIdx) => {
+              const coords = line.map(([lng, lat]) => ({
+                latitude: lat,
+                longitude: lng,
+              }));
+              return (
+                <Polyline
+                  key={`${index}-${lineIdx}`}
+                  coordinates={coords}
+                  strokeWidth={3}
+                  strokeColor="blue"
+                />
+              );
+            });
           }
 
           // Otherwise, ignore or handle other geometry types
