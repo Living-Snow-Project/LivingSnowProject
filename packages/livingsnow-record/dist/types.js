@@ -61,6 +61,16 @@ export var UnderSnowpackSelection;
     UnderSnowpackSelection["I_DONT_KNOW"] = "I don't know";
 })(UnderSnowpackSelection || (UnderSnowpackSelection = {}));
 const AlgaeRecordTypeArray = ["Sample", "Sighting", "Undefined"];
+export var ExposedIceSelection;
+(function (ExposedIceSelection) {
+    ExposedIceSelection["YES"] = "Yes";
+    ExposedIceSelection["NO"] = "No";
+})(ExposedIceSelection || (ExposedIceSelection = {}));
+export var OnOffGlacierSelection;
+(function (OnOffGlacierSelection) {
+    OnOffGlacierSelection["YES"] = "Yes";
+    OnOffGlacierSelection["NO"] = "No";
+})(OnOffGlacierSelection || (OnOffGlacierSelection = {}));
 // Record v3 types
 // required: user selects one of the following options
 const WhatIsUnderSnowpackArray = [
@@ -84,14 +94,3 @@ const SurfaceImpurityArray = [
     "Evidence of Animals",
     "Other",
 ];
-export {};
-export var ExposedIceSelection;
-(function (ExposedIceSelection) {
-    ExposedIceSelection["YES"] = "Yes";
-    ExposedIceSelection["NO"] = "No";
-})(ExposedIceSelection || (ExposedIceSelection = {}));
-export var OnOffGlacierSelection;
-(function (OnOffGlacierSelection) {
-    OnOffGlacierSelection["YES"] = "Yes";
-    OnOffGlacierSelection["NO"] = "No";
-})(OnOffGlacierSelection || (OnOffGlacierSelection = {}));
