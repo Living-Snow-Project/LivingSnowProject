@@ -23,5 +23,16 @@ export type AlgaeRecord = {
     organization?: string;
     tubeId?: string;
 };
+declare const WhatIsUnderSnowpackArray: readonly ["Vegetation", "Rocks", "Soil", "Pond or tarn", "Lake", "Stream", "Mixed", "I don't know"];
+export type WhatIsUnderSnowpack = (typeof WhatIsUnderSnowpackArray)[number];
+declare const SurfaceImpurityArray: readonly ["Select impurities", "Orange Dust", "Soot", "Soil", "Vegetation", "Pollen", "Evidence of Animals", "Other"];
+export type SurfaceImpurity = (typeof SurfaceImpurityArray)[number];
+export type AlgaeRecordV3 = AlgaeRecord & {
+    isOnGlacier?: boolean;
+    seeExposedIceOrWhatIsUnderSnowpack?: string | WhatIsUnderSnowpack;
+    snowpackDepth?: string;
+    bloomDepth?: string;
+    impurities?: SurfaceImpurity[];
+};
 export {};
 //# sourceMappingURL=types.d.ts.map

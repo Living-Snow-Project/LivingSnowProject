@@ -19,6 +19,7 @@ export const TestIds = {
     NewRecordButton: "timeline-screen-record-button",
     SettingsButton: "timeline-screen-settings-button",
     ScrollToTopButton: "timeline-screen-scroll-to-top-button",
+    MapButton: "timeline-screen-map-button"
   },
   SettingsScreen: {
     ShowGpsWarning: "settings-screen-show-gps-warning",

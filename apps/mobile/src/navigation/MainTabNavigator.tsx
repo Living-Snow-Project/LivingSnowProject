@@ -5,7 +5,7 @@ import {
   DarkTheme,
   DefaultTheme,
 } from "@react-navigation/native";
-import { useColorModeValue, useTheme } from "native-base";
+import { useColorModeValue, useTheme, Box } from "native-base";
 import {
   FirstRunScreen,
   RecordDetailsScreen,
@@ -13,6 +13,7 @@ import {
   SettingsScreen,
   TimelineScreen,
 } from "../screens";
+import AlgaeProbabilityMap from "../map/AlgaeProbabilityMap";
 import { HeaderButton } from "../components/screens";
 import { RootStackParamList, RootStackNavigationProp } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
@@ -34,6 +35,23 @@ function SettingsButton({ navigation }: SettingsButtonProps) {
     />
   );
 }
+
+type MapButtonProps = {
+  navigation: RootStackNavigationProp;
+};
+
+
+function MapButton({ navigation }: MapButtonProps) {
+  return (
+    <HeaderButton
+      testID={TestIds.TimelineScreen.MapButton}
+      onPress={() => navigation.navigate("Map")}
+      iconName="map-outline"
+      placement="right"
+    />
+  );
+}
+
 
 type NewRecordButtonProps = {
   navigation: RootStackNavigationProp;
@@ -65,8 +83,21 @@ function RootNavigator() {
         component={TimelineScreen}
         options={({ navigation }: { navigation: RootStackNavigationProp }) => ({
           headerLeft: () => SettingsButton({ navigation }),
-          headerRight: () => NewRecordButton({ navigation }),
+          headerRight: () => (
+            <Box flexDirection="row">
+              <MapButton navigation={navigation} />
+              <NewRecordButton navigation={navigation} />
+            </Box>
+          ),
         })}
+      />
+      <Stack.Screen
+        name="Map"
+        component={AlgaeProbabilityMap}
+        options={{
+          title: "Map",
+          headerShown: true,
+        }}
       />
       <Stack.Screen name="Record" component={RecordScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />

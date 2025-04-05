@@ -13,6 +13,7 @@ export type RootStackParamList = {
   Record: RecordScreenRouteProps | undefined; // undefined => new record
   Settings: undefined;
   RecordDetails: { record: string }; // JSON.stringify'd MinimalAlgaeRecord
+  Map: undefined;
 };
 
 export type RootStackNavigationProp =

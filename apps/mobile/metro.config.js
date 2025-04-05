@@ -21,5 +21,6 @@ config.resolver.disableHierarchicalLookup = true;
 // 4. keep mocks out of client bundle; previous blockList: /(website\\node_modules\\.*|.*\\__tests__\\.*)$/
 config.resolver.blockList =
   /(website\\node_modules\\.*|.*\\__tests__\\.*|website\\src\\mocks\\.*)$/;
-
+// Add .geojson to assetExts
+config.resolver.assetExts.push('geojson');
 module.exports = config;
