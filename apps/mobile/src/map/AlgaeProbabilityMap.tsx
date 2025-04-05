@@ -52,7 +52,7 @@ export default function AlgaeProbabilityMap() {
                 coordinates={coords}
                 fillColor="rgba(0, 0, 0, 0.0)" // transparent
                 strokeColor="black"
-                strokeWidth={1}
+                strokeWidth={2}
               />
             ));
           }
