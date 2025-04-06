@@ -8,11 +8,11 @@ export type Photo = {
 const AlgaeSizeArray = [
   "Select a size",
   "Fist",
-  "Shoe Box",
-  "Coffee Table",
+  "Dinner Plate",
+  "Bicycle",
   "Car",
   "Bus",
-  "Playground",
+  "House",
   "Sports Field",
   "Other",
 ] as const;
@@ -50,4 +50,70 @@ export type AlgaeRecord = {
   notes?: string;
   organization?: string;
   tubeId?: string;
+};
+
+// Record v3 types (all optional)
+const SeeExposedIceArray = ["Yes", "No"] as const;
+
+export type SeeExposedIce = (typeof SeeExposedIceArray)[number];
+
+const WhatIsUnderSnowpackArray = [
+  "Select what is under snowpack",
+  "Vegetation",
+  "Rocks",
+  "Soil",
+  "Pond or tarn",
+  "Lake",
+  "Stream",
+  "Mixed",
+  "I Don't Know",
+] as const;
+
+export type WhatIsUnderSnowpack = (typeof WhatIsUnderSnowpackArray)[number];
+
+const SnowpackDepthArray = [
+  "Select snowpack depth",
+  "< 10cm",
+  "10cm - 30cm",
+  "30cm - 1m",
+  "> 1m",
+  "Other", // describe in Notes
+] as const;
+
+export type SnowpackDepth = (typeof SnowpackDepthArray)[number];
+
+const BloomDepthArray = [
+  "Select bloom depth",
+  "Surface",
+  "2cm",
+  "5cm",
+  "10cm",
+  "> 10cm",
+  "Other", // describe in Notes
+] as const;
+
+export type BloomDepth = (typeof BloomDepthArray)[number];
+
+// more than one can be selected
+const SurfaceImpurityArray = [
+  "Select impurities",
+  "Orange Dust",
+  "Soot",
+  "Soil",
+  "Vegetation",
+  "Pollen",
+  "Evidence of Animals",
+  "Other", //describe in Notes
+] as const;
+
+export type SurfaceImpurity = (typeof SurfaceImpurityArray)[number];
+
+export type AlgaeRecordV3 = AlgaeRecord & {
+  isOnGlacier?: boolean;
+  // if 'isOnGlacier' is true (yes), this is either "Yes" or "No"
+  // if 'isOnGlacier' is false (no), this is a description of what is underneath snowpack
+  seeExposedIceOrWhatIsUnderSnowpack?: SeeExposedIce | WhatIsUnderSnowpack;
+  snowpackDepth?: SnowpackDepth;
+  bloomDepth?: BloomDepth;
+  impurities?: SurfaceImpurity[];
 };

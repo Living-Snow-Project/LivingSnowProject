@@ -4,15 +4,15 @@ import { jsonToRecord, recordDateFormat } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
 import { CachedPhotos, ThemedBox } from "../components";
 import { Labels } from "../constants";
-import { MinimalAlgaeRecord } from "../../types";
+import { MinimalAlgaeRecordV3 } from "../../types";
 
 type RecordDetailsScreenProps = {
   route: RecordDetailsScreenRouteProp;
 };
 
 export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
-  const { record, photos } = jsonToRecord<MinimalAlgaeRecord>(
-    route.params.record,
+  const { record, photos } = jsonToRecord<MinimalAlgaeRecordV3>(
+    route.params.record
   );
 
   const {
@@ -25,6 +25,11 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
     longitude,
     size,
     colors,
+    isOnGlacier,
+    seeExposedIceOrWhatIsUnderSnowpack,
+    snowpackDepth,
+    bloomDepth,
+    impurities,
     tubeId,
     notes,
   } = record;
@@ -54,7 +59,27 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
               Labels.RecordDetailsScreen.Colors
             }: ${colors.reduce<string>(
               (prev, cur, index) => (index == 0 ? `${cur}` : `${prev}, ${cur}`),
-              "",
+              ""
+            )}`}</Text>
+          )}
+          {/* TODO-BILL: use localized labels for new questions */}
+          {isOnGlacier && <Text>{`${"Was On Glacier?"}: ${isOnGlacier}`}</Text>}
+          {/* if they were on a glacier, did they see exposed ice */}
+          {!!seeExposedIceOrWhatIsUnderSnowpack && isOnGlacier && (
+            <Text>{`${"See Exposed Ice?"}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
+          )}
+          {/* if they were not on a glacier, what was under the snowpack */}
+          {!!seeExposedIceOrWhatIsUnderSnowpack && !isOnGlacier && (
+            <Text>{`${"What was under snowpack?"}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
+          )}
+          {!!snowpackDepth && (
+            <Text>{`${"Snowpack Depth"}: ${snowpackDepth}`}</Text>
+          )}
+          {!!bloomDepth && <Text>{`${"Bloom Depth"}: ${bloomDepth}`}</Text>}
+          {!!impurities && (
+            <Text>{`${"Impurities"}: ${impurities.reduce<string>(
+              (prev, cur, index) => (index == 0 ? `${cur}` : `${prev}, ${cur}`),
+              ""
             )}`}</Text>
           )}
           {!!locationDescription && (

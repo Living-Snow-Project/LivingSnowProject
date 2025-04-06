@@ -8,6 +8,7 @@ export type AppPhotoResponse = Photo & {
 
 // Micrographs are JPG and the same as AppPhotos in this regard.
 // but they will be uploaded by the lab and not via mobile app
+// micrographId introduced because the Photo.uri field set to original file name of the micrograph
 export type MicrographResponse = AppPhotoResponse & {
-  micrographId: number; // needed for DELETE API
+  micrographId: number; // needed for DELETE API (uri is original file name of micrograph)
 };

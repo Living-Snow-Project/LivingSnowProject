@@ -1,23 +1,23 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Box, HStack, Pressable, Text, VStack } from "native-base";
-import { AlgaeRecord, Photo } from "@livingsnow/record";
+import { AlgaeRecordV3, Photo } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
 import { Divider, ThemedBox } from "../layout";
 import { UserStyle } from "./UserStyle";
 import { PhotosLayout } from "../media";
-import { MinimalAlgaeRecord } from "../../../types";
+import { MinimalAlgaeRecordV3 } from "../../../types";
 
 function bottomText({
   locationDescription,
   notes,
-}: AlgaeRecord): JSX.Element[] | null {
+}: AlgaeRecordV3): JSX.Element[] | null {
   const result: JSX.Element[] = [];
   if (locationDescription) {
     result.push(
       <Text key={0} fontWeight="500">
         {locationDescription}
-      </Text>,
+      </Text>
     );
   }
 
@@ -29,14 +29,14 @@ function bottomText({
 }
 
 type TimelineRowProps = {
-  record: AlgaeRecord;
+  record: AlgaeRecordV3;
   photos?: Photo[];
   actionsMenu?: JSX.Element;
 };
 
 export function TimelineRow({ record, photos, actionsMenu }: TimelineRowProps) {
   const { navigate } = useNavigation<RootStackNavigationProp>();
-  const recordDetail: MinimalAlgaeRecord = {
+  const recordDetail: MinimalAlgaeRecordV3 = {
     record: { ...record },
     photos: photos ? [...photos] : undefined,
   };

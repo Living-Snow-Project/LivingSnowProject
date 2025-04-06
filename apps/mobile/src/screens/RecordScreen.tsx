@@ -10,6 +10,7 @@ import {
   jsonToRecord,
   isSample,
   recordDateFormat,
+  AlgaeRecordV3,
 } from "@livingsnow/record";
 import { SelectedPhoto } from "../../types";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
@@ -43,12 +44,12 @@ type OffsetOperation = "add" | "subtract";
 const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
   if (op == "add") {
     return new Date(
-      date.setMinutes(date.getMinutes() + date.getTimezoneOffset()),
+      date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
     );
   }
 
   return new Date(
-    date.setMinutes(date.getMinutes() - date.getTimezoneOffset()),
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
   );
 };
 
@@ -58,7 +59,7 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
 //  3. entering coordinates manually
 // TODO: there are some weird scenarios here, what if 1 & 2 is a thing, user is blocked from saving record, is that ok?
 // then if they enter bogus numbers to save, those numbers will upload later
-type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
+type AlgaeRecordInput = Omit<AlgaeRecordV3, "latitude" | "longitude"> & {
   latitude: number | undefined;
   longitude: number | undefined;
 };
@@ -109,7 +110,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           ...defaultRecord,
           name: appSettings.name ?? "Anonymous",
           organization: appSettings.organization,
-        },
+        }
   );
 
   const onFocusEffect = React.useCallback(() => {
@@ -201,11 +202,11 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       message: Notifications.uploadSuccess.message,
     };
 
-    RecordManager.upload(record as AlgaeRecord)
+    RecordManager.uploadV3(record as AlgaeRecordV3, uuidv4())
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
       .catch((error: UploadError) => {
         Logger.Warn(
-          `Failed to upload complete record: ${error.errorInfo.title}: ${error.errorInfo.message}`,
+          `Failed to upload complete record: ${error.errorInfo.title}: ${error.errorInfo.message}`
         );
 
         setOnFocusTimelineAction("Update Pending");
@@ -249,7 +250,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const setCoordinates = useCallback(
     ({ latitude, longitude }) =>
       setRecord((prev) => ({ ...prev, latitude, longitude })),
-    [setRecord],
+    [setRecord]
   );
 
   return (
