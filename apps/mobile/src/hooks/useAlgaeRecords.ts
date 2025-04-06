@@ -156,6 +156,7 @@ const algaeRecordsReducer = (
       };
 
     case "END_FULL_SYNC":
+      /* eslint-disable no-case-declarations */
       const result: AlgaeRecordState = {
         ...currentState,
         state: defaultState,
