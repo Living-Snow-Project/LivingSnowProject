@@ -16,7 +16,7 @@ export default function AlgaeProbabilityMap() {
     setMountainFeatures(mountainGeojson.features || []);
 
     // 2) Load red algae polygons
-    const algaeGeojson = require("./red_algae_in_alpine_snow.json");
+    const algaeGeojson = require("./polygones.json");
     setAlgaeFeatures(algaeGeojson.features || []);
 
     // 3) Fetch the sightings from the remote API
