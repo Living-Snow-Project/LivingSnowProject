@@ -1,4 +1,4 @@
-import { AlgaeRecord, Photo } from "@livingsnow/record";
+import { AlgaeRecord, AlgaeRecordV3, Photo } from "@livingsnow/record";
 import { DataResponseV2 } from "@livingsnow/network";
 import { Asset } from "expo-media-library";
 
@@ -20,12 +20,20 @@ export type SelectedPhoto = Asset;
 // key = local algae record id
 export type SelectedPhotos = Map<string, SelectedPhoto[]>;
 
+// TODO: in 2026, assume no old clients exist and make the V3 type the only type
+
 // Photo saved to disk and parent record uploaded
 // This scenario can happen when a user has intermittent cel signal in the wilderness.
 export type PendingPhoto = Photo;
 
+export type PendingPhotoV3 = PendingPhoto & {
+  requestId: string; // used to track the upload request
+};
+
 // key = cloud algae record id
 export type PendingPhotos = Map<string, PendingPhoto[]>;
+
+export type PendingPhotosV3 = Map<string, PendingPhotoV3[]>;
 
 // for rendering TimelineRow
 export type MinimalAlgaeRecord = {
@@ -33,9 +41,19 @@ export type MinimalAlgaeRecord = {
   photos?: Photo[]; // could be SelectedPhoto or Photo
 };
 
+export type MinimalAlgaeRecordV3 = {
+  record: AlgaeRecordV3;
+  photos?: Photo[]; // could be SelectedPhoto or Photo
+};
+
 // for PendingRecords
 export type LocalAlgaeRecord = {
   record: AlgaeRecord;
+  photos: SelectedPhoto[] | undefined;
+};
+
+export type LocalAlgaeRecordV3 = {
+  record: AlgaeRecordV3;
   photos: SelectedPhoto[] | undefined;
 };
 
