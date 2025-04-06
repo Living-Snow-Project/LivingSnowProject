@@ -16,7 +16,7 @@ function dumpRecord(record: AlgaeRecordV3): void {
       `\n  Size: ${record.size}` +
       `\n  Colors: ${record.colors.reduce<string>(
         (prev, cur) => `${prev} ${cur}`,
-        ""
+        "",
       )}` +
       `\n  IsOnGlacier: ${record.isOnGlacier}` +
       `\n  SeeExposedIceOrWhatIsUnderSnowpack: ${record.seeExposedIceOrWhatIsUnderSnowpack}` +
@@ -24,11 +24,11 @@ function dumpRecord(record: AlgaeRecordV3): void {
       `\n  BloomDepth: ${record.bloomDepth}` +
       `\n  Impurities: ${record.impurities?.reduce<string>(
         (prev, cur) => `${prev} ${cur}`,
-        ""
+        "",
       )}` +
       `\n  Description: ${record.locationDescription}` +
       `\n  Notes: ${record.notes}` +
-      `\n JSON Body:\n${JSON.stringify(record)}`
+      `\n JSON Body:\n${JSON.stringify(record)}`,
   );
 }
 
@@ -111,7 +111,7 @@ const recordsApiV3 = () => {
     // rejects with an error string or the response object
     post: async (
       record: AlgaeRecordV3,
-      requestId: string // prevents duplicate uploads on bad cell reception (response may be dropped)
+      requestId: string, // prevents duplicate uploads on bad cell reception (response may be dropped)
     ): Promise<AlgaeRecordV3> => {
       const operation = "post";
       dumpRecord(record);
@@ -131,7 +131,7 @@ const recordsApiV3 = () => {
         .then((response) =>
           response.ok
             ? response.text().then((text) => jsonToRecord<AlgaeRecordV3>(text))
-            : Promise.reject(response)
+            : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
@@ -148,7 +148,7 @@ const recordsApiV3 = () => {
             ? response
                 .text()
                 .then((text) => jsonToRecord<AlgaeRecordResponseV3>(text))
-            : Promise.reject(response)
+            : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
@@ -165,7 +165,7 @@ const recordsApiV3 = () => {
             ? response
                 .text()
                 .then((text) => jsonToRecord<AlgaeRecordResponseV3>(text))
-            : Promise.reject(response)
+            : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
@@ -174,7 +174,7 @@ const recordsApiV3 = () => {
     postPhoto: async (
       recordId: string,
       photoUri: string,
-      requestId: string // prevents duplicate uploads on bad cell reception (response may be dropped)
+      requestId: string, // prevents duplicate uploads on bad cell reception (response may be dropped)
     ): Promise<void> => {
       const operation = "postPhoto";
 
@@ -189,7 +189,7 @@ const recordsApiV3 = () => {
         body: uri as any,
       })
         .then((response) =>
-          response.ok ? Promise.resolve() : Promise.reject(response)
+          response.ok ? Promise.resolve() : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
@@ -198,7 +198,7 @@ const recordsApiV3 = () => {
     // micrographFile is the result of selecting the file from <input>
     postMicrograph: async (
       recordId: string,
-      micrographFile: File
+      micrographFile: File,
     ): Promise<void> => {
       const operation = "postMicrograph";
 
@@ -212,7 +212,7 @@ const recordsApiV3 = () => {
         body: buffer,
       })
         .then((response) =>
-          response.ok ? Promise.resolve() : Promise.reject(response)
+          response.ok ? Promise.resolve() : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },

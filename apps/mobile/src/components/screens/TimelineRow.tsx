@@ -17,7 +17,7 @@ function bottomText({
     result.push(
       <Text key={0} fontWeight="500">
         {locationDescription}
-      </Text>
+      </Text>,
     );
   }
 

@@ -22,7 +22,7 @@ const checkAndPromptForBackgroundFetchPermission = async () => {
   ) {
     Alert.alert(
       Notifications.backgroundTasksNotAllowed.title,
-      Notifications.backgroundTasksNotAllowed.message
+      Notifications.backgroundTasksNotAllowed.message,
     );
   }
 
@@ -33,7 +33,7 @@ const checkAndPromptForBackgroundFetchPermission = async () => {
 // Must have been added to the TaskManager globally using the same name.
 async function registerBackgroundFetchAsync(
   taskName: string,
-  config: BackgroundFetch.BackgroundFetchOptions | undefined
+  config: BackgroundFetch.BackgroundFetchOptions | undefined,
 ): Promise<void> {
   const isBackgroundFetchAllowed =
     await checkAndPromptForBackgroundFetchPermission();
@@ -100,7 +100,7 @@ async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
 // rejects with UploadError
 async function uploadV3(
   record: AlgaeRecordV3,
-  requestId: string
+  requestId: string,
 ): Promise<AlgaeRecordV3> {
   let recordResponse: AlgaeRecordV3;
 
@@ -154,7 +154,7 @@ async function loadPending(): Promise<LocalAlgaeRecord[]> {
   const result: LocalAlgaeRecord[] = [];
 
   pendingRecords.forEach((value) =>
-    result.push({ record: value, photos: selectedPhotos.get(value.id) })
+    result.push({ record: value, photos: selectedPhotos.get(value.id) }),
   );
 
   return Promise.resolve(result);
@@ -173,7 +173,7 @@ async function loadPendingV3(): Promise<LocalAlgaeRecordV3[]> {
       record: value,
       requestId: value.requestId,
       photos: selectedPhotos.get(value.id),
-    })
+    }),
   );
 
   return Promise.resolve(result);
@@ -194,14 +194,14 @@ async function retryPending(): Promise<LocalAlgaeRecord[]> {
       } catch (error) {
         // upload rejects with UploadError
         Logger.Warn(
-          `uploadRecord rejected: continue records reducer to prevent data loss: ${error.errorInfo}`
+          `uploadRecord rejected: continue records reducer to prevent data loss: ${error.errorInfo}`,
         );
 
         return Promise.resolve();
       }
     },
 
-    Promise.resolve()
+    Promise.resolve(),
   );
 
   // Step 2. photos
@@ -228,14 +228,14 @@ async function retryPendingV3(): Promise<LocalAlgaeRecordV3[]> {
       } catch (error) {
         // uploadV3 rejects with UploadError
         Logger.Warn(
-          `uploadRecordV3 rejected: continue records reducer to prevent data loss: ${error.errorInfo}`
+          `uploadRecordV3 rejected: continue records reducer to prevent data loss: ${error.errorInfo}`,
         );
 
         return Promise.resolve();
       }
     },
 
-    Promise.resolve()
+    Promise.resolve(),
   );
 
   // Step 2. photos
@@ -256,7 +256,7 @@ async function deletePending(recordId: string): Promise<LocalAlgaeRecord[]> {
 }
 
 async function deletePendingV3(
-  recordId: string
+  recordId: string,
 ): Promise<LocalAlgaeRecordV3[]> {
   await Storage.deletePendingRecordV3(recordId);
 

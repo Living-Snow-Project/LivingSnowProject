@@ -45,7 +45,7 @@ export async function saveAppConfig(appSettings: AppSettings): Promise<void> {
 
   return AsyncStorage.setItem(
     StorageKeys.appConfig,
-    JSON.stringify(appSettings)
+    JSON.stringify(appSettings),
   ).catch((error) => {
     Logger.Error(`saveAppConfig: ${error}`);
     return error;
@@ -72,7 +72,7 @@ export async function loadPendingRecordsV3(): Promise<PendingAlgaeRecordV3[]> {
 }
 
 export async function savePendingRecords(
-  records: AlgaeRecord[]
+  records: AlgaeRecord[],
 ): Promise<AlgaeRecord[]> {
   const existing = await loadPendingRecords();
 
@@ -82,7 +82,7 @@ export async function savePendingRecords(
 
   return AsyncStorage.setItem(
     StorageKeys.pendingRecords,
-    JSON.stringify(records)
+    JSON.stringify(records),
   )
     .then(() => records)
     .catch((error) => {
@@ -92,7 +92,7 @@ export async function savePendingRecords(
 }
 
 export async function savePendingRecordsV3(
-  records: PendingAlgaeRecordV3[]
+  records: PendingAlgaeRecordV3[],
 ): Promise<PendingAlgaeRecordV3[]> {
   const existing = await loadPendingRecordsV3();
 
@@ -102,7 +102,7 @@ export async function savePendingRecordsV3(
 
   return AsyncStorage.setItem(
     StorageKeys.pendingRecordsV3,
-    JSON.stringify(records)
+    JSON.stringify(records),
   )
     .then(() => records)
     .catch((error) => {
@@ -123,12 +123,12 @@ export async function clearPendingRecordsV3(): Promise<void> {
     (error) => {
       Logger.Error(`clearPendingRecordsV3: ${error}`);
       return error;
-    }
+    },
   );
 }
 
 export async function savePendingRecord(
-  record: AlgaeRecord
+  record: AlgaeRecord,
 ): Promise<AlgaeRecord[]> {
   const records = await loadPendingRecords();
 
@@ -141,7 +141,7 @@ export async function savePendingRecord(
 }
 
 export async function savePendingRecordV3(
-  record: PendingAlgaeRecordV3
+  record: PendingAlgaeRecordV3,
 ): Promise<PendingAlgaeRecordV3[]> {
   const records = await loadPendingRecordsV3();
 
@@ -154,11 +154,11 @@ export async function savePendingRecordV3(
 }
 
 export async function updatePendingRecord(
-  record: AlgaeRecord
+  record: AlgaeRecord,
 ): Promise<AlgaeRecord[]> {
   const pendingRecords = await loadPendingRecords();
   const pendingRecordIndex = pendingRecords.findIndex(
-    (current) => current.id === record.id
+    (current) => current.id === record.id,
   );
 
   if (pendingRecordIndex == -1) {
@@ -171,11 +171,11 @@ export async function updatePendingRecord(
 }
 
 export async function updatePendingRecordV3(
-  record: PendingAlgaeRecordV3
+  record: PendingAlgaeRecordV3,
 ): Promise<PendingAlgaeRecordV3[]> {
   const pendingRecords = await loadPendingRecordsV3();
   const pendingRecordIndex = pendingRecords.findIndex(
-    (current) => current.id === record.id
+    (current) => current.id === record.id,
   );
 
   if (pendingRecordIndex == -1) {
@@ -189,7 +189,7 @@ export async function updatePendingRecordV3(
 
 // returns the new list of pending records
 export async function deletePendingRecord(
-  recordId: string
+  recordId: string,
 ): Promise<AlgaeRecord[]> {
   const records = await loadPendingRecords();
 
@@ -209,7 +209,7 @@ export async function deletePendingRecord(
 }
 
 export async function deletePendingRecordV3(
-  recordId: string
+  recordId: string,
 ): Promise<PendingAlgaeRecordV3[]> {
   const records = await loadPendingRecordsV3();
 
@@ -248,7 +248,7 @@ export async function loadCachedRecordsV3(): Promise<DataResponseV3[]> {
 }
 
 export async function saveCachedRecords(
-  records: DataResponseV2[]
+  records: DataResponseV2[],
 ): Promise<DataResponseV2[]> {
   const existing = await loadCachedRecords();
 
@@ -258,7 +258,7 @@ export async function saveCachedRecords(
 
   return AsyncStorage.setItem(
     StorageKeys.cachedRecords,
-    JSON.stringify(records)
+    JSON.stringify(records),
   )
     .then(() => records)
     .catch((error) => {
@@ -268,7 +268,7 @@ export async function saveCachedRecords(
 }
 
 export async function saveCachedRecordsV3(
-  records: DataResponseV3[]
+  records: DataResponseV3[],
 ): Promise<DataResponseV3[]> {
   const existing = await loadCachedRecordsV3();
 
@@ -278,7 +278,7 @@ export async function saveCachedRecordsV3(
 
   return AsyncStorage.setItem(
     StorageKeys.cachedRecordsV3,
-    JSON.stringify(records)
+    JSON.stringify(records),
   )
     .then(() => records)
     .catch((error) => {
@@ -291,7 +291,7 @@ export async function saveCachedRecordsV3(
 async function loadPhotos<K, T>(key: string): Promise<Map<K, T[]>> {
   return AsyncStorage.getItem(key)
     .then((value) =>
-      value ? new Map<K, T[]>(JSON.parse(value)) : new Map<K, T[]>()
+      value ? new Map<K, T[]>(JSON.parse(value)) : new Map<K, T[]>(),
     )
     .catch((error) => {
       Logger.Error(`loadPhotos: ${error}`);
@@ -301,7 +301,7 @@ async function loadPhotos<K, T>(key: string): Promise<Map<K, T[]>> {
 
 async function savePhotos<K, T>(
   key: string,
-  photos: Map<K, T[]>
+  photos: Map<K, T[]>,
 ): Promise<Map<K, T[]>> {
   const existing = await loadPhotos<K, T>(key);
 
@@ -330,7 +330,7 @@ export async function loadSelectedPhotos(): Promise<SelectedPhotos> {
 }
 
 export async function saveSelectedPhotos(
-  photos: SelectedPhotos
+  photos: SelectedPhotos,
 ): Promise<SelectedPhotos> {
   return savePhotos(StorageKeys.selectedPhotos, photos);
 }
@@ -349,13 +349,13 @@ export async function loadPendingPhotosV3(): Promise<PendingPhotosV3> {
 }
 
 export async function savePendingPhotos(
-  photos: PendingPhotos
+  photos: PendingPhotos,
 ): Promise<PendingPhotos> {
   return savePhotos(StorageKeys.pendingPhotos, photos);
 }
 
 export async function savePendingPhotosV3(
-  photos: PendingPhotosV3
+  photos: PendingPhotosV3,
 ): Promise<PendingPhotosV3> {
   return savePhotos(StorageKeys.pendingPhotosV3, photos);
 }

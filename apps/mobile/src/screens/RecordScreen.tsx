@@ -44,12 +44,12 @@ type OffsetOperation = "add" | "subtract";
 const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
   if (op == "add") {
     return new Date(
-      date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
+      date.setMinutes(date.getMinutes() + date.getTimezoneOffset()),
     );
   }
 
   return new Date(
-    date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset()),
   );
 };
 
@@ -110,7 +110,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           ...defaultRecord,
           name: appSettings.name ?? "Anonymous",
           organization: appSettings.organization,
-        }
+        },
   );
 
   const onFocusEffect = React.useCallback(() => {
@@ -206,7 +206,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
       .catch((error: UploadError) => {
         Logger.Warn(
-          `Failed to upload complete record: ${error.errorInfo.title}: ${error.errorInfo.message}`
+          `Failed to upload complete record: ${error.errorInfo.title}: ${error.errorInfo.message}`,
         );
 
         setOnFocusTimelineAction("Update Pending");
@@ -250,7 +250,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const setCoordinates = useCallback(
     ({ latitude, longitude }) =>
       setRecord((prev) => ({ ...prev, latitude, longitude })),
-    [setRecord]
+    [setRecord],
   );
 
   return (

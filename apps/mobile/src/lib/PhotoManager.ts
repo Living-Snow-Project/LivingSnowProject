@@ -35,7 +35,7 @@ async function addSelected(recordId: string, selectedPhotos: SelectedPhoto[]) {
 }
 
 async function getSelected(
-  recordId: string
+  recordId: string,
 ): Promise<SelectedPhoto[] | undefined> {
   const selectedPhotos = await Storage.loadSelectedPhotos();
   return selectedPhotos.get(recordId);
@@ -46,7 +46,7 @@ async function getSelected(
 // v3 API now implements "requestId" to track the upload request
 async function uploadSelected(
   localRecordId: string,
-  cloudRecordId: string
+  cloudRecordId: string,
 ): Promise<void> {
   const allSelectedPhotos = await Storage.loadSelectedPhotos();
   const selectedPhotos = allSelectedPhotos.get(localRecordId);
@@ -103,7 +103,7 @@ async function uploadSelected(
 // once the record is uploaded, the photo is promoted from Selected to Pending
 async function uploadSelectedV3(
   localRecordId: string,
-  cloudRecordId: string
+  cloudRecordId: string,
 ): Promise<void> {
   const allSelectedPhotos = await Storage.loadSelectedPhotos();
   const selectedPhotos = allSelectedPhotos.get(localRecordId);
@@ -171,7 +171,7 @@ async function retryPending(): Promise<void> {
   // this sucks but necessary since the photos need to be uploaded sequentially
   // (convert map to array)
   allPendingPhotos.forEach((value, key) =>
-    allPendingPhotosArray.push({ id: key, photos: value })
+    allPendingPhotosArray.push({ id: key, photos: value }),
   );
 
   // clear the map, insert any failures to re-save at end
@@ -216,7 +216,7 @@ async function retryPendingV3(): Promise<void> {
   // this sucks but necessary since the photos need to be uploaded sequentially
   // (convert map to array)
   allPendingPhotos.forEach((value, key) =>
-    allPendingPhotosArray.push({ id: key, photos: value })
+    allPendingPhotosArray.push({ id: key, photos: value }),
   );
 
   // clear the map, insert any failures to re-save at end
@@ -232,7 +232,7 @@ async function retryPendingV3(): Promise<void> {
         return await RecordsApiV3.postPhoto(
           currentPending.id,
           pending.uri,
-          pending.requestId
+          pending.requestId,
         );
       } catch (e) {
         failedPendingPhotos.push(pending);

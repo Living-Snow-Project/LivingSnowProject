@@ -12,7 +12,7 @@ type RecordDetailsScreenProps = {
 
 export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
   const { record, photos } = jsonToRecord<MinimalAlgaeRecordV3>(
-    route.params.record
+    route.params.record,
   );
 
   const {
@@ -59,7 +59,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
               Labels.RecordDetailsScreen.Colors
             }: ${colors.reduce<string>(
               (prev, cur, index) => (index == 0 ? `${cur}` : `${prev}, ${cur}`),
-              ""
+              "",
             )}`}</Text>
           )}
           {/* TODO-BILL: use localized labels for new questions */}
@@ -79,7 +79,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
           {!!impurities && (
             <Text>{`${"Impurities"}: ${impurities.reduce<string>(
               (prev, cur, index) => (index == 0 ? `${cur}` : `${prev}, ${cur}`),
-              ""
+              "",
             )}`}</Text>
           )}
           {!!locationDescription && (
