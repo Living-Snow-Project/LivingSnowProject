@@ -169,7 +169,11 @@ async function loadPendingV3(): Promise<LocalAlgaeRecordV3[]> {
   const result: LocalAlgaeRecordV3[] = [];
 
   pendingRecords.forEach((value) =>
-    result.push({ record: value, photos: selectedPhotos.get(value.id) })
+    result.push({
+      record: value,
+      requestId: value.requestId,
+      photos: selectedPhotos.get(value.id),
+    })
   );
 
   return Promise.resolve(result);

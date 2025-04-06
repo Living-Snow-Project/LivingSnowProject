@@ -54,6 +54,7 @@ export type LocalAlgaeRecord = {
 
 export type LocalAlgaeRecordV3 = {
   record: AlgaeRecordV3;
+  requestId: string; // used to track the upload request
   photos: SelectedPhoto[] | undefined;
 };
 
