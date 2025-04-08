@@ -2,15 +2,15 @@ import { getLocales, getCalendars } from 'expo-localization';
 import { I18n } from 'i18n-js';
 
 // Import or define your translation files
-import en from './locales/en.json';
-import fr from './locales/fr.json';
-import ja from './locales/ja.json';
-import es from './locales/es.json';
-import nb from './locales/nb.json';
-import sv from './locales/sv.json';
-import de from './locales/de.json';
-import it from './locales/it.json';
-import mn from './locales/mn.json';
+import en from './locales/en_final.json';
+import fr from './locales/fr_final.json';
+import ja from './locales/ja_final.json';
+import nb from './locales/nb_final.json';
+import de from './locales/de_final.json';
+import it from './locales/it_final.json';
+import mn from './locales/mn_final.json';
+import sv from './locales/sv.json';   // AI Translated file
+import es from './locales/es.json';   // AI Translated file
 
 // Set the key-value pairs for the different languages you want to support.
 const translations = {
