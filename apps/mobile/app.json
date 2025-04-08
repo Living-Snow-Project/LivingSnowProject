@@ -2,13 +2,11 @@
   "expo": {
     "name": "Living Snow Project",
     "slug": "LivingSnowProject",
+    "owner": "livingsnowproject",
     "privacy": "unlisted",
     "primaryColor": "#000000",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "version": "2.3.4",
+    "platforms": ["ios", "android"],
+    "version": "2.3.5",
     "orientation": "portrait",
     "icon": "./assets/images/lsp@2x.png",
     "splash": {
@@ -37,7 +35,6 @@
     "android": {
       "softwareKeyboardLayoutMode": "resize",
       "package": "com.livingsnowproject.livingsnowproject",
-      "versionCode": 4,
       "permissions": [
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
@@ -46,17 +43,12 @@
         "WRITE_EXTERNAL_STORAGE"
       ]
     },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
+    "runtimeVersion": "7.3.5",
     "extra": {
       "eas": {
         "projectId": "e9398179-0d31-4623-8b30-84ca256f8a71"
       }
     },
-    "plugins": [
-      "expo-font"
-    ],
-    "owner": "livingsnowproject"
+    "plugins": ["expo-font", "expo-localization"]
   }
 }

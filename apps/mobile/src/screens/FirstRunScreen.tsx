@@ -12,18 +12,20 @@ type FirstRunScreenProps = {
 export function FirstRunScreen({ navigation }: FirstRunScreenProps) {
   return (
     <Box px={3} mt={2}>
+      <VStack alignItems="center">
       <HStack alignItems="center" justifyContent="space-between">
         <SnowIcon />
         <SnowIcon />
-        <VStack>
+        <VStack alignItems="center">
           <Text fontWeight="bold" fontSize="xl" color="pink.600">
-            {Labels.LivingSnowProject}
+            {"  " + Labels.LivingSnowProject + "  "}
           </Text>
-          <Text color="pink.500">{Labels.Slogan}</Text>
         </VStack>
         <SnowIcon />
         <SnowIcon />
       </HStack>
+      <Text color="pink.500">{Labels.Slogan}</Text>
+      </VStack>
 
       <Text my={2}>{Labels.FirstRunScreen.Usage}</Text>
 

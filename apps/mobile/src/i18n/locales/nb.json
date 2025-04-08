@@ -1,0 +1,210 @@
+{
+  "welcomeHeading": "Velkommen",
+  "timelineHeading": "Tidslinje",
+  "recordHeading": "Registrering",
+  "settingsHeading": "Innstillinger",
+  "detailsHeading": "Detaljer",
+  "placeholders": {
+    "gps": {
+      "acquiringLocation": "Søker etter GPS-signal",
+      "enterCoordinates": "f.eks. 12.34567, -123.45678",
+      "noPermissions": "Sjekk posisjonstillatelser i Innstillinger. Angi koordinater manuelt.",
+      "noLocation": "Kunne ikke fastslå posisjon. Angi koordinater manuelt."
+    },
+    "settings": {
+      "username": "Skriv inn navnet ditt",
+      "organization": "Skriv inn organisasjonen du tilhører (hvis aktuelt)"
+    },
+    "recordScreen": {
+      "locationDescription": "f.eks.: Blue Lake, North Cascades, WA",
+      "notes": "f.eks. mørkerøde alger på isbre",
+      "other": "(beskrivelsesboks)",
+      "size": "Velg en størrelse",
+      "tubeId": "La stå tomt hvis røret ikke har en ID",
+      "tubeIdDisabled": "Deaktivert – bare i bruk for prøver"
+    }
+  },
+  "labels": {
+    "date": "Dato",
+    "defaultName": "Frivillig forsker",
+    "empty": "Tom",
+    "livingSnowProject": "Prosjektet Levende Snø",
+    "name": "Navn",
+    "organization": "Organisasjon",
+    "photos": "Bilder",
+    "recordType": "Type",
+    "slogan": "Ser du rosa snø? Del observasjonen din!",
+    "tubeId": "Tube-ID",
+
+    "firstRunScreen": {
+      "startReporting": "Rapportér en observasjon",
+      "usage": "Skriv inn navnet ditt eller forbli anonym. Du kan oppdatere profilen din når som helst i Innstillinger."
+    },
+
+    "recordScreen": {
+      "bloomDepth": "Hvor dyp er blomsten (nærmeste anslag)?",
+      "colors": "Farger (velg alle som gjelder)",
+      "exposedIce": "Kan du se eksponert isbreis i nærheten?",
+      "onGlacier": "Er du på isbre?",
+      "gps": "GPS-koordinater (breddegrad, lengdegrad)",
+      "locationDescription": "Stedsbeskrivelse (maks 255 tegn)",
+      "notes": "Notater (maks 255 tegn)",
+      "photos": "Velg bilder (maks 4)",
+      "recordType": "Rapporterer du en observasjon eller tar du en prøve?",
+      "size": "Velg en størrelse",
+      "snowpackThickness": "Hvor tykk er snødekket?",
+      "underSnowpack": "Hva er under snødekket?"
+    },
+
+    "recordDetailsScreen": {
+      "colors": "Farger",
+      "dataSheet": "Dataskjema",
+      "gps": "Koordinater",
+      "latitude": "Breddegrad",
+      "locationDescription": "Stedsbeskrivelse",
+      "longitude": "Lengdegrad",
+      "notes": "Notater",
+      "size": "Størrelse"
+    },
+    "timelineScreen": {
+      "downloadedRecords": "Nedlastet",
+      "exampleRecords": "Eksempelregistrering",
+      "pendingRecords": "Avventer"
+    },
+    "settingsScreen": {
+      "darkMode": "Mørk",
+      "manualCoordinates": "Advarsel om manuelle koordinater"
+    },
+    "statusBar": {
+      "noConnection": "Ingen Internett-tilkobling"
+    },
+    "modal": {
+      "cancel": "Avbryt",
+      "confirm": "Bekreft",
+      "diskUsage": {
+        "header": "Bekreft sletting",
+        "body": "Er du sikker på at du vil slette lagrede bilder?"
+      },
+      "gpsManualEntry": {
+        "header": "Angi koordinater manuelt?",
+        "body": "Noen brukere angir koordinater manuelt hvis de ikke får GPS-signal eller når de kommer hjem. Denne meldingen kan deaktiveres i Innstillinger."
+      }
+    }
+  },
+  "notifications": {
+    "uploadSuccess": {
+      "title": "Registrering lastet opp",
+      "message": "Takk for innsendelsen din."
+    },
+    "uploadRecordFailed": {
+      "title": "Registrering lagret",
+      "message": "Vi laster den opp senere."
+    },
+    "uploadPhotoFailed": {
+      "title": "Bilde lagret",
+      "message": "Vi laster det opp senere."
+    },
+    "uploadPhotosFailed": {
+      "title": "Bilder lagret",
+      "message": "Vi laster dem opp senere."
+    },
+    "updateRecordSuccess": {
+      "title": "Registrering oppdatert"
+    },
+    "updateRecordFailed": {
+      "title": "Oppdatering mislyktes",
+      "message": "Dette kan skje hvis internettforbindelsen gjenopprettes mens registreringen oppdateres."
+    },
+    "backgroundTasksNotAllowed": {
+      "title": "Bakgrunnsopplasting ikke aktivert",
+      "message": "Aktiver oppdatering i bakgrunnen om du vil at lagrede registreringer skal lastes opp automatisk."
+    }
+  },
+  "validations": {
+    "invalidCoordinates": "Koordinatene må være i formatet \"lat, long\". f.eks. 12.34567, -123.45678",
+    "invalidAlgaeSize": "Du må angi en størrelse",
+    "invalidAlgaeColors": "Du må velge minst én farge"
+  },
+  "errors": {
+    "recordNotFound": "Finner ikke registreringen som skal oppdateres"
+  },
+  "recordDescription": {
+    "sample": "Prøve",
+    "sighting": "Observasjon",
+    "undefined": "Udefinert"
+  },
+  "algaeSizeDescription": {
+    "select": "Velg en størrelse",
+    "fist": "Knyttneve",
+    "dinnerPlate": "Desserttallerken",
+    "bicycle": "Sykkel",
+    "car": "Bil",
+    "bus": "Buss",
+    "house": "hus",
+    "sportsField": "Idrettsbane",
+    "other": "Annet (beskriv i notater)"
+  },
+  "algaeColorDescription": {
+    "select": "Velg en farge",
+    "red": "Rød",
+    "pink": "Rosa",
+    "grey": "Grå",
+    "green": "Grønn",
+    "orange": "Oransje",
+    "yellow": "Gul",
+    "other": "Annet (beskriv i notater)"
+  },
+  "bloomDepthDescription": {
+    "select": "Velg en dybde",
+    "surface": "Overflate",
+    "twoCm": "2 cm",
+    "fiveCm": "5 cm",
+    "tenCm": "10 cm",
+    "greaterThan10Cm": "Mer enn 10 cm",
+    "other": "Annet (beskriv i notater)"
+  },
+  "exposedIceDescription": {
+    "yes": "Ja",
+    "no": "Nei"
+  },
+  "impuritiesDescription": {
+    "orangeDust": "Oransje støv",
+    "soot": "Sot",
+    "soil": "Jord",
+    "vegetation": "Vegetasjon",
+    "pollen": "Pollen",
+    "evidenceOfAnimals": "Spor av dyr",
+    "other": "Annet (beskriv i notatene)"
+  },
+  "onOffGlacierDescription": {
+    "yes": "Ja",
+    "no": "Nei"
+  },
+  "snowpackThicknessDescription": {
+    "select": "Velg en tykkelse",
+    "lessThan10Cm": "Less than 10 cm",
+    "between10Cm30Cm": "Between 10 cm - 30 cm",
+    "thirtyCm1M": "30 cm - 1 m",
+    "greaterThan1M": "Greater than 1 m",
+    "iDontKnow": "Jeg vet ikke"
+  },
+  "underSnowpackDescription": {
+    "select": "Velg hva som er under snødekket",
+    "vegetation": "Vegetasjon",
+    "rocks": "Stein",
+    "soil": "Jord",
+    "lake": "Innsjø",
+    "stream": "Elv",
+    "mixed": "Blandet",
+    "iDontKnow": "Jeg vet ikke"
+  },
+  "backgroundTasks": {
+    "uploadData": "opplastingsoppgave-i-bakgrunnen"
+  },
+  "headers": {
+    "diskUsage": "Diskbruk",
+    "profile": "Profil",
+    "prompts": "Indikasjoner",
+    "theme": "Tema"
+  }
+}

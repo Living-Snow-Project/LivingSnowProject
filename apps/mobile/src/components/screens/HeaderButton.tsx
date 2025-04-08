@@ -9,7 +9,8 @@ type IconNames =
   | "cloud-upload"
   | "settings-outline"
   | "add-circle-outline"
-  | "checkmark-circle-outline";
+  | "checkmark-circle-outline"
+  | "map-outline";
 
 type HeaderButtonProps = {
   testID: string;
