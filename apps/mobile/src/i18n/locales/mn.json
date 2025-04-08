@@ -187,13 +187,14 @@
     "between10Cm30Cm": "10 см - 30 см",
     "thirtyCm1M": "30 см - 1 м",
     "greaterThan1M": "1 м-с их",
-    "iDontKnow": "Мэдэхгүй"
+    "other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
   },
   "underSnowpackDescription": {
     "select": "Хэмжээг сонгоно уу",
     "vegetation": "Ургамал",
     "rocks": "Хаана",
     "soil": "Газар",
+    "pondOrTarn": "Тарн эсвэл нуур",
     "lake": "Цас",
     "stream": "Гол",
     "mixed": "Холбоотой",

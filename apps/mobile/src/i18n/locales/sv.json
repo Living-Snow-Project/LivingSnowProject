@@ -186,13 +186,14 @@
     "between10Cm30Cm": "Mellan 10 cm - 30 cm",
     "thirtyCm1M": "30 cm - 1 m",
     "greaterThan1M": "Mer än 1 m",
-    "iDontKnow": "Jag vet inte"
+    "other": "Annat (beskriv i anteckningar)"
   },
   "underSnowpackDescription": {
     "select": "Välj ett alternativ",
     "vegetation": "Vegetation",
     "rocks": "Stenar",
     "soil": "Jord",
+    "pondOrTarn": "Dam eller myr",
     "lake": "Sjö",
     "stream": "Bäck",
     "mixed": "Blandat",

@@ -33,9 +33,6 @@ const productionExampleRecord = (): LocalAlgaeRecord => ({
     tubeId: "TUBE-1234",
     locationDescription: "White Chuck Glacier, Glacier Peak Wilderness, WA",
     notes: "Dark red algae in runnels",
-    bloomDepth: "Other",
-    onOffGlacier: "Yes",
-    snowpackThickness: "Select a thickness"
   },
   photos: [{ uri: examplePhoto, width: 128, height: 128 } as unknown as Asset],
 });

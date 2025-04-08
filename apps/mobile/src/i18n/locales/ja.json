@@ -186,13 +186,14 @@
     "between10Cm30Cm": "10 cm - 30 cm",
     "thirtyCm1M": "30 cm - 1 m",
     "greaterThan1M": "1 m より厚い",
-    "iDontKnow": "わかりません"
+    "other": "他の厚さ(追記に記載してください)"
   },
   "underSnowpackDescription": {
     "select": "下にあるものを選択してください",
     "vegetation": "植生",
     "rocks": "岩",
     "soil": "土",
+    "pondOrTarn": "池または小さな湖",
     "lake": "湖",
     "stream": "小川",
     "mixed": "混合",

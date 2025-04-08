@@ -13,7 +13,7 @@ import {
   useColorMode,
   VStack,
 } from "native-base";
-import { AlgaeColor, AlgaeRecordType, AlgaeSize, BloomDepthThicknessSelection, ExposedIceSelection, ImpuritiesSelection, OnOffGlacierSelection, SnowpackThicknessSelection, UnderSnowpackSelection } from "@livingsnow/record";
+import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 import {
   getAllAlgaeColorSelectorItems,
   getAllAlgaeSizeSelectorItems,
@@ -22,6 +22,7 @@ import {
 import { TextArea } from "../forms/TextArea";
 import { BloomDepthDescription, ExposedIceDescription, ImpuritiesDescription, Labels, OnOffGlacierDescription, Placeholders, SnowpackThicknessDescription, TestIds, UnderSnowpackDescription, Validations } from "../../constants";
 import { G } from "react-native-svg";
+import { BloomDepth, SeeExposedIce, SnowpackDepth, SurfaceImpurity, WhatIsUnderSnowpack } from "@livingsnow/record/src/types";
 
 type AlgaeRecordTypeSelectorProps = {
   type: AlgaeRecordType;
@@ -180,12 +181,12 @@ function AlgaeColorSelector({
 }
 
 type GlacierOrNotSelectorProps = {
-  onOrOffGlacier: OnOffGlacierSelection;
-  setOnOrOffGlacier: (val: OnOffGlacierSelection) => void;
-  exposedIce: ExposedIceSelection;
-  setExposedIce: (val: ExposedIceSelection) => void;
-  underSnow: UnderSnowpackSelection;
-  setUnderSnow: (val: UnderSnowpackSelection) => void;
+  onOrOffGlacier: boolean;
+  setOnOrOffGlacier: (val: boolean) => void;
+  exposedIce: SeeExposedIce | WhatIsUnderSnowpack;
+  setExposedIce: (val: SeeExposedIce | WhatIsUnderSnowpack) => void;
+  underSnow: SeeExposedIce | WhatIsUnderSnowpack;
+  setUnderSnow: (val: SeeExposedIce | WhatIsUnderSnowpack) => void;
 };
 
 function GlacierOrNotSelector({
@@ -196,9 +197,14 @@ function GlacierOrNotSelector({
   underSnow,
   setUnderSnow,
 }: GlacierOrNotSelectorProps) {
-  // Logic to show/hide second question
-  const isOnGlacier = onOrOffGlacier === "Yes";
-  const isOffGlacier = onOrOffGlacier === "No";
+  // Accept onOrOffGlacier into local state
+  const [localOnOrOffGlacier, setLocalOnOrOffGlacier] = useState(onOrOffGlacier);
+  const [localExposedIce, setLocalExposedIce] = useState(exposedIce);
+  const [localUnderSnow, setLocalUnderSnow] = useState(underSnow);
+
+  // We'll compute isOnGlacier/isOffGlacier from local state
+  const isOnGlacier = localOnOrOffGlacier === true;
+  const isOffGlacier = localOnOrOffGlacier === false;
 
   return (
     <>
@@ -208,15 +214,19 @@ function GlacierOrNotSelector({
         <Radio.Group
           name="onGlacier"
           accessibilityLabel="select if on glacier"
-          value={onOrOffGlacier}
-          onChange={(val) => setOnOrOffGlacier(val as OnOffGlacierSelection)}
+          value={isOnGlacier ? "Yes" : "No"}
+          onChange={(val) => {
+            const newVal = val === "Yes";
+            setLocalOnOrOffGlacier(newVal);
+            setOnOrOffGlacier(newVal);
+          }}
         >
           <HStack>
             <Box mr="3">
-              <Radio value={OnOffGlacierSelection.YES}>{OnOffGlacierDescription.Yes}</Radio>
+              <Radio value={"Yes"}>{OnOffGlacierDescription.Yes}</Radio>
             </Box>
             <Box>
-              <Radio value={OnOffGlacierSelection.NO}>{OnOffGlacierDescription.No}</Radio>
+              <Radio value={"No"}>{OnOffGlacierDescription.No}</Radio>
             </Box>
           </HStack>
         </Radio.Group>
@@ -231,15 +241,19 @@ function GlacierOrNotSelector({
           <Radio.Group
             name="exposedIce"
             accessibilityLabel="exposed ice question"
-            defaultValue={exposedIce}
-            onChange={setExposedIce}
+            value={localExposedIce}
+            onChange={(val) => {
+              const newVal = val as SeeExposedIce | WhatIsUnderSnowpack;
+              setLocalExposedIce(newVal);
+              setExposedIce(newVal);
+            }}
           >
             <HStack>
               <Box mr="3">
-                <Radio value={ExposedIceSelection.YES}>{ExposedIceDescription.Yes}</Radio>
+                <Radio value={ExposedIceDescription.Yes}>{ExposedIceDescription.Yes}</Radio>
               </Box>
               <Box>
-                <Radio value={ExposedIceSelection.NO}>{ExposedIceDescription.No}</Radio>
+                <Radio value={ExposedIceDescription.No}>{ExposedIceDescription.No}</Radio>
               </Box>
             </HStack>
           </Radio.Group>
@@ -255,17 +269,22 @@ function GlacierOrNotSelector({
           <Select
             size="xl"
             placeholder={UnderSnowpackDescription.Select}
-            selectedValue={underSnow}
-            onValueChange={val => setUnderSnow(val as UnderSnowpackSelection)}
+            selectedValue={localUnderSnow}
+            onValueChange={(val) => {
+              const newVal = val as SeeExposedIce | WhatIsUnderSnowpack;
+              setLocalUnderSnow(newVal);
+              setUnderSnow(newVal);
+            }}
             _selectedItem={{ endIcon: <CheckIcon size="5" /> }}
           >
-            <Select.Item label={UnderSnowpackDescription.Vegetation} value={UnderSnowpackSelection.VEGETATION} />
-            <Select.Item label={UnderSnowpackDescription.Rocks} value={UnderSnowpackSelection.ROCKS} />
-            <Select.Item label={UnderSnowpackDescription.Soil} value={UnderSnowpackSelection.SOIL} />
-            <Select.Item label={UnderSnowpackDescription.Lake} value={UnderSnowpackSelection.LAKE} />
-            <Select.Item label={UnderSnowpackDescription.Stream} value={UnderSnowpackSelection.STREAM} />
-            <Select.Item label={UnderSnowpackDescription.Mixed} value={UnderSnowpackSelection.MIXED} />
-            <Select.Item label={UnderSnowpackDescription.IdontKnow} value={UnderSnowpackSelection.I_DONT_KNOW} />
+            <Select.Item label={UnderSnowpackDescription.Vegetation} value={"Vegetation"} />
+            <Select.Item label={UnderSnowpackDescription.Rocks} value={"Rocks"} />
+            <Select.Item label={UnderSnowpackDescription.Soil} value={"Soil"} />
+            <Select.Item label={UnderSnowpackDescription.PondOrTarn} value={"Pond or tarn"} />
+            <Select.Item label={UnderSnowpackDescription.Lake} value={"Lake"} />
+            <Select.Item label={UnderSnowpackDescription.Stream} value={"Stream"} />
+            <Select.Item label={UnderSnowpackDescription.Mixed} value={"Mixed"} />
+            <Select.Item label={UnderSnowpackDescription.IdontKnow} value={"I Don't Know"} />
           </Select>
         </FormControl>
       )}
@@ -273,34 +292,34 @@ function GlacierOrNotSelector({
   );
 }
 
-export function getAllImpuritiesSelectorItems(): { value: ImpuritiesSelection; label: string }[] {
+export function getAllImpuritiesSelectorItems(): { value: SurfaceImpurity; label: string }[] {
   return [
     {
-      value: ImpuritiesSelection.ORANGE_DUST,
+      value: "Orange Dust",
       label: ImpuritiesDescription.OrangeDust,
     },
     {
-      value: ImpuritiesSelection.SOOT,
+      value: "Soot",
       label: ImpuritiesDescription.Soot,
     },
     {
-      value: ImpuritiesSelection.SOIL,
+      value: "Soil",
       label: ImpuritiesDescription.Soil,
     },
     {
-      value: ImpuritiesSelection.VEGETATION,
+      value: "Vegetation",
       label: ImpuritiesDescription.Vegetation,
     },
     {
-      value: ImpuritiesSelection.POLLEN,
+      value: "Pollen",
       label: ImpuritiesDescription.Pollen,
     },
     {
-      value: ImpuritiesSelection.EVIDENCE_OF_ANIMALS,
+      value: "Evidence of Animals",
       label: ImpuritiesDescription.EvidenceOfAnimals,
     },
     {
-      value: ImpuritiesSelection.OTHER,
+      value: "Other",
       label: ImpuritiesDescription.Other,
     },
   ];
@@ -309,9 +328,9 @@ export function getAllImpuritiesSelectorItems(): { value: ImpuritiesSelection; l
 
 type ImpuritiesSelectorProps = {
   /** Currently selected impurities. */
-  impuritiesSelected: ImpuritiesSelection[];
+  impuritiesSelected: SurfaceImpurity[];
   /** Callback when user toggles a checkbox. We return the updated array of selected values. */
-  onChangeImpurities: (impuritiesSelected: ImpuritiesSelection[]) => void;
+  onChangeImpurities: (impuritiesSelected: SurfaceImpurity[]) => void;
 };
 
 export function ImpuritiesSelector({
@@ -321,7 +340,7 @@ export function ImpuritiesSelector({
   const { colorMode } = useColorMode();
 
   // local state to force re-renders on each check/uncheck
-  const [, setImpuritiesInternal] = useState<ImpuritiesSelection[]>([
+  const [, setImpuritiesInternal] = useState<SurfaceImpurity[]>([
     ...impuritiesSelected,
   ]);
 
@@ -383,42 +402,49 @@ export function ImpuritiesSelector({
 }
 
 type SnowpackThicknessSelectorProps = {
-  thickness: SnowpackThicknessSelection;
-  setThickness: (val: SnowpackThicknessSelection) => void;
+  thickness: SnowpackDepth;
+  setThickness: (val: SnowpackDepth) => void;
 };
 
 function SnowpackThicknessSelector({
   thickness,
   setThickness,
 }: SnowpackThicknessSelectorProps) {
+  const [localThickness, setLocalThickness] = useState(thickness);
+
   return (
     <FormControl isRequired mt="3">
       <FormControl.Label>{Labels.RecordScreen.SnowpackThickness}</FormControl.Label>
       <Radio.Group
         name="snowpackThickness"
         accessibilityLabel="select snowpack thickness"
-        value={thickness}
-        onChange={val => setThickness(val as SnowpackThicknessSelection)}
+        value={localThickness}
+        onChange={(val) => {
+          // 3) Convert to SnowpackDepth, store in local & parent
+          const newVal = val as SnowpackDepth;
+          setLocalThickness(newVal);
+          setThickness(newVal);
+        }}
       >
         <VStack>
           <HStack>
             <Box mr="3" mt="1">
-              <Radio value={SnowpackThicknessSelection.LESS_THAN_10_CM}>{SnowpackThicknessDescription.LessThan10Cm}</Radio>
+              <Radio value={"< 10cm"}>{SnowpackThicknessDescription.LessThan10Cm}</Radio>
             </Box>
             <Box mr="3" mt="1">
-              <Radio value={SnowpackThicknessSelection.BETWEEN_10_CM_30_CM}>{SnowpackThicknessDescription.Between10Cm30Cm}</Radio>
+              <Radio value={"10cm - 30cm"}>{SnowpackThicknessDescription.Between10Cm30Cm}</Radio>
             </Box>
           </HStack>
           <HStack>
             <Box mr="3" mt="1">
-              <Radio value={SnowpackThicknessSelection.THIRTY_CM_TO_1_M}>{SnowpackThicknessDescription.ThirtyCm1M}</Radio>
+              <Radio value={"30cm - 1m"}>{SnowpackThicknessDescription.ThirtyCm1M}</Radio>
             </Box>
             <Box mr="3" mt="1">
-              <Radio value={SnowpackThicknessSelection.GREATER_THAN_1_M}>{SnowpackThicknessDescription.GreaterThan1M}</Radio>
+              <Radio value={"> 1m"}>{SnowpackThicknessDescription.GreaterThan1M}</Radio>
             </Box>
           </HStack>
           <Box mr="3" mt="1">
-            <Radio value={SnowpackThicknessSelection.I_DONT_KNOW}>{SnowpackThicknessDescription.IdontKnow}</Radio>
+            <Radio value={"Other"}>{SnowpackThicknessDescription.Other}</Radio>
           </Box>
         </VStack>
       </Radio.Group>
@@ -427,8 +453,8 @@ function SnowpackThicknessSelector({
 }
 
 type BloomDepthSelectorProps = {
-  bloomDepth: BloomDepthThicknessSelection;
-  setBloomDepth: (val: BloomDepthThicknessSelection) => void;
+  bloomDepth: BloomDepth;
+  setBloomDepth: (val: BloomDepth) => void;
   // otherDescription: string;
   // setOtherDescription: (val: string) => void;
 };
@@ -441,7 +467,7 @@ function BloomDepthSelector({
 }: BloomDepthSelectorProps) {
   // if user picks "other", show a text input
   const handleBloomDepthChange = (val: string) => {
-    setBloomDepth(val as BloomDepthThicknessSelection);
+    setBloomDepth(val as BloomDepth);
     // if (val !== "other") {
     //   setOtherDescription("");
     // }
@@ -457,12 +483,12 @@ function BloomDepthSelector({
         onValueChange={handleBloomDepthChange}
         _selectedItem={{ endIcon: <CheckIcon size="5" /> }}
       >
-        <Select.Item label={BloomDepthDescription.Surface} value={BloomDepthThicknessSelection.SURFACE} />
-        <Select.Item label={BloomDepthDescription.TwoCm} value={BloomDepthThicknessSelection.TWO_CM} />
-        <Select.Item label={BloomDepthDescription.FiveCm} value={BloomDepthThicknessSelection.FIVE_CM} />
-        <Select.Item label={BloomDepthDescription.TenCm} value={BloomDepthThicknessSelection.TEN_CM} />
-        <Select.Item label={BloomDepthDescription.GreaterThan10Cm} value={BloomDepthThicknessSelection.GREATER_THAN_TEN_CM} />
-        <Select.Item label={BloomDepthDescription.Other} value={BloomDepthThicknessSelection.OTHER} />
+        <Select.Item label={BloomDepthDescription.Surface} value={"Surface"} />
+        <Select.Item label={BloomDepthDescription.TwoCm} value={"2cm"} />
+        <Select.Item label={BloomDepthDescription.FiveCm} value={"5cm"} />
+        <Select.Item label={BloomDepthDescription.TenCm} value={"10cm"} />
+        <Select.Item label={BloomDepthDescription.GreaterThan10Cm} value={"> 10cm"} />
+        <Select.Item label={BloomDepthDescription.Other} value={"Other"} />
       </Select>
       {/* 
       {bloomDepth === "other" && (

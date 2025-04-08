@@ -186,13 +186,14 @@
     "between10Cm30Cm": "Entre 10 cm et 30 cm",
     "thirtyCm1M": "Entre 30 cm et 1 m",
     "greaterThan1M": "Plus de 1 m",
-    "iDontKnow": "Je ne sais pas"
+    "other": "Autre (décrivez dans les notes)"
   },
   "underSnowpackDescription": {
     "select": "Sélectionnez une description",
     "vegetation": "Végétation",
     "rocks": "Roches",
     "soil": "Sol",
+    "pondOrTarn": "Étang ou lac",
     "lake": "Lac",
     "stream": "Ruisseau",
     "mixed": "Mixte",

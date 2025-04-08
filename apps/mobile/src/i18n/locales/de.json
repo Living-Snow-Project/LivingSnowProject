@@ -186,13 +186,14 @@
     "between10Cm30Cm": "Zwischen 10 cm und 30 cm",
     "thirtyCm1M": "30 cm - 1 m",
     "greaterThan1M": "Mehr als 1 m",
-    "iDontKnow": "Ich weiß es nicht"
+    "other": "Andere (beschreiben Sie dies in den Notizen)"
   },
   "underSnowpackDescription": {
     "select": "Wählen Sie eine Option",
     "vegetation": "Vegetation",
     "rocks": "Felsen",
     "soil": "Boden",
+    "pondOrTarn": "Teich oder Tümpel",
     "lake": "See",
     "stream": "Fluss",
     "mixed": "Gemischt",

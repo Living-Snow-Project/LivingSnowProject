@@ -426,8 +426,8 @@ export const SnowpackThicknessDescription = {
   get GreaterThan1M(): string {
     return i18n.t("snowpackThicknessDescription.greaterThan1M");
   },
-  get IdontKnow(): string { 
-    return i18n.t("snowpackThicknessDescription.iDontKnow");
+  get Other(): string { 
+    return i18n.t("snowpackThicknessDescription.other");
   }
 }
 
@@ -443,6 +443,9 @@ export const UnderSnowpackDescription = {
   },
   get Soil(): string {
     return i18n.t("underSnowpackDescription.soil");
+  },
+  get PondOrTarn(): string {
+    return i18n.t("underSnowpackDescription.pondOrTarn");
   },
   get Lake(): string {
     return i18n.t("underSnowpackDescription.lake");

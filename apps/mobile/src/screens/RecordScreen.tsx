@@ -82,16 +82,15 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const defaultRecord: AlgaeRecordInput = {
     id: uuidv4(),
     type: "Sighting",
-    bloomDepth: BloomDepthThicknessSelection.SELECT_A_DEPTH,
+    bloomDepth: "Select bloom depth",
     date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
-    exposedIce: ExposedIceSelection.NO,
-    impurities: [ImpuritiesSelection.ORANGE_DUST],
+    impurities: ["Select impurities"],
     latitude: 0,
     longitude: 0,
-    onOffGlacier: OnOffGlacierSelection.NO,
-    snowpackThickness: SnowpackThicknessSelection.SELECT_A_THICKNESS,
-    underSnowpack: UnderSnowpackSelection.SELECT_AN_OPTION,
-    size: AlgaeSize.SELECT_A_SIZE,
+    isOnGlacier: false,
+    seeExposedIceOrWhatIsUnderSnowpack: "No",
+    snowpackDepth: "Select snowpack depth",
+    size: "Select a size",
     colors: ["Select colors"],
     locationDescription: "",
   };
@@ -299,15 +298,15 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
           <Space />
           <GlacierOrNotSelector
-            onOrOffGlacier={record.onOffGlacier}
+            onOrOffGlacier={record.isOnGlacier ?? false}
             setOnOrOffGlacier={(newVal) =>
               setRecord((prev) => ({ ...prev, onOffGlacier: newVal }))
             }
-            exposedIce={record.exposedIce}
+            exposedIce={record.seeExposedIceOrWhatIsUnderSnowpack ?? "No"}
             setExposedIce={(newVal) =>
               setRecord((prev) => ({ ...prev, exposedIce: newVal }))
             }
-            underSnow={record.underSnowpack}
+            underSnow={record.seeExposedIceOrWhatIsUnderSnowpack ?? "Select what is under snowpack"}
             setUnderSnow={(newVal) =>
               setRecord((prev) => ({ ...prev, underSnowpack: newVal }))
             }
@@ -315,7 +314,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
           <Space />
           <SnowpackThicknessSelector
-            thickness={record.snowpackThickness}
+            thickness={record.snowpackDepth ?? "Select snowpack depth"}
             setThickness={(thickness) =>
               setRecord((prev) => ({ ...prev, snowpackThickness: thickness }))
             }
@@ -323,7 +322,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
           <Space />
           <BloomDepthSelector
-            bloomDepth={record.bloomDepth}
+            bloomDepth={record.bloomDepth ?? "Select bloom depth"}
             setBloomDepth={(depth) => setRecord((prev) => ({ ...prev, bloomDepth: depth }))}
             // otherDescription={""}
             // setOtherDescription={(newDescription) => {
@@ -333,7 +332,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
           <Space />
           <ImpuritiesSelector
-            impuritiesSelected={record.impurities}
+            impuritiesSelected={record.impurities ?? []}
             onChangeImpurities={(impurities) =>
               setRecord((prev) => ({ ...prev, impurities }))
             }
