@@ -57,14 +57,20 @@
     },
 
     "recordDetailsScreen": {
+      "bloomDepth": "Bloom Depth",
       "colors": "Colors",
       "dataSheet": "Data Sheet",
       "gps": "Coordinates",
+      "impurities": "Impurities",
       "latitude": "Latitude",
       "locationDescription": "Location Description",
       "longitude": "Longitude",
       "notes": "Notes",
-      "size": "Size"
+      "seeExposedIce": "See Exposed Ice",
+      "size": "Size",
+      "snowpackDepth": "Snowpack Depth",
+      "wasOnGlacier": "Was on Glacier?",
+      "whatWasUnderSnowpack": "What was under the snowpack?"
     },
     "timelineScreen": {
       "downloadedRecords": "Downloaded",

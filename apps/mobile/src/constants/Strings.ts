@@ -1,3 +1,4 @@
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import i18n from "../i18n";
 
 export const Placeholders = {
@@ -126,6 +127,9 @@ export const Labels = {
     },
   },
   RecordDetailsScreen: {
+    get BloomDepth(): string {
+      return i18n.t("labels.recordDetailsScreen.bloomDepth");
+    },
     get Colors(): string {
       return i18n.t("labels.recordDetailsScreen.colors");
     },
@@ -134,6 +138,9 @@ export const Labels = {
     },
     get Gps(): string {
       return i18n.t("labels.recordDetailsScreen.gps");
+    },
+    get Impurities(): string {
+      return i18n.t("labels.recordDetailsScreen.impurities");
     },
     get Latitude(): string {
       return i18n.t("labels.recordDetailsScreen.latitude");
@@ -147,8 +154,20 @@ export const Labels = {
     get Notes(): string {
       return i18n.t("labels.recordDetailsScreen.notes");
     },
+    get SeeExposedIce(): string {
+      return i18n.t("labels.recordDetailsScreen.seeExposedIce");
+    },
     get Size(): string {
       return i18n.t("labels.recordDetailsScreen.size");
+    },
+    get SnowPackDepth(): string {
+      return i18n.t("labels.recordDetailsScreen.snowPackDepth");
+    },
+    get WasOnGlacier(): string {
+      return i18n.t("labels.recordDetailsScreen.wasOnGlacier");
+    },
+    get WhatWasUnderSnowpack(): string {
+      return i18n.t("labels.recordDetailsScreen.whatWasUnderSnowpack");
     },
   },
   TimelineScreen: {

@@ -57,14 +57,20 @@
     },
 
     "recordDetailsScreen": {
+      "bloomDepth": "Blomsterdybde",
       "colors": "Farger",
       "dataSheet": "Dataskjema",
       "gps": "Koordinater",
+      "impurities": "Forurensninger",
       "latitude": "Breddegrad",
       "locationDescription": "Stedsbeskrivelse",
       "longitude": "Lengdegrad",
       "notes": "Notater",
-      "size": "Størrelse"
+      "seeExposedIce": "Se eksponert is",
+      "size": "Størrelse",
+      "snowpackDepth": "Snødybde",
+      "wasOnGlacier": "Var på isbre?",
+      "whatWasUnderSnowpack": "Hva var under snødekket?"
     },
     "timelineScreen": {
       "downloadedRecords": "Nedlastet",

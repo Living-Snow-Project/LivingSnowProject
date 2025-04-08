@@ -62,22 +62,22 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
               "",
             )}`}</Text>
           )}
-          {/* TODO-BILL: use localized labels for new questions */}
-          {isOnGlacier && <Text>{`${"Was On Glacier?"}: ${isOnGlacier}`}</Text>}
+          {/* New questions */}
+          {isOnGlacier && <Text>{`${Labels.RecordDetailsScreen.WasOnGlacier}: ${isOnGlacier}`}</Text>}
           {/* if they were on a glacier, did they see exposed ice */}
           {!!seeExposedIceOrWhatIsUnderSnowpack && isOnGlacier && (
-            <Text>{`${"See Exposed Ice?"}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
+            <Text>{`${Labels.RecordDetailsScreen.SeeExposedIce}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
           )}
           {/* if they were not on a glacier, what was under the snowpack */}
           {!!seeExposedIceOrWhatIsUnderSnowpack && !isOnGlacier && (
-            <Text>{`${"What was under snowpack?"}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
+            <Text>{`${Labels.RecordDetailsScreen.WhatWasUnderSnowpack}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
           )}
           {!!snowpackDepth && (
-            <Text>{`${"Snowpack Depth"}: ${snowpackDepth}`}</Text>
+            <Text>{`${Labels.RecordDetailsScreen.SnowPackDepth}: ${snowpackDepth}`}</Text>
           )}
-          {!!bloomDepth && <Text>{`${"Bloom Depth"}: ${bloomDepth}`}</Text>}
+          {!!bloomDepth && <Text>{`${Labels.RecordDetailsScreen.BloomDepth}: ${bloomDepth}`}</Text>}
           {!!impurities && (
-            <Text>{`${"Impurities"}: ${impurities.reduce<string>(
+            <Text>{`${Labels.RecordDetailsScreen.Impurities}: ${impurities.reduce<string>(
               (prev, cur, index) => (index == 0 ? `${cur}` : `${prev}, ${cur}`),
               "",
             )}`}</Text>

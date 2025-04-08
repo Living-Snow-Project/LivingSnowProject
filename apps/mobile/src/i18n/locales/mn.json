@@ -57,14 +57,20 @@
     },
 
     "recordDetailsScreen": {
+      "bloomDepth": "Bloom гүн",
       "colors": "Өнгөнүүд",
       "dataSheet": "Өгөгдлийн хуудас",
       "gps": "Координат",
+      "impurities": "Бохирдол",
       "latitude": "Өргөрөг",
       "locationDescription": "Байршлын тайлбар",
       "longitude": "Уртраг",
       "notes": "Тэмдэглэл",
-      "size": "Хэмжээ"
+      "seeExposedIce": "Ил гарсан мөс харах",
+      "size": "Хэмжээ",
+      "snowpackDepth": "Цасны гүн",
+      "wasOnGlacier": "Мөстэй газар байсан",
+      "whatWasUnderSnowpack": "Цасны доор юу байсан бэ?"
     },
     "timelineScreen": {
       "downloadedRecords": "Татаж авсан",

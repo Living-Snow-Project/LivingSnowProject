@@ -57,14 +57,20 @@
     },
 
     "recordDetailsScreen": {
+      "bloomDepth": "Profondità del bloom",
       "colors": "Colori",
       "dataSheet": "Scheda Dati",
       "gps": "Coordinate",
+      "impurities": "Impurità",
       "latitude": "Latitudine",
       "locationDescription": "Descrizione del luogo",
       "longitude": "Longitudine",
       "notes": "Note",
-      "size": "Dimensione"
+      "seeExposedIce": "Vedi ghiaccio esposto",
+      "size": "Dimensione",
+      "snowpackDepth": "Spessore del manto nevoso",
+      "wasOnGlacier": "Era sul ghiacciaio?",
+      "whatWasUnderSnowpack": "Cosa c’era sotto il manto nevoso?"
     },
     "timelineScreen": {
       "downloadedRecords": "Scaricati",

@@ -57,14 +57,20 @@
     },
 
     "recordDetailsScreen": {
+      "bloomDepth": "Blomningens djup",
       "colors": "Färger",
       "dataSheet": "Dataark",
       "gps": "Koordinater",
+      "impurities": "Föroreningar",
       "latitude": "Latitud",
       "locationDescription": "Platsbeskrivning",
       "longitude": "Longitud",
       "notes": "Anteckningar",
-      "size": "Storlek"
+      "seeExposedIce": "Se exponerad is",
+      "size": "Storlek",
+      "snowpackDepth": "Snöpackens djup",
+      "wasOnGlacier": "Var på glaciären",
+      "whatWasUnderSnowpack": "Vad fanns under snöpacken?"
     },
     "timelineScreen": {
       "downloadedRecords": "Nedladdade",

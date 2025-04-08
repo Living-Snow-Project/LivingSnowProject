@@ -57,14 +57,20 @@
     },
 
     "recordDetailsScreen": {
+      "bloomDepth": "Wie tief ist der Bloom (nächste Schätzung)?",
       "colors": "Farben",
       "dataSheet": "Datenblatt",
       "gps": "Koordinaten",
+      "impurities": "Verunreinigungen",
       "latitude": "Breitengrad",
       "locationDescription": "Ortsbeschreibung",
       "longitude": "Längengrad",
       "notes": "Notizen",
-      "size": "Größe"
+      "seeExposedIce": "Freiliegendes Eis sehen",
+      "size": "Größe",
+      "snowpackDepth": "Schneedicke",
+      "wasOnGlacier": "War auf dem Gletscher",
+      "whatWasUnderSnowpack": "Was befand sich unter der Schneedecke?"
     },
     "timelineScreen": {
       "downloadedRecords": "Heruntergeladen",

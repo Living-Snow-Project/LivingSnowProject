@@ -57,14 +57,20 @@
     },
 
     "recordDetailsScreen": {
+      "bloomDepth": "色づいた雪の深さ",
       "colors": "色",
       "dataSheet": "データシート",
       "gps": "GPS 座標",
+      "impurities": "不純物",
       "latitude": "緯度",
       "locationDescription": "場所の説明",
       "longitude": "経度",
       "notes": "追記",
-      "size": "色づいた雪の範囲"
+      "seeExposedIce": "露出した氷が見えますか?",
+      "size": "色づいた雪の範囲",
+      "snowpackDepth": "雪の厚さ",
+      "wasOnGlacier": "氷河上にいましたか?",
+      "whatWasUnderSnowpack": "雪の下には何がありますか?"
     },
     "timelineScreen": {
       "downloadedRecords": "ダウンロード済み",
