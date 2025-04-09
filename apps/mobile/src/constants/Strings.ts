@@ -97,6 +97,9 @@ export const Labels = {
     get Gps(): string {
       return i18n.t("labels.recordScreen.gps");
     },
+    get ImpuritiesSelectAllThatApply(): string {
+      return i18n.t("labels.recordScreen.impuritiesSelectAllThatApply");
+    },
     get LocationDescription(): string {
       return i18n.t("labels.recordScreen.locationDescription");
     },

@@ -47,6 +47,7 @@
       "exposedIce": "Can you see exposed glacier ice near you?",
       "onGlacier": "Are you on glacier?",
       "gps": "GPS Coordinates (latitude, longitude)",
+      "impuritiesSelectAllThatApply": "Impurities (select all that apply)",
       "locationDescription": "Location Description (limit 255 characters)",
       "notes": "Notes (limit 255 characters)",
       "photos": "Select Photos (limit 4)",

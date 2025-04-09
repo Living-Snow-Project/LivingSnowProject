@@ -47,6 +47,7 @@
       "exposedIce": "Kan du se exponerad glaciäris nära dig?",
       "onGlacier": "Befinner du dig på en glaciär?",
       "gps": "GPS-koordinater (latitud, longitud)",
+      "impuritiesSelectAllThatApply": "Föroreningar (välj alla som gäller)",
       "locationDescription": "Platsbeskrivning (max 255 tecken)",
       "notes": "Anteckningar (max 255 tecken)",
       "photos": "Välj foton (max 4)",
@@ -161,7 +162,7 @@
     "other": "Annat (beskriv i anteckningar)"
   },
   "bloomDepthDescription": {
-    "select": "Välj en djup",
+    "select": "Välj ett djup",
     "surface": "Yta",
     "twoCm": "2 cm",
     "fiveCm": "5 cm",

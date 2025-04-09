@@ -110,10 +110,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     editMode
       ? { ...jsonToRecord<AlgaeRecordInput>(route.params.record) }
       : {
-          ...defaultRecord,
-          name: appSettings.name ?? "Anonymous",
-          organization: appSettings.organization,
-        },
+        ...defaultRecord,
+        name: appSettings.name ?? "Anonymous",
+        organization: appSettings.organization,
+      },
   );
 
   // if a record was uploaded but response not received, duplicate records could be created
@@ -297,6 +297,23 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           />
 
           <Space />
+          <CustomTextInput
+            value={record?.tubeId}
+            label={Labels.TubeId}
+            placeholder={
+              isSample(record.type)
+                ? Placeholders.RecordScreen.TubeId
+                : Placeholders.RecordScreen.TubeIdDisabled
+            }
+            maxLength={20}
+            isDisabled={!isSample(record.type)}
+            onChangeText={(tubeId) =>
+              setRecord((prev) => ({ ...prev, tubeId }))
+            }
+            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+          />
+
+          <Space />
           <AlgaeSizeSelector
             size={record.size}
             isInvalid={didSubmit && isAlgaeSizeInvalid()}
@@ -315,23 +332,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
                 colors: [...colors],
               }));
             }}
-          />
-
-          <Space />
-          <CustomTextInput
-            value={record?.tubeId}
-            label={Labels.TubeId}
-            placeholder={
-              isSample(record.type)
-                ? Placeholders.RecordScreen.TubeId
-                : Placeholders.RecordScreen.TubeIdDisabled
-            }
-            maxLength={20}
-            isDisabled={!isSample(record.type)}
-            onChangeText={(tubeId) =>
-              setRecord((prev) => ({ ...prev, tubeId }))
-            }
-            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
           />
 
           <Space />
