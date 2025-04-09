@@ -377,7 +377,6 @@ export function ImpuritiesSelector({
   impuritiesSelected,
   onChangeImpurities,
 }: ImpuritiesSelectorProps) {
-  
   // local state to force re-renders on each check/uncheck
   const [, setImpuritiesInternal] = useState<SurfaceImpurity[]>([
     ...impuritiesSelected,
