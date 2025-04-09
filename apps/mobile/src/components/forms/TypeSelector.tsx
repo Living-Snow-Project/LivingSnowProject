@@ -196,32 +196,22 @@ function AlgaeColorSelector({
 }
 
 type GlacierOrNotSelectorProps = {
-  onOrOffGlacier: boolean;
-  setOnOrOffGlacier: (val: boolean) => void;
-  exposedIce: SeeExposedIce | WhatIsUnderSnowpack;
-  setExposedIce: (val: SeeExposedIce | WhatIsUnderSnowpack) => void;
-  underSnow: SeeExposedIce | WhatIsUnderSnowpack;
-  setUnderSnow: (val: SeeExposedIce | WhatIsUnderSnowpack) => void;
+  isOnGlacier?: boolean;
+  setIsOnGlacier: (val: boolean) => void;
+  exposedIce?: SeeExposedIce | WhatIsUnderSnowpack;
+  setExposedIce: (val: SeeExposedIce) => void;
+  underSnow?: SeeExposedIce | WhatIsUnderSnowpack;
+  setUnderSnow: (val: WhatIsUnderSnowpack) => void;
 };
 
 function GlacierOrNotSelector({
-  onOrOffGlacier,
-  setOnOrOffGlacier,
+  isOnGlacier,
+  setIsOnGlacier,
   exposedIce,
   setExposedIce,
   underSnow,
   setUnderSnow,
 }: GlacierOrNotSelectorProps) {
-  // Accept onOrOffGlacier into local state
-  const [localOnOrOffGlacier, setLocalOnOrOffGlacier] =
-    useState(onOrOffGlacier);
-  const [localExposedIce, setLocalExposedIce] = useState(exposedIce);
-  const [localUnderSnow, setLocalUnderSnow] = useState(underSnow);
-
-  // We'll compute isOnGlacier/isOffGlacier from local state
-  const isOnGlacier = localOnOrOffGlacier === true;
-  const isOffGlacier = localOnOrOffGlacier === false;
-
   return (
     <>
       {/* 1) Are you on glacier? */}
@@ -230,11 +220,11 @@ function GlacierOrNotSelector({
         <Radio.Group
           name="onGlacier"
           accessibilityLabel="select if on glacier"
-          value={isOnGlacier ? "Yes" : "No"}
+          value={
+            isOnGlacier == undefined ? undefined : isOnGlacier ? "Yes" : "No"
+          }
           onChange={(val) => {
-            const newVal = val === "Yes";
-            setLocalOnOrOffGlacier(newVal);
-            setOnOrOffGlacier(newVal);
+            setIsOnGlacier(val == "Yes");
           }}
         >
           <HStack>
@@ -257,11 +247,9 @@ function GlacierOrNotSelector({
           <Radio.Group
             name="exposedIce"
             accessibilityLabel="exposed ice question"
-            value={localExposedIce}
-            onChange={(val) => {
-              const newVal = val as SeeExposedIce | WhatIsUnderSnowpack;
-              setLocalExposedIce(newVal);
-              setExposedIce(newVal);
+            value={exposedIce}
+            onChange={(val: SeeExposedIce) => {
+              setExposedIce(val);
             }}
           >
             <HStack>
@@ -281,7 +269,7 @@ function GlacierOrNotSelector({
       )}
 
       {/* 2) If Off => what is under the snowpack? */}
-      {isOffGlacier && (
+      {isOnGlacier != undefined && !isOnGlacier && (
         <FormControl mt="3">
           <FormControl.Label>
             {Labels.RecordScreen.UnderSnowpack}
@@ -289,11 +277,9 @@ function GlacierOrNotSelector({
           <Select
             size="xl"
             placeholder={UnderSnowpackDescription.Select}
-            selectedValue={localUnderSnow}
-            onValueChange={(val) => {
-              const newVal = val as SeeExposedIce | WhatIsUnderSnowpack;
-              setLocalUnderSnow(newVal);
-              setUnderSnow(newVal);
+            selectedValue={underSnow}
+            onValueChange={(val: WhatIsUnderSnowpack) => {
+              setUnderSnow(val);
             }}
             _selectedItem={{ endIcon: <CheckIcon size="5" /> }}
           >

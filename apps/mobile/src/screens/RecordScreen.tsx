@@ -81,14 +81,9 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const defaultRecord: AlgaeRecordInput = {
     id: uuidv4(),
     type: "Sighting",
-    bloomDepth: "Select bloom depth",
     date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
-    impurities: ["Select impurities"],
     latitude: 0,
     longitude: 0,
-    isOnGlacier: false,
-    seeExposedIceOrWhatIsUnderSnowpack: "No",
-    snowpackDepth: "Select snowpack depth",
     size: "Select a size",
     colors: ["Select colors"],
     locationDescription: "",
@@ -341,20 +336,26 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
           <Space />
           <GlacierOrNotSelector
-            onOrOffGlacier={record.isOnGlacier ?? false}
-            setOnOrOffGlacier={(newVal) =>
-              setRecord((prev) => ({ ...prev, onOffGlacier: newVal }))
+            isOnGlacier={record.isOnGlacier}
+            setIsOnGlacier={(newVal) =>
+              setRecord((prev) => ({ ...prev, isOnGlacier: newVal }))
             }
             exposedIce={record.seeExposedIceOrWhatIsUnderSnowpack ?? "No"}
             setExposedIce={(newVal) =>
-              setRecord((prev) => ({ ...prev, exposedIce: newVal }))
+              setRecord((prev) => ({
+                ...prev,
+                seeExposedIceOrWhatIsUnderSnowpack: newVal,
+              }))
             }
             underSnow={
               record.seeExposedIceOrWhatIsUnderSnowpack ??
               "Select what is under snowpack"
             }
             setUnderSnow={(newVal) =>
-              setRecord((prev) => ({ ...prev, underSnowpack: newVal }))
+              setRecord((prev) => ({
+                ...prev,
+                seeExposedIceOrWhatIsUnderSnowpack: newVal,
+              }))
             }
           />
 
@@ -362,7 +363,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           <SnowpackThicknessSelector
             thickness={record.snowpackDepth ?? "Select snowpack depth"}
             setThickness={(thickness) =>
-              setRecord((prev) => ({ ...prev, snowpackThickness: thickness }))
+              setRecord((prev) => ({ ...prev, snowpackDepth: thickness }))
             }
           />
 
