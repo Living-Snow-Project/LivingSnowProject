@@ -63,7 +63,9 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
             )}`}</Text>
           )}
           {/* New questions */}
-          {isOnGlacier && <Text>{`${Labels.RecordDetailsScreen.WasOnGlacier}: ${isOnGlacier}`}</Text>}
+          {isOnGlacier && (
+            <Text>{`${Labels.RecordDetailsScreen.WasOnGlacier}: ${isOnGlacier}`}</Text>
+          )}
           {/* if they were on a glacier, did they see exposed ice */}
           {!!seeExposedIceOrWhatIsUnderSnowpack && isOnGlacier && (
             <Text>{`${Labels.RecordDetailsScreen.SeeExposedIce}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
@@ -75,7 +77,9 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
           {!!snowpackDepth && (
             <Text>{`${Labels.RecordDetailsScreen.SnowPackDepth}: ${snowpackDepth}`}</Text>
           )}
-          {!!bloomDepth && <Text>{`${Labels.RecordDetailsScreen.BloomDepth}: ${bloomDepth}`}</Text>}
+          {!!bloomDepth && (
+            <Text>{`${Labels.RecordDetailsScreen.BloomDepth}: ${bloomDepth}`}</Text>
+          )}
           {!!impurities && (
             <Text>{`${Labels.RecordDetailsScreen.Impurities}: ${impurities.reduce<string>(
               (prev, cur, index) => (index == 0 ? `${cur}` : `${prev}, ${cur}`),

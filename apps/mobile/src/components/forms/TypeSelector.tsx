@@ -19,10 +19,25 @@ import {
   getAllAlgaeSizeSelectorItems,
   getAllRecordTypeSelectorItems,
 } from "../../record";
-import { TextArea } from "../forms/TextArea";
-import { BloomDepthDescription, ExposedIceDescription, ImpuritiesDescription, Labels, OnOffGlacierDescription, Placeholders, SnowpackThicknessDescription, TestIds, UnderSnowpackDescription, Validations } from "../../constants";
-import { G } from "react-native-svg";
-import { BloomDepth, SeeExposedIce, SnowpackDepth, SurfaceImpurity, WhatIsUnderSnowpack } from "@livingsnow/record/src/types";
+import {
+  BloomDepthDescription,
+  ExposedIceDescription,
+  ImpuritiesDescription,
+  Labels,
+  OnOffGlacierDescription,
+  Placeholders,
+  SnowpackThicknessDescription,
+  TestIds,
+  UnderSnowpackDescription,
+  Validations,
+} from "../../constants";
+import {
+  BloomDepth,
+  SeeExposedIce,
+  SnowpackDepth,
+  SurfaceImpurity,
+  WhatIsUnderSnowpack,
+} from "@livingsnow/record/src/types";
 
 type AlgaeRecordTypeSelectorProps = {
   type: AlgaeRecordType;
@@ -198,7 +213,8 @@ function GlacierOrNotSelector({
   setUnderSnow,
 }: GlacierOrNotSelectorProps) {
   // Accept onOrOffGlacier into local state
-  const [localOnOrOffGlacier, setLocalOnOrOffGlacier] = useState(onOrOffGlacier);
+  const [localOnOrOffGlacier, setLocalOnOrOffGlacier] =
+    useState(onOrOffGlacier);
   const [localExposedIce, setLocalExposedIce] = useState(exposedIce);
   const [localUnderSnow, setLocalUnderSnow] = useState(underSnow);
 
@@ -209,7 +225,7 @@ function GlacierOrNotSelector({
   return (
     <>
       {/* 1) Are you on glacier? */}
-      <FormControl isRequired>
+      <FormControl>
         <FormControl.Label>{Labels.RecordScreen.OnGlacier}</FormControl.Label>
         <Radio.Group
           name="onGlacier"
@@ -234,7 +250,7 @@ function GlacierOrNotSelector({
 
       {/* 2) If On => see exposed ice? */}
       {isOnGlacier && (
-        <FormControl isRequired mt="3">
+        <FormControl mt="3">
           <FormControl.Label>
             {Labels.RecordScreen.ExposedIce}
           </FormControl.Label>
@@ -250,10 +266,14 @@ function GlacierOrNotSelector({
           >
             <HStack>
               <Box mr="3">
-                <Radio value={ExposedIceDescription.Yes}>{ExposedIceDescription.Yes}</Radio>
+                <Radio value={ExposedIceDescription.Yes}>
+                  {ExposedIceDescription.Yes}
+                </Radio>
               </Box>
               <Box>
-                <Radio value={ExposedIceDescription.No}>{ExposedIceDescription.No}</Radio>
+                <Radio value={ExposedIceDescription.No}>
+                  {ExposedIceDescription.No}
+                </Radio>
               </Box>
             </HStack>
           </Radio.Group>
@@ -262,7 +282,7 @@ function GlacierOrNotSelector({
 
       {/* 2) If Off => what is under the snowpack? */}
       {isOffGlacier && (
-        <FormControl isRequired mt="3">
+        <FormControl mt="3">
           <FormControl.Label>
             {Labels.RecordScreen.UnderSnowpack}
           </FormControl.Label>
@@ -277,14 +297,32 @@ function GlacierOrNotSelector({
             }}
             _selectedItem={{ endIcon: <CheckIcon size="5" /> }}
           >
-            <Select.Item label={UnderSnowpackDescription.Vegetation} value={"Vegetation"} />
-            <Select.Item label={UnderSnowpackDescription.Rocks} value={"Rocks"} />
+            <Select.Item
+              label={UnderSnowpackDescription.Vegetation}
+              value={"Vegetation"}
+            />
+            <Select.Item
+              label={UnderSnowpackDescription.Rocks}
+              value={"Rocks"}
+            />
             <Select.Item label={UnderSnowpackDescription.Soil} value={"Soil"} />
-            <Select.Item label={UnderSnowpackDescription.PondOrTarn} value={"Pond or tarn"} />
+            <Select.Item
+              label={UnderSnowpackDescription.PondOrTarn}
+              value={"Pond or tarn"}
+            />
             <Select.Item label={UnderSnowpackDescription.Lake} value={"Lake"} />
-            <Select.Item label={UnderSnowpackDescription.Stream} value={"Stream"} />
-            <Select.Item label={UnderSnowpackDescription.Mixed} value={"Mixed"} />
-            <Select.Item label={UnderSnowpackDescription.IdontKnow} value={"I Don't Know"} />
+            <Select.Item
+              label={UnderSnowpackDescription.Stream}
+              value={"Stream"}
+            />
+            <Select.Item
+              label={UnderSnowpackDescription.Mixed}
+              value={"Mixed"}
+            />
+            <Select.Item
+              label={UnderSnowpackDescription.IdontKnow}
+              value={"I Don't Know"}
+            />
           </Select>
         </FormControl>
       )}
@@ -292,7 +330,10 @@ function GlacierOrNotSelector({
   );
 }
 
-export function getAllImpuritiesSelectorItems(): { value: SurfaceImpurity; label: string }[] {
+export function getAllImpuritiesSelectorItems(): {
+  value: SurfaceImpurity;
+  label: string;
+}[] {
   return [
     {
       value: "Orange Dust",
@@ -325,7 +366,6 @@ export function getAllImpuritiesSelectorItems(): { value: SurfaceImpurity; label
   ];
 }
 
-
 type ImpuritiesSelectorProps = {
   /** Currently selected impurities. */
   impuritiesSelected: SurfaceImpurity[];
@@ -337,8 +377,7 @@ export function ImpuritiesSelector({
   impuritiesSelected,
   onChangeImpurities,
 }: ImpuritiesSelectorProps) {
-  const { colorMode } = useColorMode();
-
+  
   // local state to force re-renders on each check/uncheck
   const [, setImpuritiesInternal] = useState<SurfaceImpurity[]>([
     ...impuritiesSelected,
@@ -388,7 +427,7 @@ export function ImpuritiesSelector({
     });
 
   return (
-    <FormControl isRequired >
+    <FormControl>
       <FormControl.Label>Impurities (check all that apply)</FormControl.Label>
       <Flex mt="-1" flexDirection="row" wrap="wrap">
         {renderImpurities()}
@@ -413,8 +452,10 @@ function SnowpackThicknessSelector({
   const [localThickness, setLocalThickness] = useState(thickness);
 
   return (
-    <FormControl isRequired mt="3">
-      <FormControl.Label>{Labels.RecordScreen.SnowpackThickness}</FormControl.Label>
+    <FormControl mt="3">
+      <FormControl.Label>
+        {Labels.RecordScreen.SnowpackThickness}
+      </FormControl.Label>
       <Radio.Group
         name="snowpackThickness"
         accessibilityLabel="select snowpack thickness"
@@ -429,18 +470,26 @@ function SnowpackThicknessSelector({
         <VStack>
           <HStack>
             <Box mr="3" mt="1">
-              <Radio value={"< 10cm"}>{SnowpackThicknessDescription.LessThan10Cm}</Radio>
+              <Radio value={"< 10cm"}>
+                {SnowpackThicknessDescription.LessThan10Cm}
+              </Radio>
             </Box>
             <Box mr="3" mt="1">
-              <Radio value={"10cm - 30cm"}>{SnowpackThicknessDescription.Between10Cm30Cm}</Radio>
+              <Radio value={"10cm - 30cm"}>
+                {SnowpackThicknessDescription.Between10Cm30Cm}
+              </Radio>
             </Box>
           </HStack>
           <HStack>
             <Box mr="3" mt="1">
-              <Radio value={"30cm - 1m"}>{SnowpackThicknessDescription.ThirtyCm1M}</Radio>
+              <Radio value={"30cm - 1m"}>
+                {SnowpackThicknessDescription.ThirtyCm1M}
+              </Radio>
             </Box>
             <Box mr="3" mt="1">
-              <Radio value={"> 1m"}>{SnowpackThicknessDescription.GreaterThan1M}</Radio>
+              <Radio value={"> 1m"}>
+                {SnowpackThicknessDescription.GreaterThan1M}
+              </Radio>
             </Box>
           </HStack>
           <Box mr="3" mt="1">
@@ -474,7 +523,7 @@ function BloomDepthSelector({
   };
 
   return (
-    <FormControl isRequired mt="3">
+    <FormControl mt="3">
       <FormControl.Label>{Labels.RecordScreen.BloomDepth}</FormControl.Label>
       <Select
         size="xl"
@@ -487,7 +536,10 @@ function BloomDepthSelector({
         <Select.Item label={BloomDepthDescription.TwoCm} value={"2cm"} />
         <Select.Item label={BloomDepthDescription.FiveCm} value={"5cm"} />
         <Select.Item label={BloomDepthDescription.TenCm} value={"10cm"} />
-        <Select.Item label={BloomDepthDescription.GreaterThan10Cm} value={"> 10cm"} />
+        <Select.Item
+          label={BloomDepthDescription.GreaterThan10Cm}
+          value={"> 10cm"}
+        />
         <Select.Item label={BloomDepthDescription.Other} value={"Other"} />
       </Select>
       {/* 
@@ -507,4 +559,11 @@ function BloomDepthSelector({
   );
 }
 
-export { AlgaeRecordTypeSelector, AlgaeSizeSelector, AlgaeColorSelector, GlacierOrNotSelector, SnowpackThicknessSelector, BloomDepthSelector };
+export {
+  AlgaeRecordTypeSelector,
+  AlgaeSizeSelector,
+  AlgaeColorSelector,
+  GlacierOrNotSelector,
+  SnowpackThicknessSelector,
+  BloomDepthSelector,
+};

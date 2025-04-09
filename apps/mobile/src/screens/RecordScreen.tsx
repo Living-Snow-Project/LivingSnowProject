@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Box, ScrollView, Spacer } from "native-base";
+import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { AvoidSoftInput } from "react-native-avoid-softinput";
@@ -116,10 +116,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     editMode
       ? { ...jsonToRecord<AlgaeRecordInput>(route.params.record) }
       : {
-        ...defaultRecord,
-        name: appSettings.name ?? "Anonymous",
-        organization: appSettings.organization,
-      },
+          ...defaultRecord,
+          name: appSettings.name ?? "Anonymous",
+          organization: appSettings.organization,
+        },
   );
 
   const onFocusEffect = React.useCallback(() => {
@@ -297,48 +297,6 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           />
 
           <Space />
-          <GlacierOrNotSelector
-            onOrOffGlacier={record.isOnGlacier ?? false}
-            setOnOrOffGlacier={(newVal) =>
-              setRecord((prev) => ({ ...prev, onOffGlacier: newVal }))
-            }
-            exposedIce={record.seeExposedIceOrWhatIsUnderSnowpack ?? "No"}
-            setExposedIce={(newVal) =>
-              setRecord((prev) => ({ ...prev, exposedIce: newVal }))
-            }
-            underSnow={record.seeExposedIceOrWhatIsUnderSnowpack ?? "Select what is under snowpack"}
-            setUnderSnow={(newVal) =>
-              setRecord((prev) => ({ ...prev, underSnowpack: newVal }))
-            }
-          />
-
-          <Space />
-          <SnowpackThicknessSelector
-            thickness={record.snowpackDepth ?? "Select snowpack depth"}
-            setThickness={(thickness) =>
-              setRecord((prev) => ({ ...prev, snowpackThickness: thickness }))
-            }
-          />
-
-          <Space />
-          <BloomDepthSelector
-            bloomDepth={record.bloomDepth ?? "Select bloom depth"}
-            setBloomDepth={(depth) => setRecord((prev) => ({ ...prev, bloomDepth: depth }))}
-            // otherDescription={""}
-            // setOtherDescription={(newDescription) => {
-            //   setRecord((prev) => ({ ...prev, bloomDepth: "Other", bloomDepthDescription: newDescription }));
-            // }}
-          />
-
-          <Space />
-          <ImpuritiesSelector
-            impuritiesSelected={record.impurities ?? []}
-            onChangeImpurities={(impurities) =>
-              setRecord((prev) => ({ ...prev, impurities }))
-            }
-          />
-
-          <Space />
           <AlgaeSizeSelector
             size={record.size}
             isInvalid={didSubmit && isAlgaeSizeInvalid()}
@@ -374,6 +332,49 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
               setRecord((prev) => ({ ...prev, tubeId }))
             }
             onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+          />
+
+          <Space />
+          <GlacierOrNotSelector
+            onOrOffGlacier={record.isOnGlacier ?? false}
+            setOnOrOffGlacier={(newVal) =>
+              setRecord((prev) => ({ ...prev, onOffGlacier: newVal }))
+            }
+            exposedIce={record.seeExposedIceOrWhatIsUnderSnowpack ?? "No"}
+            setExposedIce={(newVal) =>
+              setRecord((prev) => ({ ...prev, exposedIce: newVal }))
+            }
+            underSnow={
+              record.seeExposedIceOrWhatIsUnderSnowpack ??
+              "Select what is under snowpack"
+            }
+            setUnderSnow={(newVal) =>
+              setRecord((prev) => ({ ...prev, underSnowpack: newVal }))
+            }
+          />
+
+          <Space />
+          <SnowpackThicknessSelector
+            thickness={record.snowpackDepth ?? "Select snowpack depth"}
+            setThickness={(thickness) =>
+              setRecord((prev) => ({ ...prev, snowpackThickness: thickness }))
+            }
+          />
+
+          <Space />
+          <BloomDepthSelector
+            bloomDepth={record.bloomDepth ?? "Select bloom depth"}
+            setBloomDepth={(depth) =>
+              setRecord((prev) => ({ ...prev, bloomDepth: depth }))
+            }
+          />
+
+          <Space />
+          <ImpuritiesSelector
+            impuritiesSelected={record.impurities ?? []}
+            onChangeImpurities={(impurities) =>
+              setRecord((prev) => ({ ...prev, impurities }))
+            }
           />
 
           <Space />

@@ -22,5 +22,5 @@ config.resolver.disableHierarchicalLookup = true;
 config.resolver.blockList =
   /(website\\node_modules\\.*|.*\\__tests__\\.*|website\\src\\mocks\\.*)$/;
 // Add .geojson to assetExts
-config.resolver.assetExts.push('geojson');
+config.resolver.assetExts.push("geojson");
 module.exports = config;
