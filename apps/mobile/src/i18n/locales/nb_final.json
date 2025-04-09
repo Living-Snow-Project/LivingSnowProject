@@ -147,7 +147,7 @@
     "bicycle": "Sykkel",
     "car": "Bil",
     "bus": "Buss",
-    "house": "hus",
+    "house": "Hus",
     "sportsField": "Idrettsbane",
     "other": "Annet (beskriv i notater)"
   },
@@ -189,10 +189,10 @@
   },
   "snowpackThicknessDescription": {
     "select": "Velg en tykkelse",
-    "lessThan10Cm": "Less than 10 cm",
-    "between10Cm30Cm": "Between 10 cm - 30 cm",
+    "lessThan10Cm": "Mindre enn 10 cm",
+    "between10Cm30Cm": "Mellom 10 cm og 30 cm",
     "thirtyCm1M": "30 cm - 1 m",
-    "greaterThan1M": "Greater than 1 m",
+    "greaterThan1M": "Mer enn 1 m",
     "other": "Annet (beskriv i notater)"
   },
   "underSnowpackDescription": {
@@ -202,7 +202,7 @@
     "soil": "Jord",
     "pondOrTarn": "Dam eller myr",
     "lake": "Innsjø",
-    "stream": "Elv",
+    "stream": "Bekk",
     "mixed": "Blandet",
     "iDontKnow": "Jeg vet ikke"
   },

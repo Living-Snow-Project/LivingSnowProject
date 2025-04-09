@@ -171,8 +171,8 @@
     "other": "Andere (beschreiben Sie dies in den Notizen)"
   },
   "exposedIceDescription": {
-    "yes": "Yes",
-    "no": "No"
+    "yes": "Ja",
+    "no": "Nein"
   },
   "impuritiesDescription": {
     "orangeDust": "Oranger Staub",
@@ -184,8 +184,8 @@
     "other": "Andere (in den Notizen beschreiben)"
   },
   "onOffGlacierDescription": {
-    "yes": "Yes",
-    "no": "No"
+    "yes": "Ja",
+    "no": "Nein"
   },
   "snowpackThicknessDescription": {
     "select": "Wählen Sie eine Dicke",

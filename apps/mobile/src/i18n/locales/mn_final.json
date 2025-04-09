@@ -38,14 +38,14 @@
 
     "firstRunScreen": {
       "startReporting": "Ажиглалт мэдүүлэх",
-      "usage": "Нэрээ оруулах эсвэл нэргүй байхыг сонгоно уу. Та өөрийн профайлыг Тохиргоо хэсэгт 언제 ч шинэчилж болно."
+      "usage": "Та өөрийн профайлыг Тохиргоо хэсэгт хэдийд ч шинэчилж болно."
     },
 
     "recordScreen": {
-      "bloomDepth": "How deep is the bloom(closest estimate)?",
+      "bloomDepth": "Цасан дээрх өнгөр хэр гүн байна вэ? (ойролцоо хэмжээг сонгоно уу)",
       "colors": "Өнгө (таарсан бүгдийг сонгоно уу)",
-      "exposedIce": "Can you see exposed glacier ice near you?",
-      "onGlacier": "Are you on glacier?",
+      "exposedIce": "Ойролцоо ил гарсан мөс харагдаж байна уу?",
+      "onGlacier": "Та мөсөн гол дээр байна уу?",
       "gps": "GPS координат (өргөрөг, уртраг)",
       "impuritiesSelectAllThatApply": "Бохирдол (таарсан бүгдийг сонгоно уу)",
       "locationDescription": "Байршлын тайлбар (дээд тал нь 255 тэмдэгт)",
@@ -53,8 +53,8 @@
       "photos": "Зураг сонгох (4 хүртэл)",
       "recordType": "Та ажиглалт мэдүүлж байна уу эсвэл дээж авч байна уу?",
       "size": "Хэмжээг сонгоно уу",
-      "snowpackThickness": "How thick is the snowpack?",
-      "underSnowpack": "What is under the snowpack?"
+      "snowpackThickness": "Цасан бүрхүүл хэр зузаан байна вэ?",
+      "underSnowpack": "Цасан бүрхүүлийн доор юу байна вэ?"
     },
 
     "recordDetailsScreen": {

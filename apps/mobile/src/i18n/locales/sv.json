@@ -162,7 +162,7 @@
     "other": "Annat (beskriv i anteckningar)"
   },
   "bloomDepthDescription": {
-    "select": "Välj en djup",
+    "select": "Välj ett djup",
     "surface": "Yta",
     "twoCm": "2 cm",
     "fiveCm": "5 cm",

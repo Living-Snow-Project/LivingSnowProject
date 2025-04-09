@@ -28,7 +28,7 @@
     "date": "Fecha",
     "defaultName": "Científico Comunitario",
     "empty": "vacío",
-    "livingSnowProject": "Proyecto Neve Viva",
+    "livingSnowProject": "Living Snow Project",
     "name": "Nombre",
     "organization": "Organización",
     "photos": "Fotos",
@@ -42,10 +42,10 @@
     },
 
     "recordScreen": {
-      "bloomDepth": "How deep is the bloom(closest estimate)?",
+      "bloomDepth": "¿Qué profundidad tiene el bloom (estimación más cercana)?",
       "colors": "Colores (selecciona todos los que correspondan)",
-      "exposedIce": "Can you see exposed glacier ice near you?",
-      "onGlacier": "Are you on glacier?",
+      "exposedIce": "¿Puedes ver hielo glaciar expuesto cerca de ti?",
+      "onGlacier": "¿Estás sobre un glaciar?",
       "gps": "Coordenadas GPS (latitud, longitud)",
       "impuritiesSelectAllThatApply": "Impurezas (selecciona todas las que correspondan)",
       "locationDescription": "Descripción del lugar (límite de 255 caracteres)",
@@ -145,7 +145,7 @@
     "fist": "Puño",
     "dinnerPlate": "Plato de Cena",
     "bicycle": "Bicicleta",
-    "car": "Coche",
+    "car": "Auto",
     "bus": "Autobús",
     "house": "Casa",
     "sportsField": "Campo deportivo",
@@ -181,7 +181,7 @@
     "vegetation": "Vegetación",
     "pollen": "Polen",
     "evidenceOfAnimals": "Evidencia de animales",
-    "other": "Otro (describir en notas)"
+    "other": "Otro (descríbelo en las notas)"
   },
   "onOffGlacierDescription": {
     "yes": "Sí",
