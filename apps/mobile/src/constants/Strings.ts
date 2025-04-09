@@ -1,4 +1,3 @@
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import i18n from "../i18n";
 
 export const Placeholders = {
@@ -445,10 +444,10 @@ export const SnowpackThicknessDescription = {
   get GreaterThan1M(): string {
     return i18n.t("snowpackThicknessDescription.greaterThan1M");
   },
-  get Other(): string { 
+  get Other(): string {
     return i18n.t("snowpackThicknessDescription.other");
-  }
-}
+  },
+};
 
 export const UnderSnowpackDescription = {
   get Select(): string {

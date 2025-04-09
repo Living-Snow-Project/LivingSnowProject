@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
 import MapView, { Marker, Polygon } from "react-native-maps";
+import mountainGeojson from "./mountain.json";
+import algaeGeojson from "./polygones.json";
 
 export default function AlgaeProbabilityMap() {
   const [loading, setLoading] = useState(true);
@@ -12,20 +14,21 @@ export default function AlgaeProbabilityMap() {
 
   useEffect(() => {
     // 1) Load mountain outlines (black)
-    const mountainGeojson = require("./mountain.json");
     setMountainFeatures(mountainGeojson.features || []);
 
     // 2) Load red algae polygons
-    const algaeGeojson = require("./polygones.json");
-    setAlgaeFeatures(algaeGeojson.features || []);
+    setAlgaeFeatures((algaeGeojson as any).features || []);
 
     // 3) Fetch the sightings from the remote API
-    fetch("https://snowalgaeproductionapp.azurewebsites.net/api/v3/records?data_format=geojson")
+    fetch(
+      "https://snowalgaeproductionapp.azurewebsites.net/api/v3/records?data_format=geojson",
+    )
       .then((res) => res.json())
       .then((remoteGeojson) => {
         // If the structure is { data: { features: [...] } }, do this:
         const fetchedFeatures = remoteGeojson?.data?.features || [];
-        setSightingFeatures(fetchedFeatures);``
+        setSightingFeatures(fetchedFeatures);
+        ``;
         setLoading(false);
       })
       .catch((err) => {
@@ -44,7 +47,10 @@ export default function AlgaeProbabilityMap() {
       <MapView style={{ flex: 1 }}>
         {/* 1) Render mountain polygons (black outline, no fill) */}
         {mountainFeatures.map((feature, idx) => {
-          if (feature.geometry.type === "Polygon" || feature.geometry.type === "MultiPolygon") {
+          if (
+            feature.geometry.type === "Polygon" ||
+            feature.geometry.type === "MultiPolygon"
+          ) {
             const polygons = convertGeoJSONToPolygonCoords(feature.geometry);
             return polygons.map((coords, ringIndex) => (
               <Polygon
@@ -61,14 +67,17 @@ export default function AlgaeProbabilityMap() {
 
         {/* 2) Render red algae polygons (semi‐transparent red fill) */}
         {algaeFeatures.map((feature, idx) => {
-          if (feature.geometry.type === "Polygon" || feature.geometry.type === "MultiPolygon") {
+          if (
+            feature.geometry.type === "Polygon" ||
+            feature.geometry.type === "MultiPolygon"
+          ) {
             const polygons = convertGeoJSONToPolygonCoords(feature.geometry);
             return polygons.map((coords, ringIndex) => (
               <Polygon
                 key={`algae-${idx}-${ringIndex}`}
                 coordinates={coords}
-                fillColor="rgba(160, 0, 0, 0.4)"   // updated fill color
-                strokeColor="#A00000"             // updated stroke color
+                fillColor="rgba(160, 0, 0, 0.4)" // updated fill color
+                strokeColor="#A00000" // updated stroke color
                 strokeWidth={1}
               />
             ));
@@ -79,7 +88,10 @@ export default function AlgaeProbabilityMap() {
         {/* 3) Render sighting points as Markers */}
         {sightingFeatures.map((feature, idx) => {
           const { geometry, properties } = feature;
-          if (geometry.type === "Point" && Array.isArray(geometry.coordinates)) {
+          if (
+            geometry.type === "Point" &&
+            Array.isArray(geometry.coordinates)
+          ) {
             const [lng, lat] = geometry.coordinates;
             return (
               <Marker
@@ -99,16 +111,17 @@ export default function AlgaeProbabilityMap() {
 
 // Helper that takes a Polygon or MultiPolygon geometry
 // => returns an array of coordinate arrays in react-native-maps format
-function convertGeoJSONToPolygonCoords(
-  geometry: { type: string; coordinates: any }
-): { latitude: number; longitude: number }[][] {
+function convertGeoJSONToPolygonCoords(geometry: {
+  type: string;
+  coordinates: any;
+}): { latitude: number; longitude: number }[][] {
   if (geometry.type === "Polygon") {
     // geometry.coordinates = [ [ [lng, lat], ...], [Ring2], ... ]
     return geometry.coordinates.map((ring: number[][]) =>
       ring.map(([lng, lat]) => ({
         latitude: lat,
         longitude: lng,
-      }))
+      })),
     );
   } else if (geometry.type === "MultiPolygon") {
     // geometry.coordinates = [ [Ring1, Ring2], [Polygon2], ... ]

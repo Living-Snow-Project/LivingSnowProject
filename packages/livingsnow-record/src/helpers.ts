@@ -1,4 +1,4 @@
-import { AlgaeRecord, AlgaeRecordType, AlgaeSize, Photo } from "./types";
+import { AlgaeRecord, AlgaeRecordType, Photo } from "./types";
 
 const randomInteger = (): number => Math.floor(Math.random() * 1000000);
 

@@ -190,7 +190,7 @@
     "select": "おおよその積雪深を選択してください",
     "lessThan10Cm": "10 cm 未満",
     "between10Cm30Cm": "10 cm - 30 cm",
-    "thirtyCm1M": "30 cm - 1 m",  
+    "thirtyCm1M": "30 cm - 1 m",
     "greaterThan1M": "1 m より深い",
     "other": "他の厚さ(追記に記載してください)"
   },

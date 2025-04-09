@@ -18,7 +18,7 @@ import { HeaderButton } from "../components/screens";
 import { RootStackParamList, RootStackNavigationProp } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
 import { TestIds } from "../constants/TestIds";
-import i18n from "../i18n/index"
+import i18n from "../i18n/index";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -41,7 +41,6 @@ type MapButtonProps = {
   navigation: RootStackNavigationProp;
 };
 
-
 function MapButton({ navigation }: MapButtonProps) {
   return (
     <HeaderButton
@@ -52,7 +51,6 @@ function MapButton({ navigation }: MapButtonProps) {
     />
   );
 }
-
 
 type NewRecordButtonProps = {
   navigation: RootStackNavigationProp;
@@ -76,14 +74,16 @@ function RootNavigator() {
     <Stack.Navigator
       screenOptions={{ headerShown: true, headerTitleAlign: "center" }}
     >
-      <Stack.Screen
-        name="Welcome"
-        component={FirstRunScreen}
-        options={{
-          // The title in the header
-          title: i18n.t('welcomeHeading'),
-        }}
-      />
+      {showFirstRun && (
+        <Stack.Screen
+          name="Welcome"
+          component={FirstRunScreen}
+          options={{
+            // The title in the header
+            title: i18n.t("welcomeHeading"),
+          }}
+        />
+      )}
       <Stack.Screen
         name="Timeline"
         component={TimelineScreen}
@@ -110,7 +110,7 @@ function RootNavigator() {
       <Stack.Screen
         name="RecordDetails"
         component={RecordDetailsScreen}
-        options={{ title: i18n.t('detailsHeading') }}
+        options={{ title: i18n.t("detailsHeading") }}
       />
     </Stack.Navigator>
   );
