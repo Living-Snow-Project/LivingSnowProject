@@ -47,6 +47,7 @@
       "exposedIce": "Can you see exposed glacier ice near you?",
       "onGlacier": "Are you on glacier?",
       "gps": "GPS координат (өргөрөг, уртраг)",
+      "impuritiesSelectAllThatApply": "Бохирдол (таарсан бүгдийг сонгоно уу)",
       "locationDescription": "Байршлын тайлбар (дээд тал нь 255 тэмдэгт)",
       "notes": "Тэмдэглэл (дээд тал нь 255 тэмдэгт)",
       "photos": "Зураг сонгох (4 хүртэл)",

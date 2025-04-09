@@ -47,6 +47,7 @@
       "exposedIce": "Kan du se eksponert isbreis i nærheten?",
       "onGlacier": "Er du på isbre?",
       "gps": "GPS-koordinater (breddegrad, lengdegrad)",
+      "impuritiesSelectAllThatApply": "Forurensninger (velg alle som gjelder)",
       "locationDescription": "Stedsbeskrivelse (maks 255 tegn)",
       "notes": "Notater (maks 255 tegn)",
       "photos": "Velg bilder (maks 4)",

@@ -47,6 +47,7 @@
       "exposedIce": "Puoi vedere del ghiaccio glaciale esposto vicino a te?",
       "onGlacier": "Are you on glacier?",
       "gps": "Coordinate GPS (latitudine, longitudine)",
+      "impuritiesSelectAllThatApply": "Impurità (seleziona tutte quelle applicabili)",
       "locationDescription": "Descrizione del luogo (max 255 caratteri)",
       "notes": "Note (max 255 caratteri)",
       "photos": "Seleziona foto (max 4)",

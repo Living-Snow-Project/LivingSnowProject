@@ -46,6 +46,7 @@
       "colors": "Couleurs (sélectionnez toutes celles qui s'appliquent)",
       "exposedIce": "Pouvez-vous voir de la glace (surface du glacier) exposée près de vous?",
       "gps": "Coordonnées GPS (latitude, longitude)",
+      "impuritiesSelectAllThatApply": "Impuretés (sélectionnez toutes celles qui s'appliquent)",
       "locationDescription": "Description du lieu (limite de 255 caractères)",
       "onGlacier": "Êtes-vous sur un glacier?",
       "notes": "Notes (limite de 255 caractères)",

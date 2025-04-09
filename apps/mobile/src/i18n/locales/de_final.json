@@ -47,6 +47,7 @@
       "exposedIce": "Können Sie in Ihrer Nähe freiliegendes Gletschereis sehen?",
       "onGlacier": "Befinden Sie sich auf einem Gletscher?",
       "gps": "GPS-Koordinaten (Breitengrad, Längengrad)",
+      "impuritiesSelectAllThatApply": "Verunreinigungen (wählen Sie alle zutreffenden aus)",
       "locationDescription": "Ortsbeschreibung (max. 255 Zeichen)",
       "notes": "Notizen (max. 255 Zeichen)",
       "photos": "Wählen Sie Fotos (max. 4)",
