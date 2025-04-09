@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Box, ScrollView, Spacer } from "native-base";
+import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { AvoidSoftInput } from "react-native-avoid-softinput";
 import { useFocusEffect } from "@react-navigation/native";
 import Logger from "@livingsnow/logger";
 import {
-  AlgaeRecord,
   jsonToRecord,
   isSample,
   recordDateFormat,
@@ -16,7 +15,7 @@ import { SelectedPhoto } from "../../types";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
 import { RecordManager, UploadError } from "../lib/RecordManager";
 import { PhotoManager } from "../lib/PhotoManager";
-import { updatePendingRecord } from "../lib/Storage";
+import { updatePendingRecordV3, PendingAlgaeRecordV3 } from "../lib/Storage";
 import { RecordScreenProps } from "../navigation/Routes";
 import { HeaderButton, ThemedBox } from "../components";
 import {
@@ -116,10 +115,16 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     editMode
       ? { ...jsonToRecord<AlgaeRecordInput>(route.params.record) }
       : {
-        ...defaultRecord,
-        name: appSettings.name ?? "Anonymous",
-        organization: appSettings.organization,
-      },
+          ...defaultRecord,
+          name: appSettings.name ?? "Anonymous",
+          organization: appSettings.organization,
+        },
+  );
+
+  // if a record was uploaded but response not received, duplicate records could be created
+  // a record remains pending in this case
+  const [requestId] = useState<string>(
+    editMode ? route.params.requestId || "" : "",
   );
 
   const onFocusEffect = React.useCallback(() => {
@@ -181,7 +186,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       title: Notifications.updateRecordSuccess.title,
     };
 
-    updatePendingRecord(record as AlgaeRecord)
+    updatePendingRecordV3({ ...record, requestId } as PendingAlgaeRecordV3)
       .catch(() => {
         // TODO: this case is most likely error and not info
         toastProps.status = "info";
@@ -306,7 +311,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
             setExposedIce={(newVal) =>
               setRecord((prev) => ({ ...prev, exposedIce: newVal }))
             }
-            underSnow={record.seeExposedIceOrWhatIsUnderSnowpack ?? "Select what is under snowpack"}
+            underSnow={
+              record.seeExposedIceOrWhatIsUnderSnowpack ??
+              "Select what is under snowpack"
+            }
             setUnderSnow={(newVal) =>
               setRecord((prev) => ({ ...prev, underSnowpack: newVal }))
             }
@@ -323,7 +331,9 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           <Space />
           <BloomDepthSelector
             bloomDepth={record.bloomDepth ?? "Select bloom depth"}
-            setBloomDepth={(depth) => setRecord((prev) => ({ ...prev, bloomDepth: depth }))}
+            setBloomDepth={(depth) =>
+              setRecord((prev) => ({ ...prev, bloomDepth: depth }))
+            }
             // otherDescription={""}
             // setOtherDescription={(newDescription) => {
             //   setRecord((prev) => ({ ...prev, bloomDepth: "Other", bloomDepthDescription: newDescription }));

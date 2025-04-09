@@ -1,5 +1,5 @@
 import { AlgaeRecord, AlgaeRecordV3, Photo } from "@livingsnow/record";
-import { DataResponseV2 } from "@livingsnow/network";
+import { DataResponseV3 } from "@livingsnow/network";
 import { Asset } from "expo-media-library";
 
 const AlgaeRecordsStatesArray = [
@@ -61,8 +61,8 @@ export type LocalAlgaeRecordV3 = {
 export interface IAlgaeRecords {
   // info
   getCurrentState: () => AlgaeRecordsStates;
-  getDownloaded: () => DataResponseV2[];
-  getPending: () => LocalAlgaeRecord[];
+  getDownloaded: () => DataResponseV3[];
+  getPending: () => LocalAlgaeRecordV3[];
   isSeeded: () => boolean;
 
   // storage actions

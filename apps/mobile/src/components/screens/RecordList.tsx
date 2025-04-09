@@ -9,7 +9,7 @@ import { TimelineRow } from "./TimelineRow";
 import { Labels, TestIds } from "../../constants";
 import { useAlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { productionExampleRecord } from "../../record/Record";
-import { IAlgaeRecords, MinimalAlgaeRecord } from "../../../types/AlgaeRecords";
+import { IAlgaeRecords, LocalAlgaeRecordV3 } from "../../../types/AlgaeRecords";
 
 function ThreeDotsIcon() {
   return <Icon as={Ionicons} name="ellipsis-horizontal-outline" size="lg" />;
@@ -72,7 +72,7 @@ function useDownloadedRecordList() {
 }
 
 type PendingTimelineRowProps = {
-  localRecord: MinimalAlgaeRecord;
+  localRecord: LocalAlgaeRecordV3;
   algaeRecords: IAlgaeRecords;
 };
 
@@ -89,6 +89,7 @@ function PendingTimelineRow({
   const onEdit = () =>
     navigation.navigate("Record", {
       record: JSON.stringify(localRecord.record),
+      requestId: localRecord.requestId,
     });
 
   const menuTrigger = (props: any) => (
