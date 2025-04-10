@@ -28,7 +28,7 @@
     "date": "Огноо",
     "defaultName": "Олон нийтийн эрдэмтэн",
     "empty": "Хоосон",
-    "livingSnowProject": "Амьд цасны төсөл",
+    "livingSnowProject": "Living Snow Project",
     "name": "Нэр",
     "organization": "Байгууллага",
     "photos": "Зурагнууд",
@@ -38,22 +38,23 @@
 
     "firstRunScreen": {
       "startReporting": "Ажиглалт мэдүүлэх",
-      "usage": "Нэрээ оруулах эсвэл нэргүй байхыг сонгоно уу. Та өөрийн профайлыг Тохиргоо хэсэгт 언제 ч шинэчилж болно."
+      "usage": "Та өөрийн профайлыг Тохиргоо хэсэгт хэдийд ч шинэчилж болно."
     },
 
     "recordScreen": {
-      "bloomDepth": "How deep is the bloom(closest estimate)?",
+      "bloomDepth": "Цасанд замаг хэр гүн цэцэглэдэг вэ (хамгийн ойрын тооцоо)?", 
       "colors": "Өнгө (таарсан бүгдийг сонгоно уу)",
-      "exposedIce": "Can you see exposed glacier ice near you?",
-      "onGlacier": "Are you on glacier?",
+      "exposedIce": "Ойролцоо ил гарсан мөс харагдаж байна уу?",
+      "onGlacier": "Та мөсөн гол дээр байна уу?",
       "gps": "GPS координат (өргөрөг, уртраг)",
+      "impuritiesSelectAllThatApply": "Хольц зүйлс (таарсан бүгдийг сонгоно уу)",
       "locationDescription": "Байршлын тайлбар (дээд тал нь 255 тэмдэгт)",
       "notes": "Тэмдэглэл (дээд тал нь 255 тэмдэгт)",
       "photos": "Зураг сонгох (4 хүртэл)",
       "recordType": "Та ажиглалт мэдүүлж байна уу эсвэл дээж авч байна уу?",
       "size": "Хэмжээг сонгоно уу",
-      "snowpackThickness": "How thick is the snowpack?",
-      "underSnowpack": "What is under the snowpack?"
+      "snowpackThickness": "Цасан бүрхүүл хэр зузаан вэ?", 
+      "underSnowpack": "Цасан бүрхүүлийн доор юу байна вэ?"
     },
 
     "recordDetailsScreen": {
@@ -140,15 +141,15 @@
     "undefined": "Тодорхойгүй"
   },
   "algaeSizeDescription": {
-    "select": "Хэмжээг сонгоно уу",
-    "fist": "Гараа атгасан хэмжээ",
-    "dinnerPlate": "Хоолны таваг",
-    "bicycle": "Хүртэлх хөвөг",
-    "car": "Машин",
-    "bus": "Автобус",
-    "house": "Гэр",
-    "sportsField": "Спортын талбай",
-    "other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
+    "Select a size": "Хэмжээг сонгоно уу",
+    "Fist": "Гараа атгасан хэмжээ",
+    "Dinner Plate": "Хоолны таваг",
+    "Bicycle": "Унадаг дугуй",
+    "Car": "Машин",
+    "Bus": "Автобус",
+    "House": "Гэр",
+    "Sports Field": "Спортын талбай",
+    "Other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
   },
   "algaeColorDescription": {
     "select": "Өнгийг сонгоно уу",
@@ -162,7 +163,7 @@
   },
   "bloomDepthDescription": {
     "select": "Хэмжээг сонгоно уу",
-    "surface": "Дэлгэц",
+    "surface": "гадаргуу",
     "twoCm": "2 см",
     "fiveCm": "5 см",
     "tenCm": "10 см",
@@ -187,7 +188,7 @@
     "no": "Үгүй"
   },
   "snowpackThicknessDescription": {
-    "select": "Хүчилтэйг сонгоно уу",
+    "select": "Зузаан сонгоно уу",
     "lessThan10Cm": "10 см-с бага",
     "between10Cm30Cm": "10 см - 30 см",
     "thirtyCm1M": "30 см - 1 м",
@@ -195,18 +196,18 @@
     "other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
   },
   "underSnowpackDescription": {
-    "select": "Хэмжээг сонгоно уу",
+    "select": "Цасан доорх гадаргууг сонгоно уу",
     "vegetation": "Ургамал",
-    "rocks": "Хаана",
-    "soil": "Газар",
-    "pondOrTarn": "Тарн эсвэл нуур",
-    "lake": "Цас",
-    "stream": "Гол",
-    "mixed": "Холбоотой",
+    "rocks": "Чулуулаг",
+    "soil": "Хөрс",
+    "pondOrTarn": "Цөөрөм эсвэл жижиг нуур",
+    "lake": "Нуур",
+    "stream": "Горхи",
+    "mixed": "Холимог",
     "iDontKnow": "Мэдэхгүй"
   },
   "backgroundTasks": {
-    "uploadData": "арын-горимоор-байршуулах-үйлдэл"
+    "uploadData": "Арын горимд өгөгдөл байршуулж байна"
   },
   "headers": {
     "diskUsage": "Дискний ашиглалт",

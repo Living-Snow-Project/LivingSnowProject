@@ -47,7 +47,7 @@
       "exposedIce": "近くに露出した氷が見えますか?",
       "onGlacier": "氷河の上ですか?",
       "gps": "GPS 座標 (緯度、経度)",
-      "impuritiesSelectAllThatApply": "不純物 (該当するものをすべて選んでください)",
+      "impuritiesSelectAllThatApply": "雪の混入物 (該当するものをすべて選んでください)",
       "locationDescription": "場所の説明 (全角85文字，半角255文字以内)",
       "notes": "追記 (全角85文字，半角255文字以内)",
       "photos": "写真を選択 (4枚まで)",
@@ -62,7 +62,7 @@
       "colors": "色",
       "dataSheet": "データシート",
       "gps": "GPS 座標",
-      "impurities": "不純物",
+      "impurities": "雪の混入物",
       "latitude": "緯度",
       "locationDescription": "観察場所の説明",
       "longitude": "経度",
@@ -141,15 +141,15 @@
     "undefined": "未定義"
   },
   "algaeSizeDescription": {
-    "select": "色づいた雪の範囲に近いものを選んでください",
-    "fist": "にぎりこぶし",
-    "dinnerPlate": "平皿",
-    "bicycle": "自転車",
-    "car": "車",
-    "bus": "バス",
-    "house": "一軒家",
-    "sportsField": "スポーツフィールド",
-    "other": "他のサイズ(追記に記載してください)"
+    "Select a size": "色づいた雪の範囲に近いものを選んでください",
+    "Fist": "にぎりこぶし",
+    "Dinner Plate": "平皿",
+    "Bicycle": "自転車",
+    "Car": "車",
+    "Bus": "バス",
+    "House": "一軒家",
+    "Sports Field": "スポーツフィールド",
+    "Other": "他のサイズ(追記に記載してください)"
   },
   "algaeColorDescription": {
     "select": "色を選択してください",
@@ -188,7 +188,7 @@
     "no": "いいえ"
   },
   "snowpackThicknessDescription": {
-    "select": "おおよその積雪深を選択してください",
+    "select": "おおよその積雪深を選択してくだ",
     "lessThan10Cm": "10 cm 未満",
     "between10Cm30Cm": "10 cm - 30 cm",
     "thirtyCm1M": "30 cm - 1 m",

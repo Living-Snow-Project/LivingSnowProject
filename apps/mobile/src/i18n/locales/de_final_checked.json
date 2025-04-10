@@ -141,15 +141,15 @@
     "undefined": "Undefiniert"
   },
   "algaeSizeDescription": {
-    "select": "Wählen Sie eine Größe",
-    "fist": "Faust",
-    "dinnerPlate": "Essteller",
-    "bicycle": "Fahrrad",
-    "car": "Auto",
-    "bus": "Bus",
-    "house": "Hause",
-    "sportsField": "Sportplatz",
-    "other": "Andere (beschreiben Sie dies in den Notizen)"
+    "Select a size": "Wählen Sie eine Größe",
+    "Fist": "Faust",
+    "Dinner Plate": "Essteller",
+    "Bicycle": "Fahrrad",
+    "Car": "Auto",
+    "Bus": "Bus",
+    "House": "Hause",
+    "Sports Field": "Sportplatz",
+    "Other": "Andere (beschreiben Sie dies in den Notizen)"
   },
   "algaeColorDescription": {
     "select": "Wählen Sie eine Farbe",
@@ -189,7 +189,7 @@
   },
   "snowpackThicknessDescription": {
     "select": "Wählen Sie eine Dicke",
-    "lessThan10Cm": "Weniger als",
+    "lessThan10Cm": "Weniger als 10cm",
     "between10Cm30Cm": "Zwischen 10 cm und 30 cm",
     "thirtyCm1M": "30 cm - 1 m",
     "greaterThan1M": "Mehr als 1 m",

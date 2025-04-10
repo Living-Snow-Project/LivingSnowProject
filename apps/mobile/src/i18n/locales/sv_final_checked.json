@@ -28,7 +28,7 @@
     "date": "Datum",
     "defaultName": "Frivillig forskare",
     "empty": "Tom",
-    "livingSnowProject": "Projektet Levande snö",
+    "livingSnowProject": "Living Snow Project",
     "name": "Namn",
     "organization": "Organisation",
     "photos": "Foton",
@@ -141,15 +141,15 @@
     "undefined": "Odefinierad"
   },
   "algaeSizeDescription": {
-    "select": "Välj en storlek",
-    "fist": "Knytnäve",
-    "dinnerPlate": "Dinnertallrik",
-    "bicycle": "Cykel",
-    "car": "Bil",
-    "bus": "Buss",
-    "house": "Hus",
-    "sportsField": "Idrottsfält",
-    "other": "Annat (beskriv i anteckningar)"
+    "Select a size": "Välj en storlek",
+    "Fist": "Knytnäve",
+    "Dinner Plate": "Dinnertallrik",
+    "Bicycle": "Cykel",
+    "Car": "Bil",
+    "Bus": "Buss",
+    "House": "Hus",
+    "Sports Field": "Idrottsfält",
+    "Other": "Annat (beskriv i anteckningar)"
   },
   "algaeColorDescription": {
     "select": "Välj en färg",

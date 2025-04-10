@@ -141,15 +141,15 @@
     "undefined": "Indefinido"
   },
   "algaeSizeDescription": {
-    "select": "Selecciona un tamaño",
-    "fist": "Puño",
-    "dinnerPlate": "Plato de Cena",
-    "bicycle": "Bicicleta",
-    "car": "Auto",
-    "bus": "Autobús",
-    "house": "Casa",
-    "sportsField": "Campo deportivo",
-    "other": "Otro (descríbelo en las notas)"
+    "Select a size": "Selecciona un tamaño",
+    "Fist": "Puño",
+    "Dinner Plate": "Plato de Cena",
+    "Bicycle": "Bicicleta",
+    "Car": "Auto",
+    "Bus": "Autobús",
+    "House": "Casa",
+    "Sports Field": "Campo deportivo",
+    "Other": "Otro (descríbelo en las notas)"
   },
   "algaeColorDescription": {
     "select": "Selecciona un color",

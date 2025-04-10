@@ -2,15 +2,15 @@ import { getLocales } from "expo-localization";
 import { I18n } from "i18n-js";
 
 // Import or define your translation files
-import en from "./locales/en_final.json";
-import fr from "./locales/fr_final.json";
-import ja from "./locales/ja_final.json";
-import nb from "./locales/nb_final.json";
-import de from "./locales/de_final.json";
-import it from "./locales/it_final.json";
-import mn from "./locales/mn_final.json";
-import sv from "./locales/sv.json"; // AI Translated file
-import es from "./locales/es.json"; // AI Translated file
+import en from "./locales/en_final_checked.json";
+import fr from "./locales/fr_final_checked.json";
+import ja from "./locales/ja_final_checked.json";
+import nb from "./locales/nb_final_checked.json";
+import de from "./locales/de_final_checked.json";
+import it from "./locales/it_final_checked.json";
+import mn from "./locales/mn_final_checked.json";
+import sv from "./locales/sv_final_checked.json"; 
+import es from "./locales/es_final_checked.json"; 
 
 // Set the key-value pairs for the different languages you want to support.
 const translations = {

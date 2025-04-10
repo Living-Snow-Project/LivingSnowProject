@@ -310,31 +310,31 @@ export const RecordDescription = {
 
 export const AlgaeSizeDescription = {
   get Select(): string {
-    return i18n.t("algaeSizeDescription.select");
+    return i18n.t(["algaeSizeDescription", "Select a size"]);
   },
   get Fist(): string {
-    return i18n.t("algaeSizeDescription.fist");
+    return i18n.t("algaeSizeDescription.Fist");
   },
   get DinnerPlate(): string {
-    return i18n.t("algaeSizeDescription.dinnerPlate");
+    return i18n.t(["algaeSizeDescription", "Dinner Plate"]);
   },
   get Bicycle(): string {
-    return i18n.t("algaeSizeDescription.bicycle");
+    return i18n.t("algaeSizeDescription.Bicycle");
   },
   get Car(): string {
-    return i18n.t("algaeSizeDescription.car");
+    return i18n.t("algaeSizeDescription.Car");
   },
   get Bus(): string {
-    return i18n.t("algaeSizeDescription.bus");
+    return i18n.t("algaeSizeDescription.Bus");
   },
   get House(): string {
-    return i18n.t("algaeSizeDescription.house");
+    return i18n.t("algaeSizeDescription.House");
   },
   get SportsField(): string {
-    return i18n.t("algaeSizeDescription.sportsField");
+    return i18n.t(["algaeSizeDescription", "Sports Field"]);
   },
   get Other(): string {
-    return i18n.t("algaeSizeDescription.other");
+    return i18n.t("algaeSizeDescription.Other");
   },
 };
 

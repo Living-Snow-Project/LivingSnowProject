@@ -141,15 +141,15 @@
     "undefined": "Undefined"
   },
   "algaeSizeDescription": {
-    "select": "Select a size",
-    "fist": "Fist",
-    "dinnerPlate": "Dinner Plate",
-    "bicycle": "Bicycle",
-    "car": "Car",
-    "bus": "Bus",
-    "house": "House",
-    "sportsField": "Sports Field",
-    "other": "Other (describe in notes)"
+    "Select a size": "Select a size",
+    "Fist": "Fist",
+    "Dinner Plate": "Dinner Plate",
+    "Bicycle": "Bicycle",
+    "Car": "Car",
+    "Bus": "Bus",
+    "House": "House",
+    "Sports Field": "Sports Field",
+    "Other": "Other (describe in notes)"
   },
   "algaeColorDescription": {
     "select": "Select a color",

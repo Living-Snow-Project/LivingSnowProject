@@ -46,9 +46,10 @@
       "colors": "Couleurs (sélectionnez toutes celles qui s'appliquent)",
       "exposedIce": "Pouvez-vous voir de la glace (surface du glacier) exposée près de vous?",
       "gps": "Coordonnées GPS (latitude, longitude)",
+      "impuritiesSelectAllThatApply": "Impuretés (sélectionnez toutes celles qui s'appliquent)",
       "locationDescription": "Description du lieu (limite de 255 caractères)",
       "onGlacier": "Êtes-vous sur un glacier?",
-      "notes": "Notes (limite de 255 caractères)",
+      "notes": "Remarques (limite de 255 caractères)",
       "photos": "Sélectionnez des photos (limite de 4)",
       "recordType": "Déclarez-vous une observation ou effectuez-vous un prélèvement ?",
       "size": "Estimation de la taille du bloom",
@@ -65,7 +66,7 @@
       "latitude": "Latitude",
       "locationDescription": "Description du lieu",
       "longitude": "Longitude",
-      "notes": "Notes",
+      "notes": "Remarques",
       "seeExposedIce": "Voir la glace exposée",
       "size": "Taille",
       "snowpackDepth": "Épaisseur de la neige",
@@ -140,15 +141,15 @@
     "undefined": "Indéfini"
   },
   "algaeSizeDescription": {
-    "select": "Choisissez une taille",
-    "fist": "Poing",
-    "dinnerPlate": "Assiette",
-    "bicycle": "Vélo",
-    "car": "Voiture",
-    "bus": "Bus",
-    "house": "Maison",
-    "sportsField": "Terrain de sport",
-    "other": "Autre (décrivez dans les notes)"
+    "Select a size": "Choisissez une taille",
+    "Fist": "Poing",
+    "Dinner Plate": "Assiette",
+    "Bicycle": "Vélo",
+    "Car": "Voiture",
+    "Bus": "Bus",
+    "House": "Maison",
+    "Sports Field": "Terrain de sport",
+    "Other": "Autre (décrivez dans les remarques)"
   },
   "algaeColorDescription": {
     "select": "Choisissez une couleur",
@@ -158,7 +159,7 @@
     "green": "Vert",
     "orange": "Orange",
     "yellow": "Jaune",
-    "other": "Autre (décrivez dans les notes)"
+    "other": "Autre (décrivez dans les remarques)"
   },
   "bloomDepthDescription": {
     "select": "Sélectionnez une profondeur",
@@ -167,7 +168,7 @@
     "fiveCm": "5 cm",
     "tenCm": "10 cm",
     "greaterThan10Cm": "plus de 10 cm",
-    "other": "Autre (décrivez dans les notes)"
+    "other": "Autre (décrivez dans les remarques)"
   },
   "exposedIceDescription": {
     "yes": "Oui",
@@ -180,7 +181,7 @@
     "vegetation": "Végétation",
     "pollen": "Pollen",
     "evidenceOfAnimals": "Traces d'animaux",
-    "other": "Autre (décrire dans les notes)"
+    "other": "Autre (décrire dans les remarques)"
   },
   "onOffGlacierDescription": {
     "yes": "Oui",
@@ -192,7 +193,7 @@
     "between10Cm30Cm": "Entre 10 cm et 30 cm",
     "thirtyCm1M": "Entre 30 cm et 1 m",
     "greaterThan1M": "Plus de 1 m",
-    "other": "Autre (décrivez dans les notes)"
+    "other": "Autre (décrivez dans les remarques)"
   },
   "underSnowpackDescription": {
     "select": "Sélectionnez une description",

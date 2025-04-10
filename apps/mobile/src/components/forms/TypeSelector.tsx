@@ -221,7 +221,7 @@ function GlacierOrNotSelector({
           name="onGlacier"
           accessibilityLabel="select if on glacier"
           value={
-            isOnGlacier == undefined ? undefined : isOnGlacier ? "Yes" : "No"
+            isOnGlacier === true ? "Yes" : isOnGlacier === false ? "No" : ""
           }
           onChange={(val) => {
             setIsOnGlacier(val == "Yes");

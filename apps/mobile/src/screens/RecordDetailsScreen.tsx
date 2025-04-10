@@ -5,6 +5,7 @@ import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
 import { CachedPhotos, ThemedBox } from "../components";
 import { Labels } from "../constants";
 import { MinimalAlgaeRecordV3 } from "../../types";
+import i18n from "../i18n";
 
 type RecordDetailsScreenProps = {
   route: RecordDetailsScreenRouteProp;
@@ -52,7 +53,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
           <Text>{`${Labels.RecordDetailsScreen.Gps}: ${latitude}, ${longitude}`}</Text>
           {!!tubeId && <Text>{`${Labels.TubeId}: ${tubeId}`}</Text>}
           {!!size && (
-            <Text>{`${Labels.RecordDetailsScreen.Size}: ${size}`}</Text>
+            <Text>{`${Labels.RecordDetailsScreen.Size}: ${i18n.t(`algaeSizeDescription.${size}`)}`}</Text>
           )}
           {!!colors && (
             <Text>{`${
@@ -64,7 +65,9 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
           )}
           {/* New questions */}
           {isOnGlacier && (
-            <Text>{`${Labels.RecordDetailsScreen.WasOnGlacier}: ${isOnGlacier}`}</Text>
+            <Text>
+            {`${Labels.RecordDetailsScreen.WasOnGlacier}: ${i18n.t(`onOffGlacierDescription.${isOnGlacier ? "yes" : "no"}`)}`}
+          </Text>
           )}
           {/* if they were on a glacier, did they see exposed ice */}
           {!!seeExposedIceOrWhatIsUnderSnowpack && isOnGlacier && (
