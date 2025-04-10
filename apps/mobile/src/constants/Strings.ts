@@ -163,7 +163,7 @@ export const Labels = {
       return i18n.t("labels.recordDetailsScreen.size");
     },
     get SnowPackDepth(): string {
-      return i18n.t("labels.recordDetailsScreen.snowPackDepth");
+      return i18n.t("labels.recordDetailsScreen.snowpackDepth");
     },
     get WasOnGlacier(): string {
       return i18n.t("labels.recordDetailsScreen.wasOnGlacier");
