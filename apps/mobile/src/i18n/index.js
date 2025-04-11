@@ -9,8 +9,8 @@ import nb from "./locales/nb_final_checked.json";
 import de from "./locales/de_final_checked.json";
 import it from "./locales/it_final_checked.json";
 import mn from "./locales/mn_final_checked.json";
-import sv from "./locales/sv_final_checked.json"; 
-import es from "./locales/es_final_checked.json"; 
+import sv from "./locales/sv_final_checked.json";
+import es from "./locales/es_final_checked.json";
 
 // Set the key-value pairs for the different languages you want to support.
 const translations = {

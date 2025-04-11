@@ -413,7 +413,9 @@ export function ImpuritiesSelector({
 
   return (
     <FormControl>
-      <FormControl.Label>{Labels.RecordScreen.ImpuritiesSelectAllThatApply}</FormControl.Label>
+      <FormControl.Label>
+        {Labels.RecordScreen.ImpuritiesSelectAllThatApply}
+      </FormControl.Label>
       <Flex mt="-1" flexDirection="row" wrap="wrap">
         {renderImpurities()}
       </Flex>
