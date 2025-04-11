@@ -66,8 +66,8 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
           {/* New questions */}
           {isOnGlacier && (
             <Text>
-            {`${Labels.RecordDetailsScreen.WasOnGlacier}: ${i18n.t(`onOffGlacierDescription.${isOnGlacier ? "yes" : "no"}`)}`}
-          </Text>
+              {`${Labels.RecordDetailsScreen.WasOnGlacier}: ${i18n.t(`onOffGlacierDescription.${isOnGlacier ? "yes" : "no"}`)}`}
+            </Text>
           )}
           {/* if they were on a glacier, did they see exposed ice */}
           {!!seeExposedIceOrWhatIsUnderSnowpack && isOnGlacier && (

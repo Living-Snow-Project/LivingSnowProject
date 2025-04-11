@@ -110,10 +110,10 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     editMode
       ? { ...jsonToRecord<AlgaeRecordInput>(route.params.record) }
       : {
-        ...defaultRecord,
-        name: appSettings.name ?? "Anonymous",
-        organization: appSettings.organization,
-      },
+          ...defaultRecord,
+          name: appSettings.name ?? "Anonymous",
+          organization: appSettings.organization,
+        },
   );
 
   // if a record was uploaded but response not received, duplicate records could be created
