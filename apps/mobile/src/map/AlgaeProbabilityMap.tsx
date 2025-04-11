@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, ActivityIndicator } from "react-native";
-import MapView, { Marker, Polygon } from "react-native-maps";
+import MapView, { Marker, Polygon, PROVIDER_GOOGLE } from "react-native-maps";
 import mountainGeojson from "./mountain.json";
 import algaeGeojson from "./polygones.json";
 
@@ -44,7 +44,10 @@ export default function AlgaeProbabilityMap() {
 
   return (
     <View style={{ flex: 1 }}>
-      <MapView style={{ flex: 1 }}>
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        style={{ flex: 1 }}
+      >
         {/* 1) Render mountain polygons (black outline, no fill) */}
         {mountainFeatures.map((feature, idx) => {
           if (

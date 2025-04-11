@@ -87,7 +87,11 @@ function AlgaeSizeSelector({
     ));
 
   return (
-    <FormControl isRequired isInvalid={isInvalid}>
+    <FormControl
+      isRequired
+      isReadOnly={true}
+      isInvalid={isInvalid}
+    >
       <FormControl.Label>{Labels.RecordScreen.Size}</FormControl.Label>
       <Select
         size="xl"
@@ -183,7 +187,11 @@ function AlgaeColorSelector({
     });
 
   return (
-    <FormControl isRequired isInvalid={isInvalid}>
+    <FormControl
+      isRequired
+      isReadOnly={true}
+      isInvalid={isInvalid}
+    >
       <FormControl.Label>{Labels.RecordScreen.Colors}</FormControl.Label>
       <Flex mt="-1" flexDirection="row" wrap="wrap">
         {renderColors()}
@@ -270,7 +278,9 @@ function GlacierOrNotSelector({
 
       {/* 2) If Off => what is under the snowpack? */}
       {isOnGlacier != undefined && !isOnGlacier && (
-        <FormControl mt="3">
+        <FormControl mt="3"
+          isReadOnly={true}
+        >
           <FormControl.Label>
             {Labels.RecordScreen.UnderSnowpack}
           </FormControl.Label>
@@ -510,7 +520,9 @@ function BloomDepthSelector({
   };
 
   return (
-    <FormControl mt="3">
+    <FormControl mt="3"
+      isReadOnly={true}
+    >
       <FormControl.Label>{Labels.RecordScreen.BloomDepth}</FormControl.Label>
       <Select
         size="xl"
