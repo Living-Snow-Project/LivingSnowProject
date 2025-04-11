@@ -53,7 +53,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
           <Text>{`${Labels.RecordDetailsScreen.Gps}: ${latitude}, ${longitude}`}</Text>
           {!!tubeId && <Text>{`${Labels.TubeId}: ${tubeId}`}</Text>}
           {!!size && (
-            <Text>{`${Labels.RecordDetailsScreen.Size}: ${i18n.t(`algaeSizeDescription.${size}`)}`}</Text>
+            <Text>{`${Labels.RecordDetailsScreen.Size}: ${size === "Other" ? "Other" : i18n.t(`algaeSizeDescription.${size}`)}`}</Text>
           )}
           {!!colors && (
             <Text>{`${
