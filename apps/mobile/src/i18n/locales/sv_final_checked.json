@@ -1,0 +1,218 @@
+{
+  "welcomeHeading": "Välkommen",
+  "timelineHeading": "Tidslinje",
+  "recordHeading": "Registrera",
+  "settingsHeading": "Inställningar",
+  "detailsHeading": "Detaljer",
+  "placeholders": {
+    "gps": {
+      "acquiringLocation": "Söker GPS-signal",
+      "enterCoordinates": "t.ex. 12.34567, -123.45678",
+      "noPermissions": "Kontrollera platsbehörigheter i Inställningar. Ange koordinater manuellt.",
+      "noLocation": "Kunde inte fastställa plats. Ange koordinater manuellt."
+    },
+    "settings": {
+      "username": "Skriv in ditt namn",
+      "organization": "Ange organisationen du tillhör (om någon)"
+    },
+    "recordScreen": {
+      "locationDescription": "t.ex.: Blå sjön, North Cascades, WA",
+      "notes": "t.ex. mörkröda alger på glaciäris",
+      "other": "(beskrivningsruta)",
+      "size": "Välj en storlek",
+      "tubeId": "Lämna tomt om röret inte har något ID",
+      "tubeIdDisabled": "Inaktiverad – används endast för prover"
+    }
+  },
+  "labels": {
+    "date": "Datum",
+    "defaultName": "Frivillig forskare",
+    "empty": "Tom",
+    "livingSnowProject": "Living Snow Project",
+    "name": "Namn",
+    "organization": "Organisation",
+    "photos": "Foton",
+    "recordType": "Typ",
+    "slogan": "Ser du rosa snö? Dela din observation!",
+    "tubeId": "Rör-ID",
+
+    "firstRunScreen": {
+      "startReporting": "Rapportera en observation",
+      "usage": "Ange ditt namn eller förbli anonym. Du kan uppdatera din profil när som helst i Inställningar."
+    },
+
+    "recordScreen": {
+      "bloomDepth": "Hur djup är blomningen (närmaste uppskattning)?",
+      "colors": "Färger (välj alla som gäller)",
+      "exposedIce": "Kan du se exponerad glaciäris nära dig?",
+      "onGlacier": "Befinner du dig på en glaciär?",
+      "gps": "GPS-koordinater (latitud, longitud)",
+      "impuritiesSelectAllThatApply": "Föroreningar (välj alla som gäller)",
+      "locationDescription": "Platsbeskrivning (max 255 tecken)",
+      "notes": "Anteckningar (max 255 tecken)",
+      "photos": "Välj foton (max 4)",
+      "recordType": "Rapporterar du en observation eller tar du ett prov?",
+      "size": "Välj en storlek",
+      "snowpackThickness": "Hur tjock är snöpacken?",
+      "underSnowpack": "Vad finns under snöpacken?"
+    },
+
+    "recordDetailsScreen": {
+      "bloomDepth": "Blomningens djup",
+      "colors": "Färger",
+      "dataSheet": "Dataark",
+      "gps": "Koordinater",
+      "impurities": "Föroreningar",
+      "latitude": "Latitud",
+      "locationDescription": "Platsbeskrivning",
+      "longitude": "Longitud",
+      "notes": "Anteckningar",
+      "seeExposedIce": "Se exponerad is",
+      "size": "Storlek",
+      "snowpackDepth": "Snöpackens djup",
+      "wasOnGlacier": "Var på glaciären",
+      "whatWasUnderSnowpack": "Vad fanns under snöpacken?"
+    },
+    "timelineScreen": {
+      "downloadedRecords": "Nedladdade",
+      "exampleRecords": "Exempelpost",
+      "pendingRecords": "Avvaktar"
+    },
+    "settingsScreen": {
+      "darkMode": "Mörkt läge",
+      "manualCoordinates": "Varning för manuella koordinater"
+    },
+    "statusBar": {
+      "noConnection": "Ingen internetanslutning"
+    },
+    "modal": {
+      "cancel": "Avbryt",
+      "confirm": "Bekräfta",
+      "diskUsage": {
+        "header": "Bekräfta radering",
+        "body": "Är du säker på att du vill radera sparade foton?"
+      },
+      "gpsManualEntry": {
+        "header": "Ange koordinater manuellt?",
+        "body": "Vissa användare anger koordinater manuellt om de inte kan få GPS-signal eller när de är hemma. Detta meddelande kan inaktiveras i Inställningar."
+      }
+    }
+  },
+  "notifications": {
+    "uploadSuccess": {
+      "title": "Post uppladdad",
+      "message": "Tack för ditt bidrag."
+    },
+    "uploadRecordFailed": {
+      "title": "Post sparad",
+      "message": "Vi laddar upp den senare."
+    },
+    "uploadPhotoFailed": {
+      "title": "Foto sparat",
+      "message": "Vi laddar upp det senare."
+    },
+    "uploadPhotosFailed": {
+      "title": "Foton sparade",
+      "message": "Vi laddar upp dem senare."
+    },
+    "updateRecordSuccess": {
+      "title": "Post uppdaterad"
+    },
+    "updateRecordFailed": {
+      "title": "Uppdatering misslyckades",
+      "message": "Detta kan hända när internetanslutningen återställs medan posten uppdateras."
+    },
+    "backgroundTasksNotAllowed": {
+      "title": "Bakgrundsuppladdning inte aktiverad",
+      "message": "Aktivera bakgrundsuppdatering om du vill att sparade poster ska laddas upp automatiskt."
+    }
+  },
+  "validations": {
+    "invalidCoordinates": "Koordinaterna måste vara i \"lat, long\"-format. t.ex. 12.34567, -123.45678",
+    "invalidAlgaeSize": "Du måste ange en storlek",
+    "invalidAlgaeColors": "Du måste välja minst en färg"
+  },
+  "errors": {
+    "recordNotFound": "Kunde inte hitta posten som ska uppdateras"
+  },
+  "recordDescription": {
+    "sample": "Prov",
+    "sighting": "Observation",
+    "undefined": "Odefinierad"
+  },
+  "algaeSizeDescription": {
+    "Select a size": "Välj en storlek",
+    "Fist": "Knytnäve",
+    "Dinner Plate": "Dinnertallrik",
+    "Bicycle": "Cykel",
+    "Car": "Bil",
+    "Bus": "Buss",
+    "House": "Hus",
+    "Sports Field": "Idrottsfält",
+    "Other": "Annat (beskriv i anteckningar)"
+  },
+  "algaeColorDescription": {
+    "select": "Välj en färg",
+    "red": "Röd",
+    "pink": "Rosa",
+    "grey": "Grå",
+    "green": "Grön",
+    "orange": "Orange",
+    "yellow": "Gul",
+    "other": "Annat (beskriv i anteckningar)"
+  },
+  "bloomDepthDescription": {
+    "select": "Välj ett djup",
+    "surface": "Yta",
+    "twoCm": "2 cm",
+    "fiveCm": "5 cm",
+    "tenCm": "10 cm",
+    "greaterThan10Cm": "Mer än 10 cm",
+    "other": "Annat (beskriv i anteckningar)"
+  },
+  "exposedIceDescription": {
+    "yes": "Ja",
+    "no": "Nej"
+  },
+  "impuritiesDescription": {
+    "orangeDust": "Oranget damm",
+    "soot": "Sot",
+    "soil": "Jord",
+    "vegetation": "Vegetation",
+    "pollen": "Pollen",
+    "evidenceOfAnimals": "Spår av djur",
+    "other": "Annat (beskriv i anteckningarna)"
+  },
+  "onOffGlacierDescription": {
+    "yes": "Ja",
+    "no": "Nej"
+  },
+  "snowpackThicknessDescription": {
+    "select": "Välj en tjocklek",
+    "lessThan10Cm": "Mindre än 10 cm",
+    "between10Cm30Cm": "Mellan 10 cm - 30 cm",
+    "thirtyCm1M": "30 cm - 1 m",
+    "greaterThan1M": "Mer än 1 m",
+    "other": "Annat (beskriv i anteckningar)"
+  },
+  "underSnowpackDescription": {
+    "select": "Välj ett alternativ",
+    "vegetation": "Vegetation",
+    "rocks": "Stenar",
+    "soil": "Jord",
+    "pondOrTarn": "Dam eller myr",
+    "lake": "Sjö",
+    "stream": "Bäck",
+    "mixed": "Blandat",
+    "iDontKnow": "Jag vet inte"
+  },
+  "backgroundTasks": {
+    "uploadData": "bakgrundsuppgift-för-uppladdning"
+  },
+  "headers": {
+    "diskUsage": "Diskanvändning",
+    "profile": "Profil",
+    "prompts": "Uppmaningar",
+    "theme": "Tema"
+  }
+}

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "jsx": "react-native"
   },
 
   "extends": "expo/tsconfig.base"

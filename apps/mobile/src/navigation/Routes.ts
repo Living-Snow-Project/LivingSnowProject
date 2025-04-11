@@ -4,7 +4,8 @@ import {
 } from "@react-navigation/native-stack";
 
 type RecordScreenRouteProps = {
-  record?: string; // when coming from Timeline, Edit Mode, JSON.stringify'd AlgaeRecord
+  record?: string; // Edit Mode - when coming from Timeline, JSON.stringify'd AlgaeRecordV3
+  requestId?: string; // Edit Mode - when coming from Timeline, requestId
 };
 
 export type RootStackParamList = {
@@ -12,7 +13,8 @@ export type RootStackParamList = {
   Timeline: undefined;
   Record: RecordScreenRouteProps | undefined; // undefined => new record
   Settings: undefined;
-  RecordDetails: { record: string }; // JSON.stringify'd MinimalAlgaeRecord
+  RecordDetails: { record: string }; // JSON.stringify'd MinimalAlgaeRecordV3
+  Map: undefined;
 };
 
 export type RootStackNavigationProp =

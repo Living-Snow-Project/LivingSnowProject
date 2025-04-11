@@ -10,7 +10,6 @@ import {
 import {
   AlgaeRecordsStates,
   IAlgaeRecords,
-  LocalAlgaeRecord,
   LocalAlgaeRecordV3,
 } from "../../types/AlgaeRecords";
 import * as Storage from "../lib/Storage";
@@ -46,23 +45,20 @@ type AlgaeRecordsActions =
   | {
       type: "END_SEEDING";
       payload: {
-        pendingRecords: LocalAlgaeRecord[];
-        pendingRecordsV3: LocalAlgaeRecordV3[];
+        pendingRecords: LocalAlgaeRecordV3[];
         downloadedRecords: DataResponseV3[];
       };
     }
   | {
       type: "END_SAVING" | "END_DELETING" | "END_RETRY";
       payload: {
-        pendingRecords: LocalAlgaeRecord[];
-        pendingRecordsV3: LocalAlgaeRecordV3[];
+        pendingRecords: LocalAlgaeRecordV3[];
       };
     }
   | {
       type: "END_UPLOAD_RECORD";
       payload: {
-        pendingRecords: LocalAlgaeRecord[];
-        pendingRecordsV3: LocalAlgaeRecordV3[];
+        pendingRecords: LocalAlgaeRecordV3[];
       };
     }
   | {
@@ -82,8 +78,7 @@ type AlgaeRecordsActions =
   | {
       type: "END_FULL_SYNC";
       payload: {
-        pendingRecords?: LocalAlgaeRecord[];
-        pendingRecordsV3?: LocalAlgaeRecordV3[];
+        pendingRecords?: LocalAlgaeRecordV3[];
         downloadedRecords?: DataResponseV3[];
         nextPageToken: string;
       };
@@ -112,7 +107,6 @@ const algaeRecordsReducer = (
         isSeeded: true,
         state: defaultState,
         pendingRecords: action.payload.pendingRecords,
-        pendingRecordsV3: action.payload.pendingRecordsV3,
         downloadedRecords: action.payload.downloadedRecords,
       };
 
@@ -123,7 +117,6 @@ const algaeRecordsReducer = (
         ...currentState,
         state: defaultState,
         pendingRecords: action.payload.pendingRecords,
-        pendingRecordsV3: action.payload.pendingRecordsV3,
       };
 
     case "END_UPLOAD_RECORD":
@@ -131,7 +124,6 @@ const algaeRecordsReducer = (
         ...currentState,
         state: defaultState,
         pendingRecords: action.payload.pendingRecords,
-        pendingRecordsV3: action.payload.pendingRecordsV3,
       };
 
     case "END_DOWNLOADING":
@@ -166,10 +158,6 @@ const algaeRecordsReducer = (
         result.pendingRecords = action.payload.pendingRecords;
       }
 
-      if (action.payload.pendingRecordsV3) {
-        result.pendingRecordsV3 = action.payload.pendingRecordsV3;
-      }
-
       if (action.payload.downloadedRecords) {
         result.downloadedRecords = action.payload.downloadedRecords;
         result.nextPageToken = action.payload.nextPageToken;
@@ -185,8 +173,7 @@ const algaeRecordsReducer = (
 type AlgaeRecordState = {
   state: AlgaeRecordsStates;
   isSeeded: boolean;
-  pendingRecords: LocalAlgaeRecord[];
-  pendingRecordsV3: LocalAlgaeRecordV3[];
+  pendingRecords: LocalAlgaeRecordV3[];
   downloadedRecords: DataResponseV3[];
   nextPageToken: string;
 };
@@ -195,7 +182,6 @@ const initialState: AlgaeRecordState = {
   state: defaultState,
   isSeeded: false,
   pendingRecords: [],
-  pendingRecordsV3: [],
   downloadedRecords: [],
   nextPageToken: "",
 };
@@ -215,15 +201,13 @@ function useAlgaeRecords(): [IAlgaeRecords] {
 
       seed: async () => {
         dispatch({ type: "START_SEEDING" });
-        const cachedRecords = await Storage.loadCachedRecords();
-        const pendingRecords = await RecordManager.loadPending();
-        const pendingRecordsV3 = await RecordManager.loadPendingV3();
+        const cachedRecords = await Storage.loadCachedRecordsV3();
+        const pendingRecords = await RecordManager.loadPendingV3();
 
         dispatch({
           type: "END_SEEDING",
           payload: {
             pendingRecords,
-            pendingRecordsV3,
             downloadedRecords: cachedRecords,
           },
         });
@@ -231,11 +215,10 @@ function useAlgaeRecords(): [IAlgaeRecords] {
 
       delete: async (recordId: string) => {
         dispatch({ type: "START_DELETING" });
-        const pendingRecords = await RecordManager.deletePending(recordId);
-        const pendingRecordsV3 = await RecordManager.deletePendingV3(recordId);
+        const pendingRecords = await RecordManager.deletePendingV3(recordId);
         dispatch({
           type: "END_DELETING",
-          payload: { pendingRecords, pendingRecordsV3 },
+          payload: { pendingRecords },
         });
       },
 
@@ -284,27 +267,26 @@ function useAlgaeRecords(): [IAlgaeRecords] {
 
       retryPending: async () => {
         dispatch({ type: "START_RETRY" });
-        const pendingRecords = await RecordManager.retryPending();
-        const pendingRecordsV3 = await RecordManager.retryPendingV3();
+        // if any old records exist, try sending them, but we don't bother to render them anymore
+        await RecordManager.retryPending();
+        const pendingRecords = await RecordManager.retryPendingV3();
         await PhotoManager.retryPending();
         await PhotoManager.retryPendingV3();
 
         dispatch({
           type: "END_RETRY",
-          payload: { pendingRecords, pendingRecordsV3 },
+          payload: { pendingRecords },
         });
       },
 
       fullSync: async () => {
-        let pendingRecords: LocalAlgaeRecord[] | undefined;
-        let pendingRecordsV3: LocalAlgaeRecordV3[] | undefined;
+        let pendingRecords: LocalAlgaeRecordV3[] | undefined;
         let downloadedRecords: AlgaeRecordResponseV3 | undefined;
 
         // avoids intermediate "Idle" state between upload and download
         try {
           dispatch({ type: "START_RETRY" });
-          pendingRecords = await RecordManager.retryPending();
-          pendingRecordsV3 = await RecordManager.retryPendingV3();
+          pendingRecords = await RecordManager.retryPendingV3();
           await PhotoManager.retryPending();
           await PhotoManager.retryPendingV3();
 
@@ -316,7 +298,6 @@ function useAlgaeRecords(): [IAlgaeRecords] {
             type: "END_FULL_SYNC",
             payload: {
               pendingRecords,
-              pendingRecordsV3,
               downloadedRecords: downloadedRecords.data,
               nextPageToken: downloadedRecords.meta.next_token,
             },
@@ -326,7 +307,6 @@ function useAlgaeRecords(): [IAlgaeRecords] {
             type: "END_FULL_SYNC",
             payload: {
               pendingRecords,
-              pendingRecordsV3,
               downloadedRecords: downloadedRecords
                 ? downloadedRecords.data
                 : undefined,

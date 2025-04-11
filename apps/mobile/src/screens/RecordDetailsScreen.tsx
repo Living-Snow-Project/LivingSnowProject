@@ -5,6 +5,7 @@ import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
 import { CachedPhotos, ThemedBox } from "../components";
 import { Labels } from "../constants";
 import { MinimalAlgaeRecordV3 } from "../../types";
+import i18n from "../i18n";
 
 type RecordDetailsScreenProps = {
   route: RecordDetailsScreenRouteProp;
@@ -52,7 +53,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
           <Text>{`${Labels.RecordDetailsScreen.Gps}: ${latitude}, ${longitude}`}</Text>
           {!!tubeId && <Text>{`${Labels.TubeId}: ${tubeId}`}</Text>}
           {!!size && (
-            <Text>{`${Labels.RecordDetailsScreen.Size}: ${size}`}</Text>
+            <Text>{`${Labels.RecordDetailsScreen.Size}: ${size === "Other" ? "Other" : i18n.t(`algaeSizeDescription.${size}`)}`}</Text>
           )}
           {!!colors && (
             <Text>{`${
@@ -62,22 +63,28 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
               "",
             )}`}</Text>
           )}
-          {/* TODO-BILL: use localized labels for new questions */}
-          {isOnGlacier && <Text>{`${"Was On Glacier?"}: ${isOnGlacier}`}</Text>}
+          {/* New questions */}
+          {isOnGlacier && (
+            <Text>
+              {`${Labels.RecordDetailsScreen.WasOnGlacier}: ${i18n.t(`onOffGlacierDescription.${isOnGlacier ? "yes" : "no"}`)}`}
+            </Text>
+          )}
           {/* if they were on a glacier, did they see exposed ice */}
           {!!seeExposedIceOrWhatIsUnderSnowpack && isOnGlacier && (
-            <Text>{`${"See Exposed Ice?"}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
+            <Text>{`${Labels.RecordDetailsScreen.SeeExposedIce}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
           )}
           {/* if they were not on a glacier, what was under the snowpack */}
           {!!seeExposedIceOrWhatIsUnderSnowpack && !isOnGlacier && (
-            <Text>{`${"What was under snowpack?"}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
+            <Text>{`${Labels.RecordDetailsScreen.WhatWasUnderSnowpack}: ${seeExposedIceOrWhatIsUnderSnowpack}`}</Text>
           )}
           {!!snowpackDepth && (
-            <Text>{`${"Snowpack Depth"}: ${snowpackDepth}`}</Text>
+            <Text>{`${Labels.RecordDetailsScreen.SnowPackDepth}: ${snowpackDepth}`}</Text>
           )}
-          {!!bloomDepth && <Text>{`${"Bloom Depth"}: ${bloomDepth}`}</Text>}
+          {!!bloomDepth && (
+            <Text>{`${Labels.RecordDetailsScreen.BloomDepth}: ${bloomDepth}`}</Text>
+          )}
           {!!impurities && (
-            <Text>{`${"Impurities"}: ${impurities.reduce<string>(
+            <Text>{`${Labels.RecordDetailsScreen.Impurities}: ${impurities.reduce<string>(
               (prev, cur, index) => (index == 0 ? `${cur}` : `${prev}, ${cur}`),
               "",
             )}`}</Text>

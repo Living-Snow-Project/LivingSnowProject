@@ -6,6 +6,7 @@ export const TestIds = {
   Selectors: {
     AlgaeColor: "algae-color-selector",
     AlgaeSize: "algae-size-selector",
+    OnOffGlacier: "on-off-glacier-selector",
     Photos: "photo-selector",
     RecordType: "record-type-selector",
   },
@@ -19,6 +20,7 @@ export const TestIds = {
     NewRecordButton: "timeline-screen-record-button",
     SettingsButton: "timeline-screen-settings-button",
     ScrollToTopButton: "timeline-screen-scroll-to-top-button",
+    MapButton: "timeline-screen-map-button",
   },
   SettingsScreen: {
     ShowGpsWarning: "settings-screen-show-gps-warning",

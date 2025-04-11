@@ -6,7 +6,6 @@ import { AvoidSoftInput } from "react-native-avoid-softinput";
 import { useFocusEffect } from "@react-navigation/native";
 import Logger from "@livingsnow/logger";
 import {
-  AlgaeRecord,
   jsonToRecord,
   isSample,
   recordDateFormat,
@@ -16,7 +15,7 @@ import { SelectedPhoto } from "../../types";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
 import { RecordManager, UploadError } from "../lib/RecordManager";
 import { PhotoManager } from "../lib/PhotoManager";
-import { updatePendingRecord } from "../lib/Storage";
+import { updatePendingRecordV3, PendingAlgaeRecordV3 } from "../lib/Storage";
 import { RecordScreenProps } from "../navigation/Routes";
 import { HeaderButton, ThemedBox } from "../components";
 import {
@@ -28,6 +27,10 @@ import {
   ExpoPhotoSelector,
   GpsCoordinatesInput,
   TextArea,
+  GlacierOrNotSelector,
+  SnowpackThicknessSelector,
+  BloomDepthSelector,
+  ImpuritiesSelector,
 } from "../components/forms";
 import { getAppSettings } from "../../AppSettings";
 import { Labels, Notifications, Placeholders, TestIds } from "../constants";
@@ -113,6 +116,12 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
         },
   );
 
+  // if a record was uploaded but response not received, duplicate records could be created
+  // a record remains pending in this case
+  const [requestId] = useState<string>(
+    editMode ? route.params.requestId || "" : "",
+  );
+
   const onFocusEffect = React.useCallback(() => {
     // This should be run when screen gains focus - enable the module where it's needed
     AvoidSoftInput.setEnabled(true);
@@ -172,7 +181,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       title: Notifications.updateRecordSuccess.title,
     };
 
-    updatePendingRecord(record as AlgaeRecord)
+    updatePendingRecordV3({ ...record, requestId } as PendingAlgaeRecordV3)
       .catch(() => {
         // TODO: this case is most likely error and not info
         toastProps.status = "info";
@@ -288,6 +297,23 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           />
 
           <Space />
+          <CustomTextInput
+            value={record?.tubeId}
+            label={Labels.TubeId}
+            placeholder={
+              isSample(record.type)
+                ? Placeholders.RecordScreen.TubeId
+                : Placeholders.RecordScreen.TubeIdDisabled
+            }
+            maxLength={20}
+            isDisabled={!isSample(record.type)}
+            onChangeText={(tubeId) =>
+              setRecord((prev) => ({ ...prev, tubeId }))
+            }
+            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+          />
+
+          <Space />
           <AlgaeSizeSelector
             size={record.size}
             isInvalid={didSubmit && isAlgaeSizeInvalid()}
@@ -309,20 +335,52 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
           />
 
           <Space />
-          <CustomTextInput
-            value={record?.tubeId}
-            label={Labels.TubeId}
-            placeholder={
-              isSample(record.type)
-                ? Placeholders.RecordScreen.TubeId
-                : Placeholders.RecordScreen.TubeIdDisabled
+          <GlacierOrNotSelector
+            isOnGlacier={record.isOnGlacier}
+            setIsOnGlacier={(newVal) =>
+              setRecord((prev) => ({ ...prev, isOnGlacier: newVal }))
             }
-            maxLength={20}
-            isDisabled={!isSample(record.type)}
-            onChangeText={(tubeId) =>
-              setRecord((prev) => ({ ...prev, tubeId }))
+            exposedIce={record.seeExposedIceOrWhatIsUnderSnowpack ?? "No"}
+            setExposedIce={(newVal) =>
+              setRecord((prev) => ({
+                ...prev,
+                seeExposedIceOrWhatIsUnderSnowpack: newVal,
+              }))
             }
-            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+            underSnow={
+              record.seeExposedIceOrWhatIsUnderSnowpack ??
+              "Select what is under snowpack"
+            }
+            setUnderSnow={(newVal) =>
+              setRecord((prev) => ({
+                ...prev,
+                seeExposedIceOrWhatIsUnderSnowpack: newVal,
+              }))
+            }
+          />
+
+          <Space />
+          <SnowpackThicknessSelector
+            thickness={record.snowpackDepth ?? "Select snowpack depth"}
+            setThickness={(thickness) =>
+              setRecord((prev) => ({ ...prev, snowpackDepth: thickness }))
+            }
+          />
+
+          <Space />
+          <BloomDepthSelector
+            bloomDepth={record.bloomDepth ?? "Select bloom depth"}
+            setBloomDepth={(depth) =>
+              setRecord((prev) => ({ ...prev, bloomDepth: depth }))
+            }
+          />
+
+          <Space />
+          <ImpuritiesSelector
+            impuritiesSelected={record.impurities ?? []}
+            onChangeImpurities={(impurities) =>
+              setRecord((prev) => ({ ...prev, impurities }))
+            }
           />
 
           <Space />
