@@ -265,6 +265,8 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         }
       },
 
+      // TODO: appears there is some semantic mismatch on how this is thought of and actually used
+      // because retryPending is only called when the app is offline
       retryPending: async () => {
         dispatch({ type: "START_RETRY" });
         // if any old records exist, try sending them, but we don't bother to render them anymore
@@ -286,6 +288,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         // avoids intermediate "Idle" state between upload and download
         try {
           dispatch({ type: "START_RETRY" });
+          await RecordManager.retryPending();
           pendingRecords = await RecordManager.retryPendingV3();
           await PhotoManager.retryPending();
           await PhotoManager.retryPendingV3();
