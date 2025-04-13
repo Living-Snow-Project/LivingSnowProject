@@ -91,20 +91,20 @@ function RootNavigator() {
           headerLeft: () => SettingsButton({ navigation }),
           headerRight: () => (
             <Box flexDirection="row">
-              <MapButton navigation={navigation} />
+              {/* <MapButton navigation={navigation} /> */}
               <NewRecordButton navigation={navigation} />
             </Box>
           ),
         })}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Map"
         component={AlgaeProbabilityMap}
         options={{
           title: "Map",
           headerShown: true,
         }}
-      />
+      /> */}
       <Stack.Screen name="Record" component={RecordScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen

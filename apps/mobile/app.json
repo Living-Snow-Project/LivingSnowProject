@@ -39,7 +39,12 @@
         "FOREGROUND_SERVICE",
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
-      ]
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "process.env.GOOGLE_MAPS_API_KEY"
+        }
+      }
     },
     "runtimeVersion": "7.3.5",
     "extra": {
