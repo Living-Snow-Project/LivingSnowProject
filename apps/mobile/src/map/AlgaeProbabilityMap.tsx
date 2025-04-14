@@ -44,10 +44,7 @@ export default function AlgaeProbabilityMap() {
 
   return (
     <View style={{ flex: 1 }}>
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        style={{ flex: 1 }}
-      >
+      <MapView provider={PROVIDER_GOOGLE} style={{ flex: 1 }}>
         {/* 1) Render mountain polygons (black outline, no fill) */}
         {mountainFeatures.map((feature, idx) => {
           if (
