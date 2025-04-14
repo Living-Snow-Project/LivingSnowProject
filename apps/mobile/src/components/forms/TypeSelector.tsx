@@ -87,11 +87,7 @@ function AlgaeSizeSelector({
     ));
 
   return (
-    <FormControl
-      isRequired
-      isReadOnly={true}
-      isInvalid={isInvalid}
-    >
+    <FormControl isRequired isReadOnly={true} isInvalid={isInvalid}>
       <FormControl.Label>{Labels.RecordScreen.Size}</FormControl.Label>
       <Select
         size="xl"
@@ -187,11 +183,7 @@ function AlgaeColorSelector({
     });
 
   return (
-    <FormControl
-      isRequired
-      isReadOnly={true}
-      isInvalid={isInvalid}
-    >
+    <FormControl isRequired isReadOnly={true} isInvalid={isInvalid}>
       <FormControl.Label>{Labels.RecordScreen.Colors}</FormControl.Label>
       <Flex mt="-1" flexDirection="row" wrap="wrap">
         {renderColors()}
@@ -278,9 +270,7 @@ function GlacierOrNotSelector({
 
       {/* 2) If Off => what is under the snowpack? */}
       {isOnGlacier != undefined && !isOnGlacier && (
-        <FormControl mt="3"
-          isReadOnly={true}
-        >
+        <FormControl mt="3" isReadOnly={true}>
           <FormControl.Label>
             {Labels.RecordScreen.UnderSnowpack}
           </FormControl.Label>
@@ -304,7 +294,7 @@ function GlacierOrNotSelector({
             <Select.Item label={UnderSnowpackDescription.Soil} value={"Soil"} />
             <Select.Item
               label={UnderSnowpackDescription.PondOrTarn}
-              value={"Pond or tarn"}
+              value={"Pond or Tarn"}
             />
             <Select.Item label={UnderSnowpackDescription.Lake} value={"Lake"} />
             <Select.Item
@@ -520,9 +510,7 @@ function BloomDepthSelector({
   };
 
   return (
-    <FormControl mt="3"
-      isReadOnly={true}
-    >
+    <FormControl mt="3" isReadOnly={true}>
       <FormControl.Label>{Labels.RecordScreen.BloomDepth}</FormControl.Label>
       <Select
         size="xl"
