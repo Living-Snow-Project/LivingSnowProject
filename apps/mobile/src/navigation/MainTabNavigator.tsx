@@ -91,7 +91,7 @@ function RootNavigator() {
           headerLeft: () => SettingsButton({ navigation }),
           headerRight: () => (
             <Box flexDirection="row">
-              {<MapButton navigation={navigation} />}
+              <MapButton navigation={navigation} />
               <NewRecordButton navigation={navigation} />
             </Box>
           ),
