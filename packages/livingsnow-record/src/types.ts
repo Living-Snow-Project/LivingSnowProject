@@ -62,7 +62,7 @@ const WhatIsUnderSnowpackArray = [
   "Vegetation",
   "Rocks",
   "Soil",
-  "Pond or tarn",
+  "Pond or Tarn",
   "Lake",
   "Stream",
   "Mixed",
