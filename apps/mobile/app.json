@@ -6,7 +6,7 @@
     "privacy": "unlisted",
     "primaryColor": "#000000",
     "platforms": ["ios", "android"],
-    "version": "2.3.5",
+    "version": "2.3.6",
     "orientation": "portrait",
     "icon": "./assets/images/lsp@2x.png",
     "splash": {
@@ -42,7 +42,7 @@
       ],
       "config": {
         "googleMaps": {
-          "apiKey": "process.env.GOOGLE_MAPS_API_KEY"
+          "apiKey": "process.env.ANDROID_GOOGLE_MAPS_API_KEY"
         }
       }
     },
