@@ -1,1 +1,4 @@
 dist
+apps/mobile/src/map/mountain.json
+apps/mobile/src/map/polygones.json
+apps/mobile/src/map/red_algae_in_alpine_snow.json
