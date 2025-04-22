@@ -88,8 +88,7 @@ const recordsApiV3 = () => {
         postUrl,
         postPhotoUrl,
         // rejects with an error string or the response object
-        post: (record, requestId // prevents duplicate uploads on bad cell reception (response may be dropped)
-        ) => __awaiter(void 0, void 0, void 0, function* () {
+        post: (record, requestId) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "post";
             dumpRecord(record);
             record = removeEmptyFields(record);
@@ -134,8 +133,7 @@ const recordsApiV3 = () => {
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
         // rejects with an error string or the response object
-        postPhoto: (recordId, photoUri, requestId // prevents duplicate uploads on bad cell reception (response may be dropped)
-        ) => __awaiter(void 0, void 0, void 0, function* () {
+        postPhoto: (recordId, photoUri, requestId) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "postPhoto";
             const uri = { uri: photoUri };
             return fetch(postPhotoUrl(recordId), {

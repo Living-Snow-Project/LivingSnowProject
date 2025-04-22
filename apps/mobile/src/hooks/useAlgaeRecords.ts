@@ -140,6 +140,11 @@ const algaeRecordsReducer = (
           };
 
     case "END_DOWNLOADING_NEXT":
+      // data comes back from server in chronological order
+      action.payload.downloadedRecords.forEach((item) => {
+        currentState.downloadedRecords.push({ ...item });
+      });
+
       return {
         ...currentState,
         state: defaultState,

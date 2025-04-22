@@ -25,7 +25,7 @@ export type AlgaeRecord = {
 };
 declare const SeeExposedIceArray: readonly ["Yes", "No"];
 export type SeeExposedIce = (typeof SeeExposedIceArray)[number];
-declare const WhatIsUnderSnowpackArray: readonly ["Select what is under snowpack", "Vegetation", "Rocks", "Soil", "Pond or tarn", "Lake", "Stream", "Mixed", "I Don't Know"];
+declare const WhatIsUnderSnowpackArray: readonly ["Select what is under snowpack", "Vegetation", "Rocks", "Soil", "Pond or Tarn", "Lake", "Stream", "Mixed", "I Don't Know"];
 export type WhatIsUnderSnowpack = (typeof WhatIsUnderSnowpackArray)[number];
 declare const SnowpackDepthArray: readonly ["Select snowpack depth", "< 10cm", "10cm - 30cm", "30cm - 1m", "> 1m", "Other"];
 export type SnowpackDepth = (typeof SnowpackDepthArray)[number];
