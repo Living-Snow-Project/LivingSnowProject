@@ -3,7 +3,7 @@
 
 Living Snow Project is a Community Scientist project that studies snow algae. That's right, algae grows on snow (and ice) too! These apps will assist the research team with data collection and exploration. Volunteer sign up and more info [here](https://wp.wwu.edu/livingsnowproject/).
 
-## This is a monorepo using [Classic Yarn (v1.22.19)](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) workspaces and Node 20.12.2
+## This is a monorepo using [Classic Yarn (v1.22.22)](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) workspaces and [Node 20.19.4](https://nodejs.org/en/download)
 
 Code shared in the web and mobile apps goes under the packages/\* folder.
 
@@ -11,9 +11,10 @@ The mobile app is written in React Native and Expo using their 'managed' workflo
 
 ## Getting started:
 
-1. yarn install
-2. yarn build
-3. yarn precheck
+1. Install node and yarn
+2. yarn install
+3. yarn build
+4. yarn precheck
 
 Check the README files in `app/web` and `app/mobile` for information on running the apps locally.
 

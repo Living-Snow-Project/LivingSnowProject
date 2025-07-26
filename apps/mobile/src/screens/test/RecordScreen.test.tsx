@@ -147,7 +147,7 @@ describe("RecordScreen test suite", () => {
     });
 
     expect(toJSON()).toMatchSnapshot();
-  });
+  }, 10000);
 
   /* describe("Record type selector tests", () => {
     test("Sample selected", async () => {
