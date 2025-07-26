@@ -546,9 +546,7 @@ exports[`GpsCoordinatesInput tests renders 1`] = `
                     }
                   }
                 >
-                  Some users enter coordinates manually if they cannot acquire GPS signal or when they return home.
-
-This message can be disabled in Settings.
+                  Some users enter coordinates manually if they cannot acquire GPS signal or when they return home. This message can be disabled in Settings.
                 </Text>
               </View>
             </View>

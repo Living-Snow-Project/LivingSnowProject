@@ -542,7 +542,7 @@ exports[`SettingsScreen test suite renders 1`] = `
             }
           }
         >
-          Disk Usage
+          App Storage
         </Text>
         <View
           dataSet={{}}
@@ -659,7 +659,7 @@ exports[`SettingsScreen test suite renders 1`] = `
                     }
                   }
                 >
-                  Delete
+                  Empty
                 </Text>
               </View>
             </View>

@@ -27,76 +27,89 @@ exports[`validates Welcome Screen navigation 1`] = `
       style={
         {
           "alignItems": "center",
-          "flexDirection": "row",
-          "justifyContent": "space-between",
         }
       }
     >
-      <Text />
       <View
         dataSet={{}}
-        style={{}}
-      />
-      <Text />
-      <View
-        dataSet={{}}
-        style={{}}
-      />
-      <View
-        dataSet={{}}
-        style={{}}
-      >
-        <Text
-          dataSet={{}}
-          style={
-            {
-              "backgroundColor": undefined,
-              "color": "#db2777",
-              "fontFamily": undefined,
-              "fontSize": 20,
-              "fontStyle": "normal",
-              "fontWeight": "700",
-              "letterSpacing": 0,
-              "lineHeight": 30,
-              "textDecorationLine": undefined,
-            }
+        style={
+          {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "space-between",
           }
-        >
-          Living Snow Project
-        </Text>
+        }
+      >
+        <Text />
         <View
           dataSet={{}}
           style={{}}
         />
-        <Text
+        <Text />
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <View
           dataSet={{}}
           style={
             {
-              "backgroundColor": undefined,
-              "color": "#ec4899",
-              "fontFamily": undefined,
-              "fontSize": 14,
-              "fontStyle": "normal",
-              "fontWeight": "400",
-              "letterSpacing": 0,
-              "lineHeight": 21,
-              "textDecorationLine": undefined,
+              "alignItems": "center",
             }
           }
         >
-          See pink snow? Let us know!
-        </Text>
+          <Text
+            dataSet={{}}
+            style={
+              {
+                "backgroundColor": undefined,
+                "color": "#db2777",
+                "fontFamily": undefined,
+                "fontSize": 20,
+                "fontStyle": "normal",
+                "fontWeight": "700",
+                "letterSpacing": 0,
+                "lineHeight": 30,
+                "textDecorationLine": undefined,
+              }
+            }
+          >
+              Living Snow Project  
+          </Text>
+        </View>
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <Text />
+        <View
+          dataSet={{}}
+          style={{}}
+        />
+        <Text />
       </View>
       <View
         dataSet={{}}
         style={{}}
       />
-      <Text />
-      <View
+      <Text
         dataSet={{}}
-        style={{}}
-      />
-      <Text />
+        style={
+          {
+            "backgroundColor": undefined,
+            "color": "#ec4899",
+            "fontFamily": undefined,
+            "fontSize": 14,
+            "fontStyle": "normal",
+            "fontWeight": "400",
+            "letterSpacing": 0,
+            "lineHeight": 21,
+            "textDecorationLine": undefined,
+          }
+        }
+      >
+        See pink snow? Share your observation!
+      </Text>
     </View>
     <Text
       dataSet={{}}
@@ -116,7 +129,7 @@ exports[`validates Welcome Screen navigation 1`] = `
         }
       }
     >
-      Let us know who you are or remain anonymous. You can update your profile at any time in the Settings tab.
+      Enter your name or remain anonymous. You can update your profile at any time in the Settings tab.
     </Text>
     <View
       dataSet={{}}
@@ -421,7 +434,7 @@ exports[`validates Welcome Screen navigation 1`] = `
                 }
               }
             >
-              Start Reporting
+              Report an observation
             </Text>
           </View>
         </View>

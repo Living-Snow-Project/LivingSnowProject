@@ -300,24 +300,11 @@ describe("TimelineScreen test suite", () => {
   });
 
   describe("Pending records tests", () => {
-    const algaeRecords = makeAlgaeRecordsMock();
-    const customRender = () => {
-      const renderResult = render(
-        <NativeBaseProviderForTesting>
-          <AlgaeRecordsContext.Provider value={algaeRecords}>
-            <TimelineScreen navigation={navigation} />
-          </AlgaeRecordsContext.Provider>
-        </NativeBaseProviderForTesting>,
-      );
-
-      return renderResult;
-    };
-
     test("pending records render", async () => {
       const algaeRecordsInner = setupDownloadFailed();
 
       algaeRecordsInner.getPending = () => [
-        { record: pendingRecord, photos: [] },
+        { record: pendingRecord, photos: [], requestId: "" },
       ];
 
       const { getByTestId, getByText } = render(
@@ -333,6 +320,20 @@ describe("TimelineScreen test suite", () => {
       expect(algaeRecordsInner.fullSync).toBeCalledTimes(1);
       expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
     });
+
+    // common variables for remainder of pending record tests
+    const algaeRecords = makeAlgaeRecordsMock();
+    const customRender = () => {
+      const renderResult = render(
+        <NativeBaseProviderForTesting>
+          <AlgaeRecordsContext.Provider value={algaeRecords}>
+            <TimelineScreen navigation={navigation} />
+          </AlgaeRecordsContext.Provider>
+        </NativeBaseProviderForTesting>,
+      );
+
+      return renderResult;
+    };
 
     test("delete pending record", async () => {
       setIsConnected(false);
@@ -376,6 +377,7 @@ describe("TimelineScreen test suite", () => {
 
       expect(mockedNavigate).toBeCalledWith("Record", {
         record: JSON.stringify(algaeRecords.getPending()[0].record),
+        requestId: "",
       });
     });
   });

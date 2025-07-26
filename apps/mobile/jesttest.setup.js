@@ -52,4 +52,13 @@ function NativeBaseProviderForTesting({ children }) {
   );
 }
 
+jest.mock("expo-localization", () => {
+  const actual = jest.requireActual("expo-localization");
+
+  return {
+    ...actual,
+    getLocales: () => [{ languageCode: "en" }],
+  };
+});
+
 export { mockedNavigate, NativeBaseProviderForTesting };

@@ -1,5 +1,5 @@
 import { makeExampleRecord } from "@livingsnow/record";
-import { IAlgaeRecords, LocalAlgaeRecord } from "../../types/AlgaeRecords";
+import { IAlgaeRecords, LocalAlgaeRecordV3 } from "../../types/AlgaeRecords";
 
 type ActionMockProps = {
   isEmpty: boolean;
@@ -8,14 +8,16 @@ type ActionMockProps = {
 export const makeAlgaeRecordsMock = (
   { isEmpty }: ActionMockProps = { isEmpty: false },
 ): IAlgaeRecords => {
-  const pendingRecord: LocalAlgaeRecord = {
+  const pendingRecord: LocalAlgaeRecordV3 = {
     record: makeExampleRecord("Sighting"),
     photos: undefined,
+    requestId: "",
   };
+
   return {
     getCurrentState: () => "Idle",
     getDownloaded: () => [],
-    getPending: () => (isEmpty ? [] : [pendingRecord]),
+    getPending: () => (isEmpty ? [] : [{ ...pendingRecord }]),
     isSeeded: () => false,
 
     seed: jest.fn(() => Promise.resolve()),

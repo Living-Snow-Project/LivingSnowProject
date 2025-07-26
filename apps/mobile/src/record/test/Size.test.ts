@@ -19,11 +19,11 @@ describe("Algae Size test suite", () => {
     let cur = getAlgaeSizeSelectorItem("Fist");
     expect(cur.label).toEqual(AlgaeSizeDescription.Fist);
 
-    cur = getAlgaeSizeSelectorItem("Shoe Box");
-    expect(cur.label).toEqual(AlgaeSizeDescription.ShoeBox);
+    cur = getAlgaeSizeSelectorItem("Dinner Plate");
+    expect(cur.label).toEqual(AlgaeSizeDescription.DinnerPlate);
 
-    cur = getAlgaeSizeSelectorItem("Coffee Table");
-    expect(cur.label).toEqual(AlgaeSizeDescription.CoffeeTable);
+    cur = getAlgaeSizeSelectorItem("Bicycle");
+    expect(cur.label).toEqual(AlgaeSizeDescription.Bicycle);
 
     cur = getAlgaeSizeSelectorItem("Car");
     expect(cur.label).toEqual(AlgaeSizeDescription.Car);
@@ -31,8 +31,8 @@ describe("Algae Size test suite", () => {
     cur = getAlgaeSizeSelectorItem("Bus");
     expect(cur.label).toEqual(AlgaeSizeDescription.Bus);
 
-    cur = getAlgaeSizeSelectorItem("Playground");
-    expect(cur.label).toEqual(AlgaeSizeDescription.Playground);
+    cur = getAlgaeSizeSelectorItem("House");
+    expect(cur.label).toEqual(AlgaeSizeDescription.House);
 
     cur = getAlgaeSizeSelectorItem("Sports Field");
     expect(cur.label).toEqual(AlgaeSizeDescription.SportsField);

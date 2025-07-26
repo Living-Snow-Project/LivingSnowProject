@@ -52,7 +52,7 @@ export default function AlgaeProbabilityMap() {
   const algaeAreas = useMemo(
     () =>
       // inferred type is wrong, probably because json file is very large
-      (predictedAlgae as GeoJson).features.map((feature, idx) => {
+      (predictedAlgae as unknown as GeoJson).features.map((feature, idx) => {
         if (
           feature.geometry.type == "Polygon" ||
           feature.geometry.type == "MultiPolygon"
