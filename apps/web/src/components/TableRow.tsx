@@ -140,10 +140,12 @@ function TableRow({
           <span className="summary-label">Type:</span>
           <span className="summary-value">{item.type}</span>
         </div>
-        <div className="summary-item">
-          <span className="summary-label">Tube ID:</span>
-          <span className="summary-value">{item.tubeId || "N/A"}</span>
-        </div>
+        {item.type !== "Sighting" && (
+          <div className="summary-item">
+            <span className="summary-label">Tube ID:</span>
+            <span className="summary-value">{item.tubeId || "N/A"}</span>
+          </div>
+        )}
         <div className="summary-item">
           <span className="summary-label">Coordinates:</span>
           <span className="summary-value">{`${item.latitude.toFixed(6)}, ${item.longitude.toFixed(6)}`}</span>
