@@ -1,7 +1,14 @@
 {
   "permissions": {
     "allow": [
-      "WebSearch"
+      "WebSearch",
+      "Bash(yarn upgrade:*)",
+      "Bash(yarn remove:*)",
+      "Bash(yarn add:*)",
+      "Bash(yarn build)",
+      "Bash(yarn precheck:*)",
+      "Bash(npx prettier:*)",
+      "Bash(timeout 30s yarn test)"
     ],
     "deny": [],
     "ask": []
