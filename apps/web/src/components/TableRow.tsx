@@ -7,23 +7,13 @@ import { MicrographResponse } from "@livingsnow/network";
 function TableHeader() {
   return (
     <thead>
-      <tr
-        style={{
-          backgroundColor: "grey",
-        }}
-      >
-        <td>Date</td>
-        <td>Name</td>
-        <td>Type</td>
-        <td>Tube Id</td>
-        <td>Coordinates</td>
-        <td>Size</td>
-        <td>Colors</td>
-        <td>Description</td>
-        <td>Notes</td>
-        <td>Photos</td>
-        <td>DNA Sequence</td>
-        <td>Micrographs</td>
+      <tr className="table-header">
+        <th>Summary</th>
+        <th>Notes</th>
+        <th>Description</th>
+        <th>Photos</th>
+        <th>Micrographs</th>
+        <th>DNA Sequence</th>
       </tr>
     </thead>
   );
@@ -86,7 +76,6 @@ function FormatMicrographs(
 }
 
 type TableRowProps = {
-  style: React.CSSProperties;
   item: AlgaeRecord;
   photos: PhotosResponseV2;
   dnaSequence?: string;
@@ -94,7 +83,6 @@ type TableRowProps = {
 };
 
 function TableRow({
-  style,
   item,
   photos,
   dnaSequence,
@@ -137,20 +125,48 @@ function TableRow({
     );
   };
 
+  const renderSummary = () => {
+    return (
+      <div className="summary-content">
+        <div className="summary-item">
+          <span className="summary-label">Date:</span>
+          <span className="summary-value">{item.date.toDateString()}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Name:</span>
+          <span className="summary-value">{item.name || "N/A"}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Type:</span>
+          <span className="summary-value">{item.type}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Tube ID:</span>
+          <span className="summary-value">{item.tubeId || "N/A"}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Coordinates:</span>
+          <span className="summary-value">{`${item.latitude.toFixed(6)}, ${item.longitude.toFixed(6)}`}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Size:</span>
+          <span className="summary-value">{item.size || "N/A"}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Colors:</span>
+          <span className="summary-value">{renderColors() || "N/A"}</span>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <tr style={style}>
-      <td>{item.date.toDateString()}</td>
-      <td>{item.name}</td>
-      <td>{item.type}</td>
-      <td>{item.tubeId || ``}</td>
-      <td>{`${item.latitude}, ${item.longitude}`}</td>
-      <td>{item.size || ``}</td>
-      <td>{renderColors()}</td>
-      <td>{item.locationDescription || ``}</td>
-      <td>{item.notes || ``}</td>
-      <td>{FormatPhotos(photos)}</td>
-      <td>{dnaSequence || ""}</td>
-      <td>
+    <tr className="table-row">
+      <td className="summary-cell">{renderSummary()}</td>
+      <td className="notes-cell">{item.notes || ""}</td>
+      <td className="description-cell">{item.locationDescription || ""}</td>
+      <td className="photos-cell">{FormatPhotos(photos)}</td>
+      <td className="micrographs-cell">
         {FormatMicrographs(
           photos.micrographs,
           handleFileChange,
@@ -159,6 +175,7 @@ function TableRow({
           fileInputRef,
         )}
       </td>
+      <td className="dna-cell">{dnaSequence || ""}</td>
     </tr>
   );
 }
