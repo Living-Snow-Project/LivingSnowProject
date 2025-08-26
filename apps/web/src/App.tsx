@@ -12,9 +12,6 @@ function App() {
       .then((response) => {
         const recs = response.data.map((item, index) => (
           <TableRow
-            style={{
-              backgroundColor: index % 2 === 0 ? "lightgrey" : "lightblue",
-            }}
             key={index}
             item={item}
             photos={item.photos}
@@ -32,17 +29,20 @@ function App() {
 
   return (
     <div className="App">
-      <p>
-        This is (obviously) very crude and a work in progress. The goal is to
-        build a web app alongside the mobile app for the research team to better
-        interact with their data and also for volunteers to further explore
-        their contributions.
-      </p>
-      <br />
-      <table>
-        <TableHeader />
-        <tbody>{records}</tbody>
-      </table>
+      <header className="app-header">
+        <h1>Living Snow Project</h1>
+        <p className="app-description">
+          Data visualization and management for the Living Snow Project research
+          team. Explore algae records collected by community scientists
+          worldwide.
+        </p>
+      </header>
+      <div className="table-container">
+        <table className="modern-table">
+          <TableHeader />
+          <tbody>{records}</tbody>
+        </table>
+      </div>
     </div>
   );
 }

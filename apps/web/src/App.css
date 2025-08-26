@@ -1,44 +1,337 @@
+/* Modern CSS Variables for Consistent Color Scheme */
+:root {
+  --primary-color: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary-color: #f8fafc;
+  --accent-color: #06b6d4;
+  --success-color: #059669;
+  --background-color: #ffffff;
+  --surface-color: #f1f5f9;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  --border-hover: #cbd5e1;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+/* Global Styles */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--surface-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-table {
-  margin-left: 20px;
-  margin-right: 20px;
-  width: calc(100% - 40px);
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background: linear-gradient(
+    135deg,
+    var(--surface-color) 0%,
+    var(--background-color) 100%
+  );
+}
+
+/* Header Styles */
+.app-header {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--primary-dark) 100%
+  );
+  color: white;
+  padding: 2rem 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  margin-bottom: 2rem;
+}
+
+.app-header h1 {
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.app-description {
+  margin: 0;
+  font-size: 1.125rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Table Container */
+.table-container {
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1400px;
+  overflow-x: auto;
+}
+
+/* Modern Table Styles */
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: var(--background-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  margin-bottom: 2rem;
+}
+
+/* Table Header */
+.table-header {
+  background: linear-gradient(
+    135deg,
+    var(--primary-color) 0%,
+    var(--accent-color) 100%
+  );
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.table-header th {
+  padding: 1.5rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.table-header th:first-child {
+  border-top-left-radius: var(--radius-lg);
+}
+
+.table-header th:last-child {
+  border-top-right-radius: var(--radius-lg);
+}
+
+/* Table Rows */
+.table-row {
+  transition: all 0.2s ease-in-out;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.table-row:nth-child(even) {
+  background-color: var(--secondary-color);
+}
+
+.table-row:hover {
+  background-color: #e0f2fe;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+/* Table Cells */
+.table-row td {
+  padding: 1.5rem 1rem;
+  vertical-align: top;
+  border: none;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* Summary Cell Styles */
+.summary-cell {
+  min-width: 280px;
+  max-width: 320px;
+}
+
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.summary-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.summary-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 80px;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.summary-value {
+  color: var(--text-primary);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* Other Cell Styles */
+.notes-cell,
+.description-cell {
+  max-width: 200px;
+  word-wrap: break-word;
+  line-height: 1.6;
+}
+
+.photos-cell,
+.micrographs-cell {
+  min-width: 120px;
+}
+
+.photos-cell a,
+.micrographs-cell a {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  margin: 0.125rem;
+  background-color: var(--accent-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.photos-cell a:hover,
+.micrographs-cell a:hover {
+  background-color: var(--primary-color);
+}
+
+.dna-cell {
+  font-family: "Courier New", monospace;
+  font-size: 0.8rem;
+  max-width: 150px;
+  word-break: break-all;
+}
+
+/* Micrograph Upload Styles */
+.micrographs-cell input[type="file"] {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--secondary-color);
+  font-size: 0.75rem;
+  transition: border-color 0.2s ease;
+}
+
+.micrographs-cell input[type="file"]:hover {
+  border-color: var(--accent-color);
+}
+
+.micrographs-cell button {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--success-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 0.75rem;
+}
+
+.micrographs-cell button:hover:not(:disabled) {
+  background-color: #047857;
+}
+
+.micrographs-cell button:disabled {
+  background-color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .summary-cell {
+    min-width: 240px;
+    max-width: 280px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .notes-cell,
+  .description-cell {
+    max-width: 150px;
   }
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 2rem;
+  }
+
+  .app-description {
+    font-size: 1rem;
+  }
+
+  .table-container {
+    padding: 0 0.5rem;
+  }
+
+  .modern-table {
+    font-size: 0.75rem;
+  }
+
+  .table-row td {
+    padding: 1rem 0.5rem;
+  }
+
+  .summary-cell {
+    min-width: 200px;
+    max-width: 220px;
+  }
+
+  .summary-label {
+    min-width: 60px;
+    font-size: 0.7rem;
+  }
+
+  .notes-cell,
+  .description-cell {
+    max-width: 120px;
+  }
+}
+
+/* Loading and Empty States */
+.loading-state {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  .table-row {
+    transition: none;
+  }
+
+  .table-row:hover {
+    transform: none;
+  }
+}
+
+/* Focus Styles for Keyboard Navigation */
+.modern-table a:focus,
+.micrographs-cell button:focus {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
 }
