@@ -3,4 +3,4 @@
 **/coverage/*
 **/node_modules/*
 **/web/build/*
-**/.claude/settings.local.json
+.claude/settings.local.json
