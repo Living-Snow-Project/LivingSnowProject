@@ -8,7 +8,9 @@
       "Bash(yarn build)",
       "Bash(yarn precheck:*)",
       "Bash(npx prettier:*)",
-      "Bash(timeout 30s yarn test)"
+      "Bash(timeout 30s yarn test)",
+      "Bash(yarn lint)",
+      "Bash(yarn prettier:*)"
     ],
     "deny": [],
     "ask": []
