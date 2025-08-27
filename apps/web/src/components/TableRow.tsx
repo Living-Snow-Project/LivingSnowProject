@@ -186,7 +186,9 @@ function TableRow({
           !item.isOnGlacier &&
           item.seeExposedIceOrWhatIsUnderSnowpack && (
             <div className="summary-item">
-              <span className="environmental-label">What is Under Snowpack?:</span>
+              <span className="environmental-label">
+                What is Under Snowpack?:
+              </span>
               <span className="summary-value">
                 {item.seeExposedIceOrWhatIsUnderSnowpack}
               </span>
@@ -229,7 +231,9 @@ function TableRow({
   return (
     <tr className="table-row">
       <td className="summary-cell">{renderSummary()}</td>
-      <td className="environmental-details-cell">{renderEnvironmentalDetails()}</td>
+      <td className="environmental-details-cell">
+        {renderEnvironmentalDetails()}
+      </td>
       <td className="photos-cell">{FormatPhotos(photos)}</td>
       <td className="micrographs-cell">
         {FormatMicrographs(
