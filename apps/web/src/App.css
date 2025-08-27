@@ -185,6 +185,16 @@ body {
   word-break: break-word;
 }
 
+.environmental-label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 180px;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
 /* Other Cell Styles */
 .notes-cell,
 .description-cell {
@@ -301,6 +311,11 @@ body {
 
   .summary-label {
     min-width: 75px;
+    font-size: 0.7rem;
+  }
+
+  .environmental-label {
+    min-width: 140px;
     font-size: 0.7rem;
   }
 

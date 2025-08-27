@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
-import { AlgaeRecord } from "@livingsnow/record";
+import { AlgaeRecordV3 } from "@livingsnow/record";
 import { PhotosResponseV2 } from "@livingsnow/network";
-import { PhotosApi, RecordsApiV2 } from "@livingsnow/network";
+import { PhotosApi, RecordsApiV3 } from "@livingsnow/network";
 import { MicrographResponse } from "@livingsnow/network";
 
 function TableHeader() {
@@ -9,8 +9,7 @@ function TableHeader() {
     <thead>
       <tr className="table-header">
         <th>Summary</th>
-        <th>Notes</th>
-        <th>Description</th>
+        <th>Environmental Details</th>
         <th>Photos</th>
         <th>Micrographs</th>
         <th>DNA Sequence</th>
@@ -76,7 +75,7 @@ function FormatMicrographs(
 }
 
 type TableRowProps = {
-  item: AlgaeRecord;
+  item: AlgaeRecordV3;
   photos: PhotosResponseV2;
   dnaSequence?: string;
   onUploadSuccess: () => void;
@@ -99,7 +98,7 @@ function TableRow({
 
   const handleUpload = () => {
     if (file) {
-      RecordsApiV2.postMicrograph(item.id, file)
+      RecordsApiV3.postMicrograph(item.id, file)
         .then(() => {
           console.log("Micrograph uploaded successfully");
           onUploadSuccess();
@@ -147,10 +146,6 @@ function TableRow({
           </div>
         )}
         <div className="summary-item">
-          <span className="summary-label">Coordinates:</span>
-          <span className="summary-value">{`${item.latitude.toFixed(6)}, ${item.longitude.toFixed(6)}`}</span>
-        </div>
-        <div className="summary-item">
           <span className="summary-label">Size:</span>
           <span className="summary-value">{item.size || "N/A"}</span>
         </div>
@@ -158,6 +153,75 @@ function TableRow({
           <span className="summary-label">Colors:</span>
           <span className="summary-value">{renderColors() || "N/A"}</span>
         </div>
+        <div className="summary-item">
+          <span className="summary-label">Coordinates:</span>
+          <span className="summary-value">{`${item.latitude.toFixed(6)}, ${item.longitude.toFixed(6)}`}</span>
+        </div>
+      </div>
+    );
+  };
+
+  const renderEnvironmentalDetails = () => {
+    return (
+      <div className="summary-content">
+        {item.isOnGlacier !== undefined && (
+          <div className="summary-item">
+            <span className="environmental-label">On Glacier:</span>
+            <span className="summary-value">
+              {item.isOnGlacier ? "Yes" : "No"}
+            </span>
+          </div>
+        )}
+        {item.isOnGlacier !== undefined &&
+          item.isOnGlacier &&
+          item.seeExposedIceOrWhatIsUnderSnowpack && (
+            <div className="summary-item">
+              <span className="environmental-label">See Exposed Ice?:</span>
+              <span className="summary-value">
+                {item.seeExposedIceOrWhatIsUnderSnowpack}
+              </span>
+            </div>
+          )}
+        {item.isOnGlacier !== undefined &&
+          !item.isOnGlacier &&
+          item.seeExposedIceOrWhatIsUnderSnowpack && (
+            <div className="summary-item">
+              <span className="environmental-label">What is Under Snowpack?:</span>
+              <span className="summary-value">
+                {item.seeExposedIceOrWhatIsUnderSnowpack}
+              </span>
+            </div>
+          )}
+        {item.snowpackDepth && (
+          <div className="summary-item">
+            <span className="environmental-label">Snowpack Depth:</span>
+            <span className="summary-value">{item.snowpackDepth}</span>
+          </div>
+        )}
+        {item.bloomDepth && (
+          <div className="summary-item">
+            <span className="environmental-label">Bloom Depth:</span>
+            <span className="summary-value">{item.bloomDepth}</span>
+          </div>
+        )}
+        {item.impurities && item.impurities.length > 0 && (
+          <div className="summary-item">
+            <span className="environmental-label">Impurities:</span>
+            <span className="summary-value">{item.impurities.join(", ")}</span>
+          </div>
+        )}
+        {item.locationDescription && (
+          <div className="summary-item">
+            <span className="environmental-label">Location Description:</span>
+            <span className="summary-value">{item.locationDescription}</span>
+          </div>
+        )}
+        {item.notes && (
+          <div className="summary-item">
+            <span className="environmental-label">Notes:</span>
+            <span className="summary-value">{item.notes}</span>
+          </div>
+        )}
       </div>
     );
   };
@@ -165,8 +229,7 @@ function TableRow({
   return (
     <tr className="table-row">
       <td className="summary-cell">{renderSummary()}</td>
-      <td className="notes-cell">{item.notes || ""}</td>
-      <td className="description-cell">{item.locationDescription || ""}</td>
+      <td className="environmental-details-cell">{renderEnvironmentalDetails()}</td>
       <td className="photos-cell">{FormatPhotos(photos)}</td>
       <td className="micrographs-cell">
         {FormatMicrographs(

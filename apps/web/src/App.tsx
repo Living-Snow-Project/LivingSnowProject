@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { RecordsApiV2 } from "@livingsnow/network";
+import { RecordsApiV3 } from "@livingsnow/network";
 import { TableHeader, TableRow } from "./components/TableRow";
 
 import "./App.css";
@@ -8,7 +8,7 @@ function App() {
   const [records, setRecords] = useState<JSX.Element[]>([]);
 
   const fetchRecords = useCallback(() => {
-    RecordsApiV2.getAll()
+    RecordsApiV3.getAll()
       .then((response) => {
         const recs = response.data.map((item, index) => (
           <TableRow
