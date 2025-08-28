@@ -34,14 +34,31 @@ function failedFetch(operation, response) {
     Logger.Error(`${error}`);
     return error;
 }
+// unmodified records do not send these fields
+// so if the fields are empty during submission, do not send them
+const removeEmptyFields = (record) => {
+    const newRecord = Object.assign({}, record);
+    if (newRecord.type === "Sighting" || (newRecord === null || newRecord === void 0 ? void 0 : newRecord.tubeId) === "") {
+        delete newRecord.tubeId;
+    }
+    if ((newRecord === null || newRecord === void 0 ? void 0 : newRecord.locationDescription) === "") {
+        delete newRecord.locationDescription;
+    }
+    if ((newRecord === null || newRecord === void 0 ? void 0 : newRecord.notes) === "") {
+        delete newRecord.notes;
+    }
+    return newRecord;
+};
+// TODO: should this be split out into versions?
 const recordsApi = () => {
     const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records`;
     const getUrl = (page) => page
         ? `${baseUrl}?limit=20&pagination_token=${page}`
         : `${baseUrl}?limit=20`;
     const postUrl = baseUrl;
-    // TODO: continue with v1 for now, still deciding on what v2 photo endpoint will look like
+    // TODO: continue with v1 with photos for now, still deciding on what v2 photo endpoint will look like
     const postPhotoUrl = (recordId) => `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
+    const postMicrographUrl = (recordId, filename) => `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records/${recordId}/micrograph?filename=${filename}`;
     return {
         baseUrl,
         getUrl,
@@ -50,6 +67,8 @@ const recordsApi = () => {
         // rejects with an error string or the response object
         post: (record) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "post";
+            dumpRecord(record);
+            record = removeEmptyFields(record);
             dumpRecord(record);
             return fetch(postUrl, {
                 method: "POST",
@@ -73,16 +92,7 @@ const recordsApi = () => {
                 .then((response) => response.ok
                 ? response
                     .text()
-                    .then((text) => {
-                    // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                    const respObj = jsonToRecord(text);
-                    for (let x = 0; x < respObj.data.length; x++) {
-                        respObj.data[x] = Object.assign(Object.assign({}, respObj.data[x]), { 
-                            // @ts-ignore
-                            photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : [] });
-                    }
-                    return respObj;
-                })
+                    .then((text) => jsonToRecord(text))
                 : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
@@ -94,29 +104,35 @@ const recordsApi = () => {
                 .then((response) => response.ok
                 ? response
                     .text()
-                    .then((text) => {
-                    // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                    const respObj = jsonToRecord(text);
-                    for (let x = 0; x < respObj.data.length; x++) {
-                        respObj.data[x] = Object.assign(Object.assign({}, respObj.data[x]), { 
-                            // @ts-ignore
-                            photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : [] });
-                    }
-                    return respObj;
-                })
+                    .then((text) => jsonToRecord(text))
                 : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
         // rejects with an error string or the response object
-        postPhoto: (photo) => __awaiter(void 0, void 0, void 0, function* () {
+        postPhoto: (recordId, photoUri) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "postPhoto";
-            const uri = { uri: photo.uri };
-            return fetch(postPhotoUrl(photo.id), {
+            const uri = { uri: photoUri };
+            return fetch(postPhotoUrl(recordId), {
                 method: "POST",
                 headers: {
                     "Content-Type": "image/jpeg",
                 },
                 body: uri,
+            })
+                .then((response) => response.ok ? Promise.resolve() : Promise.reject(response))
+                .catch((error) => Promise.reject(failedFetch(operation, error)));
+        }),
+        // rejects with an error string or the response object
+        // micrographFile is the result of selecting the file from <input>
+        postMicrograph: (recordId, micrographFile) => __awaiter(void 0, void 0, void 0, function* () {
+            const operation = "postMicrograph";
+            const buffer = yield micrographFile.arrayBuffer();
+            return fetch(postMicrographUrl(recordId, micrographFile.name), {
+                method: "POST",
+                headers: {
+                    "Content-Type": "image/jpeg",
+                },
+                body: buffer,
             })
                 .then((response) => response.ok ? Promise.resolve() : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));

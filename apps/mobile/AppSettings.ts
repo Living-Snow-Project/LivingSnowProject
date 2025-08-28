@@ -16,7 +16,7 @@ function getAppSettings(): AppSettings {
 }
 
 function setAppSettings(
-  param: AppSettings | ((appSettings: AppSettings) => AppSettings)
+  param: AppSettings | ((appSettings: AppSettings) => AppSettings),
 ): AppSettings {
   if (typeof param === "function") {
     appSettingsContext = param(appSettingsContext);

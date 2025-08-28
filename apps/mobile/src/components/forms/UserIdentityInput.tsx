@@ -5,9 +5,8 @@ import { getAppSettings, setAppSettings } from "../../../AppSettings";
 import { Labels, Placeholders } from "../../constants/Strings";
 
 export function UserIdentityInput() {
-  const [{ name, organization }, setSettings] = useState<AppSettings>(
-    getAppSettings()
-  );
+  const [{ name, organization }, setSettings] =
+    useState<AppSettings>(getAppSettings());
   const orgRef = useRef<any>(null);
 
   return (

@@ -1,54 +1,117 @@
-import { AlgaeRecord, Photo } from "@livingsnow/record";
-import { PhotosApi } from "@livingsnow/network";
+import React, { useState, useRef } from "react";
+import { AlgaeRecordV3 } from "@livingsnow/record";
+import { PhotosResponseV2 } from "@livingsnow/network";
+import { PhotosApi, RecordsApiV3 } from "@livingsnow/network";
+import { MicrographResponse } from "@livingsnow/network";
 
 function TableHeader() {
   return (
     <thead>
-      <tr
-        style={{
-          backgroundColor: "grey",
-        }}
-      >
-        <td>Date</td>
-        <td>Name</td>
-        <td>Type</td>
-        <td>Tube Id</td>
-        <td>Coordinates</td>
-        <td>Size</td>
-        <td>Colors</td>
-        <td>Description</td>
-        <td>Notes</td>
-        <td>Photos</td>
+      <tr className="table-header">
+        <th>Summary</th>
+        <th>Environmental Details</th>
+        <th>Photos</th>
+        <th>Micrographs</th>
+        <th>DNA Sequence</th>
       </tr>
     </thead>
   );
 }
 
-function FormatPhotos(photos: Photo[]) {
-  return photos.map((item, index) => {
-    return (
-      <div key={index}>
-        <a
-          target={"_blank"}
-          rel="noopener noreferrer"
-          href={PhotosApi.getUrl(item.uri)}
-        >
-          {index + 1}
-        </a>
-      </div>
-    );
-  });
+function FormatPhotos(photos: PhotosResponseV2) {
+  if (!photos.appPhotos) {
+    return "";
+  }
+
+  return photos.appPhotos.map((item, index) => (
+    <div key={index}>
+      <a
+        target={"_blank"}
+        rel="noopener noreferrer"
+        href={PhotosApi.getAppPhotoUrl(item.uri)}
+      >
+        {index + 1}
+      </a>
+    </div>
+  ));
+}
+
+function FormatMicrographs(
+  micrographs: MicrographResponse[] | undefined,
+  handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+  handleUpload: () => void,
+  file: File | null,
+  fileInputRef: React.RefObject<HTMLInputElement>,
+) {
+  return (
+    <div>
+      {micrographs && micrographs.length > 0 ? (
+        micrographs.map((item, index) => (
+          <div key={index}>
+            <a
+              target={"_blank"}
+              rel="noopener noreferrer"
+              href={PhotosApi.getMicrographUrl(item.uri)}
+            >
+              {index + 1}
+            </a>
+          </div>
+        ))
+      ) : (
+        <div></div>
+      )}
+      <input
+        type="file"
+        accept="image/jpeg"
+        onChange={handleFileChange}
+        ref={fileInputRef}
+        style={{ marginTop: "10px" }}
+      />
+      <button onClick={handleUpload} disabled={!file}>
+        Upload Micrograph
+      </button>
+    </div>
+  );
 }
 
 type TableRowProps = {
-  style: React.CSSProperties;
-  item: AlgaeRecord;
+  item: AlgaeRecordV3;
+  photos: PhotosResponseV2;
+  dnaSequence?: string;
+  onUploadSuccess: () => void;
 };
 
-function TableRow({ style, item }: TableRowProps) {
-  let name = item.name || `Anonymous`;
-  name = name.concat(item.organization ? ` (${item.organization})` : ``);
-  const photos = item.photos ? FormatPhotos(item.photos) : ``;
+function TableRow({
+  item,
+  photos,
+  dnaSequence,
+  onUploadSuccess,
+}: TableRowProps) {
+  const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFile(event.target.files[0]);
+    }
+  };
+
+  const handleUpload = () => {
+    if (file) {
+      RecordsApiV3.postMicrograph(item.id, file)
+        .then(() => {
+          console.log("Micrograph uploaded successfully");
+          onUploadSuccess();
+          setFile(null);
+          if (fileInputRef.current) {
+            fileInputRef.current.value = "";
+          }
+        })
+        .catch((error) => {
+          console.error("Error uploading micrograph:", error);
+        });
+    }
+  };
 
   const renderColors = () => {
     if (!item.colors) {
@@ -57,22 +120,131 @@ function TableRow({ style, item }: TableRowProps) {
 
     return item.colors.reduce(
       (prev, cur, index) => (index ? `${prev} ${cur}` : cur),
-      ""
+      "",
+    );
+  };
+
+  const renderSummary = () => {
+    return (
+      <div className="summary-content">
+        <div className="summary-item">
+          <span className="summary-label">Date:</span>
+          <span className="summary-value">{item.date.toDateString()}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Name:</span>
+          <span className="summary-value">{item.name || "N/A"}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Type:</span>
+          <span className="summary-value">{item.type}</span>
+        </div>
+        {item.type !== "Sighting" && (
+          <div className="summary-item">
+            <span className="summary-label">Tube ID:</span>
+            <span className="summary-value">{item.tubeId || "N/A"}</span>
+          </div>
+        )}
+        <div className="summary-item">
+          <span className="summary-label">Size:</span>
+          <span className="summary-value">{item.size || "N/A"}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Colors:</span>
+          <span className="summary-value">{renderColors() || "N/A"}</span>
+        </div>
+        <div className="summary-item">
+          <span className="summary-label">Coordinates:</span>
+          <span className="summary-value">{`${item.latitude.toFixed(6)}, ${item.longitude.toFixed(6)}`}</span>
+        </div>
+      </div>
+    );
+  };
+
+  const renderEnvironmentalDetails = () => {
+    return (
+      <div className="summary-content">
+        {item.isOnGlacier !== undefined && (
+          <div className="summary-item">
+            <span className="environmental-label">On Glacier:</span>
+            <span className="summary-value">
+              {item.isOnGlacier ? "Yes" : "No"}
+            </span>
+          </div>
+        )}
+        {item.isOnGlacier !== undefined &&
+          item.isOnGlacier &&
+          item.seeExposedIceOrWhatIsUnderSnowpack && (
+            <div className="summary-item">
+              <span className="environmental-label">See Exposed Ice?:</span>
+              <span className="summary-value">
+                {item.seeExposedIceOrWhatIsUnderSnowpack}
+              </span>
+            </div>
+          )}
+        {item.isOnGlacier !== undefined &&
+          !item.isOnGlacier &&
+          item.seeExposedIceOrWhatIsUnderSnowpack && (
+            <div className="summary-item">
+              <span className="environmental-label">
+                What is Under Snowpack?:
+              </span>
+              <span className="summary-value">
+                {item.seeExposedIceOrWhatIsUnderSnowpack}
+              </span>
+            </div>
+          )}
+        {item.snowpackDepth && (
+          <div className="summary-item">
+            <span className="environmental-label">Snowpack Depth:</span>
+            <span className="summary-value">{item.snowpackDepth}</span>
+          </div>
+        )}
+        {item.bloomDepth && (
+          <div className="summary-item">
+            <span className="environmental-label">Bloom Depth:</span>
+            <span className="summary-value">{item.bloomDepth}</span>
+          </div>
+        )}
+        {item.impurities && item.impurities.length > 0 && (
+          <div className="summary-item">
+            <span className="environmental-label">Impurities:</span>
+            <span className="summary-value">{item.impurities.join(", ")}</span>
+          </div>
+        )}
+        {item.locationDescription && (
+          <div className="summary-item">
+            <span className="environmental-label">Location Description:</span>
+            <span className="summary-value">{item.locationDescription}</span>
+          </div>
+        )}
+        {item.notes && (
+          <div className="summary-item">
+            <span className="environmental-label">Notes:</span>
+            <span className="summary-value">{item.notes}</span>
+          </div>
+        )}
+      </div>
     );
   };
 
   return (
-    <tr style={style}>
-      <td>{item.date.toDateString()}</td>
-      <td>{name}</td>
-      <td>{item.type}</td>
-      <td>{item.tubeId || ``}</td>
-      <td>{`${item.latitude}, ${item.longitude}`}</td>
-      <td>{item.size || ``}</td>
-      <td>{renderColors()}</td>
-      <td>{item.locationDescription || ``}</td>
-      <td>{item.notes || ``}</td>
-      <td>{photos}</td>
+    <tr className="table-row">
+      <td className="summary-cell">{renderSummary()}</td>
+      <td className="environmental-details-cell">
+        {renderEnvironmentalDetails()}
+      </td>
+      <td className="photos-cell">{FormatPhotos(photos)}</td>
+      <td className="micrographs-cell">
+        {FormatMicrographs(
+          photos.micrographs,
+          handleFileChange,
+          handleUpload,
+          file,
+          fileInputRef,
+        )}
+      </td>
+      <td className="dna-cell">{dnaSequence || ""}</td>
     </tr>
   );
 }

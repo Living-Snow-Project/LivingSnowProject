@@ -8,11 +8,11 @@ type AlgaeSizeSelectorItem = {
 
 const algaeSizeSelectorItems: AlgaeSizeSelectorItem[] = [
   { value: "Fist", label: AlgaeSizeDescription.Fist },
-  { value: "Shoe Box", label: AlgaeSizeDescription.ShoeBox },
-  { value: "Coffee Table", label: AlgaeSizeDescription.CoffeeTable },
+  { value: "Dinner Plate", label: AlgaeSizeDescription.DinnerPlate },
+  { value: "Bicycle", label: AlgaeSizeDescription.Bicycle },
   { value: "Car", label: AlgaeSizeDescription.Car },
   { value: "Bus", label: AlgaeSizeDescription.Bus },
-  { value: "Playground", label: AlgaeSizeDescription.Playground },
+  { value: "House", label: AlgaeSizeDescription.House },
   { value: "Sports Field", label: AlgaeSizeDescription.SportsField },
   { value: "Other", label: AlgaeSizeDescription.Other },
 ];

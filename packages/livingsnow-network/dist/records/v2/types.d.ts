@@ -1,10 +1,20 @@
 import { AlgaeRecord } from "@livingsnow/record/src/types";
-export declare type AlgaeRecordResponseV2 = {
+import { AppPhotoResponse, MicrographResponse } from "../../photos/types";
+export type PhotosResponseV2 = {
+    appPhotos?: AppPhotoResponse[];
+    micrographs?: MicrographResponse[];
+    dnaSequences?: any[];
+};
+export type DataResponseV2 = AlgaeRecord & {
+    photos: PhotosResponseV2;
+};
+export type AlgaeRecordResponseV2 = {
     object: "list";
-    data: AlgaeRecord[];
+    data: DataResponseV2[];
     meta: {
         result_count: number;
         next_token: string;
     };
 };
+export { MicrographResponse };
 //# sourceMappingURL=types.d.ts.map

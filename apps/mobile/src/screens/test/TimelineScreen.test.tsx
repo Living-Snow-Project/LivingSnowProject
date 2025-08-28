@@ -4,7 +4,8 @@ import NetInfo, {
   NetInfoChangeHandler,
   NetInfoState,
 } from "@react-native-community/netinfo";
-import { AlgaeRecord, makeExampleRecord } from "@livingsnow/record";
+import { makeExampleRecord } from "@livingsnow/record";
+import { DataResponseV2 } from "@livingsnow/network";
 import {
   RootStackNavigationProp,
   TimelineScreenNavigationProp,
@@ -22,19 +23,19 @@ import {
 import { AlgaeRecordsContext } from "../../hooks/useAlgaeRecords";
 import { makeAlgaeRecordsMock } from "../../mocks/useAlgaeRecords.mock";
 
+jest.useFakeTimers();
+
 // TimelineScreen takes navigation input prop
 const navigation = {} as TimelineScreenNavigationProp;
 navigation.navigate = jest.fn();
 navigation.addListener = jest.fn();
 
-const downloadedRecord: AlgaeRecord = {
-  ...makeExampleRecord("Sample"),
-  id: 1,
+const downloadedRecord = {
+  ...makeExampleRecord("Sample", "1"),
 };
 
-const pendingRecord: AlgaeRecord = {
-  ...makeExampleRecord("Sighting"),
-  id: 3,
+const pendingRecord = {
+  ...makeExampleRecord("Sighting", "3"),
 };
 
 const setIsConnected = (isConnected: boolean): void => {
@@ -48,9 +49,9 @@ const setIsConnected = (isConnected: boolean): void => {
 const setupDownloadSuccess = () => {
   const algaeRecords = makeAlgaeRecordsMock();
 
-  algaeRecords.getDownloadedRecords = () => [
-    downloadedRecord,
-    makeExampleRecord("Sighting"),
+  algaeRecords.getDownloaded = () => [
+    { ...downloadedRecord, photos: {} },
+    { ...makeExampleRecord("Sighting"), photos: {} },
   ];
 
   setIsConnected(true);
@@ -62,7 +63,8 @@ const setupDownloadFailed = () => {
   const algaeRecords = makeAlgaeRecordsMock({
     isEmpty: true,
   });
-  algaeRecords.retryPendingRecords = jest.fn(() => Promise.reject());
+
+  algaeRecords.retryPending = jest.fn(() => Promise.reject());
 
   setIsConnected(true);
 
@@ -70,21 +72,23 @@ const setupDownloadFailed = () => {
 };
 
 describe("TimelineScreen test suite", () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test("renders", () => {
+  test("renders", async () => {
     const algaeRecords = makeAlgaeRecordsMock({
       isEmpty: true,
     });
-    const { toJSON } = render(
+
+    setIsConnected(true);
+
+    const { getByText, toJSON } = render(
       <NativeBaseProviderForTesting>
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
+
+    await waitFor(() => getByText("Idle"));
+
     expect(toJSON()).toMatchSnapshot();
   });
 
@@ -96,10 +100,10 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
-    await waitFor(() => getByTestId(downloadedRecord.id.toString()));
+    await waitFor(() => getByTestId(downloadedRecord.id));
 
     expect(algaeRecords.fullSync).toBeCalledTimes(1);
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
@@ -113,7 +117,7 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={recordReducerActionsMock}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.TimelineScreen.ExampleRecords));
@@ -127,7 +131,7 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={makeAlgaeRecordsMock()}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.StatusBar.NoConnection));
@@ -150,7 +154,7 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={makeAlgaeRecordsMock()}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() => getByText(Labels.StatusBar.NoConnection));
@@ -168,16 +172,16 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await waitFor(() =>
-      getByTestId(algaeRecords.getDownloadedRecords()[0].id.toString())
+      getByTestId(algaeRecords.getDownloaded()[0].id.toString()),
     );
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
 
     await act(async () =>
-      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh()
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh(),
     );
 
     expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
@@ -193,11 +197,11 @@ describe("TimelineScreen test suite", () => {
         >
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     await act(async () =>
-      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh()
+      getByTestId(TestIds.TimelineScreen.FlatList).props.onRefresh(),
     );
 
     expect(getByText(Labels.TimelineScreen.ExampleRecords)).toBeTruthy();
@@ -206,26 +210,33 @@ describe("TimelineScreen test suite", () => {
   test("onEndReached download records", async () => {
     const algaeRecords = makeAlgaeRecordsMock();
 
-    algaeRecords.getDownloadedRecords = () => [downloadedRecord];
+    const original = algaeRecords.getDownloaded;
+    algaeRecords.getDownloaded = () => [{ ...downloadedRecord, photos: {} }];
 
     const { getByText, getByTestId } = render(
       <NativeBaseProviderForTesting>
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
+
+    await waitFor(() => getByText("No Internet Connection"));
 
     await waitFor(() =>
-      getByTestId(algaeRecords.getDownloadedRecords()[0].id.toString())
-    );
-    expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
-
-    await act(async () =>
-      getByTestId(TestIds.TimelineScreen.FlatList).props.onEndReached()
+      getByTestId(algaeRecords.getDownloaded()[0].id.toString()),
     );
 
-    expect(getByText(Labels.TimelineScreen.DownloadedRecords)).toBeTruthy();
+    await act(async () => {
+      const { props } = await waitFor(() =>
+        getByTestId(TestIds.TimelineScreen.FlatList),
+      );
+
+      await props.onEndReached();
+      await waitFor(() => getByText(Labels.TimelineScreen.DownloadedRecords));
+    });
+
+    algaeRecords.getDownloaded = original;
   });
 
   test("navigate to SettingsScreen", () => {
@@ -235,7 +246,7 @@ describe("TimelineScreen test suite", () => {
     const { getByTestId } = render(
       <NativeBaseProviderForTesting>
         <SettingsButton navigation={navigationInner} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     fireEvent.press(getByTestId(TestIds.TimelineScreen.SettingsButton));
@@ -250,7 +261,7 @@ describe("TimelineScreen test suite", () => {
     const { getByTestId } = render(
       <NativeBaseProviderForTesting>
         <NewRecordButton navigation={navigationInner} />
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
     fireEvent.press(getByTestId(TestIds.TimelineScreen.NewRecordButton));
@@ -266,93 +277,108 @@ describe("TimelineScreen test suite", () => {
         <AlgaeRecordsContext.Provider value={algaeRecords}>
           <TimelineScreen navigation={navigation} />
         </AlgaeRecordsContext.Provider>
-      </NativeBaseProviderForTesting>
+      </NativeBaseProviderForTesting>,
     );
 
-    await waitFor(() => getByTestId(downloadedRecord.id.toString()));
+    await waitFor(() => getByTestId(downloadedRecord.id));
 
-    fireEvent.press(getByTestId(downloadedRecord.id.toString()));
+    fireEvent.press(getByTestId(downloadedRecord.id));
+
+    // TimelineRow is called with either DataResponseV2 or MinimalAlgaeRecord depending on if Downloaded or Pending
+    // for Pending, expected type is MinimalAlgaeRecord type
+    const expected: DataResponseV2 = {
+      ...downloadedRecord,
+      photos: {},
+    };
 
     expect(algaeRecords.fullSync).toBeCalledTimes(1);
     expect(mockedNavigate).toBeCalledWith("RecordDetails", {
-      record: JSON.stringify(downloadedRecord),
+      record: JSON.stringify({ record: expected }),
     });
+
+    mockedNavigate.mockClear();
   });
 
   describe("Pending records tests", () => {
-    /* const algaeRecords = makeAlgaeRecordsMock();
-    const customRender = () => {
-      const renderResult = render(
-        <NativeBaseProviderForTesting>
-          <AlgaeRecordsContext.Provider value={algaeRecords}>
-            <TimelineScreen navigation={navigation} />
-          </AlgaeRecordsContext.Provider>
-        </NativeBaseProviderForTesting>
-      );
-
-      return {
-        renderResult,
-      };
-    }; */
-
     test("pending records render", async () => {
       const algaeRecordsInner = setupDownloadFailed();
 
-      algaeRecordsInner.getPendingRecords = () => [pendingRecord];
+      algaeRecordsInner.getPending = () => [
+        { record: pendingRecord, photos: [], requestId: "" },
+      ];
 
       const { getByTestId, getByText } = render(
         <NativeBaseProviderForTesting>
           <AlgaeRecordsContext.Provider value={algaeRecordsInner}>
             <TimelineScreen navigation={navigation} />
           </AlgaeRecordsContext.Provider>
-        </NativeBaseProviderForTesting>
+        </NativeBaseProviderForTesting>,
       );
 
       // visible
-      await waitFor(() => getByTestId(pendingRecord.id.toString()));
+      await waitFor(() => getByTestId(pendingRecord.id));
       expect(algaeRecordsInner.fullSync).toBeCalledTimes(1);
       expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
     });
 
-    /* test("delete pending record", () => {
-      // validates a bug where pending records were not displayed when not connected
+    // common variables for remainder of pending record tests
+    const algaeRecords = makeAlgaeRecordsMock();
+    const customRender = () => {
+      const renderResult = render(
+        <NativeBaseProviderForTesting>
+          <AlgaeRecordsContext.Provider value={algaeRecords}>
+            <TimelineScreen navigation={navigation} />
+          </AlgaeRecordsContext.Provider>
+        </NativeBaseProviderForTesting>,
+      );
+
+      return renderResult;
+    };
+
+    test("delete pending record", async () => {
       setIsConnected(false);
 
-      const { getByTestId, getByText } = customRender().renderResult;
+      const { getByTestId, getByText } = customRender();
 
       expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
 
-      // TODO: fireEvent.press(drop down menu)
+      fireEvent.press(getByTestId(TestIds.RecordList.MenuTrigger));
       fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
 
-      // TODO: fireEvent.press(Confirm)
-      /* return waitFor(() => expect(okPressed).toBe(true)).then(() =>
-        Storage.loadPendingRecords().then((received) => {
-          expect(received).toEqual([]);
-          expect(alertMock).toBeCalledTimes(1);
-        })
-      ); 
-    }); */
+      expect(getByText("Confirm Delete")).toBeTruthy();
+      fireEvent.press(getByTestId(TestIds.Modal.ConfirmButton));
 
-    /* test("cancel delete record", () => {
-      const { getByTestId } = customRender().renderResult;
+      expect(algaeRecords.delete).toBeCalledTimes(1);
+    });
 
-      // TODO: fireEvent.press(drop down menu)
+    test("cancel delete record", () => {
+      setIsConnected(false);
+
+      const { getByTestId, getByText } = customRender();
+
+      expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
+
+      fireEvent.press(getByTestId(TestIds.RecordList.MenuTrigger));
       fireEvent.press(getByTestId(TestIds.RecordList.DeleteRecordAction));
-      // TODO: fireEvent.press(Cancel)
+
+      expect(getByText("Confirm Delete")).toBeTruthy();
+      fireEvent.press(getByTestId(TestIds.Modal.NoButton));
     });
 
     test("edit record", () => {
-      const { renderResult } = customRender();
+      setIsConnected(false);
 
-      // TODO: fireEvent.press(drop down menu)
-      fireEvent.press(
-        renderResult.getByTestId(TestIds.RecordList.EditRecordAction)
-      );
+      const { getByTestId, getByText } = customRender();
 
-      expect(navigation.navigate).toBeCalledWith("Record", {
-        record: JSON.stringify(algaeRecords.getPendingRecords()[0]),
+      expect(getByText(Labels.TimelineScreen.PendingRecords)).toBeTruthy();
+
+      fireEvent.press(getByTestId(TestIds.RecordList.MenuTrigger));
+      fireEvent.press(getByTestId(TestIds.RecordList.EditRecordAction));
+
+      expect(mockedNavigate).toBeCalledWith("Record", {
+        record: JSON.stringify(algaeRecords.getPending()[0].record),
+        requestId: "",
       });
-    }); */
+    });
   });
 });

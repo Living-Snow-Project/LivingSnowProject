@@ -22,7 +22,7 @@ describe("SettingsScreen test suite", () => {
 
   test("user name", async () => {
     const { getByDisplayValue, getByPlaceholderText } = render(
-      <WrappedSettingsScreen />
+      <WrappedSettingsScreen />,
     );
     const username = getByPlaceholderText(Placeholders.Settings.Username);
     const expected = "Test User Name";
@@ -35,10 +35,10 @@ describe("SettingsScreen test suite", () => {
 
   test("user organization", () => {
     const { getByDisplayValue, getByPlaceholderText } = render(
-      <WrappedSettingsScreen />
+      <WrappedSettingsScreen />,
     );
     const organization = getByPlaceholderText(
-      Placeholders.Settings.Organization
+      Placeholders.Settings.Organization,
     );
     const expected = "Test Organization";
 
@@ -52,11 +52,7 @@ describe("SettingsScreen test suite", () => {
     const { getByTestId } = render(<WrappedSettingsScreen />);
     const { showGpsWarning } = getAppSettings();
 
-    fireEvent(
-      getByTestId(TestIds.SettingsScreen.ShowGpsWarning),
-      "onValueChange",
-      !showGpsWarning
-    );
+    fireEvent(getByTestId(TestIds.SettingsScreen.ShowGpsWarning), "onToggle");
 
     expect(getAppSettings().showGpsWarning).toEqual(!showGpsWarning);
   });

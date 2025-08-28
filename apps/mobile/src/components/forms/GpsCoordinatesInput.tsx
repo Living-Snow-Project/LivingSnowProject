@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from "react";
+import React, { useCallback, useEffect, useReducer, useRef } from "react";
 import { Pressable, View } from "native-base";
 import {
   Accuracy,
@@ -122,7 +122,7 @@ export function GpsCoordinatesInput({
   const [state, dispatch] = useReducer(
     gpsCoordinatesReducer,
     { coordinates, usingGps },
-    createInitialGpsState
+    createInitialGpsState,
   );
 
   const showGpsWarning = usingGps && getAppSettings().showGpsWarning;
@@ -131,19 +131,16 @@ export function GpsCoordinatesInput({
     Number(coordinate.toFixed(precision));
 
   // watch location callback
-  const onCoordinatesWatch = ({
-    latitude,
-    longitude,
-  }: {
-    latitude: number;
-    longitude: number;
-  }) => {
-    const lat = clipCoordinate(latitude);
-    const long = clipCoordinate(longitude);
+  const onCoordinatesWatch = useCallback(
+    ({ latitude, longitude }: { latitude: number; longitude: number }) => {
+      const lat = clipCoordinate(latitude);
+      const long = clipCoordinate(longitude);
 
-    dispatch({ type: "UPDATE", displayValue: `${lat}, ${long}` });
-    setCoordinates({ latitude: lat, longitude: long });
-  };
+      dispatch({ type: "UPDATE", displayValue: `${lat}, ${long}` });
+      setCoordinates({ latitude: lat, longitude: long });
+    },
+    [dispatch, setCoordinates],
+  );
 
   // typed user input
   const onCoordinatesChanged = (value: string) => {
@@ -191,7 +188,7 @@ export function GpsCoordinatesInput({
             onCoordinatesWatch({
               latitude: coords.latitude,
               longitude: coords.longitude,
-            })
+            }),
         );
       } catch (error) {
         dispatch({ type: "ERROR_WATCHING_LOCATION" });
@@ -200,9 +197,7 @@ export function GpsCoordinatesInput({
     })();
 
     return stopWatchPosition;
-    // only subscribe to the location subscription on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [usingGps, onCoordinatesWatch]);
 
   const enableManualEntry = () => {
     stopWatchPosition();

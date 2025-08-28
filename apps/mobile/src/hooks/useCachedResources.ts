@@ -6,8 +6,6 @@ import Logger from "@livingsnow/logger";
 import { loadAppConfig } from "../lib/Storage";
 import { DefaultAppSettings, setAppSettings } from "../../AppSettings";
 
-const spaceMono = require("../../assets/fonts/SpaceMono-Regular.ttf");
-
 export function useCachedResources() {
   const [isLoadingComplete, setLoadingComplete] = React.useState(false);
 
@@ -24,7 +22,6 @@ export function useCachedResources() {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
-          "space-mono": spaceMono,
         });
       } catch (e) {
         Logger.Warn(`${e}`);

@@ -1,11 +1,11 @@
 import React from "react";
 import { Dimensions } from "react-native";
 import { Box, HStack, VStack, useTheme } from "native-base";
-import { Photo, SelectedPhoto } from "@livingsnow/record";
+import { Photo } from "@livingsnow/record";
 import { CachedPhoto } from "./CachedPhotos";
 
 type PhotosLayoutProps = {
-  photos?: Photo[] | SelectedPhoto[];
+  photos?: Photo[];
 };
 
 const gap = 1.5;
@@ -29,12 +29,12 @@ export function PhotosLayout({
   let landscapeCount = 0;
 
   // sort portrait to landscape and count number of each
-  photos.forEach((current: Photo | SelectedPhoto) => {
+  photos.forEach((current: Photo) => {
     if (current.height > current.width) {
-      newPhotos.unshift({ ...current, size: 0 });
+      newPhotos.unshift({ ...current });
       portraitCount += 1;
     } else {
-      newPhotos.push({ ...current, size: 0 });
+      newPhotos.push({ ...current });
       landscapeCount += 1;
     }
   });
@@ -144,7 +144,7 @@ export function PhotosLayout({
             uri={newPhotos[2].uri}
             width={screenWidth}
             height={Math.floor(
-              screenWidth * (newPhotos[2].height / newPhotos[2].width)
+              screenWidth * (newPhotos[2].height / newPhotos[2].width),
             )}
           />
         </>
@@ -190,7 +190,7 @@ export function PhotosLayout({
             uri={newPhotos[2].uri}
             width={screenWidth}
             height={Math.floor(
-              screenWidth * (newPhotos[2].height / newPhotos[2].width)
+              screenWidth * (newPhotos[2].height / newPhotos[2].width),
             )}
           />
           <Box pt={gap} />
@@ -221,7 +221,7 @@ export function PhotosLayout({
       const controlHeight = Math.floor(halfScreenWidth * (height / width));
       // account for 2x <Box pt={gap}/>
       const landscapeHeight = Math.floor(
-        (controlHeight - 2 * theme.sizes[gap]) / 3
+        (controlHeight - 2 * theme.sizes[gap]) / 3,
       );
 
       return (
@@ -265,7 +265,7 @@ export function PhotosLayout({
             uri={newPhotos[3].uri}
             width={screenWidth}
             height={Math.floor(
-              screenWidth * (newPhotos[3].height / newPhotos[3].width)
+              screenWidth * (newPhotos[3].height / newPhotos[3].width),
             )}
           />
         </Box>

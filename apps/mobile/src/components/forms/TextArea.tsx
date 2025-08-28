@@ -22,7 +22,7 @@ export const TextArea = forwardRef<typeof NBTextArea, TextAreaProps>(
       onChangeText = () => {},
       onSubmitEditing,
     }: TextAreaProps,
-    ref
+    ref,
   ) => (
     <FormControl>
       <FormControl.Label>{label}</FormControl.Label>
@@ -47,7 +47,7 @@ export const TextArea = forwardRef<typeof NBTextArea, TextAreaProps>(
         variant="outline"
       />
     </FormControl>
-  )
+  ),
 );
 
 // this is needed because of forwardRef

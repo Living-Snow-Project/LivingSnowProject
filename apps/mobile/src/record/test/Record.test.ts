@@ -3,7 +3,7 @@ import { RecordDescription } from "../../constants/Strings";
 
 const getRecordTypeSelectorItem = (type) => {
   const result = getAllRecordTypeSelectorItems().find(
-    (cur) => cur.value == type
+    (cur) => cur.value == type,
   );
 
   if (result == undefined) {
@@ -24,7 +24,7 @@ describe("Record test suite", () => {
 
   test("getRecordTypeSelectorItem undefined record type", () => {
     expect(getRecordTypeSelectorItem("Undefined").label).toEqual(
-      RecordDescription.Undefined
+      RecordDescription.Undefined,
     );
   });
 });

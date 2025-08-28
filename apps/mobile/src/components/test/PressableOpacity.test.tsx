@@ -15,7 +15,7 @@ describe("PressableOpacity test suite", () => {
         testOnly_pressed={testID.includes(testID)}
       >
         <Text>child text</Text>
-      </PressableOpacity>
+      </PressableOpacity>,
     );
 
     fireEvent.press(getByTestId(testID));

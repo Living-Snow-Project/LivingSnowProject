@@ -1,0 +1,218 @@
+{
+  "welcomeHeading": "Benvenuto",
+  "timelineHeading": "Cronologia",
+  "recordHeading": "Registrazione",
+  "settingsHeading": "Impostazioni",
+  "detailsHeading": "Dettagli",
+  "placeholders": {
+    "gps": {
+      "acquiringLocation": "Ricerca del segnale GPS in corso",
+      "enterCoordinates": "es. 12.34567, -123.45678",
+      "noPermissions": "Verifica i permessi di localizzazione nelle Impostazioni. Inserisci manualmente le coordinate.",
+      "noLocation": "Impossibile determinare la posizione. Inserisci manualmente le coordinate."
+    },
+    "settings": {
+      "username": "Inserisci il tuo nome",
+      "organization": "Inserisci l’organizzazione a cui appartieni (se presente)"
+    },
+    "recordScreen": {
+      "locationDescription": "es. Lago Blu, North Cascades, WA",
+      "notes": "es. alghe rosso scuro su ghiaccio glaciale",
+      "other": "(campo per descrivere)",
+      "size": "Seleziona una dimensione",
+      "tubeId": "Lascia vuoto se il tubo non ha un ID",
+      "tubeIdDisabled": "Disabilitato - usato solo per i campioni"
+    }
+  },
+  "labels": {
+    "date": "Data",
+    "defaultName": "Scienziato Comunitario",
+    "empty": "Vuoto",
+    "livingSnowProject": "Living Snow Project",
+    "name": "Nome",
+    "organization": "Organizzazione",
+    "photos": "Foto",
+    "recordType": "Tipo",
+    "slogan": "Vedi neve rosa? Condividi la tua osservazione!",
+    "tubeId": "ID Tubo",
+
+    "firstRunScreen": {
+      "startReporting": "Segnala un’osservazione",
+      "usage": "Inserisci il tuo nome oppure rimani anonimo. Puoi aggiornare il tuo profilo in qualsiasi momento nelle Impostazioni."
+    },
+
+    "recordScreen": {
+      "bloomDepth": "Quanto è profondo il bloom (stima più vicina)?",
+      "colors": "Colori (seleziona tutti quelli applicabili)",
+      "exposedIce": "Puoi vedere del ghiaccio glaciale esposto vicino a te?",
+      "onGlacier": "Ti trovi su un ghiacciaio?",
+      "gps": "Coordinate GPS (latitudine, longitudine)",
+      "impuritiesSelectAllThatApply": "Impurità (seleziona tutte quelle applicabili)",
+      "locationDescription": "Descrizione del luogo (max 255 caratteri)",
+      "notes": "Note (max 255 caratteri)",
+      "photos": "Seleziona foto (max 4)",
+      "recordType": "Stai segnalando un’osservazione o prendendo un campione?",
+      "size": "Seleziona una dimensione",
+      "snowpackThickness": "Quanto è spesso il manto nevoso?",
+      "underSnowpack": "Cosa c’è sotto il manto nevoso?"
+    },
+
+    "recordDetailsScreen": {
+      "bloomDepth": "Profondità del bloom",
+      "colors": "Colori",
+      "dataSheet": "Scheda Dati",
+      "gps": "Coordinate",
+      "impurities": "Impurità",
+      "latitude": "Latitudine",
+      "locationDescription": "Descrizione del luogo",
+      "longitude": "Longitudine",
+      "notes": "Note",
+      "seeExposedIce": "Vedi ghiaccio esposto",
+      "size": "Dimensione",
+      "snowpackDepth": "Spessore del manto nevoso",
+      "wasOnGlacier": "Era sul ghiacciaio?",
+      "whatWasUnderSnowpack": "Cosa c’era sotto il manto nevoso?"
+    },
+    "timelineScreen": {
+      "downloadedRecords": "Scaricati",
+      "exampleRecords": "Esempio di registrazione",
+      "pendingRecords": "In sospeso"
+    },
+    "settingsScreen": {
+      "darkMode": "Modalità scura",
+      "manualCoordinates": "Avvertenza coordinate manuali"
+    },
+    "statusBar": {
+      "noConnection": "Nessuna connessione Internet"
+    },
+    "modal": {
+      "cancel": "Annulla",
+      "confirm": "Conferma",
+      "diskUsage": {
+        "header": "Conferma eliminazione",
+        "body": "Sei sicuro di voler eliminare le foto salvate?"
+      },
+      "gpsManualEntry": {
+        "header": "Inserire manualmente le coordinate?",
+        "body": "Alcuni utenti inseriscono manualmente le coordinate se non ricevono il segnale GPS o quando tornano a casa. Questo messaggio può essere disabilitato nelle Impostazioni."
+      }
+    }
+  },
+  "notifications": {
+    "uploadSuccess": {
+      "title": "Registrazione caricata",
+      "message": "Grazie per la tua segnalazione."
+    },
+    "uploadRecordFailed": {
+      "title": "Registrazione salvata",
+      "message": "La caricheremo in seguito."
+    },
+    "uploadPhotoFailed": {
+      "title": "Foto salvata",
+      "message": "La caricheremo in seguito."
+    },
+    "uploadPhotosFailed": {
+      "title": "Foto salvate",
+      "message": "Le caricheremo in seguito."
+    },
+    "updateRecordSuccess": {
+      "title": "Registrazione aggiornata"
+    },
+    "updateRecordFailed": {
+      "title": "Aggiornamento fallito",
+      "message": "Questo può accadere quando la connessione Internet viene ripristinata durante l’aggiornamento della registrazione."
+    },
+    "backgroundTasksNotAllowed": {
+      "title": "Caricamenti in background non abilitati",
+      "message": "Abilita l’Aggiornamento in background se desideri caricare automaticamente le registrazioni salvate."
+    }
+  },
+  "validations": {
+    "invalidCoordinates": "Le coordinate devono essere nel formato \"lat, long\". es. 12.34567, -123.45678",
+    "invalidAlgaeSize": "Devi specificare una dimensione",
+    "invalidAlgaeColors": "Devi specificare almeno un colore"
+  },
+  "errors": {
+    "recordNotFound": "Impossibile trovare la registrazione da aggiornare"
+  },
+  "recordDescription": {
+    "sample": "Campione",
+    "sighting": "Osservazione",
+    "undefined": "Non definito"
+  },
+  "algaeSizeDescription": {
+    "Select a size": "Seleziona una dimensione",
+    "Fist": "Pugno",
+    "Dinner Plate": "Piatto da cena",
+    "Bicycle": "Bicicletta",
+    "Car": "Auto",
+    "Bus": "Autobus",
+    "House": "Casa",
+    "Sports Field": "Campo sportivo",
+    "Other": "Altro (descrivere nelle note)"
+  },
+  "algaeColorDescription": {
+    "select": "Seleziona un colore",
+    "red": "Rosso",
+    "pink": "Rosa",
+    "grey": "Grigio",
+    "green": "Verde",
+    "orange": "Arancione",
+    "yellow": "Giallo",
+    "other": "Altro (descrivere nelle note)"
+  },
+  "bloomDepthDescription": {
+    "select": "Seleziona una profondità",
+    "surface": "Solo superficiale",
+    "twoCm": "2 cm",
+    "fiveCm": "5 cm",
+    "tenCm": "10 cm",
+    "greaterThan10Cm": "Più di 10 cm",
+    "other": "Altro (descrivere nelle note)"
+  },
+  "exposedIceDescription": {
+    "yes": "Sì",
+    "no": "No"
+  },
+  "impuritiesDescription": {
+    "orangeDust": "Polvere arancione",
+    "soot": "Fuliggine",
+    "soil": "Terreno",
+    "vegetation": "Vegetazione",
+    "pollen": "Polline",
+    "evidenceOfAnimals": "Tracce di animali",
+    "other": "Altro (descrivere nelle note)"
+  },
+  "onOffGlacierDescription": {
+    "yes": "Sì",
+    "no": "No"
+  },
+  "snowpackThicknessDescription": {
+    "select": "Seleziona uno spessore",
+    "lessThan10Cm": "Meno di 10 cm",
+    "between10Cm30Cm": "Tra 10 cm e 30 cm",
+    "thirtyCm1M": "Tra 30 cm e 1 m",
+    "greaterThan1M": "Più di 1 m",
+    "other": "Altro (descrivere nelle note)"
+  },
+  "underSnowpackDescription": {
+    "select": "Seleziona una descrizione",
+    "vegetation": "Vegetazione",
+    "rocks": "Rocce",
+    "soil": "Terreno",
+    "pondOrTarn": "Stagno",
+    "lake": "Lago",
+    "stream": "Ruscello",
+    "mixed": "Misto",
+    "iDontKnow": "Non lo so"
+  },
+  "backgroundTasks": {
+    "uploadData": "attività-di-caricamento-in-background"
+  },
+  "headers": {
+    "diskUsage": "Utilizzo del disco",
+    "profile": "Profilo",
+    "prompts": "Prompt",
+    "theme": "Tema"
+  }
+}

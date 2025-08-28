@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { RecordsApiV2 } from "@livingsnow/network";
+import React, { useCallback, useEffect, useState } from "react";
+import { RecordsApiV3 } from "@livingsnow/network";
 import { TableHeader, TableRow } from "./components/TableRow";
 import {
   useMsal,
@@ -15,31 +15,30 @@ function App() {
   const { accounts, instance } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
-  useEffect(() => {
-    let isMounted = true;
-
-    RecordsApiV2.getAll()
+  const fetchRecords = useCallback(() => {
+    RecordsApiV3.getAll()
       .then((response) => {
         const recs = response.data.map((item, index) => (
           <TableRow
-            style={{
-              backgroundColor: index % 2 === 0 ? "lightgrey" : "lightblue",
-            }}
             key={index}
             item={item}
+            photos={item.photos}
+            onUploadSuccess={fetchRecords}
           />
         ));
-
-        isMounted && setRecords(recs);
+        setRecords(recs);
       })
       .catch((error) => console.log(error));
-
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
-  // TODO: play with [login|logout]Redirect and other APIs
+  useEffect(() => {
+    fetchRecords();
+  }, [fetchRecords]);
+
+  useEffect(() => {
+    fetchRecords();
+  }, [fetchRecords]);
+
   return (
     <div className="App">
       <UnauthenticatedTemplate>
@@ -50,17 +49,20 @@ function App() {
         <p>{isAuthenticated && `Hello, ${accounts[0].username}`}</p>
         <button onClick={() => instance.logoutPopup()}>logout</button>
       </AuthenticatedTemplate>
-      <p>
-        This is (obviously) very crude and a work in progress. The goal is to
-        build a web app alongside the mobile app for the research team to better
-        interact with their data and also for volunteers to further explore
-        their contributions.
-      </p>
-      <br />
-      <table>
-        <TableHeader />
-        <tbody>{records}</tbody>
-      </table>
+      <header className="app-header">
+        <h1>Living Snow Project</h1>
+        <p className="app-description">
+          Data visualization and management for the Living Snow Project research
+          team. Explore algae records collected by community scientists
+          worldwide.
+        </p>
+      </header>
+      <div className="table-container">
+        <table className="modern-table">
+          <TableHeader />
+          <tbody>{records}</tbody>
+        </table>
+      </div>
     </div>
   );
 }

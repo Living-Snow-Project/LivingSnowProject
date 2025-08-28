@@ -23,33 +23,36 @@
     "react-scripts": "^5.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "echo todo, don't enter watchmode",
-    "eject": "react-scripts eject",
-    "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build",
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production && (cp public/favicon.ico dist/ && cp public/manifest.json dist/) || (copy public\\favicon.ico dist\\. & copy public\\manifest.json dist\\.)",
+    "deploy": "gh-pages -d dist",
+    "test": "echo todo: no tests written against web app yet",
     "clean": "yarn run clean:win",
     "clean:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist build rd /s /q build",
     "nuke": "yarn run clean:win && yarn run nuke:win",
     "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "dependencies": {
+    "@livingsnow/network": "*",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/preset-env": "^7.28.3",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@types/react": "^18.3.24",
+    "@types/react-dom": "^18.3.7",
+    "babel-loader": "^9.2.1",
+    "copyfiles": "^2.4.1",
+    "css-loader": "^7.1.2",
+    "gh-pages": "^6.3.0",
+    "html-webpack-plugin": "^5.6.4",
+    "style-loader": "^4.0.0",
+    "typescript": "^5.9.2",
+    "webpack": "^5.101.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.2.2"
   }
 }

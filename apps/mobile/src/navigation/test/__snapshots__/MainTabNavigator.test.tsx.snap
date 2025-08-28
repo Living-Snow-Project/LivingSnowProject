@@ -31,7 +31,6 @@ exports[`Navigation test suite renders first run screen 1`] = `
     >
       <RNSScreen
         collapsable={false}
-        forwardedRef={[Function]}
         gestureResponseDistance={
           {
             "bottom": -1,
@@ -44,11 +43,17 @@ exports[`Navigation test suite renders first run screen 1`] = `
         onAppear={[Function]}
         onDisappear={[Function]}
         onDismissed={[Function]}
+        onGestureCancel={[Function]}
         onHeaderBackButtonClicked={[Function]}
         onNativeDismissCancelled={[Function]}
         onTransitionProgress={[Function]}
         onWillDisappear={[Function]}
         replaceAnimation="push"
+        sheetAllowedDetents="large"
+        sheetCornerRadius={-1}
+        sheetExpandsWhenScrolledToEdge={true}
+        sheetGrabberVisible={false}
+        sheetLargestUndimmedDetent="all"
         stackPresentation="push"
         style={
           {
@@ -113,76 +118,89 @@ exports[`Navigation test suite renders first run screen 1`] = `
                 style={
                   {
                     "alignItems": "center",
-                    "flexDirection": "row",
-                    "justifyContent": "space-between",
                   }
                 }
               >
-                <Text />
                 <View
                   dataSet={{}}
-                  style={{}}
-                />
-                <Text />
-                <View
-                  dataSet={{}}
-                  style={{}}
-                />
-                <View
-                  dataSet={{}}
-                  style={{}}
-                >
-                  <Text
-                    dataSet={{}}
-                    style={
-                      {
-                        "backgroundColor": undefined,
-                        "color": "#db2777",
-                        "fontFamily": undefined,
-                        "fontSize": 20,
-                        "fontStyle": "normal",
-                        "fontWeight": "700",
-                        "letterSpacing": 0,
-                        "lineHeight": 30,
-                        "textDecorationLine": undefined,
-                      }
+                  style={
+                    {
+                      "alignItems": "center",
+                      "flexDirection": "row",
+                      "justifyContent": "space-between",
                     }
-                  >
-                    Living Snow Project
-                  </Text>
+                  }
+                >
+                  <Text />
                   <View
                     dataSet={{}}
                     style={{}}
                   />
-                  <Text
+                  <Text />
+                  <View
+                    dataSet={{}}
+                    style={{}}
+                  />
+                  <View
                     dataSet={{}}
                     style={
                       {
-                        "backgroundColor": undefined,
-                        "color": "#ec4899",
-                        "fontFamily": undefined,
-                        "fontSize": 14,
-                        "fontStyle": "normal",
-                        "fontWeight": "400",
-                        "letterSpacing": 0,
-                        "lineHeight": 21,
-                        "textDecorationLine": undefined,
+                        "alignItems": "center",
                       }
                     }
                   >
-                    See pink snow? Let us know!
-                  </Text>
+                    <Text
+                      dataSet={{}}
+                      style={
+                        {
+                          "backgroundColor": undefined,
+                          "color": "#db2777",
+                          "fontFamily": undefined,
+                          "fontSize": 20,
+                          "fontStyle": "normal",
+                          "fontWeight": "700",
+                          "letterSpacing": 0,
+                          "lineHeight": 30,
+                          "textDecorationLine": undefined,
+                        }
+                      }
+                    >
+                        Living Snow Project  
+                    </Text>
+                  </View>
+                  <View
+                    dataSet={{}}
+                    style={{}}
+                  />
+                  <Text />
+                  <View
+                    dataSet={{}}
+                    style={{}}
+                  />
+                  <Text />
                 </View>
                 <View
                   dataSet={{}}
                   style={{}}
                 />
-                <Text />
-                <View
+                <Text
                   dataSet={{}}
-                  style={{}}
-                />
-                <Text />
+                  style={
+                    {
+                      "backgroundColor": undefined,
+                      "color": "#ec4899",
+                      "fontFamily": undefined,
+                      "fontSize": 14,
+                      "fontStyle": "normal",
+                      "fontWeight": "400",
+                      "letterSpacing": 0,
+                      "lineHeight": 21,
+                      "textDecorationLine": undefined,
+                    }
+                  }
+                >
+                  See pink snow? Share your observation!
+                </Text>
               </View>
               <Text
                 dataSet={{}}
@@ -202,11 +220,12 @@ exports[`Navigation test suite renders first run screen 1`] = `
                   }
                 }
               >
-                Let us know who you are or remain anonymous. You can update your profile at any time in the Settings tab.
+                Enter your name or remain anonymous. You can update your profile at any time in the Settings tab.
               </Text>
               <View
                 dataSet={{}}
                 isInvalid={false}
+                isReadOnly={false}
                 isRequired={false}
                 style={
                   {
@@ -314,6 +333,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
               <View
                 dataSet={{}}
                 isInvalid={false}
+                isReadOnly={false}
                 isRequired={false}
                 style={
                   {
@@ -505,7 +525,7 @@ exports[`Navigation test suite renders first run screen 1`] = `
                           }
                         }
                       >
-                        Start Reporting
+                        Report an observation
                       </Text>
                     </View>
                   </View>
@@ -551,7 +571,6 @@ exports[`Navigation test suite renders timeline screen 1`] = `
     >
       <RNSScreen
         collapsable={false}
-        forwardedRef={[Function]}
         gestureResponseDistance={
           {
             "bottom": -1,
@@ -564,11 +583,17 @@ exports[`Navigation test suite renders timeline screen 1`] = `
         onAppear={[Function]}
         onDisappear={[Function]}
         onDismissed={[Function]}
+        onGestureCancel={[Function]}
         onHeaderBackButtonClicked={[Function]}
         onNativeDismissCancelled={[Function]}
         onTransitionProgress={[Function]}
         onWillDisappear={[Function]}
         replaceAnimation="push"
+        sheetAllowedDetents="large"
+        sheetCornerRadius={-1}
+        sheetExpandsWhenScrolledToEdge={true}
+        sheetGrabberVisible={false}
+        sheetLargestUndimmedDetent="all"
         stackPresentation="push"
         style={
           {
@@ -670,7 +695,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                 }
                 testID="timeline-screen-settings-button-settings-outline"
               >
-                
+                
               </Text>
             </View>
           </RNSScreenStackHeaderSubview>
@@ -688,69 +713,143 @@ exports[`Navigation test suite renders timeline screen 1`] = `
             type="right"
           >
             <View
-              accessibilityState={
-                {
-                  "busy": undefined,
-                  "checked": undefined,
-                  "disabled": undefined,
-                  "expanded": undefined,
-                  "selected": undefined,
-                }
-              }
-              accessibilityValue={
-                {
-                  "max": undefined,
-                  "min": undefined,
-                  "now": undefined,
-                  "text": undefined,
-                }
-              }
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onBlur={[Function]}
-              onClick={[Function]}
-              onFocus={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
+              dataSet={{}}
               style={
-                [
-                  {
-                    "marginRight": 25,
-                  },
-                  {
-                    "opacity": 1,
-                  },
-                ]
+                {
+                  "flexDirection": "row",
+                }
               }
-              testID="timeline-screen-record-button"
             >
-              <Text
-                allowFontScaling={false}
-                selectable={false}
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   [
                     {
-                      "color": "#0891b2",
-                      "fontSize": 32,
+                      "marginRight": 25,
                     },
-                    undefined,
                     {
-                      "fontFamily": "ionicons",
-                      "fontStyle": "normal",
-                      "fontWeight": "normal",
+                      "opacity": 1,
                     },
-                    {},
                   ]
                 }
-                testID="timeline-screen-record-button-add-circle-outline"
+                testID="timeline-screen-map-button"
               >
-                
-              </Text>
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "color": "#0891b2",
+                        "fontSize": 32,
+                      },
+                      undefined,
+                      {
+                        "fontFamily": "ionicons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      {},
+                    ]
+                  }
+                  testID="timeline-screen-map-button-map-outline"
+                >
+                  
+                </Text>
+              </View>
+              <View
+                accessibilityState={
+                  {
+                    "busy": undefined,
+                    "checked": undefined,
+                    "disabled": undefined,
+                    "expanded": undefined,
+                    "selected": undefined,
+                  }
+                }
+                accessibilityValue={
+                  {
+                    "max": undefined,
+                    "min": undefined,
+                    "now": undefined,
+                    "text": undefined,
+                  }
+                }
+                accessible={true}
+                collapsable={false}
+                focusable={true}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  [
+                    {
+                      "marginRight": 25,
+                    },
+                    {
+                      "opacity": 1,
+                    },
+                  ]
+                }
+                testID="timeline-screen-record-button"
+              >
+                <Text
+                  allowFontScaling={false}
+                  selectable={false}
+                  style={
+                    [
+                      {
+                        "color": "#0891b2",
+                        "fontSize": 32,
+                      },
+                      undefined,
+                      {
+                        "fontFamily": "ionicons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      {},
+                    ]
+                  }
+                  testID="timeline-screen-record-button-add-circle-outline"
+                >
+                  
+                </Text>
+              </View>
             </View>
           </RNSScreenStackHeaderSubview>
         </RNSScreenStackHeaderConfig>
@@ -840,7 +939,7 @@ exports[`Navigation test suite renders timeline screen 1`] = `
               refreshing={false}
               removeClippedSubviews={false}
               renderItem={[Function]}
-              scrollEventThrottle={50}
+              scrollEventThrottle={0.0001}
               stickyHeaderIndices={[]}
               style={{}}
               testID="timeline-screen-flatlist"
@@ -1126,7 +1225,9 @@ exports[`Navigation test suite renders timeline screen 1`] = `
                     source={1}
                     style={
                       {
+                        "height": 750,
                         "maxWidth": "100%",
+                        "width": 750,
                       }
                     }
                   />

@@ -13,7 +13,7 @@ test("validates Welcome Screen navigation", () => {
   const { getByText, toJSON } = render(
     <NativeBaseProviderForTesting>
       <FirstRunScreen navigation={navigation} />
-    </NativeBaseProviderForTesting>
+    </NativeBaseProviderForTesting>,
   );
 
   fireEvent.press(getByText(Labels.FirstRunScreen.StartReporting));

@@ -5,19 +5,20 @@ import {
   DarkTheme,
   DefaultTheme,
 } from "@react-navigation/native";
-import { useColorModeValue, useTheme } from "native-base";
+import { useColorModeValue, useTheme, Box } from "native-base";
 import {
   FirstRunScreen,
-  ImagesPickerScreen,
   RecordDetailsScreen,
   RecordScreen,
   SettingsScreen,
   TimelineScreen,
 } from "../screens";
+import AlgaeProbabilityMap from "../map/AlgaeProbabilityMap";
 import { HeaderButton } from "../components/screens";
 import { RootStackParamList, RootStackNavigationProp } from "./Routes";
 import { getAppSettings } from "../../AppSettings";
 import { TestIds } from "../constants/TestIds";
+import i18n from "../i18n/index";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -32,6 +33,21 @@ function SettingsButton({ navigation }: SettingsButtonProps) {
       onPress={() => navigation.navigate("Settings")}
       iconName="settings-outline"
       placement="left"
+    />
+  );
+}
+
+type MapButtonProps = {
+  navigation: RootStackNavigationProp;
+};
+
+function MapButton({ navigation }: MapButtonProps) {
+  return (
+    <HeaderButton
+      testID={TestIds.TimelineScreen.MapButton}
+      onPress={() => navigation.navigate("Map")}
+      iconName="map-outline"
+      placement="right"
     />
   );
 }
@@ -59,27 +75,42 @@ function RootNavigator() {
       screenOptions={{ headerShown: true, headerTitleAlign: "center" }}
     >
       {showFirstRun && (
-        <Stack.Screen name="Welcome" component={FirstRunScreen} />
+        <Stack.Screen
+          name="Welcome"
+          component={FirstRunScreen}
+          options={{
+            // The title in the header
+            title: i18n.t("welcomeHeading"),
+          }}
+        />
       )}
       <Stack.Screen
         name="Timeline"
         component={TimelineScreen}
         options={({ navigation }: { navigation: RootStackNavigationProp }) => ({
           headerLeft: () => SettingsButton({ navigation }),
-          headerRight: () => NewRecordButton({ navigation }),
+          headerRight: () => (
+            <Box flexDirection="row">
+              <MapButton navigation={navigation} />
+              <NewRecordButton navigation={navigation} />
+            </Box>
+          ),
         })}
+      />
+      <Stack.Screen
+        name="Map"
+        component={AlgaeProbabilityMap}
+        options={{
+          title: "Map",
+          headerShown: true,
+        }}
       />
       <Stack.Screen name="Record" component={RecordScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
       <Stack.Screen
-        name="ImageSelection"
-        component={ImagesPickerScreen}
-        options={{ title: "Camera Roll" }}
-      />
-      <Stack.Screen
         name="RecordDetails"
         component={RecordDetailsScreen}
-        options={{ title: "Details" }}
+        options={{ title: i18n.t("detailsHeading") }}
       />
     </Stack.Navigator>
   );
@@ -103,7 +134,7 @@ export function Navigation() {
         primary: nbTheme.colors.primary[400],
       },
       light: false,
-    }
+    },
   );
 
   return (

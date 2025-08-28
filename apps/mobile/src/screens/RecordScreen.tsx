@@ -1,19 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Box, ScrollView } from "native-base";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { AvoidSoftInput } from "react-native-avoid-softinput";
+import { useFocusEffect } from "@react-navigation/native";
 import Logger from "@livingsnow/logger";
 import {
-  AlgaeRecord,
-  Photo,
-  SelectedPhoto,
   jsonToRecord,
   isSample,
   recordDateFormat,
+  AlgaeRecordV3,
 } from "@livingsnow/record";
+import { SelectedPhoto } from "../../types";
 import { setOnFocusTimelineAction } from "./TimelineScreen";
-import { uploadRecord } from "../lib/RecordManager";
-import { updatePendingRecord } from "../lib/Storage";
+import { RecordManager, UploadError } from "../lib/RecordManager";
+import { PhotoManager } from "../lib/PhotoManager";
+import { updatePendingRecordV3, PendingAlgaeRecordV3 } from "../lib/Storage";
 import { RecordScreenProps } from "../navigation/Routes";
 import { HeaderButton, ThemedBox } from "../components";
 import {
@@ -22,10 +24,13 @@ import {
   AlgaeColorSelector,
   CustomTextInput,
   DateSelector,
+  ExpoPhotoSelector,
   GpsCoordinatesInput,
-  KeyboardShift,
-  PhotoSelector,
   TextArea,
+  GlacierOrNotSelector,
+  SnowpackThicknessSelector,
+  BloomDepthSelector,
+  ImpuritiesSelector,
 } from "../components/forms";
 import { getAppSettings } from "../../AppSettings";
 import { Labels, Notifications, Placeholders, TestIds } from "../constants";
@@ -42,12 +47,12 @@ type OffsetOperation = "add" | "subtract";
 const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
   if (op == "add") {
     return new Date(
-      date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
+      date.setMinutes(date.getMinutes() + date.getTimezoneOffset()),
     );
   }
 
   return new Date(
-    date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset()),
   );
 };
 
@@ -55,30 +60,11 @@ const dateWithOffset = (date: Date, op: OffsetOperation): Date => {
 //  1. location permission off
 //  2. can't acquire signal
 //  3. entering coordinates manually
-type AlgaeRecordInput = Omit<AlgaeRecord, "latitude" | "longitude"> & {
+// TODO: there are some weird scenarios here, what if 1 & 2 is a thing, user is blocked from saving record, is that ok?
+// then if they enter bogus numbers to save, those numbers will upload later
+type AlgaeRecordInput = Omit<AlgaeRecordV3, "latitude" | "longitude"> & {
   latitude: number | undefined;
   longitude: number | undefined;
-};
-
-// TODO: move to @living-snow/records
-// unmodified records do not send these fields
-// so if the fields are empty during submission, do not send them
-const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
-  const newRecord = { ...record };
-
-  if (newRecord.type == "Sighting" || newRecord?.tubeId == "") {
-    delete newRecord.tubeId;
-  }
-
-  if (newRecord?.locationDescription == "") {
-    delete newRecord.locationDescription;
-  }
-
-  if (newRecord?.notes == "") {
-    delete newRecord.notes;
-  }
-
-  return newRecord;
 };
 
 const isNumber = (value: string | number) => !Number.isNaN(Number(value));
@@ -93,7 +79,7 @@ function Space({ my = "1" }: SpaceProps) {
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const defaultRecord: AlgaeRecordInput = {
-    id: -1,
+    id: uuidv4(),
     type: "Sighting",
     date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
     latitude: 0,
@@ -108,7 +94,9 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const locationDescriptionRef = useRef<any>(null);
   const toast = useToast();
 
-  const [status, setStatus] = useState<"Idle" | "Uploading" | "Saving">("Idle");
+  const [status, setStatus] = useState<
+    "Idle" | "Uploading" | "Saving" | "Loading"
+  >("Idle");
 
   // prevents multiple events from quick taps
   const inHandler = useRef(false);
@@ -118,62 +106,59 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const editMode = route && route.params && route.params.record;
 
   // data collected and sent to the service
-  const [state, setState] = useState<AlgaeRecordInput>(
+  const [record, setRecord] = useState<AlgaeRecordInput>(
     editMode
       ? { ...jsonToRecord<AlgaeRecordInput>(route.params.record) }
       : {
           ...defaultRecord,
-          id: uuidv4(),
           name: appSettings.name ?? "Anonymous",
           organization: appSettings.organization,
-        }
+        },
   );
 
-  /* TODO: merge setState and setPhotos in to single useState
-	  1. change upload\update /lib to take pending photo (rename to [Client|Input]Photo)
-	  2. Typings for ServiceAlgaeRecord and [Client|Input]AlgaeRecord
-       a. typings are messy right now with all this mapping and omit nonsense
+  // if a record was uploaded but response not received, duplicate records could be created
+  // a record remains pending in this case
+  const [requestId] = useState<string>(
+    editMode ? route.params.requestId || "" : "",
+  );
 
-  don't want to change AlgaeRecord type for editing a pending record while offline
-  but do want to preserve the SelectedPhotos experience */
-  const [photos, setPhotos] = useState<SelectedPhoto[]>(() => {
-    if (!editMode || !state.photos) {
-      return [];
-    }
+  const onFocusEffect = React.useCallback(() => {
+    // This should be run when screen gains focus - enable the module where it's needed
+    AvoidSoftInput.setEnabled(true);
+    AvoidSoftInput.setAdjustPan();
+    return () => {
+      // This should be run when screen loses focus - disable the module where it's not needed, to make a cleanup
+      AvoidSoftInput.setEnabled(false);
+    };
+  }, []);
 
-    return state.photos.map((photo: Photo | SelectedPhoto) => {
-      if ("id" in photo) {
-        return { ...photo };
-      }
+  useFocusEffect(onFocusEffect); // register callback to focus events
 
-      return {
-        id: "",
-        uri: photo.uri,
-        width: photo.width,
-        height: photo.height,
-      };
-    });
-  });
+  const [selectedPhotos, setSelectedPhotos] = useState<SelectedPhoto[]>([]);
 
-  // navigation.navigate from ImagesPickerScreen with selected photos
+  // initialization; modifying existing record
   useEffect(() => {
-    if (route?.params?.photos) {
-      setPhotos(route.params.photos);
+    if (editMode) {
+      PhotoManager.getSelected(record.id).then((photos) => {
+        if (photos) {
+          setSelectedPhotos(photos);
+        }
+      });
     }
-  }, [route?.params?.photos]);
+  }, [editMode, record.id]);
 
   const today = recordDateFormat(dateWithOffset(new Date(), "subtract"));
-  const dateString = recordDateFormat(state.date);
+  const dateString = recordDateFormat(record.date);
 
-  const isAlgaeSizeInvalid = () => state.size == defaultRecord.size;
+  const isAlgaeSizeInvalid = () => record.size == defaultRecord.size;
   const areAlgaeColorsInvalid = () =>
-    state.colors.length == 0 || state.colors[0] == defaultRecord.colors[0];
+    record.colors.length == 0 || record.colors[0] == defaultRecord.colors[0];
 
   const areGpsCoordinatesInvalid = () =>
-    !state.latitude ||
-    !state.longitude ||
-    !isNumber(state.latitude) ||
-    !isNumber(state.longitude);
+    !record.latitude ||
+    !record.longitude ||
+    !isNumber(record.latitude) ||
+    !isNumber(record.longitude);
 
   // user input form validation
   const isUserInputInvalid = () =>
@@ -196,11 +181,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       title: Notifications.updateRecordSuccess.title,
     };
 
-    // TODO: change updatePendingRecord to take SelectedPhoto?
-    updatePendingRecord({
-      ...removeEmptyFields(state as AlgaeRecord),
-      photos: photos && photos.map((value) => ({ ...value, size: 0 })),
-    })
+    updatePendingRecordV3({ ...record, requestId } as PendingAlgaeRecordV3)
       .catch(() => {
         // TODO: this case is most likely error and not info
         toastProps.status = "info";
@@ -230,22 +211,18 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       message: Notifications.uploadSuccess.message,
     };
 
-    // TODO: change uploadRecord to take SelectedPhoto?
-    uploadRecord(
-      removeEmptyFields(state as AlgaeRecord),
-      photos && photos.map((value) => ({ ...value, size: 0 }))
-    )
+    RecordManager.uploadV3(record as AlgaeRecordV3, uuidv4())
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
-      .catch((error) => {
+      .catch((error: UploadError) => {
         Logger.Warn(
-          `Failed to upload complete record: ${error.title}: ${error.message}`
+          `Failed to upload complete record: ${error.errorInfo.title}: ${error.errorInfo.message}`,
         );
 
         setOnFocusTimelineAction("Update Pending");
         // TODO: this could be info (record saved) or it could be error (record failed to save)
         toastProps.status = "info";
-        toastProps.title = error.title;
-        toastProps.message = error.message;
+        toastProps.title = error.errorInfo.title;
+        toastProps.message = error.errorInfo.message;
       })
       .finally(() => {
         navigation.goBack();
@@ -273,120 +250,173 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     navigation.setOptions({
       headerRight: () => RecordAction,
     });
-    // event handlers need to refresh whenever state or photos update
+
+    // event handlers need to refresh whenever state, status, or photos update
     // this is safe because navigation header renders independently of screen
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state, photos]);
+  }, [record, status, selectedPhotos]);
+
+  const setCoordinates = useCallback(
+    ({ latitude, longitude }) =>
+      setRecord((prev) => ({ ...prev, latitude, longitude })),
+    [setRecord],
+  );
 
   return (
     <>
       <ActivityIndicator isActive={status != "Idle"} caption={status} />
-      <KeyboardShift>
-        {() => (
-          <ScrollView automaticallyAdjustKeyboardInsets>
-            <ThemedBox px={2}>
-              <AlgaeRecordTypeSelector
-                type={state.type}
-                setType={(type) => setState((prev) => ({ ...prev, type }))}
-              />
+      <ScrollView automaticallyAdjustKeyboardInsets>
+        <ThemedBox px={2}>
+          <AlgaeRecordTypeSelector
+            type={record.type}
+            setType={(type) => setRecord((prev) => ({ ...prev, type }))}
+          />
 
-              <Space />
-              <DateSelector
-                date={dateString}
-                maxDate={today}
-                setDate={(newDate) =>
-                  setState((prev) => ({
-                    ...prev,
-                    date: dateWithOffset(new Date(newDate), "add"),
-                  }))
-                }
-              />
+          <Space />
+          <DateSelector
+            date={dateString}
+            maxDate={today}
+            setDate={(newDate) =>
+              setRecord((prev) => ({
+                ...prev,
+                date: dateWithOffset(new Date(newDate), "add"),
+              }))
+            }
+          />
 
-              <Space />
-              <GpsCoordinatesInput
-                coordinates={{
-                  latitude: state.latitude,
-                  longitude: state.longitude,
-                }}
-                usingGps={!editMode}
-                isInvalid={didSubmit && areGpsCoordinatesInvalid()}
-                setCoordinates={({ latitude, longitude }) =>
-                  setState((prev) => ({ ...prev, latitude, longitude }))
-                }
-                onSubmitEditing={() => locationDescriptionRef.current?.focus()}
-              />
+          <Space />
+          <GpsCoordinatesInput
+            coordinates={{
+              latitude: record.latitude,
+              longitude: record.longitude,
+            }}
+            usingGps={!editMode}
+            isInvalid={didSubmit && areGpsCoordinatesInvalid()}
+            setCoordinates={setCoordinates}
+            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+          />
 
-              <Space />
-              <AlgaeSizeSelector
-                size={state.size}
-                isInvalid={didSubmit && isAlgaeSizeInvalid()}
-                setSize={(size) => {
-                  setState((prev) => ({ ...prev, size }));
-                }}
-              />
+          <Space />
+          <CustomTextInput
+            value={record?.tubeId}
+            label={Labels.TubeId}
+            placeholder={
+              isSample(record.type)
+                ? Placeholders.RecordScreen.TubeId
+                : Placeholders.RecordScreen.TubeIdDisabled
+            }
+            maxLength={20}
+            isDisabled={!isSample(record.type)}
+            onChangeText={(tubeId) =>
+              setRecord((prev) => ({ ...prev, tubeId }))
+            }
+            onSubmitEditing={() => locationDescriptionRef.current?.focus()}
+          />
 
-              <Space />
-              <AlgaeColorSelector
-                colors={state.colors}
-                isInvalid={didSubmit && areAlgaeColorsInvalid()}
-                onChangeColors={(colors) => {
-                  setState((prev) => ({
-                    ...prev,
-                    colors: [...colors],
-                  }));
-                }}
-              />
+          <Space />
+          <AlgaeSizeSelector
+            size={record.size}
+            isInvalid={didSubmit && isAlgaeSizeInvalid()}
+            setSize={(size) => {
+              setRecord((prev) => ({ ...prev, size }));
+            }}
+          />
 
-              <Space />
-              <CustomTextInput
-                value={state?.tubeId}
-                label={Labels.TubeId}
-                placeholder={
-                  isSample(state.type)
-                    ? Placeholders.RecordScreen.TubeId
-                    : Placeholders.RecordScreen.TubeIdDisabled
-                }
-                maxLength={20}
-                isDisabled={!isSample(state.type)}
-                onChangeText={(tubeId) =>
-                  setState((prev) => ({ ...prev, tubeId }))
-                }
-                onSubmitEditing={() => locationDescriptionRef.current?.focus()}
-              />
+          <Space />
+          <AlgaeColorSelector
+            colors={record.colors}
+            isInvalid={didSubmit && areAlgaeColorsInvalid()}
+            onChangeColors={(colors) => {
+              setRecord((prev) => ({
+                ...prev,
+                colors: [...colors],
+              }));
+            }}
+          />
 
-              <Space />
-              <TextArea
-                blurOnSubmit
-                value={state?.locationDescription}
-                label={`${Labels.RecordScreen.LocationDescription}`}
-                placeholder={Placeholders.RecordScreen.LocationDescription}
-                ref={locationDescriptionRef}
-                onChangeText={(locationDescription) =>
-                  setState((prev) => ({ ...prev, locationDescription }))
-                }
-                onSubmitEditing={() => notesRef.current?.focus()}
-              />
+          <Space />
+          <GlacierOrNotSelector
+            isOnGlacier={record.isOnGlacier}
+            setIsOnGlacier={(newVal) =>
+              setRecord((prev) => ({ ...prev, isOnGlacier: newVal }))
+            }
+            exposedIce={record.seeExposedIceOrWhatIsUnderSnowpack ?? "No"}
+            setExposedIce={(newVal) =>
+              setRecord((prev) => ({
+                ...prev,
+                seeExposedIceOrWhatIsUnderSnowpack: newVal,
+              }))
+            }
+            underSnow={
+              record.seeExposedIceOrWhatIsUnderSnowpack ??
+              "Select what is under snowpack"
+            }
+            setUnderSnow={(newVal) =>
+              setRecord((prev) => ({
+                ...prev,
+                seeExposedIceOrWhatIsUnderSnowpack: newVal,
+              }))
+            }
+          />
 
-              <Space />
-              <TextArea
-                blurOnSubmit
-                value={state?.notes}
-                label={`${Labels.RecordScreen.Notes}`}
-                placeholder={Placeholders.RecordScreen.Notes}
-                ref={notesRef}
-                onChangeText={(notes) =>
-                  setState((prev) => ({ ...prev, notes }))
-                }
-              />
+          <Space />
+          <SnowpackThicknessSelector
+            thickness={record.snowpackDepth ?? "Select snowpack depth"}
+            setThickness={(thickness) =>
+              setRecord((prev) => ({ ...prev, snowpackDepth: thickness }))
+            }
+          />
 
-              <Space />
-              <PhotoSelector navigation={navigation} photos={photos} />
+          <Space />
+          <BloomDepthSelector
+            bloomDepth={record.bloomDepth ?? "Select bloom depth"}
+            setBloomDepth={(depth) =>
+              setRecord((prev) => ({ ...prev, bloomDepth: depth }))
+            }
+          />
 
-              <Space />
-            </ThemedBox>
-          </ScrollView>
-        )}
-      </KeyboardShift>
+          <Space />
+          <ImpuritiesSelector
+            impuritiesSelected={record.impurities ?? []}
+            onChangeImpurities={(impurities) =>
+              setRecord((prev) => ({ ...prev, impurities }))
+            }
+          />
+
+          <Space />
+          <TextArea
+            blurOnSubmit
+            value={record?.locationDescription}
+            label={`${Labels.RecordScreen.LocationDescription}`}
+            placeholder={Placeholders.RecordScreen.LocationDescription}
+            ref={locationDescriptionRef}
+            onChangeText={(locationDescription) =>
+              setRecord((prev) => ({ ...prev, locationDescription }))
+            }
+            onSubmitEditing={() => notesRef.current?.focus()}
+          />
+
+          <Space />
+          <TextArea
+            blurOnSubmit
+            value={record?.notes}
+            label={`${Labels.RecordScreen.Notes}`}
+            placeholder={Placeholders.RecordScreen.Notes}
+            ref={notesRef}
+            onChangeText={(notes) => setRecord((prev) => ({ ...prev, notes }))}
+          />
+
+          <Space />
+          <ExpoPhotoSelector
+            recordId={record.id}
+            photos={selectedPhotos}
+            setSelectedPhotos={setSelectedPhotos}
+            setStatus={setStatus}
+          />
+
+          <Space />
+        </ThemedBox>
+      </ScrollView>
     </>
   );
 }

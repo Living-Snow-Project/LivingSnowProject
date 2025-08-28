@@ -8,6 +8,7 @@ module.exports = {
   collectCoverageFrom: [
     "**/*.{js,jsx,ts,tsx}",
     "!index.js",
+    "!**/.expo/**",
     "!**/coverage/**",
     "!**/expo-images-picker/**",
     "!**/node_modules/**",
@@ -16,6 +17,7 @@ module.exports = {
     "!**/@types/AppSettings.ts",
     "!**/babel.config.js",
     "!**/jest.config.js",
+    "!**/jest.polyfills.js",
     "!**/jesttest.setup.js",
     "!**/metro.config.js",
     "!**/src/lib/Logger.ts",

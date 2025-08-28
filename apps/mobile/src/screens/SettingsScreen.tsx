@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Appearance } from "react-native";
 import {
   Box,
   Heading,
@@ -60,6 +61,7 @@ export function SettingsScreen() {
 
   const toggleColorModeAndPersist = () => {
     colorModeManager.set(colorMode == "light" ? "dark" : "light");
+    Appearance.setColorScheme(colorMode == "light" ? "dark" : "light");
     toggleColorMode();
   };
 
@@ -79,9 +81,12 @@ export function SettingsScreen() {
             right={
               <Switch
                 testID={TestIds.SettingsScreen.ShowGpsWarning}
-                onValueChange={(value) => {
+                onToggle={() => {
                   setSettings((prev) => ({
-                    ...setAppSettings({ ...prev, showGpsWarning: value }),
+                    ...setAppSettings({
+                      ...prev,
+                      showGpsWarning: !prev.showGpsWarning,
+                    }),
                   }));
                 }}
                 isChecked={showGpsWarning}
@@ -97,7 +102,7 @@ export function SettingsScreen() {
             right={
               <Switch
                 testID="Dark Mode"
-                onValueChange={toggleColorModeAndPersist}
+                onToggle={toggleColorModeAndPersist}
                 isChecked={colorMode == "dark"}
               />
             }

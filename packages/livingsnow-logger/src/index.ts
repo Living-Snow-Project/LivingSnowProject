@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 interface ILogger {
   Info(message: string): void;
   Warn(message: string): void;
@@ -46,6 +45,8 @@ function DevelopmentLogger(): ILogger {
 
 // TODO: figure out what ProductionLogger should do
 const Logger =
-  process.env.JEST_WORKER_ID !== undefined ? TestLogger() : DevelopmentLogger();
+  process?.env?.JEST_WORKER_ID !== undefined
+    ? TestLogger()
+    : DevelopmentLogger();
 
 export default Logger;

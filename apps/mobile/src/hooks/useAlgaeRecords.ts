@@ -2,25 +2,20 @@ import React, { useContext, useMemo, useReducer } from "react";
 import * as TaskManager from "expo-task-manager";
 import * as BackgroundFetch from "expo-background-fetch";
 import Logger from "@livingsnow/logger";
-import { RecordsApiV2, AlgaeRecordResponseV2 } from "@livingsnow/network";
-import { AlgaeRecord, PendingPhoto, Photo } from "@livingsnow/record";
-import { AlgaeRecordsStates, IAlgaeRecords } from "../../types/AlgaeRecords";
 import {
-  deletePendingRecord,
-  loadCachedRecords,
-  loadPendingPhotos,
-  loadPendingRecords,
-  saveCachedRecords,
-  savePendingRecord,
-  updatePendingRecord,
-} from "../lib/Storage";
+  RecordsApiV3,
+  AlgaeRecordResponseV3,
+  DataResponseV3,
+} from "@livingsnow/network";
 import {
-  registerBackgroundFetchAsync,
-  unregisterBackgroundFetchAsync,
-  retryPendingRecords,
-  uploadRecord,
-} from "../lib/RecordManager";
+  AlgaeRecordsStates,
+  IAlgaeRecords,
+  LocalAlgaeRecordV3,
+} from "../../types/AlgaeRecords";
+import * as Storage from "../lib/Storage";
+import { RecordManager } from "../lib/RecordManager";
 import { BackgroundTasks } from "../constants/Strings";
+import { PhotoManager } from "../lib/PhotoManager";
 
 type NoPayloadTransitionOnlyStates =
   | "START_DELETING"
@@ -50,36 +45,41 @@ type AlgaeRecordsActions =
   | {
       type: "END_SEEDING";
       payload: {
-        pendingRecords: AlgaeRecord[];
-        downloadedRecords: AlgaeRecord[];
+        pendingRecords: LocalAlgaeRecordV3[];
+        downloadedRecords: DataResponseV3[];
       };
     }
   | {
       type: "END_SAVING" | "END_DELETING" | "END_RETRY";
       payload: {
-        pendingRecords: AlgaeRecord[];
+        pendingRecords: LocalAlgaeRecordV3[];
       };
     }
   | {
       type: "END_UPLOAD_RECORD";
-      payload: { pendingPhotos: PendingPhoto[]; pendingRecords: AlgaeRecord[] };
+      payload: {
+        pendingRecords: LocalAlgaeRecordV3[];
+      };
     }
   | {
       type: "END_DOWNLOADING";
       payload?: {
-        downloadedRecords: AlgaeRecord[];
+        downloadedRecords: DataResponseV3[];
         nextPageToken: string;
       };
     }
   | {
       type: "END_DOWNLOADING_NEXT";
-      payload: { downloadedRecords: AlgaeRecord[]; nextPageToken: string };
+      payload: {
+        downloadedRecords: DataResponseV3[];
+        nextPageToken: string;
+      };
     }
   | {
       type: "END_FULL_SYNC";
       payload: {
-        pendingRecords?: AlgaeRecord[];
-        downloadedRecords?: AlgaeRecord[];
+        pendingRecords?: LocalAlgaeRecordV3[];
+        downloadedRecords?: DataResponseV3[];
         nextPageToken: string;
       };
     };
@@ -88,7 +88,7 @@ const defaultState: AlgaeRecordsStates = "Idle";
 
 const algaeRecordsReducer = (
   currentState: AlgaeRecordState,
-  action: AlgaeRecordsActions
+  action: AlgaeRecordsActions,
 ): AlgaeRecordState => {
   const { type } = action;
 
@@ -123,7 +123,6 @@ const algaeRecordsReducer = (
       return {
         ...currentState,
         state: defaultState,
-        // TODO: pendingPhotos: action.payload.pendingPhotos,
         pendingRecords: action.payload.pendingRecords,
       };
 
@@ -141,16 +140,9 @@ const algaeRecordsReducer = (
           };
 
     case "END_DOWNLOADING_NEXT":
-      // "smart merge" - what if the record is duplicated?
-      // TODO: this is horribly inefficient
+      // data comes back from server in chronological order
       action.payload.downloadedRecords.forEach((item) => {
-        if (
-          !currentState.downloadedRecords.find(
-            (existing) => existing.id == item.id
-          )
-        ) {
-          currentState.downloadedRecords.push({ ...item });
-        }
+        currentState.downloadedRecords.push({ ...item });
       });
 
       return {
@@ -161,37 +153,22 @@ const algaeRecordsReducer = (
       };
 
     case "END_FULL_SYNC":
-      if (action.payload.pendingRecords && action.payload.downloadedRecords) {
-        return {
-          ...currentState,
-          state: defaultState,
-          downloadedRecords: action.payload.downloadedRecords,
-          pendingRecords: action.payload.pendingRecords,
-          nextPageToken: action.payload.nextPageToken,
-        };
-      }
-
-      if (action.payload.pendingRecords) {
-        return {
-          ...currentState,
-          state: defaultState,
-          pendingRecords: action.payload.pendingRecords,
-        };
-      }
-
-      if (action.payload.downloadedRecords) {
-        return {
-          ...currentState,
-          state: defaultState,
-          downloadedRecords: action.payload.downloadedRecords,
-          nextPageToken: action.payload.nextPageToken,
-        };
-      }
-
-      return {
+      /* eslint-disable no-case-declarations */
+      const result: AlgaeRecordState = {
         ...currentState,
         state: defaultState,
       };
+
+      if (action.payload.pendingRecords) {
+        result.pendingRecords = action.payload.pendingRecords;
+      }
+
+      if (action.payload.downloadedRecords) {
+        result.downloadedRecords = action.payload.downloadedRecords;
+        result.nextPageToken = action.payload.nextPageToken;
+      }
+
+      return result;
 
     default:
       throw new Error("no such action type");
@@ -201,11 +178,9 @@ const algaeRecordsReducer = (
 type AlgaeRecordState = {
   state: AlgaeRecordsStates;
   isSeeded: boolean;
-  pendingRecords: AlgaeRecord[];
-  downloadedRecords: AlgaeRecord[];
+  pendingRecords: LocalAlgaeRecordV3[];
+  downloadedRecords: DataResponseV3[];
   nextPageToken: string;
-  // TODO:
-  //  pendingPhotos: PendingPhoto[];
 };
 
 const initialState: AlgaeRecordState = {
@@ -219,23 +194,21 @@ const initialState: AlgaeRecordState = {
 function useAlgaeRecords(): [IAlgaeRecords] {
   const [algaeRecordState, dispatch] = useReducer(
     algaeRecordsReducer,
-    initialState
+    initialState,
   );
 
   const algaeRecords = useMemo<IAlgaeRecords>(
     () => ({
-      getDownloadedRecords: () => algaeRecordState.downloadedRecords,
-
       getCurrentState: () => algaeRecordState.state,
-
-      getPendingRecords: () => algaeRecordState.pendingRecords,
-
+      getDownloaded: () => algaeRecordState.downloadedRecords,
+      getPending: () => algaeRecordState.pendingRecords,
       isSeeded: () => algaeRecordState.isSeeded,
 
       seed: async () => {
         dispatch({ type: "START_SEEDING" });
-        const cachedRecords = await loadCachedRecords();
-        const pendingRecords = await loadPendingRecords();
+        const cachedRecords = await Storage.loadCachedRecordsV3();
+        const pendingRecords = await RecordManager.loadPendingV3();
+
         dispatch({
           type: "END_SEEDING",
           payload: {
@@ -245,54 +218,21 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         });
       },
 
-      save: async (record: AlgaeRecord) => {
-        dispatch({ type: "START_SAVING" });
-        const pendingRecords = await savePendingRecord(record);
-        dispatch({ type: "END_SAVING", payload: { pendingRecords } });
-      },
-
-      delete: async (record: AlgaeRecord) => {
+      delete: async (recordId: string) => {
         dispatch({ type: "START_DELETING" });
-        const pendingRecords = await deletePendingRecord(record);
-        dispatch({ type: "END_DELETING", payload: { pendingRecords } });
+        const pendingRecords = await RecordManager.deletePendingV3(recordId);
+        dispatch({
+          type: "END_DELETING",
+          payload: { pendingRecords },
+        });
       },
 
-      uploadRecord: async (record: AlgaeRecord, photos: Photo[]) => {
-        dispatch({ type: "START_UPLOAD_RECORD" });
-
-        try {
-          await uploadRecord(record, photos);
-          const pendingPhotos = await loadPendingPhotos();
-          const pendingRecords = await loadPendingRecords();
-          dispatch({
-            type: "END_UPLOAD_RECORD",
-            payload: { pendingPhotos, pendingRecords },
-          });
-
-          return await Promise.resolve();
-        } catch (uploadError) {
-          const { pendingPhotos, pendingRecords } = uploadError;
-
-          dispatch({
-            type: "END_UPLOAD_RECORD",
-            payload: { pendingPhotos, pendingRecords },
-          });
-
-          registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
-            stopOnTerminate: false, // android only,
-            startOnBoot: true, // android only
-          });
-
-          return Promise.reject(uploadError);
-        }
-      },
-
-      downloadRecords: async () => {
+      download: async () => {
         dispatch({ type: "START_DOWNLOADING" });
 
         try {
-          const downloadedRecords = await RecordsApiV2.get();
-          await saveCachedRecords(downloadedRecords.data);
+          const downloadedRecords = await RecordsApiV3.get();
+          await Storage.saveCachedRecordsV3(downloadedRecords.data);
           dispatch({
             type: "END_DOWNLOADING",
             payload: {
@@ -307,12 +247,12 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         }
       },
 
-      downloadNextRecords: async () => {
+      downloadNext: async () => {
         dispatch({ type: "START_DOWNLOADING" });
 
         try {
-          const downloadedRecords = await RecordsApiV2.get(
-            algaeRecordState.nextPageToken
+          const downloadedRecords = await RecordsApiV3.get(
+            algaeRecordState.nextPageToken,
           );
 
           // TODO: start downloading photos instead of waiting until the next render
@@ -330,24 +270,37 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         }
       },
 
-      retryPendingRecords: async () => {
+      // TODO: appears there is some semantic mismatch on how this is thought of and actually used
+      // because retryPending is only called when the app is offline
+      retryPending: async () => {
         dispatch({ type: "START_RETRY" });
-        const pendingRecords = await retryPendingRecords();
-        dispatch({ type: "END_RETRY", payload: { pendingRecords } });
+        // if any old records exist, try sending them, but we don't bother to render them anymore
+        await RecordManager.retryPending();
+        const pendingRecords = await RecordManager.retryPendingV3();
+        await PhotoManager.retryPending();
+        await PhotoManager.retryPendingV3();
+
+        dispatch({
+          type: "END_RETRY",
+          payload: { pendingRecords },
+        });
       },
 
       fullSync: async () => {
-        let pendingRecords: AlgaeRecord[] | undefined;
-        let downloadedRecords: AlgaeRecordResponseV2 | undefined;
+        let pendingRecords: LocalAlgaeRecordV3[] | undefined;
+        let downloadedRecords: AlgaeRecordResponseV3 | undefined;
 
         // avoids intermediate "Idle" state between upload and download
         try {
           dispatch({ type: "START_RETRY" });
-          pendingRecords = await retryPendingRecords();
+          await RecordManager.retryPending();
+          pendingRecords = await RecordManager.retryPendingV3();
+          await PhotoManager.retryPending();
+          await PhotoManager.retryPendingV3();
 
           dispatch({ type: "START_DOWNLOADING" });
-          downloadedRecords = await RecordsApiV2.get();
-          await saveCachedRecords(downloadedRecords.data);
+          downloadedRecords = await RecordsApiV3.get();
+          await Storage.saveCachedRecordsV3(downloadedRecords.data);
 
           dispatch({
             type: "END_FULL_SYNC",
@@ -372,14 +325,8 @@ function useAlgaeRecords(): [IAlgaeRecords] {
           });
         }
       },
-
-      updatePendingRecord: async (record: AlgaeRecord) => {
-        dispatch({ type: "START_SAVING" });
-        const pendingRecords = await updatePendingRecord(record);
-        dispatch({ type: "END_SAVING", payload: { pendingRecords } });
-      },
     }),
-    [algaeRecordState]
+    [algaeRecordState],
   );
 
   return [algaeRecords];
@@ -387,7 +334,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
 
 const AlgaeRecordsContext = React.createContext<IAlgaeRecords | null>(null);
 
-const useAlgaeRecordsContext = () => {
+const useAlgaeRecordsContext = (): IAlgaeRecords => {
   const context = useContext(AlgaeRecordsContext);
 
   if (!context) {
@@ -401,12 +348,22 @@ const useAlgaeRecordsContext = () => {
 // must return a BackgroundFetchResult; explained here: https://tinyurl.com/5yau6c5y
 TaskManager.defineTask(BackgroundTasks.UploadData, async () => {
   Logger.Info("Executing background data upload attempt...");
-  await retryPendingRecords();
-  const pendingRecords: AlgaeRecord[] = await loadPendingRecords();
+  await RecordManager.retryPending();
+  await RecordManager.retryPendingV3();
+  await PhotoManager.retryPending();
+  await PhotoManager.retryPendingV3();
+  const pendingRecords = await Storage.loadPendingRecords();
+  const pendingRecordsV3 = await Storage.loadPendingRecordsV3();
+  const pendingPhotos = await Storage.loadPendingPhotos();
+  const pendingPhotosV3 = await Storage.loadPendingPhotosV3();
 
-  if (pendingRecords.length === 0) {
-    unregisterBackgroundFetchAsync(BackgroundTasks.UploadData);
-    await RecordsApiV2.get();
+  if (
+    pendingRecords.length == 0 &&
+    pendingRecordsV3.length == 0 &&
+    pendingPhotos.size == 0 &&
+    pendingPhotosV3.size == 0
+  ) {
+    RecordManager.unregisterBackgroundFetchAsync(BackgroundTasks.UploadData);
     return BackgroundFetch.BackgroundFetchResult.NewData;
   }
 

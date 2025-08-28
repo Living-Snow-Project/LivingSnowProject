@@ -1,5 +1,5 @@
 import Logger from "@livingsnow/logger";
-import { AlgaeRecord, jsonToRecord, PendingPhoto } from "@livingsnow/record";
+import { AlgaeRecord, jsonToRecord } from "@livingsnow/record";
 
 import { AlgaeRecordResponseV2 } from "./types";
 
@@ -16,11 +16,11 @@ function dumpRecord(record: AlgaeRecord): void {
       `\n  Size: ${record.size}` +
       `\n  Colors: ${record.colors.reduce<string>(
         (prev, cur) => `${prev} ${cur}`,
-        ""
+        "",
       )}` +
       `\n  Description: ${record.locationDescription}` +
       `\n  Notes: ${record.notes}` +
-      `\n JSON Body:\n${JSON.stringify(record)}`
+      `\n JSON Body:\n${JSON.stringify(record)}`,
   );
 }
 
@@ -37,6 +37,27 @@ function failedFetch(operation: string, response: Response): string {
   return error;
 }
 
+// unmodified records do not send these fields
+// so if the fields are empty during submission, do not send them
+const removeEmptyFields = (record: AlgaeRecord): AlgaeRecord => {
+  const newRecord = { ...record };
+
+  if (newRecord.type === "Sighting" || newRecord?.tubeId === "") {
+    delete newRecord.tubeId;
+  }
+
+  if (newRecord?.locationDescription === "") {
+    delete newRecord.locationDescription;
+  }
+
+  if (newRecord?.notes === "") {
+    delete newRecord.notes;
+  }
+
+  return newRecord;
+};
+
+// TODO: should this be split out into versions?
 const recordsApi = () => {
   const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records`;
   const getUrl = (page?: string) =>
@@ -44,8 +65,11 @@ const recordsApi = () => {
       ? `${baseUrl}?limit=20&pagination_token=${page}`
       : `${baseUrl}?limit=20`;
   const postUrl = baseUrl;
-  // TODO: continue with v1 for now, still deciding on what v2 photo endpoint will look like
-  const postPhotoUrl = (recordId: number) => `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
+  // TODO: continue with v1 with photos for now, still deciding on what v2 photo endpoint will look like
+  const postPhotoUrl = (recordId: string) =>
+    `https://snowalgaeproductionapp.azurewebsites.net/api/v1.0/records/${recordId}/photo`;
+  const postMicrographUrl = (recordId: string, filename: string) =>
+    `https://snowalgaeproductionapp.azurewebsites.net/api/v2.0/records/${recordId}/micrograph?filename=${filename}`;
 
   return {
     baseUrl,
@@ -56,6 +80,8 @@ const recordsApi = () => {
     // rejects with an error string or the response object
     post: async (record: AlgaeRecord): Promise<AlgaeRecord> => {
       const operation = "post";
+      dumpRecord(record);
+      record = removeEmptyFields(record);
       dumpRecord(record);
 
       return fetch(postUrl, {
@@ -70,7 +96,7 @@ const recordsApi = () => {
         .then((response) =>
           response.ok
             ? response.text().then((text) => jsonToRecord<AlgaeRecord>(text))
-            : Promise.reject(response)
+            : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
@@ -86,21 +112,8 @@ const recordsApi = () => {
           response.ok
             ? response
                 .text()
-                .then((text) => {
-                  // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                  const respObj = jsonToRecord<AlgaeRecordResponseV2>(text);
-
-                  for (let x = 0; x < respObj.data.length; x++) {
-                    respObj.data[x] = {
-                      ...respObj.data[x],
-                      // @ts-ignore
-                      photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : []
-                    }
-                  }
-
-                  return respObj;
-                })
-            : Promise.reject(response)
+                .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
+            : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
@@ -116,32 +129,19 @@ const recordsApi = () => {
           response.ok
             ? response
                 .text()
-                .then((text) => {
-                  // TODO: fix the typings for AlgaeRecord (ie. Upload and Download) or use satisfies
-                  const respObj = jsonToRecord<AlgaeRecordResponseV2>(text);
-
-                  for (let x = 0; x < respObj.data.length; x++) {
-                    respObj.data[x] = {
-                      ...respObj.data[x],
-                      // @ts-ignore
-                      photos: respObj.data[x].photos.appPhotos ? [...respObj.data[x].photos.appPhotos] : []
-                    }
-                  }
-
-                  return respObj;
-                })
-            : Promise.reject(response)
+                .then((text) => jsonToRecord<AlgaeRecordResponseV2>(text))
+            : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
 
     // rejects with an error string or the response object
-    postPhoto: async (photo: PendingPhoto): Promise<void> => {
+    postPhoto: async (recordId: string, photoUri: string): Promise<void> => {
       const operation = "postPhoto";
 
-      const uri = { uri: photo.uri };
+      const uri = { uri: photoUri };
 
-      return fetch(postPhotoUrl(photo.id), {
+      return fetch(postPhotoUrl(recordId), {
         method: "POST",
         headers: {
           "Content-Type": "image/jpeg",
@@ -149,7 +149,30 @@ const recordsApi = () => {
         body: uri as any,
       })
         .then((response) =>
-          response.ok ? Promise.resolve() : Promise.reject(response)
+          response.ok ? Promise.resolve() : Promise.reject(response),
+        )
+        .catch((error) => Promise.reject(failedFetch(operation, error)));
+    },
+
+    // rejects with an error string or the response object
+    // micrographFile is the result of selecting the file from <input>
+    postMicrograph: async (
+      recordId: string,
+      micrographFile: File,
+    ): Promise<void> => {
+      const operation = "postMicrograph";
+
+      const buffer = await micrographFile.arrayBuffer();
+
+      return fetch(postMicrographUrl(recordId, micrographFile.name), {
+        method: "POST",
+        headers: {
+          "Content-Type": "image/jpeg",
+        },
+        body: buffer,
+      })
+        .then((response) =>
+          response.ok ? Promise.resolve() : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },

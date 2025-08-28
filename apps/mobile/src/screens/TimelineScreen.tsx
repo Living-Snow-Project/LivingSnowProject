@@ -27,11 +27,11 @@ export function TimelineScreen({ navigation }: TimelineScreenProps) {
       navigation.addListener("focus", () => {
         switch (onFocusTimelineAction) {
           case "Update Pending":
-            algaeRecords.retryPendingRecords();
+            algaeRecords.retryPending();
             break;
 
           case "Update Downloaded":
-            algaeRecords.downloadRecords();
+            algaeRecords.download();
             break;
 
           default:
@@ -40,7 +40,7 @@ export function TimelineScreen({ navigation }: TimelineScreenProps) {
 
         onFocusTimelineAction = "Idle";
       }),
-    [navigation, algaeRecords]
+    [navigation, algaeRecords],
   );
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export function TimelineScreen({ navigation }: TimelineScreenProps) {
   const renderItem = ({ item }) => item;
 
   const onEndReached = () => {
-    algaeRecords.downloadNextRecords();
+    algaeRecords.downloadNext();
   };
 
   return (

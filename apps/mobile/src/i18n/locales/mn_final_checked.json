@@ -1,0 +1,218 @@
+{
+  "welcomeHeading": "Тавтай морилно уу",
+  "timelineHeading": "Үйл явдлын зураглал",
+  "recordHeading": "Бүртгэл",
+  "settingsHeading": "Тохиргоо",
+  "detailsHeading": "Дэлгэрэнгүй",
+  "placeholders": {
+    "gps": {
+      "acquiringLocation": "GPS дохио хайж байна",
+      "enterCoordinates": "жишээ нь: 12.34567, -123.45678",
+      "noPermissions": "Тохиргооноос байршлын зөвшөөрлийг шалгана уу. Координатыг гараар оруулна уу.",
+      "noLocation": "Байршлыг тодорхойлж чадсангүй. Координатыг гараар оруулна уу."
+    },
+    "settings": {
+      "username": "Нэрээ оруулна уу",
+      "organization": "Харьяалагддаг байгууллагаа оруулна уу (байгаа бол)"
+    },
+    "recordScreen": {
+      "locationDescription": "жишээ нь: Blue Lake, North Cascades, WA",
+      "notes": "жишээ нь: мөстэй газар улаан замаг",
+      "other": "(тайлбарлагч)",
+      "size": "Хэмжээг сонгоно уу",
+      "tubeId": "Туршилтын хоолойд ID байхгүй бол хоосон орхи",
+      "tubeIdDisabled": "Идэвхгүй — Зөвхөн дээж авахад ашиглана"
+    }
+  },
+  "labels": {
+    "date": "Огноо",
+    "defaultName": "Олон нийтийн эрдэмтэн",
+    "empty": "Хоосон",
+    "livingSnowProject": "Living Snow Project",
+    "name": "Нэр",
+    "organization": "Байгууллага",
+    "photos": "Зурагнууд",
+    "recordType": "Төрөл",
+    "slogan": "Ягаан цас харсан уу? Ажиглалтаа хуваалцаарай!",
+    "tubeId": "Хоолойн ID",
+
+    "firstRunScreen": {
+      "startReporting": "Ажиглалт мэдүүлэх",
+      "usage": "Та өөрийн профайлыг Тохиргоо хэсэгт хэдийд ч шинэчилж болно."
+    },
+
+    "recordScreen": {
+      "bloomDepth": "Цасанд замаг хэр гүн цэцэглэдэг вэ (хамгийн ойрын тооцоо)?",
+      "colors": "Өнгө (таарсан бүгдийг сонгоно уу)",
+      "exposedIce": "Ойролцоо ил гарсан мөс харагдаж байна уу?",
+      "onGlacier": "Та мөсөн гол дээр байна уу?",
+      "gps": "GPS координат (өргөрөг, уртраг)",
+      "impuritiesSelectAllThatApply": "Хольц зүйлс (таарсан бүгдийг сонгоно уу)",
+      "locationDescription": "Байршлын тайлбар (дээд тал нь 255 тэмдэгт)",
+      "notes": "Тэмдэглэл (дээд тал нь 255 тэмдэгт)",
+      "photos": "Зураг сонгох (4 хүртэл)",
+      "recordType": "Та ажиглалт мэдүүлж байна уу эсвэл дээж авч байна уу?",
+      "size": "Хэмжээг сонгоно уу",
+      "snowpackThickness": "Цасан бүрхүүл хэр зузаан вэ?",
+      "underSnowpack": "Цасан бүрхүүлийн доор юу байна вэ?"
+    },
+
+    "recordDetailsScreen": {
+      "bloomDepth": "Bloom гүн",
+      "colors": "Өнгөнүүд",
+      "dataSheet": "Өгөгдлийн хуудас",
+      "gps": "Координат",
+      "impurities": "Бохирдол",
+      "latitude": "Өргөрөг",
+      "locationDescription": "Байршлын тайлбар",
+      "longitude": "Уртраг",
+      "notes": "Тэмдэглэл",
+      "seeExposedIce": "Ил гарсан мөс харах",
+      "size": "Хэмжээ",
+      "snowpackDepth": "Цасны гүн",
+      "wasOnGlacier": "Мөстэй газар байсан",
+      "whatWasUnderSnowpack": "Цасны доор юу байсан бэ?"
+    },
+    "timelineScreen": {
+      "downloadedRecords": "Татаж авсан",
+      "exampleRecords": "Жишээ бүртгэл",
+      "pendingRecords": "Хүлээгдэж буй"
+    },
+    "settingsScreen": {
+      "darkMode": "Харанхуй горим",
+      "manualCoordinates": "Гараар координат оруулах анхааруулга"
+    },
+    "statusBar": {
+      "noConnection": "Интернет холболт алга"
+    },
+    "modal": {
+      "cancel": "Цуцлах",
+      "confirm": "Зөвшөөрөх",
+      "diskUsage": {
+        "header": "Устгахыг баталгаажуулах",
+        "body": "Хадгалсан зургийг устгахдаа итгэлтэй байна уу?"
+      },
+      "gpsManualEntry": {
+        "header": "Координатыг гараар оруулах уу?",
+        "body": "Зарим хэрэглэгчид GPS дохио авч чадахгүй үед эсвэл гэртээ ирсний дараа координатыг гараар оруулдаг. Энэ мэдэгдлийг Тохиргоонд идэвхгүй болгоно уу."
+      }
+    }
+  },
+  "notifications": {
+    "uploadSuccess": {
+      "title": "Бүртгэл амжилттай илгээгдлээ",
+      "message": "Мэдээллээ өгсөнд баярлалаа."
+    },
+    "uploadRecordFailed": {
+      "title": "Бүртгэл хадгалагдлаа",
+      "message": "Бид дараа нь оруулна."
+    },
+    "uploadPhotoFailed": {
+      "title": "Зураг хадгалагдлаа",
+      "message": "Бид дараа нь оруулна."
+    },
+    "uploadPhotosFailed": {
+      "title": "Зурагнууд хадгалагдлаа",
+      "message": "Бид дараа нь оруулна."
+    },
+    "updateRecordSuccess": {
+      "title": "Бүртгэлийг шинэчиллээ"
+    },
+    "updateRecordFailed": {
+      "title": "Шинэчлэлт амжилтгүй",
+      "message": "Бүртгэлийг шинэчлэх явцад интернэт холболт сэргээгдсэнээр энэ асуудал гарч болно."
+    },
+    "backgroundTasksNotAllowed": {
+      "title": "Арын горимд байршуулалт идэвхгүй",
+      "message": "Хадгалсан бүртгэлийг арын горимоор автоматаар илгээхийг хүсвэл Арын шинэчлэлтийг идэвхжүүлнэ үү."
+    }
+  },
+  "validations": {
+    "invalidCoordinates": "Координат нь `lat, long` форматтай байх ёстой. жишээ нь: 12.34567, -123.45678",
+    "invalidAlgaeSize": "Та хэмжээ зааж өгөх хэрэгтэй",
+    "invalidAlgaeColors": "Та дор хаяж нэг өнгө сонгох хэрэгтэй"
+  },
+  "errors": {
+    "recordNotFound": "Шинэчлэх бүртгэл олдсонгүй"
+  },
+  "recordDescription": {
+    "sample": "Дээж",
+    "sighting": "Ажиглалт",
+    "undefined": "Тодорхойгүй"
+  },
+  "algaeSizeDescription": {
+    "Select a size": "Хэмжээг сонгоно уу",
+    "Fist": "Гараа атгасан хэмжээ",
+    "Dinner Plate": "Хоолны таваг",
+    "Bicycle": "Унадаг дугуй",
+    "Car": "Машин",
+    "Bus": "Автобус",
+    "House": "Гэр",
+    "Sports Field": "Спортын талбай",
+    "Other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
+  },
+  "algaeColorDescription": {
+    "select": "Өнгийг сонгоно уу",
+    "red": "Улаан",
+    "pink": "Ягаан",
+    "grey": "Саарал",
+    "green": "Ногоон",
+    "orange": "Улбар шар",
+    "yellow": "Шар",
+    "other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
+  },
+  "bloomDepthDescription": {
+    "select": "Хэмжээг сонгоно уу",
+    "surface": "гадаргуу",
+    "twoCm": "2 см",
+    "fiveCm": "5 см",
+    "tenCm": "10 см",
+    "greaterThan10Cm": "10 см-с их",
+    "other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
+  },
+  "exposedIceDescription": {
+    "yes": "Тийм",
+    "no": "Үгүй"
+  },
+  "impuritiesDescription": {
+    "orangeDust": "Улбар шар тоосонцор",
+    "soot": "Тортог",
+    "soil": "Хөрс",
+    "vegetation": "Ургамал",
+    "pollen": "Цэцгийн тоосонцор",
+    "evidenceOfAnimals": "Амьтны ул мөр",
+    "other": "Бусад (тэмдэглэлд тодорхойлно уу)"
+  },
+  "onOffGlacierDescription": {
+    "yes": "Тийм",
+    "no": "Үгүй"
+  },
+  "snowpackThicknessDescription": {
+    "select": "Зузаан сонгоно уу",
+    "lessThan10Cm": "10 см-с бага",
+    "between10Cm30Cm": "10 см - 30 см",
+    "thirtyCm1M": "30 см - 1 м",
+    "greaterThan1M": "1 м-с их",
+    "other": "Бусад (темдэглэлд тодорхой бичнэ үү)"
+  },
+  "underSnowpackDescription": {
+    "select": "Цасан доорх гадаргууг сонгоно уу",
+    "vegetation": "Ургамал",
+    "rocks": "Чулуулаг",
+    "soil": "Хөрс",
+    "pondOrTarn": "Цөөрөм эсвэл жижиг нуур",
+    "lake": "Нуур",
+    "stream": "Горхи",
+    "mixed": "Холимог",
+    "iDontKnow": "Мэдэхгүй"
+  },
+  "backgroundTasks": {
+    "uploadData": "Арын горимд өгөгдөл байршуулж байна"
+  },
+  "headers": {
+    "diskUsage": "Дискний ашиглалт",
+    "profile": "Профайл",
+    "prompts": "Сануулга",
+    "theme": "Сэдэв"
+  }
+}
