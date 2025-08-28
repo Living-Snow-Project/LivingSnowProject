@@ -3,25 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://living-snow-project.github.io/LivingSnowProject/",
-  "dependencies": {
-    "@azure/msal-browser": "^2.37.1",
-    "@azure/msal-react": "^1.5.8",
-    "@livingsnow/network": "*",
-    "react": "18.0.0",
-    "react-dom": "18.0.0",
-    "web-vitals": "^2.1.4"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.2.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.1",
-    "@types/node": "^16.11.36",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.5",
-    "gh-pages": "^4.0.0",
-    "react-scripts": "^5.0.1"
-  },
   "scripts": {
     "start": "webpack serve --mode development",
     "build": "webpack --mode production && (cp public/favicon.ico dist/ && cp public/manifest.json dist/) || (copy public\\favicon.ico dist\\. & copy public\\manifest.json dist\\.)",
@@ -33,6 +14,8 @@
     "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules"
   },
   "dependencies": {
+    "@azure/msal-browser": "^4.21.1",
+    "@azure/msal-react": "^3.0.19",
     "@livingsnow/network": "*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
