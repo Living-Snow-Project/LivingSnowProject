@@ -15,6 +15,10 @@ function App() {
   const { accounts, instance } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
+  const loginRequest = {
+    scopes: ["api://3c648e3d-93b2-476f-9218-fb02ded95672/.default"], // YOUR API's scope
+  };
+
   const fetchRecords = useCallback(() => {
     RecordsApiV3.getAll()
       .then((response) => {
@@ -73,7 +77,7 @@ function App() {
           >
             <UnauthenticatedTemplate>
               <button
-                onClick={() => instance.loginPopup()}
+                onClick={() => instance.loginPopup(loginRequest)}
                 style={{
                   display: "flex",
                   alignItems: "center",
