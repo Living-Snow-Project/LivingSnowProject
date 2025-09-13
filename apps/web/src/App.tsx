@@ -7,17 +7,12 @@ import {
   AuthenticatedTemplate,
   UnauthenticatedTemplate,
 } from "@azure/msal-react";
-
 import "./App.css";
 
 function App() {
   const [records, setRecords] = useState<JSX.Element[]>([]);
   const { accounts, instance } = useMsal();
   const isAuthenticated = useIsAuthenticated();
-
-  const loginRequest = {
-    scopes: ["api://3c648e3d-93b2-476f-9218-fb02ded95672/.default"], // YOUR API's scope
-  };
 
   const fetchRecords = useCallback(() => {
     RecordsApiV3.getAll()
@@ -77,7 +72,7 @@ function App() {
           >
             <UnauthenticatedTemplate>
               <button
-                onClick={() => instance.loginPopup(loginRequest)}
+                onClick={() => instance.loginPopup()}
                 style={{
                   display: "flex",
                   alignItems: "center",
