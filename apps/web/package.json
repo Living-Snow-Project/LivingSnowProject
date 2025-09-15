@@ -5,7 +5,7 @@
   "homepage": "https://living-snow-project.github.io/LivingSnowProject/",
   "scripts": {
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production && (cp public/favicon.ico dist/ && cp public/manifest.json dist/) || (copy public\\favicon.ico dist\\. & copy public\\manifest.json dist\\.)",
+    "build": "webpack --mode production && (copy public/favicon.ico dist/ && copy public/manifest.json dist/) || (copy public\\favicon.ico dist\\. & copy public\\manifest.json dist\\.)",
     "deploy": "gh-pages -d dist",
     "test": "echo todo: no tests written against web app yet",
     "clean": "yarn run clean:win",
