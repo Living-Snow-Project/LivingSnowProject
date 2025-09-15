@@ -5,24 +5,6 @@ import { PhotosApi } from "@livingsnow/network";
 // import { RecordsApiV3 } from "@livingsnow/network";
 // import { MicrographResponse } from "@livingsnow/network";
 
-function getThumbnailUrl(originalUrl: string): string {
-  // Extract the filename from the URL and add "_thumb" before the file extension
-  const lastSlashIndex = originalUrl.lastIndexOf('/');
-  const filename = originalUrl.substring(lastSlashIndex + 1);
-  const dotIndex = filename.lastIndexOf('.');
-
-  if (dotIndex === -1) {
-    // No extension found, just append "_thumb"
-    return originalUrl + "_thumb";
-  }
-
-  const nameWithoutExt = filename.substring(0, dotIndex);
-  const extension = filename.substring(dotIndex);
-  const thumbnailFilename = nameWithoutExt + "_thumb" + extension;
-
-  return originalUrl.substring(0, lastSlashIndex + 1) + thumbnailFilename;
-}
-
 function TableHeader() {
   return (
     <thead>
@@ -42,23 +24,23 @@ function FormatImages(photos: PhotosResponseV2) {
       {/* Photos Section */}
       {photos.appPhotos && photos.appPhotos.length > 0 && (
         <div>
-          <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Photos</div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          <div style={{ fontWeight: "bold", marginBottom: "8px" }}>Photos</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
             {photos.appPhotos.map((item, index) => {
               const fullImageUrl = PhotosApi.getAppPhotoUrl(item.uri);
-              const thumbnailUrl = getThumbnailUrl(fullImageUrl);
+              const thumbnailUrl = PhotosApi.getAppPhotoThumbnailUrl(item.uri);
               return (
                 <img
                   key={index}
                   src={thumbnailUrl}
                   alt={`Photo ${index + 1}`}
                   style={{
-                    objectFit: 'cover',
-                    cursor: 'pointer',
-                    borderRadius: '4px',
-                    border: '1px solid #ccc'
+                    objectFit: "cover",
+                    cursor: "pointer",
+                    borderRadius: "4px",
+                    border: "1px solid #ccc",
                   }}
-                  onClick={() => window.open(fullImageUrl, '_blank')}
+                  onClick={() => window.open(fullImageUrl, "_blank")}
                 />
               );
             })}
@@ -68,24 +50,33 @@ function FormatImages(photos: PhotosResponseV2) {
 
       {/* Micrographs Section */}
       {photos.micrographs && photos.micrographs.length > 0 && (
-        <div style={{ marginTop: photos.appPhotos && photos.appPhotos.length > 0 ? '16px' : '0' }}>
-          <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Micrographs</div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+        <div
+          style={{
+            marginTop:
+              photos.appPhotos && photos.appPhotos.length > 0 ? "16px" : "0",
+          }}
+        >
+          <div style={{ fontWeight: "bold", marginBottom: "8px" }}>
+            Micrographs
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
             {photos.micrographs.map((item, index) => {
               const fullImageUrl = PhotosApi.getMicrographUrl(item.uri);
-              const thumbnailUrl = getThumbnailUrl(fullImageUrl);
+              const thumbnailUrl = PhotosApi.getMicrographThumbnailUrl(
+                item.uri,
+              );
               return (
                 <img
                   key={index}
                   src={thumbnailUrl}
                   alt={`Micrograph ${index + 1}`}
                   style={{
-                    objectFit: 'cover',
-                    cursor: 'pointer',
-                    borderRadius: '4px',
-                    border: '1px solid #ccc'
+                    objectFit: "cover",
+                    cursor: "pointer",
+                    borderRadius: "4px",
+                    border: "1px solid #ccc",
                   }}
-                  onClick={() => window.open(fullImageUrl, '_blank')}
+                  onClick={() => window.open(fullImageUrl, "_blank")}
                 />
               );
             })}
