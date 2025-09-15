@@ -89,6 +89,14 @@ body {
   right: 1rem;
 }
 
+/* Content Section */
+.content-section {
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1400px;
+  margin-bottom: 2rem;
+}
+
 /* Table Container */
 .table-container {
   margin: 0 auto;

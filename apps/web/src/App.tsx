@@ -186,6 +186,49 @@ function App() {
           </div>
         </div>
       </header>
+
+      <div className="content-section">
+        <p style={{ textAlign: "left", marginBottom: "1.5rem", fontSize: "16px" }}>
+          Want to contribute? We're open source! Check us out on{" "}
+          <a
+            href="https://github.com/Living-Snow-Project/LivingSnowProject"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              color: "#2563eb",
+              textDecoration: "underline",
+              fontWeight: "500"
+            }}
+          >
+            GitHub
+          </a>
+          .
+        </p>
+
+        <div style={{ marginBottom: "2rem" }}>
+          <h3 style={{
+            fontSize: "18px",
+            fontWeight: "600",
+            marginBottom: "1rem",
+            color: "#374151"
+          }}>
+            Next set of features
+          </h3>
+          <ul style={{
+            listStyleType: "disc",
+            paddingLeft: "1.5rem",
+            lineHeight: "1.6",
+            color: "#6b7280"
+          }}>
+            <li>Searching records</li>
+            <li>Saving searches (client side only)</li>
+            <li>Separate page/route for a record</li>
+            <li>(Admins) Deleting records</li>
+            <li>(Admins) Modifying records</li>
+          </ul>
+        </div>
+      </div>
+
       <div className="table-container">
         {nextToken && (
           <div className="pagination-controls">
