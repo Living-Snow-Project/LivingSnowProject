@@ -65,56 +65,68 @@ function App() {
           </div>
           <div className="user-controls">
             <UnauthenticatedTemplate>
-              <button
-                onClick={() => instance.loginPopup()}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  backgroundColor: "rgba(255, 255, 255, 0.1)",
-                  color: "white",
-                  border: "1px solid rgba(255, 255, 255, 0.3)",
-                  borderRadius: "8px",
-                  padding: "10px 16px",
-                  fontSize: "14px",
-                  fontWeight: "500",
-                  cursor: "pointer",
-                  transition: "all 0.2s ease",
-                  backdropFilter: "blur(4px)",
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(255, 255, 255, 0.2)";
-                  e.currentTarget.style.borderColor =
-                    "rgba(255, 255, 255, 0.5)";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor =
-                    "rgba(255, 255, 255, 0.1)";
-                  e.currentTarget.style.borderColor =
-                    "rgba(255, 255, 255, 0.3)";
-                }}
-              >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+              <div style={{ textAlign: "right" }}>
+                <button
+                  onClick={() => instance.loginPopup()}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    backgroundColor: "rgba(255, 255, 255, 0.1)",
+                    color: "white",
+                    border: "1px solid rgba(255, 255, 255, 0.3)",
+                    borderRadius: "8px",
+                    padding: "10px 16px",
+                    fontSize: "14px",
+                    fontWeight: "500",
+                    cursor: "pointer",
+                    transition: "all 0.2s ease",
+                    backdropFilter: "blur(4px)",
+                  }}
+                  onMouseOver={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "rgba(255, 255, 255, 0.2)";
+                    e.currentTarget.style.borderColor =
+                      "rgba(255, 255, 255, 0.5)";
+                  }}
+                  onMouseOut={(e) => {
+                    e.currentTarget.style.backgroundColor =
+                      "rgba(255, 255, 255, 0.1)";
+                    e.currentTarget.style.borderColor =
+                      "rgba(255, 255, 255, 0.3)";
+                  }}
                 >
-                  <path
-                    d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
-                    fill="currentColor"
-                    opacity="0.8"
-                  />
-                  <path
-                    d="M12 14C7.58172 14 4 17.5817 4 22H20C20 17.5817 16.4183 14 12 14Z"
-                    fill="currentColor"
-                    opacity="0.8"
-                  />
-                </svg>
-                Login
-              </button>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
+                      fill="currentColor"
+                      opacity="0.8"
+                    />
+                    <path
+                      d="M12 14C7.58172 14 4 17.5817 4 22H20C20 17.5817 16.4183 14 12 14Z"
+                      fill="currentColor"
+                      opacity="0.8"
+                    />
+                  </svg>
+                  Login
+                </button>
+                <div
+                  style={{
+                    fontSize: "12px",
+                    color: "rgba(255, 255, 255, 0.7)",
+                    marginTop: "4px",
+                    fontStyle: "italic",
+                  }}
+                >
+                  For lab team only
+                </div>
+              </div>
             </UnauthenticatedTemplate>
 
             <AuthenticatedTemplate>
