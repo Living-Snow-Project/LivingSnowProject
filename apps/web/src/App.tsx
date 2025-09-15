@@ -46,15 +46,8 @@ function App() {
   return (
     <div className="App">
       <header className="app-header">
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            width: "100%",
-          }}
-        >
-          <div style={{ textAlign: "center", flex: 1 }}>
+        <div className="header-content">
+          <div style={{ textAlign: "center" }}>
             <h1>Living Snow Project</h1>
             <p className="app-description">
               Data visualization and management for the Living Snow Project
@@ -62,14 +55,7 @@ function App() {
               scientists worldwide.
             </p>
           </div>
-
-          <div
-            style={{
-              minWidth: "120px",
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
-          >
+          <div className="user-controls">
             <UnauthenticatedTemplate>
               <button
                 onClick={() => instance.loginPopup()}

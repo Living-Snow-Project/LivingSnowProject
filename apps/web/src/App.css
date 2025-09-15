@@ -74,6 +74,21 @@ body {
   margin: 0 auto;
 }
 
+/* Header Content Container */
+.header-content {
+  margin: 0 auto;
+  padding: 0 1rem;
+  max-width: 1400px;
+  position: relative;
+}
+
+/* User Controls */
+.user-controls {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+}
+
 /* Table Container */
 .table-container {
   margin: 0 auto;
