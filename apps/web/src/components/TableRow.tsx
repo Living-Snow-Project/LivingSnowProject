@@ -1,8 +1,27 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { AlgaeRecordV3 } from "@livingsnow/record";
 import { PhotosResponseV2 } from "@livingsnow/network";
-import { PhotosApi, RecordsApiV3 } from "@livingsnow/network";
-import { MicrographResponse } from "@livingsnow/network";
+import { PhotosApi } from "@livingsnow/network";
+// import { RecordsApiV3 } from "@livingsnow/network";
+// import { MicrographResponse } from "@livingsnow/network";
+
+function getThumbnailUrl(originalUrl: string): string {
+  // Extract the filename from the URL and add "_thumb" before the file extension
+  const lastSlashIndex = originalUrl.lastIndexOf('/');
+  const filename = originalUrl.substring(lastSlashIndex + 1);
+  const dotIndex = filename.lastIndexOf('.');
+
+  if (dotIndex === -1) {
+    // No extension found, just append "_thumb"
+    return originalUrl + "_thumb";
+  }
+
+  const nameWithoutExt = filename.substring(0, dotIndex);
+  const extension = filename.substring(dotIndex);
+  const thumbnailFilename = nameWithoutExt + "_thumb" + extension;
+
+  return originalUrl.substring(0, lastSlashIndex + 1) + thumbnailFilename;
+}
 
 function TableHeader() {
   return (
@@ -10,108 +29,149 @@ function TableHeader() {
       <tr className="table-header">
         <th>Summary</th>
         <th>Environmental Details</th>
-        <th>Photos</th>
-        <th>Micrographs</th>
+        <th>Images</th>
         <th>DNA Sequence</th>
       </tr>
     </thead>
   );
 }
 
-function FormatPhotos(photos: PhotosResponseV2) {
-  if (!photos.appPhotos) {
-    return "";
-  }
-
-  return photos.appPhotos.map((item, index) => (
-    <div key={index}>
-      <a
-        target={"_blank"}
-        rel="noopener noreferrer"
-        href={PhotosApi.getAppPhotoUrl(item.uri)}
-      >
-        {index + 1}
-      </a>
-    </div>
-  ));
-}
-
-function FormatMicrographs(
-  micrographs: MicrographResponse[] | undefined,
-  handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-  handleUpload: () => void,
-  file: File | null,
-  fileInputRef: React.RefObject<HTMLInputElement>,
-) {
+function FormatImages(photos: PhotosResponseV2) {
   return (
     <div>
-      {micrographs && micrographs.length > 0 ? (
-        micrographs.map((item, index) => (
-          <div key={index}>
-            <a
-              target={"_blank"}
-              rel="noopener noreferrer"
-              href={PhotosApi.getMicrographUrl(item.uri)}
-            >
-              {index + 1}
-            </a>
+      {/* Photos Section */}
+      {photos.appPhotos && photos.appPhotos.length > 0 && (
+        <div>
+          <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Photos</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {photos.appPhotos.map((item, index) => {
+              const fullImageUrl = PhotosApi.getAppPhotoUrl(item.uri);
+              const thumbnailUrl = getThumbnailUrl(fullImageUrl);
+              return (
+                <img
+                  key={index}
+                  src={thumbnailUrl}
+                  alt={`Photo ${index + 1}`}
+                  style={{
+                    objectFit: 'cover',
+                    cursor: 'pointer',
+                    borderRadius: '4px',
+                    border: '1px solid #ccc'
+                  }}
+                  onClick={() => window.open(fullImageUrl, '_blank')}
+                />
+              );
+            })}
           </div>
-        ))
-      ) : (
-        <div></div>
+        </div>
       )}
-      <input
-        type="file"
-        accept="image/jpeg"
-        onChange={handleFileChange}
-        ref={fileInputRef}
-        style={{ marginTop: "10px" }}
-      />
-      <button onClick={handleUpload} disabled={!file}>
-        Upload Micrograph
-      </button>
+
+      {/* Micrographs Section */}
+      {photos.micrographs && photos.micrographs.length > 0 && (
+        <div style={{ marginTop: photos.appPhotos && photos.appPhotos.length > 0 ? '16px' : '0' }}>
+          <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>Micrographs</div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {photos.micrographs.map((item, index) => {
+              const fullImageUrl = PhotosApi.getMicrographUrl(item.uri);
+              const thumbnailUrl = getThumbnailUrl(fullImageUrl);
+              return (
+                <img
+                  key={index}
+                  src={thumbnailUrl}
+                  alt={`Micrograph ${index + 1}`}
+                  style={{
+                    objectFit: 'cover',
+                    cursor: 'pointer',
+                    borderRadius: '4px',
+                    border: '1px solid #ccc'
+                  }}
+                  onClick={() => window.open(fullImageUrl, '_blank')}
+                />
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
+// function FormatMicrographs(
+//   micrographs: MicrographResponse[] | undefined,
+//   handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+//   handleUpload: () => void,
+//   file: File | null,
+//   fileInputRef: React.RefObject<HTMLInputElement>,
+// ) {
+//   return (
+//     <div>
+//       {micrographs && micrographs.length > 0 ? (
+//         micrographs.map((item, index) => (
+//           <div key={index}>
+//             <a
+//               target={"_blank"}
+//               rel="noopener noreferrer"
+//               href={PhotosApi.getMicrographUrl(item.uri)}
+//             >
+//               {index + 1}
+//             </a>
+//           </div>
+//         ))
+//       ) : (
+//         <div></div>
+//       )}
+//       <input
+//         type="file"
+//         accept="image/jpeg"
+//         onChange={handleFileChange}
+//         ref={fileInputRef}
+//         style={{ marginTop: "10px" }}
+//       />
+//       <button onClick={handleUpload} disabled={!file}>
+//         Upload Micrograph
+//       </button>
+//     </div>
+//   );
+// }
 
 type TableRowProps = {
   item: AlgaeRecordV3;
   photos: PhotosResponseV2;
   dnaSequence?: string;
-  onUploadSuccess: () => void;
+  // onUploadSuccess: () => void;
 };
 
 function TableRow({
   item,
   photos,
   dnaSequence,
-  onUploadSuccess,
+  // onUploadSuccess,
 }: TableRowProps) {
-  const [file, setFile] = useState<File | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  // const [file, setFile] = useState<File | null>(null);
+  // const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setFile(event.target.files[0]);
-    }
-  };
+  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     setFile(event.target.files[0]);
+  //   }
+  // };
 
-  const handleUpload = () => {
-    if (file) {
-      RecordsApiV3.postMicrograph(item.id, file)
-        .then(() => {
-          console.log("Micrograph uploaded successfully");
-          onUploadSuccess();
-          setFile(null);
-          if (fileInputRef.current) {
-            fileInputRef.current.value = "";
-          }
-        })
-        .catch((error) => {
-          console.error("Error uploading micrograph:", error);
-        });
-    }
-  };
+  // const handleUpload = () => {
+  //   if (file) {
+  //     RecordsApiV3.postMicrograph(item.id, file)
+  //       .then(() => {
+  //         console.log("Micrograph uploaded successfully");
+  //         onUploadSuccess();
+  //         setFile(null);
+  //         if (fileInputRef.current) {
+  //           fileInputRef.current.value = "";
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error uploading micrograph:", error);
+  //       });
+  //   }
+  // };
 
   const renderColors = () => {
     if (!item.colors) {
@@ -234,16 +294,7 @@ function TableRow({
       <td className="environmental-details-cell">
         {renderEnvironmentalDetails()}
       </td>
-      <td className="photos-cell">{FormatPhotos(photos)}</td>
-      <td className="micrographs-cell">
-        {FormatMicrographs(
-          photos.micrographs,
-          handleFileChange,
-          handleUpload,
-          file,
-          fileInputRef,
-        )}
-      </td>
+      <td className="photos-cell">{FormatImages(photos)}</td>
       <td className="dna-cell">{dnaSequence || ""}</td>
     </tr>
   );

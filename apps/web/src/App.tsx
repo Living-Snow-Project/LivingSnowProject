@@ -22,7 +22,7 @@ function App() {
             key={index}
             item={item}
             photos={item.photos}
-            onUploadSuccess={fetchRecords}
+            // onUploadSuccess={fetchRecords}
           />
         ));
         setRecords(recs);
