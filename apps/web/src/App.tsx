@@ -188,7 +188,13 @@ function App() {
       </header>
 
       <div className="content-section">
-        <p style={{ textAlign: "left", marginBottom: "1.5rem", fontSize: "16px" }}>
+        <p
+          style={{
+            textAlign: "left",
+            marginBottom: "1.5rem",
+            fontSize: "16px",
+          }}
+        >
           Want to contribute? We're open source! Check us out on{" "}
           <a
             href="https://github.com/Living-Snow-Project/LivingSnowProject"
@@ -197,7 +203,7 @@ function App() {
             style={{
               color: "#2563eb",
               textDecoration: "underline",
-              fontWeight: "500"
+              fontWeight: "500",
             }}
           >
             GitHub
@@ -206,20 +212,24 @@ function App() {
         </p>
 
         <div style={{ marginBottom: "2rem" }}>
-          <h3 style={{
-            fontSize: "18px",
-            fontWeight: "600",
-            marginBottom: "1rem",
-            color: "#374151"
-          }}>
+          <h3
+            style={{
+              fontSize: "18px",
+              fontWeight: "600",
+              marginBottom: "1rem",
+              color: "#374151",
+            }}
+          >
             Next set of features
           </h3>
-          <ul style={{
-            listStyleType: "disc",
-            paddingLeft: "1.5rem",
-            lineHeight: "1.6",
-            color: "#6b7280"
-          }}>
+          <ul
+            style={{
+              listStyleType: "disc",
+              paddingLeft: "1.5rem",
+              lineHeight: "1.6",
+              color: "#6b7280",
+            }}
+          >
             <li>Searching records</li>
             <li>Saving searches (client side only)</li>
             <li>Separate page/route for a record</li>
