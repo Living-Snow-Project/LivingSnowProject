@@ -11,11 +11,12 @@ import "./App.css";
 
 function App() {
   const [records, setRecords] = useState<JSX.Element[]>([]);
+  const [nextToken, setNextToken] = useState<string | null>(null);
   const { accounts, instance } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
-  const fetchRecords = useCallback(() => {
-    RecordsApiV3.getAll()
+  const fetchRecords = useCallback((pageToken?: string) => {
+    RecordsApiV3.get(pageToken)
       .then((response) => {
         const recs = response.data.map((item, index) => (
           <TableRow
@@ -26,9 +27,16 @@ function App() {
           />
         ));
         setRecords(recs);
+        setNextToken(response.meta.next_token || null);
       })
       .catch((error) => console.log(error));
   }, []);
+
+  const handleNextPage = useCallback(() => {
+    if (nextToken) {
+      fetchRecords(nextToken);
+    }
+  }, [nextToken, fetchRecords]);
 
   useEffect(() => {
     fetchRecords();
@@ -167,6 +175,36 @@ function App() {
         </div>
       </header>
       <div className="table-container">
+        {nextToken && (
+          <div className="pagination-controls">
+            <button
+              onClick={handleNextPage}
+              className="next-button"
+              style={{
+                backgroundColor: "transparent",
+                border: "1px solid #ccc",
+                borderRadius: "6px",
+                padding: "8px 16px",
+                fontSize: "14px",
+                fontWeight: "500",
+                cursor: "pointer",
+                color: "#374151",
+                transition: "all 0.2s ease",
+                marginBottom: "1rem",
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = "rgba(0, 0, 0, 0.05)";
+                e.currentTarget.style.borderColor = "#9ca3af";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = "transparent";
+                e.currentTarget.style.borderColor = "#ccc";
+              }}
+            >
+              Next
+            </button>
+          </div>
+        )}
         <table className="modern-table">
           <TableHeader />
           <tbody>{records}</tbody>
