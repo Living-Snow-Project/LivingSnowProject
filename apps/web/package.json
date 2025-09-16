@@ -5,7 +5,7 @@
   "homepage": "https://living-snow-project.github.io/LivingSnowProject/",
   "scripts": {
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production && (cp public/favicon.ico dist/ && cp public/manifest.json dist/) || (copy public\\favicon.ico dist\\. & copy public\\manifest.json dist\\.)",
+    "build": "webpack --mode production && (copy public/favicon.ico dist/ && copy public/manifest.json dist/) || (copy public\\favicon.ico dist\\. & copy public\\manifest.json dist\\.)",
     "deploy": "gh-pages -d dist",
     "test": "echo todo: no tests written against web app yet",
     "clean": "yarn run clean:win",
@@ -14,6 +14,8 @@
     "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules"
   },
   "dependencies": {
+    "@azure/msal-browser": "^4.21.1",
+    "@azure/msal-react": "^3.0.19",
     "@livingsnow/network": "*",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

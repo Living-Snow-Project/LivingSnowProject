@@ -1,17 +1,38 @@
 const photosApi = () => {
-    const blobUrl = "https://snowalgaestorage.blob.core.windows.net";
-    const appPhotosUrl = `${blobUrl}/photos`;
+    const storageUrl = "https://snowalgaestorage.blob.core.windows.net";
+    const appPhotosContainerUrl = `${storageUrl}/photos`;
+    const appPhotoThumbnailsContainerUri = `${storageUrl}/photo-thumbnails`;
     // id = Photo.uri => filename without .jpg extension
-    const getAppPhotoUrl = (id) => `${appPhotosUrl}/${id}.jpg`;
+    const getAppPhotoUrl = (id) => `${appPhotosContainerUrl}/${id}.jpg`;
+    const getAppPhotoThumbnailUrl = (id) => `${appPhotoThumbnailsContainerUri}/${id}_thumb.jpg`;
     // though micrographs are JPG, they are stored in their own blob container
-    const micrographsUrl = `${blobUrl}/micrographs`;
+    const micrographsContainerUrl = `${storageUrl}/micrographs`;
+    const micrographThumbnailsContainerUrl = `${storageUrl}/micrograph-thumbnails`;
     // filename = Micrograph.uri => with .jpg extension
-    const getMicrographUrl = (filename) => `${micrographsUrl}/${filename}`;
+    const getMicrographUrl = (filename) => `${micrographsContainerUrl}/${filename}`;
+    // extract the filename from the URL and add "_thumb" before the file extension
+    const getMicrographThumbnailUrl = (filename) => {
+        const lastSlashIndex = filename.lastIndexOf("/");
+        filename = filename.substring(lastSlashIndex + 1);
+        const dotIndex = filename.lastIndexOf(".");
+        if (dotIndex === -1) {
+            // No extension found, just append "_thumb"
+            return filename + "_thumb.jpg";
+        }
+        const nameWithoutExt = filename.substring(0, dotIndex);
+        const extension = filename.substring(dotIndex);
+        const thumbnailFilename = nameWithoutExt + "_thumb" + extension;
+        return `${micrographThumbnailsContainerUrl}/${filename.substring(0, lastSlashIndex + 1)}${thumbnailFilename}`;
+    };
     return {
-        appPhotosUrl,
+        appPhotosContainerUrl,
+        appPhotoThumbnailsContainerUri,
         getAppPhotoUrl,
-        micrographsUrl,
+        getAppPhotoThumbnailUrl,
+        micrographsContainerUrl,
+        micrographThumbnailsContainerUrl,
         getMicrographUrl,
+        getMicrographThumbnailUrl,
     };
 };
 const PhotosApi = photosApi();
