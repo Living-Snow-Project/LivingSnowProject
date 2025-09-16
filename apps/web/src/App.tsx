@@ -14,6 +14,9 @@ function App() {
   const { accounts, instance } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
+  // Use basename only for production GitHub Pages deployment
+  const basename = process.env.NODE_ENV === 'production' ? '/LivingSnowProject' : undefined;
+
   const getUserInitials = (username: string | undefined) => {
     if (!username) return "";
     const parts = username.split(" ");
@@ -24,7 +27,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router basename={basename}>
       <div className="App">
         <header className="app-header">
           <div className="header-content">
