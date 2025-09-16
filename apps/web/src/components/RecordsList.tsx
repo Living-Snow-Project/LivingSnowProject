@@ -102,9 +102,12 @@ function RecordsList() {
               color: "#6b7280",
             }}
           >
-            <li>Searching records</li>
+            <li>
+              Expanded records search (backend doesn't support pages or result
+              count yet)
+            </li>
             <li>Saving searches (client side only)</li>
-            <li>Separate page/route for a record</li>
+            <li>Interactivity spinners</li>
             <li>(Admins) Deleting records</li>
             <li>(Admins) Modifying records</li>
           </ul>
@@ -147,7 +150,7 @@ function RecordsList() {
           <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
             <input
               type="text"
-              placeholder="User name"
+              placeholder="User name (try Chris Chapin or Robin Kodner)"
               value={userName}
               onChange={handleUserNameChange}
               maxLength={50}
