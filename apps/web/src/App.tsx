@@ -12,11 +12,13 @@ import "./App.css";
 function App() {
   const [records, setRecords] = useState<JSX.Element[]>([]);
   const [nextToken, setNextToken] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string>("");
+  const [currentUser, setCurrentUser] = useState<string | undefined>(undefined);
   const { accounts, instance } = useMsal();
   const isAuthenticated = useIsAuthenticated();
 
-  const fetchRecords = useCallback((pageToken?: string) => {
-    RecordsApiV3.get(pageToken)
+  const fetchRecords = useCallback((pageToken?: string, user?: string) => {
+    RecordsApiV3.get(pageToken, user)
       .then((response) => {
         const recs = response.data.map((item, index) => (
           <TableRow
@@ -34,9 +36,25 @@ function App() {
 
   const handleNextPage = useCallback(() => {
     if (nextToken) {
-      fetchRecords(nextToken);
+      fetchRecords(nextToken, currentUser);
     }
-  }, [nextToken, fetchRecords]);
+  }, [nextToken, currentUser, fetchRecords]);
+
+  const handleSearch = useCallback(() => {
+    const searchUser = userName.trim();
+    setCurrentUser(searchUser || undefined);
+    fetchRecords(undefined, searchUser || undefined);
+  }, [userName, fetchRecords]);
+
+  const handleUserNameChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      if (value.length <= 50) {
+        setUserName(value);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     fetchRecords();
@@ -270,6 +288,62 @@ function App() {
             </button>
           </div>
         )}
+
+        <div className="search-controls" style={{ marginBottom: "1rem" }}>
+          <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+            <input
+              type="text"
+              placeholder="User name"
+              value={userName}
+              onChange={handleUserNameChange}
+              maxLength={50}
+              style={{
+                border: "1px solid #ccc",
+                borderRadius: "6px",
+                padding: "8px 12px",
+                fontSize: "14px",
+                color: "#374151",
+                backgroundColor: "white",
+                transition: "all 0.2s ease",
+                minWidth: "200px",
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = "#2563eb";
+                e.currentTarget.style.outline = "none";
+                e.currentTarget.style.boxShadow =
+                  "0 0 0 2px rgba(37, 99, 235, 0.1)";
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = "#ccc";
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            />
+            <button
+              onClick={handleSearch}
+              style={{
+                backgroundColor: "#2563eb",
+                color: "white",
+                border: "1px solid #2563eb",
+                borderRadius: "6px",
+                padding: "8px 16px",
+                fontSize: "14px",
+                fontWeight: "500",
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.backgroundColor = "#1d4ed8";
+                e.currentTarget.style.borderColor = "#1d4ed8";
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.backgroundColor = "#2563eb";
+                e.currentTarget.style.borderColor = "#2563eb";
+              }}
+            >
+              Search
+            </button>
+          </div>
+        </div>
         <table className="modern-table">
           <TableHeader />
           <tbody>{records}</tbody>

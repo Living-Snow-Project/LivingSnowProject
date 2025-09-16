@@ -1,6 +1,6 @@
 declare const PhotosApi: {
     appPhotosContainerUrl: string;
-    appPhotoThumbnailsContainerUri: string;
+    appPhotoThumbnailsContainerUrl: string;
     getAppPhotoUrl: (id: string) => string;
     getAppPhotoThumbnailUrl: (id: string) => string;
     micrographsContainerUrl: string;
