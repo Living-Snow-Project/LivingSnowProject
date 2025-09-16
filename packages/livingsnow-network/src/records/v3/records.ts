@@ -1,7 +1,7 @@
 import Logger from "@livingsnow/logger";
 import { AlgaeRecordV3, jsonToRecord } from "@livingsnow/record";
 
-import { AlgaeRecordResponseV3 } from "./types";
+import { AlgaeRecordResponseV3, DataResponseV3 } from "./types";
 
 function dumpRecord(record: AlgaeRecordV3): void {
   Logger.Info(
@@ -161,6 +161,21 @@ const recordsApiV3 = () => {
             ? response
                 .text()
                 .then((text) => jsonToRecord<AlgaeRecordResponseV3>(text))
+            : Promise.reject(response),
+        )
+        .catch((error) => Promise.reject(failedFetch(operation, error)));
+    },
+
+    // rejects with an error string or the response object
+    getById: async (id: string): Promise<DataResponseV3> => {
+      const operation = "get";
+
+      Logger.Info(`Handling GET Request: ${baseUrl}/${id}`);
+
+      return fetch(`${baseUrl}/${id}`)
+        .then((response) =>
+          response.ok
+            ? response.text().then((text) => jsonToRecord<DataResponseV3>(text))
             : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));

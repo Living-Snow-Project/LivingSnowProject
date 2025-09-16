@@ -1,0 +1,456 @@
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { AlgaeRecordV3 } from "@livingsnow/record";
+import { RecordsApiV3, PhotosResponseV2, PhotosApi } from "@livingsnow/network";
+
+function RecordDetail() {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const [record, setRecord] = useState<AlgaeRecordV3 | null>(null);
+  const [photos, setPhotos] = useState<PhotosResponseV2 | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!id) {
+      setError("No record ID provided");
+      setLoading(false);
+      return;
+    }
+
+    const fetchRecord = async () => {
+      try {
+        setLoading(true);
+
+        const response = await RecordsApiV3.getById(id);
+
+        setRecord(response);
+        setPhotos(response.photos);
+      } catch (err) {
+        setError("Failed to fetch record");
+        console.error("Error fetching record:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecord();
+  }, [id]);
+
+  const formatDate = (date: Date) => {
+    return new Date(date).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  const renderImages = () => {
+    if (!photos) return null;
+
+    return (
+      <div style={{ marginBottom: "24px" }}>
+        <h3
+          style={{
+            marginBottom: "16px",
+            color: "#374151",
+            fontSize: "18px",
+            fontWeight: "600",
+          }}
+        >
+          Images
+        </h3>
+
+        {/* Photos Section */}
+        {photos.appPhotos && photos.appPhotos.length > 0 && (
+          <div style={{ marginBottom: "20px" }}>
+            <h4
+              style={{
+                marginBottom: "12px",
+                color: "#6b7280",
+                fontSize: "16px",
+                fontWeight: "500",
+              }}
+            >
+              Photos
+            </h4>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
+              {photos.appPhotos.map((item, index) => {
+                const fullImageUrl = PhotosApi.getAppPhotoUrl(item.uri);
+                const thumbnailUrl = PhotosApi.getAppPhotoThumbnailUrl(
+                  item.uri,
+                );
+                return (
+                  <img
+                    key={index}
+                    src={thumbnailUrl}
+                    alt={`Photo ${index + 1}`}
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                      borderRadius: "8px",
+                      border: "2px solid #e5e7eb",
+                      transition: "all 0.2s ease",
+                    }}
+                    onClick={() => window.open(fullImageUrl, "_blank")}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.borderColor = "#3b82f6";
+                      e.currentTarget.style.transform = "scale(1.05)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.borderColor = "#e5e7eb";
+                      e.currentTarget.style.transform = "scale(1)";
+                    }}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Micrographs Section */}
+        {photos.micrographs && photos.micrographs.length > 0 && (
+          <div>
+            <h4
+              style={{
+                marginBottom: "12px",
+                color: "#6b7280",
+                fontSize: "16px",
+                fontWeight: "500",
+              }}
+            >
+              Micrographs
+            </h4>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
+              {photos.micrographs.map((item, index) => {
+                const fullImageUrl = PhotosApi.getMicrographUrl(item.uri);
+                const thumbnailUrl = PhotosApi.getMicrographThumbnailUrl(
+                  item.uri,
+                );
+                return (
+                  <img
+                    key={index}
+                    src={thumbnailUrl}
+                    alt={`Micrograph ${index + 1}`}
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                      borderRadius: "8px",
+                      border: "2px solid #e5e7eb",
+                      transition: "all 0.2s ease",
+                    }}
+                    onClick={() => window.open(fullImageUrl, "_blank")}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.borderColor = "#3b82f6";
+                      e.currentTarget.style.transform = "scale(1.05)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.borderColor = "#e5e7eb";
+                      e.currentTarget.style.transform = "scale(1)";
+                    }}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {(!photos.appPhotos || photos.appPhotos.length === 0) &&
+          (!photos.micrographs || photos.micrographs.length === 0) && (
+            <p style={{ color: "#6b7280", fontStyle: "italic" }}>
+              No images available
+            </p>
+          )}
+      </div>
+    );
+  };
+
+  const renderField = (
+    label: string,
+    value: any,
+    type: "text" | "textarea" = "text",
+  ) => {
+    const displayValue =
+      value !== null && value !== undefined ? String(value) : "";
+
+    return (
+      <div style={{ marginBottom: "16px" }}>
+        <label
+          style={{
+            display: "block",
+            marginBottom: "6px",
+            fontWeight: "500",
+            color: "#374151",
+            fontSize: "14px",
+          }}
+        >
+          {label}
+        </label>
+        {type === "textarea" ? (
+          <textarea
+            value={displayValue}
+            readOnly
+            style={{
+              width: "100%",
+              padding: "12px",
+              border: "1px solid #d1d5db",
+              borderRadius: "6px",
+              backgroundColor: "#f9fafb",
+              color: "#374151",
+              fontSize: "14px",
+              resize: "none",
+              minHeight: "80px",
+              fontFamily: "inherit",
+            }}
+          />
+        ) : (
+          <input
+            type="text"
+            value={displayValue}
+            readOnly
+            style={{
+              width: "100%",
+              padding: "12px",
+              border: "1px solid #d1d5db",
+              borderRadius: "6px",
+              backgroundColor: "#f9fafb",
+              color: "#374151",
+              fontSize: "14px",
+            }}
+          />
+        )}
+      </div>
+    );
+  };
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "400px",
+          fontSize: "16px",
+          color: "#6b7280",
+        }}
+      >
+        Loading record...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "400px",
+          gap: "16px",
+        }}
+      >
+        <p style={{ fontSize: "16px", color: "#dc2626" }}>{error}</p>
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            padding: "12px 24px",
+            backgroundColor: "#3b82f6",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            fontSize: "14px",
+            fontWeight: "500",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = "#2563eb";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = "#3b82f6";
+          }}
+        >
+          Back to Records
+        </button>
+      </div>
+    );
+  }
+
+  if (!record) {
+    return null;
+  }
+
+  return (
+    <div
+      style={{
+        maxWidth: "800px",
+        margin: "0 auto",
+        padding: "24px",
+        backgroundColor: "white",
+        minHeight: "100vh",
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "32px",
+          paddingBottom: "16px",
+          borderBottom: "2px solid #e5e7eb",
+        }}
+      >
+        <h1
+          style={{
+            fontSize: "28px",
+            fontWeight: "700",
+            color: "#1f2937",
+            margin: 0,
+          }}
+        >
+          Record Details
+        </h1>
+        <button
+          onClick={() => navigate("/")}
+          style={{
+            padding: "10px 20px",
+            backgroundColor: "#6b7280",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            fontSize: "14px",
+            fontWeight: "500",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = "#4b5563";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = "#6b7280";
+          }}
+        >
+          Back to Records
+        </button>
+      </div>
+
+      {/* Images */}
+      {renderImages()}
+
+      {/* Record Data Fields */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "24px",
+          marginBottom: "24px",
+        }}
+      >
+        <div>
+          <h3
+            style={{
+              marginBottom: "16px",
+              color: "#374151",
+              fontSize: "18px",
+              fontWeight: "600",
+            }}
+          >
+            Basic Information
+          </h3>
+          {renderField("Record ID", record.id)}
+          {renderField("Date", formatDate(record.date))}
+          {renderField("Researcher Name", record.name)}
+          {renderField("Organization", record.organization)}
+          {renderField("Type", record.type)}
+          {record.type !== "Sighting" && renderField("Tube ID", record.tubeId)}
+        </div>
+
+        <div>
+          <h3
+            style={{
+              marginBottom: "16px",
+              color: "#374151",
+              fontSize: "18px",
+              fontWeight: "600",
+            }}
+          >
+            Location & Characteristics
+          </h3>
+          {renderField("Latitude", record.latitude?.toFixed(6))}
+          {renderField("Longitude", record.longitude?.toFixed(6))}
+          {renderField("Size", record.size)}
+          {renderField("Colors", record.colors?.join(", "))}
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "24px",
+          marginBottom: "24px",
+        }}
+      >
+        <div>
+          <h3
+            style={{
+              marginBottom: "16px",
+              color: "#374151",
+              fontSize: "18px",
+              fontWeight: "600",
+            }}
+          >
+            Environmental Conditions
+          </h3>
+          {record.isOnGlacier !== undefined &&
+            renderField("On Glacier", record.isOnGlacier ? "Yes" : "No")}
+          {record.seeExposedIceOrWhatIsUnderSnowpack &&
+            renderField(
+              record.isOnGlacier
+                ? "See Exposed Ice?"
+                : "What is Under Snowpack?",
+              record.seeExposedIceOrWhatIsUnderSnowpack,
+            )}
+          {record.snowpackDepth &&
+            renderField("Snowpack Depth", record.snowpackDepth)}
+          {record.bloomDepth && renderField("Bloom Depth", record.bloomDepth)}
+          {record.impurities &&
+            record.impurities.length > 0 &&
+            renderField("Impurities", record.impurities.join(", "))}
+        </div>
+
+        <div>
+          <h3
+            style={{
+              marginBottom: "16px",
+              color: "#374151",
+              fontSize: "18px",
+              fontWeight: "600",
+            }}
+          >
+            Additional Information
+          </h3>
+          {record.locationDescription &&
+            renderField(
+              "Location Description",
+              record.locationDescription,
+              "textarea",
+            )}
+          {record.notes && renderField("Notes", record.notes, "textarea")}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default RecordDetail;

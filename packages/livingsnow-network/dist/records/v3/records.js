@@ -128,6 +128,16 @@ const recordsApiV3 = () => {
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
         // rejects with an error string or the response object
+        getById: (id) => __awaiter(void 0, void 0, void 0, function* () {
+            const operation = "get";
+            Logger.Info(`Handling GET Request: ${baseUrl}/${id}`);
+            return fetch(`${baseUrl}/${id}`)
+                .then((response) => response.ok
+                ? response.text().then((text) => jsonToRecord(text))
+                : Promise.reject(response))
+                .catch((error) => Promise.reject(failedFetch(operation, error)));
+        }),
+        // rejects with an error string or the response object
         getAll: () => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "getAll";
             Logger.Info(`Handling GET All Records Request: ${baseUrl}`);
