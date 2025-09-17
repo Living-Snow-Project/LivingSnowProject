@@ -3,6 +3,7 @@ declare const PhotosApi: {
     appPhotoThumbnailsContainerUrl: string;
     getAppPhotoUrl: (id: string) => string;
     getAppPhotoThumbnailUrl: (id: string) => string;
+    deletePhoto: (id: string, accessToken: string) => Promise<Response>;
     micrographsContainerUrl: string;
     micrographThumbnailsContainerUrl: string;
     getMicrographUrl: (filename: string) => string;

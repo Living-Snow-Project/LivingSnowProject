@@ -1,15 +1,73 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 import { AlgaeRecordV3 } from "@livingsnow/record";
 import { RecordsApiV3, PhotosResponseV2, PhotosApi } from "@livingsnow/network";
+import { getAccessToken } from "../index";
 
 function RecordDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { accounts } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
   const [record, setRecord] = useState<AlgaeRecordV3 | null>(null);
   const [photos, setPhotos] = useState<PhotosResponseV2 | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Check if user has admin role
+  const isAdmin = () => {
+    if (!isAuthenticated || !accounts[0]) return false;
+    const roles = accounts[0].idTokenClaims?.roles;
+    return Array.isArray(roles) && roles.includes("LivingSnowProject.Admin");
+  };
+
+  // Handle photo deletion
+  // TODO: this is not correct for handling micrographs, which will almost never be deleted most likely
+  // for now I just deleted the ability to delete micrographs from those jpegs
+  const handleDeletePhoto = async (
+    photoId: string,
+    photoType: "appPhotos" | "micrographs",
+  ) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this photo? This action cannot be undone.",
+    );
+
+    if (!confirmed) return;
+
+    try {
+      const accessToken = await getAccessToken();
+      const response = await PhotosApi.deletePhoto(photoId, accessToken);
+
+      if (response.ok) {
+        // Remove the photo from the local state
+        setPhotos((currentPhotos) => {
+          if (!currentPhotos) return null;
+
+          const updatedPhotos = { ...currentPhotos };
+          if (photoType === "appPhotos") {
+            updatedPhotos.appPhotos =
+              updatedPhotos.appPhotos?.filter(
+                (photo) => photo.uri !== photoId,
+              ) || [];
+          } else {
+            updatedPhotos.micrographs =
+              updatedPhotos.micrographs?.filter(
+                (photo) => photo.uri !== photoId,
+              ) || [];
+          }
+          return updatedPhotos;
+        });
+
+        alert("Photo deleted successfully");
+      } else {
+        throw new Error(`Failed to delete photo: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error deleting photo:", error);
+      alert("Failed to delete photo. Please try again.");
+    }
+  };
 
   useEffect(() => {
     if (!id) {
@@ -83,29 +141,63 @@ function RecordDetail() {
                   item.uri,
                 );
                 return (
-                  <img
+                  <div
                     key={index}
-                    src={thumbnailUrl}
-                    alt={`Photo ${index + 1}`}
-                    style={{
-                      width: "120px",
-                      height: "120px",
-                      objectFit: "cover",
-                      cursor: "pointer",
-                      borderRadius: "8px",
-                      border: "2px solid #e5e7eb",
-                      transition: "all 0.2s ease",
-                    }}
-                    onClick={() => window.open(fullImageUrl, "_blank")}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.borderColor = "#3b82f6";
-                      e.currentTarget.style.transform = "scale(1.05)";
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.borderColor = "#e5e7eb";
-                      e.currentTarget.style.transform = "scale(1)";
-                    }}
-                  />
+                    style={{ position: "relative", display: "inline-block" }}
+                  >
+                    <img
+                      src={thumbnailUrl}
+                      alt={`Photo ${index + 1}`}
+                      style={{
+                        width: "120px",
+                        height: "120px",
+                        objectFit: "cover",
+                        cursor: "pointer",
+                        borderRadius: "8px",
+                        border: "2px solid #e5e7eb",
+                        transition: "all 0.2s ease",
+                      }}
+                      onClick={() => window.open(fullImageUrl, "_blank")}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.borderColor = "#3b82f6";
+                        e.currentTarget.style.transform = "scale(1.05)";
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.borderColor = "#e5e7eb";
+                        e.currentTarget.style.transform = "scale(1)";
+                      }}
+                    />
+                    {isAdmin() && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeletePhoto(item.uri, "appPhotos");
+                        }}
+                        style={{
+                          position: "absolute",
+                          bottom: "4px",
+                          right: "4px",
+                          backgroundColor: "#dc2626",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "4px",
+                          padding: "4px 8px",
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.backgroundColor = "#b91c1c";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.backgroundColor = "#dc2626";
+                        }}
+                      >
+                        Delete
+                      </button>
+                    )}
+                  </div>
                 );
               })}
             </div>
@@ -132,29 +224,33 @@ function RecordDetail() {
                   item.uri,
                 );
                 return (
-                  <img
+                  <div
                     key={index}
-                    src={thumbnailUrl}
-                    alt={`Micrograph ${index + 1}`}
-                    style={{
-                      width: "120px",
-                      height: "120px",
-                      objectFit: "cover",
-                      cursor: "pointer",
-                      borderRadius: "8px",
-                      border: "2px solid #e5e7eb",
-                      transition: "all 0.2s ease",
-                    }}
-                    onClick={() => window.open(fullImageUrl, "_blank")}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.borderColor = "#3b82f6";
-                      e.currentTarget.style.transform = "scale(1.05)";
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.borderColor = "#e5e7eb";
-                      e.currentTarget.style.transform = "scale(1)";
-                    }}
-                  />
+                    style={{ position: "relative", display: "inline-block" }}
+                  >
+                    <img
+                      src={thumbnailUrl}
+                      alt={`Micrograph ${index + 1}`}
+                      style={{
+                        width: "120px",
+                        height: "120px",
+                        objectFit: "cover",
+                        cursor: "pointer",
+                        borderRadius: "8px",
+                        border: "2px solid #e5e7eb",
+                        transition: "all 0.2s ease",
+                      }}
+                      onClick={() => window.open(fullImageUrl, "_blank")}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.borderColor = "#3b82f6";
+                        e.currentTarget.style.transform = "scale(1.05)";
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.borderColor = "#e5e7eb";
+                        e.currentTarget.style.transform = "scale(1)";
+                      }}
+                    />
+                  </div>
                 );
               })}
             </div>

@@ -15,7 +15,8 @@ function App() {
   const isAuthenticated = useIsAuthenticated();
 
   // Use basename only for production GitHub Pages deployment
-  const basename = process.env.NODE_ENV === 'production' ? '/LivingSnowProject' : undefined;
+  const basename =
+    process.env.NODE_ENV === "production" ? "/LivingSnowProject" : undefined;
 
   const getUserInitials = (username: string | undefined) => {
     if (!username) return "";
