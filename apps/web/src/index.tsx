@@ -3,8 +3,9 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { AccountInfo, PublicClientApplication } from "@azure/msal-browser";
+import { PublicClientApplication } from "@azure/msal-browser";
 import { MsalProvider } from "@azure/msal-react";
+import TokenManager from "./services/tokenManager";
 
 // Configuration object constructed.
 const msalConfig = {
@@ -16,24 +17,13 @@ const msalConfig = {
 };
 
 const msalInstance = new PublicClientApplication(msalConfig);
+const tokenManager = new TokenManager(msalInstance);
 
 const getAccessToken = async () => {
-  const tokenRequest = {
-    scopes: ["api://2e007b80-946b-4296-8831-91a95e0b992c/access_as_user"],
-    account: msalInstance.getActiveAccount() as AccountInfo,
-  };
-
-  try {
-    const response = await msalInstance.acquireTokenSilent(tokenRequest);
-    return response.accessToken;
-  } catch (error) {
-    // Fallback to interactive
-    const response = await msalInstance.acquireTokenPopup(tokenRequest);
-    return response.accessToken;
-  }
+  return await tokenManager.getAccessToken();
 };
 
-export { getAccessToken };
+export { getAccessToken, tokenManager };
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,

@@ -74,9 +74,16 @@ const removeEmptyFields = (record) => {
 };
 const recordsApiV3 = () => {
     const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v3/records`;
-    const getUrl = (page) => page
-        ? `${baseUrl}?limit=20&pagination_token=${page}`
-        : `${baseUrl}?limit=20`;
+    const getUrl = (page, user) => {
+        let result = `${baseUrl}?limit=20`;
+        if (page) {
+            result = `${result}&pagination_token=${page}`;
+        }
+        if (user) {
+            result = `${result}&user_name=${user}`;
+        }
+        return result;
+    };
     const postUrl = baseUrl;
     // v3/photos take a Request-Id header (to prevent duplicate photo uploads on bad cell reception)
     const postPhotoUrl = (recordId) => `https://snowalgaeproductionapp.azurewebsites.net/api/v3/records/${recordId}/photo`;
@@ -109,14 +116,24 @@ const recordsApiV3 = () => {
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
         // rejects with an error string or the response object
-        get: (page) => __awaiter(void 0, void 0, void 0, function* () {
+        get: (page, user) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "get";
             Logger.Info(`Handling GET Request: ${getUrl(page)}`);
-            return fetch(getUrl(page))
+            return fetch(getUrl(page, user))
                 .then((response) => response.ok
                 ? response
                     .text()
                     .then((text) => jsonToRecord(text))
+                : Promise.reject(response))
+                .catch((error) => Promise.reject(failedFetch(operation, error)));
+        }),
+        // rejects with an error string or the response object
+        getById: (id) => __awaiter(void 0, void 0, void 0, function* () {
+            const operation = "get";
+            Logger.Info(`Handling GET Request: ${baseUrl}/${id}`);
+            return fetch(`${baseUrl}/${id}`)
+                .then((response) => response.ok
+                ? response.text().then((text) => jsonToRecord(text))
                 : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
@@ -132,6 +149,15 @@ const recordsApiV3 = () => {
                 : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
+        // TODO: only supports "v1" endpoint
+        deleteRecord: (id, accessToken) => {
+            return fetch(`https://snowalgaeproductionapp.azurewebsites.net/api/records/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        },
         // rejects with an error string or the response object
         postPhoto: (recordId, photoUri, requestId) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "postPhoto";

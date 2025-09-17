@@ -129,6 +129,7 @@ type TableRowProps = {
   item: AlgaeRecordV3;
   photos: PhotosResponseV2;
   dnaSequence?: string;
+  onClick?: () => void;
   // onUploadSuccess: () => void;
 };
 
@@ -136,6 +137,7 @@ function TableRow({
   item,
   photos,
   dnaSequence,
+  onClick,
   // onUploadSuccess,
 }: TableRowProps) {
   // const [file, setFile] = useState<File | null>(null);
@@ -280,7 +282,22 @@ function TableRow({
   };
 
   return (
-    <tr className="table-row">
+    <tr
+      className="table-row"
+      onClick={onClick}
+      style={{
+        cursor: onClick ? "pointer" : "default",
+        transition: "background-color 0.2s ease",
+      }}
+      onMouseOver={(e) => {
+        if (onClick) {
+          e.currentTarget.style.backgroundColor = "rgba(59, 130, 246, 0.05)";
+        }
+      }}
+      onMouseOut={(e) => {
+        e.currentTarget.style.backgroundColor = "transparent";
+      }}
+    >
       <td className="summary-cell">{renderSummary()}</td>
       <td className="environmental-details-cell">
         {renderEnvironmentalDetails()}

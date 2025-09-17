@@ -17,8 +17,10 @@
     "@azure/msal-browser": "^4.21.1",
     "@azure/msal-react": "^3.0.19",
     "@livingsnow/network": "*",
+    "@types/react-router-dom": "^5.3.3",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.9.1"
   },
   "devDependencies": {
     "@babel/core": "^7.28.3",

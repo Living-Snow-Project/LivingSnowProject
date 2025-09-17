@@ -1,6 +1,7 @@
 // TODO: this should all be ImagesApi or Micrograph should have its own API
 const photosApi = () => {
   const storageUrl = "https://snowalgaestorage.blob.core.windows.net";
+  const baseApiUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/photos`;
 
   const appPhotosContainerUrl = `${storageUrl}/photos`;
   const appPhotoThumbnailsContainerUrl = `${storageUrl}/photo-thumbnails`;
@@ -8,6 +9,15 @@ const photosApi = () => {
   const getAppPhotoUrl = (id: string) => `${appPhotosContainerUrl}/${id}.jpg`;
   const getAppPhotoThumbnailUrl = (id: string) =>
     `${appPhotoThumbnailsContainerUrl}/${id}_thumb.jpg`;
+
+  const deletePhoto = (id: string, accessToken: string): Promise<Response> => {
+    return fetch(`${baseApiUrl}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  };
 
   // though micrographs are JPG, they are stored in their own blob container
   const micrographsContainerUrl = `${storageUrl}/micrographs`;
@@ -40,6 +50,7 @@ const photosApi = () => {
     appPhotoThumbnailsContainerUrl,
     getAppPhotoUrl,
     getAppPhotoThumbnailUrl,
+    deletePhoto,
     micrographsContainerUrl,
     micrographThumbnailsContainerUrl,
     getMicrographUrl,

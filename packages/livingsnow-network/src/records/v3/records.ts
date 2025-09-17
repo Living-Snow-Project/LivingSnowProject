@@ -1,7 +1,7 @@
 import Logger from "@livingsnow/logger";
 import { AlgaeRecordV3, jsonToRecord } from "@livingsnow/record";
 
-import { AlgaeRecordResponseV3 } from "./types";
+import { AlgaeRecordResponseV3, DataResponseV3 } from "./types";
 
 function dumpRecord(record: AlgaeRecordV3): void {
   Logger.Info(
@@ -90,10 +90,20 @@ const removeEmptyFields = (record: AlgaeRecordV3): AlgaeRecordV3 => {
 
 const recordsApiV3 = () => {
   const baseUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/v3/records`;
-  const getUrl = (page?: string) =>
-    page
-      ? `${baseUrl}?limit=20&pagination_token=${page}`
-      : `${baseUrl}?limit=20`;
+  const getUrl = (page?: string, user?: string) => {
+    let result = `${baseUrl}?limit=20`;
+
+    if (page) {
+      result = `${result}&pagination_token=${page}`;
+    }
+
+    if (user) {
+      result = `${result}&user_name=${user}`;
+    }
+
+    return result;
+  };
+
   const postUrl = baseUrl;
   // v3/photos take a Request-Id header (to prevent duplicate photo uploads on bad cell reception)
   const postPhotoUrl = (recordId: string) =>
@@ -137,17 +147,35 @@ const recordsApiV3 = () => {
     },
 
     // rejects with an error string or the response object
-    get: async (page?: string): Promise<AlgaeRecordResponseV3> => {
+    get: async (
+      page?: string,
+      user?: string,
+    ): Promise<AlgaeRecordResponseV3> => {
       const operation = "get";
 
       Logger.Info(`Handling GET Request: ${getUrl(page)}`);
 
-      return fetch(getUrl(page))
+      return fetch(getUrl(page, user))
         .then((response) =>
           response.ok
             ? response
                 .text()
                 .then((text) => jsonToRecord<AlgaeRecordResponseV3>(text))
+            : Promise.reject(response),
+        )
+        .catch((error) => Promise.reject(failedFetch(operation, error)));
+    },
+
+    // rejects with an error string or the response object
+    getById: async (id: string): Promise<DataResponseV3> => {
+      const operation = "get";
+
+      Logger.Info(`Handling GET Request: ${baseUrl}/${id}`);
+
+      return fetch(`${baseUrl}/${id}`)
+        .then((response) =>
+          response.ok
+            ? response.text().then((text) => jsonToRecord<DataResponseV3>(text))
             : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
@@ -168,6 +196,15 @@ const recordsApiV3 = () => {
             : Promise.reject(response),
         )
         .catch((error) => Promise.reject(failedFetch(operation, error)));
+    },
+
+    deleteRecord: (id: string, accessToken: string): Promise<Response> => {
+      return fetch(`${baseUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
     },
 
     // rejects with an error string or the response object
