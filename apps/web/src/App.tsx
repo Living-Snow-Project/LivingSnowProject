@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   useMsal,
@@ -8,6 +8,7 @@ import {
 } from "@azure/msal-react";
 import RecordsList from "./components/RecordsList";
 import RecordDetail from "./components/RecordDetail";
+import { tokenManager } from "./index";
 import "./App.css";
 
 function App() {
@@ -17,6 +18,22 @@ function App() {
   // Use basename only for production GitHub Pages deployment
   const basename =
     process.env.NODE_ENV === "production" ? "/LivingSnowProject" : undefined;
+
+  // Manage token lifecycle
+  useEffect(() => {
+    if (isAuthenticated && accounts[0]) {
+      // Start token management when user is authenticated
+      tokenManager.startTokenManagement(accounts[0]);
+    } else {
+      // Stop token management when user is not authenticated
+      tokenManager.stopTokenManagement();
+    }
+
+    // Cleanup on unmount
+    return () => {
+      tokenManager.stopTokenManagement();
+    };
+  }, [isAuthenticated, accounts]);
 
   const getUserInitials = (username: string | undefined) => {
     if (!username) return "";

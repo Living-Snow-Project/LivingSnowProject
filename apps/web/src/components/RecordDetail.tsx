@@ -36,6 +36,7 @@ function RecordDetail() {
     if (!confirmed) return;
 
     try {
+      // Token is now cached and automatically managed
       const accessToken = await getAccessToken();
       const response = await PhotosApi.deletePhoto(photoId, accessToken);
 
