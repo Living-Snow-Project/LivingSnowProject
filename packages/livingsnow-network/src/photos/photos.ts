@@ -14,7 +14,6 @@ const photosApi = () => {
     return fetch(`${baseApiUrl}/${id}`, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`,
       },
     });

@@ -149,6 +149,15 @@ const recordsApiV3 = () => {
                 : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
+        // TODO: only supports "v1" endpoint
+        deleteRecord: (id, accessToken) => {
+            return fetch(`https://snowalgaeproductionapp.azurewebsites.net/api/records/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+        },
         // rejects with an error string or the response object
         postPhoto: (recordId, photoUri, requestId) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "postPhoto";

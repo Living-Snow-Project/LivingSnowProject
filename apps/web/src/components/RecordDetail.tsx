@@ -70,6 +70,31 @@ function RecordDetail() {
     }
   };
 
+  // Handle record deletion
+  const handleDeleteRecord = async () => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this entire record? This action cannot be undone and will delete all associated photos.",
+    );
+
+    if (!confirmed) return;
+
+    try {
+      // Token is now cached and automatically managed
+      const accessToken = await getAccessToken();
+      const response = await RecordsApiV3.deleteRecord(record!.id, accessToken);
+
+      if (response.ok) {
+        alert("Record deleted successfully");
+        navigate("/"); // Navigate back to records list
+      } else {
+        throw new Error(`Failed to delete record: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Error deleting record:", error);
+      alert("Failed to delete record. Please try again.");
+    }
+  };
+
   useEffect(() => {
     if (!id) {
       setError("No record ID provided");
@@ -440,6 +465,34 @@ function RecordDetail() {
           Back to Records
         </button>
       </div>
+
+      {/* Delete Record Button */}
+      {isAdmin() && (
+        <div style={{ marginBottom: "24px" }}>
+          <button
+            onClick={handleDeleteRecord}
+            style={{
+              padding: "12px 24px",
+              backgroundColor: "#dc2626",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              fontSize: "14px",
+              fontWeight: "500",
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = "#b91c1c";
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = "#dc2626";
+            }}
+          >
+            Delete Record
+          </button>
+        </div>
+      )}
 
       {/* Images */}
       {renderImages()}

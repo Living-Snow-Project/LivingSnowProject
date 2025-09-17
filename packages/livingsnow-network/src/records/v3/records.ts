@@ -198,6 +198,15 @@ const recordsApiV3 = () => {
         .catch((error) => Promise.reject(failedFetch(operation, error)));
     },
 
+    deleteRecord: (id: string, accessToken: string): Promise<Response> => {
+      return fetch(`${baseUrl}/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+    },
+
     // rejects with an error string or the response object
     postPhoto: async (
       recordId: string,

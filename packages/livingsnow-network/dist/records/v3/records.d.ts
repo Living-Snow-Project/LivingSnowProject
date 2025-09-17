@@ -9,6 +9,7 @@ declare const RecordsApiV3: {
     get: (page?: string, user?: string) => Promise<AlgaeRecordResponseV3>;
     getById: (id: string) => Promise<DataResponseV3>;
     getAll: () => Promise<AlgaeRecordResponseV3>;
+    deleteRecord: (id: string, accessToken: string) => Promise<Response>;
     postPhoto: (recordId: string, photoUri: string, requestId: string) => Promise<void>;
     postMicrograph: (recordId: string, micrographFile: File) => Promise<void>;
 };
