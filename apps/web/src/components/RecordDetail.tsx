@@ -14,8 +14,9 @@ function RecordDetail() {
   const [photos, setPhotos] = useState<PhotosResponseV2 | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [uploadFiles, setUploadFiles] = useState<File[]>([]);
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Check if user has admin role
@@ -25,15 +26,14 @@ function RecordDetail() {
     return Array.isArray(roles) && roles.includes("LivingSnowProject.Admin");
   };
 
-  // Handle photo deletion
-  // TODO: this is not correct for handling micrographs, which will almost never be deleted most likely
-  // for now I just deleted the ability to delete micrographs from those jpegs
+  // Handle photo/micrograph deletion
   const handleDeletePhoto = async (
     photoId: string,
     photoType: "appPhotos" | "micrographs",
   ) => {
+    const itemType = photoType === "appPhotos" ? "photo" : "micrograph";
     const confirmed = window.confirm(
-      "Are you sure you want to delete this photo? This action cannot be undone.",
+      `Are you sure you want to delete this ${itemType}? This action cannot be undone.`,
     );
 
     if (!confirmed) return;
@@ -41,7 +41,12 @@ function RecordDetail() {
     try {
       // Token is now cached and automatically managed
       const accessToken = await getAccessToken();
-      const response = await PhotosApi.deletePhoto(photoId, accessToken);
+
+      // Use the appropriate API based on the type
+      const response =
+        photoType === "appPhotos"
+          ? await PhotosApi.deletePhoto(photoId, accessToken)
+          : await PhotosApi.deleteMicrograph(photoId, accessToken);
 
       if (response.ok) {
         // Remove the photo from the local state
@@ -57,19 +62,21 @@ function RecordDetail() {
           } else {
             updatedPhotos.micrographs =
               updatedPhotos.micrographs?.filter(
-                (photo) => photo.uri !== photoId,
+                (photo) => `${photo.micrographId}` !== photoId,
               ) || [];
           }
           return updatedPhotos;
         });
 
-        alert("Photo deleted successfully");
+        alert(
+          `${itemType.charAt(0).toUpperCase() + itemType.slice(1)} deleted successfully`,
+        );
       } else {
-        throw new Error(`Failed to delete photo: ${response.status}`);
+        throw new Error(`Failed to delete ${itemType}: ${response.status}`);
       }
     } catch (error) {
-      console.error("Error deleting photo:", error);
-      alert("Failed to delete photo. Please try again.");
+      console.error(`Error deleting ${itemType}:`, error);
+      alert(`Failed to delete ${itemType}. Please try again.`);
     }
   };
 
@@ -100,35 +107,61 @@ function RecordDetail() {
 
   // Handle file selection for micrograph upload
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      setUploadFile(event.target.files[0]);
+    if (event.target.files && event.target.files.length > 0) {
+      const files = Array.from(event.target.files);
+      setUploadFiles(files);
     }
   };
 
   // Handle micrograph upload
-  const handleUploadMicrograph = async () => {
-    if (!uploadFile || !record) return;
+  const handleUploadMicrographs = async () => {
+    if (uploadFiles.length === 0 || !record) return;
 
     setUploading(true);
-    try {
-      await RecordsApiV3.postMicrograph(record.id, uploadFile);
+    let successCount = 0;
+    let failedFiles: string[] = [];
 
-      // Refresh the record data to show the new micrograph
+    try {
+      for (let i = 0; i < uploadFiles.length; i++) {
+        const file = uploadFiles[i];
+        setUploadProgress(
+          `Uploading ${i + 1} of ${uploadFiles.length}: ${file.name}`,
+        );
+
+        try {
+          await RecordsApiV3.postMicrograph(record.id, file);
+          successCount++;
+        } catch (error) {
+          console.error(`Error uploading ${file.name}:`, error);
+          failedFiles.push(file.name);
+        }
+      }
+
+      // Refresh the record data to show the new micrographs
       const response = await RecordsApiV3.getById(record.id);
       setPhotos(response.photos);
 
       // Reset upload state
-      setUploadFile(null);
+      setUploadFiles([]);
+      setUploadProgress("");
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
 
-      alert("Micrograph uploaded successfully");
+      // Show results
+      if (failedFiles.length === 0) {
+        alert(`All ${successCount} micrographs uploaded successfully!`);
+      } else {
+        alert(
+          `${successCount} micrographs uploaded successfully. Failed to upload: ${failedFiles.join(", ")}`,
+        );
+      }
     } catch (error) {
-      console.error("Error uploading micrograph:", error);
-      alert("Failed to upload micrograph. Please try again.");
+      console.error("Error during upload process:", error);
+      alert("An error occurred during the upload process. Please try again.");
     } finally {
       setUploading(false);
+      setUploadProgress("");
     }
   };
 
@@ -313,6 +346,39 @@ function RecordDetail() {
                         e.currentTarget.style.transform = "scale(1)";
                       }}
                     />
+                    {isAdmin() && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeletePhoto(
+                            `${item.micrographId}`,
+                            "micrographs",
+                          );
+                        }}
+                        style={{
+                          position: "absolute",
+                          bottom: "4px",
+                          right: "4px",
+                          backgroundColor: "#dc2626",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "4px",
+                          padding: "4px 8px",
+                          fontSize: "12px",
+                          fontWeight: "500",
+                          cursor: "pointer",
+                          transition: "all 0.2s ease",
+                        }}
+                        onMouseOver={(e) => {
+                          e.currentTarget.style.backgroundColor = "#b91c1c";
+                        }}
+                        onMouseOut={(e) => {
+                          e.currentTarget.style.backgroundColor = "#dc2626";
+                        }}
+                      >
+                        Delete
+                      </button>
+                    )}
                   </div>
                 );
               })}
@@ -542,12 +608,15 @@ function RecordDetail() {
               fontWeight: "600",
             }}
           >
-            Upload Micrograph
+            Upload Micrographs
           </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+          >
             <input
               type="file"
               accept="image/jpeg"
+              multiple
               onChange={handleFileChange}
               ref={fileInputRef}
               style={{
@@ -558,38 +627,62 @@ function RecordDetail() {
                 backgroundColor: "#f9fafb",
               }}
             />
-            {uploadFile && (
+            {uploadFiles.length > 0 && (
               <div style={{ fontSize: "14px", color: "#6b7280" }}>
-                Selected: {uploadFile.name}
+                <div style={{ fontWeight: "500", marginBottom: "4px" }}>
+                  Selected {uploadFiles.length} file(s):
+                </div>
+                <ul style={{ margin: 0, paddingLeft: "20px" }}>
+                  {uploadFiles.map((file, index) => (
+                    <li key={index}>{file.name}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {uploading && uploadProgress && (
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#3b82f6",
+                  fontWeight: "500",
+                }}
+              >
+                {uploadProgress}
               </div>
             )}
             <button
-              onClick={handleUploadMicrograph}
-              disabled={!uploadFile || uploading}
+              onClick={handleUploadMicrographs}
+              disabled={uploadFiles.length === 0 || uploading}
               style={{
                 padding: "10px 20px",
-                backgroundColor: uploadFile && !uploading ? "#059669" : "#9ca3af",
+                backgroundColor:
+                  uploadFiles.length > 0 && !uploading ? "#059669" : "#9ca3af",
                 color: "white",
                 border: "none",
                 borderRadius: "6px",
                 fontSize: "14px",
                 fontWeight: "500",
-                cursor: uploadFile && !uploading ? "pointer" : "not-allowed",
+                cursor:
+                  uploadFiles.length > 0 && !uploading
+                    ? "pointer"
+                    : "not-allowed",
                 transition: "all 0.2s ease",
                 alignSelf: "flex-start",
               }}
               onMouseOver={(e) => {
-                if (uploadFile && !uploading) {
+                if (uploadFiles.length > 0 && !uploading) {
                   e.currentTarget.style.backgroundColor = "#047857";
                 }
               }}
               onMouseOut={(e) => {
-                if (uploadFile && !uploading) {
+                if (uploadFiles.length > 0 && !uploading) {
                   e.currentTarget.style.backgroundColor = "#059669";
                 }
               }}
             >
-              {uploading ? "Uploading..." : "Upload Micrograph"}
+              {uploading
+                ? "Uploading..."
+                : `Upload ${uploadFiles.length > 0 ? uploadFiles.length : ""} Micrograph${uploadFiles.length !== 1 ? "s" : ""}`}
             </button>
           </div>
         </div>

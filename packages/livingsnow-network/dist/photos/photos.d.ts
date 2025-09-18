@@ -8,6 +8,7 @@ declare const PhotosApi: {
     micrographThumbnailsContainerUrl: string;
     getMicrographUrl: (filename: string) => string;
     getMicrographThumbnailUrl: (filename: string) => string;
+    deleteMicrograph: (id: string, accessToken: string) => Promise<Response>;
 };
 export { PhotosApi };
 //# sourceMappingURL=photos.d.ts.map

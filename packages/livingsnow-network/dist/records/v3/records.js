@@ -149,9 +149,8 @@ const recordsApiV3 = () => {
                 : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));
         }),
-        // TODO: only supports "v1" endpoint
         deleteRecord: (id, accessToken) => {
-            return fetch(`https://snowalgaeproductionapp.azurewebsites.net/api/records/${id}`, {
+            return fetch(`${baseUrl}/${id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
