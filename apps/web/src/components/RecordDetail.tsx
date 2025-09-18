@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 import { AlgaeRecordV3 } from "@livingsnow/record";
@@ -14,6 +14,9 @@ function RecordDetail() {
   const [photos, setPhotos] = useState<PhotosResponseV2 | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Check if user has admin role
   const isAdmin = () => {
@@ -92,6 +95,40 @@ function RecordDetail() {
     } catch (error) {
       console.error("Error deleting record:", error);
       alert("Failed to delete record. Please try again.");
+    }
+  };
+
+  // Handle file selection for micrograph upload
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setUploadFile(event.target.files[0]);
+    }
+  };
+
+  // Handle micrograph upload
+  const handleUploadMicrograph = async () => {
+    if (!uploadFile || !record) return;
+
+    setUploading(true);
+    try {
+      await RecordsApiV3.postMicrograph(record.id, uploadFile);
+
+      // Refresh the record data to show the new micrograph
+      const response = await RecordsApiV3.getById(record.id);
+      setPhotos(response.photos);
+
+      // Reset upload state
+      setUploadFile(null);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+
+      alert("Micrograph uploaded successfully");
+    } catch (error) {
+      console.error("Error uploading micrograph:", error);
+      alert("Failed to upload micrograph. Please try again.");
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -491,6 +528,70 @@ function RecordDetail() {
           >
             Delete Record
           </button>
+        </div>
+      )}
+
+      {/* Upload Micrograph Section */}
+      {isAdmin() && (
+        <div style={{ marginBottom: "24px" }}>
+          <h3
+            style={{
+              marginBottom: "16px",
+              color: "#374151",
+              fontSize: "18px",
+              fontWeight: "600",
+            }}
+          >
+            Upload Micrograph
+          </h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+            <input
+              type="file"
+              accept="image/jpeg"
+              onChange={handleFileChange}
+              ref={fileInputRef}
+              style={{
+                padding: "8px",
+                border: "1px solid #d1d5db",
+                borderRadius: "6px",
+                fontSize: "14px",
+                backgroundColor: "#f9fafb",
+              }}
+            />
+            {uploadFile && (
+              <div style={{ fontSize: "14px", color: "#6b7280" }}>
+                Selected: {uploadFile.name}
+              </div>
+            )}
+            <button
+              onClick={handleUploadMicrograph}
+              disabled={!uploadFile || uploading}
+              style={{
+                padding: "10px 20px",
+                backgroundColor: uploadFile && !uploading ? "#059669" : "#9ca3af",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                fontSize: "14px",
+                fontWeight: "500",
+                cursor: uploadFile && !uploading ? "pointer" : "not-allowed",
+                transition: "all 0.2s ease",
+                alignSelf: "flex-start",
+              }}
+              onMouseOver={(e) => {
+                if (uploadFile && !uploading) {
+                  e.currentTarget.style.backgroundColor = "#047857";
+                }
+              }}
+              onMouseOut={(e) => {
+                if (uploadFile && !uploading) {
+                  e.currentTarget.style.backgroundColor = "#059669";
+                }
+              }}
+            >
+              {uploading ? "Uploading..." : "Upload Micrograph"}
+            </button>
+          </div>
         </div>
       )}
 
