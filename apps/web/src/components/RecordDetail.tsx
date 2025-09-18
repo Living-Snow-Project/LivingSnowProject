@@ -119,7 +119,7 @@ function RecordDetail() {
 
     setUploading(true);
     let successCount = 0;
-    let failedFiles: string[] = [];
+    const failedFiles: string[] = [];
 
     try {
       for (let i = 0; i < uploadFiles.length; i++) {
