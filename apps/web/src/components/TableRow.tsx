@@ -1,9 +1,6 @@
-import React from "react";
 import { AlgaeRecordV3 } from "@livingsnow/record";
 import { PhotosResponseV2 } from "@livingsnow/network";
 import { PhotosApi } from "@livingsnow/network";
-// import { RecordsApiV3 } from "@livingsnow/network";
-// import { MicrographResponse } from "@livingsnow/network";
 
 function TableHeader() {
   return (
@@ -87,85 +84,14 @@ function FormatImages(photos: PhotosResponseV2) {
   );
 }
 
-// function FormatMicrographs(
-//   micrographs: MicrographResponse[] | undefined,
-//   handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
-//   handleUpload: () => void,
-//   file: File | null,
-//   fileInputRef: React.RefObject<HTMLInputElement>,
-// ) {
-//   return (
-//     <div>
-//       {micrographs && micrographs.length > 0 ? (
-//         micrographs.map((item, index) => (
-//           <div key={index}>
-//             <a
-//               target={"_blank"}
-//               rel="noopener noreferrer"
-//               href={PhotosApi.getMicrographUrl(item.uri)}
-//             >
-//               {index + 1}
-//             </a>
-//           </div>
-//         ))
-//       ) : (
-//         <div></div>
-//       )}
-//       <input
-//         type="file"
-//         accept="image/jpeg"
-//         onChange={handleFileChange}
-//         ref={fileInputRef}
-//         style={{ marginTop: "10px" }}
-//       />
-//       <button onClick={handleUpload} disabled={!file}>
-//         Upload Micrograph
-//       </button>
-//     </div>
-//   );
-// }
-
 type TableRowProps = {
   item: AlgaeRecordV3;
   photos: PhotosResponseV2;
   dnaSequence?: string;
   onClick?: () => void;
-  // onUploadSuccess: () => void;
 };
 
-function TableRow({
-  item,
-  photos,
-  dnaSequence,
-  onClick,
-  // onUploadSuccess,
-}: TableRowProps) {
-  // const [file, setFile] = useState<File | null>(null);
-  // const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     setFile(event.target.files[0]);
-  //   }
-  // };
-
-  // const handleUpload = () => {
-  //   if (file) {
-  //     RecordsApiV3.postMicrograph(item.id, file)
-  //       .then(() => {
-  //         console.log("Micrograph uploaded successfully");
-  //         onUploadSuccess();
-  //         setFile(null);
-  //         if (fileInputRef.current) {
-  //           fileInputRef.current.value = "";
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error uploading micrograph:", error);
-  //       });
-  //   }
-  // };
-
+function TableRow({ item, photos, dnaSequence, onClick }: TableRowProps) {
   const renderColors = () => {
     if (!item.colors) {
       return "";
