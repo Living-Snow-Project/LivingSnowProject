@@ -106,7 +106,6 @@ function RecordsList() {
             <li>Paging and result count (no backend support currently)</li>
             <li>Saving searches (client side only)</li>
             <li>Interactivity spinners</li>
-            <li>(Admins) Deleting records</li>
             <li>(Admins) Modifying records</li>
           </ul>
         </div>

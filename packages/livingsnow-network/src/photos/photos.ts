@@ -1,7 +1,8 @@
 // TODO: this should all be ImagesApi or Micrograph should have its own API
 const photosApi = () => {
   const storageUrl = "https://snowalgaestorage.blob.core.windows.net";
-  const baseApiUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/photos`;
+  const basePhotoApiUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/photos`;
+  const baseMicrographApiUrl = `https://snowalgaeproductionapp.azurewebsites.net/api/micrographs`;
 
   const appPhotosContainerUrl = `${storageUrl}/photos`;
   const appPhotoThumbnailsContainerUrl = `${storageUrl}/photo-thumbnails`;
@@ -11,7 +12,7 @@ const photosApi = () => {
     `${appPhotoThumbnailsContainerUrl}/${id}_thumb.jpg`;
 
   const deletePhoto = (id: string, accessToken: string): Promise<Response> => {
-    return fetch(`${baseApiUrl}/${id}`, {
+    return fetch(`${basePhotoApiUrl}/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -45,6 +46,18 @@ const photosApi = () => {
     return `${micrographThumbnailsContainerUrl}/${filename.substring(0, lastSlashIndex + 1)}${thumbnailFilename}`;
   };
 
+  const deleteMicrograph = (
+    id: string,
+    accessToken: string,
+  ): Promise<Response> => {
+    return fetch(`${baseMicrographApiUrl}/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  };
+
   return {
     appPhotosContainerUrl,
     appPhotoThumbnailsContainerUrl,
@@ -55,6 +68,7 @@ const photosApi = () => {
     micrographThumbnailsContainerUrl,
     getMicrographUrl,
     getMicrographThumbnailUrl,
+    deleteMicrograph,
   };
 };
 
