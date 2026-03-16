@@ -131,3 +131,8 @@ The app centers around `AlgaeRecord` entities with these key fields:
 - Mobile components: `apps/mobile/src/components/`
 - Record management: `apps/mobile/src/lib/RecordManager.ts`
 - API client: `packages/livingsnow-network/`
+
+## Plan Mode
+
+- Make the plan extremely concise. Sacrifice grammar for the sake of concision.
+- At the end of each plan, give me a list of unresolved questions to answer, if any.
