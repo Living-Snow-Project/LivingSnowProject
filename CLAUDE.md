@@ -1,51 +1,8 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Project Overview
 
-This is the Living Snow Project - a Community Scientist project for studying snow algae. It's a monorepo using Classic Yarn (v1.22.22) workspaces with two main applications:
-
-- **Mobile App** (`apps/mobile/`): React Native/Expo app for field data collection
-- **Web App** (`apps/web/`): React web application for data visualization
-- **Shared Packages** (`packages/`): Common libraries used by both apps
-
-## Development Commands
-
-### Root Level Commands
-
-- `yarn install` - Install all dependencies across workspaces
-- `yarn build` - Build all workspaces
-- `yarn precheck` - Run prettier, lint, and test across all workspaces (run before PRs)
-- `yarn lint` - Run ESLint across all workspaces
-- `yarn prettier` - Check code formatting
-- `yarn test` - Run tests across all workspaces
-- `yarn clean` - Clean build artifacts
-- `yarn nuke` - Remove all node_modules (Windows compatible)
-
-### Mobile App (`apps/mobile/`)
-
-- `expo start` - Start Expo development server
-- `expo run:android` - Run on Android device/emulator
-- `expo run:ios` - Run on iOS device/simulator
-- `yarn precheck` - Mobile-specific precheck (prettier, lint, typecheck, test)
-- `yarn test` - Run Jest tests
-- `yarn lint` - Run ESLint
-- `yarn prettier` - Check formatting
-
-### Web App (`apps/web/`)
-
-- `yarn start` - Start webpack dev server
-- `yarn build` - Build for production
-- `yarn deploy` - Deploy to GitHub Pages
-
-### Package Commands
-
-Each package in `packages/` supports:
-
-- `yarn build` - Compile TypeScript
-- `yarn test` - Run Jest tests
-- `yarn clean` - Remove build artifacts
+This is a monorepo using Classic Yarn (v1.22.22) workspaces
 
 ## Architecture
 
@@ -121,16 +78,6 @@ The app centers around `AlgaeRecord` entities with these key fields:
 
 - Mobile: Uses EAS Build and EAS Submit for app store deployment
 - Web: Deploys to GitHub Pages via `yarn deploy`
-
-## Key File Locations
-
-- Mobile entry point: `apps/mobile/App.tsx`
-- Web entry point: `apps/web/src/App.tsx`
-- Shared types: `apps/mobile/types/`
-- Mobile screens: `apps/mobile/src/screens/`
-- Mobile components: `apps/mobile/src/components/`
-- Record management: `apps/mobile/src/lib/RecordManager.ts`
-- API client: `packages/livingsnow-network/`
 
 ## Plan Mode
 
