@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "native-base";
+import { View } from "tamagui";
 
 type ThemedBoxProps = {
   children: JSX.Element | JSX.Element[];
@@ -8,8 +8,8 @@ type ThemedBoxProps = {
 
 export function ThemedBox({ children, ...props }: ThemedBoxProps) {
   return (
-    <Box {...props} _dark={{ bg: "dark.100" }}>
+    <View {...props} $theme-dark={{ backgroundColor: "#1A202C" }}>
       {children}
-    </Box>
+    </View>
   );
 }

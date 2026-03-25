@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, ScrollView, Text, useColorModeValue } from "native-base";
+import { ScrollView, Text, View } from "tamagui";
 import { jsonToRecord, recordDateFormat } from "@livingsnow/record";
 import { RecordDetailsScreenRouteProp } from "../navigation/Routes";
 import { CachedPhotos, ThemedBox } from "../components";
@@ -35,15 +35,16 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
     notes,
   } = record;
 
-  const headerColor = useColorModeValue("lightBlue.300", "lightBlue.700");
-
   return (
     <ScrollView>
       <ThemedBox pb={1}>
-        <Box bgColor={headerColor}>
+        <View
+          backgroundColor="$blue4"
+          $theme-dark={{ backgroundColor: "$blue8" }}
+        >
           <Text textAlign="center">{Labels.RecordDetailsScreen.DataSheet}</Text>
-        </Box>
-        <Box px={2}>
+        </View>
+        <View paddingHorizontal="$2">
           <Text>{`${Labels.Date}: ${recordDateFormat(date)}`}</Text>
           <Text>{`${Labels.RecordType}: ${type}`}</Text>
           <Text>{`${Labels.Name}: ${name}`}</Text>
@@ -95,7 +96,7 @@ export function RecordDetailsScreen({ route }: RecordDetailsScreenProps) {
           {!!notes && (
             <Text>{`${Labels.RecordDetailsScreen.Notes}: ${notes}`}</Text>
           )}
-        </Box>
+        </View>
       </ThemedBox>
       <CachedPhotos photos={photos} />
     </ScrollView>

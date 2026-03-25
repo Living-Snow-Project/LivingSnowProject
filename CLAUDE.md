@@ -82,4 +82,5 @@ The app centers around `AlgaeRecord` entities with these key fields:
 ## Plan Mode
 
 - Make the plan extremely concise. Sacrifice grammar for the sake of concision.
-- At the end of each plan, give me a list of unresolved questions to answer, if any.
+- Before the end of each plan, give me a list of unresolved questions to answer, if any.
+- End every plan with a numbered list of concrete steps. This should be the last thing visible in the terminal.

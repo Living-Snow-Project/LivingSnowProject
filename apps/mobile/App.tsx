@@ -2,6 +2,7 @@ import React from "react";
 import { Appearance } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
+import { TamaguiProvider } from "tamagui";
 import { NativeBaseProvider } from "./src/providers";
 import { Navigation } from "./src/navigation/MainTabNavigator";
 import { useCachedResources } from "./src/hooks/useCachedResources";
@@ -10,6 +11,7 @@ import {
   AlgaeRecordsContext,
 } from "./src/hooks/useAlgaeRecords";
 import { getAppSettings } from "./AppSettings";
+import tamaguiConfig from "./tamagui.config";
 
 export function App() {
   const [algaeRecords] = useAlgaeRecords();
@@ -30,10 +32,15 @@ export function App() {
 
   return (
     <AlgaeRecordsContext.Provider value={algaeRecords}>
-      <NativeBaseProvider>
-        <Navigation />
-        <StatusBar />
-      </NativeBaseProvider>
+      <TamaguiProvider
+        config={tamaguiConfig}
+        defaultTheme={getAppSettings().colorMode}
+      >
+        <NativeBaseProvider>
+          <Navigation />
+          <StatusBar />
+        </NativeBaseProvider>
+      </TamaguiProvider>
     </AlgaeRecordsContext.Provider>
   );
 }

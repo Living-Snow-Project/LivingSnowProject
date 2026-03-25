@@ -6,13 +6,16 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "node": "20.19.4"
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "node": "20.19.4"
     },
     "production": {
-      "autoIncrement": true
+      "autoIncrement": true,
+      "node": "20.19.4"
     }
   },
   "submit": {

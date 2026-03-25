@@ -22,6 +22,8 @@ export function useCachedResources() {
         // Load fonts
         await Font.loadAsync({
           ...Ionicons.font,
+          Inter: require("@tamagui/font-inter/otf/Inter-Regular.otf"),
+          InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
         });
       } catch (e) {
         Logger.Warn(`${e}`);

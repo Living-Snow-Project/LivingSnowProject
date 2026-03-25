@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions } from "react-native";
-import { Box, Image, Spinner, Text } from "native-base";
+import { Image, Spinner, Text, View } from "tamagui";
 import { Photo } from "@livingsnow/record";
 import { useCachedPhoto } from "../../hooks/useCachedPhotos";
 import { PictureIcon } from "./Icons";
@@ -19,18 +19,13 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
   // alternative is to write the file to disk on load but that duplicates data and needs a "resource manager"
   if (typeof cachedPhoto.uri == "number") {
     return (
-      <Image
-        width={width}
-        height={height}
-        source={cachedPhoto.uri}
-        alt="static image"
-      />
+      <Image width={width} height={height} source={cachedPhoto.uri} />
     );
   }
 
   if (cachedPhoto.state == "Loading" || cachedPhoto.state == "Downloading") {
     return (
-      <Box
+      <View
         width={width}
         height={height}
         alignItems="center"
@@ -38,13 +33,13 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
       >
         <Spinner size="large" />
         <Text>{cachedPhoto.state}</Text>
-      </Box>
+      </View>
     );
   }
 
   if (cachedPhoto.state == "Error" || cachedPhoto.state == "Offline") {
     return (
-      <Box
+      <View
         width={width}
         height={height}
         alignItems="center"
@@ -52,7 +47,7 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
       >
         <Text>{cachedPhoto.state}</Text>
         <PictureIcon />
-      </Box>
+      </View>
     );
   }
 
@@ -61,7 +56,6 @@ function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
       width={width}
       height={height}
       source={{ uri: cachedPhoto.uri }}
-      alt={cachedPhoto.state}
     />
   );
 }
