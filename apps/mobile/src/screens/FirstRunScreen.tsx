@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, HStack, VStack, Text } from "native-base";
+import { Button, Text, View, XStack, YStack } from "tamagui";
 import { SnowIcon, UserIdentityInput } from "../components";
 import { setAppSettings } from "../../AppSettings";
 import { FirstRunScreenNavigationProp } from "../navigation/Routes";
@@ -11,29 +11,29 @@ type FirstRunScreenProps = {
 
 export function FirstRunScreen({ navigation }: FirstRunScreenProps) {
   return (
-    <Box px={3} mt={2}>
-      <VStack alignItems="center">
-        <HStack alignItems="center" justifyContent="space-between">
+    <View px="$3" mt="$2">
+      <YStack alignItems="center">
+        <XStack alignItems="center" justifyContent="space-between">
           <SnowIcon />
           <SnowIcon />
-          <VStack alignItems="center">
-            <Text fontWeight="bold" fontSize="xl" color="pink.600">
+          <YStack alignItems="center">
+            <Text fontWeight="bold" fontSize="$7" color="$pink10">
               {"  " + Labels.LivingSnowProject + "  "}
             </Text>
-          </VStack>
+          </YStack>
           <SnowIcon />
           <SnowIcon />
-        </HStack>
-        <Text color="pink.500">{Labels.Slogan}</Text>
-      </VStack>
+        </XStack>
+        <Text color="$pink9">{Labels.Slogan}</Text>
+      </YStack>
 
-      <Text my={2}>{Labels.FirstRunScreen.Usage}</Text>
+      <Text my="$2">{Labels.FirstRunScreen.Usage}</Text>
 
       <UserIdentityInput />
 
-      <Box alignItems="center">
+      <View alignItems="center">
         <Button
-          mt={5}
+          mt="$5"
           width={200}
           onPress={() => {
             setAppSettings((prev) => ({ ...prev, showFirstRun: false }));
@@ -42,7 +42,7 @@ export function FirstRunScreen({ navigation }: FirstRunScreenProps) {
         >
           {Labels.FirstRunScreen.StartReporting}
         </Button>
-      </Box>
-    </Box>
+      </View>
+    </View>
   );
 }
