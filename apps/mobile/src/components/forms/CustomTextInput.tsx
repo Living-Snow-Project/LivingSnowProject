@@ -1,5 +1,6 @@
 import React, { forwardRef /* useRef */ } from "react";
-import { FormControl, Input, WarningOutlineIcon } from "native-base";
+import { Input } from "tamagui";
+import { FormErrorMessage, FormField, FormLabel } from "./FormField";
 
 type CustomTextInputProps = {
   label: string;
@@ -32,12 +33,8 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
     }: CustomTextInputProps,
     ref,
   ) => (
-    <FormControl
-      isRequired={isRequired}
-      isInvalid={isInvalid}
-      isReadOnly={isDisabled}
-    >
-      <FormControl.Label>{label}</FormControl.Label>
+    <FormField id="" isRequired={isRequired} isInvalid={isInvalid}>
+      <FormLabel>{label}</FormLabel>
       <Input
         size="lg"
         blurOnSubmit={blurOnSubmit}
@@ -52,10 +49,8 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
         returnKeyType="done"
         variant="outline"
       />
-      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="sm" />}>
-        {validation}
-      </FormControl.ErrorMessage>
-    </FormControl>
+      <FormErrorMessage>{validation}</FormErrorMessage>
+    </FormField>
   ),
 );
 
