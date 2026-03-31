@@ -74,7 +74,8 @@ function RootNavigator() {
     <Stack.Navigator
       screenOptions={{ headerShown: true, headerTitleAlign: "center" }}
     >
-      {showFirstRun && (
+      {/* TODO: remove this before shipping! */}
+      {true && (
         <Stack.Screen
           name="Welcome"
           component={FirstRunScreen}
