@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Animated } from "react-native";
-import { Text, useColorModeValue, useTheme } from "native-base";
+import { Text, useTheme } from "tamagui";
 import { AlgaeRecordsStates } from "../../../types/AlgaeRecords";
 import { Labels } from "../../constants/Strings";
 
@@ -10,16 +10,11 @@ type StatusBarProps = {
 };
 
 export function StatusBar({ state, isConnected }: StatusBarProps) {
-  const { colors } = useTheme();
-  const startColor = useColorModeValue(
-    colors.primary[400],
-    colors.primary[600],
-  );
-  const endColor = useColorModeValue(colors.primary[500], colors.primary[700]);
+  const theme = useTheme();
   const fadeAnim = useRef(new Animated.Value(0)).current;
-  const color = fadeAnim.interpolate({
+  const backgroundColor = fadeAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: [startColor, endColor],
+    outputRange: [theme.blue8.val, theme.blue10.val],
   });
 
   const animate = Animated.loop(
@@ -51,7 +46,7 @@ export function StatusBar({ state, isConnected }: StatusBarProps) {
   return (
     <Animated.View
       style={{
-        backgroundColor: color,
+        backgroundColor,
       }}
     >
       <Text textAlign="center" fontWeight="semibold">
