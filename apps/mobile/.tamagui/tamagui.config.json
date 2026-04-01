@@ -32894,7 +32894,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_SelectTrigger"
@@ -33263,7 +33263,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_SliderTrack"
@@ -33632,7 +33632,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_TextArea"
@@ -34001,7 +34001,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_TooltipArrow"
@@ -34370,7 +34370,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_ListItem"
@@ -34739,7 +34739,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_Progress"
@@ -35108,7 +35108,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_SliderTrack"
@@ -35477,7 +35477,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_TooltipArrow"
@@ -35846,7 +35846,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_surface1"
@@ -36215,7 +36215,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_Checkbox"
@@ -36584,7 +36584,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_RadioGroupItem"
@@ -36953,7 +36953,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_Switch"
@@ -37322,7 +37322,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_TooltipContent"
@@ -37691,7 +37691,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_surface2"
@@ -38060,7 +38060,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_DialogOverlay"
@@ -38429,7 +38429,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_ModalOverlay"
@@ -38798,7 +38798,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_SheetOverlay"
@@ -39167,7 +39167,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_DialogOverlay"
@@ -39536,7 +39536,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_ModalOverlay"
@@ -39905,7 +39905,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_SheetOverlay"
@@ -40274,7 +40274,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_DialogOverlay"
@@ -40643,7 +40643,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_ModalOverlay"
@@ -41012,7 +41012,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_SheetOverlay"
@@ -41381,7 +41381,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_DialogOverlay"
@@ -41750,7 +41750,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_ModalOverlay"
@@ -42119,7 +42119,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_SheetOverlay"
@@ -42488,7 +42488,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_DialogOverlay"
@@ -42857,7 +42857,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_ModalOverlay"
@@ -43226,7 +43226,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_SheetOverlay"
@@ -43595,7 +43595,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_DialogOverlay"
@@ -43964,7 +43964,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_ModalOverlay"
@@ -44333,7 +44333,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_SheetOverlay"
@@ -44702,7 +44702,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_DialogOverlay"
@@ -45071,7 +45071,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_ModalOverlay"
@@ -45440,7 +45440,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_SheetOverlay"
@@ -45809,7 +45809,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_DialogOverlay"
@@ -46178,7 +46178,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_ModalOverlay"
@@ -46547,7 +46547,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_SheetOverlay"
@@ -46916,7 +46916,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_DialogOverlay"
@@ -47285,7 +47285,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_ModalOverlay"
@@ -47654,7 +47654,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_SheetOverlay"
@@ -48023,7 +48023,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_DialogOverlay"
@@ -48392,7 +48392,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_ModalOverlay"
@@ -48761,7 +48761,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_SheetOverlay"
@@ -49130,7 +49130,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_DialogOverlay"
@@ -49499,7 +49499,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_ModalOverlay"
@@ -49868,7 +49868,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_SheetOverlay"
@@ -50237,7 +50237,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_DialogOverlay"
@@ -50606,7 +50606,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_ModalOverlay"
@@ -50975,7 +50975,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_SheetOverlay"
@@ -51344,7 +51344,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_DialogOverlay"
@@ -51713,7 +51713,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_ModalOverlay"
@@ -52082,7 +52082,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_SheetOverlay"
@@ -52451,7 +52451,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_DialogOverlay"
@@ -52820,7 +52820,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_ModalOverlay"
@@ -53189,7 +53189,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_SheetOverlay"
@@ -53558,7 +53558,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_DialogOverlay"
@@ -53927,7 +53927,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_ModalOverlay"
@@ -54296,7 +54296,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_SheetOverlay"
@@ -54665,7 +54665,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_DialogOverlay"
@@ -55034,7 +55034,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_ModalOverlay"
@@ -55403,7 +55403,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_SheetOverlay"
@@ -55772,7 +55772,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_DialogOverlay"
@@ -56141,7 +56141,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_ModalOverlay"
@@ -56510,7 +56510,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_SheetOverlay"
@@ -56879,7 +56879,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_DialogOverlay"
@@ -57248,7 +57248,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_ModalOverlay"
@@ -57617,7 +57617,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_SheetOverlay"
@@ -57986,7 +57986,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_ProgressIndicator"
@@ -58355,7 +58355,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_SliderThumb"
@@ -58724,7 +58724,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_SwitchThumb"
@@ -59093,7 +59093,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_Tooltip"
@@ -59462,7 +59462,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_Button"
@@ -59831,7 +59831,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_Card"
@@ -60200,7 +60200,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_Checkbox"
@@ -60569,7 +60569,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_Input"
@@ -60938,7 +60938,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_RadioGroupItem"
@@ -61307,7 +61307,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_SelectTrigger"
@@ -61676,7 +61676,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_Switch"
@@ -62045,7 +62045,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_TextArea"
@@ -62414,7 +62414,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_TooltipContent"
@@ -62783,7 +62783,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_surface4"
@@ -63152,7 +63152,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_ProgressIndicator"
@@ -63521,7 +63521,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_SliderThumb"
@@ -63890,7 +63890,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_SwitchThumb"
@@ -64259,7 +64259,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_active_Tooltip"
@@ -64628,7 +64628,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_alt1"
@@ -64997,7 +64997,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_alt2"
@@ -65366,7 +65366,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue"
@@ -65735,7 +65735,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_Button"
@@ -66104,7 +66104,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_SliderTrackActive"
@@ -66473,7 +66473,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active"
@@ -66842,7 +66842,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_SliderTrackActive"
@@ -67211,7 +67211,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_surface3"
@@ -67580,7 +67580,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_Card"
@@ -67949,7 +67949,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_Input"
@@ -68318,7 +68318,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_ListItem"
@@ -68687,7 +68687,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_Progress"
@@ -69056,7 +69056,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_SelectTrigger"
@@ -69425,7 +69425,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_SliderTrack"
@@ -69794,7 +69794,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_TextArea"
@@ -70163,7 +70163,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_TooltipArrow"
@@ -70532,7 +70532,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_ListItem"
@@ -70901,7 +70901,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_Progress"
@@ -71270,7 +71270,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_SliderTrack"
@@ -71639,7 +71639,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_TooltipArrow"
@@ -72008,7 +72008,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_surface1"
@@ -72377,7 +72377,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_Checkbox"
@@ -72746,7 +72746,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_RadioGroupItem"
@@ -73115,7 +73115,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_Switch"
@@ -73484,7 +73484,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_TooltipContent"
@@ -73853,7 +73853,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_surface2"
@@ -74222,7 +74222,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_ProgressIndicator"
@@ -74591,7 +74591,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_SliderThumb"
@@ -74960,7 +74960,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_SwitchThumb"
@@ -75329,7 +75329,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_Tooltip"
@@ -75698,7 +75698,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_Button"
@@ -76067,7 +76067,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_Card"
@@ -76436,7 +76436,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_Checkbox"
@@ -76805,7 +76805,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_Input"
@@ -77174,7 +77174,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_RadioGroupItem"
@@ -77543,7 +77543,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_SelectTrigger"
@@ -77912,7 +77912,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_Switch"
@@ -78281,7 +78281,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_TextArea"
@@ -78650,7 +78650,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_TooltipContent"
@@ -79019,7 +79019,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_surface4"
@@ -79388,7 +79388,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_ProgressIndicator"
@@ -79757,7 +79757,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_SliderThumb"
@@ -80126,7 +80126,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_SwitchThumb"
@@ -80495,7 +80495,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_active_Tooltip"
@@ -80864,7 +80864,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_alt1"
@@ -81233,7 +81233,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_blue_alt2"
@@ -81602,7 +81602,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray"
@@ -81971,7 +81971,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_Button"
@@ -82340,7 +82340,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_SliderTrackActive"
@@ -82709,7 +82709,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active"
@@ -83078,7 +83078,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_SliderTrackActive"
@@ -83447,7 +83447,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_surface3"
@@ -83816,7 +83816,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_Card"
@@ -84185,7 +84185,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_Input"
@@ -84554,7 +84554,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_ListItem"
@@ -84923,7 +84923,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_Progress"
@@ -85292,7 +85292,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_SelectTrigger"
@@ -85661,7 +85661,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_SliderTrack"
@@ -86030,7 +86030,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_TextArea"
@@ -86399,7 +86399,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_TooltipArrow"
@@ -86768,7 +86768,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_ListItem"
@@ -87137,7 +87137,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_Progress"
@@ -87506,7 +87506,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_SliderTrack"
@@ -87875,7 +87875,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_TooltipArrow"
@@ -88244,7 +88244,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_surface1"
@@ -88613,7 +88613,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_Checkbox"
@@ -88982,7 +88982,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_RadioGroupItem"
@@ -89351,7 +89351,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_Switch"
@@ -89720,7 +89720,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_TooltipContent"
@@ -90089,7 +90089,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_surface2"
@@ -90458,7 +90458,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_ProgressIndicator"
@@ -90827,7 +90827,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_SliderThumb"
@@ -91196,7 +91196,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_SwitchThumb"
@@ -91565,7 +91565,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_Tooltip"
@@ -91934,7 +91934,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_Button"
@@ -92303,7 +92303,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_Card"
@@ -92672,7 +92672,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_Checkbox"
@@ -93041,7 +93041,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_Input"
@@ -93410,7 +93410,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_RadioGroupItem"
@@ -93779,7 +93779,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_SelectTrigger"
@@ -94148,7 +94148,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_Switch"
@@ -94517,7 +94517,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_TextArea"
@@ -94886,7 +94886,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_TooltipContent"
@@ -95255,7 +95255,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_surface4"
@@ -95624,7 +95624,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_ProgressIndicator"
@@ -95993,7 +95993,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_SliderThumb"
@@ -96362,7 +96362,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_SwitchThumb"
@@ -96731,7 +96731,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_active_Tooltip"
@@ -97100,7 +97100,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_alt1"
@@ -97469,7 +97469,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_gray_alt2"
@@ -97838,7 +97838,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green"
@@ -98207,7 +98207,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_Button"
@@ -98576,7 +98576,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_SliderTrackActive"
@@ -98945,7 +98945,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active"
@@ -99314,7 +99314,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_SliderTrackActive"
@@ -99683,7 +99683,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_surface3"
@@ -100052,7 +100052,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_Card"
@@ -100421,7 +100421,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_Input"
@@ -100790,7 +100790,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_ListItem"
@@ -101159,7 +101159,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_Progress"
@@ -101528,7 +101528,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_SelectTrigger"
@@ -101897,7 +101897,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_SliderTrack"
@@ -102266,7 +102266,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_TextArea"
@@ -102635,7 +102635,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_TooltipArrow"
@@ -103004,7 +103004,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_ListItem"
@@ -103373,7 +103373,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_Progress"
@@ -103742,7 +103742,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_SliderTrack"
@@ -104111,7 +104111,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_TooltipArrow"
@@ -104480,7 +104480,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_surface1"
@@ -104849,7 +104849,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_Checkbox"
@@ -105218,7 +105218,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_RadioGroupItem"
@@ -105587,7 +105587,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_Switch"
@@ -105956,7 +105956,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_TooltipContent"
@@ -106325,7 +106325,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_surface2"
@@ -106694,7 +106694,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_ProgressIndicator"
@@ -107063,7 +107063,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_SliderThumb"
@@ -107432,7 +107432,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_SwitchThumb"
@@ -107801,7 +107801,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_Tooltip"
@@ -108170,7 +108170,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_Button"
@@ -108539,7 +108539,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_Card"
@@ -108908,7 +108908,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_Checkbox"
@@ -109277,7 +109277,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_Input"
@@ -109646,7 +109646,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_RadioGroupItem"
@@ -110015,7 +110015,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_SelectTrigger"
@@ -110384,7 +110384,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_Switch"
@@ -110753,7 +110753,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_TextArea"
@@ -111122,7 +111122,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_TooltipContent"
@@ -111491,7 +111491,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_surface4"
@@ -111860,7 +111860,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_ProgressIndicator"
@@ -112229,7 +112229,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_SliderThumb"
@@ -112598,7 +112598,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_SwitchThumb"
@@ -112967,7 +112967,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_active_Tooltip"
@@ -113336,7 +113336,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_alt1"
@@ -113705,7 +113705,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_green_alt2"
@@ -114074,7 +114074,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange"
@@ -114443,7 +114443,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_Button"
@@ -114812,7 +114812,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_SliderTrackActive"
@@ -115181,7 +115181,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active"
@@ -115550,7 +115550,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_SliderTrackActive"
@@ -115919,7 +115919,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_surface3"
@@ -116288,7 +116288,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_Card"
@@ -116657,7 +116657,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_Input"
@@ -117026,7 +117026,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_ListItem"
@@ -117395,7 +117395,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_Progress"
@@ -117764,7 +117764,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_SelectTrigger"
@@ -118133,7 +118133,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_SliderTrack"
@@ -118502,7 +118502,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_TextArea"
@@ -118871,7 +118871,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_TooltipArrow"
@@ -119240,7 +119240,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_ListItem"
@@ -119609,7 +119609,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_Progress"
@@ -119978,7 +119978,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_SliderTrack"
@@ -120347,7 +120347,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_TooltipArrow"
@@ -120716,7 +120716,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_surface1"
@@ -121085,7 +121085,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_Checkbox"
@@ -121454,7 +121454,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_RadioGroupItem"
@@ -121823,7 +121823,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_Switch"
@@ -122192,7 +122192,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_TooltipContent"
@@ -122561,7 +122561,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_surface2"
@@ -122930,7 +122930,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_ProgressIndicator"
@@ -123299,7 +123299,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_SliderThumb"
@@ -123668,7 +123668,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_SwitchThumb"
@@ -124037,7 +124037,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_Tooltip"
@@ -124406,7 +124406,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_Button"
@@ -124775,7 +124775,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_Card"
@@ -125144,7 +125144,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_Checkbox"
@@ -125513,7 +125513,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_Input"
@@ -125882,7 +125882,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_RadioGroupItem"
@@ -126251,7 +126251,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_SelectTrigger"
@@ -126620,7 +126620,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_Switch"
@@ -126989,7 +126989,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_TextArea"
@@ -127358,7 +127358,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_TooltipContent"
@@ -127727,7 +127727,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_surface4"
@@ -128096,7 +128096,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_ProgressIndicator"
@@ -128465,7 +128465,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_SliderThumb"
@@ -128834,7 +128834,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_SwitchThumb"
@@ -129203,7 +129203,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_active_Tooltip"
@@ -129572,7 +129572,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_alt1"
@@ -129941,7 +129941,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_orange_alt2"
@@ -130310,7 +130310,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink"
@@ -130679,7 +130679,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_Button"
@@ -131048,7 +131048,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_SliderTrackActive"
@@ -131417,7 +131417,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active"
@@ -131786,7 +131786,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_SliderTrackActive"
@@ -132155,7 +132155,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_surface3"
@@ -132524,7 +132524,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_Card"
@@ -132893,7 +132893,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_Input"
@@ -133262,7 +133262,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_ListItem"
@@ -133631,7 +133631,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_Progress"
@@ -134000,7 +134000,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_SelectTrigger"
@@ -134369,7 +134369,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_SliderTrack"
@@ -134738,7 +134738,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_TextArea"
@@ -135107,7 +135107,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_TooltipArrow"
@@ -135476,7 +135476,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_ListItem"
@@ -135845,7 +135845,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_Progress"
@@ -136214,7 +136214,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_SliderTrack"
@@ -136583,7 +136583,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_TooltipArrow"
@@ -136952,7 +136952,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_surface1"
@@ -137321,7 +137321,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_Checkbox"
@@ -137690,7 +137690,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_RadioGroupItem"
@@ -138059,7 +138059,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_Switch"
@@ -138428,7 +138428,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_TooltipContent"
@@ -138797,7 +138797,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_surface2"
@@ -139166,7 +139166,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_ProgressIndicator"
@@ -139535,7 +139535,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_SliderThumb"
@@ -139904,7 +139904,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_SwitchThumb"
@@ -140273,7 +140273,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_Tooltip"
@@ -140642,7 +140642,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_Button"
@@ -141011,7 +141011,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_Card"
@@ -141380,7 +141380,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_Checkbox"
@@ -141749,7 +141749,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_Input"
@@ -142118,7 +142118,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_RadioGroupItem"
@@ -142487,7 +142487,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_SelectTrigger"
@@ -142856,7 +142856,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_Switch"
@@ -143225,7 +143225,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_TextArea"
@@ -143594,7 +143594,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_TooltipContent"
@@ -143963,7 +143963,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_surface4"
@@ -144332,7 +144332,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_ProgressIndicator"
@@ -144701,7 +144701,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_SliderThumb"
@@ -145070,7 +145070,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_SwitchThumb"
@@ -145439,7 +145439,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_active_Tooltip"
@@ -145808,7 +145808,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_alt1"
@@ -146177,7 +146177,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_pink_alt2"
@@ -146546,7 +146546,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple"
@@ -146915,7 +146915,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_Button"
@@ -147284,7 +147284,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_SliderTrackActive"
@@ -147653,7 +147653,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active"
@@ -148022,7 +148022,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_SliderTrackActive"
@@ -148391,7 +148391,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_surface3"
@@ -148760,7 +148760,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_Card"
@@ -149129,7 +149129,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_Input"
@@ -149498,7 +149498,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_ListItem"
@@ -149867,7 +149867,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_Progress"
@@ -150236,7 +150236,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_SelectTrigger"
@@ -150605,7 +150605,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_SliderTrack"
@@ -150974,7 +150974,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_TextArea"
@@ -151343,7 +151343,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_TooltipArrow"
@@ -151712,7 +151712,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_ListItem"
@@ -152081,7 +152081,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_Progress"
@@ -152450,7 +152450,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_SliderTrack"
@@ -152819,7 +152819,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_TooltipArrow"
@@ -153188,7 +153188,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_surface1"
@@ -153557,7 +153557,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_Checkbox"
@@ -153926,7 +153926,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_RadioGroupItem"
@@ -154295,7 +154295,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_Switch"
@@ -154664,7 +154664,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_TooltipContent"
@@ -155033,7 +155033,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_surface2"
@@ -155402,7 +155402,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_ProgressIndicator"
@@ -155771,7 +155771,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_SliderThumb"
@@ -156140,7 +156140,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_SwitchThumb"
@@ -156509,7 +156509,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_Tooltip"
@@ -156878,7 +156878,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_Button"
@@ -157247,7 +157247,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_Card"
@@ -157616,7 +157616,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_Checkbox"
@@ -157985,7 +157985,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_Input"
@@ -158354,7 +158354,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_RadioGroupItem"
@@ -158723,7 +158723,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_SelectTrigger"
@@ -159092,7 +159092,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_Switch"
@@ -159461,7 +159461,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_TextArea"
@@ -159830,7 +159830,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_TooltipContent"
@@ -160199,7 +160199,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_surface4"
@@ -160568,7 +160568,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_ProgressIndicator"
@@ -160937,7 +160937,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_SliderThumb"
@@ -161306,7 +161306,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_SwitchThumb"
@@ -161675,7 +161675,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_active_Tooltip"
@@ -162044,7 +162044,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_alt1"
@@ -162413,7 +162413,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_purple_alt2"
@@ -162782,7 +162782,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red"
@@ -163151,7 +163151,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_Button"
@@ -163520,7 +163520,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_SliderTrackActive"
@@ -163889,7 +163889,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active"
@@ -164258,7 +164258,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_SliderTrackActive"
@@ -164627,7 +164627,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_surface3"
@@ -164996,7 +164996,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_Card"
@@ -165365,7 +165365,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_Input"
@@ -165734,7 +165734,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_ListItem"
@@ -166103,7 +166103,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_Progress"
@@ -166472,7 +166472,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_SelectTrigger"
@@ -166841,7 +166841,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_SliderTrack"
@@ -167210,7 +167210,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_TextArea"
@@ -167579,7 +167579,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_TooltipArrow"
@@ -167948,7 +167948,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_ListItem"
@@ -168317,7 +168317,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_Progress"
@@ -168686,7 +168686,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_SliderTrack"
@@ -169055,7 +169055,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_TooltipArrow"
@@ -169424,7 +169424,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_surface1"
@@ -169793,7 +169793,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_Checkbox"
@@ -170162,7 +170162,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_RadioGroupItem"
@@ -170531,7 +170531,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_Switch"
@@ -170900,7 +170900,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_TooltipContent"
@@ -171269,7 +171269,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_surface2"
@@ -171638,7 +171638,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_ProgressIndicator"
@@ -172007,7 +172007,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_SliderThumb"
@@ -172376,7 +172376,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_SwitchThumb"
@@ -172745,7 +172745,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_Tooltip"
@@ -173114,7 +173114,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_Button"
@@ -173483,7 +173483,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_Card"
@@ -173852,7 +173852,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_Checkbox"
@@ -174221,7 +174221,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_Input"
@@ -174590,7 +174590,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_RadioGroupItem"
@@ -174959,7 +174959,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_SelectTrigger"
@@ -175328,7 +175328,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_Switch"
@@ -175697,7 +175697,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_TextArea"
@@ -176066,7 +176066,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_TooltipContent"
@@ -176435,7 +176435,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_surface4"
@@ -176804,7 +176804,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_ProgressIndicator"
@@ -177173,7 +177173,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_SliderThumb"
@@ -177542,7 +177542,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_SwitchThumb"
@@ -177911,7 +177911,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_active_Tooltip"
@@ -178280,7 +178280,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_alt1"
@@ -178649,7 +178649,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_red_alt2"
@@ -179018,7 +179018,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow"
@@ -179387,7 +179387,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_Button"
@@ -179756,7 +179756,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_SliderTrackActive"
@@ -180125,7 +180125,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active"
@@ -180494,7 +180494,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_SliderTrackActive"
@@ -180863,7 +180863,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_surface3"
@@ -181232,7 +181232,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_Card"
@@ -181601,7 +181601,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_Input"
@@ -181970,7 +181970,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_ListItem"
@@ -182339,7 +182339,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_Progress"
@@ -182708,7 +182708,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_SelectTrigger"
@@ -183077,7 +183077,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_SliderTrack"
@@ -183446,7 +183446,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_TextArea"
@@ -183815,7 +183815,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_TooltipArrow"
@@ -184184,7 +184184,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_ListItem"
@@ -184553,7 +184553,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_Progress"
@@ -184922,7 +184922,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_SliderTrack"
@@ -185291,7 +185291,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_TooltipArrow"
@@ -185660,7 +185660,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_surface1"
@@ -186029,7 +186029,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_Checkbox"
@@ -186398,7 +186398,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_RadioGroupItem"
@@ -186767,7 +186767,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_Switch"
@@ -187136,7 +187136,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_TooltipContent"
@@ -187505,7 +187505,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_surface2"
@@ -187874,7 +187874,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_ProgressIndicator"
@@ -188243,7 +188243,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_SliderThumb"
@@ -188612,7 +188612,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_SwitchThumb"
@@ -188981,7 +188981,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_Tooltip"
@@ -189350,7 +189350,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_Button"
@@ -189719,7 +189719,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_Card"
@@ -190088,7 +190088,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_Checkbox"
@@ -190457,7 +190457,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_Input"
@@ -190826,7 +190826,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_RadioGroupItem"
@@ -191195,7 +191195,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_SelectTrigger"
@@ -191564,7 +191564,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_Switch"
@@ -191933,7 +191933,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_TextArea"
@@ -192302,7 +192302,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_TooltipContent"
@@ -192671,7 +192671,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_surface4"
@@ -193040,7 +193040,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_ProgressIndicator"
@@ -193409,7 +193409,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_SliderThumb"
@@ -193778,7 +193778,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_SwitchThumb"
@@ -194147,7 +194147,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_active_Tooltip"
@@ -194516,7 +194516,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_alt1"
@@ -194885,7 +194885,7 @@
         "shadowColorFocus": "rgba(0,0,0,0.2)",
         "sampleColor": "#f472b6",
         "sightingColor": "#34d399",
-        "dividerBg": "#ffffff",
+        "dividerBg": "#000000",
         "pendingColor": "#eab308",
         "downloadedColor": "#059669",
         "id": "dark_yellow_alt2"

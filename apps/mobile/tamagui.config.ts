@@ -1,5 +1,43 @@
 import { config } from "@tamagui/config/v3";
-import { createTamagui } from "tamagui";
+import { createFont, createTamagui } from "tamagui";
+
+const bodyFont = createFont({
+  family: "Inter",
+  size: {
+    1: 12,
+    2: 14,
+    3: 16,
+    4: 18,
+    5: 20,
+    6: 24,
+    7: 28,
+    8: 32,
+    9: 36,
+    10: 40,
+  },
+  lineHeight: {
+    1: 16,
+    2: 20,
+    3: 24,
+    4: 28,
+    5: 32,
+    6: 36,
+    7: 40,
+    8: 44,
+    9: 48,
+    10: 52,
+  },
+  weight: {
+    1: "400",
+    2: "500",
+    3: "700",
+  },
+  face: {
+    400: { normal: "Inter" },
+    500: { normal: "Inter_500" },
+    700: { normal: "InterBold" },
+  },
+});
 
 const tamaguiConfig = createTamagui({
   ...config,
@@ -21,6 +59,10 @@ const tamaguiConfig = createTamagui({
       pendingColor: "#eab308",
       downloadedColor: "#059669",
     },
+  },
+  fonts: {
+    body: bodyFont,
+    heading: bodyFont,
   },
 });
 

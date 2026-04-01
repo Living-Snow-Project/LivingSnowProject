@@ -23,6 +23,7 @@ export function useCachedResources() {
         await Font.loadAsync({
           ...Ionicons.font,
           Inter: require("@tamagui/font-inter/otf/Inter-Regular.otf"),
+          Inter_500: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
           InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
         });
       } catch (e) {

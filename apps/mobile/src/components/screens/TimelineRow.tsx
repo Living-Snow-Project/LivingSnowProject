@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Box, HStack, Pressable, Text, VStack } from "native-base";
+import { Pressable } from "react-native";
+import { Text, View, XStack, YStack } from "tamagui";
 import { AlgaeRecordV3, Photo } from "@livingsnow/record";
 import { RootStackNavigationProp } from "../../navigation/Routes";
 import { Divider, ThemedBox } from "../layout";
@@ -49,14 +50,14 @@ export function TimelineRow({ record, photos, actionsMenu }: TimelineRowProps) {
           navigate("RecordDetails", { record: JSON.stringify(recordDetail) })
         }
       >
-        <ThemedBox px={2} py={1}>
-          <VStack>
-            <HStack>
+        <ThemedBox px="$2" py="$1">
+          <YStack>
+            <XStack>
               <UserStyle record={record} />
-              <Box width="7%">{actionsMenu}</Box>
-            </HStack>
+              <View width="7%">{actionsMenu}</View>
+            </XStack>
             {bottomText(record)}
-          </VStack>
+          </YStack>
         </ThemedBox>
         <PhotosLayout photos={photos} />
       </Pressable>
