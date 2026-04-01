@@ -1,42 +1,63 @@
 import React from "react";
-import { Avatar, Box, Text, VStack, useColorModeValue } from "native-base";
+import { Avatar, Text, View, YStack } from "tamagui";
 import { AlgaeRecord, isSample, recordDateFormat } from "@livingsnow/record";
 import { Labels } from "../../constants";
 
 const avatarColors = [
-  "rose.300",
-  "rose.600",
-  "rose.900",
-  "fuchsia.300",
-  "fuchsia.600",
-  "fuchsia.900",
-  "purple.300",
-  "purple.600",
-  "purple.900",
-  "violet.300",
-  "violet.600",
-  "violet.900",
-  "indigo.300",
-  "indigo.600",
-  "indigo.900",
-  "blue.300",
-  "blue.600",
-  "blue.900",
-  "lightBlue.300",
-  "lightBlue.600",
-  "lightBlue.900",
-  "darkBlue.300",
-  "darkBlue.600",
-  "darkBlue.900",
-  "cyan.300",
-  "cyan.600",
-  "cyan.900",
-  "teal.300",
-  "teal.600",
-  "teal.900",
-  "green.300",
-  "green.600",
-  "green.900",
+  // rose (Radix: tomato/crimson approximation)
+  "#FDA4AF", // rose.300
+  "#E11D48", // rose.600
+  "#881337", // rose.900
+
+  // fuchsia (Radix: pink approximation)
+  "#F0ABFC", // fuchsia.300
+  "#C026D3", // fuchsia.600
+  "#701A75", // fuchsia.900
+
+  // purple (Radix: purple)
+  "#D8B4FE", // purple.300
+  "#9333EA", // purple.600
+  "#581C87", // purple.900
+
+  // violet (Radix: violet)
+  "#C4B5FD", // violet.300
+  "#7C3AED", // violet.600
+  "#4C1D95", // violet.900
+
+  // indigo (Radix: indigo)
+  "#A5B4FC", // indigo.300
+  "#4F46E5", // indigo.600
+  "#312E81", // indigo.900
+
+  // blue (Radix: blue)
+  "#93C5FD", // blue.300
+  "#2563EB", // blue.600
+  "#1E3A8A", // blue.900
+
+  // lightBlue (Radix: sky approximation)
+  "#7DD3FC", // lightBlue.300
+  "#0284C7", // lightBlue.600
+  "#0C4A6E", // lightBlue.900
+
+  // darkBlue (Radix: blue dark approximation)
+  "#60A5FA", // darkBlue.300
+  "#1D4ED8", // darkBlue.600
+  "#1E3A8A", // darkBlue.900
+
+  // cyan (Radix: cyan)
+  "#67E8F9", // cyan.300
+  "#0891B2", // cyan.600
+  "#164E63", // cyan.900
+
+  // teal (Radix: teal)
+  "#5EEAD4", // teal.300
+  "#0D9488", // teal.600
+  "#134E4A", // teal.900
+
+  // green (Radix: green)
+  "#86EFAC", // green.300
+  "#16A34A", // green.600
+  "#14532D", // green.900
 ];
 
 function computeInitials(name: string): string {
@@ -97,8 +118,16 @@ function getAvatar(name: string) {
   const { color, initials } = getAvatarProps(name);
 
   return (
-    <Avatar mt={1} bg={color}>
-      {initials}
+    <Avatar circular size="$5" mt="$1">
+      <Avatar.Fallback
+        backgroundColor={color}
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Text color="white" fontWeight="bold" fontSize="$2">
+          {initials}
+        </Text>
+      </Avatar.Fallback>
     </Avatar>
   );
 }
@@ -108,14 +137,14 @@ function getUserStyle(name: string | undefined, org: string | undefined) {
 
   return {
     org: org ? <Text>{org}</Text> : null,
-    name: <Text fontWeight={600}>{newName}</Text>,
+    name: <Text fontWeight="600">{newName}</Text>,
     avatar: getAvatar(newName),
   };
 }
 
 function getRecordInfo(record: AlgaeRecord, color: string) {
   return (
-    <Text fontWeight={700} color={color}>
+    <Text fontWeight="700" color={color}>
       {`${record.type}, ${recordDateFormat(record.date)}`}
     </Text>
   );
@@ -126,23 +155,20 @@ type UserStyleProps = {
 };
 
 export function UserStyle({ record }: UserStyleProps) {
-  const sample = useColorModeValue("secondary.600", "secondary.400");
-  const sighting = useColorModeValue("tertiary.600", "tertiary.400");
-
-  const color = isSample(record.type) ? sample : sighting;
+  const color = isSample(record.type) ? "$sampleColor" : "$sightingColor";
   const { avatar, name, org } = getUserStyle(record.name, record.organization);
 
   // TODO: not ideal width % spread across 2 components, rename to TimelineHeader and include actionsMenu?
   return (
     <>
-      <Box width="15%">{avatar}</Box>
-      <Box width="78%" pr="1">
-        <VStack ml={2}>
+      <View width="15%">{avatar}</View>
+      <View width="78%" pr="$1">
+        <YStack ml="$2">
           {name}
           {org}
           {getRecordInfo(record, color)}
-        </VStack>
-      </Box>
+        </YStack>
+      </View>
     </>
   );
 }

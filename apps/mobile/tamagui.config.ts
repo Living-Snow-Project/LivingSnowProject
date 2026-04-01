@@ -1,7 +1,22 @@
 import { config } from "@tamagui/config/v3";
 import { createTamagui } from "tamagui";
 
-const tamaguiConfig = createTamagui(config);
+const tamaguiConfig = createTamagui({
+  ...config,
+  themes: {
+    ...config.themes,
+    light: {
+      ...config.themes.light,
+      sampleColor: "#db2777", // pink.600
+      sightingColor: "#059669", // emerald.600
+    },
+    dark: {
+      ...config.themes.dark,
+      sampleColor: "#f472b6", // pink.400
+      sightingColor: "#34d399", // emerald.400
+    },
+  },
+});
 
 export type Conf = typeof tamaguiConfig;
 declare module "tamagui" {
