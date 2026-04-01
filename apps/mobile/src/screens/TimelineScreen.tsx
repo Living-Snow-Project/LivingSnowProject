@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FlatList } from "native-base";
+import { FlatList } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { TimelineScreenProps } from "../navigation/Routes";
 import { ExampleRecordList, StatusBar } from "../components";
