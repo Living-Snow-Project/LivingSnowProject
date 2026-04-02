@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "native-base";
+import { Button } from "tamagui";
 import {
   deleteAsync,
   documentDirectory,
@@ -112,7 +112,7 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
         setIsOpen={setIsOpen}
         onConfirm={deletePhotos}
       />
-      <Button height="8" py="1" onPress={() => setIsOpen(true)}>
+      <Button height={32} paddingVertical={4} onPress={() => setIsOpen(true)}>
         {Labels.Empty}
       </Button>
     </>
