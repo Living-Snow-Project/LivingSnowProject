@@ -1,14 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Appearance } from "react-native";
-import {
-  Box,
-  Heading,
-  HStack,
-  Switch,
-  Text,
-  VStack,
-  useColorMode,
-} from "native-base";
+import { Heading, Switch, Text, View, XStack, YStack } from "tamagui";
 import {
   Divider,
   DiskUsage,
@@ -17,6 +9,7 @@ import {
 } from "../components";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
 import { colorModeManager } from "../providers";
+import { ThemeContext } from "../../App";
 import { Headers, Labels, TestIds } from "../constants";
 
 type SettingsGroupProps = {
@@ -26,12 +19,12 @@ type SettingsGroupProps = {
 
 function SettingsGroup({ label, children }: SettingsGroupProps) {
   return (
-    <Box px="2">
-      <Heading my={1} size="sm">
+    <View paddingHorizontal="$2">
+      <Heading marginVertical="$1" size="$3">
         {label}
       </Heading>
       {children}
-    </Box>
+    </View>
   );
 }
 
@@ -46,33 +39,34 @@ function SettingsGroupItem({ label, right }: SettingsGroupItemProps) {
   const [labelValue, setLabel] = useState(label);
 
   return (
-    <HStack height="10" justifyContent="space-between">
-      <Text mt="3" fontSize="md">
+    <XStack height={40} justifyContent="space-between">
+      <Text marginTop="$3" fontSize="$4">
         {labelValue}
       </Text>
       {typeof right == "function" ? right({ setLabel }) : right}
-    </HStack>
+    </XStack>
   );
 }
 
 export function SettingsScreen() {
   const [{ showGpsWarning }, setSettings] = useState(getAppSettings());
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { themeName, setThemeName } = useContext(ThemeContext);
 
   const toggleColorModeAndPersist = () => {
-    colorModeManager.set(colorMode == "light" ? "dark" : "light");
-    Appearance.setColorScheme(colorMode == "light" ? "dark" : "light");
-    toggleColorMode();
+    const next = themeName === "light" ? "dark" : "light";
+    colorModeManager.set(next);
+    Appearance.setColorScheme(next);
+    setThemeName(next);
   };
 
   return (
     <ThemedBox>
-      <VStack>
-        <Box mb="1">
+      <YStack>
+        <View marginBottom="$1">
           <SettingsGroup label={Headers.Profile}>
             <UserIdentityInput />
           </SettingsGroup>
-        </Box>
+        </View>
         <Divider />
 
         <SettingsGroup label={Headers.Prompts}>
@@ -81,7 +75,7 @@ export function SettingsScreen() {
             right={
               <Switch
                 testID={TestIds.SettingsScreen.ShowGpsWarning}
-                onToggle={() => {
+                onCheckedChange={() => {
                   setSettings((prev) => ({
                     ...setAppSettings({
                       ...prev,
@@ -89,8 +83,10 @@ export function SettingsScreen() {
                     }),
                   }));
                 }}
-                isChecked={showGpsWarning}
-              />
+                checked={!showGpsWarning}
+              >
+                <Switch.Thumb />
+              </Switch>
             }
           />
         </SettingsGroup>
@@ -102,9 +98,11 @@ export function SettingsScreen() {
             right={
               <Switch
                 testID="Dark Mode"
-                onToggle={toggleColorModeAndPersist}
-                isChecked={colorMode == "dark"}
-              />
+                onCheckedChange={toggleColorModeAndPersist}
+                checked={themeName === "light"}
+              >
+                <Switch.Thumb />
+              </Switch>
             }
           />
         </SettingsGroup>
@@ -113,7 +111,7 @@ export function SettingsScreen() {
         <SettingsGroup label={Headers.DiskUsage}>
           <SettingsGroupItem label="Calculating" right={DiskUsage} />
         </SettingsGroup>
-      </VStack>
+      </YStack>
     </ThemedBox>
   );
 }
