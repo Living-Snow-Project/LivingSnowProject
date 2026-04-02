@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Box, ScrollView } from "native-base";
+import { ScrollView, View } from "tamagui";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { AvoidSoftInput } from "react-native-avoid-softinput";
@@ -74,7 +74,7 @@ type SpaceProps = {
 };
 
 function Space({ my = "1" }: SpaceProps) {
-  return <Box my={my} />;
+  return <View marginVertical={my} />;
 }
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
