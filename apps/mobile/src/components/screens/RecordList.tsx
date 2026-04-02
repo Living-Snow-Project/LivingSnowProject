@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import { Icon, Menu, Pressable } from "native-base";
+import { Pressable } from "react-native";
 import { TimelineScreenNavigationProp } from "../../navigation/Routes";
 import { Modal } from "../feedback";
 import { Divider } from "../layout";
@@ -12,7 +12,7 @@ import { productionExampleRecord } from "../../record/Record";
 import { IAlgaeRecords, LocalAlgaeRecordV3 } from "../../../types/AlgaeRecords";
 
 function ThreeDotsIcon() {
-  return <Icon as={Ionicons} name="ellipsis-horizontal-outline" size="lg" />;
+  return <Ionicons name="ellipsis-horizontal-outline" size={22} />;
 }
 
 function ExampleRecordList() {
@@ -108,7 +108,7 @@ function PendingTimelineRow({
         setIsOpen={setIsOpen}
         onConfirm={onConfirmDelete}
       />
-      <Menu trigger={menuTrigger}>
+      {/* TODO: tamagui v2 has a Menu component but v1 does not <Menu trigger={menuTrigger}>
         <Menu.Item
           onPress={onEdit}
           testID={TestIds.RecordList.EditRecordAction}
@@ -121,7 +121,7 @@ function PendingTimelineRow({
         >
           Delete
         </Menu.Item>
-      </Menu>
+      </Menu> */}
     </>
   );
 
