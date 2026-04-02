@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Modal, Text } from "native-base";
+import { AlertDialog, Button, XStack } from "tamagui";
 import { Labels, TestIds } from "../../constants";
 
 type ModalProps = {
@@ -20,36 +20,29 @@ function SnowAlgaeModal({
   onConfirm,
 }: ModalProps) {
   return (
-    <Modal isOpen={isOpen} onClose={setIsOpen} size="sm" testID={testId}>
-      <Modal.Content>
-        <Modal.CloseButton />
-        <Modal.Header>{header}</Modal.Header>
-        <Modal.Body>
-          <Text>{body}</Text>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button.Group space={2}>
-            <Button
-              variant="ghost"
-              colorScheme="blueGray"
-              onPress={() => setIsOpen(false)}
-              testID={TestIds.Modal.NoButton}
-            >
-              {Labels.Modal.Cancel}
-            </Button>
-            <Button
-              onPress={() => {
-                onConfirm();
-                setIsOpen(false);
-              }}
-              testID={TestIds.Modal.ConfirmButton}
-            >
-              {Labels.Modal.Confirm}
-            </Button>
-          </Button.Group>
-        </Modal.Footer>
-      </Modal.Content>
-    </Modal>
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialog.Portal>
+        {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+        {/* @ts-ignore too complex union type */}
+        <AlertDialog.Overlay />
+        <AlertDialog.Content testID={testId}>
+          <AlertDialog.Title>{header}</AlertDialog.Title>
+          <AlertDialog.Description>{body}</AlertDialog.Description>
+          <XStack justifyContent="flex-end" gap="$2" marginTop="$4">
+            <AlertDialog.Cancel asChild>
+              <Button chromeless testID={TestIds.Modal.NoButton}>
+                {Labels.Modal.Cancel}
+              </Button>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action asChild onPress={onConfirm}>
+              <Button testID={TestIds.Modal.ConfirmButton}>
+                {Labels.Modal.Confirm}
+              </Button>
+            </AlertDialog.Action>
+          </XStack>
+        </AlertDialog.Content>
+      </AlertDialog.Portal>
+    </AlertDialog>
   );
 }
 
