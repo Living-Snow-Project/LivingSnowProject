@@ -1,5 +1,6 @@
 import { createContext, useContext } from "react";
-import { YStack, Label, Text, XStack } from "tamagui";
+import { Ionicons } from "@expo/vector-icons";
+import { YStack, Label, Text, XStack, useTheme } from "tamagui";
 
 type FormFieldContextValue = {
   isInvalid?: boolean;
@@ -56,9 +57,11 @@ export function FormLabel({ children }: { children: React.ReactNode }) {
 
 export function FormErrorMessage({ children }: { children: React.ReactNode }) {
   const { isInvalid } = useFormField();
+  const theme = useTheme();
   if (!isInvalid) return null;
   return (
     <XStack gap="$1" alignItems="center">
+      <Ionicons name="warning-outline" size={14} color={theme.red10.val} />
       <Text color="$red10" fontSize="$2">
         {children}
       </Text>

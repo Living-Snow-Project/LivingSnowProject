@@ -11,32 +11,32 @@ const algaeColorSelectorItems: AlgaeColorSelectorItem[] = [
   {
     value: "Red",
     label: AlgaeColorDescription.Red,
-    color: { light: "red.700", dark: "red.500" },
+    color: { light: "#b91c1c", dark: "#ef4444" },
   },
   {
     value: "Pink",
     label: AlgaeColorDescription.Pink,
-    color: { light: "pink.500", dark: "pink.400" },
+    color: { light: "#ec4899", dark: "#f472b6" },
   },
   {
     value: "Green",
     label: AlgaeColorDescription.Green,
-    color: { light: "green.700", dark: "green.400" },
+    color: { light: "#15803d", dark: "#4ade80" },
   },
   {
     value: "Orange",
     label: AlgaeColorDescription.Orange,
-    color: { light: "orange.500", dark: "orange.400" },
+    color: { light: "#f97316", dark: "#fb923c" },
   },
   {
     value: "Yellow",
     label: AlgaeColorDescription.Yellow,
-    color: { light: "yellow.600", dark: "yellow.500" },
+    color: { light: "#ca8a04", dark: "#eab308" },
   },
   {
     value: "Grey",
     label: AlgaeColorDescription.Grey,
-    color: { light: "gray.600", dark: "gray.300" },
+    color: { light: "#4b5563", dark: "#d1d5db" },
   },
   { value: "Other", label: AlgaeColorDescription.Other },
 ];

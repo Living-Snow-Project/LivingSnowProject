@@ -1,18 +1,8 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Checkbox,
-  CheckIcon,
-  Flex,
-  FormControl,
-  HStack,
-  Radio,
-  Select,
-  Text,
-  WarningOutlineIcon,
-  useColorMode,
-  VStack,
-} from "native-base";
+import { Pressable } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { XStack, YStack, View, Text, useTheme } from "tamagui";
+import RNPickerSelect from "react-native-picker-select";
 import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 import {
   getAllAlgaeColorSelectorItems,
@@ -38,6 +28,7 @@ import {
   SurfaceImpurity,
   WhatIsUnderSnowpack,
 } from "@livingsnow/record/src/types";
+import { FormField, FormLabel, FormErrorMessage } from "./FormField";
 
 type AlgaeRecordTypeSelectorProps = {
   type: AlgaeRecordType;
@@ -49,24 +40,56 @@ function AlgaeRecordTypeSelector({
   setType,
 }: AlgaeRecordTypeSelectorProps) {
   return (
-    <FormControl isRequired>
-      <FormControl.Label>{Labels.RecordScreen.RecordType}</FormControl.Label>
-      <Radio.Group
-        name="algae record type selector"
-        accessibilityLabel="select type of record"
-        defaultValue={type}
-        onChange={setType}
-        testID={TestIds.Selectors.RecordType}
-      >
-        <HStack>
-          {getAllRecordTypeSelectorItems().map((item) => (
-            <Box mr="3" key={item.value}>
-              <Radio value={item.value}>{item.label}</Radio>
-            </Box>
-          ))}
-        </HStack>
-      </Radio.Group>
-    </FormControl>
+    <FormField id="algae-record-type" isRequired>
+      <FormLabel>{Labels.RecordScreen.RecordType}</FormLabel>
+      <XStack testID={TestIds.Selectors.RecordType}>
+        {getAllRecordTypeSelectorItems().map((item) => (
+          <RadioOption
+            key={item.value}
+            label={item.label}
+            value={item.value}
+            selectedValue={type}
+            onSelect={setType}
+          />
+        ))}
+      </XStack>
+    </FormField>
+  );
+}
+
+type RadioOptionProps = {
+  label: string;
+  value: string;
+  selectedValue: string;
+  onSelect: (value: string) => void;
+};
+
+function RadioOption({ label, value, selectedValue, onSelect }: RadioOptionProps) {
+  const isSelected = selectedValue === value;
+  return (
+    <Pressable onPress={() => onSelect(value)}>
+      <XStack gap="$2" alignItems="center" marginRight="$3">
+        <View
+          width={20}
+          height={20}
+          borderRadius={10}
+          borderWidth={2}
+          borderColor="$blue10"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {isSelected && (
+            <View
+              width={10}
+              height={10}
+              borderRadius={5}
+              backgroundColor="$blue10"
+            />
+          )}
+        </View>
+        <Text>{label}</Text>
+      </XStack>
+    </Pressable>
   );
 }
 
@@ -81,29 +104,17 @@ function AlgaeSizeSelector({
   isInvalid,
   setSize,
 }: AlgaeSizeSelectorProps) {
-  const renderSizes = () =>
-    getAllAlgaeSizeSelectorItems().map((item) => (
-      <Select.Item key={item.label} label={item.label} value={item.value} />
-    ));
-
   return (
-    <FormControl isRequired isReadOnly={true} isInvalid={isInvalid}>
-      <FormControl.Label>{Labels.RecordScreen.Size}</FormControl.Label>
-      <Select
-        size="xl"
-        selectedValue={size}
-        placeholder={Placeholders.RecordScreen.Size}
+    <FormField id="algae-size" isRequired isInvalid={isInvalid}>
+      <FormLabel>{Labels.RecordScreen.Size}</FormLabel>
+      <RNPickerSelect
+        placeholder={{ label: Placeholders.RecordScreen.Size, value: null }}
+        items={getAllAlgaeSizeSelectorItems()}
         onValueChange={setSize}
-        _selectedItem={{
-          endIcon: <CheckIcon size="5" />,
-        }}
-      >
-        {renderSizes()}
-      </Select>
-      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="sm" />}>
-        {Validations.invalidAlgaeSize}
-      </FormControl.ErrorMessage>
-    </FormControl>
+        value={size}
+      />
+      <FormErrorMessage>{Validations.invalidAlgaeSize}</FormErrorMessage>
+    </FormField>
   );
 }
 
@@ -118,30 +129,20 @@ function AlgaeColorSelector({
   isInvalid,
   onChangeColors,
 }: AlgaeColorSelectorProps) {
-  const { colorMode } = useColorMode();
+  const theme = useTheme();
 
-  // TODO: remove when Checkbox.Group fixed
-  // this is needed to get latest [un]selected colors in stale closures (because React doesn't re-render each color's Box if one changes)
+  // TODO: remove when a better solution is found
+  // needed to force re-renders on each check/uncheck in stale closures
   const [, setColorsInternal] = useState([...colors]);
 
   const renderColors = () =>
     getAllAlgaeColorSelectorItems().map((item) => {
-      let color: string | undefined;
-      let scheme = "info";
-
-      if (item.color) {
-        if (colorMode == "light") {
-          color = item.color.light;
-          [scheme] = color.split(".");
-        } else {
-          color = item.color.dark;
-          [scheme] = color.split(".");
-        }
-      }
+      const color = theme.dark
+        ? item.color?.dark
+        : item.color?.light;
 
       const isChecked = colors.includes(item.value);
 
-      // TODO: replace when Checkbox.Group fixed
       const onChange = (isSelected: boolean) => {
         setColorsInternal((prev) => {
           const temp = [...prev];
@@ -167,31 +168,29 @@ function AlgaeColorSelector({
       };
 
       return (
-        <Box mr="2" mt="1" key={item.value}>
-          <Checkbox
-            value={item.value}
-            colorScheme={scheme}
-            isChecked={isChecked}
-            onChange={onChange}
-          >
-            <Text color={color} fontWeight={color ? "medium" : "normal"}>
+        <Pressable key={item.value} onPress={() => onChange(!isChecked)}>
+          <XStack gap="$2" alignItems="center" marginRight="$2" marginTop="$1">
+            <Ionicons
+              name={isChecked ? "checkbox" : "checkbox-outline"}
+              size={24}
+              color={isChecked ? theme.blue10.val : theme.color.val}
+            />
+            <Text color={color} fontWeight={color ? "500" : "400"}>
               {item.label}
             </Text>
-          </Checkbox>
-        </Box>
+          </XStack>
+        </Pressable>
       );
     });
 
   return (
-    <FormControl isRequired isReadOnly={true} isInvalid={isInvalid}>
-      <FormControl.Label>{Labels.RecordScreen.Colors}</FormControl.Label>
-      <Flex mt="-1" flexDirection="row" wrap="wrap">
+    <FormField id="algae-colors" isRequired isInvalid={isInvalid}>
+      <FormLabel>{Labels.RecordScreen.Colors}</FormLabel>
+      <XStack marginTop="$-1" flexWrap="wrap">
         {renderColors()}
-      </Flex>
-      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="sm" />}>
-        {Validations.invalidAlgaeColors}
-      </FormControl.ErrorMessage>
-    </FormControl>
+      </XStack>
+      <FormErrorMessage>{Validations.invalidAlgaeColors}</FormErrorMessage>
+    </FormField>
   );
 }
 
@@ -212,105 +211,69 @@ function GlacierOrNotSelector({
   underSnow,
   setUnderSnow,
 }: GlacierOrNotSelectorProps) {
+  const glacierValue =
+    isOnGlacier === true ? "Yes" : isOnGlacier === false ? "No" : "";
+
   return (
     <>
       {/* 1) Are you on glacier? */}
-      <FormControl>
-        <FormControl.Label>{Labels.RecordScreen.OnGlacier}</FormControl.Label>
-        <Radio.Group
-          name="onGlacier"
-          accessibilityLabel="select if on glacier"
-          value={
-            isOnGlacier === true ? "Yes" : isOnGlacier === false ? "No" : ""
-          }
-          onChange={(val) => {
-            setIsOnGlacier(val == "Yes");
-          }}
-        >
-          <HStack>
-            <Box mr="3">
-              <Radio value={"Yes"}>{OnOffGlacierDescription.Yes}</Radio>
-            </Box>
-            <Box>
-              <Radio value={"No"}>{OnOffGlacierDescription.No}</Radio>
-            </Box>
-          </HStack>
-        </Radio.Group>
-      </FormControl>
+      <FormField id="on-glacier">
+        <FormLabel>{Labels.RecordScreen.OnGlacier}</FormLabel>
+        <XStack>
+          {(["Yes", "No"] as const).map((val) => (
+            <RadioOption
+              key={val}
+              label={val === "Yes" ? OnOffGlacierDescription.Yes : OnOffGlacierDescription.No}
+              value={val}
+              selectedValue={glacierValue}
+              onSelect={(v) => setIsOnGlacier(v === "Yes")}
+            />
+          ))}
+        </XStack>
+      </FormField>
 
       {/* 2) If On => see exposed ice? */}
       {isOnGlacier && (
-        <FormControl mt="3">
-          <FormControl.Label>
-            {Labels.RecordScreen.ExposedIce}
-          </FormControl.Label>
-          <Radio.Group
-            name="exposedIce"
-            accessibilityLabel="exposed ice question"
-            value={exposedIce}
-            onChange={(val: SeeExposedIce) => {
-              setExposedIce(val);
-            }}
-          >
-            <HStack>
-              <Box mr="3">
-                <Radio value={ExposedIceDescription.Yes}>
-                  {ExposedIceDescription.Yes}
-                </Radio>
-              </Box>
-              <Box>
-                <Radio value={ExposedIceDescription.No}>
-                  {ExposedIceDescription.No}
-                </Radio>
-              </Box>
-            </HStack>
-          </Radio.Group>
-        </FormControl>
+        <View marginTop="$3">
+          <FormField id="exposed-ice">
+            <FormLabel>{Labels.RecordScreen.ExposedIce}</FormLabel>
+            <XStack>
+              {([ExposedIceDescription.Yes, ExposedIceDescription.No] as const).map((val) => (
+                <RadioOption
+                  key={val}
+                  label={val}
+                  value={val}
+                  selectedValue={exposedIce ?? ""}
+                  onSelect={(v) => setExposedIce(v as SeeExposedIce)}
+                />
+              ))}
+            </XStack>
+          </FormField>
+        </View>
       )}
 
-      {/* 2) If Off => what is under the snowpack? */}
+      {/* 3) If Off => what is under the snowpack? */}
       {isOnGlacier != undefined && !isOnGlacier && (
-        <FormControl mt="3" isReadOnly={true}>
-          <FormControl.Label>
-            {Labels.RecordScreen.UnderSnowpack}
-          </FormControl.Label>
-          <Select
-            size="xl"
-            placeholder={UnderSnowpackDescription.Select}
-            selectedValue={underSnow}
-            onValueChange={(val: WhatIsUnderSnowpack) => {
-              setUnderSnow(val);
-            }}
-            _selectedItem={{ endIcon: <CheckIcon size="5" /> }}
-          >
-            <Select.Item
-              label={UnderSnowpackDescription.Vegetation}
-              value={"Vegetation"}
+        <View marginTop="$3">
+          <FormField id="under-snowpack">
+            <FormLabel>{Labels.RecordScreen.UnderSnowpack}</FormLabel>
+            <RNPickerSelect
+              placeholder={{ label: UnderSnowpackDescription.Select, value: null }}
+              items={[
+                { label: UnderSnowpackDescription.Vegetation, value: "Vegetation" },
+                { label: UnderSnowpackDescription.Rocks, value: "Rocks" },
+                { label: UnderSnowpackDescription.Soil, value: "Soil" },
+                { label: UnderSnowpackDescription.PondOrTarn, value: "Pond or Tarn" },
+                { label: UnderSnowpackDescription.Lake, value: "Lake" },
+                { label: UnderSnowpackDescription.Stream, value: "Stream" },
+                { label: UnderSnowpackDescription.Mixed, value: "Mixed" },
+                { label: UnderSnowpackDescription.IdontKnow, value: "I Don't Know" },
+              ]}
+              onValueChange={(val: WhatIsUnderSnowpack) => setUnderSnow(val)}
+              value={underSnow}
             />
-            <Select.Item
-              label={UnderSnowpackDescription.Rocks}
-              value={"Rocks"}
-            />
-            <Select.Item label={UnderSnowpackDescription.Soil} value={"Soil"} />
-            <Select.Item
-              label={UnderSnowpackDescription.PondOrTarn}
-              value={"Pond or Tarn"}
-            />
-            <Select.Item label={UnderSnowpackDescription.Lake} value={"Lake"} />
-            <Select.Item
-              label={UnderSnowpackDescription.Stream}
-              value={"Stream"}
-            />
-            <Select.Item
-              label={UnderSnowpackDescription.Mixed}
-              value={"Mixed"}
-            />
-            <Select.Item
-              label={UnderSnowpackDescription.IdontKnow}
-              value={"I Don't Know"}
-            />
-          </Select>
-        </FormControl>
+          </FormField>
+        </View>
       )}
     </>
   );
@@ -363,30 +326,26 @@ export function ImpuritiesSelector({
   impuritiesSelected,
   onChangeImpurities,
 }: ImpuritiesSelectorProps) {
+  const theme = useTheme();
+
   // local state to force re-renders on each check/uncheck
   const [, setImpuritiesInternal] = useState<SurfaceImpurity[]>([
     ...impuritiesSelected,
   ]);
 
-  /** Renders each checkbox item. */
   const renderImpurities = () =>
     getAllImpuritiesSelectorItems().map((item) => {
       const isChecked = impuritiesSelected.includes(item.value);
 
-      // On change of a single checkbox
       const onChange = (checked: boolean) => {
         setImpuritiesInternal((prev) => {
           const updated = [...prev];
-          // optionally remove any placeholder if needed
-          // e.g., const placeholderIndex = updated.indexOf("Select impurities");
 
           if (checked) {
-            // add if not already
             if (!updated.includes(item.value)) {
               updated.push(item.value);
             }
           } else {
-            // remove if present
             const idx = updated.indexOf(item.value);
             if (idx !== -1) {
               updated.splice(idx, 1);
@@ -399,31 +358,26 @@ export function ImpuritiesSelector({
       };
 
       return (
-        <Box key={item.value} mr="2" mt="1">
-          <Checkbox
-            value={item.value}
-            isChecked={isChecked}
-            onChange={onChange}
-          >
-            <Text fontWeight="normal">{item.label}</Text>
-          </Checkbox>
-        </Box>
+        <Pressable key={item.value} onPress={() => onChange(!isChecked)}>
+          <XStack gap="$2" alignItems="center" marginRight="$2" marginTop="$1">
+            <Ionicons
+              name={isChecked ? "checkbox" : "checkbox-outline"}
+              size={24}
+              color={isChecked ? theme.blue10.val : theme.color.val}
+            />
+            <Text fontWeight="400">{item.label}</Text>
+          </XStack>
+        </Pressable>
       );
     });
 
   return (
-    <FormControl>
-      <FormControl.Label>
-        {Labels.RecordScreen.ImpuritiesSelectAllThatApply}
-      </FormControl.Label>
-      <Flex mt="-1" flexDirection="row" wrap="wrap">
+    <FormField id="impurities">
+      <FormLabel>{Labels.RecordScreen.ImpuritiesSelectAllThatApply}</FormLabel>
+      <XStack marginTop="$-1" flexWrap="wrap">
         {renderImpurities()}
-      </Flex>
-      <FormControl.ErrorMessage leftIcon={<WarningOutlineIcon size="sm" />}>
-        {/* Replace with your own validation message if needed */}
-        Please select at least one impurity if relevant.
-      </FormControl.ErrorMessage>
-    </FormControl>
+      </XStack>
+    </FormField>
   );
 }
 
@@ -438,111 +392,89 @@ function SnowpackThicknessSelector({
 }: SnowpackThicknessSelectorProps) {
   const [localThickness, setLocalThickness] = useState(thickness);
 
+  const handleSelect = (val: string) => {
+    const newVal = val as SnowpackDepth;
+    setLocalThickness(newVal);
+    setThickness(newVal);
+  };
+
   return (
-    <FormControl mt="3">
-      <FormControl.Label>
-        {Labels.RecordScreen.SnowpackThickness}
-      </FormControl.Label>
-      <Radio.Group
-        name="snowpackThickness"
-        accessibilityLabel="select snowpack thickness"
-        value={localThickness}
-        onChange={(val) => {
-          // 3) Convert to SnowpackDepth, store in local & parent
-          const newVal = val as SnowpackDepth;
-          setLocalThickness(newVal);
-          setThickness(newVal);
-        }}
-      >
-        <VStack>
-          <HStack>
-            <Box mr="3" mt="1">
-              <Radio value={"< 10cm"}>
-                {SnowpackThicknessDescription.LessThan10Cm}
-              </Radio>
-            </Box>
-            <Box mr="3" mt="1">
-              <Radio value={"10cm - 30cm"}>
-                {SnowpackThicknessDescription.Between10Cm30Cm}
-              </Radio>
-            </Box>
-          </HStack>
-          <HStack>
-            <Box mr="3" mt="1">
-              <Radio value={"30cm - 1m"}>
-                {SnowpackThicknessDescription.ThirtyCm1M}
-              </Radio>
-            </Box>
-            <Box mr="3" mt="1">
-              <Radio value={"> 1m"}>
-                {SnowpackThicknessDescription.GreaterThan1M}
-              </Radio>
-            </Box>
-          </HStack>
-          <Box mr="3" mt="1">
-            <Radio value={"Other"}>{SnowpackThicknessDescription.Other}</Radio>
-          </Box>
-        </VStack>
-      </Radio.Group>
-    </FormControl>
+    <View marginTop="$3">
+      <FormField id="snowpack-thickness">
+        <FormLabel>{Labels.RecordScreen.SnowpackThickness}</FormLabel>
+        <YStack>
+          <XStack>
+            <RadioOption
+              label={SnowpackThicknessDescription.LessThan10Cm}
+              value="< 10cm"
+              selectedValue={localThickness}
+              onSelect={handleSelect}
+            />
+            <RadioOption
+              label={SnowpackThicknessDescription.Between10Cm30Cm}
+              value="10cm - 30cm"
+              selectedValue={localThickness}
+              onSelect={handleSelect}
+            />
+          </XStack>
+          <XStack>
+            <RadioOption
+              label={SnowpackThicknessDescription.ThirtyCm1M}
+              value="30cm - 1m"
+              selectedValue={localThickness}
+              onSelect={handleSelect}
+            />
+            <RadioOption
+              label={SnowpackThicknessDescription.GreaterThan1M}
+              value="> 1m"
+              selectedValue={localThickness}
+              onSelect={handleSelect}
+            />
+          </XStack>
+          <RadioOption
+            label={SnowpackThicknessDescription.Other}
+            value="Other"
+            selectedValue={localThickness}
+            onSelect={handleSelect}
+          />
+        </YStack>
+      </FormField>
+    </View>
   );
 }
 
 type BloomDepthSelectorProps = {
   bloomDepth: BloomDepth;
   setBloomDepth: (val: BloomDepth) => void;
-  // otherDescription: string;
-  // setOtherDescription: (val: string) => void;
 };
 
 function BloomDepthSelector({
   bloomDepth,
   setBloomDepth,
-  // otherDescription: string;
-  // setOtherDescription: (val: string) => void;
 }: BloomDepthSelectorProps) {
-  // if user picks "other", show a text input
   const handleBloomDepthChange = (val: string) => {
     setBloomDepth(val as BloomDepth);
-    // if (val !== "other") {
-    //   setOtherDescription("");
-    // }
   };
 
   return (
-    <FormControl mt="3" isReadOnly={true}>
-      <FormControl.Label>{Labels.RecordScreen.BloomDepth}</FormControl.Label>
-      <Select
-        size="xl"
-        placeholder={BloomDepthDescription.Select}
-        selectedValue={bloomDepth}
-        onValueChange={handleBloomDepthChange}
-        _selectedItem={{ endIcon: <CheckIcon size="5" /> }}
-      >
-        <Select.Item label={BloomDepthDescription.Surface} value={"Surface"} />
-        <Select.Item label={BloomDepthDescription.TwoCm} value={"2cm"} />
-        <Select.Item label={BloomDepthDescription.FiveCm} value={"5cm"} />
-        <Select.Item label={BloomDepthDescription.TenCm} value={"10cm"} />
-        <Select.Item
-          label={BloomDepthDescription.GreaterThan10Cm}
-          value={"> 10cm"}
+    <View marginTop="$3">
+      <FormField id="bloom-depth">
+        <FormLabel>{Labels.RecordScreen.BloomDepth}</FormLabel>
+        <RNPickerSelect
+          placeholder={{ label: BloomDepthDescription.Select, value: null }}
+          items={[
+            { label: BloomDepthDescription.Surface, value: "Surface" },
+            { label: BloomDepthDescription.TwoCm, value: "2cm" },
+            { label: BloomDepthDescription.FiveCm, value: "5cm" },
+            { label: BloomDepthDescription.TenCm, value: "10cm" },
+            { label: BloomDepthDescription.GreaterThan10Cm, value: "> 10cm" },
+            { label: BloomDepthDescription.Other, value: "Other" },
+          ]}
+          onValueChange={handleBloomDepthChange}
+          value={bloomDepth}
         />
-        <Select.Item label={BloomDepthDescription.Other} value={"Other"} />
-      </Select>
-      {/* 
-      {bloomDepth === "other" && (
-        <FormControl mt="3" isRequired>
-          <FormControl.Label>Please describe:</FormControl.Label>
-          <TextArea
-            blurOnSubmit
-            label="Other"
-            placeholder="Describe approximate bloom depth"
-            value={otherDescription}
-            onChangeText={setOtherDescription}
-          />
-        </FormControl>
-      )} */}
-    </FormControl>
+      </FormField>
+    </View>
   );
 }
 
