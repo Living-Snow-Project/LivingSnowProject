@@ -1,6 +1,6 @@
 import React from "react";
 import { Dimensions } from "react-native";
-import { Flex, Spinner, Text, useColorModeValue } from "native-base";
+import { Spinner, Text, View } from "tamagui";
 
 type ActivityIndicatorProps = {
   isActive: boolean;
@@ -11,7 +11,6 @@ export function ActivityIndicator({
   isActive,
   caption = "",
 }: ActivityIndicatorProps) {
-  const color = useColorModeValue("black", "white");
   const { height, width } = Dimensions.get("window");
 
   if (!isActive) {
@@ -20,7 +19,7 @@ export function ActivityIndicator({
 
   return (
     <>
-      <Flex
+      <View
         position="absolute"
         alignItems="center"
         justifyContent="center"
@@ -30,29 +29,28 @@ export function ActivityIndicator({
         bottom={0}
         zIndex={1}
         opacity={0.65}
-        _dark={{ bg: "dark.100" }}
-        _light={{ bg: "dark.900" }}
+        $theme-dark={{ backgroundColor: "$backgroundStrong" }}
+        $theme-light={{ backgroundColor: "$backgroundStrong" }}
       />
-      <Flex
+      <View
         position="absolute"
         alignItems="center"
         justifyContent="center"
         top={height / 2 - 100}
         left={width / 2 - 50}
         zIndex={2}
-        w="100"
-        h="100"
-        shadow="9"
+        width={100}
+        height={100}
         opacity={0.95}
-        borderRadius="4"
-        _dark={{ bg: "dark.100" }}
-        _light={{ bg: "dark.900" }}
+        borderRadius="$2"
+        $theme-dark={{ backgroundColor: "$backgroundStrong" }}
+        $theme-light={{ backgroundColor: "$backgroundStrong" }}
       >
-        <Spinner size="lg" color={color} />
-        <Text fontSize="xl" color={color}>
+        <Spinner size="large" color="$color" />
+        <Text fontSize="$6" color="$color">
           {caption}
         </Text>
-      </Flex>
+      </View>
     </>
   );
 }
