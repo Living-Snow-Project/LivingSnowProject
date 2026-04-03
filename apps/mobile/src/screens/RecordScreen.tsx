@@ -385,6 +385,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
           <Space />
           <TextArea
+            id="locationDescription"
             blurOnSubmit
             value={record?.locationDescription}
             label={`${Labels.RecordScreen.LocationDescription}`}
@@ -398,6 +399,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
 
           <Space />
           <TextArea
+            id="notes"
             blurOnSubmit
             value={record?.notes}
             label={`${Labels.RecordScreen.Notes}`}

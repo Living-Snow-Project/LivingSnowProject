@@ -1,7 +1,10 @@
 import React, { forwardRef } from "react";
-import { FormControl, TextArea as NBTextArea } from "native-base";
+import { TextInput } from "react-native";
+import { TextArea as TamaguiTextArea } from "tamagui";
+import { FormField, FormLabel } from "./FormField";
 
 type TextAreaProps = {
+  id: string;
   label: string;
   placeholder: string;
   value?: string | undefined;
@@ -11,9 +14,10 @@ type TextAreaProps = {
   onSubmitEditing?: () => void;
 };
 
-export const TextArea = forwardRef<typeof NBTextArea, TextAreaProps>(
+export const TextArea = forwardRef<TextInput, TextAreaProps>(
   (
     {
+      id,
       label,
       placeholder,
       value,
@@ -24,14 +28,11 @@ export const TextArea = forwardRef<typeof NBTextArea, TextAreaProps>(
     }: TextAreaProps,
     ref,
   ) => (
-    <FormControl>
-      <FormControl.Label>{label}</FormControl.Label>
-      {/* @ts-ignore missing typing for autoCompleteType */}
-      <NBTextArea
-        size="lg"
-        blurOnSubmit={blurOnSubmit}
-        // @ts-ignore ref typing isn't quite right in native-base yet
+    <FormField id={id}>
+      <FormLabel>{label}</FormLabel>
+      <TamaguiTextArea
         ref={ref}
+        blurOnSubmit={blurOnSubmit}
         value={value}
         placeholder={placeholder}
         onChangeText={(text) => {
@@ -44,9 +45,8 @@ export const TextArea = forwardRef<typeof NBTextArea, TextAreaProps>(
         onSubmitEditing={onSubmitEditing}
         maxLength={maxLength}
         returnKeyType="done"
-        variant="outline"
       />
-    </FormControl>
+    </FormField>
   ),
 );
 
