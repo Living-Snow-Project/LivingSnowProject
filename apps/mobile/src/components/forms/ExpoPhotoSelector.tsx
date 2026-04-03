@@ -1,5 +1,6 @@
 import React from "react";
-import { FormControl, Pressable } from "native-base";
+import { Pressable } from "react-native";
+import { FormField, FormLabel } from "./FormField";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
 import { manipulateAsync, ActionResize } from "expo-image-manipulator";
@@ -116,11 +117,11 @@ export function ExpoPhotoSelector({
   };
 
   return (
-    <FormControl>
-      <FormControl.Label>{Labels.RecordScreen.Photos}</FormControl.Label>
+    <FormField id="expo-photo-selector">
+      <FormLabel>{Labels.RecordScreen.Photos}</FormLabel>
       <Pressable testID={TestIds.Selectors.Photos} onPress={handleOnPress}>
         {renderPhotos()}
       </Pressable>
-    </FormControl>
+    </FormField>
   );
 }

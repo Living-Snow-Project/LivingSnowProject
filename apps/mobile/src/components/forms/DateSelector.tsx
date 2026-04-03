@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import { View } from "react-native";
-import {
-  ArrowBackIcon,
-  ArrowForwardIcon,
-  FormControl,
-  Input,
-  Pressable,
-  useColorModeValue,
-  useTheme,
-} from "native-base";
+import { Pressable, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Input, useTheme } from "tamagui";
+import { FormField, FormLabel } from "./FormField";
 import { Calendar, DateData } from "react-native-calendars";
 import { Labels } from "../../constants";
 
@@ -22,15 +16,12 @@ export function DateSelector({ date, maxDate, setDate }: DateSelectorProps) {
   const [calendarVisible, setCalendarVisible] = useState(false);
 
   const theme = useTheme();
-  const dark = theme.colors.light[700];
-  const light = theme.colors.light[50];
-
-  const bgColor = useColorModeValue(light, dark);
-  const dayColor = useColorModeValue(dark, light);
+  const bgColor = theme.calendarBg.val;
+  const dayColor = theme.calendarDay.val;
   const selectedDayColor = bgColor;
   const monthColor = dayColor;
-  const disabledColor = useColorModeValue(`${dark}55`, `${light}55`);
-  const arrowColor = useColorModeValue("primary.600", "primary.400");
+  const disabledColor = theme.calendarDisabled.val;
+  const arrowColor = theme.calendarArrow.val;
 
   const onDayPress = (newDate: DateData) => {
     setCalendarVisible(false);
@@ -48,9 +39,9 @@ export function DateSelector({ date, maxDate, setDate }: DateSelectorProps) {
           markedDates={{ [date]: { selected: true } }}
           renderArrow={(direction) =>
             direction == "left" ? (
-              <ArrowBackIcon color={arrowColor} />
+              <Ionicons name="arrow-back" size={16} color={arrowColor} />
             ) : (
-              <ArrowForwardIcon color={arrowColor} />
+              <Ionicons name="arrow-forward" size={16} color={arrowColor} />
             )
           }
           theme={{
@@ -66,20 +57,20 @@ export function DateSelector({ date, maxDate, setDate }: DateSelectorProps) {
 
     return (
       <View pointerEvents="none">
-        <Input value={date} size="lg" />
+        <Input value={date} size="$4" />
       </View>
     );
   };
 
   return (
-    <FormControl isRequired>
-      <FormControl.Label>{Labels.Date}</FormControl.Label>
+    <FormField isRequired id="date-selector">
+      <FormLabel>{Labels.Date}</FormLabel>
       <Pressable
         testID="calendar-pressable"
         onPress={() => setCalendarVisible(true)}
       >
         {renderCalendar()}
       </Pressable>
-    </FormControl>
+    </FormField>
   );
 }

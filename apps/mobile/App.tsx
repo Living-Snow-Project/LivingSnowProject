@@ -12,6 +12,7 @@ import {
 } from "./src/hooks/useAlgaeRecords";
 import { getAppSettings } from "./AppSettings";
 import tamaguiConfig from "./tamagui.config";
+import { ToastProvider } from "./src/components/feedback";
 
 type ThemeContextValue = {
   themeName: "light" | "dark";
@@ -47,10 +48,12 @@ export function App() {
     <AlgaeRecordsContext.Provider value={algaeRecords}>
       <ThemeContext.Provider value={{ themeName, setThemeName }}>
         <TamaguiProvider config={tamaguiConfig} defaultTheme={themeName}>
-          <NativeBaseProvider>
-            <Navigation />
-            <StatusBar />
-          </NativeBaseProvider>
+          <ToastProvider>
+            <NativeBaseProvider>
+              <Navigation />
+              <StatusBar />
+            </NativeBaseProvider>
+          </ToastProvider>
         </TamaguiProvider>
       </ThemeContext.Provider>
     </AlgaeRecordsContext.Provider>

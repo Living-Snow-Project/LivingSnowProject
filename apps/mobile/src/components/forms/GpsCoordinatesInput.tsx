@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useRef } from "react";
-import { Pressable, View } from "native-base";
+import { Pressable } from "react-native";
+import { View } from "tamagui";
 import {
   Accuracy,
   LocationSubscription,

@@ -1,17 +1,8 @@
-import { useToast } from "native-base";
+import { useContext } from "react";
+import { ToastContext } from "../components/feedback";
 
 function useAlgaeToast() {
-  const toast = useToast();
-
-  return {
-    show: (component: JSX.Element) => {
-      toast.show({
-        placement: "top",
-        duration: 2000,
-        render: () => component,
-      });
-    },
-  };
+  return useContext(ToastContext);
 }
 
 export { useAlgaeToast as useToast };

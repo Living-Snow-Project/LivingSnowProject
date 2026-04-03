@@ -50,6 +50,10 @@ const tamaguiConfig = createTamagui({
       dividerBg: "#d6d3d1",
       pendingColor: "#fde047",
       downloadedColor: "#34d399",
+      calendarBg: "#f5f5f5",
+      calendarDay: "#616161",
+      calendarDisabled: "#61616155",
+      calendarArrow: "hsl(206, 100%, 50.0%)",
     },
     dark: {
       ...config.themes.dark,
@@ -58,6 +62,10 @@ const tamaguiConfig = createTamagui({
       dividerBg: "#000000",
       pendingColor: "#eab308",
       downloadedColor: "#059669",
+      calendarBg: "#616161",
+      calendarDay: "#f5f5f5",
+      calendarDisabled: "#f5f5f555",
+      calendarArrow: "hsl(206, 100%, 50.0%)",
     },
   },
   fonts: {
