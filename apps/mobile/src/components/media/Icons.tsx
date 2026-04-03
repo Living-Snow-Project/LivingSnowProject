@@ -1,6 +1,6 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
-import { AddIcon, Icon, useColorModeValue } from "native-base";
+import { useTheme } from "tamagui";
 import { Colors, TestIds } from "../../constants";
 
 type StockIconProps = {
@@ -22,19 +22,23 @@ export function StockIcon({
 type IconNameType = keyof typeof Ionicons.glyphMap;
 
 export function AddPhotosIcon() {
-  const color = useColorModeValue("primary.600", "primary.400");
+  const theme = useTheme();
 
   return (
-    <AddIcon color={color} size="50" testID={TestIds.Icons.AddPhotosIcon} />
+    <Ionicons
+      name="add"
+      size={50}
+      color={theme.blue10.val}
+      testID={TestIds.Icons.AddPhotosIcon}
+    />
   );
 }
 export function PictureIcon() {
   return (
-    <Icon
-      as={Ionicons}
-      color="green"
+    <Ionicons
       name="image"
-      size="xl"
+      size={24}
+      color="green"
       testID={TestIds.Icons.PictureIcon}
     />
   );
@@ -42,11 +46,10 @@ export function PictureIcon() {
 
 export function SnowIcon() {
   return (
-    <Icon
-      as={Ionicons}
-      color="pink.500"
+    <Ionicons
       name="snow"
-      size="xl"
+      size={24}
+      color="#ec4899"
       testID={TestIds.Icons.SnowIcon}
     />
   );

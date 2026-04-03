@@ -1,5 +1,5 @@
 import React from "react";
-import { useColorModeValue, useTheme } from "native-base";
+import { useTheme } from "tamagui";
 import { PressableOpacity } from "../PressableOpacity";
 import { StockIcon } from "../media";
 
@@ -34,10 +34,7 @@ export function HeaderButton({
           marginRight: 25,
         };
   const theme = useTheme();
-  const color = useColorModeValue(
-    theme.colors.primary[600],
-    theme.colors.primary[400],
-  );
+  const color = theme.blue10.val;
 
   return (
     <PressableOpacity style={style} testID={testID} onPress={onPress}>
