@@ -8,7 +8,6 @@ import {
   UserIdentityInput,
 } from "../components";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
-import { colorModeManager } from "../providers";
 import { ThemeContext } from "../../App";
 import { Headers, Labels, TestIds } from "../constants";
 
@@ -54,7 +53,7 @@ export function SettingsScreen() {
 
   const toggleColorModeAndPersist = () => {
     const next = themeName === "light" ? "dark" : "light";
-    colorModeManager.set(next);
+    setAppSettings((prev) => ({ ...prev, colorMode: next }));
     Appearance.setColorScheme(next);
     setThemeName(next);
   };

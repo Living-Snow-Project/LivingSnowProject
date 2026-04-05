@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   NavigationContainer,
   DarkTheme,
   DefaultTheme,
 } from "@react-navigation/native";
-import { useColorModeValue, useTheme, Box } from "native-base";
+import { XStack, useTheme } from "tamagui";
+import { ThemeContext } from "../../App";
 import {
   FirstRunScreen,
   RecordDetailsScreen,
@@ -91,10 +92,10 @@ function RootNavigator() {
         options={({ navigation }: { navigation: RootStackNavigationProp }) => ({
           headerLeft: () => SettingsButton({ navigation }),
           headerRight: () => (
-            <Box flexDirection="row">
+            <XStack>
               <MapButton navigation={navigation} />
               <NewRecordButton navigation={navigation} />
-            </Box>
+            </XStack>
           ),
         })}
       />
@@ -118,25 +119,27 @@ function RootNavigator() {
 }
 
 export function Navigation() {
-  const nbTheme = useTheme();
-  const theme = useColorModeValue(
-    {
-      ...DefaultTheme,
-      colors: {
-        ...DefaultTheme.colors,
-        primary: nbTheme.colors.primary[600],
-      },
-      light: true,
-    },
-    {
-      ...DarkTheme,
-      colors: {
-        ...DarkTheme.colors,
-        primary: nbTheme.colors.primary[400],
-      },
-      light: false,
-    },
-  );
+  const { themeName } = useContext(ThemeContext);
+  const tamaguiTheme = useTheme();
+
+  const theme =
+    themeName === "dark"
+      ? {
+          ...DarkTheme,
+          colors: {
+            ...DarkTheme.colors,
+            primary: tamaguiTheme.blue10?.val ?? DarkTheme.colors.primary,
+          },
+          light: false as const,
+        }
+      : {
+          ...DefaultTheme,
+          colors: {
+            ...DefaultTheme.colors,
+            primary: tamaguiTheme.blue10?.val ?? DefaultTheme.colors.primary,
+          },
+          light: true as const,
+        };
 
   return (
     <NavigationContainer theme={theme}>

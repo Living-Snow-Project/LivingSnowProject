@@ -3,7 +3,6 @@ import { Appearance } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
 import { TamaguiProvider } from "tamagui";
-import { NativeBaseProvider } from "./src/providers";
 import { Navigation } from "./src/navigation/MainTabNavigator";
 import { useCachedResources } from "./src/hooks/useCachedResources";
 import {
@@ -49,10 +48,8 @@ export function App() {
       <ThemeContext.Provider value={{ themeName, setThemeName }}>
         <TamaguiProvider config={tamaguiConfig} defaultTheme={themeName}>
           <ToastProvider>
-            <NativeBaseProvider>
-              <Navigation />
-              <StatusBar />
-            </NativeBaseProvider>
+            <Navigation />
+            <StatusBar />
           </ToastProvider>
         </TamaguiProvider>
       </ThemeContext.Provider>
