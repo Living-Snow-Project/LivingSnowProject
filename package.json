@@ -7,8 +7,8 @@
     "lint": "eslint . && cd apps/mobile && yarn lint && cd ../..",
     "nuke": "yarn nuke:win && yarn workspaces run nuke",
     "nuke:win": "node -e \"if (process.platform === 'win32') process.exit(1)\" || , if exist node_modules rd /s /q node_modules",
-    "precheck": "yarn prettier && yarn lint && yarn test",
-    "prettier": "prettier --check .",
+    "precheck": "yarn pretty && yarn lint && yarn test",
+    "pretty": "prettier --check .",
     "test": "yarn workspaces run test"
   },
   "workspaces": [
