@@ -23,4 +23,7 @@ config.resolver.blockList =
   /(website\\node_modules\\.*|.*\\__tests__\\.*|website\\src\\mocks\\.*)$/;
 // Add .geojson to assetExts
 config.resolver.assetExts.push("geojson");
+// Disable strict package.json exports resolution — required for tamagui/native compat with Expo 53
+// See: https://github.com/tamagui/tamagui/issues/3569
+config.resolver.unstable_enablePackageExports = false;
 module.exports = config;
