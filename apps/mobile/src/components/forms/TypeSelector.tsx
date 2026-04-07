@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { XStack, YStack, View, Text, useTheme } from "tamagui";
-import RNPickerSelect from "react-native-picker-select";
+import { XStack, YStack, View, Text, useTheme, Select, Adapt, Sheet } from "tamagui";
 import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 import {
   getAllAlgaeColorSelectorItems,
@@ -29,6 +28,57 @@ import {
   WhatIsUnderSnowpack,
 } from "@livingsnow/record/src/types";
 import { FormField, FormLabel, FormErrorMessage } from "./FormField";
+
+type TamaguiPickerSelectProps = {
+  placeholder: string;
+  items: { label: string; value: string }[];
+  value: string | null | undefined;
+  onValueChange: (value: string) => void;
+};
+
+function TamaguiPickerSelect({
+  placeholder,
+  items,
+  value,
+  onValueChange,
+}: TamaguiPickerSelectProps) {
+  return (
+    <Select value={value ?? undefined} onValueChange={onValueChange}>
+      <Select.Trigger iconAfter={<Ionicons name="chevron-down" size={16} />}>
+        <Select.Value placeholder={placeholder} />
+      </Select.Trigger>
+
+      <Adapt when="sm" platform="touch">
+        <Sheet modal dismissOnSnapToBottom>
+          <Sheet.Frame>
+            <Sheet.ScrollView>
+              <Adapt.Contents />
+            </Sheet.ScrollView>
+          </Sheet.Frame>
+          <Sheet.Overlay />
+        </Sheet>
+      </Adapt>
+
+      <Select.Content zIndex={200000}>
+        <Select.ScrollUpButton>
+          <Ionicons name="chevron-up" size={16} />
+        </Select.ScrollUpButton>
+        <Select.Viewport>
+          <Select.Group>
+            {items.map((item, i) => (
+              <Select.Item index={i} key={item.value} value={item.value}>
+                <Select.ItemText>{item.label}</Select.ItemText>
+              </Select.Item>
+            ))}
+          </Select.Group>
+        </Select.Viewport>
+        <Select.ScrollDownButton>
+          <Ionicons name="chevron-down" size={16} />
+        </Select.ScrollDownButton>
+      </Select.Content>
+    </Select>
+  );
+}
 
 type AlgaeRecordTypeSelectorProps = {
   type: AlgaeRecordType;
@@ -107,10 +157,10 @@ function AlgaeSizeSelector({
   return (
     <FormField id="algae-size" isRequired isInvalid={isInvalid}>
       <FormLabel>{Labels.RecordScreen.Size}</FormLabel>
-      <RNPickerSelect
-        placeholder={{ label: Placeholders.RecordScreen.Size, value: null }}
+      <TamaguiPickerSelect
+        placeholder={Placeholders.RecordScreen.Size}
         items={getAllAlgaeSizeSelectorItems()}
-        onValueChange={setSize}
+        onValueChange={(val) => setSize(val as AlgaeSize)}
         value={size}
       />
       <FormErrorMessage>{Validations.invalidAlgaeSize}</FormErrorMessage>
@@ -257,8 +307,8 @@ function GlacierOrNotSelector({
         <View marginTop="$3">
           <FormField id="under-snowpack">
             <FormLabel>{Labels.RecordScreen.UnderSnowpack}</FormLabel>
-            <RNPickerSelect
-              placeholder={{ label: UnderSnowpackDescription.Select, value: null }}
+            <TamaguiPickerSelect
+              placeholder={UnderSnowpackDescription.Select}
               items={[
                 { label: UnderSnowpackDescription.Vegetation, value: "Vegetation" },
                 { label: UnderSnowpackDescription.Rocks, value: "Rocks" },
@@ -269,7 +319,7 @@ function GlacierOrNotSelector({
                 { label: UnderSnowpackDescription.Mixed, value: "Mixed" },
                 { label: UnderSnowpackDescription.IdontKnow, value: "I Don't Know" },
               ]}
-              onValueChange={(val: WhatIsUnderSnowpack) => setUnderSnow(val)}
+              onValueChange={(val) => setUnderSnow(val as WhatIsUnderSnowpack)}
               value={underSnow}
             />
           </FormField>
@@ -460,8 +510,8 @@ function BloomDepthSelector({
     <View marginTop="$3">
       <FormField id="bloom-depth">
         <FormLabel>{Labels.RecordScreen.BloomDepth}</FormLabel>
-        <RNPickerSelect
-          placeholder={{ label: BloomDepthDescription.Select, value: null }}
+        <TamaguiPickerSelect
+          placeholder={BloomDepthDescription.Select}
           items={[
             { label: BloomDepthDescription.Surface, value: "Surface" },
             { label: BloomDepthDescription.TwoCm, value: "2cm" },
