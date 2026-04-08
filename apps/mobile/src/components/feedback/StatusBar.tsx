@@ -49,7 +49,7 @@ export function StatusBar({ state, isConnected }: StatusBarProps) {
         backgroundColor,
       }}
     >
-      <Text textAlign="center" fontWeight="semibold">
+      <Text textAlign="center" fontWeight="600">
         {isConnected ? state : Labels.StatusBar.NoConnection}
       </Text>
     </Animated.View>

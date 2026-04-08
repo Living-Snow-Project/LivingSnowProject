@@ -73,7 +73,7 @@ export function FormHelperText({ children }: { children: React.ReactNode }) {
   const { isInvalid } = useFormField();
   if (isInvalid) return null;
   return (
-    <Text color="$colorSecondary" fontSize="$2">
+    <Text color="$color11" fontSize="$2">
       {children}
     </Text>
   );

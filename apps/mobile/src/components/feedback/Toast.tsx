@@ -19,7 +19,7 @@ export function ToastAlert({ status, title, message }: ToastAlertProps) {
     <XStack
       maxWidth="90%"
       alignSelf="center"
-      backgroundColor={bgColor}
+      backgroundColor={bgColor as any}
       borderRadius="$2"
       padding="$3"
       gap="$2"
@@ -45,7 +45,7 @@ export function ToastAlert({ status, title, message }: ToastAlertProps) {
 }
 
 type ToastContextValue = {
-  show: (component: JSX.Element) => void;
+  show: (component: React.JSX.Element) => void;
 };
 
 export const ToastContext = createContext<ToastContextValue>({
@@ -57,10 +57,10 @@ type ToastProviderProps = {
 };
 
 export function ToastProvider({ children }: ToastProviderProps) {
-  const [toast, setToast] = useState<JSX.Element | null>(null);
+  const [toast, setToast] = useState<React.JSX.Element | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const show = (component: JSX.Element) => {
+  const show = (component: React.JSX.Element) => {
     if (timerRef.current) clearTimeout(timerRef.current);
     setToast(component);
     timerRef.current = setTimeout(() => setToast(null), 2000);

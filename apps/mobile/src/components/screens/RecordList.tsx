@@ -39,7 +39,7 @@ function useDownloadedRecordList() {
   const pendingLength = algaeRecords.getPending().length;
 
   const renderRecords = useMemo(() => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
 
     // "Downloaded Divider" is only useful if there are pending records
     if (pendingLength > 0) {
@@ -139,7 +139,7 @@ function usePendingRecordList() {
   const pendingRecords = algaeRecords.getPending();
 
   const renderRecords = useMemo(() => {
-    const result: JSX.Element[] = [];
+    const result: React.JSX.Element[] = [];
 
     if (pendingRecords.length == 0) {
       return null;

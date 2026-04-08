@@ -36,7 +36,7 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
     <FormField id="" isRequired={isRequired} isInvalid={isInvalid}>
       <FormLabel>{label}</FormLabel>
       <Input
-        size="lg"
+        size="$4"
         blurOnSubmit={blurOnSubmit}
         // @ts-ignore ref typing isn't quite right in native-base yet
         ref={ref}

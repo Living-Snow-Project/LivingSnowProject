@@ -1,10 +1,7 @@
 import React from "react";
 import { View } from "tamagui";
 
-type ThemedBoxProps = {
-  children: JSX.Element | JSX.Element[];
-  [props: string]: any;
-};
+type ThemedBoxProps = React.ComponentProps<typeof View>;
 
 export function ThemedBox({ children, ...props }: ThemedBoxProps) {
   return (

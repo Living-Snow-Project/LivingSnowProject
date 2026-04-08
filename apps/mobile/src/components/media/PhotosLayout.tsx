@@ -13,7 +13,7 @@ const gapPx = 6;
 
 export function PhotosLayout({
   photos,
-}: PhotosLayoutProps): JSX.Element | null {
+}: PhotosLayoutProps): React.JSX.Element | null {
   if (!photos || !photos.length) {
     return null;
   }

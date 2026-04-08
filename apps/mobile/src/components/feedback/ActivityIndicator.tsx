@@ -29,8 +29,8 @@ export function ActivityIndicator({
         bottom={0}
         zIndex={1}
         opacity={0.65}
-        $theme-dark={{ backgroundColor: "$backgroundStrong" }}
-        $theme-light={{ backgroundColor: "$backgroundStrong" }}
+        $theme-dark={{ backgroundColor: "$background" }}
+        $theme-light={{ backgroundColor: "$background" }}
       />
       <View
         position="absolute"
@@ -43,8 +43,8 @@ export function ActivityIndicator({
         height={100}
         opacity={0.95}
         borderRadius="$2"
-        $theme-dark={{ backgroundColor: "$backgroundStrong" }}
-        $theme-light={{ backgroundColor: "$backgroundStrong" }}
+        $theme-dark={{ backgroundColor: "$background" }}
+        $theme-light={{ backgroundColor: "$background" }}
       >
         <Spinner size="large" color="$color" />
         <Text fontSize="$6" color="$color">

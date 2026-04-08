@@ -120,7 +120,7 @@ function getAvatar(name: string) {
   return (
     <Avatar circular size="$5" mt="$1">
       <Avatar.Fallback
-        backgroundColor={color}
+        backgroundColor={color as any}
         alignItems="center"
         justifyContent="center"
       >
@@ -144,7 +144,7 @@ function getUserStyle(name: string | undefined, org: string | undefined) {
 
 function getRecordInfo(record: AlgaeRecord, color: string) {
   return (
-    <Text fontWeight="700" color={color}>
+    <Text fontWeight="700" color={color as any}>
       {`${record.type}, ${recordDateFormat(record.date)}`}
     </Text>
   );

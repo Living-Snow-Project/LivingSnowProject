@@ -10,7 +10,7 @@ type PressableOpacityProps = {
   testID?: string;
   onPress: (event: GestureResponderEvent) => void;
   style?: StyleProp<ViewStyle>;
-  children: JSX.Element;
+  children: React.JSX.Element;
   testOnly_pressed?: boolean;
 };
 

@@ -1,5 +1,7 @@
 // Learn more https://docs.expo.dev/guides/monorepos
 const { getDefaultConfig } = require("expo/metro-config");
+const { withTamagui } = require("@tamagui/metro-plugin");
+
 const path = require("path");
 
 // Find the project and workspace directories
@@ -25,5 +27,8 @@ config.resolver.blockList =
 config.resolver.assetExts.push("geojson");
 // Disable strict package.json exports resolution — required for tamagui/native compat with Expo 53
 // See: https://github.com/tamagui/tamagui/issues/3569
-config.resolver.unstable_enablePackageExports = false;
-module.exports = config;
+//config.resolver.unstable_enablePackageExports = false;
+module.exports = withTamagui(config, {
+  components: ["tamagui"],
+  config: "tamagui.config.ts",
+});

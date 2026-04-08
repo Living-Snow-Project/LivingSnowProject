@@ -59,7 +59,7 @@ function TamaguiPickerSelect({
         </Sheet>
       </Adapt>
 
-      <Select.Content zIndex={200000}>
+      <Select.Content>
         <Select.ScrollUpButton>
           <Ionicons name="chevron-up" size={16} />
         </Select.ScrollUpButton>
@@ -225,7 +225,7 @@ function AlgaeColorSelector({
               size={24}
               color={isChecked ? theme.blue10.val : theme.color.val}
             />
-            <Text color={color} fontWeight={color ? "500" : "400"}>
+            <Text color={color as any} fontWeight={color ? "500" : "400"}>
               {item.label}
             </Text>
           </XStack>

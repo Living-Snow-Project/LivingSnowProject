@@ -13,7 +13,7 @@ import { Headers, Labels, TestIds } from "../constants";
 
 type SettingsGroupProps = {
   label: string;
-  children: JSX.Element;
+  children: React.JSX.Element;
 };
 
 function SettingsGroup({ label, children }: SettingsGroupProps) {
@@ -30,8 +30,8 @@ function SettingsGroup({ label, children }: SettingsGroupProps) {
 type SettingsGroupItemProps = {
   label: string;
   right:
-    | JSX.Element
-    | ((props: { setLabel: (value: string) => void }) => JSX.Element);
+    | React.JSX.Element
+    | ((props: { setLabel: (value: string) => void }) => React.JSX.Element);
 };
 
 function SettingsGroupItem({ label, right }: SettingsGroupItemProps) {

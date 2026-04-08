@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "tamagui";
-import {
-  deleteAsync,
-  documentDirectory,
-  getInfoAsync,
-  readDirectoryAsync,
-} from "expo-file-system";
+import { documentDirectory } from "expo-file-system/legacy";
+import { deleteAsync, getInfoAsync, readDirectoryAsync } from "expo-file-system";
 import { Modal } from "../feedback";
 import { Labels, TestIds } from "../../constants";
 

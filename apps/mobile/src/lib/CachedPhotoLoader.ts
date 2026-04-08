@@ -1,10 +1,5 @@
-import {
-  copyAsync,
-  documentDirectory,
-  downloadAsync,
-  getInfoAsync,
-  readAsStringAsync,
-} from "expo-file-system";
+import { documentDirectory } from "expo-file-system/legacy";
+import { copyAsync, downloadAsync, getInfoAsync, readAsStringAsync } from "expo-file-system";
 import { manipulateAsync } from "expo-image-manipulator";
 import NetInfo from "@react-native-community/netinfo";
 import { PhotosApi } from "@livingsnow/network";

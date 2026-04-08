@@ -12,8 +12,8 @@ import { MinimalAlgaeRecordV3 } from "../../../types";
 function bottomText({
   locationDescription,
   notes,
-}: AlgaeRecordV3): JSX.Element[] | null {
-  const result: JSX.Element[] = [];
+}: AlgaeRecordV3): React.JSX.Element[] | null {
+  const result: React.JSX.Element[] = [];
   if (locationDescription) {
     result.push(
       <Text key={0} fontWeight="500">
@@ -32,7 +32,7 @@ function bottomText({
 type TimelineRowProps = {
   record: AlgaeRecordV3;
   photos?: Photo[];
-  actionsMenu?: JSX.Element;
+  actionsMenu?: React.JSX.Element;
 };
 
 export function TimelineRow({ record, photos, actionsMenu }: TimelineRowProps) {

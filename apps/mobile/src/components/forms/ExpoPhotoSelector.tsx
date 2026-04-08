@@ -110,7 +110,7 @@ export function ExpoPhotoSelector({
     }
 
     return (
-      <ThemedBox height="52" width="52">
+      <ThemedBox height={52} width={52}>
         <AddPhotosIcon />
       </ThemedBox>
     );

@@ -74,7 +74,7 @@ type SpaceProps = {
 };
 
 function Space({ my = "1" }: SpaceProps) {
-  return <View marginVertical={my} />;
+  return <View marginVertical={my as any} />;
 }
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {

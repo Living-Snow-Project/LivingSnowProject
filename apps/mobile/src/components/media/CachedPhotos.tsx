@@ -12,7 +12,7 @@ type CachedPhotoProps = {
 };
 
 // used by PhotosLayout and RecordDetailsScreen
-function CachedPhoto({ uri, width, height }: CachedPhotoProps): JSX.Element {
+function CachedPhoto({ uri, width, height }: CachedPhotoProps): React.JSX.Element {
   const cachedPhoto = useCachedPhoto({ uri, width, height });
 
   // require(...) scenario returns number
@@ -65,7 +65,7 @@ type CachedPhotosProps = {
 };
 
 // only used by RecordDetailsScreen
-function CachedPhotos({ photos }: CachedPhotosProps): JSX.Element | null {
+function CachedPhotos({ photos }: CachedPhotosProps): React.JSX.Element | null {
   if (!photos || !photos.length) {
     return null;
   }
