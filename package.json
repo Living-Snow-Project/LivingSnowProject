@@ -32,8 +32,8 @@
   },
   "dependencies": {
     "@livingsnow/network": "1.0.0",
-    "react": "19.1.0",
-    "react-native": "0.81.5",
+    "react": "19.2.0",
+    "react-native": "0.83.4",
     "tamagui": "2.0.0-rc.37"
   }
 }
