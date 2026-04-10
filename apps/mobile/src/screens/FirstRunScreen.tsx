@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Text, View, XStack, YStack } from "tamagui";
+import { Button, Paragraph, View, XStack, YStack } from "tamagui";
 import { SnowIcon, UserIdentityInput } from "../components";
 import { setAppSettings } from "../../AppSettings";
 import { FirstRunScreenNavigationProp } from "../navigation/Routes";
@@ -17,17 +17,17 @@ export function FirstRunScreen({ navigation }: FirstRunScreenProps) {
           <SnowIcon />
           <SnowIcon />
           <YStack alignItems="center">
-            <Text fontWeight="bold" fontSize="$7" color="$pink10">
+            <Paragraph fontWeight="bold" fontSize="$7" color="$pink10">
               {"  " + Labels.LivingSnowProject + "  "}
-            </Text>
+            </Paragraph>
           </YStack>
           <SnowIcon />
           <SnowIcon />
         </XStack>
-        <Text color="$pink9">{Labels.Slogan}</Text>
+        <Paragraph color="$pink9">{Labels.Slogan}</Paragraph>
       </YStack>
 
-      <Text my="$2">{Labels.FirstRunScreen.Usage}</Text>
+      <Paragraph my="$2">{Labels.FirstRunScreen.Usage}</Paragraph>
 
       <UserIdentityInput />
 

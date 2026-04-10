@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "tamagui";
-import { documentDirectory } from "expo-file-system/legacy";
-import { deleteAsync, getInfoAsync, readDirectoryAsync } from "expo-file-system";
+import { Directory, Paths } from "expo-file-system";
 import { Modal } from "../feedback";
 import { Labels, TestIds } from "../../constants";
 
@@ -40,62 +39,60 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
   useEffect(() => {
     computeLabel({ state: "Calculating", files: 0, bytes: 0 });
 
-    if (!documentDirectory) {
+    if (!Paths.document.uri) {
       return;
     }
 
-    readDirectoryAsync(documentDirectory)
-      .then((files) => {
-        let bytes = 0;
+    let bytes = 0;
+    let files = 0;
+    const contents = new Directory(Paths.document.uri).list();
 
-        files
-          .reduce(
-            (prev, current) =>
-              getInfoAsync(`${documentDirectory}/${current}`).then((info) => {
-                // @ts-ignore apparently FileInfo lost some typings
-                if (info.uri.includes(".jpg") && info.size) {
-                  // @ts-ignore
-                  bytes += info.size;
-                }
-              }),
-            Promise.resolve(0),
-          )
-          .then(() =>
-            // subtract 1 to account for AppSettings
-            computeLabel({
-              state: "Completed",
-              files: files.length - 1,
-              bytes,
-            }),
-          );
-      })
-      .catch(() =>
-        computeLabel({ state: "Error Calculating", files: 0, bytes: 0 }),
-      );
-    // hook only runs on mount with local computeLabel and no unstable deps
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    for (let i = 0; i < contents.length; i++) {
+      if (contents[i] instanceof Directory) {
+        continue;
+      }
+
+      files++;
+      const file = contents[i];
+      console.log(file.uri);
+
+      if (file.uri.includes(".jpg") && file.size) {
+        bytes += file.size;
+      }
+    }
+
+    // subtract 1 to account for AppSettings
+    computeLabel({
+      state: "Completed",
+      files: files - 1,
+      bytes,
+    });
   }, []);
 
   const deletePhotos = () => {
-    if (!documentDirectory) {
+    if (!Paths.document.uri) {
       return;
     }
 
-    readDirectoryAsync(documentDirectory)
-      .then((files) => {
-        files
-          .reduce((prev, current) => {
-            if (current.includes(".jpg")) {
-              return deleteAsync(`${documentDirectory}/${current}`);
-            }
+    const contents = new Directory(Paths.document.uri).list();
 
-            return Promise.resolve();
-          }, Promise.resolve())
-          .then(() => computeLabel({ state: "Completed", files: 0, bytes: 0 }));
-      })
-      .catch(() =>
-        computeLabel({ state: "Error Deleting", files: 0, bytes: 0 }),
-      );
+    for (let i = 0; i < contents.length; i++) {
+      if (contents[i] instanceof Directory) {
+        continue;
+      }
+
+      const file = contents[i];
+
+      if (file.uri.includes(".jpg")) {
+        file.delete();
+      }
+    }
+
+    computeLabel({
+      state: "Completed",
+      files: 0,
+      bytes: 0,
+    });
   };
 
   return (

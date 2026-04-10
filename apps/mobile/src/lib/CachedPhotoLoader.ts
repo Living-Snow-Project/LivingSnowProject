@@ -1,6 +1,5 @@
-import { documentDirectory } from "expo-file-system/legacy";
-import { copyAsync, downloadAsync, getInfoAsync, readAsStringAsync } from "expo-file-system";
-import { manipulateAsync } from "expo-image-manipulator";
+import { File, Paths } from "expo-file-system";
+import { ImageManipulator } from "expo-image-manipulator";
 import NetInfo from "@react-native-community/netinfo";
 import { PhotosApi } from "@livingsnow/network";
 
@@ -24,23 +23,35 @@ export async function getCachedPhoto({
   width,
   height,
 }: PhotoToCache): Promise<CachedPhotoResult> {
-  const localFileUri = `${documentDirectory}/${uri}.jpg`;
+  const localFileUri = `${Paths.document.uri}${uri}.jpg`;
   const fileCacheKey = `${uri}_${width}_${height}`;
-  const resizedLocalFileUri = `${documentDirectory}/${fileCacheKey}.jpg`;
+  const resizedLocalFileUri = `${Paths.document.uri}${fileCacheKey}.jpg`;
 
   const resizeAndCache = async (): Promise<CachedPhotoResult> => {
-    // this call is very slow and results in UI locks
-    const resized = await manipulateAsync(
-      localFileUri,
-      [{ resize: { width, height } }],
-      { base64: true },
-    );
+    // manipulate() is very slow and results in UI locks
+    // this also creates another file in the /cache directory :(
+    // TODO: try to delete files in the /cache directory?
+    const manipulated = ImageManipulator.manipulate(localFileUri);
 
     // save resized photo to disk
-    await copyAsync({ from: resized.uri, to: resizedLocalFileUri });
+    const manipulatedUri = (
+      await (
+        await manipulated.resize({ width, height }).renderAsync()
+      ).saveAsync()
+    ).uri;
 
-    const base64uri = `data:image/jpg;base64,${resized.base64}`;
+    const manipulatedFile = new File(manipulatedUri);
+    const resizedFile = new File(resizedLocalFileUri);
+
+    // TODO: apparently move() can throw
+    manipulatedFile.move(resizedFile);
+
+    const base64uri = `data:image/jpg;base64,${resizedFile.base64Sync()}`;
     cachedPhotos.set(fileCacheKey, base64uri);
+
+    // delete the downloaded file
+    const downloaded = new File(localFileUri);
+    downloaded.delete();
 
     return { uri: base64uri, state: "Loaded" };
   };
@@ -53,7 +64,7 @@ export async function getCachedPhoto({
   const remoteFileUri = PhotosApi.getAppPhotoUrl(uri);
 
   // can't save photo to disk, force download
-  if (documentDirectory == null) {
+  if (Paths.document == null) {
     return { uri: remoteFileUri, state: "Loaded" };
   }
 
@@ -68,13 +79,11 @@ export async function getCachedPhoto({
   }
 
   // resized photo on disk?
-  const { exists } = await getInfoAsync(resizedLocalFileUri);
+  const resized = new File(resizedLocalFileUri);
 
   // resized photo already written to disk (but not in memory cache)
-  if (exists) {
-    const diskBase64 = await readAsStringAsync(resizedLocalFileUri, {
-      encoding: "base64",
-    });
+  if (resized.info().exists) {
+    const diskBase64 = resized.base64Sync();
 
     const base64uri = `data:image/jpg;base64,${diskBase64}`;
 
@@ -83,10 +92,10 @@ export async function getCachedPhoto({
     return { uri: base64uri, state: "Loaded" };
   }
 
-  const localExists = await getInfoAsync(localFileUri);
+  const local = new File(localFileUri);
 
   // original photo already written to disk (but not in memory cache)
-  if (localExists.exists) {
+  if (local.info().exists) {
     return resizeAndCache();
   }
 
@@ -99,12 +108,12 @@ export async function getCachedPhoto({
     return { uri: remoteFileUri, state: "Offline" };
   }
 
-  const { status } = await downloadAsync(remoteFileUri, localFileUri);
-
-  if (status == 200) {
-    return resizeAndCache();
+  try {
+    await File.downloadFileAsync(remoteFileUri, new File(localFileUri));
+  } catch (error) {
+    // download failed, photo unresolved
+    return { uri: remoteFileUri, state: "Error" };
   }
 
-  // download failed, photo unresolved
-  return { uri: remoteFileUri, state: "Error" };
+  return resizeAndCache();
 }

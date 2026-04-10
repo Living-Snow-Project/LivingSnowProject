@@ -19,10 +19,12 @@ export function PhotosLayout({
   }
 
   const newPhotos: Photo[] = [];
-  const { width: screenWidth } = Dimensions.get("screen");
+  const screenWidth = Math.ceil(Dimensions.get("screen").width);
   const halfScreenWidth = Math.ceil((screenWidth - gapPx) / 2);
   const oneThirdScreenWidth = Math.ceil((screenWidth - gapPx) / 3);
-  const twoThirdScreenWidth = oneThirdScreenWidth + oneThirdScreenWidth;
+  const twoThirdScreenWidth = Math.ceil(
+    oneThirdScreenWidth + oneThirdScreenWidth,
+  );
 
   let portraitCount = 0;
   let landscapeCount = 0;
@@ -219,9 +221,7 @@ export function PhotosLayout({
       const { uri, width, height } = newPhotos[0];
       const controlHeight = Math.floor(halfScreenWidth * (height / width));
       // account for 2x <View height={gapPx}/>
-      const landscapeHeight = Math.floor(
-        (controlHeight - 2 * gapPx) / 3,
-      );
+      const landscapeHeight = Math.floor((controlHeight - 2 * gapPx) / 3);
 
       return (
         <XStack>
