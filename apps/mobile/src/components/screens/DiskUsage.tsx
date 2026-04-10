@@ -54,7 +54,6 @@ export function DiskUsage({ setLabel }: DiskUsageProps) {
 
       files++;
       const file = contents[i];
-      console.log(file.uri);
 
       if (file.uri.includes(".jpg") && file.size) {
         bytes += file.size;
