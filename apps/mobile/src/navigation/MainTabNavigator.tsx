@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
   NavigationContainer,
@@ -6,7 +6,7 @@ import {
   DefaultTheme,
 } from "@react-navigation/native";
 import { XStack, useTheme } from "tamagui";
-import { ThemeContext } from "../../App";
+import { useThemeContext } from "../providers/Theme";
 import {
   FirstRunScreen,
   RecordDetailsScreen,
@@ -119,7 +119,7 @@ function RootNavigator() {
 }
 
 export function Navigation() {
-  const { themeName } = useContext(ThemeContext);
+  const { themeName } = useThemeContext();
   const tamaguiTheme = useTheme();
 
   const theme =

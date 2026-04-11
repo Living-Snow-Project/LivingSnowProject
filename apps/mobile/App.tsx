@@ -1,8 +1,9 @@
-import React, { createContext, useState } from "react";
+import React, { useState } from "react";
 import { Appearance } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import "react-native-gesture-handler";
 import { TamaguiProvider } from "tamagui";
+import { ThemeProvider } from "./src/providers/Theme";
 import { Navigation } from "./src/navigation/MainTabNavigator";
 import { useCachedResources } from "./src/hooks/useCachedResources";
 import {
@@ -12,16 +13,6 @@ import {
 import { getAppSettings } from "./AppSettings";
 import tamaguiConfig from "./tamagui.config";
 import { ToastProvider } from "./src/components/feedback";
-
-type ThemeContextValue = {
-  themeName: "light" | "dark";
-  setThemeName: (value: "light" | "dark") => void;
-};
-
-export const ThemeContext = createContext<ThemeContextValue>({
-  themeName: "light",
-  setThemeName: () => {},
-});
 
 export function App() {
   const [algaeRecords] = useAlgaeRecords();
@@ -45,14 +36,14 @@ export function App() {
 
   return (
     <AlgaeRecordsContext.Provider value={algaeRecords}>
-      <ThemeContext.Provider value={{ themeName, setThemeName }}>
+      <ThemeProvider value={{ themeName, setThemeName }}>
         <TamaguiProvider config={tamaguiConfig} defaultTheme={themeName}>
           <ToastProvider>
             <Navigation />
             <StatusBar />
           </ToastProvider>
         </TamaguiProvider>
-      </ThemeContext.Provider>
+      </ThemeProvider>
     </AlgaeRecordsContext.Provider>
   );
 }

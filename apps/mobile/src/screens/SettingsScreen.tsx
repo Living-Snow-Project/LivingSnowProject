@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Appearance } from "react-native";
 import { Heading, Switch, Text, View, XStack, YStack } from "tamagui";
 import {
@@ -8,7 +8,7 @@ import {
   UserIdentityInput,
 } from "../components";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
-import { ThemeContext } from "../../App";
+import { useThemeContext } from "../providers/Theme";
 import { Headers, Labels, TestIds } from "../constants";
 
 type SettingsGroupProps = {
@@ -49,7 +49,7 @@ function SettingsGroupItem({ label, right }: SettingsGroupItemProps) {
 
 export function SettingsScreen() {
   const [{ showGpsWarning }, setSettings] = useState(getAppSettings());
-  const { themeName, setThemeName } = useContext(ThemeContext);
+  const { themeName, setThemeName } = useThemeContext();
 
   const toggleColorModeAndPersist = () => {
     const next = themeName === "light" ? "dark" : "light";
