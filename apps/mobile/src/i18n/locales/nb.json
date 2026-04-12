@@ -4,6 +4,7 @@
   "recordHeading": "Registrering",
   "settingsHeading": "Innstillinger",
   "detailsHeading": "Detaljer",
+  "mapHeading": "Kart",
   "placeholders": {
     "gps": {
       "acquiringLocation": "Søker etter GPS-signal",

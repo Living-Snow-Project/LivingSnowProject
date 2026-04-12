@@ -161,7 +161,7 @@ function AlgaeColorSelector({
             <Ionicons
               name={isChecked ? "checkbox" : "square-outline"}
               size={24}
-              color={isChecked ? theme.blue10.val : theme.color.val}
+              color={isChecked ? color : theme.color.val}
             />
             <Text color={color as any} fontWeight={color ? "500" : "400"}>
               {item.label}

@@ -7,7 +7,7 @@ type AlgaeColorSelectorItem = {
   color?: { light: string; dark: string };
 };
 
-const algaeColorSelectorItems: AlgaeColorSelectorItem[] = [
+const getAllAlgaeColorSelectorItems = (): AlgaeColorSelectorItem[] => [
   {
     value: "Red",
     label: AlgaeColorDescription.Red,
@@ -40,8 +40,5 @@ const algaeColorSelectorItems: AlgaeColorSelectorItem[] = [
   },
   { value: "Other", label: AlgaeColorDescription.Other },
 ];
-
-const getAllAlgaeColorSelectorItems = (): AlgaeColorSelectorItem[] =>
-  algaeColorSelectorItems;
 
 export { getAllAlgaeColorSelectorItems };

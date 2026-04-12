@@ -8,13 +8,10 @@ type RecordTypeSelectorItem = {
   label: string;
 };
 
-const recordTypeSelectorItems: RecordTypeSelectorItem[] = [
+const getAllRecordTypeSelectorItems = (): RecordTypeSelectorItem[] => [
   { value: "Sighting", label: RecordDescription.Sighting },
   { value: "Sample", label: RecordDescription.Sample },
 ];
-
-const getAllRecordTypeSelectorItems = (): RecordTypeSelectorItem[] =>
-  recordTypeSelectorItems;
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 const examplePhoto = require("../../assets/images/splash.png");

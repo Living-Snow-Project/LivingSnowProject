@@ -4,6 +4,7 @@
   "recordHeading": "Eintrag",
   "settingsHeading": "Einstellungen",
   "detailsHeading": "Details",
+  "mapHeading": "Karte",
   "placeholders": {
     "gps": {
       "acquiringLocation": "GPS-Signal wird gesucht",

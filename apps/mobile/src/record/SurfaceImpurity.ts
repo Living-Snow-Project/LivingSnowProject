@@ -6,7 +6,7 @@ type SurfaceImpuritySelectorItem = {
   label: string;
 };
 
-const surfaceImpuritySelectorItems: SurfaceImpuritySelectorItem[] = [
+const getAllSurfaceImpuritySelectorItems = (): SurfaceImpuritySelectorItem[] => [
   {
     value: "Orange Dust",
     label: SurfaceImpurityDescription.OrangeDust,
@@ -36,8 +36,5 @@ const surfaceImpuritySelectorItems: SurfaceImpuritySelectorItem[] = [
     label: SurfaceImpurityDescription.Other,
   },
 ];
-
-const getAllSurfaceImpuritySelectorItems = (): SurfaceImpuritySelectorItem[] =>
-  surfaceImpuritySelectorItems;
 
 export { getAllSurfaceImpuritySelectorItems };

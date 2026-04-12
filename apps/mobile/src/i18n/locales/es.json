@@ -4,6 +4,7 @@
   "recordHeading": "Registro",
   "settingsHeading": "Ajustes",
   "detailsHeading": "Detalles",
+  "mapHeading": "Mapa",
   "placeholders": {
     "gps": {
       "acquiringLocation": "Buscando señal GPS",

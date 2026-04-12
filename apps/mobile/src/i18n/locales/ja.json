@@ -4,6 +4,7 @@
   "recordHeading": "記録",
   "settingsHeading": "設定",
   "detailsHeading": "詳細",
+  "mapHeading": "地図",
   "placeholders": {
     "gps": {
       "acquiringLocation": "GPS信号を探しています",

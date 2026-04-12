@@ -80,16 +80,16 @@ function RootNavigator() {
         <Stack.Screen
           name="Welcome"
           component={FirstRunScreen}
-          options={{
-            // The title in the header
+          options={() => ({
             title: i18n.t("welcomeHeading"),
-          }}
+          })}
         />
       )}
       <Stack.Screen
         name="Timeline"
         component={TimelineScreen}
         options={({ navigation }: { navigation: RootStackNavigationProp }) => ({
+          title: i18n.t("timelineHeading"),
           headerLeft: () => SettingsButton({ navigation }),
           headerRight: () => (
             <XStack>
@@ -102,17 +102,25 @@ function RootNavigator() {
       <Stack.Screen
         name="Map"
         component={AlgaeProbabilityMap}
-        options={{
-          title: "Map",
+        options={() => ({
+          title: i18n.t("mapHeading"),
           headerShown: true,
-        }}
+        })}
       />
-      <Stack.Screen name="Record" component={RecordScreen} />
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen
+        name="Record"
+        component={RecordScreen}
+        options={() => ({ title: i18n.t("recordHeading") })}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={() => ({ title: i18n.t("settingsHeading") })}
+      />
       <Stack.Screen
         name="RecordDetails"
         component={RecordDetailsScreen}
-        options={{ title: i18n.t("detailsHeading") }}
+        options={() => ({ title: i18n.t("detailsHeading") })}
       />
     </Stack.Navigator>
   );

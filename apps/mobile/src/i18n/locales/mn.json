@@ -4,6 +4,7 @@
   "recordHeading": "Бүртгэл",
   "settingsHeading": "Тохиргоо",
   "detailsHeading": "Дэлгэрэнгүй",
+  "mapHeading": "Газрын зураг",
   "placeholders": {
     "gps": {
       "acquiringLocation": "GPS дохио хайж байна",
