@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { XStack, YStack, View, Text, useTheme, Select, Adapt, Sheet } from "tamagui";
+import {
+  XStack,
+  YStack,
+  View,
+  Text,
+  useTheme,
+  Select,
+  Adapt,
+  Sheet,
+} from "tamagui";
 import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 import {
   getAllAlgaeColorSelectorItems,
@@ -99,6 +108,7 @@ function AlgaeRecordTypeSelector({
             label={item.label}
             value={item.value}
             selectedValue={type}
+            // @ts-ignore
             onSelect={setType}
           />
         ))}
@@ -114,7 +124,12 @@ type RadioOptionProps = {
   onSelect: (value: string) => void;
 };
 
-function RadioOption({ label, value, selectedValue, onSelect }: RadioOptionProps) {
+function RadioOption({
+  label,
+  value,
+  selectedValue,
+  onSelect,
+}: RadioOptionProps) {
   const isSelected = selectedValue === value;
   return (
     <Pressable onPress={() => onSelect(value)}>
@@ -187,9 +202,7 @@ function AlgaeColorSelector({
 
   const renderColors = () =>
     getAllAlgaeColorSelectorItems().map((item) => {
-      const color = theme.dark
-        ? item.color?.dark
-        : item.color?.light;
+      const color = theme.dark ? item.color?.dark : item.color?.light;
 
       const isChecked = colors.includes(item.value);
 
@@ -221,7 +234,7 @@ function AlgaeColorSelector({
         <Pressable key={item.value} onPress={() => onChange(!isChecked)}>
           <XStack gap="$2" alignItems="center" marginRight="$2" marginTop="$1">
             <Ionicons
-              name={isChecked ? "checkbox" : "checkbox-outline"}
+              name={isChecked ? "checkbox" : "square-outline"}
               size={24}
               color={isChecked ? theme.blue10.val : theme.color.val}
             />
@@ -273,7 +286,11 @@ function GlacierOrNotSelector({
           {(["Yes", "No"] as const).map((val) => (
             <RadioOption
               key={val}
-              label={val === "Yes" ? OnOffGlacierDescription.Yes : OnOffGlacierDescription.No}
+              label={
+                val === "Yes"
+                  ? OnOffGlacierDescription.Yes
+                  : OnOffGlacierDescription.No
+              }
               value={val}
               selectedValue={glacierValue}
               onSelect={(v) => setIsOnGlacier(v === "Yes")}
@@ -288,7 +305,9 @@ function GlacierOrNotSelector({
           <FormField id="exposed-ice">
             <FormLabel>{Labels.RecordScreen.ExposedIce}</FormLabel>
             <XStack>
-              {([ExposedIceDescription.Yes, ExposedIceDescription.No] as const).map((val) => (
+              {(
+                [ExposedIceDescription.Yes, ExposedIceDescription.No] as const
+              ).map((val) => (
                 <RadioOption
                   key={val}
                   label={val}
@@ -310,14 +329,23 @@ function GlacierOrNotSelector({
             <TamaguiPickerSelect
               placeholder={UnderSnowpackDescription.Select}
               items={[
-                { label: UnderSnowpackDescription.Vegetation, value: "Vegetation" },
+                {
+                  label: UnderSnowpackDescription.Vegetation,
+                  value: "Vegetation",
+                },
                 { label: UnderSnowpackDescription.Rocks, value: "Rocks" },
                 { label: UnderSnowpackDescription.Soil, value: "Soil" },
-                { label: UnderSnowpackDescription.PondOrTarn, value: "Pond or Tarn" },
+                {
+                  label: UnderSnowpackDescription.PondOrTarn,
+                  value: "Pond or Tarn",
+                },
                 { label: UnderSnowpackDescription.Lake, value: "Lake" },
                 { label: UnderSnowpackDescription.Stream, value: "Stream" },
                 { label: UnderSnowpackDescription.Mixed, value: "Mixed" },
-                { label: UnderSnowpackDescription.IdontKnow, value: "I Don't Know" },
+                {
+                  label: UnderSnowpackDescription.IdontKnow,
+                  value: "I Don't Know",
+                },
               ]}
               onValueChange={(val) => setUnderSnow(val as WhatIsUnderSnowpack)}
               value={underSnow}
