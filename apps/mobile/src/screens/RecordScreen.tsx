@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ScrollView, View } from "tamagui";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
+import { v7 as uuidv7 } from "uuid";
 import { AvoidSoftInput } from "react-native-avoid-softinput";
 import { useFocusEffect } from "@react-navigation/native";
 import Logger from "@livingsnow/logger";
@@ -79,7 +79,7 @@ function Space({ my = "1" }: SpaceProps) {
 
 export function RecordScreen({ navigation, route }: RecordScreenProps) {
   const defaultRecord: AlgaeRecordInput = {
-    id: uuidv4(),
+    id: uuidv7(),
     type: "Sighting",
     date: dateWithOffset(new Date(), "subtract"), // YYYY-MM-DD
     latitude: 0,
@@ -211,7 +211,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
       message: Notifications.uploadSuccess.message,
     };
 
-    RecordManager.uploadV3(record as AlgaeRecordV3, uuidv4())
+    RecordManager.uploadV3(record as AlgaeRecordV3, uuidv7())
       .then(() => setOnFocusTimelineAction("Update Downloaded"))
       .catch((error: UploadError) => {
         Logger.Warn(
@@ -257,8 +257,13 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
   }, [record, status, selectedPhotos]);
 
   const setCoordinates = useCallback(
-    ({ latitude, longitude }) =>
-      setRecord((prev) => ({ ...prev, latitude, longitude })),
+    ({
+      latitude,
+      longitude,
+    }: {
+      latitude: number | undefined;
+      longitude: number | undefined;
+    }) => setRecord((prev) => ({ ...prev, latitude, longitude })),
     [setRecord],
   );
 

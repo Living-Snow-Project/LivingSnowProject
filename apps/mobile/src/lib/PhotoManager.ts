@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+import { v7 as uuidv7 } from "uuid";
 import { RecordsApiV2, RecordsApiV3 } from "@livingsnow/network";
 import { PendingPhoto, PendingPhotoV3, SelectedPhoto } from "../../types";
 import * as Storage from "./Storage";
@@ -120,9 +120,10 @@ async function uploadSelectedV3(
 
   // need to upload sequentially because of undocumented "uri" feature in fetch (files arrive corrupted otherwise)
   await selectedPhotos.reduce(async (promise, photo) => {
-    const requestId = uuidv4();
+    const requestId = uuidv7();
     try {
       await promise;
+      // TODO: delete the photo (from /cache)
       return await RecordsApiV3.postPhoto(cloudRecordId, photo.uri, requestId);
     } catch (error) {
       failedPhotoUploads.push({ ...photo, requestId });

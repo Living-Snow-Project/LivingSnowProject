@@ -3,7 +3,7 @@ import { Pressable } from "react-native";
 import { FormField, FormLabel } from "./FormField";
 import * as ImagePicker from "expo-image-picker";
 import * as MediaLibrary from "expo-media-library";
-import { manipulateAsync, ActionResize } from "expo-image-manipulator";
+import { ImageManipulator } from "expo-image-manipulator";
 import { SelectedPhoto } from "../../../types";
 import { ThemedBox } from "../layout";
 import { AddPhotosIcon, PhotosLayout } from "../media";
@@ -42,7 +42,7 @@ export function ExpoPhotoSelector({
       }
 
       const result = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        mediaTypes: ["images"],
         allowsMultipleSelection: true,
         selectionLimit: 4,
         quality: 0.7,
@@ -55,24 +55,31 @@ export function ExpoPhotoSelector({
         await result.assets.reduce(async (promise, current) => {
           await promise;
 
-          const dims: ActionResize = { resize: {} };
+          const dims: {
+            height: null | number;
+            width: null | number;
+          } = { height: null, width: null };
 
           if (current.height > current.width) {
-            dims.resize.height = 1024;
+            dims.height = 1024;
           } else {
-            dims.resize.width = 1024;
+            dims.width = 1024;
           }
 
-          const resizedImage = await manipulateAsync(current.uri, [dims]);
+          const manipulated = ImageManipulator.manipulate(current.uri);
 
+          // save resized photo to disk
+          const manipulatedImage = await (
+            await manipulated.resize(dims).renderAsync()
+          ).saveAsync();
           // current.assetId is coming back null on Android and
           // we don't need the extra fields from MediaLibrary.getAssetInfoAsync
           // but have to make TypeScript happy
 
           assets.push({
-            height: resizedImage.height,
-            uri: resizedImage.uri,
-            width: resizedImage.width,
+            height: manipulatedImage.height,
+            uri: manipulatedImage.uri,
+            width: manipulatedImage.width,
             id: current.assetId || "",
             filename: current.fileName || "",
             mediaType: "photo",

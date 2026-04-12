@@ -83,7 +83,9 @@ async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
     await PhotoManager.uploadSelected(record.id, recordResponse.id);
   } catch (error) {
     // uploadSelected rejects with UploadError
-    Logger.Warn(`PhotoManager.uploadSelected failed: ${error.errorInfo}`);
+    if (error instanceof UploadError) {
+      Logger.Warn(`PhotoManager.uploadSelected failed: ${error.errorInfo}`);
+    }
 
     await registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
       stopOnTerminate: false, // android only,
@@ -133,7 +135,9 @@ async function uploadV3(
     await PhotoManager.uploadSelectedV3(record.id, recordResponse.id);
   } catch (error) {
     // uploadSelectedV3 rejects with UploadError
-    Logger.Warn(`PhotoManager.uploadSelectedV3 failed: ${error.errorInfo}`);
+    if (error instanceof UploadError) {
+      Logger.Warn(`PhotoManager.uploadSelectedV3 failed: ${error.errorInfo}`);
+    }
 
     await registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
       stopOnTerminate: false, // android only,
@@ -186,23 +190,22 @@ async function retryPending(): Promise<LocalAlgaeRecord[]> {
 
   await Storage.clearPendingRecords();
 
-  await records.reduce(
-    async (promise, record) => {
-      try {
-        await promise;
-        return await upload(record);
-      } catch (error) {
-        // upload rejects with UploadError
+  await records.reduce(async (promise, record) => {
+    try {
+      await promise;
+      await upload(record);
+      return Promise.resolve();
+    } catch (error) {
+      // upload rejects with UploadError
+      if (error instanceof UploadError) {
         Logger.Warn(
           `uploadRecord rejected: continue records reducer to prevent data loss: ${error.errorInfo}`,
         );
-
-        return Promise.resolve();
       }
-    },
 
-    Promise.resolve(),
-  );
+      return Promise.resolve();
+    }
+  }, Promise.resolve());
 
   // Step 2. photos
   await PhotoManager.retryPending();
@@ -220,23 +223,22 @@ async function retryPendingV3(): Promise<LocalAlgaeRecordV3[]> {
 
   await Storage.clearPendingRecordsV3();
 
-  await records.reduce(
-    async (promise, record) => {
-      try {
-        await promise;
-        return await uploadV3(record, record.requestId);
-      } catch (error) {
-        // uploadV3 rejects with UploadError
+  await records.reduce(async (promise, record) => {
+    try {
+      await promise;
+      await uploadV3(record, record.requestId);
+      return Promise.resolve();
+    } catch (error) {
+      // uploadV3 rejects with UploadError
+      if (error instanceof UploadError) {
         Logger.Warn(
           `uploadRecordV3 rejected: continue records reducer to prevent data loss: ${error.errorInfo}`,
         );
-
-        return Promise.resolve();
       }
-    },
 
-    Promise.resolve(),
-  );
+      return Promise.resolve();
+    }
+  }, Promise.resolve());
 
   // Step 2. photos
   await PhotoManager.retryPendingV3();
