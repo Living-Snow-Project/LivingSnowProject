@@ -398,7 +398,7 @@ export const ExposedIceDescription = {
   },
 };
 
-export const ImpuritiesDescription = {
+export const SurfaceImpurityDescription = {
   get OrangeDust(): string {
     return i18n.t("impuritiesDescription.orangeDust");
   },

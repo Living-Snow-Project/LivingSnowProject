@@ -16,11 +16,11 @@ import {
   getAllAlgaeColorSelectorItems,
   getAllAlgaeSizeSelectorItems,
   getAllRecordTypeSelectorItems,
+  getAllSurfaceImpuritySelectorItems,
 } from "../../record";
 import {
   BloomDepthDescription,
   ExposedIceDescription,
-  ImpuritiesDescription,
   Labels,
   OnOffGlacierDescription,
   Placeholders,
@@ -196,10 +196,6 @@ function AlgaeColorSelector({
 }: AlgaeColorSelectorProps) {
   const theme = useTheme();
 
-  // TODO: remove when a better solution is found
-  // needed to force re-renders on each check/uncheck in stale closures
-  const [, setColorsInternal] = useState([...colors]);
-
   const renderColors = () =>
     getAllAlgaeColorSelectorItems().map((item) => {
       const color = theme.dark ? item.color?.dark : item.color?.light;
@@ -207,27 +203,16 @@ function AlgaeColorSelector({
       const isChecked = colors.includes(item.value);
 
       const onChange = (isSelected: boolean) => {
-        setColorsInternal((prev) => {
-          const temp = [...prev];
-          const selectIndex = temp.findIndex((cur) => cur == "Select colors");
-
-          if (selectIndex != -1) {
-            temp.splice(selectIndex, 1);
-          }
-
-          if (isSelected) {
-            temp.push(item.value);
-          } else {
-            temp.splice(
-              temp.findIndex((cur) => cur == item.value),
-              1,
-            );
-          }
-
-          onChangeColors(temp);
-
-          return [...temp];
-        });
+        const temp = colors.filter(
+          (c) => c !== "Select colors",
+        ) as AlgaeColor[];
+        if (isSelected) {
+          temp.push(item.value);
+        } else {
+          const idx = temp.findIndex((c) => c === item.value);
+          if (idx !== -1) temp.splice(idx, 1);
+        }
+        onChangeColors(temp);
       };
 
       return (
@@ -357,42 +342,6 @@ function GlacierOrNotSelector({
   );
 }
 
-export function getAllImpuritiesSelectorItems(): {
-  value: SurfaceImpurity;
-  label: string;
-}[] {
-  return [
-    {
-      value: "Orange Dust",
-      label: ImpuritiesDescription.OrangeDust,
-    },
-    {
-      value: "Soot",
-      label: ImpuritiesDescription.Soot,
-    },
-    {
-      value: "Soil",
-      label: ImpuritiesDescription.Soil,
-    },
-    {
-      value: "Vegetation",
-      label: ImpuritiesDescription.Vegetation,
-    },
-    {
-      value: "Pollen",
-      label: ImpuritiesDescription.Pollen,
-    },
-    {
-      value: "Evidence of Animals",
-      label: ImpuritiesDescription.EvidenceOfAnimals,
-    },
-    {
-      value: "Other",
-      label: ImpuritiesDescription.Other,
-    },
-  ];
-}
-
 type ImpuritiesSelectorProps = {
   /** Currently selected impurities. */
   impuritiesSelected: SurfaceImpurity[];
@@ -406,40 +355,26 @@ export function ImpuritiesSelector({
 }: ImpuritiesSelectorProps) {
   const theme = useTheme();
 
-  // local state to force re-renders on each check/uncheck
-  const [, setImpuritiesInternal] = useState<SurfaceImpurity[]>([
-    ...impuritiesSelected,
-  ]);
-
   const renderImpurities = () =>
-    getAllImpuritiesSelectorItems().map((item) => {
+    getAllSurfaceImpuritySelectorItems().map((item) => {
       const isChecked = impuritiesSelected.includes(item.value);
 
       const onChange = (checked: boolean) => {
-        setImpuritiesInternal((prev) => {
-          const updated = [...prev];
-
-          if (checked) {
-            if (!updated.includes(item.value)) {
-              updated.push(item.value);
-            }
-          } else {
-            const idx = updated.indexOf(item.value);
-            if (idx !== -1) {
-              updated.splice(idx, 1);
-            }
-          }
-
-          onChangeImpurities(updated);
-          return updated;
-        });
+        const updated = [...impuritiesSelected];
+        if (checked) {
+          if (!updated.includes(item.value)) updated.push(item.value);
+        } else {
+          const idx = updated.indexOf(item.value);
+          if (idx !== -1) updated.splice(idx, 1);
+        }
+        onChangeImpurities(updated);
       };
 
       return (
         <Pressable key={item.value} onPress={() => onChange(!isChecked)}>
           <XStack gap="$2" alignItems="center" marginRight="$2" marginTop="$1">
             <Ionicons
-              name={isChecked ? "checkbox" : "checkbox-outline"}
+              name={isChecked ? "checkbox" : "square-outline"}
               size={24}
               color={isChecked ? theme.blue10.val : theme.color.val}
             />
