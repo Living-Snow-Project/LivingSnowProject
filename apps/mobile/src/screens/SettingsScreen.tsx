@@ -5,11 +5,14 @@ import {
   Divider,
   DiskUsage,
   ThemedBox,
+  TamaguiPickerSelect,
   UserIdentityInput,
 } from "../components";
 import { getAppSettings, setAppSettings } from "../../AppSettings";
 import { useThemeContext } from "../providers/Theme";
+import { useLanguageContext } from "../providers/Language";
 import { Headers, Labels, TestIds } from "../constants";
+import i18n, { SUPPORTED_LOCALES } from "../i18n";
 
 type SettingsGroupProps = {
   label: string;
@@ -47,15 +50,35 @@ function SettingsGroupItem({ label, right }: SettingsGroupItemProps) {
   );
 }
 
+const LANGUAGE_ITEMS = [
+  { value: "en", label: "English" },
+  { value: "fr", label: "Français" },
+  { value: "de", label: "Deutsch" },
+  { value: "es", label: "Español" },
+  { value: "it", label: "Italiano" },
+  { value: "ja", label: "日本語" },
+  { value: "nb", label: "Norsk Bokmål" },
+  { value: "sv", label: "Svenska" },
+  { value: "mn", label: "Монгол" },
+];
+
 export function SettingsScreen() {
   const [{ showGpsWarning }, setSettings] = useState(getAppSettings());
   const { themeName, setThemeName } = useThemeContext();
+  const { language, setLanguage } = useLanguageContext();
 
   const toggleColorModeAndPersist = () => {
     const next = themeName === "light" ? "dark" : "light";
     setAppSettings((prev) => ({ ...prev, colorMode: next }));
     Appearance.setColorScheme(next);
     setThemeName(next);
+  };
+
+  const onLanguageChange = (value: string) => {
+    if (!SUPPORTED_LOCALES.includes(value)) return;
+    i18n.locale = value;
+    setAppSettings((prev) => ({ ...prev, language: value }));
+    setLanguage(value);
   };
 
   return (
@@ -103,6 +126,16 @@ export function SettingsScreen() {
                 <Switch.Thumb />
               </Switch>
             }
+          />
+        </SettingsGroup>
+        <Divider />
+
+        <SettingsGroup label={Headers.Language}>
+          <TamaguiPickerSelect
+            placeholder={Labels.SettingsScreen.Language}
+            items={LANGUAGE_ITEMS}
+            value={language}
+            onValueChange={onLanguageChange}
           />
         </SettingsGroup>
         <Divider />

@@ -80,7 +80,8 @@
     },
     "settingsScreen": {
       "darkMode": "Mørk",
-      "manualCoordinates": "Advarsel om manuelle koordinater"
+      "manualCoordinates": "Advarsel om manuelle koordinater",
+      "language": "Språk"
     },
     "statusBar": {
       "noConnection": "Ingen Internett-tilkobling"
@@ -213,6 +214,7 @@
     "diskUsage": "Diskbruk",
     "profile": "Profil",
     "prompts": "Indikasjoner",
-    "theme": "Tema"
+    "theme": "Tema",
+    "language": "Språk"
   }
 }

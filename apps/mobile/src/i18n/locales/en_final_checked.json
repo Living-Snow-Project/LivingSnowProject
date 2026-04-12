@@ -80,7 +80,8 @@
     },
     "settingsScreen": {
       "darkMode": "Dark",
-      "manualCoordinates": "Manual Coordinates Warning"
+      "manualCoordinates": "Manual Coordinates Warning",
+      "language": "Language"
     },
     "statusBar": {
       "noConnection": "No Internet Connection"
@@ -213,6 +214,7 @@
     "diskUsage": "App Storage",
     "profile": "Profile",
     "prompts": "Prompts",
-    "theme": "Theme"
+    "theme": "Theme",
+    "language": "Language"
   }
 }

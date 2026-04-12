@@ -7,6 +7,7 @@ const DefaultAppSettings: AppSettings = {
   showFirstRun: true,
   showGpsWarning: true,
   colorMode: "light",
+  language: undefined,
 };
 
 let appSettingsContext: AppSettings = DefaultAppSettings;

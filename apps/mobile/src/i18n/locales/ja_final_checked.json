@@ -80,7 +80,8 @@
     },
     "settingsScreen": {
       "darkMode": "ダークモード",
-      "manualCoordinates": "手動入力した座標"
+      "manualCoordinates": "手動入力した座標",
+      "language": "言語"
     },
     "statusBar": {
       "noConnection": "インターネット接続なし"
@@ -213,6 +214,7 @@
     "diskUsage": "ディスク使用量",
     "profile": "プロフィール",
     "prompts": "設定項目",
-    "theme": "画面のテーマ"
+    "theme": "画面のテーマ",
+    "language": "言語"
   }
 }

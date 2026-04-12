@@ -80,7 +80,8 @@
     },
     "settingsScreen": {
       "darkMode": "Dunkelmodus",
-      "manualCoordinates": "Warnung: manuelle Koordinaten"
+      "manualCoordinates": "Warnung: manuelle Koordinaten",
+      "language": "Sprache"
     },
     "statusBar": {
       "noConnection": "Keine Internetverbindung"
@@ -213,6 +214,7 @@
     "diskUsage": "Speicherplatz",
     "profile": "Profil",
     "prompts": "Eingabeaufforderungen",
-    "theme": "Thema"
+    "theme": "Thema",
+    "language": "Sprache"
   }
 }

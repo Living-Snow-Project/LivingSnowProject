@@ -80,7 +80,8 @@
     },
     "settingsScreen": {
       "darkMode": "Mörkt läge",
-      "manualCoordinates": "Varning för manuella koordinater"
+      "manualCoordinates": "Varning för manuella koordinater",
+      "language": "Språk"
     },
     "statusBar": {
       "noConnection": "Ingen internetanslutning"
@@ -213,6 +214,7 @@
     "diskUsage": "Diskanvändning",
     "profile": "Profil",
     "prompts": "Uppmaningar",
-    "theme": "Tema"
+    "theme": "Tema",
+    "language": "Språk"
   }
 }

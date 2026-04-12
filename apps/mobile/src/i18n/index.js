@@ -25,6 +25,8 @@ const translations = {
   mn,
 };
 
+export const SUPPORTED_LOCALES = ["en", "fr", "ja", "nb", "de", "it", "mn", "sv", "es"];
+
 const i18n = new I18n(translations);
 
 // Fallback to English if user’s locale isn’t found

@@ -4,4 +4,5 @@ export type AppSettings = {
   showFirstRun: boolean;
   showGpsWarning: boolean;
   colorMode: "light" | "dark";
+  language: string | undefined;
 };

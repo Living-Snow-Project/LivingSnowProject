@@ -190,6 +190,9 @@ export const Labels = {
     get ManualCoordinates(): string {
       return i18n.t("labels.settingsScreen.manualCoordinates");
     },
+    get Language(): string {
+      return i18n.t("labels.settingsScreen.language");
+    },
   },
   StatusBar: {
     get NoConnection(): string {
@@ -491,6 +494,9 @@ export const BackgroundTasks = {
 export const Headers = {
   get DiskUsage(): string {
     return i18n.t("headers.diskUsage");
+  },
+  get Language(): string {
+    return i18n.t("headers.language");
   },
   get Profile(): string {
     return i18n.t("headers.profile");

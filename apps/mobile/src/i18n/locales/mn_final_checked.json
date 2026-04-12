@@ -80,7 +80,8 @@
     },
     "settingsScreen": {
       "darkMode": "Харанхуй горим",
-      "manualCoordinates": "Гараар координат оруулах анхааруулга"
+      "manualCoordinates": "Гараар координат оруулах анхааруулга",
+      "language": "Хэл"
     },
     "statusBar": {
       "noConnection": "Интернет холболт алга"
@@ -213,6 +214,7 @@
     "diskUsage": "Дискний ашиглалт",
     "profile": "Профайл",
     "prompts": "Сануулга",
-    "theme": "Сэдэв"
+    "theme": "Сэдэв",
+    "language": "Хэл"
   }
 }
