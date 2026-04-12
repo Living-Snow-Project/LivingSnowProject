@@ -7,9 +7,8 @@ import {
   View,
   Text,
   useTheme,
-  Select,
-  Adapt,
   Sheet,
+  ScrollView,
 } from "tamagui";
 import { AlgaeColor, AlgaeRecordType, AlgaeSize } from "@livingsnow/record";
 import {
@@ -51,41 +50,64 @@ function TamaguiPickerSelect({
   value,
   onValueChange,
 }: TamaguiPickerSelectProps) {
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
+  const selectedLabel = items.find((item) => item.value === value)?.label;
+
   return (
-    <Select value={value ?? undefined} onValueChange={onValueChange}>
-      <Select.Trigger iconAfter={<Ionicons name="chevron-down" size={16} />}>
-        <Select.Value placeholder={placeholder} />
-      </Select.Trigger>
+    <>
+      <Pressable onPress={() => setOpen(true)}>
+        <XStack
+          borderWidth={1}
+          borderColor="$borderColor"
+          borderRadius="$3"
+          paddingHorizontal="$3"
+          paddingVertical="$2"
+          alignItems="center"
+          justifyContent="space-between"
+          backgroundColor="$background"
+        >
+          <Text color={selectedLabel ? "$color" : "$placeholderColor"}>
+            {selectedLabel ?? placeholder}
+          </Text>
+          <Ionicons name="chevron-down" size={16} color={theme.color.val} />
+        </XStack>
+      </Pressable>
 
-      <Adapt when="sm" platform="touch">
-        <Sheet modal dismissOnSnapToBottom>
-          <Sheet.Frame>
-            <Sheet.ScrollView>
-              <Adapt.Contents />
-            </Sheet.ScrollView>
-          </Sheet.Frame>
-          <Sheet.Overlay />
-        </Sheet>
-      </Adapt>
-
-      <Select.Content>
-        <Select.ScrollUpButton>
-          <Ionicons name="chevron-up" size={16} />
-        </Select.ScrollUpButton>
-        <Select.Viewport>
-          <Select.Group>
-            {items.map((item, i) => (
-              <Select.Item index={i} key={item.value} value={item.value}>
-                <Select.ItemText>{item.label}</Select.ItemText>
-              </Select.Item>
+      <Sheet modal open={open} onOpenChange={setOpen} dismissOnSnapToBottom>
+        <Sheet.Overlay />
+        <Sheet.Frame>
+          <ScrollView>
+            {items.map((item) => (
+              <Pressable
+                key={item.value}
+                onPress={() => {
+                  onValueChange(item.value);
+                  setOpen(false);
+                }}
+              >
+                <XStack
+                  paddingHorizontal="$4"
+                  paddingVertical="$3"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  backgroundColor={value === item.value ? "$blue4" : undefined}
+                >
+                  <Text>{item.label}</Text>
+                  {value === item.value && (
+                    <Ionicons
+                      name="checkmark"
+                      size={16}
+                      color={theme.blue10.val}
+                    />
+                  )}
+                </XStack>
+              </Pressable>
             ))}
-          </Select.Group>
-        </Select.Viewport>
-        <Select.ScrollDownButton>
-          <Ionicons name="chevron-down" size={16} />
-        </Select.ScrollDownButton>
-      </Select.Content>
-    </Select>
+          </ScrollView>
+        </Sheet.Frame>
+      </Sheet>
+    </>
   );
 }
 
@@ -108,7 +130,6 @@ function AlgaeRecordTypeSelector({
             label={item.label}
             value={item.value}
             selectedValue={type}
-            // @ts-ignore
             onSelect={setType}
           />
         ))}
@@ -117,19 +138,19 @@ function AlgaeRecordTypeSelector({
   );
 }
 
-type RadioOptionProps = {
+type RadioOptionProps<T> = {
   label: string;
-  value: string;
+  value: T;
   selectedValue: string;
-  onSelect: (value: string) => void;
+  onSelect: (value: T) => void;
 };
 
-function RadioOption({
+function RadioOption<T>({
   label,
   value,
   selectedValue,
   onSelect,
-}: RadioOptionProps) {
+}: RadioOptionProps<T>) {
   const isSelected = selectedValue === value;
   return (
     <Pressable onPress={() => onSelect(value)}>
@@ -343,9 +364,7 @@ function GlacierOrNotSelector({
 }
 
 type ImpuritiesSelectorProps = {
-  /** Currently selected impurities. */
   impuritiesSelected: SurfaceImpurity[];
-  /** Callback when user toggles a checkbox. We return the updated array of selected values. */
   onChangeImpurities: (impuritiesSelected: SurfaceImpurity[]) => void;
 };
 

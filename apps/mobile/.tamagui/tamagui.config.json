@@ -123945,18 +123945,36 @@
       "styleCompat": "react-native"
     },
     "animations": {
-      "isReactNative": false,
-      "inputStyle": "css",
-      "outputStyle": "css",
-      "isStub": true,
-      "animations": {},
-      "useAnimations": "Function",
-      "usePresence": "Function",
-      "ResetPresence": "Function",
+      "isReactNative": true,
+      "inputStyle": "value",
+      "outputStyle": "inline",
+      "avoidReRenders": true,
+      "animations": {
+        "fast": {
+          "damping": 20,
+          "mass": 1.2,
+          "stiffness": 250
+        },
+        "medium": {
+          "damping": 10,
+          "mass": 0.9,
+          "stiffness": 100
+        },
+        "slow": {
+          "damping": 20,
+          "stiffness": 60
+        }
+      },
+      "needsCustomComponent": true,
+      "View": "Component",
+      "Text": "Component",
       "useAnimatedNumber": "Function",
+      "useAnimatedNumberReaction": "Function",
       "useAnimatedNumberStyle": "Function",
       "useAnimatedNumbersStyle": "Function",
-      "useAnimatedNumberReaction": "Function"
+      "usePresence": "Function",
+      "ResetPresence": "Function",
+      "useAnimations": "Function"
     },
     "defaultProps": {},
     "inverseShorthands": {

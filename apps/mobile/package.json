@@ -29,6 +29,7 @@
     "@react-native-picker/picker": "2.11.4",
     "@react-navigation/native": "^6.0.14",
     "@react-navigation/native-stack": "^6.9.2",
+    "@tamagui/animations-react-native": "2.0.0-rc.37",
     "@tamagui/config": "2.0.0-rc.37",
     "@tamagui/font-inter": "2.0.0-rc.37",
     "@tamagui/metro-plugin": "^2.0.0-rc.37",

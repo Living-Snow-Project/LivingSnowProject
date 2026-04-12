@@ -1,4 +1,5 @@
 import { defaultConfig, createV5Theme } from "@tamagui/config/v5";
+import { createAnimations } from "@tamagui/animations-react-native";
 import { createFont, createTamagui } from "tamagui";
 
 const bodyFont = createFont({
@@ -68,8 +69,26 @@ const themes = createV5Theme({
   },
 });
 
+const animations = createAnimations({
+  fast: {
+    damping: 20,
+    mass: 1.2,
+    stiffness: 250,
+  },
+  medium: {
+    damping: 10,
+    mass: 0.9,
+    stiffness: 100,
+  },
+  slow: {
+    damping: 20,
+    stiffness: 60,
+  },
+});
+
 const tamaguiConfig = createTamagui({
   ...defaultConfig,
+  animations,
   themes,
   fonts: {
     body: bodyFont,
