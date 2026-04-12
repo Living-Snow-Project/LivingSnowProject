@@ -82,7 +82,7 @@ export function SettingsScreen() {
                     }),
                   }));
                 }}
-                checked={!showGpsWarning}
+                checked={showGpsWarning}
               >
                 <Switch.Thumb />
               </Switch>
@@ -98,7 +98,7 @@ export function SettingsScreen() {
               <Switch
                 testID="Dark Mode"
                 onCheckedChange={toggleColorModeAndPersist}
-                checked={themeName === "light"}
+                checked={themeName === "dark"}
               >
                 <Switch.Thumb />
               </Switch>

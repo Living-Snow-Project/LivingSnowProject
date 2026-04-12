@@ -72,15 +72,12 @@ export function ExpoPhotoSelector({
           const manipulatedImage = await (
             await manipulated.resize(dims).renderAsync()
           ).saveAsync();
-          // current.assetId is coming back null on Android and
-          // we don't need the extra fields from MediaLibrary.getAssetInfoAsync
-          // but have to make TypeScript happy
 
           assets.push({
             height: manipulatedImage.height,
             uri: manipulatedImage.uri,
             width: manipulatedImage.width,
-            id: current.assetId || "",
+            id: current.assetId || "", // last checked this can sometimes be null on Android
             filename: current.fileName || "",
             mediaType: "photo",
             creationTime: 0,
