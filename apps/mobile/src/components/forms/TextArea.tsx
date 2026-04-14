@@ -32,7 +32,7 @@ export const TextArea = forwardRef<TextInput, TextAreaProps>(
       <FormLabel>{label}</FormLabel>
       <TamaguiTextArea
         ref={ref}
-        blurOnSubmit={blurOnSubmit}
+        submitBehavior={blurOnSubmit ? "blurAndSubmit" : "submit"}
         value={value}
         placeholder={placeholder}
         onChangeText={(text) => {
