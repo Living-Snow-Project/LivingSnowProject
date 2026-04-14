@@ -1,4 +1,5 @@
-import React, { forwardRef /* useRef */ } from "react";
+import React, { forwardRef } from "react";
+import { TextInput } from "react-native";
 import { Input } from "tamagui";
 import { FormErrorMessage, FormField, FormLabel } from "./FormField";
 
@@ -16,7 +17,7 @@ type CustomTextInputProps = {
   onSubmitEditing?: () => void;
 };
 
-export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
+export const CustomTextInput = forwardRef<TextInput, CustomTextInputProps>(
   (
     {
       label,
@@ -37,17 +38,15 @@ export const CustomTextInput = forwardRef<typeof Input, CustomTextInputProps>(
       <FormLabel>{label}</FormLabel>
       <Input
         size="$4"
-        blurOnSubmit={blurOnSubmit}
-        // @ts-ignore ref typing isn't quite right in native-base yet
+        submitBehavior={blurOnSubmit ? "blurAndSubmit" : "submit"}
         ref={ref}
         value={value}
         placeholder={placeholder}
-        isDisabled={isDisabled}
+        disabled={isDisabled}
         onChangeText={onChangeText}
         onSubmitEditing={onSubmitEditing}
         maxLength={maxLength}
         returnKeyType="done"
-        variant="outline"
       />
       <FormErrorMessage>{validation}</FormErrorMessage>
     </FormField>
