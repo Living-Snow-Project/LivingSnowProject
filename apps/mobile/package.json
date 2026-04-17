@@ -34,7 +34,7 @@
     "@tamagui/font-inter": "2.0.0-rc.37",
     "@tamagui/metro-plugin": "^2.0.0-rc.37",
     "expo": "~55.0.12",
-    "expo-background-fetch": "~55.0.13",
+    "expo-background-task": "~55.0.0",
     "expo-dev-client": "~55.0.23",
     "expo-file-system": "~55.0.15",
     "expo-font": "~55.0.6",

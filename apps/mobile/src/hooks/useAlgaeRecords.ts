@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useReducer } from "react";
 import * as TaskManager from "expo-task-manager";
-import * as BackgroundFetch from "expo-background-fetch";
+import * as BackgroundTask from "expo-background-task";
 import Logger from "@livingsnow/logger";
 import {
   RecordsApiV3,
@@ -364,10 +364,10 @@ TaskManager.defineTask(BackgroundTasks.UploadData, async () => {
     pendingPhotosV3.size == 0
   ) {
     RecordManager.unregisterBackgroundFetchAsync(BackgroundTasks.UploadData);
-    return BackgroundFetch.BackgroundFetchResult.NewData;
+    return BackgroundTask.BackgroundTaskResult.Success;
   }
 
-  return BackgroundFetch.BackgroundFetchResult.Failed;
+  return BackgroundTask.BackgroundTaskResult.Failed;
 });
 
 // for unit tests

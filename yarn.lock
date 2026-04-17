@@ -7225,10 +7225,10 @@ expo-asset@~55.0.14:
     "@expo/image-utils" "^0.8.13"
     expo-constants "~55.0.13"
 
-expo-background-fetch@~55.0.13:
-  version "55.0.14"
-  resolved "https://registry.yarnpkg.com/expo-background-fetch/-/expo-background-fetch-55.0.14.tgz#94945832ad7cda88b04753789f65e78f5d787158"
-  integrity sha512-WW2bqp50grOuENgf5CgFfH/fO/FdCVRiogU2/O7ubU2wW9EQLGKgRLGMzwDk2+pjaDzsiybyDlGKy5snGd/jww==
+expo-background-task@~55.0.0:
+  version "55.0.16"
+  resolved "https://registry.yarnpkg.com/expo-background-task/-/expo-background-task-55.0.16.tgz#1718e6c4d4aa70ba3021926275db290f2cbe71a2"
+  integrity sha512-zosklReBW9vKhQt853Me70iEy+OhxQq2IRaW6BYhqrYQ5swmqSq0HL/YP/MnL2B6cth3Kmd7cKMb/nmIDXfTHA==
   dependencies:
     expo-task-manager "~55.0.14"
 

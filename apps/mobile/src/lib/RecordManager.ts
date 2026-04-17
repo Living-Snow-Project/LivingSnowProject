@@ -1,5 +1,5 @@
 import * as TaskManager from "expo-task-manager";
-import * as BackgroundFetch from "expo-background-fetch";
+import * as BackgroundTask from "expo-background-task";
 import { Alert, Platform } from "react-native";
 import Logger from "@livingsnow/logger";
 import { RecordsApiV2, RecordsApiV3 } from "@livingsnow/network";
@@ -14,10 +14,11 @@ export { UploadError };
 // in iOS background app refresh can be disabled per app by the user
 // TODO: cache that the user has seen this message so they don't see it every time if they choose not to allow background refresh
 const checkAndPromptForBackgroundFetchPermission = async () => {
-  const isBackgroundFetchAllowed = await BackgroundFetch.getStatusAsync();
+  const isBackgroundFetchAllowed = await BackgroundTask.getStatusAsync();
 
   if (
-    isBackgroundFetchAllowed == BackgroundFetch.BackgroundFetchStatus.Denied &&
+    isBackgroundFetchAllowed ==
+      BackgroundTask.BackgroundTaskStatus.Restricted &&
     Platform.OS == "ios"
   ) {
     Alert.alert(
@@ -33,7 +34,7 @@ const checkAndPromptForBackgroundFetchPermission = async () => {
 // Must have been added to the TaskManager globally using the same name.
 async function registerBackgroundFetchAsync(
   taskName: string,
-  config: BackgroundFetch.BackgroundFetchOptions | undefined,
+  config: BackgroundTask.BackgroundTaskOptions | undefined,
 ): Promise<void> {
   const isBackgroundFetchAllowed =
     await checkAndPromptForBackgroundFetchPermission();
@@ -47,7 +48,7 @@ async function registerBackgroundFetchAsync(
 
     if (!isTaskRegistered) {
       Logger.Info(`Registering background task "${taskName}"`);
-      BackgroundFetch.registerTaskAsync(taskName, config);
+      BackgroundTask.registerTaskAsync(taskName, config);
     }
   } catch (error) {
     Logger.Warn(`isTaskRegisteredAsync threw: ${taskName}: ${error}`);
@@ -67,10 +68,7 @@ async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
 
     await Storage.savePendingRecord(record);
 
-    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
-      stopOnTerminate: false, // android only,
-      startOnBoot: true, // android only
-    });
+    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, undefined);
 
     throw new UploadError({
       id: record.id,
@@ -87,10 +85,7 @@ async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
       Logger.Warn(`PhotoManager.uploadSelected failed: ${error.errorInfo}`);
     }
 
-    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
-      stopOnTerminate: false, // android only,
-      startOnBoot: true, // android only
-    });
+    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, undefined);
 
     throw error;
   }
@@ -119,10 +114,7 @@ async function uploadV3(
 
     await Storage.savePendingRecordV3(pendingRecord);
 
-    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
-      stopOnTerminate: false, // android only,
-      startOnBoot: true, // android only
-    });
+    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, undefined);
 
     throw new UploadError({
       id: record.id,
@@ -139,10 +131,7 @@ async function uploadV3(
       Logger.Warn(`PhotoManager.uploadSelectedV3 failed: ${error.errorInfo}`);
     }
 
-    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, {
-      stopOnTerminate: false, // android only,
-      startOnBoot: true, // android only
-    });
+    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, undefined);
 
     throw error;
   }
@@ -270,7 +259,7 @@ async function deletePendingV3(
 // Unregister (cancel) future tasks by specifying the task name
 async function unregisterBackgroundFetchAsync(taskName: string): Promise<void> {
   Logger.Info(`Unregistering background task ${taskName}`);
-  BackgroundFetch.unregisterTaskAsync(taskName);
+  BackgroundTask.unregisterTaskAsync(taskName);
 }
 
 function createRecordManager() {
