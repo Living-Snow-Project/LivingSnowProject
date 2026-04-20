@@ -2,9 +2,9 @@ import * as TaskManager from "expo-task-manager";
 import * as BackgroundTask from "expo-background-task";
 import { Alert, Platform } from "react-native";
 import Logger from "@livingsnow/logger";
-import { RecordsApiV2, RecordsApiV3 } from "@livingsnow/network";
-import { AlgaeRecord, AlgaeRecordV3 } from "@livingsnow/record";
-import { LocalAlgaeRecord, LocalAlgaeRecordV3 } from "../../types";
+import { RecordsApiV3 } from "@livingsnow/network";
+import { AlgaeRecordV3 } from "@livingsnow/record";
+import { LocalAlgaeRecordV3 } from "../../types";
 import { PhotoManager, UploadError } from "./PhotoManager";
 import * as Storage from "./Storage";
 import { BackgroundTasks, Notifications } from "../constants/Strings";
@@ -32,10 +32,7 @@ const checkAndPromptForBackgroundFetchPermission = async () => {
 
 // Register a task to be performed in the background.
 // Must have been added to the TaskManager globally using the same name.
-async function registerBackgroundFetchAsync(
-  taskName: string,
-  config: BackgroundTask.BackgroundTaskOptions | undefined,
-): Promise<void> {
+async function registerBackgroundFetchAsync(taskName: string): Promise<void> {
   const isBackgroundFetchAllowed =
     await checkAndPromptForBackgroundFetchPermission();
 
@@ -48,49 +45,11 @@ async function registerBackgroundFetchAsync(
 
     if (!isTaskRegistered) {
       Logger.Info(`Registering background task "${taskName}"`);
-      BackgroundTask.registerTaskAsync(taskName, config);
+      BackgroundTask.registerTaskAsync(taskName);
     }
   } catch (error) {
     Logger.Warn(`isTaskRegisteredAsync threw: ${taskName}: ${error}`);
   }
-}
-
-// returns the AlgaeRecord server responds with
-// rejects with UploadError
-async function upload(record: AlgaeRecord): Promise<AlgaeRecord> {
-  let recordResponse: AlgaeRecord;
-
-  try {
-    recordResponse = await RecordsApiV2.post(record);
-  } catch (error) {
-    // post rejects with string
-    Logger.Warn(`RecordsApiV2.post failed: ${error}`);
-
-    await Storage.savePendingRecord(record);
-
-    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, undefined);
-
-    throw new UploadError({
-      id: record.id,
-      title: Notifications.uploadRecordFailed.title,
-      message: Notifications.uploadRecordFailed.message,
-    });
-  }
-
-  try {
-    await PhotoManager.uploadSelected(record.id, recordResponse.id);
-  } catch (error) {
-    // uploadSelected rejects with UploadError
-    if (error instanceof UploadError) {
-      Logger.Warn(`PhotoManager.uploadSelected failed: ${error.errorInfo}`);
-    }
-
-    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, undefined);
-
-    throw error;
-  }
-
-  return recordResponse;
 }
 
 // returns the AlgaeRecordV3 server responds with
@@ -114,7 +73,7 @@ async function uploadV3(
 
     await Storage.savePendingRecordV3(pendingRecord);
 
-    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, undefined);
+    await registerBackgroundFetchAsync(BackgroundTasks.UploadData);
 
     throw new UploadError({
       id: record.id,
@@ -131,7 +90,7 @@ async function uploadV3(
       Logger.Warn(`PhotoManager.uploadSelectedV3 failed: ${error.errorInfo}`);
     }
 
-    await registerBackgroundFetchAsync(BackgroundTasks.UploadData, undefined);
+    await registerBackgroundFetchAsync(BackgroundTasks.UploadData);
 
     throw error;
   }
@@ -139,26 +98,12 @@ async function uploadV3(
   return recordResponse;
 }
 
-async function loadPending(): Promise<LocalAlgaeRecord[]> {
-  const pendingRecords = await Storage.loadPendingRecords();
-  const selectedPhotos = await Storage.loadSelectedPhotos();
-
-  // this is a curteousy for RecordList component
-  const result: LocalAlgaeRecord[] = [];
-
-  pendingRecords.forEach((value) =>
-    result.push({ record: value, photos: selectedPhotos.get(value.id) }),
-  );
-
-  return Promise.resolve(result);
-}
-
 async function loadPendingV3(): Promise<LocalAlgaeRecordV3[]> {
   const pendingRecords = await Storage.loadPendingRecordsV3();
   const selectedPhotos = await Storage.loadSelectedPhotos();
 
   // attach selectedPhotos to record object
-  // this is a curteousy for RecordList component
+  // this is a helper for RecordList component
   const result: LocalAlgaeRecordV3[] = [];
 
   pendingRecords.forEach((value) =>
@@ -172,40 +117,7 @@ async function loadPendingV3(): Promise<LocalAlgaeRecordV3[]> {
   return Promise.resolve(result);
 }
 
-// uploads any pending data that was saved while user was offline (or failed to upload)
-async function retryPending(): Promise<LocalAlgaeRecord[]> {
-  // Step 1. records
-  const records = await Storage.loadPendingRecords();
-
-  await Storage.clearPendingRecords();
-
-  await records.reduce(async (promise, record) => {
-    try {
-      await promise;
-      await upload(record);
-      return Promise.resolve();
-    } catch (error) {
-      // upload rejects with UploadError
-      if (error instanceof UploadError) {
-        Logger.Warn(
-          `uploadRecord rejected: continue records reducer to prevent data loss: ${error.errorInfo}`,
-        );
-      }
-
-      return Promise.resolve();
-    }
-  }, Promise.resolve());
-
-  // Step 2. photos
-  await PhotoManager.retryPending();
-
-  // Step 3. return records and photos still on disk
-  const result = await loadPending();
-
-  return Promise.resolve(result);
-}
-
-// uploads any pending v33 data that was saved while user was offline (or failed to upload)
+// uploads any pending v3 data that was saved while user was offline (or failed to upload)
 async function retryPendingV3(): Promise<LocalAlgaeRecordV3[]> {
   // Step 1. records
   const records = await Storage.loadPendingRecordsV3();
@@ -238,14 +150,6 @@ async function retryPendingV3(): Promise<LocalAlgaeRecordV3[]> {
   return Promise.resolve(result);
 }
 
-async function deletePending(recordId: string): Promise<LocalAlgaeRecord[]> {
-  await Storage.deletePendingRecord(recordId);
-
-  const result = await loadPending();
-
-  return Promise.resolve(result);
-}
-
 async function deletePendingV3(
   recordId: string,
 ): Promise<LocalAlgaeRecordV3[]> {
@@ -264,13 +168,9 @@ async function unregisterBackgroundFetchAsync(taskName: string): Promise<void> {
 
 function createRecordManager() {
   return {
-    upload,
     uploadV3,
-    deletePending,
     deletePendingV3,
-    loadPending,
     loadPendingV3,
-    retryPending,
     retryPendingV3,
     unregisterBackgroundFetchAsync,
   };

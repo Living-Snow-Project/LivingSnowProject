@@ -49,48 +49,50 @@ export function ExpoPhotoSelector({
       });
 
       // TODO: should "cancel" unselect all? there is no way to go back to 0 selected after first selection
-      if (!result.canceled) {
-        const assets: MediaLibrary.Asset[] = [];
-
-        await result.assets.reduce(async (promise, current) => {
-          await promise;
-
-          const dims: {
-            height: null | number;
-            width: null | number;
-          } = { height: null, width: null };
-
-          if (current.height > current.width) {
-            dims.height = 1024;
-          } else {
-            dims.width = 1024;
-          }
-
-          const manipulated = ImageManipulator.manipulate(current.uri);
-
-          // save resized photo to disk
-          const manipulatedImage = await (
-            await manipulated.resize(dims).renderAsync()
-          ).saveAsync();
-
-          assets.push({
-            height: manipulatedImage.height,
-            uri: manipulatedImage.uri,
-            width: manipulatedImage.width,
-            id: current.assetId || "", // last checked this can sometimes be null on Android
-            filename: current.fileName || "",
-            mediaType: "photo",
-            creationTime: 0,
-            modificationTime: 0,
-            duration: current.duration || 0,
-          });
-
-          return Promise.resolve();
-        }, Promise.resolve());
-
-        PhotoManager.addSelected(recordId, assets);
-        setSelectedPhotos(assets);
+      if (result.canceled) {
+        return Promise.resolve();
       }
+
+      const assets: MediaLibrary.Asset[] = [];
+
+      await result.assets.reduce(async (promise, current) => {
+        await promise;
+
+        const dims: {
+          height: null | number;
+          width: null | number;
+        } = { height: null, width: null };
+
+        if (current.height > current.width) {
+          dims.height = 1024;
+        } else {
+          dims.width = 1024;
+        }
+
+        const manipulated = ImageManipulator.manipulate(current.uri);
+
+        // save resized photo to disk
+        const manipulatedImage = await (
+          await manipulated.resize(dims).renderAsync()
+        ).saveAsync();
+
+        assets.push({
+          height: manipulatedImage.height,
+          uri: manipulatedImage.uri,
+          width: manipulatedImage.width,
+          id: current.assetId || "", // last checked this can sometimes be null on Android
+          filename: current.fileName || "",
+          mediaType: "photo",
+          creationTime: 0,
+          modificationTime: 0,
+          duration: current.duration || 0,
+        });
+
+        return Promise.resolve();
+      }, Promise.resolve());
+
+      await PhotoManager.addSelected(recordId, assets);
+      setSelectedPhotos(assets);
     } catch (error) {
       toast.show(
         <ToastAlert

@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { File } from "expo-file-system";
 import Logger from "@livingsnow/logger";
 import { jsonToRecord } from "@livingsnow/record";
 function dumpRecord(record) {
@@ -160,14 +161,13 @@ const recordsApiV3 = () => {
         // rejects with an error string or the response object
         postPhoto: (recordId, photoUri, requestId) => __awaiter(void 0, void 0, void 0, function* () {
             const operation = "postPhoto";
-            const uri = { uri: photoUri };
+            const base64 = new File(photoUri).base64Sync();
+            const binary = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+            console.log("ASDSADADA");
             return fetch(postPhotoUrl(recordId), {
                 method: "POST",
-                headers: {
-                    "Content-Type": "image/jpeg",
-                    "Request-Id": requestId,
-                },
-                body: uri,
+                headers: { "Content-Type": "image/jpeg", "Request-Id": requestId },
+                body: binary,
             })
                 .then((response) => response.ok ? Promise.resolve() : Promise.reject(response))
                 .catch((error) => Promise.reject(failedFetch(operation, error)));

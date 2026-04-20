@@ -274,10 +274,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
       // because retryPending is only called when the app is offline
       retryPending: async () => {
         dispatch({ type: "START_RETRY" });
-        // if any old records exist, try sending them, but we don't bother to render them anymore
-        await RecordManager.retryPending();
         const pendingRecords = await RecordManager.retryPendingV3();
-        await PhotoManager.retryPending();
         await PhotoManager.retryPendingV3();
 
         dispatch({
@@ -293,9 +290,7 @@ function useAlgaeRecords(): [IAlgaeRecords] {
         // avoids intermediate "Idle" state between upload and download
         try {
           dispatch({ type: "START_RETRY" });
-          await RecordManager.retryPending();
           pendingRecords = await RecordManager.retryPendingV3();
-          await PhotoManager.retryPending();
           await PhotoManager.retryPendingV3();
 
           dispatch({ type: "START_DOWNLOADING" });
@@ -348,21 +343,11 @@ const useAlgaeRecordsContext = (): IAlgaeRecords => {
 // must return a BackgroundFetchResult; explained here: https://tinyurl.com/5yau6c5y
 TaskManager.defineTask(BackgroundTasks.UploadData, async () => {
   Logger.Info("Executing background data upload attempt...");
-  await RecordManager.retryPending();
   await RecordManager.retryPendingV3();
-  await PhotoManager.retryPending();
-  await PhotoManager.retryPendingV3();
-  const pendingRecords = await Storage.loadPendingRecords();
-  const pendingRecordsV3 = await Storage.loadPendingRecordsV3();
-  const pendingPhotos = await Storage.loadPendingPhotos();
-  const pendingPhotosV3 = await Storage.loadPendingPhotosV3();
+  const { length } = await Storage.loadPendingRecordsV3();
+  const { size } = await Storage.loadPendingPhotosV3();
 
-  if (
-    pendingRecords.length == 0 &&
-    pendingRecordsV3.length == 0 &&
-    pendingPhotos.size == 0 &&
-    pendingPhotosV3.size == 0
-  ) {
+  if (length == 0 && size == 0) {
     RecordManager.unregisterBackgroundFetchAsync(BackgroundTasks.UploadData);
     return BackgroundTask.BackgroundTaskResult.Success;
   }

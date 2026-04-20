@@ -1,3 +1,4 @@
+import { File } from "expo-file-system";
 import Logger from "@livingsnow/logger";
 import { AlgaeRecordV3, jsonToRecord } from "@livingsnow/record";
 
@@ -215,15 +216,13 @@ const recordsApiV3 = () => {
     ): Promise<void> => {
       const operation = "postPhoto";
 
-      const uri = { uri: photoUri };
+      const base64 = new File(photoUri).base64Sync();
+      const binary = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 
       return fetch(postPhotoUrl(recordId), {
         method: "POST",
-        headers: {
-          "Content-Type": "image/jpeg",
-          "Request-Id": requestId,
-        },
-        body: uri as any,
+        headers: { "Content-Type": "image/jpeg", "Request-Id": requestId },
+        body: binary,
       })
         .then((response) =>
           response.ok ? Promise.resolve() : Promise.reject(response),
