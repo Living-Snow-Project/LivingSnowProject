@@ -30,7 +30,24 @@ async function addSelected(recordId: string, selectedPhotos: SelectedPhoto[]) {
   }
 
   await Storage.loadSelectedPhotos()
-    .then((photos) => photos.set(recordId, selectedPhotos))
+    .then((photos) => {
+      /*const existing = photos.get(recordId);
+
+      // remove existing from MMKV
+      if (existing) {
+        existing.forEach((photo) => {
+          // look up in MMKV and remove (if it's not in the new list?)
+        });
+      }
+
+      // load each to base64 and save to MMKV
+      selectedPhotos.forEach((photo) => {
+        // read to base64
+        // save in MMKV
+      });*/
+
+      return photos.set(recordId, selectedPhotos);
+    })
     .then((photos) => Storage.saveSelectedPhotos(photos));
 }
 
@@ -61,12 +78,15 @@ async function uploadSelectedV3(
 
   const failedPhotoUploads: PendingPhotoV3[] = [];
 
-  // need to upload sequentially because of undocumented "uri" feature in fetch (files arrive corrupted otherwise)
+  // OLD: needed to upload sequentially because of undocumented "uri" feature in fetch (files arrive corrupted otherwise)
+  // TODO: refactor with "for... of" loop
   await selectedPhotos.reduce(async (promise, photo) => {
     const requestId = uuidv7();
     try {
       await promise;
-      // TODO: delete the photo (from /cache)
+      // TODO: delete the photo? (from /cache)
+      // TODO: read base64 string from MMKV
+      // TODO: need a new RecordsApiV3.postPhoto() that takes the base64 string
       return await RecordsApiV3.postPhoto(cloudRecordId, photo.uri, requestId);
     } catch (error) {
       failedPhotoUploads.push({ ...photo, requestId });
@@ -121,6 +141,7 @@ async function retryPendingV3(): Promise<void> {
   // clear the map, insert any failures to re-save at end
   allPendingPhotos.clear();
 
+  // TODO: refactor with "for...of"
   await allPendingPhotosArray.reduce(async (promise, currentPending) => {
     const failedPendingPhotos: PendingPhotoV3[] = [];
 
@@ -128,6 +149,7 @@ async function retryPendingV3(): Promise<void> {
     await currentPending.photos.reduce(async (promise2, pending) => {
       try {
         await promise2;
+        // TODO: read from MMKV
         return await RecordsApiV3.postPhoto(
           currentPending.id,
           pending.uri,

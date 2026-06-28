@@ -163,7 +163,7 @@ const recordsApiV3 = () => {
             const operation = "postPhoto";
             const base64 = new File(photoUri).base64Sync();
             const binary = Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
-            console.log("ASDSADADA");
+            
             return fetch(postPhotoUrl(recordId), {
                 method: "POST",
                 headers: { "Content-Type": "image/jpeg", "Request-Id": requestId },

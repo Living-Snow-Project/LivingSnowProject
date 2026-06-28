@@ -56,7 +56,7 @@ export async function getCachedPhoto({
     return { uri: base64uri, state: "Loaded" };
   };
 
-  // no action if static photo from require(...) or photo already on disk (pending photos scenario)
+  // no action if static photo from require(...) or photo already on disk (pending photos scenario or still in RecordScreen first time)
   if (typeof uri == "number" || uri.includes("file:///")) {
     return { uri, state: "Loaded" };
   }

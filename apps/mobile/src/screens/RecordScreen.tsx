@@ -89,7 +89,7 @@ export function RecordScreen({ navigation, route }: RecordScreenProps) {
     locationDescription: "",
   };
 
-  // NativeBase typings not correct for refs
+  // TODO: check if this is fixed in tamagui (previously NativeBase typings not correct for refs)
   const notesRef = useRef<any>(null);
   const locationDescriptionRef = useRef<any>(null);
   const toast = useToast();

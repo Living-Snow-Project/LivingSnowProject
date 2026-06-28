@@ -1,4 +1,4 @@
-import { AlgaeRecord, AlgaeRecordV3, Photo } from "@livingsnow/record";
+import { AlgaeRecordV3, Photo } from "@livingsnow/record";
 import { DataResponseV3 } from "@livingsnow/network";
 import { Asset } from "expo-media-library";
 
@@ -31,27 +31,15 @@ export type PendingPhotoV3 = PendingPhoto & {
 };
 
 // key = cloud algae record id
-export type PendingPhotos = Map<string, PendingPhoto[]>;
-
 export type PendingPhotosV3 = Map<string, PendingPhotoV3[]>;
 
 // for rendering TimelineRow
-export type MinimalAlgaeRecord = {
-  record: AlgaeRecord;
-  photos?: Photo[]; // could be SelectedPhoto or Photo
-};
-
 export type MinimalAlgaeRecordV3 = {
   record: AlgaeRecordV3;
   photos?: Photo[]; // could be SelectedPhoto or Photo
 };
 
 // for PendingRecords
-export type LocalAlgaeRecord = {
-  record: AlgaeRecord;
-  photos: SelectedPhoto[] | undefined;
-};
-
 export type LocalAlgaeRecordV3 = {
   record: AlgaeRecordV3;
   requestId: string; // used to track the upload request

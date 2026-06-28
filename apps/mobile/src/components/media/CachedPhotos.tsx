@@ -11,7 +11,7 @@ type CachedPhotoProps = {
   height: number;
 };
 
-// used by PhotosLayout and RecordDetailsScreen
+// used in RecordScreen and TimelineScreen (via PhotosLayout component) and RecordDetailsScreen (via CachedPhotos component)
 function CachedPhoto({
   uri,
   width,

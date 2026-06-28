@@ -91,6 +91,8 @@ export function ExpoPhotoSelector({
         return Promise.resolve();
       }, Promise.resolve());
 
+      // at this point, the image chosen from the album has been resized and also exists in Cache directory
+      // this resized flavor is for uploading
       await PhotoManager.addSelected(recordId, assets);
       setSelectedPhotos(assets);
     } catch (error) {

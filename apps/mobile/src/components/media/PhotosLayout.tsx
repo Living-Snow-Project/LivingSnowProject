@@ -8,7 +8,6 @@ type PhotosLayoutProps = {
   photos?: Photo[];
 };
 
-// NativeBase sizes[1.5] = 6px (base-4 scale)
 const gapPx = 6;
 
 export function PhotosLayout({
